@@ -1,0 +1,113 @@
+﻿<UserControl
+    x:Class="CodeHub.Controls.IssueListItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:converters="using:CodeHub.Converters"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:DateFormatConverter x:Key="DateFormatConverter" x:Name="DateFormatConverter"/>
+    </UserControl.Resources>
+    <RelativePanel Margin="0 0 0 5">
+        <StackPanel x:Name="NumberBlock"
+                    Orientation="Horizontal"
+                    RelativePanel.AlignTopWithPanel="True"
+                    RelativePanel.AlignLeftWithPanel="True">
+            <TextBlock 
+                    Margin="3 10 3 5"
+                    Text="#"
+                    FontSize="16"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+            <TextBlock 
+                    Margin="0 10 0 5"
+                    Text="{Binding Number}"
+                    FontSize="16"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+        </StackPanel>
+        <TextBlock x:Name="TitleBlock" 
+                   Text="{Binding Title}"
+                   Style="{StaticResource RepoNameTextBlockStyle}"
+                   RelativePanel.AlignVerticalCenterWith="NumberBlock"
+                   Margin="5 10 0 5"
+                   FontSize="16"
+                   RelativePanel.RightOf="NumberBlock"/>
+        <StackPanel x:Name="StateBlock"
+                    Orientation="Horizontal"
+                RelativePanel.AlignLeftWith="TitleBlock"
+                RelativePanel.Below="TitleBlock"
+                Margin="0 5 0 0">
+
+            <Viewbox Margin="0 0 3 0" 
+                     MaxHeight="15"
+                     MaxWidth="15">
+                <SymbolIcon Symbol="Setting" Foreground="Gray"/>
+            </Viewbox>
+            
+            <TextBlock 
+                FontSize="12"
+                TextAlignment="Left"
+                Foreground="Gray"
+                Text="{Binding State}"/>
+        </StackPanel>
+
+        <StackPanel x:Name="CommentsBlock"
+                    Orientation="Horizontal"
+                RelativePanel.RightOf="StateBlock"
+                RelativePanel.Below="TitleBlock"
+                Margin="15 5 0 0">
+            <Viewbox Margin="0 0 3 0" 
+                     MaxHeight="15"
+                     MaxWidth="15">
+                <SymbolIcon Symbol="Message" Foreground="Gray"/>
+            </Viewbox>
+            <TextBlock
+                FontSize="12"
+                TextAlignment="Left"
+                Foreground="Gray"
+                Text="{Binding Comments}"/>
+        </StackPanel>
+        <StackPanel x:Name="AssignedBlock"
+                Orientation="Horizontal"
+                RelativePanel.AlignLeftWith="StateBlock"
+                RelativePanel.Below="StateBlock"
+                Margin="0 5 0 0">
+
+            <Viewbox Margin="0 0 3 0" 
+                     MaxHeight="15"
+                     MaxWidth="15">
+                <SymbolIcon Symbol="Contact" Foreground="Gray"/>
+            </Viewbox>
+
+            <TextBlock 
+                FontSize="12"
+                TextAlignment="Left"
+                Foreground="Gray"
+                Text="{Binding Assignee.Login,TargetNullValue='unassigned',FallbackValue='unassigned'}"/>
+        </StackPanel>
+        <StackPanel x:Name="UpdatedBlock"
+                Orientation="Horizontal"
+                RelativePanel.RightOf="AssignedBlock"
+                RelativePanel.Below="CommentsBlock"
+                Margin="15 5 0 0">
+
+            <Viewbox Margin="0 0 3 0" 
+                     MaxHeight="15"
+                     MaxWidth="15">
+                <SymbolIcon Symbol="Edit" Foreground="Gray"/>
+            </Viewbox>
+
+            <TextBlock 
+                FontSize="12"
+                TextAlignment="Left"
+                Foreground="Gray"
+                Text="{Binding UpdatedAt,Converter={StaticResource DateFormatConverter}}"/>
+        </StackPanel>
+
+    </RelativePanel>
+</UserControl>

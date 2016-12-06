@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="CodeHub.Controls.BusyScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="using:CodeHub.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid Opacity="0.6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <control:BackDrop TintColor="LightGray" 
+                              Grid.ColumnSpan="2"
+                              BlurAmount="5"/>
+
+        <ProgressRing Width="16" Height="16"
+                          Foreground="Black" 
+                          Grid.Column="0"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Center"
+                          IsActive="{x:Bind IsBusy, Mode=OneWay}" />
+
+        <TextBlock Grid.Column="1" Margin="12,0,0,0"
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Left"
+                       Foreground="Black"
+                       FontWeight="Bold"
+                       Text="{x:Bind BusyText, Mode=OneWay, FallbackValue='Loading...'}" />
+    </Grid>
+</UserControl>

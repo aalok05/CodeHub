@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="CodeHub.Views.RepoListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:CodeHub.Converters"
+    xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:octo="using:Octokit"
+    xmlns:userControls="using:CodeHub.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <toolkitControl:PullToRefreshListView 
+                                    IsItemClickEnabled="True"
+                                    ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                                    ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
+                                    OverscrollLimit="0.4"
+                                    PullThreshold="100"
+                                    RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
+                                    PullProgressChanged="AllRepos_PullProgressChanged"
+                                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+
+            <toolkitControl:PullToRefreshListView.ItemTemplate>
+                <DataTemplate  x:DataType="octo:Repository">
+                    <userControls:RepoListItem />
+                </DataTemplate>
+            </toolkitControl:PullToRefreshListView.ItemTemplate>
+            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+
+                <Border HorizontalAlignment="Center"
+                                 x:Name="refreshindicator"
+                                 CornerRadius="30"
+                                 Height="20" 
+                                 Width="20" >
+
+                </Border>
+            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+        </toolkitControl:PullToRefreshListView>
+
+        <TextBlock 
+                       Style="{StaticResource ZeroItemsTextBoxStyle}"
+                       Text="No Repositories"
+                       Visibility="{x:Bind ViewModel.ZeroRepoCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+        </TextBlock>
+        <ProgressRing
+                      Width="50"
+                      Height="50"
+                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+    </Grid>
+</Page>

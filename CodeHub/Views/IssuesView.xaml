@@ -1,0 +1,130 @@
+﻿<Page
+    x:Class="CodeHub.Views.IssuesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:CodeHub.Converters"
+    xmlns:octo="using:Octokit"
+    xmlns:userControls="using:CodeHub.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressBar Grid.Row="0"
+                     IsIndeterminate="False" 
+                     Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                     Value="{x:Bind ViewModel.ProgressBarValue,Mode=OneWay}"/>
+        <Pivot Grid.Row="1">
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="open" FontSize="18"/>
+                </PivotItem.Header>
+                <Grid>
+                    <ListView
+                           IsItemClickEnabled="True"
+                           ItemsSource="{x:Bind ViewModel.OpenIssues,Mode=OneWay}"
+                           ItemClick="{x:Bind ViewModel.IssueTapped}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate  x:DataType="octo:Issue">
+                                <userControls:IssueListItem />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                    </ListView>
+                    <TextBlock 
+                       Style="{StaticResource ZeroItemsTextBoxStyle}"
+                       Text="No open Issues"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Visibility="{x:Bind ViewModel.ZeroOpenIssues,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                    </TextBlock>
+                    <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingOpen,Mode=OneWay}"
+                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Width="40"
+                                  Height="40"/>
+                </Grid>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="closed" FontSize="18"/>
+                </PivotItem.Header>
+                <Grid>
+                    <ListView
+                           IsItemClickEnabled="True"
+                           ItemsSource="{x:Bind ViewModel.ClosedIssues,Mode=OneWay}"
+                           ItemClick="{x:Bind ViewModel.IssueTapped}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate  x:DataType="octo:Issue">
+                                <userControls:IssueListItem />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                       
+                    </ListView>
+                    <TextBlock 
+                       Style="{StaticResource ZeroItemsTextBoxStyle}"
+                       Text="No closed Issues"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Visibility="{x:Bind ViewModel.ZeroClosedIssues,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                    </TextBlock>
+                    <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingClosed,Mode=OneWay}"
+                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Width="40"
+                                  Height="40"/>
+                </Grid>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="mine" FontSize="18"/>
+                </PivotItem.Header>
+                <Grid>
+                    <ListView
+                           IsItemClickEnabled="True"
+                           ItemsSource="{x:Bind ViewModel.MyIssues,Mode=OneWay}"
+                           ItemClick="{x:Bind ViewModel.IssueTapped}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate  x:DataType="octo:Issue">
+                                <userControls:IssueListItem />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                     
+                    </ListView>
+                    <TextBlock 
+                       Style="{StaticResource ZeroItemsTextBoxStyle}"
+                       Text="No Issues"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Visibility="{x:Bind ViewModel.ZeroMyIssues,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                    </TextBlock>
+                    <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingMine,Mode=OneWay}"
+                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Width="40"
+                                  Height="40"/>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>
