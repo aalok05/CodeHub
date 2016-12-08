@@ -51,7 +51,6 @@ namespace CodeHub.Views
             }
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
