@@ -123,11 +123,14 @@
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
+    <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
+    <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
     <Compile Include="Converters\FileTypeToSymbolConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\SurfaceLoader.cs" />
+    <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\INavigationService.cs" />
@@ -136,6 +139,7 @@
     <Compile Include="ViewModels\CommentsViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
+    <Compile Include="ViewModels\FeedViewmodel.cs" />
     <Compile Include="ViewModels\FileContentViewModel.cs" />
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
@@ -149,6 +153,9 @@
     </Compile>
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedView.xaml.cs">
+      <DependentUpon>FeedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
@@ -281,6 +288,10 @@
     <Page Include="Views\DeveloperProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FileContentView.xaml">
       <SubType>Designer</SubType>
