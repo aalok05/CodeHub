@@ -50,7 +50,7 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -122,32 +122,33 @@
                                 Orientation="Horizontal"
                                 Margin="0 0 10 5"
                                 RelativePanel.AlignTopWithPanel="True">
-                    <SymbolIcon Symbol="Map" 
-                                    Foreground="Gray"
-                                    Margin=" 0 0 10 0"/>
-                    <TextBlock Text="{x:Bind ViewModel.User.Location,TargetNullValue='  ',FallbackValue='  ',Mode=OneWay}"
-                                   FontSize="13"/>
-                </StackPanel>
-                <StackPanel x:Name="CreatedAtPanel" 
-                                Orientation="Horizontal" 
-                                Margin="0 0 10 5"
-                                RelativePanel.Below="LocationPanel">
-                    <SymbolIcon Symbol="Clock" 
-                                    Foreground="Gray"
-                                    Margin=" 0 0 10 0"/>
-                    <TextBlock Text="Joined on  " FontSize="13" Margin="0 0 2.5 0" FontWeight="SemiLight"/>
-                    <TextBlock Text="{x:Bind ViewModel.User.CreatedAt.ToString('dd MMM yyyy',{x:Null}),TargetNullValue='  ',FallbackValue='  ',Mode=OneWay}"
-                                   FontSize="13"/>
+                    <Viewbox MaxHeight="22"
+                             MaxWidth="22"
+                             VerticalAlignment="Bottom">
+                        <SymbolIcon Symbol="Map" 
+                                Foreground="Gray"
+                                Margin=" 0 0 10 0"/>
+                    </Viewbox>
+
+                    <TextBlock Text="{x:Bind ViewModel.User.Location,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                               FontSize="13"
+                               />
                 </StackPanel>
                 <StackPanel x:Name="EmailPanel" 
                                 Orientation="Horizontal" 
                                 Margin="0 0 10 5"
-                                RelativePanel.Below="CreatedAtPanel">
-                    <SymbolIcon Symbol="Mail" 
+                                RelativePanel.Below="LocationPanel">
+
+                    <Viewbox MaxHeight="22"
+                             MaxWidth="22" 
+                             VerticalAlignment="Bottom">
+                        <SymbolIcon Symbol="Mail" 
                                     Foreground="Gray"
                                     Margin=" 0 0 10 0"/>
-                    <TextBlock Text="{x:Bind ViewModel.User.Email,TargetNullValue='Email not shared',FallbackValue='  ',Mode=OneWay}"
-                                   FontSize="13"/>
+                    </Viewbox>
+
+                    <TextBlock Text="{x:Bind ViewModel.User.Email,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                               FontSize="13"/>
                 </StackPanel>
 
             </StackPanel>
