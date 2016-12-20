@@ -106,7 +106,7 @@
                          FontSize="13"
                          RelativePanel.Below="TwitterLink"
                          Content="Privacy Policy"
-                         NavigateUri="http://codehubapp.azurewebsites.net">
+                         NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub">
                 </HyperlinkButton>
 
             </RelativePanel>
