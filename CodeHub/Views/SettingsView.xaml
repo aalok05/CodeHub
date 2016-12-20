@@ -90,7 +90,7 @@
                    RelativePanel.Below="DisclaimerText"
                    FontSize="13">
                    <Run xml:space="preserve">Contact at  </Run>
-                   <Run Foreground="{StaticResource AppForegroundColorBrush}">aalok_2@live.com </Run>
+                   <Run Foreground="{StaticResource AppForegroundColorBrush}">contact@devnextdoor.com </Run>
                 </TextBlock>
                 <HyperlinkButton x:Name="TwitterLink"
                          Margin="0 0 0 10"
