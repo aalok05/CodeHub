@@ -90,7 +90,7 @@
                    RelativePanel.Below="DisclaimerText"
                    FontSize="13">
                    <Run xml:space="preserve">Contact at  </Run>
-                   <Run Foreground="{StaticResource AppForegroundColorBrush}">aalok_2@live.com </Run>
+                   <Run Foreground="{StaticResource AppForegroundColorBrush}">contact@devnextdoor.com </Run>
                 </TextBlock>
                 <HyperlinkButton x:Name="TwitterLink"
                          Margin="0 0 0 10"
@@ -106,7 +106,7 @@
                          FontSize="13"
                          RelativePanel.Below="TwitterLink"
                          Content="Privacy Policy"
-                         NavigateUri="http://codehubapp.azurewebsites.net">
+                         NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub">
                 </HyperlinkButton>
 
             </RelativePanel>

@@ -173,9 +173,14 @@
                                 Orientation="Horizontal"
                                 Margin="0 0 10 5"
                                 RelativePanel.AlignTopWithPanel="True">
-                        <SymbolIcon Symbol="Map" 
+                        <Viewbox MaxHeight="22"
+                             MaxWidth="22"
+                             VerticalAlignment="Bottom">
+                            <SymbolIcon Symbol="Map" 
                                     Foreground="Gray"
                                     Margin=" 0 0 10 0"/>
+                        </Viewbox>
+
                         <TextBlock Text="{x:Bind ViewModel.Developer.Location,TargetNullValue='  ',FallbackValue='  ',Mode=OneWay}"
                               
                                FontSize="13"/>
@@ -184,9 +189,15 @@
                                 Orientation="Horizontal" 
                                 Margin="0 0 10 5"
                                 RelativePanel.Below="LocationPanel">
-                        <SymbolIcon Symbol="Mail" 
+
+                        <Viewbox MaxHeight="22"
+                             MaxWidth="22"
+                             VerticalAlignment="Bottom">
+                            <SymbolIcon Symbol="Mail" 
                                     Foreground="Gray"
                                     Margin=" 0 0 10 0"/>
+                        </Viewbox>
+
                         <TextBlock Text="{x:Bind ViewModel.Developer.Email,TargetNullValue=' ',FallbackValue='  ',Mode=OneWay}"
                                    FontSize="13"/>
                     </StackPanel>
