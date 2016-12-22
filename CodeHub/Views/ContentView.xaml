@@ -83,28 +83,27 @@
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
 
 
-
-        <Button x:Name="ScrollUpButton"
+        
+            <Button x:Name="ScrollUpButton"
                     Background="Transparent"
+                    Grid.Row="4"
                     Margin="0 0 30 25"
                     Style="{StaticResource EmptyButtonStyle}"
                     HorizontalAlignment="Right"
-                    Click="ScrollUpButton_Click"
-                    Grid.Row="4">
+                    Click="ScrollUpButton_Click">
 
-            <Border CornerRadius="8,8,8,8" 
-                        Padding="10"
-                        Background="Transparent" 
-                        BorderBrush="{StaticResource NavItemForegroundColorBrush}" 
-                        BorderThickness="0.6">
-                <Viewbox MaxHeight="25"
-                             MaxWidth="25">
-                    <SymbolIcon Symbol="Up" Foreground="{StaticResource NavItemForegroundColorBrush}"/>
+            <Border CornerRadius="25" 
+                        Padding="15"
+                        Background="#689F38" 
+                        BorderBrush="{StaticResource FollowButtonBackgroundColorBrush}" 
+                        >
+                <Viewbox MaxHeight="21"
+                         MaxWidth="21">
+                    <SymbolIcon Symbol="Up" Foreground="White"/>
                 </Viewbox>
             </Border>
         </Button>
-
-
+        
     </Grid>
 
 
