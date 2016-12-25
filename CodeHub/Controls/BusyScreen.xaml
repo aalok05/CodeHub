@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Opacity="0.6">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.8*" />
             <ColumnDefinition Width="1*" />
