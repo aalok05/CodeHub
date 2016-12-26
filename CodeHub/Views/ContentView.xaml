@@ -95,7 +95,7 @@
             <Border CornerRadius="25" 
                         Padding="15"
                         Background="#689F38" 
-                        BorderBrush="{StaticResource FollowButtonBackgroundColorBrush}" 
+                        BorderBrush="{StaticResource AppBackgroundColorBrush}" 
                         >
                 <Viewbox MaxHeight="21"
                          MaxWidth="21">

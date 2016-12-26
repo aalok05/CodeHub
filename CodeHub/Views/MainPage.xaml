@@ -41,7 +41,7 @@
                 <Viewbox Grid.Column="0"
                          MaxHeight="20" 
                          MaxWidth="20">
-                    <Path Fill="{StaticResource NavItemForegroundColorBrush}"
+                    <Path Fill="{StaticResource AppForegroundColorBrush}"
                           StrokeThickness="0"
                           Data="{x:Bind Symbol}"/>
                 </Viewbox>
@@ -55,7 +55,7 @@
                             <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}"/>
                         </core:DataTriggerBehavior>
                          <core:DataTriggerBehavior Binding="{x:Bind IsSelected,Mode=TwoWay}" Value="False">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource NavItemForegroundColorBrush}"/>
+                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
                         </core:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </TextBlock>
@@ -119,7 +119,7 @@
             <controls:DropShadowPanel BlurRadius="10"
                                   ShadowOpacity="0.87"
                                   OffsetX="0"
-                                  Color="{ThemeResource NavItemForegroundColor }"
+                                  Color="{ThemeResource AppForegroundColor }"
                                   OffsetY="4">
                 <RelativePanel Background="#689F38">
 
@@ -316,11 +316,11 @@
                                             <TextBlock x:Name="EmailText"
                                                FontSize="10"
                                                TextAlignment="Left"
-                                               Foreground="{StaticResource NavItemForegroundColorBrush}"
+                                               Foreground="{StaticResource AppForegroundColorBrush}"
                                                Text="{x:Bind ViewModel.Email,Mode=OneWay,FallbackValue=' ',TargetNullValue=' '}"/>
                                             <TextBlock x:Name="SignoutText"
                                                Text="Sign out"
-                                               Foreground="{StaticResource NavItemForegroundColorBrush}"
+                                               Foreground="{StaticResource AppForegroundColorBrush}"
                                                RelativePanel.Below="EmailText"
                                                RelativePanel.AlignLeftWith="EmailText"/>
                                         </RelativePanel>
@@ -330,11 +330,11 @@
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left">
-                                        <SymbolIcon Symbol="Setting" Foreground="{StaticResource NavItemForegroundColorBrush}"/>
+                                        <SymbolIcon Symbol="Setting" Foreground="{StaticResource AppForegroundColorBrush}"/>
                                         <TextBlock Text="Settings"
                                                    Margin="15 0 0 0"
                                                    VerticalAlignment="Center"
-                                                   Foreground="{StaticResource NavItemForegroundColorBrush}"/>
+                                                   Foreground="{StaticResource AppForegroundColorBrush}"/>
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>

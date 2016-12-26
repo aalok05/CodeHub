@@ -10,16 +10,14 @@
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Light">
                             <Color x:Key="AppHeaderColor">#EBEBEB</Color>
-                            <Color x:Key="NavItemForegroundColor">Black</Color>
-                            <Color x:Key="FollowButtonForegroundColor">Black</Color>
-                            <Color x:Key="FollowButtonBackgroundColor">White</Color>
+                            <Color x:Key="AppForegroundColor">Black</Color>
+                            <Color x:Key="AppBackgroundColor">White</Color>
 
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Dark">
                             <Color x:Key="AppHeaderColor">#202123</Color>
-                            <Color x:Key="NavItemForegroundColor">White</Color>
-                            <Color x:Key="FollowButtonForegroundColor">White</Color>
-                            <Color x:Key="FollowButtonBackgroundColor">Black</Color>
+                            <Color x:Key="AppForegroundColor">White</Color>
+                            <Color x:Key="AppBackgroundColor">Black</Color>
 
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
@@ -282,11 +280,11 @@
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppBackgroundColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -294,12 +292,12 @@
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppBackgroundColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -311,12 +309,12 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0"  Value="{StaticResource FollowButtonBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0"  Value="{StaticResource AppBackgroundColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -802,9 +800,8 @@
             <SolidColorBrush x:Key="AppHeaderColorBrush" Color="{ThemeResource AppHeaderColor}"/>
             <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
             <SolidColorBrush x:Key="GitHubLightBlueColorBrush" Color="{StaticResource GitHubLightBlueColor}"/>
-            <SolidColorBrush x:Key="NavItemForegroundColorBrush" Color="{ThemeResource NavItemForegroundColor}"/>
-            <SolidColorBrush x:Key="FollowButtonForegroundColorBrush" Color="{ThemeResource FollowButtonForegroundColor}"/>
-            <SolidColorBrush x:Key="FollowButtonBackgroundColorBrush" Color="{ThemeResource FollowButtonBackgroundColor}"/>
+            <SolidColorBrush x:Key="AppForegroundColorBrush" Color="{ThemeResource AppForegroundColor}"/>
+            <SolidColorBrush x:Key="AppBackgroundColorBrush" Color="{ThemeResource AppBackgroundColor}"/>
 
 
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
