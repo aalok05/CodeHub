@@ -167,7 +167,7 @@
                                     Orientation="Horizontal">
                                     <Viewbox MaxHeight="14"
                                      MaxWidth="14">
-                                        <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppForegroundColorBrush}"/>
+                                        <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppPrimaryColorBrush}"/>
                                     </Viewbox>
                                     <TextBlock Text="Unstar"
                                                Padding="10 0 10 0"
@@ -220,7 +220,7 @@
                               Margin="0 10 0 5"
                               RelativePanel.AlignHorizontalCenterWith="ViewCodeButton" 
                               RelativePanel.Above="ViewCodeButton"
-                              Foreground="{StaticResource AppForegroundColorBrush}"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
                               IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
                    
                 </RelativePanel>

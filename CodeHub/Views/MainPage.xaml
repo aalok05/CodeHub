@@ -33,7 +33,7 @@
                 <Rectangle Width="6"
                            Height="37"
                            Margin="-11,0,0,0"
-                           Fill="{ThemeResource AppForegroundColorBrush}"
+                           Fill="{ThemeResource AppPrimaryColorBrush}"
                            Visibility="{x:Bind SelectedVisual, Mode=TwoWay}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
@@ -52,7 +52,7 @@
                            VerticalAlignment="Center">
                     <i:Interaction.Behaviors>
                         <core:DataTriggerBehavior Binding="{x:Bind IsSelected,Mode=TwoWay}" Value="True">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}"/>
                         </core:DataTriggerBehavior>
                          <core:DataTriggerBehavior Binding="{x:Bind IsSelected,Mode=TwoWay}" Value="False">
                             <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource NavItemForegroundColorBrush}"/>
