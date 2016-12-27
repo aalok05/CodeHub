@@ -39,6 +39,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -48,26 +49,18 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <controls:DropShadowPanel x:Name="OwnerPic"
-                                          Grid.Row="0"
-                                         BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Width="70"
-                                          Height="70"
-                                          Margin="15 10 10 0"
-                                          HorizontalAlignment="Left"
-                                          Color="Black">
-                    <Border CornerRadius="8,8,8,8"
+                    <Border x:Name="OwnerPic"
+                            CornerRadius="8,8,8,8"
+                            Grid.Row="0"
                             Width="70"
+                            Margin="15 10 10 0"
+                            HorizontalAlignment="Left"
                             Height="70">
                         <Border.Background>
                             <ImageBrush ImageSource="{x:Bind ViewModel.Repository.Owner.AvatarUrl,Mode=OneWay}"/>
                         </Border.Background>
                     </Border>
 
-                </controls:DropShadowPanel>
 
                 <RelativePanel Grid.Column="1" HorizontalAlignment="Left">
                     <TextBlock x:Name="RepoName"
@@ -124,104 +117,87 @@
 
                 <RelativePanel Grid.Column="2">
                     <Grid x:Name="StarButton">
-                        <controls:DropShadowPanel Height="30"
-                                         BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Margin="0 10 10 5"
-                                          Padding="5 0 0 0"
-                                          Visibility="{x:Bind ViewModel.IsStar,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                                          Color="{StaticResource AppForegroundColor}">
+
                             <Button Width="80"
-                                  Command="{x:Bind ViewModel.StarRepo}"
-                                  Style="{StaticResource FollowButtonStyle}">
+                                    Height="30"
+                                    Margin="0 10 10 5"
+                                    Padding="5 0 0 0"
+                                    Visibility="{x:Bind ViewModel.IsStar,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
+                                    Command="{x:Bind ViewModel.StarRepo}"
+                                    Style="{StaticResource FollowButtonStyle}">
                                 <StackPanel
-                            Orientation="Horizontal">
+                                        Orientation="Horizontal">
                                     <Viewbox MaxHeight="14"
-                                     MaxWidth="14">
+                                             MaxWidth="14">
                                         <SymbolIcon Symbol="Favorite" />
                                     </Viewbox>
                                     <TextBlock Text="Star"
-                               Padding="10 0 10 0"
-                               VerticalAlignment="Center"/>
-
-                                </StackPanel>
-                            </Button>
-
-                        </controls:DropShadowPanel>
-
-                        <controls:DropShadowPanel Height="30"
-                                        BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Margin="0 10 10 5"
-                                          Padding="5 0 0 0"
-                                          Visibility="{x:Bind ViewModel.IsStar,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                          Color="{StaticResource AppForegroundColor}">
-                            <Button Width="80"
-                                    Command="{x:Bind ViewModel.UnstarRepo}"
-                                    Style="{StaticResource FollowButtonStyle}">
-                                <StackPanel 
-                                    Orientation="Horizontal">
-                                    <Viewbox MaxHeight="14"
-                                     MaxWidth="14">
-                                        <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppPrimaryColorBrush}"/>
-                                    </Viewbox>
-                                    <TextBlock Text="Unstar"
                                                Padding="10 0 10 0"
                                                VerticalAlignment="Center"/>
+
                                 </StackPanel>
                             </Button>
-                        </controls:DropShadowPanel>
-                        
+
+
+                        <Button Width="80"
+                                    Height="30"
+                                    Margin="0 10 10 5"
+                                    Padding="5 0 0 0"
+                                    Visibility="{x:Bind ViewModel.IsStar,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                    Command="{x:Bind ViewModel.UnstarRepo}"
+                                    Style="{StaticResource FollowButtonStyle}">
+                            <StackPanel 
+                                    Orientation="Horizontal">
+                                <Viewbox MaxHeight="14"
+                                     MaxWidth="14">
+                                    <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                                </Viewbox>
+                                <TextBlock Text="Unstar"
+                                           Padding="10 0 10 0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
                     </Grid>
 
-                    <controls:DropShadowPanel 
-                                          x:Name="ViewCodeButton"
-                                          Height="30"
-                                         BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Margin="0 0 10 0"
-                                          Padding="5 0 0 0"
-                                          RelativePanel.AlignLeftWith="StarButton"
-                                          RelativePanel.Below="StarButton"
-                                          Color="{StaticResource AppForegroundColor}">
-                        <Button Width="80"
+
+                    <Button Width="80"
+                                x:Name="ViewCodeButton"
+                                Height="30"
+                                Margin="0 0 10 0"
+                                Padding="5 0 0 0"
+                                RelativePanel.AlignLeftWith="StarButton"
+                                RelativePanel.Below="StarButton"
                                 Command="{x:Bind ViewModel.SourceCodeNavigate}"
                                 Style="{StaticResource FollowButtonStyle}">
-                            <StackPanel 
-                            Orientation="Horizontal">
-                                <Viewbox MaxHeight="18"
+                        <StackPanel 
+                                Orientation="Horizontal">
+                            <Viewbox MaxHeight="18"
                                          MaxWidth="18">
-                                    <Path 
+                                <Path 
                                         Fill="{StaticResource AppForegroundColorBrush}"
                                         StrokeThickness="0"
                                         Data="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/>
-                                </Viewbox>
-                                <TextBlock x:Name="ViewCodeTextBlock" 
-                               xml:space="preserve"
-                               Text="  Code" 
-                               Height="30"
-                               Padding="0 6 0 0"
-                               VerticalAlignment="Center">
-                                </TextBlock>
+                            </Viewbox>
+                            <TextBlock x:Name="ViewCodeTextBlock" 
+                                           xml:space="preserve"
+                                           Text="  Code" 
+                                           Height="30"
+                                           Padding="0 6 0 0"
+                                           VerticalAlignment="Center">
+                            </TextBlock>
 
-                            </StackPanel>
-                        </Button>
-                    </controls:DropShadowPanel>
-                   
+                        </StackPanel>
+                    </Button>
+
                     <ProgressRing Grid.Column="2"
-                              Width="25"
-                              Height="25"
-                              Margin="0 10 0 5"
-                              RelativePanel.AlignHorizontalCenterWith="ViewCodeButton" 
-                              RelativePanel.Above="ViewCodeButton"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
-                              IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
+                                  Width="25"
+                                  Height="25"
+                                  Margin="0 10 0 5"
+                                  RelativePanel.AlignHorizontalCenterWith="ViewCodeButton" 
+                                  RelativePanel.Above="ViewCodeButton"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
                    
                 </RelativePanel>
                 
