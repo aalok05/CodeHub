@@ -176,10 +176,10 @@
                 </Setter>
             </Style>
             <Style x:Key="UnfollowButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource AppPrimaryColorBrush}" />
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="BorderBrush" Value="White" />
-                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="{StaticResource AppBackgroundColorBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AppPrimaryColorBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="8,4,8,4" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -258,10 +258,10 @@
                 </Setter>
             </Style>
             <Style x:Key="FollowButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="White" />
-                <Setter Property="Foreground" Value="#333350"/>
-                <Setter Property="BorderBrush" Value="White" />
-                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="{StaticResource AppBackgroundColorBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AppPrimaryColorBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="8,4,8,4" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
