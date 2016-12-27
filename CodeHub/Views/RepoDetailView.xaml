@@ -260,7 +260,7 @@
                        FontSize="18"
                        Grid.Row="2"
                        Padding="20 20 0 20"
-                       FontWeight="SemiBold"
+                       FontWeight="SemiLight"
                        VerticalAlignment="Center"/>
 
             <TextBlock 
