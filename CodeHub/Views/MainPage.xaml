@@ -121,7 +121,7 @@
                                   OffsetX="0"
                                   Color="{ThemeResource AppForegroundColor }"
                                   OffsetY="4">
-                <RelativePanel Background="#689F38">
+                <RelativePanel Background="{StaticResource AppHeaderColorBrush}">
 
                     <Button Name="HamButton"
                     Click="HamButton_Click"
