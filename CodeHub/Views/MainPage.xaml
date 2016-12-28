@@ -132,7 +132,7 @@
                         RelativePanel.AlignVerticalCenterWith="HamButton"
                         FontSize="15"
                         FontFamily="Segoe UI"
-                        Foreground="Black"
+                        Foreground="{StaticResource AppForegroundColorBrush}"
                         Margin="5 0 0 0" 
                         Text="{x:Bind ViewModel.HeaderText,Mode=OneWay}"/>
 
@@ -144,16 +144,16 @@
                      MaxHeight="23"
                      MaxWidth="23">
                         <SymbolIcon Symbol="Find"
-                            Foreground="Black">
+                            Foreground="{StaticResource AppForegroundColorBrush}">
                             <i:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="PointerPressed">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="PointerEntered">
                                     <core:ChangePropertyAction PropertyName="Foreground" Value="#454545"/>
                                 </core:EventTriggerBehavior>
+                                <core:EventTriggerBehavior EventName="PointerEntered">
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
+                                </core:EventTriggerBehavior>
                                 <core:EventTriggerBehavior EventName="PointerExited">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Black"/>
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
                                 </core:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </SymbolIcon>
