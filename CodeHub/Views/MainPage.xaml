@@ -31,7 +31,7 @@
                 </Grid.ColumnDefinitions>
                
                 <Rectangle Width="6"
-                           Height="37"
+                           Height="42"
                            Margin="-11,0,0,0"
                            Fill="{ThemeResource AppPrimaryColorBrush}"
                            Visibility="{x:Bind SelectedVisual, Mode=TwoWay}"
