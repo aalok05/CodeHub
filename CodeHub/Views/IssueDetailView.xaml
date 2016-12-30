@@ -185,7 +185,7 @@
                     <Viewbox Margin="0 0 3 0" 
                              MaxHeight="15"
                              MaxWidth="15">
-                        <SymbolIcon Symbol="Accept" Foreground="{StaticResource AppForegroundColorBrush}"/>
+                        <SymbolIcon Symbol="Accept" Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     </Viewbox>
 
                     <TextBlock 

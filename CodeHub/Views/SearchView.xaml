@@ -66,7 +66,7 @@
             </Button.Flyout>
             <StackPanel Orientation="Horizontal" Height="18.5">
                 <TextBlock FontSize="12" Margin="0 0 5 0"
-                            Foreground="{StaticResource FollowButtonForegroundColorBrush}">
+                            Foreground="{StaticResource AppForegroundColorBrush}">
                 <i:Interaction.Behaviors>
                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}" Value="True">
                         <core:ChangePropertyAction PropertyName="Text" Value="Users"/>
@@ -76,7 +76,7 @@
                     </core:DataTriggerBehavior>
                 </i:Interaction.Behaviors>
                 </TextBlock>
-                <SymbolIcon Symbol="More" Foreground="{StaticResource FollowButtonForegroundColorBrush}"/>
+                <SymbolIcon Symbol="More" Foreground="{StaticResource AppForegroundColorBrush}"/>
             </StackPanel>
         </Button>
 

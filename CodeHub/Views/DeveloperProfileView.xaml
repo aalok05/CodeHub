@@ -63,23 +63,17 @@
                                HorizontalAlignment="Left"
                                Margin="20 0 0 0"
                                Grid.Row="0">
-                <controls:DropShadowPanel x:Name="UserPic"
-                                         BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Color="{ThemeResource NavItemForegroundColor }"
-                                          Width="110"
-                                          Height="110"
-                                          Margin="0 0 12 0"
-                                          RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Border CornerRadius="8,8,8,8">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}"/>
-                        </Border.Background>
-                    </Border>
 
-                </controls:DropShadowPanel>
+                <Border x:Name="UserPic"
+                            Width="110"
+                            Height="110"
+                            Margin="0 0 12 0"
+                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                            CornerRadius="8,8,8,8">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}"/>
+                    </Border.Background>
+                </Border>
 
                 <RelativePanel x:Name="UserNamepanel"
                                   RelativePanel.AlignTopWith="UserPic"
@@ -105,27 +99,21 @@
                       RelativePanel.Below="UserNamepanel"
                       RelativePanel.AlignLeftWith="UserNamepanel"
                       Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
-                    <controls:DropShadowPanel  
-                               BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                Color="{ThemeResource NavItemForegroundColor }">
+
                         <!--Follow button -->
-                        <Button                 
+                    <Button                 
                                 Width="50"
                                 Margin="0 0 10 0"
                                 Command="{x:Bind ViewModel.FollowCommand}"
                                 Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
                                 Style="{StaticResource FollowButtonStyle}">
-                            <Path Fill="{StaticResource NavItemForegroundColorBrush}"
+                        <Path Fill="{StaticResource AppForegroundColorBrush}"
                                   HorizontalAlignment="Center"
                                   StrokeThickness="0"
                                   Data="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z">
 
-                            </Path>
-                        </Button>
-                    </controls:DropShadowPanel>
+                        </Path>
+                    </Button>
 
                     <!--Unfollow button -->
                     <Button 
@@ -134,7 +122,7 @@
                         Command="{x:Bind ViewModel.UnfollowCommand}"
                         Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                         Style="{StaticResource UnfollowButtonStyle}">
-                        <Path Fill="{StaticResource NavItemForegroundColorBrush}"
+                        <Path Fill="{StaticResource AppForegroundColorBrush}"
                               HorizontalAlignment="Center"
                               StrokeThickness="0"
                               Data="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M1,10V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z">
@@ -205,34 +193,28 @@
                 </StackPanel>
             </RelativePanel>
 
-            <controls:DropShadowPanel  
-                        Grid.Row="2"
-                       BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                        Margin="10 10 0 0"
-                        Color="{ThemeResource NavItemForegroundColor }">
-                <Button 
-                     Height="26"
-                     Style="{StaticResource FollowButtonStyle}"
-                     Command="{x:Bind ViewModel.NavigateToRepositories}"
-                     Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Repositories"
+            <Button 
+                   Grid.Row="2"
+                   Height="26"
+                   Margin="10 10 0 0"
+                   Style="{StaticResource FollowButtonStyle}"
+                   Command="{x:Bind ViewModel.NavigateToRepositories}"
+                   Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Repositories"
                                Margin="0 0 10 0"
                                FontSize="12"
-                               Foreground="{StaticResource FollowButtonForegroundColorBrush}"
+                               Foreground="{StaticResource AppForegroundColorBrush}"
                                VerticalAlignment="Center"
                                TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind ViewModel.Developer.PublicRepos,Mode=OneWay,FallbackValue='0'}" 
+                    <TextBlock Text="{x:Bind ViewModel.Developer.PublicRepos,Mode=OneWay,FallbackValue='0'}" 
                                VerticalAlignment="Center"
                                FontSize="14"
                                Style="{StaticResource FollowerCountStyle}"/>
-                    </StackPanel>
-                </Button>
-            </controls:DropShadowPanel>
+                </StackPanel>
+            </Button>
 
             <Pivot Grid.Row="4"
                    Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">

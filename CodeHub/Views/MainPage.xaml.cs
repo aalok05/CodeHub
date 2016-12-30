@@ -47,7 +47,7 @@ namespace CodeHub.Views
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             if (titleBar != null)
             {
-                titleBar.BackgroundColor = titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["AppForegroundColor"];
+                titleBar.BackgroundColor = titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["AppBackgroundColor"];
             }
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;

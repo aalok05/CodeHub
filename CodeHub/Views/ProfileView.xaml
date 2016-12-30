@@ -62,23 +62,17 @@
                                HorizontalAlignment="Left"
                                Margin="20 0 0 0"
                                Grid.Row="0">
-                <controls:DropShadowPanel x:Name="UserPic"
-                                         BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Color="Black"
-                                          Width="110"
-                                          Height="110"
-                                          Margin="0 0 12 0"
-                                          RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Border CornerRadius="8,8,8,8">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl,Mode=OneWay}"/>
-                        </Border.Background>
-                    </Border>
-                </controls:DropShadowPanel>
 
+                <Border x:Name="UserPic"
+                        Width="110"
+                        Height="110"
+                        Margin="0 0 12 0"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        CornerRadius="8,8,8,8">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl,Mode=OneWay}"/>
+                    </Border.Background>
+                </Border>
 
                 <RelativePanel x:Name="UserNamepanel"
                                   RelativePanel.AlignTopWith="UserPic"
