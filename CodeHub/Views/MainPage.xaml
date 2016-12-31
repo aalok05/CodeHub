@@ -246,7 +246,7 @@
                                                    FontSize="12"
                                                    Margin="0 0 0 4"
                                                    Text="{x:Bind ViewModel.User.Name,Mode=OneWay}"/>
-                                        <TextBlock Foreground="Gray"
+                                        <TextBlock Foreground="{StaticResource AppForegroundColorBrush}"
                                                    FontSize="11.5"
                                                    FontWeight="SemiLight"
                                                    Margin="0 0 0 10"
