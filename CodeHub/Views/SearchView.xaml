@@ -29,13 +29,9 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
         <AutoSuggestBox  Name="MainSearchBox"
                          Grid.Row="0"
-                         Grid.Column="0"
                          PlaceholderText="search away!"
                          QuerySubmitted="{x:Bind ViewModel.QuerySubmitted}"
                          QueryIcon="Find"
@@ -80,88 +76,77 @@
             </StackPanel>
         </Button>
 
-        <RelativePanel Grid.Row="1"
-                       Grid.Column="0"
-                       Width="350"
-                       HorizontalAlignment="Left"
-                       Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
-            <StackPanel Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.AlignVerticalCenterWithPanel="True">
-                <TextBlock Text="{x:Bind ViewModel.Repositories.Count,Mode=OneWay}"
-                           FontSize="14"
-                           Margin="10 0 5 0"/>
-                <TextBlock Text="results"
-                           FontSize="14"/>
-            </StackPanel>
+        <Grid  Grid.Row="2"
+               Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
+            <toolkitControl:PullToRefreshListView 
+                    IsItemClickEnabled="True"
+                    ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                    ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
+                    IsPullToRefreshWithMouseEnabled="True"
+                    OverscrollLimit="0.4"
+                    PullThreshold="100"
+                    RefreshRequested="{x:Bind ViewModel.RefreshReposCommand}"
+                    Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
+                    PullProgressChanged="RepoListView_PullProgressChanged"
+                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-        </RelativePanel>
+                <toolkitControl:PullToRefreshListView.ItemTemplate>
+                    <DataTemplate  x:DataType="octo:Repository">
+                        <userControls:RepoListItem />
+                    </DataTemplate>
+                </toolkitControl:PullToRefreshListView.ItemTemplate>
+                <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
 
-        <toolkitControl:PullToRefreshListView 
-                Grid.Row="2"
-                Grid.Column="0"
-                IsItemClickEnabled="True"
-                ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
-                IsPullToRefreshWithMouseEnabled="True"
-                OverscrollLimit="0.4"
-                PullThreshold="100"
-                RefreshRequested="{x:Bind ViewModel.RefreshReposCommand}"
-                Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                PullProgressChanged="RepoListView_PullProgressChanged"
-                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                    <Border HorizontalAlignment="Center"
+                        x:Name="refreshindicator"
+                        CornerRadius="30"
+                        Height="20" 
+                        Width="20" >
 
-            <toolkitControl:PullToRefreshListView.ItemTemplate>
-                <DataTemplate  x:DataType="octo:Repository">
-                    <userControls:RepoListItem />
-                </DataTemplate>
-            </toolkitControl:PullToRefreshListView.ItemTemplate>
-            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                <Border HorizontalAlignment="Center"
-                    x:Name="refreshindicator"
-                    CornerRadius="30"
-                    Height="20" 
-                    Width="20" >
-
-                </Border>
-            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-        </toolkitControl:PullToRefreshListView>
-        <toolkitControl:PullToRefreshListView 
-                Grid.Row="2"
-                Grid.Column="0"
-                IsItemClickEnabled="True"
-                ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
-                ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
-                IsPullToRefreshWithMouseEnabled="True"
-                OverscrollLimit="0.4"
-                PullThreshold="100"
-                RefreshRequested="{x:Bind ViewModel.RefreshUsersCommand}"
-                Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                PullProgressChanged="UserListView_PullProgressChanged"
-                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                    </Border>
+                </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+            </toolkitControl:PullToRefreshListView>
+            <toolkitControl:PullToRefreshListView 
+                    IsItemClickEnabled="True"
+                    ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
+                    ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
+                    IsPullToRefreshWithMouseEnabled="True"
+                    OverscrollLimit="0.4"
+                    PullThreshold="100"
+                    RefreshRequested="{x:Bind ViewModel.RefreshUsersCommand}"
+                    Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                    PullProgressChanged="UserListView_PullProgressChanged"
+                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
 
-            <toolkitControl:PullToRefreshListView.ItemTemplate>
+                <toolkitControl:PullToRefreshListView.ItemTemplate>
 
-                <DataTemplate  x:DataType="octo:User">
-                    <userControls:UserListItem />
-                </DataTemplate>
-            </toolkitControl:PullToRefreshListView.ItemTemplate>
-            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+                    <DataTemplate  x:DataType="octo:User">
+                        <userControls:UserListItem />
+                    </DataTemplate>
+                </toolkitControl:PullToRefreshListView.ItemTemplate>
+                <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
 
-                <Border HorizontalAlignment="Center"
-                    x:Name="refreshindicator2"
-                    CornerRadius="30"
-                    Height="20" 
-                    Width="20" >
+                    <Border HorizontalAlignment="Center"
+                        x:Name="refreshindicator2"
+                        CornerRadius="30"
+                        Height="20" 
+                        Width="20" >
 
-                </Border>
-            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-        </toolkitControl:PullToRefreshListView>
+                    </Border>
+                </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+            </toolkitControl:PullToRefreshListView>
+        </Grid>
+
+        <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                   Grid.Row="2"
+                   Text="No Results"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
+
         <ProgressRing x:Name="RefreshProgressRing"
                       Grid.Row="2"
-                      Grid.Column="0"
                       Width="50"
                       Height="50"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"

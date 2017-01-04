@@ -41,8 +41,22 @@ namespace CodeHub.ViewModels
             {
                 Set(() => Users, ref _users, value);
             }
+        }
 
-
+        /// <summary>
+        /// 'No Results' TextBlock will be displayed if this property is true
+        /// </summary>
+        public bool _zeroResultCount;
+        public bool ZeroResultCount
+        {
+            get
+            {
+                return _zeroResultCount;
+            }
+            set
+            {
+                Set(() => ZeroResultCount, ref _zeroResultCount, value);
+            }
         }
 
         public bool _isSearchingUsers;
@@ -71,6 +85,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public int _resultCount;
+        public int ResultCount
+        {
+            get
+            {
+                return _resultCount;
+            }
+            set
+            {
+                Set(() => ResultCount, ref _resultCount, value);
+            }
+        }
+
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
         {
@@ -80,6 +107,8 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           () =>
                                           {
+                                              ZeroResultCount = true;
+
                                               if (!GlobalHelper.IsInternet())
                                               {
                                                   //Sending NoInternet message to all viewModels
@@ -111,12 +140,31 @@ namespace CodeHub.ViewModels
                                                       isLoading = true;
                                                       Users = await UserUtility.searchUsers(QueryString);
                                                       isLoading = false;
+
+                                                      if (Users.Count == 0)
+                                                      {
+                                                          ZeroResultCount = true;
+                                                      }
+                                                      else
+                                                      {
+                                                          ZeroResultCount = false;
+                                                      }
                                                   }
                                                   else
                                                   {
                                                       isLoading = true;
                                                       Repositories = await RepositoryUtility.SearchRepos(QueryString);
                                                       isLoading = false;
+
+                                                      if (Repositories.Count == 0)
+                                                      {
+                                                          ZeroResultCount = true;
+                                                      }
+                                                      else
+                                                      {
+                                                          ZeroResultCount = false;
+                                                      }
+                                                          
                                                   }
                                               }
 
