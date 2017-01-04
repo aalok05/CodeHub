@@ -9,27 +9,6 @@ namespace CodeHub.Services
 {
     class RepositoryUtility
     {
-        public static async Task<ObservableCollection<Repository>> SearchRepos(string query)
-        {
-            try
-            {
-                var client = await UserDataService.getAuthenticatedClient();
-                var request = new SearchRepositoriesRequest(query);
-                var result = await client.Search.SearchRepo(request);
-                ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
-                foreach (Repository r in result.Items)
-                {
-                    repos.Add(r);
-                }
-                return repos;
-            }
-            catch
-            {
-                return null;
-            }
-
-        }
-
         /// <summary>
         /// Two calls are made to this method to emulate Incremental Loading. First call (second parameter = true) returns first 7 repositories, 
         /// Second call (second parameter = false) returns the rest

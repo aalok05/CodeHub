@@ -138,7 +138,7 @@ namespace CodeHub.ViewModels
                                                   if (IsSearchingUsers)
                                                   {
                                                       isLoading = true;
-                                                      Users = await UserUtility.searchUsers(QueryString);
+                                                      Users = await SearchUtility.SearchUsers(QueryString);
                                                       isLoading = false;
 
                                                       if (Users.Count == 0)
@@ -153,7 +153,7 @@ namespace CodeHub.ViewModels
                                                   else
                                                   {
                                                       isLoading = true;
-                                                      Repositories = await RepositoryUtility.SearchRepos(QueryString);
+                                                      Repositories = await SearchUtility.SearchRepos(QueryString);
                                                       isLoading = false;
 
                                                       if (Repositories.Count == 0)
@@ -181,7 +181,7 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-                Repositories = await RepositoryUtility.SearchRepos(QueryString);
+                Repositories = await SearchUtility.SearchRepos(QueryString);
                 isLoading = false;
             }
 
@@ -197,7 +197,7 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-                Users = await UserUtility.searchUsers(QueryString);
+                Users = await SearchUtility.SearchUsers(QueryString);
                 isLoading = false;
             }
 
