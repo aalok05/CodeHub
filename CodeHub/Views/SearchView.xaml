@@ -78,64 +78,67 @@
 
         <Grid  Grid.Row="2"
                Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
-            <toolkitControl:PullToRefreshListView 
-                    IsItemClickEnabled="True"
-                    ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                    ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
-                    IsPullToRefreshWithMouseEnabled="True"
-                    OverscrollLimit="0.4"
-                    PullThreshold="100"
-                    RefreshRequested="{x:Bind ViewModel.RefreshReposCommand}"
-                    Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                    PullProgressChanged="RepoListView_PullProgressChanged"
-                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+            <ListView 
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingRepo,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-                <toolkitControl:PullToRefreshListView.ItemTemplate>
+                <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:Repository">
                         <userControls:RepoListItem />
                     </DataTemplate>
-                </toolkitControl:PullToRefreshListView.ItemTemplate>
-                <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+                </ListView.ItemTemplate>
 
-                    <Border HorizontalAlignment="Center"
-                        x:Name="refreshindicator"
-                        CornerRadius="30"
-                        Height="20" 
-                        Width="20" >
-
-                    </Border>
-                </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-            </toolkitControl:PullToRefreshListView>
-            <toolkitControl:PullToRefreshListView 
-                    IsItemClickEnabled="True"
-                    ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
-                    ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
-                    IsPullToRefreshWithMouseEnabled="True"
-                    OverscrollLimit="0.4"
-                    PullThreshold="100"
-                    RefreshRequested="{x:Bind ViewModel.RefreshUsersCommand}"
-                    Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                    PullProgressChanged="UserListView_PullProgressChanged"
-                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
-
-
-                <toolkitControl:PullToRefreshListView.ItemTemplate>
-
+            </ListView>
+            <ListView
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
+                ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:User">
                         <userControls:UserListItem />
                     </DataTemplate>
-                </toolkitControl:PullToRefreshListView.ItemTemplate>
-                <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.CodeNavigate}"
+                ItemsSource="{x:Bind ViewModel.SearchCodes,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingCode,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-                    <Border HorizontalAlignment="Center"
-                        x:Name="refreshindicator2"
-                        CornerRadius="30"
-                        Height="20" 
-                        Width="20" >
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="octo:SearchCode">
+                        <userControls:CodeListItem />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView 
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.IssueNavigate}"
+                ItemsSource="{x:Bind ViewModel.Issues,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingIssues,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-                    </Border>
-                </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-            </toolkitControl:PullToRefreshListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="octo:Issue">
+                        <userControls:IssueListItem />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
         </Grid>
 
         <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"

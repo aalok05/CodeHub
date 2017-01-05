@@ -171,38 +171,7 @@ namespace CodeHub.ViewModels
                                           }));
             }
         }
-        public async void RefreshReposCommand(object sender, EventArgs e)
-        {
-            if (!GlobalHelper.IsInternet())
-            {
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
-            }
-            else
-            {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-                isLoading = true;
-                Repositories = await SearchUtility.SearchRepos(QueryString);
-                isLoading = false;
-            }
 
-
-        }
-        public async void RefreshUsersCommand(object sender, EventArgs e)
-        {
-            if (!GlobalHelper.IsInternet())
-            {
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
-            }
-            else
-            {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-                isLoading = true;
-                Users = await SearchUtility.SearchUsers(QueryString);
-                isLoading = false;
-            }
-
-
-        }
         public void QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
              SearchCommand.Execute(null);
