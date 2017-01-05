@@ -176,12 +176,12 @@ namespace CodeHub.Services
             }
 
         }
-        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(long repoId, int number)
+        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(string owner, string name, int number)
         {
             try
             {
                 var client = await UserDataService.getAuthenticatedClient();
-                var comments = await client.Issue.Comment.GetAllForIssue(repoId, number);
+                var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
 
                 ObservableCollection<IssueComment> commentList = new ObservableCollection<IssueComment>();
                 foreach (IssueComment c in comments)
@@ -197,7 +197,19 @@ namespace CodeHub.Services
             }
 
         }
-
+        public static async Task<String> GetDefaultBranch(long repoId)
+        {
+            try
+            {
+                var client = await UserDataService.getAuthenticatedClient();
+                var repo = await client.Repository.Get(repoId);
+                return repo.DefaultBranch;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public static async Task<bool> StarRepository(Repository repo)
         {
             try
