@@ -218,10 +218,7 @@ namespace CodeHub.ViewModels
              
             }
         }
-        public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssueDetailView), e.ClickedItem as Issue);
-        }
+
         public void IssueTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssueDetailView), new Tuple<long,Issue>(RepoId, e.ClickedItem as Issue));
