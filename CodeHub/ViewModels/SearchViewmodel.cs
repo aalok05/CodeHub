@@ -176,6 +176,7 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               ZeroResultCount = true;
+                                              IsSearchingRepo = true;
 
                                               if (!GlobalHelper.IsInternet())
                                               {
@@ -192,48 +193,90 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public RelayCommand _searchCommand;
-        public RelayCommand SearchCommand
+        public RelayCommand _searchRepoCommand;
+        public RelayCommand SearchRepoCommand
         {
             get
             {
-                return _searchCommand
-                    ?? (_searchCommand = new RelayCommand(
+                return _searchRepoCommand
+                    ?? (_searchRepoCommand = new RelayCommand(
                                           async () =>
                                           {
+                                              IsSearchingRepo = true;
+                                              IsSearchingUsers = IsSearchingIssues = IsSearchingCode = false;
                                               if (!string.IsNullOrWhiteSpace(QueryString))
                                               {
-                                                  if (IsSearchingUsers)
-                                                  {
-                                                      isLoading = true;
-                                                      Users = await SearchUtility.SearchUsers(QueryString);
-                                                      isLoading = false;
 
-                                                      if (Users.Count == 0)
-                                                      {
-                                                          ZeroResultCount = true;
-                                                      }
-                                                      else
-                                                      {
-                                                          ZeroResultCount = false;
-                                                      }
-                                                  }
-                                                  else
-                                                  {
-                                                      isLoading = true;
-                                                      Repositories = await SearchUtility.SearchRepos(QueryString);
-                                                      isLoading = false;
+                                                  isLoading = true;
+                                                  Repositories = await SearchUtility.SearchRepos(QueryString);
+                                                  isLoading = false;
 
-                                                      if (Repositories.Count == 0)
-                                                      {
-                                                          ZeroResultCount = true;
-                                                      }
-                                                      else
-                                                      {
-                                                          ZeroResultCount = false;
-                                                      }
-                                                          
-                                                  }
+                                              }
+
+                                          }));
+            }
+        }
+
+        public RelayCommand _searchUsersCommand;
+        public RelayCommand SearchUsersCommand
+        {
+            get
+            {
+                return _searchUsersCommand
+                    ?? (_searchUsersCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsSearchingUsers = true;
+                                              IsSearchingRepo = IsSearchingCode = IsSearchingIssues = false;
+                                              if (!string.IsNullOrWhiteSpace(QueryString))
+                                              {
+                                                  isLoading = true;
+                                                  Users = await SearchUtility.SearchUsers(QueryString);
+                                                  isLoading = false;
+                                              }
+
+                                          }));
+            }
+        }
+
+        public RelayCommand _searchCodeCommand;
+        public RelayCommand SearchCodeCommand
+        {
+            get
+            {
+                return _searchCodeCommand
+                    ?? (_searchCodeCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsSearchingCode = true;
+                                              IsSearchingIssues = IsSearchingRepo = IsSearchingUsers = false;
+                                              if (!string.IsNullOrWhiteSpace(QueryString))
+                                              {
+                                                  isLoading = true;
+                                                  SearchCodes = await SearchUtility.SearchCode(QueryString);
+                                                  isLoading = false;
+                                              }
+
+                                          }));
+            }
+        }
+
+        public RelayCommand _searchIssuesCommand;
+        public RelayCommand SearchIssuesCommand
+        {
+            get
+            {
+                return _searchIssuesCommand
+                    ?? (_searchIssuesCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsSearchingIssues = true;
+                                              IsSearchingRepo = IsSearchingUsers = IsSearchingCode = false;
+                                              if (!string.IsNullOrWhiteSpace(QueryString))
+                                              {
+                                                  isLoading = true;
+                                                  Issues = await SearchUtility.SearchIssues(QueryString);
+                                                  isLoading = false;
                                               }
 
                                           }));
@@ -242,7 +285,22 @@ namespace CodeHub.ViewModels
 
         public void QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-             SearchCommand.Execute(null);
+            if (IsSearchingRepo)
+            {
+                SearchRepoCommand.Execute(null);
+            }
+            else if (IsSearchingUsers)
+            {
+                SearchUsersCommand.Execute(null);
+            }
+            else if (IsSearchingIssues)
+            {
+                SearchIssuesCommand.Execute(null);
+            }
+            else if (IsSearchingCode)
+            {
+                SearchCodeCommand.Execute(null);
+            }
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
