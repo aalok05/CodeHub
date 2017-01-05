@@ -197,38 +197,23 @@ namespace CodeHub.ViewModels
                 });
                 IsLoadingOpen = false;
                 ProgressBarValue += 100/3;
-                if (OpenIssues.Count == 0)
-                {
-                   ZeroOpenIssues = true;
-                }
-                else
-                {
-                    ZeroOpenIssues = false;
-                }
+
+                ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
+
                 ClosedIssues = await RepositoryUtility.GetAllIssuesForRepo(RepoId, new RepositoryIssueRequest {
                     State = ItemStateFilter.Closed
                 });
                 IsLoadingClosed = false;
                 ProgressBarValue += 100/3;
-                if (ClosedIssues.Count == 0)
-                {
-                    ZeroClosedIssues = true;
-                }
-                else
-                {
-                    ZeroClosedIssues = false;
-                }
+
+                ZeroClosedIssues = ClosedIssues.Count == 0 ? true : false;
+
                 MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(RepoId);
                 ProgressBarValue += 100 / 3;
                 IsLoadingMine = false;
-                if (MyIssues.Count == 0)
-                {
-                    ZeroMyIssues = true;
-                }
-                else
-                {
-                    ZeroMyIssues = false;
-                }
+
+                ZeroMyIssues = MyIssues.Count == 0 ? true : false;
+
                 isLoading = false;
              
             }

@@ -84,14 +84,8 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
 
-                if(Issue.PullRequest != null)
-                {
-                    IsPull = true;
-                }
-                else
-                {
-                    IsPull = false;
-                }
+                IsPull = Issue.PullRequest != null ? true : false;
+
                 isLoading = true;
                 Comments = await RepositoryUtility.GetAllCommentsForIssue(RepoId, Issue.Number);
                 isLoading = false;
