@@ -17,6 +17,7 @@ namespace CodeHub.ViewModels
 {
     public class SearchViewmodel : AppViewmodel
     {
+        #region properties
         public ObservableCollection<Repository> _repositories;
         public ObservableCollection<Repository> Repositories
         {
@@ -43,19 +44,29 @@ namespace CodeHub.ViewModels
             }
         }
 
-        /// <summary>
-        /// 'No Results' TextBlock will be displayed if this property is true
-        /// </summary>
-        public bool _zeroResultCount;
-        public bool ZeroResultCount
+        public ObservableCollection<Issue> _issues;
+        public ObservableCollection<Issue> Issues
         {
             get
             {
-                return _zeroResultCount;
+                return _issues;
             }
             set
             {
-                Set(() => ZeroResultCount, ref _zeroResultCount, value);
+                Set(() => Issues, ref _issues, value);
+            }
+        }
+
+        public ObservableCollection<SearchCode> _searchCodes;
+        public ObservableCollection<SearchCode> SearchCodes
+        {
+            get
+            {
+                return _searchCodes;
+            }
+            set
+            {
+                Set(() => SearchCodes, ref _searchCodes, value);
             }
         }
 
@@ -69,6 +80,61 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => IsSearchingUsers, ref _isSearchingUsers, value);
+            }
+        }
+
+        public bool _isSearchingRepo;
+        public bool IsSearchingRepo
+        {
+            get
+            {
+                return _isSearchingRepo;
+            }
+            set
+            {
+                Set(() => IsSearchingRepo, ref _isSearchingRepo, value);
+            }
+        }
+
+        public bool _isSearchingCode;
+        public bool IsSearchingCode
+        {
+            get
+            {
+                return _isSearchingCode;
+            }
+            set
+            {
+                Set(() => IsSearchingCode, ref _isSearchingCode, value);
+            }
+        }
+
+        public bool _isSearchingIssues;
+        public bool IsSearchingIssues
+        {
+            get
+            {
+                return _isSearchingIssues;
+            }
+            set
+            {
+                Set(() => IsSearchingIssues, ref _isSearchingIssues, value);
+            }
+        }
+
+        /// <summary>
+        /// 'No Results' TextBlock will be displayed if this property is true
+        /// </summary>
+        public bool _zeroResultCount;
+        public bool ZeroResultCount
+        {
+            get
+            {
+                return _zeroResultCount;
+            }
+            set
+            {
+                Set(() => ZeroResultCount, ref _zeroResultCount, value);
             }
         }
 
@@ -98,6 +164,8 @@ namespace CodeHub.ViewModels
             }
         }
 
+        #endregion
+
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
         {
@@ -107,7 +175,7 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           () =>
                                           {
-                                              ZeroResultCount = true;
+                                              ZeroResultCount = IsSearchingRepo = true;
 
                                               if (!GlobalHelper.IsInternet())
                                               {
@@ -124,88 +192,126 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public RelayCommand _searchCommand;
-        public RelayCommand SearchCommand
+        public RelayCommand _searchRepoCommand;
+        public RelayCommand SearchRepoCommand
         {
             get
             {
-                return _searchCommand
-                    ?? (_searchCommand = new RelayCommand(
+                return _searchRepoCommand
+                    ?? (_searchRepoCommand = new RelayCommand(
                                           async () =>
                                           {
+                                              IsSearchingRepo = true;
+                                              IsSearchingUsers = IsSearchingIssues = IsSearchingCode = false;
                                               if (!string.IsNullOrWhiteSpace(QueryString))
                                               {
-                                                  if (IsSearchingUsers)
-                                                  {
-                                                      isLoading = true;
-                                                      Users = await SearchUtility.SearchUsers(QueryString);
-                                                      isLoading = false;
 
-                                                      if (Users.Count == 0)
-                                                      {
-                                                          ZeroResultCount = true;
-                                                      }
-                                                      else
-                                                      {
-                                                          ZeroResultCount = false;
-                                                      }
-                                                  }
-                                                  else
-                                                  {
-                                                      isLoading = true;
-                                                      Repositories = await SearchUtility.SearchRepos(QueryString);
-                                                      isLoading = false;
+                                                  isLoading = true;
+                                                  Repositories = await SearchUtility.SearchRepos(QueryString);
 
-                                                      if (Repositories.Count == 0)
-                                                      {
-                                                          ZeroResultCount = true;
-                                                      }
-                                                      else
-                                                      {
-                                                          ZeroResultCount = false;
-                                                      }
-                                                          
-                                                  }
+                                                  ZeroResultCount = Repositories.Count == 0 ? true : false;
+                                                  
+                                                  isLoading = false;
+
                                               }
 
                                           }));
             }
         }
-        public async void RefreshReposCommand(object sender, EventArgs e)
+
+        public RelayCommand _searchUsersCommand;
+        public RelayCommand SearchUsersCommand
         {
-            if (!GlobalHelper.IsInternet())
+            get
             {
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
-            }
-            else
-            {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-                isLoading = true;
-                Repositories = await SearchUtility.SearchRepos(QueryString);
-                isLoading = false;
-            }
+                return _searchUsersCommand
+                    ?? (_searchUsersCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsSearchingUsers = true;
+                                              IsSearchingRepo = IsSearchingCode = IsSearchingIssues = false;
+                                              if (!string.IsNullOrWhiteSpace(QueryString))
+                                              {
+                                                  isLoading = true;
+                                                  Users = await SearchUtility.SearchUsers(QueryString);
 
+                                                  ZeroResultCount = Users.Count == 0 ? true : false;
 
+                                                  isLoading = false;
+                                              }
+
+                                          }));
+            }
         }
-        public async void RefreshUsersCommand(object sender, EventArgs e)
+
+        public RelayCommand _searchCodeCommand;
+        public RelayCommand SearchCodeCommand
         {
-            if (!GlobalHelper.IsInternet())
+            get
             {
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
-            }
-            else
-            {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-                isLoading = true;
-                Users = await SearchUtility.SearchUsers(QueryString);
-                isLoading = false;
-            }
+                return _searchCodeCommand
+                    ?? (_searchCodeCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsSearchingCode = true;
+                                              IsSearchingIssues = IsSearchingRepo = IsSearchingUsers = false;
+                                              if (!string.IsNullOrWhiteSpace(QueryString))
+                                              {
+                                                  isLoading = true;
+                                                  SearchCodes = await SearchUtility.SearchCode(QueryString);
 
+                                                  ZeroResultCount = SearchCodes.Count == 0 ? true : false;
 
+                                                  isLoading = false;
+                                              }
+
+                                          }));
+            }
         }
+
+        public RelayCommand _searchIssuesCommand;
+        public RelayCommand SearchIssuesCommand
+        {
+            get
+            {
+                return _searchIssuesCommand
+                    ?? (_searchIssuesCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsSearchingIssues = true;
+                                              IsSearchingRepo = IsSearchingUsers = IsSearchingCode = false;
+                                              if (!string.IsNullOrWhiteSpace(QueryString))
+                                              {
+                                                  isLoading = true;
+                                                  Issues = await SearchUtility.SearchIssues(QueryString);
+
+                                                  ZeroResultCount = Issues.Count == 0 ? true : false;
+
+                                                  isLoading = false;
+                                              }
+
+                                          }));
+            }
+        }
+
         public void QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-             SearchCommand.Execute(null);
+            if (IsSearchingRepo)
+            {
+                SearchRepoCommand.Execute(null);
+            }
+            else if (IsSearchingUsers)
+            {
+                SearchUsersCommand.Execute(null);
+            }
+            else if (IsSearchingIssues)
+            {
+                SearchIssuesCommand.Execute(null);
+            }
+            else if (IsSearchingCode)
+            {
+                SearchCodeCommand.Execute(null);
+            }
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
@@ -214,6 +320,26 @@ namespace CodeHub.ViewModels
         public void UserDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), (e.ClickedItem as User).Login);
+        }
+        public void CodeNavigate(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as SearchCode;
+            if (item != null)
+            {
+                SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(FileContentView), new Tuple<Repository, string, string>(item.Repository, item.Path, item.Repository.DefaultBranch));
+            }
+        }
+        public void IssueNavigate(object sender, ItemClickEventArgs e)
+        {
+            var issue = e.ClickedItem as Issue;
+
+            /* The 'Repository' field of the Issue is null (Octokit API returns null), 
+             * so we have to extract Owner Login and Repository name from the Html Url
+             */
+            string owner = (issue.HtmlUrl.Segments[1]).Replace("/", "");
+            string repo = issue.HtmlUrl.Segments[2].Replace("/", "");
+
+            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(IssueDetailView), new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
         }
 
     }

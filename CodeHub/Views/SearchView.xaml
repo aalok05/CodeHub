@@ -51,13 +51,21 @@
             <Button.Flyout>
                 <MenuFlyout Placement="Bottom">
                     <ToggleMenuFlyoutItem Text="Repositories"
-                                          Command="{x:Bind ViewModel.SearchCommand}"
-                                          IsEnabled="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}"
-                                          IsChecked="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource InverseBooleanConverter},Mode=TwoWay}"/>
+                                          Command="{x:Bind ViewModel.SearchRepoCommand}"
+                                          IsEnabled="{x:Bind ViewModel.IsSearchingRepo,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
+                                          IsChecked="{x:Bind ViewModel.IsSearchingRepo,Mode=TwoWay}"/>
                     <ToggleMenuFlyoutItem Text="Users" 
-                                          Command="{x:Bind ViewModel.SearchCommand}"
+                                          Command="{x:Bind ViewModel.SearchUsersCommand}"
                                           IsEnabled="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                                           IsChecked="{x:Bind ViewModel.IsSearchingUsers,Mode=TwoWay}"/>
+                    <ToggleMenuFlyoutItem Text="Code" 
+                                          Command="{x:Bind ViewModel.SearchCodeCommand}"
+                                          IsEnabled="{x:Bind ViewModel.IsSearchingCode,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
+                                          IsChecked="{x:Bind ViewModel.IsSearchingCode,Mode=TwoWay}"/>
+                    <ToggleMenuFlyoutItem Text="Issues" 
+                                          Command="{x:Bind ViewModel.SearchIssuesCommand}"
+                                          IsEnabled="{x:Bind ViewModel.IsSearchingIssues,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
+                                          IsChecked="{x:Bind ViewModel.IsSearchingIssues,Mode=TwoWay}"/>
                 </MenuFlyout>
             </Button.Flyout>
             <StackPanel Orientation="Horizontal" Height="18.5">
@@ -67,8 +75,14 @@
                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}" Value="True">
                         <core:ChangePropertyAction PropertyName="Text" Value="Users"/>
                     </core:DataTriggerBehavior>
-                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}" Value="False">
+                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingRepo,Mode=OneWay}" Value="True">
                         <core:ChangePropertyAction PropertyName="Text" Value="Repositories"/>
+                    </core:DataTriggerBehavior>
+                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingCode,Mode=OneWay}" Value="True">
+                        <core:ChangePropertyAction PropertyName="Text" Value="Code"/>
+                    </core:DataTriggerBehavior>
+                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingIssues,Mode=OneWay}" Value="True">
+                        <core:ChangePropertyAction PropertyName="Text" Value="Issues"/>
                     </core:DataTriggerBehavior>
                 </i:Interaction.Behaviors>
                 </TextBlock>
@@ -78,64 +92,67 @@
 
         <Grid  Grid.Row="2"
                Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
-            <toolkitControl:PullToRefreshListView 
-                    IsItemClickEnabled="True"
-                    ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                    ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
-                    IsPullToRefreshWithMouseEnabled="True"
-                    OverscrollLimit="0.4"
-                    PullThreshold="100"
-                    RefreshRequested="{x:Bind ViewModel.RefreshReposCommand}"
-                    Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                    PullProgressChanged="RepoListView_PullProgressChanged"
-                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+            <ListView 
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingRepo,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-                <toolkitControl:PullToRefreshListView.ItemTemplate>
+                <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:Repository">
                         <userControls:RepoListItem />
                     </DataTemplate>
-                </toolkitControl:PullToRefreshListView.ItemTemplate>
-                <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+                </ListView.ItemTemplate>
 
-                    <Border HorizontalAlignment="Center"
-                        x:Name="refreshindicator"
-                        CornerRadius="30"
-                        Height="20" 
-                        Width="20" >
-
-                    </Border>
-                </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-            </toolkitControl:PullToRefreshListView>
-            <toolkitControl:PullToRefreshListView 
-                    IsItemClickEnabled="True"
-                    ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
-                    ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
-                    IsPullToRefreshWithMouseEnabled="True"
-                    OverscrollLimit="0.4"
-                    PullThreshold="100"
-                    RefreshRequested="{x:Bind ViewModel.RefreshUsersCommand}"
-                    Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                    PullProgressChanged="UserListView_PullProgressChanged"
-                    ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
-
-
-                <toolkitControl:PullToRefreshListView.ItemTemplate>
-
+            </ListView>
+            <ListView
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
+                ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:User">
                         <userControls:UserListItem />
                     </DataTemplate>
-                </toolkitControl:PullToRefreshListView.ItemTemplate>
-                <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.CodeNavigate}"
+                ItemsSource="{x:Bind ViewModel.SearchCodes,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingCode,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-                    <Border HorizontalAlignment="Center"
-                        x:Name="refreshindicator2"
-                        CornerRadius="30"
-                        Height="20" 
-                        Width="20" >
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="octo:SearchCode">
+                        <userControls:CodeListItem />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView 
+                Grid.Row="2"
+                Grid.Column="0"
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.IssueNavigate}"
+                ItemsSource="{x:Bind ViewModel.Issues,Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsSearchingIssues,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
 
-                    </Border>
-                </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-            </toolkitControl:PullToRefreshListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="octo:Issue">
+                        <userControls:IssueListItem />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
         </Grid>
 
         <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"

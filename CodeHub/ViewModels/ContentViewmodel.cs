@@ -77,7 +77,15 @@ namespace CodeHub.ViewModels
         {
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
-            SelectedBranch = repoPath.Item3;
+
+            if (string.IsNullOrWhiteSpace(repoPath.Item3))
+            {
+                SelectedBranch = await RepositoryUtility.GetDefaultBranch(Repository.Id);
+            }
+            else
+            {
+                SelectedBranch = repoPath.Item3;
+            }
 
             if (!GlobalHelper.IsInternet())
             {
@@ -87,7 +95,7 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-                Content = await RepositoryUtility.GetRepositoryContentByPath(repoPath.Item1.Id, repoPath.Item2, repoPath.Item3);
+                Content = await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch);
 
                 isLoading = false;
 

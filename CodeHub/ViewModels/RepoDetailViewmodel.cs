@@ -141,7 +141,7 @@ namespace CodeHub.ViewModels
                     ?? (_issuesTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssuesView), Repository.Id);
+                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssuesView), Repository);
                                           }));
             }
         }

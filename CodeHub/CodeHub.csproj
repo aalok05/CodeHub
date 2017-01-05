@@ -108,6 +108,9 @@
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CodeListItem.xaml.cs">
+      <DependentUpon>CodeListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
@@ -252,6 +255,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\BusyScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CodeListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

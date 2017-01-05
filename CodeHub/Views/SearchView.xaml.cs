@@ -35,15 +35,5 @@ namespace CodeHub.Views
 
         }
 
-        private void RepoListView_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator.Opacity = e.PullProgress;
-            refreshindicator.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-        }
-        private void UserListView_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator2.Opacity = e.PullProgress;
-            refreshindicator2.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-        }
     }
 }
