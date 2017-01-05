@@ -17,6 +17,7 @@ namespace CodeHub.ViewModels
 {
     public class SearchViewmodel : AppViewmodel
     {
+        #region properties
         public ObservableCollection<Repository> _repositories;
         public ObservableCollection<Repository> Repositories
         {
@@ -43,19 +44,29 @@ namespace CodeHub.ViewModels
             }
         }
 
-        /// <summary>
-        /// 'No Results' TextBlock will be displayed if this property is true
-        /// </summary>
-        public bool _zeroResultCount;
-        public bool ZeroResultCount
+        public ObservableCollection<Issue> _issues;
+        public ObservableCollection<Issue> Issues
         {
             get
             {
-                return _zeroResultCount;
+                return _issues;
             }
             set
             {
-                Set(() => ZeroResultCount, ref _zeroResultCount, value);
+                Set(() => Issues, ref _issues, value);
+            }
+        }
+
+        public ObservableCollection<SearchCode> _searchCodes;
+        public ObservableCollection<SearchCode> SearchCodes
+        {
+            get
+            {
+                return _searchCodes;
+            }
+            set
+            {
+                Set(() => SearchCodes, ref _searchCodes, value);
             }
         }
 
@@ -69,6 +80,61 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => IsSearchingUsers, ref _isSearchingUsers, value);
+            }
+        }
+
+        public bool _isSearchingRepo;
+        public bool IsSearchingRepo
+        {
+            get
+            {
+                return _isSearchingRepo;
+            }
+            set
+            {
+                Set(() => IsSearchingRepo, ref _isSearchingRepo, value);
+            }
+        }
+
+        public bool _isSearchingCode;
+        public bool IsSearchingCode
+        {
+            get
+            {
+                return _isSearchingCode;
+            }
+            set
+            {
+                Set(() => IsSearchingCode, ref _isSearchingCode, value);
+            }
+        }
+
+        public bool _isSearchingIssues;
+        public bool IsSearchingIssues
+        {
+            get
+            {
+                return _isSearchingIssues;
+            }
+            set
+            {
+                Set(() => IsSearchingIssues, ref _isSearchingIssues, value);
+            }
+        }
+
+        /// <summary>
+        /// 'No Results' TextBlock will be displayed if this property is true
+        /// </summary>
+        public bool _zeroResultCount;
+        public bool ZeroResultCount
+        {
+            get
+            {
+                return _zeroResultCount;
+            }
+            set
+            {
+                Set(() => ZeroResultCount, ref _zeroResultCount, value);
             }
         }
 
@@ -97,6 +163,8 @@ namespace CodeHub.ViewModels
                 Set(() => ResultCount, ref _resultCount, value);
             }
         }
+
+        #endregion
 
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
