@@ -31,17 +31,29 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public long _repoId;
-        public long RepoId
+        public string _login;
+        public string Login
         {
             get
             {
-                return _repoId;
+                return _login;
             }
             set
             {
-                Set(() => RepoId, ref _repoId, value);
+                Set(() => Login, ref _login, value);
+            }
+        }
 
+        public string _repoName;
+        public string RepoName
+        {
+            get
+            {
+                return _repoName;
+            }
+            set
+            {
+                Set(() => RepoName, ref _repoName, value);
             }
         }
 
@@ -72,10 +84,12 @@ namespace CodeHub.ViewModels
 
             }
         }
-        public async Task Load(Tuple<long, Issue> tuple)
+        public async Task Load(Tuple<string, string, Issue> tuple)
         {
-            Issue = tuple.Item2;
-            RepoId = tuple.Item1;
+            Issue = tuple.Item3;
+            Login = tuple.Item1;
+            RepoName = tuple.Item2;
+
             if (!GlobalHelper.IsInternet())
             {
                 Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
@@ -84,16 +98,10 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
 
-                if(Issue.PullRequest != null)
-                {
-                    IsPull = true;
-                }
-                else
-                {
-                    IsPull = false;
-                }
+                IsPull = Issue.PullRequest != null ? true : false;
+
                 isLoading = true;
-                Comments = await RepositoryUtility.GetAllCommentsForIssue(RepoId, Issue.Number);
+                Comments = await RepositoryUtility.GetAllCommentsForIssue(Login, RepoName, Issue.Number);
                 isLoading = false;
 
             }

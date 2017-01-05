@@ -134,7 +134,15 @@ namespace CodeHub.ViewModels
             IsSupportedFile = true;
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
-            SelectedBranch = repoPath.Item3;
+
+            if (string.IsNullOrWhiteSpace(repoPath.Item3))
+            {
+                SelectedBranch = await RepositoryUtility.GetDefaultBranch(Repository.Id);
+            }
+            else
+            {
+                SelectedBranch = repoPath.Item3;
+            }
 
 
             MarkdownOptions options = new MarkdownOptions
@@ -180,7 +188,7 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(repoPath.Item1.Id, repoPath.Item2, repoPath.Item3))[0].DownloadUrl;
+                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].DownloadUrl;
                     ImageFile = new BitmapImage(uri);
                     isLoading = false;
                     return;
@@ -192,13 +200,13 @@ namespace CodeHub.ViewModels
                      */
                     IsReadme = true;
 
-                    var str = (await RepositoryUtility.GetRepositoryContentByPath(repoPath.Item1.Id, repoPath.Item2, repoPath.Item3))[0].Content;
+                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
                     Content = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
                     isLoading = false;
                     return;
                 }
 
-                Content = (await RepositoryUtility.GetRepositoryContentByPath(repoPath.Item1.Id, repoPath.Item2, repoPath.Item3))[0].Content;
+                Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
                 isLoading = false;
 
             }

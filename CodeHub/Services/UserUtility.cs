@@ -49,17 +49,5 @@ namespace CodeHub.Services
             var client = await UserDataService.getAuthenticatedClient();
             return await client.User.Followers.IsFollowingForCurrent(login);
         }
-        public static async Task<ObservableCollection<User>> searchUsers(string query)
-        {
-            var client = await UserDataService.getAuthenticatedClient();
-            var request = new SearchUsersRequest(query);
-            var result = await client.Search.SearchUsers(request);
-            ObservableCollection<User> users = new ObservableCollection<User>();
-            foreach (User r in result.Items)
-            {
-                users.Add(r);
-            }
-            return users;
-        }
     }
 }

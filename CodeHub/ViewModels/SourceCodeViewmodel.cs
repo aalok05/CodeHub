@@ -87,7 +87,16 @@ namespace CodeHub.ViewModels
                 if (repo != Repository)
                 {
                     Repository = repo;
-                    SelectedBranch = Repository.DefaultBranch;
+
+                    if (string.IsNullOrWhiteSpace(Repository.DefaultBranch))
+                    {
+                        SelectedBranch = await RepositoryUtility.GetDefaultBranch(Repository.Id);
+                    }
+                    else
+                    {
+                        SelectedBranch = Repository.DefaultBranch;
+                    }
+
                     Branches = await RepositoryUtility.GetAllBranches(Repository);
                     Content = await RepositoryUtility.GetRepositoryContent(Repository, SelectedBranch);
                 }

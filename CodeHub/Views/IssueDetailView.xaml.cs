@@ -36,7 +36,7 @@ namespace CodeHub.Views
            
             if (e.NavigationMode != NavigationMode.Back)
             {
-               await ViewModel.Load((e.Parameter as Tuple<long, Issue>));
+               await ViewModel.Load((e.Parameter as Tuple<string,string, Issue>));
             }
         }
     }
