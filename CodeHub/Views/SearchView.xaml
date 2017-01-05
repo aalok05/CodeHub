@@ -51,13 +51,21 @@
             <Button.Flyout>
                 <MenuFlyout Placement="Bottom">
                     <ToggleMenuFlyoutItem Text="Repositories"
-                                          Command="{x:Bind ViewModel.SearchCommand}"
-                                          IsEnabled="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}"
-                                          IsChecked="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource InverseBooleanConverter},Mode=TwoWay}"/>
+                                          Command="{x:Bind ViewModel.SearchRepoCommand}"
+                                          IsEnabled="{x:Bind ViewModel.IsSearchingRepo,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
+                                          IsChecked="{x:Bind ViewModel.IsSearchingRepo,Mode=TwoWay}"/>
                     <ToggleMenuFlyoutItem Text="Users" 
-                                          Command="{x:Bind ViewModel.SearchCommand}"
+                                          Command="{x:Bind ViewModel.SearchUsersCommand}"
                                           IsEnabled="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                                           IsChecked="{x:Bind ViewModel.IsSearchingUsers,Mode=TwoWay}"/>
+                    <ToggleMenuFlyoutItem Text="Code" 
+                                          Command="{x:Bind ViewModel.SearchCodeCommand}"
+                                          IsEnabled="{x:Bind ViewModel.IsSearchingCode,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
+                                          IsChecked="{x:Bind ViewModel.IsSearchingCode,Mode=TwoWay}"/>
+                    <ToggleMenuFlyoutItem Text="Issues" 
+                                          Command="{x:Bind ViewModel.SearchIssuesCommand}"
+                                          IsEnabled="{x:Bind ViewModel.IsSearchingIssues,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
+                                          IsChecked="{x:Bind ViewModel.IsSearchingIssues,Mode=TwoWay}"/>
                 </MenuFlyout>
             </Button.Flyout>
             <StackPanel Orientation="Horizontal" Height="18.5">
@@ -67,8 +75,14 @@
                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}" Value="True">
                         <core:ChangePropertyAction PropertyName="Text" Value="Users"/>
                     </core:DataTriggerBehavior>
-                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}" Value="False">
+                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingRepo,Mode=OneWay}" Value="True">
                         <core:ChangePropertyAction PropertyName="Text" Value="Repositories"/>
+                    </core:DataTriggerBehavior>
+                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingCode,Mode=OneWay}" Value="True">
+                        <core:ChangePropertyAction PropertyName="Text" Value="Code"/>
+                    </core:DataTriggerBehavior>
+                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingIssues,Mode=OneWay}" Value="True">
+                        <core:ChangePropertyAction PropertyName="Text" Value="Issues"/>
                     </core:DataTriggerBehavior>
                 </i:Interaction.Behaviors>
                 </TextBlock>
