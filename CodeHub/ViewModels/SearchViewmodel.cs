@@ -208,8 +208,14 @@ namespace CodeHub.ViewModels
 
                                                   isLoading = true;
                                                   Repositories = await SearchUtility.SearchRepos(QueryString);
-
-                                                  ZeroResultCount = Repositories.Count == 0 ? true : false;
+                                                  if (Repositories != null)
+                                                  {
+                                                      ZeroResultCount = Repositories.Count == 0 ? true : false;
+                                                  }
+                                                  else
+                                                  {
+                                                      ZeroResultCount = true;
+                                                  }
                                                   
                                                   isLoading = false;
 
@@ -234,9 +240,15 @@ namespace CodeHub.ViewModels
                                               {
                                                   isLoading = true;
                                                   Users = await SearchUtility.SearchUsers(QueryString);
-
-                                                  ZeroResultCount = Users.Count == 0 ? true : false;
-
+                                                  if (Users != null)
+                                                  {
+                                                       ZeroResultCount = Users.Count == 0 ? true : false;
+                                                  }
+                                                  else
+                                                  {
+                                                      ZeroResultCount = true;
+                                                  }
+                                                 
                                                   isLoading = false;
                                               }
 
@@ -259,9 +271,15 @@ namespace CodeHub.ViewModels
                                               {
                                                   isLoading = true;
                                                   SearchCodes = await SearchUtility.SearchCode(QueryString);
-
-                                                  ZeroResultCount = SearchCodes.Count == 0 ? true : false;
-
+                                                  if (SearchCodes != null)
+                                                  {
+                                                      ZeroResultCount = SearchCodes.Count == 0 ? true : false;
+                                                  }
+                                                  else
+                                                  {
+                                                      ZeroResultCount = true;
+                                                  }
+                                                  
                                                   isLoading = false;
                                               }
 
@@ -284,9 +302,15 @@ namespace CodeHub.ViewModels
                                               {
                                                   isLoading = true;
                                                   Issues = await SearchUtility.SearchIssues(QueryString);
-
-                                                  ZeroResultCount = Issues.Count == 0 ? true : false;
-
+                                                  if(Issues!=null)
+                                                  {
+                                                      ZeroResultCount = Issues.Count == 0 ? true : false;
+                                                  }
+                                                  else
+                                                  {
+                                                      ZeroResultCount = true;
+                                                  }
+                                                  
                                                   isLoading = false;
                                               }
 
