@@ -18,7 +18,7 @@
                     RelativePanel.AlignTopWithPanel="True"
                     RelativePanel.AlignLeftWithPanel="True">
             <TextBlock 
-                    Margin="3 10 3 5"
+                    Margin="10 10 3 5"
                     Text="#"
                     FontSize="16"
                     VerticalAlignment="Center"
@@ -39,9 +39,9 @@
                    RelativePanel.RightOf="NumberBlock"/>
         <StackPanel x:Name="StateBlock"
                     Orientation="Horizontal"
-                RelativePanel.AlignLeftWith="TitleBlock"
+                RelativePanel.AlignLeftWith="NumberBlock"
                 RelativePanel.Below="TitleBlock"
-                Margin="0 5 0 0">
+                Margin="10 5 0 0">
 
             <Viewbox Margin="0 0 3 0" 
                      MaxHeight="15"
@@ -76,7 +76,7 @@
                 Orientation="Horizontal"
                 RelativePanel.AlignLeftWith="StateBlock"
                 RelativePanel.Below="StateBlock"
-                Margin="0 5 0 0">
+                Margin="10 5 0 0">
 
             <Viewbox Margin="0 0 3 0" 
                      MaxHeight="15"
