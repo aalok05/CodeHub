@@ -18,16 +18,16 @@ namespace CodeHub.ViewModels
     public class IssuesViewmodel : AppViewmodel
     {
         #region properties
-        public long _repoId;
-        public long RepoId
+        public Repository _repository;
+        public Repository Repository
         {
             get
             {
-                return _repoId;
+                return _repository;
             }
             set
             {
-                Set(() => RepoId, ref _repoId, value);
+                Set(() => Repository, ref _repository, value);
             }
         }
 
@@ -168,7 +168,7 @@ namespace CodeHub.ViewModels
         }
 
         #endregion
-        public async Task Load(long repoId)
+        public async Task Load(Repository repository)
         {
             if (!GlobalHelper.IsInternet())
             {
@@ -182,16 +182,18 @@ namespace CodeHub.ViewModels
                 ProgressBarValue = 0;
                 isLoading = true; //For the progressBar at the top of the page
                 IsLoadingOpen = IsLoadingClosed = IsLoadingMine = true;
-                RepoId = repoId;
+
+                Repository = repository;
+
                 /*Clear off Issues of the previous repository*/
-                if(OpenIssues!=null)
+                if (OpenIssues!=null)
                    OpenIssues.Clear();
                 if (ClosedIssues != null)
                      ClosedIssues.Clear();
                 if (MyIssues != null)
                      MyIssues.Clear(); 
 
-                OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(RepoId, new RepositoryIssueRequest
+                OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
                 {
                     State = ItemStateFilter.Open
                 });
@@ -200,7 +202,7 @@ namespace CodeHub.ViewModels
 
                 ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
 
-                ClosedIssues = await RepositoryUtility.GetAllIssuesForRepo(RepoId, new RepositoryIssueRequest {
+                ClosedIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest {
                     State = ItemStateFilter.Closed
                 });
                 IsLoadingClosed = false;
@@ -208,7 +210,7 @@ namespace CodeHub.ViewModels
 
                 ZeroClosedIssues = ClosedIssues.Count == 0 ? true : false;
 
-                MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(RepoId);
+                MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(Repository.Id);
                 ProgressBarValue += 100 / 3;
                 IsLoadingMine = false;
 
@@ -221,7 +223,8 @@ namespace CodeHub.ViewModels
 
         public void IssueTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssueDetailView), new Tuple<long,Issue>(RepoId, e.ClickedItem as Issue));
+            SimpleIoc.Default.GetInstance<INavigationService>()
+                            .Navigate(typeof(IssueDetailView), new Tuple<string, string, Issue>(Repository.Owner.Login, Repository.Name, e.ClickedItem as Issue));
         }
     }
 }

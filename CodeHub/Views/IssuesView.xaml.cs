@@ -15,10 +15,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Octokit;
 
 namespace CodeHub.Views
 {
-    public sealed partial class IssuesView : Page
+    public sealed partial class IssuesView : Windows.UI.Xaml.Controls.Page
     {
         public IssuesViewmodel ViewModel { get; set; }
         public IssuesView()
@@ -38,7 +39,7 @@ namespace CodeHub.Views
 
             if (e.NavigationMode != NavigationMode.Back)
             {
-                await ViewModel.Load((long)e.Parameter);
+                await ViewModel.Load((Repository)e.Parameter);
             }
         }
      
