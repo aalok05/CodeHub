@@ -23,7 +23,7 @@ I think these features are needed in CodeHub:
 * Fork repos
 * Trending developers
 * Syntax highlighting for code
-* Search code, issues
+* Search code, issues (Implemented)
 
 #Dependencies
 I thank the makers of these libraries
