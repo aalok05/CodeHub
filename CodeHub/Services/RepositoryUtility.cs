@@ -197,7 +197,7 @@ namespace CodeHub.Services
             }
 
         }
-        public static async Task<String> GetDefaultBranch(long repoId)
+        public static async Task<string> GetDefaultBranch(long repoId)
         {
             try
             {
