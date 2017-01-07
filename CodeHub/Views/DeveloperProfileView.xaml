@@ -97,7 +97,7 @@
                                  Content="Unfollow"
                                  Command="{x:Bind ViewModel.UnfollowCommand}"
                                  Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Style="{StaticResource UnfollowButtonStyle}">
+                                 Style="{StaticResource FollowButtonStyle}">
 
                     </Button>
                     <ProgressRing 
