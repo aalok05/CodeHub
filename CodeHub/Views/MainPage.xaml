@@ -41,7 +41,7 @@
                 <Viewbox Grid.Column="0"
                          MaxHeight="20" 
                          MaxWidth="20">
-                    <Path Fill="{StaticResource AppForegroundColorBrush}"
+                    <Path Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                           StrokeThickness="0"
                           Data="{x:Bind Symbol}"/>
                 </Viewbox>
@@ -55,7 +55,7 @@
                             <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}"/>
                         </core:DataTriggerBehavior>
                          <core:DataTriggerBehavior Binding="{x:Bind IsSelected,Mode=TwoWay}" Value="False">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                            <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
                         </core:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </TextBlock>
@@ -128,7 +128,7 @@
                         FontSize="15"
                         FontWeight="SemiBold"
                         FontFamily="Segoe UI"
-                        Foreground="{StaticResource AppForegroundColorBrush}"
+                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                         Margin="5 0 0 0" 
                         Text="{x:Bind ViewModel.HeaderText,Mode=OneWay}"/>
 
@@ -140,7 +140,7 @@
                      MaxHeight="23"
                      MaxWidth="23">
                         <SymbolIcon Symbol="Find"
-                            Foreground="{StaticResource AppForegroundColorBrush}">
+                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                             <i:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="PointerPressed">
                                     <core:ChangePropertyAction PropertyName="Foreground" Value="#454545"/>
@@ -149,7 +149,7 @@
                                     <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
                                 </core:EventTriggerBehavior>
                                 <core:EventTriggerBehavior EventName="PointerExited">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
                                 </core:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </SymbolIcon>
@@ -242,7 +242,7 @@
                                                    FontSize="12"
                                                    Margin="0 0 0 4"
                                                    Text="{x:Bind ViewModel.User.Name,Mode=OneWay}"/>
-                                        <TextBlock Foreground="{StaticResource AppForegroundColorBrush}"
+                                        <TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                    FontSize="11.5"
                                                    FontWeight="SemiLight"
                                                    Margin="0 0 0 10"
@@ -312,11 +312,11 @@
                                             <TextBlock x:Name="EmailText"
                                                FontSize="10"
                                                TextAlignment="Left"
-                                               Foreground="{StaticResource AppForegroundColorBrush}"
+                                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                Text="{x:Bind ViewModel.Email,Mode=OneWay,FallbackValue=' ',TargetNullValue=' '}"/>
                                             <TextBlock x:Name="SignoutText"
                                                Text="Sign out"
-                                               Foreground="{StaticResource AppForegroundColorBrush}"
+                                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                RelativePanel.Below="EmailText"
                                                RelativePanel.AlignLeftWith="EmailText"/>
                                         </RelativePanel>
@@ -326,11 +326,11 @@
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left">
-                                        <SymbolIcon Symbol="Setting" Foreground="{StaticResource AppForegroundColorBrush}"/>
+                                        <SymbolIcon Symbol="Setting" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
                                         <TextBlock Text="Settings"
                                                    Margin="15 0 0 0"
                                                    VerticalAlignment="Center"
-                                                   Foreground="{StaticResource AppForegroundColorBrush}"/>
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>

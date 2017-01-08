@@ -10,7 +10,6 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:octo="using:Octokit"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:AD="using:Microsoft.Advertising.WinRT.UI"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d">
 
@@ -119,7 +118,7 @@
                         <TextBlock Text="Repositories"
                                    Margin="0 0 10 0"
                                    FontSize="12"
-                                   Foreground="{StaticResource AppForegroundColorBrush}"
+                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind ViewModel.Developer.PublicRepos,Mode=OneWay,FallbackValue='0'}" 
