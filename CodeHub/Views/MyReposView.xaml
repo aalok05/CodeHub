@@ -19,10 +19,12 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid Background="{ThemeResource SystemChromeLowColor}" 
+              Height="48" VerticalAlignment="Top"/>
         <Pivot>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="all" FontSize="18"/>
+                    <TextBlock Text="all" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <toolkitControl:PullToRefreshListView 
@@ -65,7 +67,7 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="starred" FontSize="18"/>
+                    <TextBlock Text="starred" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
 

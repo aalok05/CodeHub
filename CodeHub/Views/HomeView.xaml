@@ -32,12 +32,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
+        <Grid Background="{ThemeResource SystemChromeLowColor}" 
+              Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">
-
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="today" FontSize="18"/>
+                    <TextBlock Text="today" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
 
@@ -93,7 +94,7 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="this week" FontSize="18"/>
+                    <TextBlock Text="this week" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
@@ -147,7 +148,7 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="this month" FontSize="18"/>
+                    <TextBlock Text="this month" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
