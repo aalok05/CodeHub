@@ -9,36 +9,39 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
+    <Grid>
+        <Grid Background="{ThemeResource SystemChromeLowColor}" 
+              Height="48" VerticalAlignment="Top"/>
 
-    <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <PivotItem>
-            <PivotItem.Header>
-                <TextBlock Text="settings" FontSize="18"/>
-            </PivotItem.Header>
-            <RelativePanel>
-                <ToggleSwitch x:Name="ThemeToggleSwitch"
+        <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="settings" FontSize="15" FontWeight="Normal"/>
+                </PivotItem.Header>
+                <RelativePanel>
+                    <ToggleSwitch x:Name="ThemeToggleSwitch"
                           OffContent="Dark theme" 
                           OnContent="Light theme"
                           VerticalAlignment="Top"
                           PointerReleased="ThemeToggleSwitch_PointerReleased"
                           HorizontalAlignment="Left"
                           Margin="10 10 0 0"/>
-                <TextBlock RelativePanel.Below="ThemeToggleSwitch"
+                    <TextBlock RelativePanel.Below="ThemeToggleSwitch"
                            Foreground="Gray"
                            TextWrapping="Wrap"
                            FontWeight="SemiBold"
                            Margin="10 0 0 0"
                            Text="App needs to restart to apply theme change"/>
-            </RelativePanel>
+                </RelativePanel>
 
-        </PivotItem>
-        <PivotItem>
-            <PivotItem.Header>
-                <TextBlock Text="about" FontSize="18"/>
-            </PivotItem.Header>
-            <RelativePanel Padding="20 20 0 0">
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="about" FontSize="15" FontWeight="Normal"/>
+                </PivotItem.Header>
+                <RelativePanel Padding="20 20 0 0">
 
-                <controls:DropShadowPanel BlurRadius="8"
+                    <controls:DropShadowPanel BlurRadius="8"
                                   ShadowOpacity="0.7"
                                   OffsetX="2"
                                   OffsetY="2"
@@ -50,33 +53,33 @@
                                   RelativePanel.AlignRightWithPanel="True"
                                   RelativePanel.AlignTopWithPanel="True">
 
-                    <Image  Source="{x:Bind ViewModel.Logo}"/>
+                        <Image  Source="{x:Bind ViewModel.Logo}"/>
 
-                </controls:DropShadowPanel>
+                    </controls:DropShadowPanel>
 
-                <TextBlock x:Name="DisplayNameTextBlock" Margin="0,0,0,12"
+                    <TextBlock x:Name="DisplayNameTextBlock" Margin="0,0,0,12"
                                FontSize="24" RelativePanel.AlignLeftWithPanel="True"
                                RelativePanel.AlignRightWith="LogoImage"
                                RelativePanel.AlignTopWithPanel="True"
                                TextWrapping="Wrap"
                                Text="{x:Bind ViewModel.DisplayName}" />
 
-                <StackPanel x:Name="PublisherTextBlock"
+                    <StackPanel x:Name="PublisherTextBlock"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.Below="DisplayNameTextBlock"
                     Orientation="Horizontal">
-                    <TextBlock Text="Developed by " Margin="0 0 3 0"/>
-                    <TextBlock Text="{x:Bind ViewModel.Publisher}" />
-                </StackPanel>
+                        <TextBlock Text="Developed by " Margin="0 0 3 0"/>
+                        <TextBlock Text="{x:Bind ViewModel.Publisher}" />
+                    </StackPanel>
 
-                <TextBlock x:Name="VersionTextBlock"
+                    <TextBlock x:Name="VersionTextBlock"
                    Margin="0 0 0 10"
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.Below="PublisherTextBlock">
                         <Run>Version</Run>
                         <Run Text="{x:Bind ViewModel.Version}" />
-                </TextBlock>
-                <TextBlock x:Name="DisclaimerText"
+                    </TextBlock>
+                    <TextBlock x:Name="DisclaimerText"
                    Margin="0 0 0 10"
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.Below="VersionTextBlock"
@@ -84,34 +87,33 @@
                    Foreground="Gray"
                    FontWeight="SemiLight"
                    Text="This app is in no way affiliated with GitHub."/>
-                <TextBlock x:Name="EmailText" 
+                    <TextBlock x:Name="EmailText" 
                    Margin="0 0 0 10"
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.Below="DisclaimerText"
                    FontSize="13">
                    <Run xml:space="preserve">Contact at  </Run>
                    <Run Foreground="{StaticResource AppPrimaryColorBrush}">contact@devnextdoor.com </Run>
-                </TextBlock>
-                <HyperlinkButton x:Name="TwitterLink"
+                    </TextBlock>
+                    <HyperlinkButton x:Name="TwitterLink"
                          Margin="0 0 0 10"
                          Foreground="{StaticResource AppPrimaryColorBrush}"
                          FontSize="13"
                          RelativePanel.Below="EmailText"
                          Content="Follow @devaalok on Twitter"
                          NavigateUri="https://twitter.com/devaalok">
-                </HyperlinkButton>
+                    </HyperlinkButton>
 
-                <HyperlinkButton x:Name="PrivacyLink"
+                    <HyperlinkButton x:Name="PrivacyLink"
                          Foreground="{StaticResource AppPrimaryColorBrush}"
                          FontSize="13"
                          RelativePanel.Below="TwitterLink"
                          Content="Privacy Policy"
                          NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub">
-                </HyperlinkButton>
+                    </HyperlinkButton>
 
-            </RelativePanel>
-        </PivotItem>
-    </Pivot>
-   
-
+                </RelativePanel>
+            </PivotItem>
+        </Pivot>
+    </Grid>
 </Page>
