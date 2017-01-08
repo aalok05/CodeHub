@@ -99,7 +99,7 @@ namespace CodeHub.ViewModels
                                             DestPage =typeof(MyReposView) },
                 };
 
-            HeaderText = HamItems[0].Label;
+            HeaderText = HamItems[0].Label.ToUpper();
             HamItems[0].IsSelected = true;
 
         }
@@ -277,7 +277,7 @@ namespace CodeHub.ViewModels
         }
         public void setHeadertext(string pageName)
         {
-            HeaderText = pageName;
+            HeaderText = pageName.ToUpper();
         }
 
         public void mainFrame_Navigated(object sender, NavigationEventArgs e)

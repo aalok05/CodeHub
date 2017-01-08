@@ -116,12 +116,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <controls:DropShadowPanel BlurRadius="10"
-                                  ShadowOpacity="0.87"
-                                  OffsetX="0"
-                                  Color="{ThemeResource AppForegroundColor }"
-                                  OffsetY="4">
-                <RelativePanel Background="{StaticResource AppHeaderColorBrush}">
+            <RelativePanel Background="{ThemeResource SystemChromeLowColor}">
 
                     <Button Name="HamButton"
                     Click="HamButton_Click"
@@ -131,6 +126,7 @@
                         RelativePanel.RightOf="HamButton"
                         RelativePanel.AlignVerticalCenterWith="HamButton"
                         FontSize="15"
+                        FontWeight="SemiBold"
                         FontFamily="Segoe UI"
                         Foreground="{StaticResource AppForegroundColorBrush}"
                         Margin="5 0 0 0" 
@@ -192,7 +188,7 @@
 
                     </Popup>
                 </RelativePanel>
-            </controls:DropShadowPanel>
+
             <SplitView x:Name="HamSplitView" 
                x:FieldModifier="Public" 
                Grid.Row="1"
@@ -202,7 +198,7 @@
                 <SplitView.Pane>
 
                     <Grid BorderThickness="0 0 1 0"
-                        BorderBrush="{StaticResource AppHeaderColorBrush}">
+                        BorderBrush="{ThemeResource SystemChromeLowColor}">
                         <control:BackDrop TintColor="#00FFFFFF" BlurAmount="30"/>
                         <RelativePanel Name="HamRelative" Padding="0 10 0 0">
 
