@@ -1,6 +1,8 @@
 # CodeHub
 CodeHub is a Universal Windows GitHub client that helps you keep up with the open source world.
 
+Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codehub-a-client-for-github/9nblggh52tbd#).
+
 ![codehub-logo](/CodeHub/Assets/Images/appLogoPurple.png?raw=true)
 
 #Features
