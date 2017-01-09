@@ -20,7 +20,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
-                    Background="{StaticResource AppHeaderColorBrush}">
+                    Background="{ThemeResource SystemChromeLowColor}">
 
             <HyperlinkButton Content="{x:Bind ViewModel.Repository.FullName,Mode=OneWay}"
                              Command="{x:Bind ViewModel.RepoDetailNavigateCommand}"

@@ -9,11 +9,11 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Height="48" VerticalAlignment="Top"/>
 
-        <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot>
             <PivotItem>
                 <PivotItem.Header>
                     <TextBlock Text="settings" FontSize="15" FontWeight="Normal"/>

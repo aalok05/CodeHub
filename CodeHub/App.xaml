@@ -5,26 +5,10 @@
     xmlns:local="using:CodeHub">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <ResourceDictionary.ThemeDictionaries>
-                        <ResourceDictionary x:Key="Light">
-                            <Color x:Key="AppForegroundColor">Black</Color>
-                            <Color x:Key="AppBackgroundColor">White</Color>
-
-                        </ResourceDictionary>
-                        <ResourceDictionary x:Key="Dark">
-                            <Color x:Key="AppForegroundColor">White</Color>
-                            <Color x:Key="AppBackgroundColor">Black</Color>
-
-                        </ResourceDictionary>
-                    </ResourceDictionary.ThemeDictionaries>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="SplitViewTogglePaneButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="{StaticResource AppForegroundColorBrush}" />
+                <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Padding" Value="0" />
@@ -66,17 +50,6 @@
                 <Setter Property="Foreground" Value="{StaticResource GitHubLightBlueColorBrush}"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
             </Style>
-
-
-            <LinearGradientBrush x:Key="UnfollowButtonBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="#7FD358" Offset="0"/>
-                <GradientStop Color="{StaticResource AppPrimaryColor}" Offset="1"/>
-            </LinearGradientBrush>
-
-            <LinearGradientBrush x:Key="UnfollowButtonBackgroundGradientPointerOver" StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="{StaticResource AppPrimaryColor}" Offset="0"/>
-                <GradientStop Color="#7FD358" Offset="1"/>
-            </LinearGradientBrush>
 
             <!-- Modifying Default style for Button -->
             <Style x:Key="SignInButtonStyle" TargetType="Button">
@@ -174,8 +147,8 @@
                 </Setter>
             </Style>
             <Style x:Key="FollowButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource AppBackgroundColorBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource AppPrimaryColorBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="8,4,8,4" />
@@ -196,11 +169,11 @@
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -715,9 +688,6 @@
 
             <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
             <SolidColorBrush x:Key="GitHubLightBlueColorBrush" Color="{StaticResource GitHubLightBlueColor}"/>
-            <SolidColorBrush x:Key="AppForegroundColorBrush" Color="{ThemeResource AppForegroundColor}"/>
-            <SolidColorBrush x:Key="AppBackgroundColorBrush" Color="{ThemeResource AppBackgroundColor}"/>
-
 
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
             <Color x:Key="GitHubLightBlueColor">#4078C0</Color>
