@@ -8,11 +8,9 @@ Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codeh
 #Features
 * See Trending repositories
 * View code, issues and comments. 
-* Search repositories and users
+* Search repositories, users, issues and code
 * Star repositories
 * Follow people
-
-Windows Store link : https://www.microsoft.com/en-us/store/p/codehub-a-client-for-github/9nblggh52tbd
 
 #Contributions
 Pull requests are welcome in the `dev` branch!
