@@ -146,7 +146,7 @@
             <PivotItem>
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="followers" FontSize="18" Margin="0 0 10 0"/>
+                        <TextBlock Text="followers" FontSize="15" FontWeight="SemiBold" Margin="0 0 10 0"/>
                         <TextBlock Text="{x:Bind ViewModel.Developer.Followers,Mode=OneWay}" 
                                                Style="{StaticResource FollowerCountStyle}"/>
                     </StackPanel>
@@ -210,7 +210,7 @@
             <PivotItem>
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="following" FontSize="18" Margin="0 0 10 0"/>
+                        <TextBlock Text="following" FontSize="15" FontWeight="SemiBold" Margin="0 0 10 0"/>
                         <TextBlock Text="{x:Bind ViewModel.Developer.Following,Mode=OneWay}" 
                                            Style="{StaticResource FollowerCountStyle}"/>
                     </StackPanel>

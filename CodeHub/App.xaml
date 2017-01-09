@@ -42,7 +42,7 @@
                 <Setter Property="FontSize" Value="15"/>
             </Style>
             <Style x:Key="FollowerCountStyle" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="19"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="Foreground" Value="{StaticResource GitHubLightBlueColor}"/>
                 <Setter Property="TextAlignment" Value="Center"/>
             </Style>
