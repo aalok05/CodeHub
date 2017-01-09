@@ -684,8 +684,6 @@
             <x:Double x:Key="NormalMinWidth">580</x:Double>
             <x:Double x:Key="WideMinWidth">1200</x:Double>
 
-            <x:Double x:Key="TextControlThemeMinHeight">38</x:Double>
-
             <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
             <SolidColorBrush x:Key="GitHubLightBlueColorBrush" Color="{StaticResource GitHubLightBlueColor}"/>
 
