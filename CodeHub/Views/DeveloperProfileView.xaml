@@ -80,23 +80,24 @@
                           Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
 
                     <!--Follow button -->
-                    <Button                 
-                                 Width="90"
-                                 Margin="0 0 10 0"
-                                 Content="Follow"
-                                 Command="{x:Bind ViewModel.FollowCommand}"
-                                 Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                                 Style="{StaticResource FollowButtonStyle}">
+                    <Button Width="90"
+                            Height="30"
+                            Margin="0 0 10 0"
+                            Content="Follow"
+                            Command="{x:Bind ViewModel.FollowCommand}"
+                            Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
+                            Style="{StaticResource FollowButtonStyle}">
 
                     </Button>
 
                     <!--Unfollow button -->
                     <Button  Width="90"
-                                 Margin="0 0 10 0"
-                                 Content="Unfollow"
-                                 Command="{x:Bind ViewModel.UnfollowCommand}"
-                                 Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Style="{StaticResource FollowButtonStyle}">
+                             Height="30"
+                             Margin="0 0 10 0"
+                             Content="Unfollow"
+                             Command="{x:Bind ViewModel.UnfollowCommand}"
+                             Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                             Style="{StaticResource FollowButtonStyle}">
 
                     </Button>
                     <ProgressRing 
@@ -109,10 +110,10 @@
                                   IsActive="{x:Bind ViewModel.FollowProgress,Mode=OneWay}"/>
 
                 </Grid>
-                <Button Height="26"
-                            Style="{StaticResource FollowButtonStyle}"
-                            Command="{x:Bind ViewModel.NavigateToRepositories}"
-                            Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
+                <Button Height="30"
+                        Style="{StaticResource FollowButtonStyle}"
+                        Command="{x:Bind ViewModel.NavigateToRepositories}"
+                        Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Repositories"
