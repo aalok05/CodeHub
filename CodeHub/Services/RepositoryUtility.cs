@@ -9,27 +9,6 @@ namespace CodeHub.Services
 {
     class RepositoryUtility
     {
-        public static async Task<ObservableCollection<Repository>> SearchRepos(string query)
-        {
-            try
-            {
-                var client = await UserDataService.getAuthenticatedClient();
-                var request = new SearchRepositoriesRequest(query);
-                var result = await client.Search.SearchRepo(request);
-                ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
-                foreach (Repository r in result.Items)
-                {
-                    repos.Add(r);
-                }
-                return repos;
-            }
-            catch
-            {
-                return null;
-            }
-
-        }
-
         /// <summary>
         /// Two calls are made to this method to emulate Incremental Loading. First call (second parameter = true) returns first 7 repositories, 
         /// Second call (second parameter = false) returns the rest
@@ -197,12 +176,12 @@ namespace CodeHub.Services
             }
 
         }
-        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(long repoId, int number)
+        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(string owner, string name, int number)
         {
             try
             {
                 var client = await UserDataService.getAuthenticatedClient();
-                var comments = await client.Issue.Comment.GetAllForIssue(repoId, number);
+                var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
 
                 ObservableCollection<IssueComment> commentList = new ObservableCollection<IssueComment>();
                 foreach (IssueComment c in comments)
@@ -218,7 +197,19 @@ namespace CodeHub.Services
             }
 
         }
-
+        public static async Task<string> GetDefaultBranch(long repoId)
+        {
+            try
+            {
+                var client = await UserDataService.getAuthenticatedClient();
+                var repo = await client.Repository.Get(repoId);
+                return repo.DefaultBranch;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public static async Task<bool> StarRepository(Repository repo)
         {
             try

@@ -10,347 +10,263 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:octo="using:Octokit"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:AD="using:Microsoft.Advertising.WinRT.UI"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d">
 
     <Page.Resources>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Narrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="UserInfoPanel.Orientation" Value="Vertical"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Normal">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="280"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Stretch="Fill"
+               Source="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}">
+            <i:Interaction.Behaviors>
+                <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
+            </i:Interaction.Behaviors>
+        </Image>
 
+        <RelativePanel Grid.Row="0"
+                       Margin="10"
+                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Wide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-
-
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-
-
-            <RelativePanel x:Name="UserPicPanel"
-                               HorizontalAlignment="Left"
-                               Margin="20 0 0 0"
-                               Grid.Row="0">
-                <controls:DropShadowPanel x:Name="UserPic"
-                                         BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                          Color="{ThemeResource NavItemForegroundColor }"
-                                          Width="110"
-                                          Height="110"
-                                          Margin="0 0 12 0"
-                                          RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Border CornerRadius="8,8,8,8">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}"/>
-                        </Border.Background>
-                    </Border>
-
-                </controls:DropShadowPanel>
-
-                <RelativePanel x:Name="UserNamepanel"
-                                  RelativePanel.AlignTopWith="UserPic"
-                                  RelativePanel.RightOf="UserPic">
-                    <TextBlock x:Name="UserNameText"
-                                FontSize="20"
-                                TextAlignment="Left"
-                                TextWrapping="Wrap"
-                                HorizontalAlignment="Center"
-                                Text="{x:Bind ViewModel.Developer.Name,Mode=OneWay}"/>
-                    <TextBlock x:Name="LoginText"
-                                FontSize="14"
-                                TextAlignment="Left"
-                                TextWrapping="Wrap"
-                                RelativePanel.Below="UserNameText"
-                                Foreground="Gray"
-                                HorizontalAlignment="Center"
-                                Grid.Row="2"
-                                Text="{x:Bind ViewModel.Developer.Login,Mode=OneWay}"/>
-                </RelativePanel>
+            <Ellipse x:Name="UserPic"
+                             Width="100"
+                             Height="100"
+                             Margin="0 10 0 0"
+                             RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock x:Name="UserNameText"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                               TextWrapping="Wrap"
+                               RelativePanel.Below="UserPic"
+                               Text="{x:Bind ViewModel.Developer.Name,Mode=OneWay}"/>
+            <TextBlock x:Name="LoginText"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                               TextWrapping="Wrap"
+                               RelativePanel.Below="UserNameText"
+                               Foreground="Gray"
+                               Grid.Row="2"
+                               Text="{x:Bind ViewModel.Developer.Login,Mode=OneWay}"/>
+            <StackPanel x:Name="UserInfoPanel"
+                                Margin="5"
+                                Orientation="Horizontal"
+                                RelativePanel.Below="LoginText"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <TextBlock Text="{x:Bind ViewModel.Developer.Location,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                           FontSize="12"
+                           FontWeight="SemiLight"
+                           Margin="0 0 10 0"/>
+                <TextBlock Text="{x:Bind ViewModel.Developer.Email,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                           FontWeight="SemiLight"
+                           IsTextSelectionEnabled="True"
+                           FontSize="12"/>
+            </StackPanel>
+            <StackPanel x:Name="ButtonGrid"
+                            Orientation="Horizontal"
+                            RelativePanel.Below="UserInfoPanel"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True">
                 <Grid x:Name="FollowButton"
-                      Margin="0 10 0 0"
-                      RelativePanel.Below="UserNamepanel"
-                      RelativePanel.AlignLeftWith="UserNamepanel"
-                      Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
-                    <controls:DropShadowPanel  
-                               BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                                Color="{ThemeResource NavItemForegroundColor }">
-                        <!--Follow button -->
-                        <Button                 
-                                Width="50"
-                                Margin="0 0 10 0"
-                                Command="{x:Bind ViewModel.FollowCommand}"
-                                Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                                Style="{StaticResource FollowButtonStyle}">
-                            <Path Fill="{StaticResource NavItemForegroundColorBrush}"
-                                  HorizontalAlignment="Center"
-                                  StrokeThickness="0"
-                                  Data="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z">
+                          Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
 
-                            </Path>
-                        </Button>
-                    </controls:DropShadowPanel>
+                    <!--Follow button -->
+                    <Button Width="90"
+                            Height="30"
+                            Margin="0 0 10 0"
+                            Content="Follow"
+                            Command="{x:Bind ViewModel.FollowCommand}"
+                            Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
+                            Style="{StaticResource FollowButtonStyle}">
+
+                    </Button>
 
                     <!--Unfollow button -->
-                    <Button 
-                        Width="50"
-                        Margin="0 0 10 0"
-                        Command="{x:Bind ViewModel.UnfollowCommand}"
-                        Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                        Style="{StaticResource UnfollowButtonStyle}">
-                        <Path Fill="{StaticResource NavItemForegroundColorBrush}"
-                              HorizontalAlignment="Center"
-                              StrokeThickness="0"
-                              Data="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M1,10V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z">
+                    <Button  Width="90"
+                             Height="30"
+                             Margin="0 0 10 0"
+                             Content="Unfollow"
+                             Command="{x:Bind ViewModel.UnfollowCommand}"
+                             Visibility="{x:Bind ViewModel.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                             Style="{StaticResource FollowButtonStyle}">
 
-                        </Path>
                     </Button>
-                    <ProgressRing Width="15"
-                              Height="15"
-                              Margin="0 10 0 0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Foreground="{StaticResource GitHubLightBlueColorBrush}"
-                              IsActive="{x:Bind ViewModel.FollowProgress,Mode=OneWay}"/>
+                    <ProgressRing 
+                                  Width="15"
+                                  Height="15"
+                                  Margin="0 10 0 0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  IsActive="{x:Bind ViewModel.FollowProgress,Mode=OneWay}"/>
 
                 </Grid>
-
-            </RelativePanel>
-
-            <RelativePanel Grid.Row="1">
-                <TextBlock x:Name="BioText"
-                        Margin="10 0 0 10"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.AlignTopWithPanel="True"
-                        FontSize="13"
-                        FontWeight="SemiLight"
-                        Foreground="#6E6E6E"
-                        TextWrapping="Wrap"
-                        Text="{x:Bind ViewModel.Developer.Bio,Mode=OneWay}"/>
-                <StackPanel x:Name="UserInfoPanel"
-                            Margin="10 0 0 0"
-                            RelativePanel.AlignLeftWithPanel="True"
-                            RelativePanel.Below="BioText"
-                            Orientation="Horizontal">
-
-                    <StackPanel x:Name="LocationPanel" 
-                                Orientation="Horizontal"
-                                Margin="0 0 10 5"
-                                RelativePanel.AlignTopWithPanel="True">
-                        <SymbolIcon Symbol="Map" 
-                                    Foreground="Gray"
-                                    Margin=" 0 0 10 0"/>
-                        <TextBlock Text="{x:Bind ViewModel.Developer.Location,TargetNullValue='  ',FallbackValue='  ',Mode=OneWay}"
-                              
-                               FontSize="13"/>
-                    </StackPanel>
-                    <StackPanel x:Name="EmailPanel" 
-                                Orientation="Horizontal" 
-                                Margin="0 0 10 5"
-                                RelativePanel.Below="LocationPanel">
-                        <SymbolIcon Symbol="Mail" 
-                                    Foreground="Gray"
-                                    Margin=" 0 0 10 0"/>
-                        <TextBlock Text="{x:Bind ViewModel.Developer.Email,TargetNullValue=' ',FallbackValue='  ',Mode=OneWay}"
-                                   FontSize="13"/>
-                    </StackPanel>
-
-                </StackPanel>
-            </RelativePanel>
-
-            <controls:DropShadowPanel  
-                        Grid.Row="2"
-                       BlurRadius="10"
-                        ShadowOpacity="0.61"
-                        OffsetX="0"
-                        OffsetY="0" 
-                        Margin="10 10 0 0"
-                        Color="{ThemeResource NavItemForegroundColor }">
-                <Button 
-                     Height="26"
-                     Style="{StaticResource FollowButtonStyle}"
-                     Command="{x:Bind ViewModel.NavigateToRepositories}"
-                     Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
+                <Button Height="30"
+                        Style="{StaticResource FollowButtonStyle}"
+                        Command="{x:Bind ViewModel.NavigateToRepositories}"
+                        Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Repositories"
-                               Margin="0 0 10 0"
-                               FontSize="12"
-                               Foreground="{StaticResource FollowButtonForegroundColorBrush}"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center"/>
+                                   Margin="0 0 10 0"
+                                   FontSize="12"
+                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind ViewModel.Developer.PublicRepos,Mode=OneWay,FallbackValue='0'}" 
-                               VerticalAlignment="Center"
-                               FontSize="14"
-                               Style="{StaticResource FollowerCountStyle}"/>
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   Style="{StaticResource FollowerCountStyle}"/>
                     </StackPanel>
                 </Button>
-            </controls:DropShadowPanel>
+            </StackPanel>
+            <TextBlock x:Name="BioText"
+                       Margin="5 10 5 5"
+                       TextTrimming="CharacterEllipsis"
+                       RelativePanel.Below="ButtonGrid"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       FontSize="12"
+                       MaxLines="2"
+                       FontWeight="SemiLight"
+                       Foreground="#6E6E6E"
+                       TextWrapping="Wrap"
+                       Text="{x:Bind ViewModel.Developer.Bio,Mode=OneWay}"/>
 
-            <Pivot Grid.Row="4"
-                   Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
-                <PivotItem>
-                    <PivotItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="followers" FontSize="18" Margin="0 0 10 0"/>
-                            <TextBlock Text="{x:Bind ViewModel.Developer.Followers,Mode=OneWay}" 
-                                           Style="{StaticResource FollowerCountStyle}"/>
-                        </StackPanel>
+        </RelativePanel>
+        <Pivot Grid.Row="1"
+               Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+            <PivotItem>
+                <PivotItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="followers" FontSize="18" Margin="0 0 10 0"/>
+                        <TextBlock Text="{x:Bind ViewModel.Developer.Followers,Mode=OneWay}" 
+                                               Style="{StaticResource FollowerCountStyle}"/>
+                    </StackPanel>
 
-                    </PivotItem.Header>
+                </PivotItem.Header>
 
-                    <Grid>
-                        <ListView
-                                ScrollViewer.HorizontalScrollMode="Disabled"
-                                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                ScrollViewer.VerticalScrollMode="Enabled"
-                                IsItemClickEnabled="True"   
-                                ItemsSource="{x:Bind ViewModel.Followers,Mode=OneWay}"
-                                ItemClick="{x:Bind ViewModel.ProfileTapped}">
-
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="octo:User">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Grid>
-                                            <Border 
-                                                    Width="23"
-                                                    Height="23"
-                                                    Margin="0 0 10 0"
-                                                    CornerRadius="8,8,8,8">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="/Assets/Images/placeholder.jpg"/>
-                                                </Border.Background>
-                                            </Border>
-                                            <Border
-                                                    Width="23"
-                                                    Height="23"
-                                                    Margin="0 0 10 0"
-                                                    CornerRadius="8,8,8,8">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{x:Bind AvatarUrl,Mode=OneWay}"/>
-                                                </Border.Background>
-                                            </Border>
-                                        </Grid>
-
-                                        <TextBlock VerticalAlignment="Center"
-                                                   FontSize="13"
-                                                   Text="{x:Bind Login,Mode=OneWay}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        <ProgressRing 
-                                Width="20"
-                                Height="20"
-                                HorizontalAlignment="Center"
-                                IsActive="{x:Bind ViewModel.FollowersLoading,Mode=OneWay}"/>
-                    </Grid>
-
-                </PivotItem>
-                <PivotItem>
-                    <PivotItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="following" FontSize="18" Margin="0 0 10 0"/>
-                            <TextBlock Text="{x:Bind ViewModel.Developer.Following,Mode=OneWay}" 
-                                       Style="{StaticResource FollowerCountStyle}"/>
-                        </StackPanel>
-                    </PivotItem.Header>
-                    <Grid>
-                        <ListView
+                <Grid>
+                    <ListView
                                     ScrollViewer.HorizontalScrollMode="Disabled"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                                     ScrollViewer.VerticalScrollMode="Enabled"
-                                    IsItemClickEnabled="True"
-                                    ItemsSource="{x:Bind ViewModel.Following,Mode=OneWay}"
+                                    IsItemClickEnabled="True"   
+                                    ItemsSource="{x:Bind ViewModel.Followers,Mode=OneWay}"
                                     ItemClick="{x:Bind ViewModel.ProfileTapped}">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="octo:User">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Grid>
-                                            <Border 
-                                                    Width="23"
-                                                    Height="23"
-                                                    Margin="0 0 10 0"
-                                                    CornerRadius="8,8,8,8">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="/Assets/Images/placeholder.jpg"/>
-                                                </Border.Background>
-                                            </Border>
-                                            <Border
-                                                    Width="23"
-                                                    Height="23"
-                                                    Margin="0 0 10 0"
-                                                    CornerRadius="8,8,8,8">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{x:Bind AvatarUrl,Mode=OneWay}"/>
-                                                </Border.Background>
-                                            </Border>
-                                        </Grid>
 
-                                        <TextBlock VerticalAlignment="Center"
-                                                   FontSize="13"
-                                                   Text="{x:Bind Login}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        <ProgressRing 
-                                Width="20"
-                                Height="20"
-                                HorizontalAlignment="Center"
-                                IsActive="{x:Bind ViewModel.FollowingLoading,Mode=OneWay}"/>
-                    </Grid>
-                </PivotItem>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:User">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Border 
+                                                        Width="23"
+                                                        Height="23"
+                                                        Margin="0 0 10 0"
+                                                        CornerRadius="8,8,8,8">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/Assets/Images/placeholder.jpg"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <Border
+                                                        Width="23"
+                                                        Height="23"
+                                                        Margin="0 0 10 0"
+                                                        CornerRadius="8,8,8,8">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{x:Bind AvatarUrl,Mode=OneWay}"/>
+                                            </Border.Background>
+                                        </Border>
+                                    </Grid>
 
-            </Pivot>
+                                    <TextBlock VerticalAlignment="Center"
+                                                       FontSize="13"
+                                                       Text="{x:Bind Login,Mode=OneWay}"/>
+                                </StackPanel>
+                            </DataTemplate>
 
-        </Grid>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ProgressRing 
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Center"
+                                    IsActive="{x:Bind ViewModel.FollowersLoading,Mode=OneWay}"/>
+                </Grid>
+
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="following" FontSize="18" Margin="0 0 10 0"/>
+                        <TextBlock Text="{x:Bind ViewModel.Developer.Following,Mode=OneWay}" 
+                                           Style="{StaticResource FollowerCountStyle}"/>
+                    </StackPanel>
+                </PivotItem.Header>
+                <Grid>
+                    <ListView
+                                        ScrollViewer.HorizontalScrollMode="Disabled"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        ScrollViewer.VerticalScrollMode="Enabled"
+                                        IsItemClickEnabled="True"
+                                        ItemsSource="{x:Bind ViewModel.Following,Mode=OneWay}"
+                                        ItemClick="{x:Bind ViewModel.ProfileTapped}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:User">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Border 
+                                                        Width="23"
+                                                        Height="23"
+                                                        Margin="0 0 10 0"
+                                                        CornerRadius="8,8,8,8">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/Assets/Images/placeholder.jpg"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <Border
+                                                        Width="23"
+                                                        Height="23"
+                                                        Margin="0 0 10 0"
+                                                        CornerRadius="8,8,8,8">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{x:Bind AvatarUrl,Mode=OneWay}"/>
+                                            </Border.Background>
+                                        </Border>
+                                    </Grid>
+
+                                    <TextBlock VerticalAlignment="Center"
+                                                       FontSize="13"
+                                                       Text="{x:Bind Login}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ProgressRing 
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Center"
+                                    IsActive="{x:Bind ViewModel.FollowingLoading,Mode=OneWay}"/>
+                </Grid>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

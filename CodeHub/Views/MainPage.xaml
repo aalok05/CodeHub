@@ -31,9 +31,9 @@
                 </Grid.ColumnDefinitions>
                
                 <Rectangle Width="6"
-                           Height="37"
+                           Height="42"
                            Margin="-11,0,0,0"
-                           Fill="{ThemeResource AppForegroundColorBrush}"
+                           Fill="{ThemeResource AppPrimaryColorBrush}"
                            Visibility="{x:Bind SelectedVisual, Mode=TwoWay}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
@@ -41,7 +41,7 @@
                 <Viewbox Grid.Column="0"
                          MaxHeight="20" 
                          MaxWidth="20">
-                    <Path Fill="{StaticResource NavItemForegroundColorBrush}"
+                    <Path Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                           StrokeThickness="0"
                           Data="{x:Bind Symbol}"/>
                 </Viewbox>
@@ -52,10 +52,10 @@
                            VerticalAlignment="Center">
                     <i:Interaction.Behaviors>
                         <core:DataTriggerBehavior Binding="{x:Bind IsSelected,Mode=TwoWay}" Value="True">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppForegroundColorBrush}"/>
+                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}"/>
                         </core:DataTriggerBehavior>
                          <core:DataTriggerBehavior Binding="{x:Bind IsSelected,Mode=TwoWay}" Value="False">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource NavItemForegroundColorBrush}"/>
+                            <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
                         </core:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </TextBlock>
@@ -116,12 +116,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <controls:DropShadowPanel BlurRadius="10"
-                                  ShadowOpacity="0.87"
-                                  OffsetX="0"
-                                  Color="{ThemeResource NavItemForegroundColor }"
-                                  OffsetY="4">
-                <RelativePanel Background="#689F38">
+            <RelativePanel Background="{ThemeResource SystemChromeLowColor}">
 
                     <Button Name="HamButton"
                     Click="HamButton_Click"
@@ -131,8 +126,9 @@
                         RelativePanel.RightOf="HamButton"
                         RelativePanel.AlignVerticalCenterWith="HamButton"
                         FontSize="15"
+                        FontWeight="SemiBold"
                         FontFamily="Segoe UI"
-                        Foreground="Black"
+                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                         Margin="5 0 0 0" 
                         Text="{x:Bind ViewModel.HeaderText,Mode=OneWay}"/>
 
@@ -144,16 +140,16 @@
                      MaxHeight="23"
                      MaxWidth="23">
                         <SymbolIcon Symbol="Find"
-                            Foreground="Black">
+                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                             <i:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="PointerPressed">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="PointerEntered">
                                     <core:ChangePropertyAction PropertyName="Foreground" Value="#454545"/>
                                 </core:EventTriggerBehavior>
+                                <core:EventTriggerBehavior EventName="PointerEntered">
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
+                                </core:EventTriggerBehavior>
                                 <core:EventTriggerBehavior EventName="PointerExited">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Black"/>
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
                                 </core:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </SymbolIcon>
@@ -192,7 +188,7 @@
 
                     </Popup>
                 </RelativePanel>
-            </controls:DropShadowPanel>
+
             <SplitView x:Name="HamSplitView" 
                x:FieldModifier="Public" 
                Grid.Row="1"
@@ -202,7 +198,7 @@
                 <SplitView.Pane>
 
                     <Grid BorderThickness="0 0 1 0"
-                        BorderBrush="{StaticResource AppHeaderColorBrush}">
+                        BorderBrush="{ThemeResource SystemChromeLowColor}">
                         <control:BackDrop TintColor="#00FFFFFF" BlurAmount="30"/>
                         <RelativePanel Name="HamRelative" Padding="0 10 0 0">
 
@@ -246,7 +242,7 @@
                                                    FontSize="12"
                                                    Margin="0 0 0 4"
                                                    Text="{x:Bind ViewModel.User.Name,Mode=OneWay}"/>
-                                        <TextBlock Foreground="Gray"
+                                        <TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                    FontSize="11.5"
                                                    FontWeight="SemiLight"
                                                    Margin="0 0 0 10"
@@ -316,11 +312,11 @@
                                             <TextBlock x:Name="EmailText"
                                                FontSize="10"
                                                TextAlignment="Left"
-                                               Foreground="{StaticResource NavItemForegroundColorBrush}"
+                                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                Text="{x:Bind ViewModel.Email,Mode=OneWay,FallbackValue=' ',TargetNullValue=' '}"/>
                                             <TextBlock x:Name="SignoutText"
                                                Text="Sign out"
-                                               Foreground="{StaticResource NavItemForegroundColorBrush}"
+                                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                RelativePanel.Below="EmailText"
                                                RelativePanel.AlignLeftWith="EmailText"/>
                                         </RelativePanel>
@@ -330,11 +326,11 @@
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left">
-                                        <SymbolIcon Symbol="Setting" Foreground="{StaticResource NavItemForegroundColorBrush}"/>
+                                        <SymbolIcon Symbol="Setting" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
                                         <TextBlock Text="Settings"
                                                    Margin="15 0 0 0"
                                                    VerticalAlignment="Center"
-                                                   Foreground="{StaticResource NavItemForegroundColorBrush}"/>
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>

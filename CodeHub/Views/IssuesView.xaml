@@ -22,10 +22,12 @@
                      IsIndeterminate="False" 
                      Visibility="{x:Bind ViewModel.isLoading,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                      Value="{x:Bind ViewModel.ProgressBarValue,Mode=OneWay}"/>
+        <Grid Background="{ThemeResource SystemChromeLowColor}" 
+              Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="open" FontSize="18"/>
+                    <TextBlock Text="open" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <ListView
@@ -59,7 +61,7 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="closed" FontSize="18"/>
+                    <TextBlock Text="closed" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <ListView
@@ -93,7 +95,7 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <TextBlock Text="mine" FontSize="18"/>
+                    <TextBlock Text="mine" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <ListView

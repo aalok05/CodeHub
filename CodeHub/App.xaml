@@ -5,30 +5,10 @@
     xmlns:local="using:CodeHub">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <ResourceDictionary.ThemeDictionaries>
-                        <ResourceDictionary x:Key="Light">
-                            <Color x:Key="AppHeaderColor">#EBEBEB</Color>
-                            <Color x:Key="NavItemForegroundColor">Black</Color>
-                            <Color x:Key="FollowButtonForegroundColor">Black</Color>
-                            <Color x:Key="FollowButtonBackgroundColor">White</Color>
-
-                        </ResourceDictionary>
-                        <ResourceDictionary x:Key="Dark">
-                            <Color x:Key="AppHeaderColor">#202123</Color>
-                            <Color x:Key="NavItemForegroundColor">White</Color>
-                            <Color x:Key="FollowButtonForegroundColor">White</Color>
-                            <Color x:Key="FollowButtonBackgroundColor">Black</Color>
-
-                        </ResourceDictionary>
-                    </ResourceDictionary.ThemeDictionaries>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="SplitViewTogglePaneButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Padding" Value="0" />
@@ -70,17 +50,6 @@
                 <Setter Property="Foreground" Value="{StaticResource GitHubLightBlueColorBrush}"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
             </Style>
-
-
-            <LinearGradientBrush x:Key="UnfollowButtonBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="#7FD358" Offset="0"/>
-                <GradientStop Color="{StaticResource AppForegroundColor}" Offset="1"/>
-            </LinearGradientBrush>
-
-            <LinearGradientBrush x:Key="UnfollowButtonBackgroundGradientPointerOver" StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="{StaticResource AppForegroundColor}" Offset="0"/>
-                <GradientStop Color="#7FD358" Offset="1"/>
-            </LinearGradientBrush>
 
             <!-- Modifying Default style for Button -->
             <Style x:Key="SignInButtonStyle" TargetType="Button">
@@ -177,99 +146,17 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="UnfollowButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource AppForegroundColorBrush}" />
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="BorderBrush" Value="White" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Padding" Value="8,4,8,4" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Normal" />
-                <Setter Property="FontSize" Value="13.5" />
-                <Setter Property="UseSystemFocusVisuals" Value="True" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal">
-                                            <Storyboard>
-                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="PointerOver">
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                   Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Black" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                   Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Pressed">
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
-                                                   Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                   Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Black" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                   Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppForegroundColorBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Disabled">
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
-                                                   Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                   Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <ContentPresenter x:Name="ContentPresenter"
-                                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                                  Content="{TemplateBinding Content}"
-                                                  ContentTransitions="{TemplateBinding ContentTransitions}"
-                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                  Padding="{TemplateBinding Padding}"
-                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  AutomationProperties.AccessibilityView="Raw"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <Style x:Key="FollowButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="White" />
-                <Setter Property="Foreground" Value="#333350"/>
-                <Setter Property="BorderBrush" Value="White" />
-                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AppPrimaryColorBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="8,4,8,4" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Normal" />
-                <Setter Property="FontSize" Value="13.5" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="12" />
                 <Setter Property="UseSystemFocusVisuals" Value="True" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -282,11 +169,11 @@
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -294,12 +181,12 @@
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Black" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppPrimaryColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -311,12 +198,12 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource FollowButtonForegroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Black" />
                                                 </ObjectAnimationUsingKeyFrames>
-                                                <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0"  Value="{StaticResource FollowButtonBackgroundColorBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppPrimaryColorBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
@@ -335,8 +222,6 @@
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter x:Name="ContentPresenter"
-                                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                                  BorderThickness="{TemplateBinding BorderThickness}"
                                                   Content="{TemplateBinding Content}"
                                                   ContentTransitions="{TemplateBinding ContentTransitions}"
                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -344,6 +229,10 @@
                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   AutomationProperties.AccessibilityView="Raw"/>
+                                <Border CornerRadius="2 2 2 2" 
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"/>
+
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -435,7 +324,7 @@
                 <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
                 <Setter Property="Background" Value="#A0A2A3" />
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
-                <Setter Property="SelectionHighlightColor" Value="{ThemeResource AppForegroundColorBrush}" />
+                <Setter Property="SelectionHighlightColor" Value="{ThemeResource AppPrimaryColorBrush}" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
                 <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
@@ -466,7 +355,7 @@
                                                                         </ObjectAnimationUsingKeyFrames>
                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GlyphElement"
                                                            Storyboard.TargetProperty="Foreground">
-                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppForegroundColorBrush}" />
+                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPrimaryColorBrush}" />
                                                                         </ObjectAnimationUsingKeyFrames>
                                                                     </Storyboard>
                                                                 </VisualState>
@@ -474,7 +363,7 @@
                                                                     <Storyboard>
                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
                                                            Storyboard.TargetProperty="Background">
-                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppForegroundColorBrush}" />
+                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPrimaryColorBrush}" />
                                                                         </ObjectAnimationUsingKeyFrames>
                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GlyphElement"
                                                            Storyboard.TargetProperty="Foreground">
@@ -527,7 +416,7 @@
                                                                         </ObjectAnimationUsingKeyFrames>
                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                                                                        Storyboard.TargetProperty="Foreground">
-                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppForegroundColorBrush}" />
+                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPrimaryColorBrush}" />
                                                                         </ObjectAnimationUsingKeyFrames>
                                                                     </Storyboard>
                                                                 </VisualState>
@@ -535,7 +424,7 @@
                                                                     <Storyboard>
                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
                                                                                                        Storyboard.TargetProperty="Background">
-                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppForegroundColorBrush}" />
+                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPrimaryColorBrush}" />
                                                                         </ObjectAnimationUsingKeyFrames>
                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                                                                         Storyboard.TargetProperty="Foreground">
@@ -755,7 +644,7 @@
 
             <!--Empty button style used in no animation ListViewItem style-->
             <Style x:Key="EmptyButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource AppHeaderColorBrush}" />
+                <Setter Property="Background" Value="{ThemeResource SystemChromeLowColor}" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -777,7 +666,7 @@
             <!-- Modifying Default Style for ListViewItem -->
             <Style TargetType="ListViewItem" x:Key="RepoListViewItemStyle">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="Background" Value="{StaticResource AppHeaderColorBrush}"/>
+                <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Margin" Value="0 0 0 2"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -797,17 +686,10 @@
             <x:Double x:Key="NormalMinWidth">580</x:Double>
             <x:Double x:Key="WideMinWidth">1200</x:Double>
 
-            <x:Double x:Key="TextControlThemeMinHeight">38</x:Double>
-
-            <SolidColorBrush x:Key="AppHeaderColorBrush" Color="{ThemeResource AppHeaderColor}"/>
-            <SolidColorBrush x:Key="AppForegroundColorBrush" Color="{StaticResource AppForegroundColor}"/>
+            <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
             <SolidColorBrush x:Key="GitHubLightBlueColorBrush" Color="{StaticResource GitHubLightBlueColor}"/>
-            <SolidColorBrush x:Key="NavItemForegroundColorBrush" Color="{ThemeResource NavItemForegroundColor}"/>
-            <SolidColorBrush x:Key="FollowButtonForegroundColorBrush" Color="{ThemeResource FollowButtonForegroundColor}"/>
-            <SolidColorBrush x:Key="FollowButtonBackgroundColorBrush" Color="{ThemeResource FollowButtonBackgroundColor}"/>
 
-
-            <Color x:Key="AppForegroundColor">#60B53B</Color>
+            <Color x:Key="AppPrimaryColor">#60B53B</Color>
             <Color x:Key="GitHubLightBlueColor">#4078C0</Color>
 
         </ResourceDictionary>
