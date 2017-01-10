@@ -370,7 +370,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             
-            <control:BackDrop TintColor="#00FFFFFF" BlurAmount="15"
+            <control:BackDrop TintColor="#00FFFFFF" BlurAmount="30"
                               VerticalAlignment="Stretch"
                               Grid.RowSpan="5"/>
             
@@ -398,7 +398,7 @@
                    FontSize="19"
                    Margin="0 0 0 20"
                    Foreground="White"
-                   FontWeight="SemiLight"
+                   FontWeight="SemiBold"
                    Text="Welcome to CodeHub">
 
             </TextBlock>
@@ -411,6 +411,8 @@
 
             <Button Grid.Row="3"
                     HorizontalAlignment="Center"
+                    FontSize="12"
+                    FontWeight="SemiBold"
                     Width="100"
                     Content="Sign In"
                     Command="{x:Bind ViewModel.SignInCommand}"
