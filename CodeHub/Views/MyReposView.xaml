@@ -15,7 +15,7 @@
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
-
+        
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -60,7 +60,7 @@
                     <TextBlock 
                        Style="{StaticResource ZeroItemsTextBoxStyle}"
                        Text="You have no Repositories yet"
-                       Visibility="{x:Bind ViewModel.ZeroRepoCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                       Visibility="{x:Bind ViewModel.ZeroRepo,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                 </Grid>
 
@@ -104,7 +104,7 @@
                     <TextBlock 
                        Style="{StaticResource ZeroItemsTextBoxStyle}"
                        Text="You have no starred Repositories yet"
-                       Visibility="{x:Bind ViewModel.ZeroStarRepoCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                       Visibility="{x:Bind ViewModel.ZeroStarRepo,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
 
                     </TextBlock>
                 </Grid>
