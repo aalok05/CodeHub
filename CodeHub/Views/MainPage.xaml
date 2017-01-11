@@ -381,16 +381,14 @@
                Grid.Row="0">
                 
                 <interactivity:Interaction.Behaviors>
-                    <behaviors:Scale x:Name="ScaleLogo"
-                                     ScaleX="1.2"
-                                     ScaleY="1.2"
-                                     CenterX="0"
-                                     CenterY="0"
-                                     Duration="734.56"
-                                     Delay="128"
-                                     AutomaticallyStart="True"/>
-                    
+                    <behaviors:Offset
+                                      OffsetX="0"
+                                      OffsetY="-35"
+                                      Duration="1000"
+                                      Delay="500"
+                                      AutomaticallyStart="True"/>
                 </interactivity:Interaction.Behaviors>
+
 
             </Image>
             <TextBlock Grid.Row="1"
@@ -400,14 +398,30 @@
                    Foreground="White"
                    FontWeight="SemiBold"
                    Text="Welcome to CodeHub">
-
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:Offset 
+                                      OffsetX="0"
+                                      OffsetY="-30"
+                                      Duration="1000"
+                                      Delay="550"
+                                      AutomaticallyStart="True"/>
+                </interactivity:Interaction.Behaviors>
             </TextBlock>
             <TextBlock Grid.Row="2"
                    TextAlignment="Center"
                    Foreground="White"
                    FontSize="14"
                    Margin="0 0 0 20"
-                   Text="Sign in to your GitHub account to continue"/>
+                   Text="Sign in to your GitHub account to continue">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:Offset 
+                                      OffsetX="0"
+                                      OffsetY="-25"
+                                      Duration="1000"
+                                      Delay="560"
+                                      AutomaticallyStart="True"/>
+                </interactivity:Interaction.Behaviors>
+            </TextBlock>
 
             <Button Grid.Row="3"
                     HorizontalAlignment="Center"
@@ -417,16 +431,14 @@
                     Content="Sign In"
                     Command="{x:Bind ViewModel.SignInCommand}"
                     Style="{StaticResource SignInButtonStyle}">
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:Scale x:Name="ScaleButton"
-                                     ScaleX="1.2"
-                                     ScaleY="1.2"
-                                     CenterX="0"
-                                     CenterY="0"
-                                     Duration="734.56"
-                                     Delay="128"
-                                     AutomaticallyStart="True"/>
 
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:Offset 
+                                      OffsetX="0"
+                                      OffsetY="-20"
+                                      Duration="1000"
+                                      Delay="570"
+                                      AutomaticallyStart="True"/>
                 </interactivity:Interaction.Behaviors>
             </Button>
 
