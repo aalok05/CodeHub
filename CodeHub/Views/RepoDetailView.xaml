@@ -184,11 +184,10 @@
                             Orientation="Horizontal">
                             <Viewbox MaxHeight="12"
                                      MaxWidth="12">
-                                <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppPrimaryColorBrush}" />
+                                <SymbolIcon Symbol="Favorite" />
                             </Viewbox>
                             <TextBlock 
                                Text="Star"
-                               Foreground="{StaticResource AppPrimaryColorBrush}"
                                FontSize="12"
                                Padding="10 0 10 0"
                                VerticalAlignment="Center"/>
@@ -206,10 +205,9 @@
                                     Orientation="Horizontal">
                             <Viewbox MaxHeight="12"
                                      MaxWidth="12">
-                                <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                                <SymbolIcon Symbol="Favorite"/>
                             </Viewbox>
                             <TextBlock Text="Unstar"
-                                       Foreground="{StaticResource AppPrimaryColorBrush}"
                                        FontSize="12"
                                        Padding="10 0 10 0"
                                        VerticalAlignment="Center"/>
@@ -237,7 +235,6 @@
                         </Viewbox>
                         <TextBlock x:Name="ViewCodeTextBlock" 
                                xml:space="preserve"
-                               Foreground="{StaticResource AppPrimaryColorBrush}"
                                Text="  Code" 
                                Height="30"
                                FontSize="12"
