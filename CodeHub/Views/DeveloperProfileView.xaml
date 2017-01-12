@@ -24,16 +24,23 @@
             <RowDefinition Height="280"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image Stretch="Fill"
-               Source="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}">
-            <i:Interaction.Behaviors>
-                <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
-            </i:Interaction.Behaviors>
-        </Image>
-
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image  Grid.Row="0"
+                    Stretch="Fill"
+                    Source="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}">
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                </i:Interaction.Behaviors>
+            </Image>
+            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+        </Grid>
         <RelativePanel Grid.Row="0"
                        Margin="10"
-                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                       Background="Transparent">
 
             <Ellipse x:Name="UserPic"
                              Width="100"

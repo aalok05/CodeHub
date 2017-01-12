@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:CodeHub.Converters"
+    xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
@@ -14,6 +15,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
+        <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -21,16 +23,24 @@
             <RowDefinition Height="280"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image Stretch="Fill"
-               Source="{x:Bind ViewModel.User.AvatarUrl,Mode=OneWay}">
-            <i:Interaction.Behaviors>
-                <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
-            </i:Interaction.Behaviors>
-        </Image>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image  Grid.Row="0"
+                    Stretch="Fill"
+                    Source="{x:Bind ViewModel.User.AvatarUrl,Mode=OneWay}">
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                </i:Interaction.Behaviors>
+            </Image>
+            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+        </Grid>
 
         <RelativePanel Grid.Row="0"
                        Margin="10"
-                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                       Background="Transparent">
 
             <Ellipse x:Name="UserPic"
                              Width="100"
@@ -58,15 +68,17 @@
                                Grid.Row="2"
                                Text="{x:Bind ViewModel.User.Login,Mode=OneWay}"/>
             <StackPanel x:Name="UserInfoPanel"
-                                Margin="5"
+                                Margin="0 0 10 0"
                                 Orientation="Horizontal"
                                 RelativePanel.Below="LoginText"
                                 RelativePanel.AlignHorizontalCenterWithPanel="True">
-                <TextBlock Text="{x:Bind ViewModel.User.Location,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                <TextBlock Text="{x:Bind ViewModel.User.Location,Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.User.Location,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                            FontSize="12"
                            FontWeight="SemiLight"
                            Margin="0 0 10 0"/>
-                <TextBlock Text="{x:Bind ViewModel.User.Email,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                <TextBlock Text="{x:Bind ViewModel.User.Email,Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.User.Email,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                            FontWeight="SemiLight"
                            IsTextSelectionEnabled="True"
                            FontSize="12"/>
