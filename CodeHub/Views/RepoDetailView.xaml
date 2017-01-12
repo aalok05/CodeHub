@@ -205,7 +205,7 @@
                                     Orientation="Horizontal">
                             <Viewbox MaxHeight="12"
                                      MaxWidth="12">
-                                <SymbolIcon Symbol="Favorite"/>
+                                <SymbolIcon Symbol="Favorite" Foreground="{StaticResource AppPrimaryColorBrush}"/>
                             </Viewbox>
                             <TextBlock Text="Unstar"
                                        FontSize="12"

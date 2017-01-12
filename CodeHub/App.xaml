@@ -181,13 +181,13 @@
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                                </ObjectAnimationUsingKeyFrames> 
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="Pressed">
@@ -198,12 +198,12 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                    Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder"
                                                    Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
