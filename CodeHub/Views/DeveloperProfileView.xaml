@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:CodeHub.Converters"
+    xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:octo="using:Octokit"
@@ -16,6 +17,7 @@
     <Page.Resources>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
+        <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -59,15 +61,17 @@
                                Grid.Row="2"
                                Text="{x:Bind ViewModel.Developer.Login,Mode=OneWay}"/>
             <StackPanel x:Name="UserInfoPanel"
-                                Margin="0 5 0 7"
-                                Orientation="Horizontal"
-                                RelativePanel.Below="LoginText"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True">
-                <TextBlock Text="{x:Bind ViewModel.Developer.Location,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                        Margin="0 10 0 10"
+                        Orientation="Horizontal"
+                        RelativePanel.Below="LoginText"
+                        RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <TextBlock Text="{x:Bind ViewModel.Developer.Location,Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Developer.Location,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                            FontSize="12"
                            FontWeight="SemiLight"
                            Margin="0 0 10 0"/>
-                <TextBlock Text="{x:Bind ViewModel.Developer.Email,TargetNullValue=' ',FallbackValue=' ',Mode=OneWay}"
+                <TextBlock Text="{x:Bind ViewModel.Developer.Email,Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Developer.Email,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                            FontWeight="SemiLight"
                            IsTextSelectionEnabled="True"
                            FontSize="12"/>
