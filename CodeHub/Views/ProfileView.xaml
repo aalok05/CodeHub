@@ -49,23 +49,23 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="UserPic.Width" Value="200"/>
-                        <Setter Target="UserPic.Height" Value="200"/>
+                        <Setter Target="UserPic.Width" Value="190"/>
+                        <Setter Target="UserPic.Height" Value="190"/>
                         <Setter Target="UserNameText.FontSize" Value="30"/>
-                        <Setter Target="LoginText.FontSize" Value="19"/>
+                        <Setter Target="LoginText.FontSize" Value="18"/>
 
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.9*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.4*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.1*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Image  Grid.Row="0"
                     Stretch="Fill"

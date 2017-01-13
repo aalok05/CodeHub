@@ -38,6 +38,8 @@
                     <VisualState.Setters>
                         <Setter Target="UserPic.Width" Value="150"/>
                         <Setter Target="UserPic.Height" Value="150"/>
+                        <Setter Target="UserPicPlaceholder.Width" Value="150"/>
+                        <Setter Target="UserPicPlaceholder.Height" Value="150"/>
                         <Setter Target="UserNameText.FontSize" Value="25"/>
                         <Setter Target="LoginText.FontSize" Value="16"/>
           
@@ -50,10 +52,12 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="UserPic.Width" Value="200"/>
-                        <Setter Target="UserPic.Height" Value="200"/>
+                        <Setter Target="UserPic.Width" Value="190"/>
+                        <Setter Target="UserPic.Height" Value="190"/>
+                        <Setter Target="UserPicPlaceholder.Width" Value="190"/>
+                        <Setter Target="UserPicPlaceholder.Height" Value="190"/>
                         <Setter Target="UserNameText.FontSize" Value="30"/>
-                        <Setter Target="LoginText.FontSize" Value="19"/>
+                        <Setter Target="LoginText.FontSize" Value="18"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -61,14 +65,22 @@
         </VisualStateManager.VisualStateGroups>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.9*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.4*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.1*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            
+            <Image  Grid.Row="0"
+                    Stretch="Fill"
+                    Source="ms-appx:///Assets/profile-placeholder.png">
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                </i:Interaction.Behaviors>
+            </Image>
             <Image  Grid.Row="0"
                     Stretch="Fill"
                     Source="{x:Bind ViewModel.Developer.AvatarUrl,Mode=OneWay}">
@@ -82,6 +94,16 @@
                        Margin="10"
                        Background="Transparent">
 
+            <Ellipse x:Name="UserPicPlaceholder"
+                             Width="125"
+                             Height="125"
+                             Margin="0 10 0 0"
+                             RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/profile-placeholder.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            
             <Ellipse x:Name="UserPic"
                              Width="125"
                              Height="125"
