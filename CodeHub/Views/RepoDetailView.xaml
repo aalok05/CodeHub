@@ -5,6 +5,7 @@
     xmlns:local="using:CodeHub.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:converters="using:CodeHub.Converters"
+    xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:octo="using:Octokit"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
@@ -22,6 +23,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
         <converters:DateFormatConverter x:Key="DateFormatConverter" x:Name="DateFormatConverter"/>
+        <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter"/>
     </Page.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   HorizontalScrollMode="Disabled"
@@ -193,12 +195,12 @@
                     </Button>
 
                     <Button Width="90"
-                                Margin="0 10 10 5"
-                                Height="30"
-                                Padding="5 0 0 0"
-                                Visibility="{x:Bind ViewModel.IsStar,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                Command="{x:Bind ViewModel.UnstarRepo}"
-                                Style="{StaticResource FollowButtonStyle}">
+                            Margin="0 10 10 5"
+                            Height="30"
+                            Padding="5 0 0 0"
+                            Visibility="{x:Bind ViewModel.IsStar,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                            Command="{x:Bind ViewModel.UnstarRepo}"
+                            Style="{StaticResource FollowButtonStyle}">
                         <StackPanel 
                                     Orientation="Horizontal">
                             <Viewbox MaxHeight="12"
@@ -255,6 +257,7 @@
             </StackPanel>
 
             <TextBlock Text="{x:Bind ViewModel.Repository.Language,Mode=OneWay}"
+                       Visibility="{x:Bind ViewModel.Repository.Language,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                        FontSize="18"
                        Grid.Row="2"
                        Padding="20 20 0 20"
@@ -263,7 +266,7 @@
 
             <TextBlock 
                     Grid.Row="3"
-                    Margin="20 0 0 20"
+                    Margin="20 20 0 20"
                     FontSize="13"
                     MaxWidth="230"
                     HorizontalAlignment="Left"

@@ -25,6 +25,9 @@ namespace CodeHub.ViewModels
         }
 
         public bool _zeroTodayCount;
+        /// <summary>
+        /// 'Trending Repositories are being updated by Github' textblock will be displayed if this is true
+        /// </summary>
         public bool ZeroTodayCount
         {
             get
@@ -36,7 +39,11 @@ namespace CodeHub.ViewModels
                 Set(() => ZeroTodayCount, ref _zeroTodayCount, value);
             }
         }
+
         public bool _zeroWeeklyCount;
+        /// <summary>
+        /// 'Trending Repositories are being updated by Github' textblock will be displayed if this is true
+        /// </summary>
         public bool ZeroWeeklyCount
         {
             get
@@ -49,6 +56,9 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _zeroMonthlyCount;
+        /// <summary>
+        /// 'Trending Repositories are being updated by Github' textblock will be displayed if this is true
+        /// </summary>
         public bool ZeroMonthlyCount
         {
             get

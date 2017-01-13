@@ -15,29 +15,36 @@ namespace CodeHub.ViewModels
 {
     public class MyReposViewmodel : AppViewmodel
     {
-        public bool _zeroRepoCount;
-        public bool ZeroRepoCount
+        
+        public bool _zeroRepo;
+        /// <summary>
+        /// 'No Repositories' TextBlock will display if this is true
+        /// </summary>
+        public bool ZeroRepo
         {
             get
             {
-                return _zeroRepoCount;
+                return _zeroRepo;
             }
             set
             {
-                Set(() => ZeroRepoCount, ref _zeroRepoCount, value);
+                Set(() => ZeroRepo, ref _zeroRepo, value);
             }
         }
 
-        public bool _zeroStarRepoCount;
-        public bool ZeroStarRepoCount
+        public bool _zeroStarRepo;
+        /// <summary>
+        /// 'No Repositories' TextBlock will display if this is true
+        /// </summary>
+        public bool ZeroStarRepo
         {
             get
             {
-                return _zeroStarRepoCount;
+                return _zeroStarRepo;
             }
             set
             {
-                Set(() => ZeroStarRepoCount, ref _zeroStarRepoCount, value);
+                Set(() => ZeroStarRepo, ref _zeroStarRepo, value);
             }
         }
 
@@ -173,7 +180,7 @@ namespace CodeHub.ViewModels
             var repos = await UserDataService.getUserRepositories();
             if (repos.Count == 0 || repos == null)
             {
-                ZeroRepoCount = true;
+                ZeroRepo = true;
                 if(Repositories!=null)
                 {
                     Repositories.Clear();
@@ -181,7 +188,7 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                ZeroRepoCount = false;
+                ZeroRepo = false;
                 Repositories = repos;
             }
         }
@@ -190,7 +197,7 @@ namespace CodeHub.ViewModels
             var starred = await UserDataService.getStarredRepositories();
             if (starred.Count == 0 || starred == null)
             {
-                ZeroStarRepoCount = true;
+                ZeroStarRepo = true;
                 if(StarredRepositories!=null)
                 {
                     StarredRepositories.Clear();
@@ -198,7 +205,7 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                ZeroStarRepoCount = false;
+                ZeroStarRepo = false;
                 StarredRepositories = starred;
             }
         }
