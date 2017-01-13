@@ -32,6 +32,9 @@ namespace CodeHub.ViewModels
         }
 
         public bool _zeroOpenIssues;
+        /// <summary>
+        /// 'No Issues' TextBlock will display if this is true
+        /// </summary>
         public bool ZeroOpenIssues
         {
             get
@@ -45,6 +48,9 @@ namespace CodeHub.ViewModels
         }
 
         public bool _zeroClosedIssues;
+        /// <summary>
+        /// 'No Issues' TextBlock will display if this is true
+        /// </summary>
         public bool ZeroClosedIssues
         {
             get
@@ -58,6 +64,9 @@ namespace CodeHub.ViewModels
         }
 
         public bool _zeroMyIssues;
+        /// <summary>
+        /// 'No Issues' TextBlock will display if this is true
+        /// </summary>
         public bool ZeroMyIssues
         {
             get

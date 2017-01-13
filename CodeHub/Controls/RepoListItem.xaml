@@ -10,51 +10,52 @@
     d:DesignWidth="400">
 
     <RelativePanel Margin="7 0 0 0">
-        <Border 
-             Margin="0 10 10 5"
-             Width="35" 
-             Height="35"
-             RelativePanel.AlignTopWithPanel="True"
-             RelativePanel.AlignLeftWithPanel="True"
-             CornerRadius="8,8,8,8">
-            <Border.Background>
+        <Ellipse 
+                 Width="60"
+                 Height="60"
+                 Margin="0 10 10 5"
+                 RelativePanel.AlignTopWithPanel="True"
+                 RelativePanel.AlignLeftWithPanel="True">
+            <Ellipse.Fill>
                 <ImageBrush ImageSource="/Assets/Images/placeholder.jpg"/>
-            </Border.Background>
-        </Border>
-        <Border
-                x:Name="OwnerAvatarEllipse"
-                Margin="0 10 10 5"
-                Width="35" 
-                Height="35"
-                RelativePanel.AlignTopWithPanel="True"
-                RelativePanel.AlignLeftWithPanel="True"
-                CornerRadius="8,8,8,8">
-            <Border.Background>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse  x:Name="OwnerAvatarEllipse"
+                 Width="60"
+                 Height="60"
+                 Margin="0 10 10 5"
+                 RelativePanel.AlignTopWithPanel="True"
+                 RelativePanel.AlignLeftWithPanel="True">
+            <Ellipse.Fill>
                 <ImageBrush ImageSource="{Binding Owner.AvatarUrl,Mode=OneWay}"/>
-            </Border.Background>
-        </Border>
+            </Ellipse.Fill>
+        </Ellipse>
 
         <TextBlock x:Name="RepoNameTextBlock" 
                       Text="{Binding Name}"
                       Style="{StaticResource RepoNameTextBlockStyle}"
+                      FontSize="20"
+                      MaxLines="1"
                       Margin="5 10 0 5"
                       Grid.Row="0"
                       TextWrapping="Wrap"
+                      TextTrimming="CharacterEllipsis"
                       RelativePanel.RightOf="OwnerAvatarEllipse"/>
         <TextBlock x:Name="OwnernameTextBlock"
                 RelativePanel.AlignLeftWith="RepoNameTextBlock"
                 RelativePanel.Below="RepoNameTextBlock"
-                Margin="5 5 0 5"
+                Margin="5 0 0 5"
                 FontSize="12"
+                FontWeight="SemiBold"
                 TextAlignment="Left"
                 Foreground="Gray"
                 Text="{Binding Owner.Login,Mode=OneWay}"/>
 
         <StackPanel x:Name="StargazerCountPanel"
-                        Orientation="Horizontal"
-                        Margin="0 0 5 0"
-                        RelativePanel.AlignLeftWith="OwnernameTextBlock"
-                        RelativePanel.Below="OwnernameTextBlock">
+                    Orientation="Horizontal"
+                    Margin="10 20 10 15"
+                    RelativePanel.AlignLeftWith="OwnerAvatarEllipse"
+                    RelativePanel.Below="OwnernameTextBlock">
             <Viewbox MaxHeight="15"
                      MaxWidth="15">
                 <SymbolIcon Margin="5"
@@ -68,9 +69,10 @@
                        Text="{Binding StargazersCount}"/>
         </StackPanel>
         <StackPanel x:Name="ForkCountPanel"
-                        Orientation="Horizontal"
-                        RelativePanel.Below="OwnernameTextBlock"
-                        RelativePanel.RightOf="StargazerCountPanel">
+                    Orientation="Horizontal"
+                    Margin="0 10 0 0"
+                    RelativePanel.Below="OwnernameTextBlock"
+                    RelativePanel.RightOf="StargazerCountPanel">
             <Viewbox MaxHeight="13"
                    MaxWidth="13"
                    Margin="0 0 2 0">
@@ -89,21 +91,21 @@
         </StackPanel>
 
         <TextBlock
-                           FontSize="25"
-                           TextWrapping="Wrap"
-                           Foreground="Gray"
-                           Opacity="0.3"
-                           Margin="0 0 20 0"
-                           RelativePanel.AlignRightWithPanel="True"
-                           RelativePanel.AlignVerticalCenterWithPanel="True"
-                           Text="{Binding Language}"/>
+                   FontSize="25"
+                   TextWrapping="Wrap"
+                   Foreground="Gray"
+                   Opacity="0.3"
+                   Margin="0 0 20 0"
+                   RelativePanel.AlignRightWithPanel="True"
+                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                   Text="{Binding Language}"/>
 
         <TextBlock 
-                   Margin="3 5 5 5"
+                   Margin="10 5 5 5"
                    Padding="2"
                    FontSize="12"
                    RelativePanel.Below="StargazerCountPanel"
-                   RelativePanel.AlignLeftWith="StargazerCountPanel"
+                   RelativePanel.AlignLeftWith="OwnerAvatarEllipse"
                    TextAlignment="Left"
                    Foreground="Gray"
                    MaxLines="2"

@@ -16,6 +16,7 @@ namespace CodeHub.Services
         #region App Creds
         GitHubClient client = new GitHubClient(new ProductHeaderValue("CodeHub"));
         Uri endUri = new Uri("http://example.com/path");
+        static string TOKEN_FILE_NAME = "CodeHubToken93dc7.dat";
         #endregion
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace CodeHub.Services
             try
             {
                 StorageFile savedFile = await ApplicationData.Current.LocalFolder.
-                  CreateFileAsync("GithubToken.dat", CreationCollisionOption.ReplaceExisting);
+                  CreateFileAsync(TOKEN_FILE_NAME, CreationCollisionOption.ReplaceExisting);
 
                 using (Stream writeStream = await savedFile.OpenStreamForWriteAsync())
                 {
@@ -138,7 +139,7 @@ namespace CodeHub.Services
             try
             {
                 var readStream =
-                await ApplicationData.Current.LocalFolder.OpenStreamForReadAsync("GithubToken.dat");
+                await ApplicationData.Current.LocalFolder.OpenStreamForReadAsync(TOKEN_FILE_NAME);
                 if (readStream == null)
                 {
                     return null;
@@ -184,7 +185,7 @@ namespace CodeHub.Services
         {
             try
             {
-                StorageFile savedFile = await ApplicationData.Current.LocalFolder.GetFileAsync("GithubToken.dat");
+                StorageFile savedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(TOKEN_FILE_NAME);
 
                 if (savedFile != null)
                 {
