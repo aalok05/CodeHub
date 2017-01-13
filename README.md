@@ -20,6 +20,7 @@ To set up the project, [register](https://github.com/settings/developers) your O
 #Things to be done
 CodeHub aims to do all those things that the GitHub Desktop app doesn't do. Our goal is to make an app for UWP which lets you keep up with the open source world on the go.
 I think these features are needed in CodeHub:
+* Find out a better way to get Trending repositories (web page scraping is being done currently)
 * Fork repos
 * Trending developers
 * Syntax highlighting for code
