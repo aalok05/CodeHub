@@ -271,6 +271,7 @@
                     MaxWidth="230"
                     HorizontalAlignment="Left"
                     TextWrapping="Wrap"
+                    Visibility="{x:Bind ViewModel.Repository.Description,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                     Text="{x:Bind ViewModel.Repository.Description,Mode=OneWay}"/>
 
             <StackPanel Grid.Row="4"
