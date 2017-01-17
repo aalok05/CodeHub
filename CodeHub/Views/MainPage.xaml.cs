@@ -78,15 +78,17 @@ namespace CodeHub.Views
         {
             ViewModel.HamItemClicked(ViewModel.HamItems[0]);
         }
-
         private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.HamItemClicked(ViewModel.HamItems[1]);
         }
-
         private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.isLoggedin = (bool)e.Parameter;
         }
     }
 }

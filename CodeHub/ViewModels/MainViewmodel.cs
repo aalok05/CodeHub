@@ -180,10 +180,6 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if (await AuthService.checkAuth())
-                                              {
-                                                  isLoggedin = true;
-                                              }
                                               if (!GlobalHelper.IsInternet())
                                               {
                                                   HasInternet = false;
