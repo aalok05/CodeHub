@@ -29,7 +29,7 @@
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-               
+
                 <Rectangle Width="6"
                            Height="42"
                            Margin="-11,0,0,0"
@@ -107,75 +107,165 @@
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </Page.Resources>
+    <Page.BottomAppBar>
+        <CommandBar x:Name="BottomAppBar"
+                    Background="{ThemeResource SystemChromeLowColor}"
+                    Visibility="{x:Bind ViewModel.isLoggedin,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+
+            <AppBarButton x:Name="AppBarTrending"
+                          HorizontalAlignment="Center"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Tapped="AppBarTrending_Tapped"
+                          Label="Trending">
+                <AppBarButton.Icon>
+
+                    <PathIcon Data="F0 M12,16z M0,0z M5.05,0.31C5.86,2.48 5.46,3.69 4.53,4.62 3.55,5.67 1.98,6.45 0.9,7.98 -0.55,10.03 -0.8,14.51 4.43,15.68 2.23,14.52 1.76,11.16 4.13,9.07 3.52,11.1 4.66,12.4 6.07,11.93 7.46,11.46 8.37,12.46 8.34,13.6 8.32,14.38 8.03,15.04 7.21,15.41 10.63,14.82 11.99,11.99 11.99,9.85 11.99,7.01 9.46,6.63 10.74,4.24 9.22,4.37 8.71,5.37 8.85,6.99 8.94,8.07 7.83,8.79 6.99,8.32 6.32,7.91 6.33,7.13 6.93,6.54 8.18,5.31 8.68,2.45 5.05,0.32L5.03,0.3 5.05,0.31z"
+                              HorizontalAlignment="Center"
+                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+                        <PathIcon.RenderTransform>
+                            <CompositeTransform ScaleX="1.3" ScaleY="1.3"/>
+                        </PathIcon.RenderTransform>
+                    </PathIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton x:Name="AppBarProfile"
+                          HorizontalAlignment="Center"
+                          Tapped="AppBarProfile_Tapped"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Label="Profile">
+                <AppBarButton.Icon>
+                    <PathIcon Data="F0 M12,16z M0,0z M12,14.002A0.998,0.998,0,0,1,11.002,15L1.001,15A1,1,0,0,1,0,13.999L0,13C0,10.367 4,9 4,9 4,9 4.229,8.591 4,8 3.159,7.38 3.056,6.41 3,4 3.173,1.587 4.867,1 6,1 7.133,1 8.827,1.586 9,4 8.944,6.41 8.841,7.38 8,8 7.771,8.59 8,9 8,9 8,9 12,10.367 12,13L12,14.002z"
+                              HorizontalAlignment="Center"
+                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+                        <PathIcon.RenderTransform>
+                            <CompositeTransform ScaleX="1.3" ScaleY="1.3"/>
+                        </PathIcon.RenderTransform>
+                    </PathIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton x:Name="AppBarMyRepos"
+                          HorizontalAlignment="Center"
+                          Tapped="AppBarMyRepos_Tapped"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Label="My Repos">
+                <AppBarButton.Icon>
+                    <PathIcon Data="F0 M12,16z M0,0z M4,9L3,9 3,8 4,8 4,9z M4,6L3,6 3,7 4,7 4,6z M4,4L3,4 3,5 4,5 4,4z M4,2L3,2 3,3 4,3 4,2z M12,1L12,13C12,13.55,11.55,14,11,14L6,14 6,16 4.5,14.5 3,16 3,14 1,14C0.45,14,0,13.55,0,13L0,1C0,0.45,0.45,0,1,0L11,0C11.55,0,12,0.45,12,1z M11,11L1,11 1,13 3,13 3,12 6,12 6,13 11,13 11,11z M11,1L2,1 2,10 11,10 11,1z"
+                              HorizontalAlignment="Center"
+                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+                        <PathIcon.RenderTransform>
+                            <CompositeTransform ScaleX="1.3" ScaleY="1.3"/>
+                        </PathIcon.RenderTransform>
+                    </PathIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="AppBarSettings"
+                              Label="settings"
+                              Tapped="SettingsItem_ItemClick"/>
+                <AppBarButton x:Name="AppBarLogout"
+                              Command="{x:Bind ViewModel.SignOutCommand}"
+                              Label="sign out"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BottomAppBar.Visibility" Value="Visible" />
+                        <Setter Target="HamButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="HeaderPanel.Height" Value="40"/>
+                        <Setter Target="HeaderText.FontWeight" Value="SemiLight"/>
+                        <Setter Target="HeaderText.FontSize" Value="14"/>
+                        <Setter Target="HeaderText.Margin" Value="10 0 0 0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
+                        <Setter Target="HamButton.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid x:Name="MainGrid"
             Visibility="{x:Bind ViewModel.isLoggedin,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <RelativePanel Background="{ThemeResource SystemChromeLowColor}">
-
+            <RelativePanel x:Name="HeaderPanel" Background="{ThemeResource SystemChromeLowColor}">
+                <StackPanel x:Name="TopPanel"
+                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                            Orientation="Horizontal">
                     <Button Name="HamButton"
-                    Click="HamButton_Click"
-                    Style="{StaticResource SplitViewTogglePaneButtonStyle}"/>
+                            Click="HamButton_Click"
+                            Style="{StaticResource SplitViewTogglePaneButtonStyle}"/>
 
                     <TextBlock Name="HeaderText"
-                        RelativePanel.RightOf="HamButton"
-                        RelativePanel.AlignVerticalCenterWith="HamButton"
                         FontSize="15"
                         FontWeight="SemiBold"
+                        VerticalAlignment="Center"
                         FontFamily="Segoe UI"
                         Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                        Margin="5 0 0 0" 
+                        Margin="10 0 0 0" 
                         Text="{x:Bind ViewModel.HeaderText,Mode=OneWay}"/>
-
-                    <Viewbox x:Name="SearchButton"
+                </StackPanel>
+                <Viewbox x:Name="SearchButton"
                      RelativePanel.AlignRightWithPanel="True"
-                     RelativePanel.AlignVerticalCenterWith="HamButton"
+                     RelativePanel.AlignVerticalCenterWith="TopPanel"
                      Tapped="{x:Bind ViewModel.NavigateToSearch}"
                      Margin="0 0 15 0"
                      MaxHeight="23"
                      MaxWidth="23">
-                        <SymbolIcon Symbol="Find"
+                    <SymbolIcon Symbol="Find"
                             Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
-                            <i:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="PointerPressed">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="#454545"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="PointerEntered">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="PointerExited">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
-                                </core:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </SymbolIcon>
+                        <i:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="PointerPressed">
+                                <core:ChangePropertyAction PropertyName="Foreground" Value="#454545"/>
+                            </core:EventTriggerBehavior>
+                            <core:EventTriggerBehavior EventName="PointerEntered">
+                                <core:ChangePropertyAction PropertyName="Foreground" Value="Gray"/>
+                            </core:EventTriggerBehavior>
+                            <core:EventTriggerBehavior EventName="PointerExited">
+                                <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
+                            </core:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </SymbolIcon>
 
-                    </Viewbox>
+                </Viewbox>
 
-                    <Popup x:Name="InternetPopup"
+                <Popup x:Name="InternetPopup"
                      Opacity="0.7"
                      IsOpen="True"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignBottomWithPanel="True" RenderTransformOrigin="0.5,0.5">
-                        <Popup.RenderTransform>
-                            <CompositeTransform/>
-                        </Popup.RenderTransform>
-                        <i:Interaction.Behaviors>
-                            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.HasInternet,Mode=OneWay}" Value="False">
-                                <media:ControlStoryboardAction Storyboard="{StaticResource InternetPopupStoryboard}"/>
-                            </core:DataTriggerBehavior>
-                            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.HasInternet,Mode=OneWay}" Value="True">
-                                <media:ControlStoryboardAction Storyboard="{StaticResource InternetPopupCloseStoryboard}"/>
-                            </core:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
+                    <Popup.RenderTransform>
+                        <CompositeTransform/>
+                    </Popup.RenderTransform>
+                    <i:Interaction.Behaviors>
+                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.HasInternet,Mode=OneWay}" Value="False">
+                            <media:ControlStoryboardAction Storyboard="{StaticResource InternetPopupStoryboard}"/>
+                        </core:DataTriggerBehavior>
+                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.HasInternet,Mode=OneWay}" Value="True">
+                            <media:ControlStoryboardAction Storyboard="{StaticResource InternetPopupCloseStoryboard}"/>
+                        </core:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
 
-                        <Grid Background="Black"
+                    <Grid Background="Black"
                       Width="200">
-                            <TextBlock
+                        <TextBlock
                            Style="{StaticResource NoInternetTextBlockStyle}"
                            Text="No Internet Connection  &#xE10A;">
                         <i:Interaction.Behaviors>
@@ -183,11 +273,11 @@
                                 <core:InvokeCommandAction Command="{x:Bind ViewModel.CloseInternetPopup}"/>
                             </core:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
-                            </TextBlock>
-                        </Grid>
+                        </TextBlock>
+                    </Grid>
 
-                    </Popup>
-                </RelativePanel>
+                </Popup>
+            </RelativePanel>
 
             <SplitView x:Name="HamSplitView" 
                x:FieldModifier="Public" 
@@ -361,7 +451,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/Assets/Images/codeBack.jpg"/>
             </Grid.Background>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="Auto"/>
@@ -369,17 +459,17 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            
+
             <control:BackDrop TintColor="#00FFFFFF" BlurAmount="30"
                               VerticalAlignment="Stretch"
                               Grid.RowSpan="5"/>
-            
+
             <Image x:Name="AppLogoImage" VerticalAlignment="Bottom"
                Source="/Assets/Images/appLogoPurple.png"
                Width="80"
                Margin="0 0 0 20"
                Grid.Row="0">
-                
+
                 <interactivity:Interaction.Behaviors>
                     <behaviors:Offset
                                       OffsetX="0"

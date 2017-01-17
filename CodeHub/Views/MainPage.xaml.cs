@@ -83,5 +83,19 @@ namespace CodeHub.Views
                 this.AppFrame.GoBack();
             }
         }
+        private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.HamItemClicked(ViewModel.HamItems[0]);
+        }
+
+        private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.HamItemClicked(ViewModel.HamItems[1]);
+        }
+
+        private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+        }
     }
 }
