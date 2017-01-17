@@ -4,9 +4,6 @@ using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.ViewModels;
-using Windows.Foundation;
-using Windows.UI.ViewManagement;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,12 +40,6 @@ namespace CodeHub.Views
 
             SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
             NavigationCacheMode = NavigationCacheMode.Enabled;
-
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            if (titleBar != null)
-            {
-                titleBar.BackgroundColor = titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["SystemAltHighColor"];
-            }
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
         }

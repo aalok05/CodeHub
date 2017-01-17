@@ -1,12 +1,14 @@
 ﻿using CodeHub.Views;
 using System;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using CodeHub.Services;
-using CodeHub.Helpers;
+using Windows.UI.ViewManagement;
+using Windows.UI;
+using Windows.Foundation.Metadata;
+using Windows.Foundation;
 
 namespace CodeHub
 {
@@ -71,6 +73,26 @@ namespace CodeHub
                     // parameter
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                {
+                    var view = ApplicationView.GetForCurrentView();
+                    view.SetPreferredMinSize(new Size(width: 800, height: 600));
+
+                    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    if (titleBar != null)
+                    {
+                        titleBar.BackgroundColor = titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["SystemAltHighColor"];
+                    }
+                }
+
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                {
+                    var statusBar = StatusBar.GetForCurrentView();
+                    statusBar.BackgroundOpacity = 100;
+                    statusBar.BackgroundColor = (Color)Current.Resources["SystemAltHighColor"];
+                }
+
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
