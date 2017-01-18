@@ -18,21 +18,47 @@
                 <PivotItem.Header>
                     <TextBlock Text="settings" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
-                <RelativePanel>
-                    <ToggleSwitch x:Name="ThemeToggleSwitch"
-                          OffContent="Dark theme" 
-                          OnContent="Light theme"
-                          VerticalAlignment="Top"
-                          PointerReleased="ThemeToggleSwitch_PointerReleased"
-                          HorizontalAlignment="Left"
-                          Margin="10 10 0 0"/>
-                    <TextBlock RelativePanel.Below="ThemeToggleSwitch"
+                <StackPanel Orientation="Vertical">
+                    <Button  x:Name="DarkThemeButton"
+                             Tapped="DarkThemeButton_Tapped"
+                             Margin="5 10 5 0"
+                             Height="30">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE708;" 
+                                          FontSize="13"
+                                          Margin="0 0 5 0"/>
+                                <TextBlock Text="Turn on dark theme"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"
+                                           />
+                            </StackPanel>
+                            
+                        </Button.Content>
+                    </Button>
+                    <Button  x:Name="LightThemeButton"
+                             Tapped="LightThemeButton_Tapped"
+                             Margin="5 10 5 0"
+                             Height="30">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE706;" 
+                                          FontSize="13"
+                                          Margin="0 0 5 0"/>
+                                <TextBlock Text="Turn on light theme"
+                                           VerticalAlignment="Center"
+                                           FontSize="13"/>
+                            </StackPanel>
+
+                        </Button.Content>
+                    </Button>
+                    <TextBlock 
                            Foreground="Gray"
                            TextWrapping="Wrap"
                            FontWeight="SemiBold"
-                           Margin="10 0 0 0"
+                           Margin="10 20 0 0"
                            Text="App needs to restart to apply theme change"/>
-                </RelativePanel>
+                </StackPanel>
 
             </PivotItem>
             <PivotItem>

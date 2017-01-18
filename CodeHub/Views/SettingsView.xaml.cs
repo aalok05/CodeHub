@@ -29,28 +29,31 @@ namespace CodeHub.Views
 
             if (SettingsService.GetSetting("AppTheme") == "Dark")
             {
-                ThemeToggleSwitch.IsOn = false;
-
+                DarkThemeButton.Visibility = Visibility.Collapsed;
+                LightThemeButton.Visibility = Visibility.Visible;
             }
             else
-                ThemeToggleSwitch.IsOn = true;
+            {
+                DarkThemeButton.Visibility = Visibility.Visible;
+                LightThemeButton.Visibility = Visibility.Collapsed;
+            }
+                
 
         }
-
-        /*We are not using Toggled event as we do not want to show alert when switch is toggled programmatically*/
-        private void ThemeToggleSwitch_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void LightThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-        
-            if (SettingsService.GetSetting("AppTheme") == "Dark")
-            {
-                SettingsService.SaveSetting("AppTheme", "Light");
-            }
-            else
-            {
-                SettingsService.SaveSetting("AppTheme", "Dark");
-            }
+            SettingsService.SaveSetting("AppTheme", "Light");
+            DarkThemeButton.Visibility = Visibility.Visible;
+            LightThemeButton.Visibility = Visibility.Collapsed;
             e.Handled = true;
+        }
 
+        private void DarkThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            SettingsService.SaveSetting("AppTheme", "Dark");
+            DarkThemeButton.Visibility = Visibility.Collapsed;
+            LightThemeButton.Visibility = Visibility.Visible;
+            e.Handled = true;
         }
     }
 }
