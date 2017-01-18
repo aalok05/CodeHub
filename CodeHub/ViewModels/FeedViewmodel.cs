@@ -116,7 +116,7 @@ namespace CodeHub.ViewModels
 
         private async Task LoadEvents()
         {
-            Events = await ActivityService.getEvents();
+            Events = await ActivityService.GetUserActivity();
             if(Events!=null)
             {
                 if (Events.Count == 0)

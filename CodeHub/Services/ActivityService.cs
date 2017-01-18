@@ -8,31 +8,54 @@ namespace CodeHub.Services
     class ActivityService
     {
         /// <summary>
-        /// Gets public user events 
+        /// Gets public activities of authenticated user
         /// </summary>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Activity>> getEvents()
+        public static async Task<ObservableCollection<Activity>> GetUserActivity()
         {
             try
             {
                 ObservableCollection<Activity> events = new ObservableCollection<Activity>();
                 var client = await UserDataService.getAuthenticatedClient();
 
-                // returning first 50 items
-                var firstOneFifty = new ApiOptions
+                var options = new ApiOptions
                 {
                     PageSize = 50,
                     PageCount = 1
                 };
-                var result = await client.Activity.Events.GetAllUserReceivedPublic(GlobalHelper.UserLogin, firstOneFifty);
+                var result = await client.Activity.Events.GetAllUserReceivedPublic(GlobalHelper.UserLogin, options);
              
                 foreach ( var i in result)
                 {
                     events.Add(i);
-                    
                 }
                 return events;
                 
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public static async Task<ObservableCollection<Activity>> GetUserPerformedActivity(string login)
+        {
+            try
+            {
+                ObservableCollection<Activity> events = new ObservableCollection<Activity>();
+                var client = await UserDataService.getAuthenticatedClient();
+
+                var options = new ApiOptions
+                {
+                    PageSize = 10,
+                    PageCount = 1
+                };
+                var result = await client.Activity.Events.GetAllUserPerformedPublic(login, options);
+
+                foreach (var i in result)
+                {
+                    events.Add(i);
+                }
+                return events;
             }
             catch
             {
