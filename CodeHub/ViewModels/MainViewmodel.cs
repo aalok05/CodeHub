@@ -21,19 +21,6 @@ namespace CodeHub.ViewModels
     {
         #region properties
 
-        private VisualState _currentState;
-        public VisualState CurrentState
-        {
-            get { return _currentState; }
-            set
-            {
-                if (!Equals(_currentState, value))
-                {
-                    _currentState = value;
-                }
-            }
-        }
-
         public string _headerText;
         public string HeaderText
         {

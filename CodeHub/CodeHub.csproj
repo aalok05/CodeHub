@@ -126,7 +126,6 @@
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Helpers\SurfaceLoader.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\INavigationService.cs" />
