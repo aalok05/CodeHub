@@ -11,10 +11,11 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
+using Octokit;
 
 namespace CodeHub.Views
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Windows.UI.Xaml.Controls.Page
     {
         public MainViewmodel ViewModel { get; set; }
         public Frame AppFrame { get { return this.mainFrame; } }
@@ -25,13 +26,10 @@ namespace CodeHub.Views
             ViewModel = new MainViewmodel();
             this.DataContext = ViewModel;
 
-            Loaded += Page_Loaded;
-           
-            //SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
+            SizeChanged += MainPage_SizeChanged;
 
             Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage); //Listening for No Internet message
             Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage); //Listening Internet available message
-           
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m)
             {
                 ViewModel.setHeadertext(m.PageName);
@@ -39,13 +37,26 @@ namespace CodeHub.Views
 
             SimpleIoc.Default.Register<INavigationService>(() =>
             { return new NavigationService(mainFrame); });
-
             SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
         }
 
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(e.NewSize.Width < 720)
+            {
+                if (ViewModel.isLoggedin)
+                {
+                    BottomAppBar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    BottomAppBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             bool handled = e.Handled;
@@ -65,18 +76,6 @@ namespace CodeHub.Views
         {
             ViewModel.NavigateToSettings();
             HamSplitView.IsPaneOpen = false;
-        }
-        private void UpdateVisualState(VisualState currentState)
-        {
-            ViewModel.CurrentState = currentState;
-        }
-        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
-        {
-            UpdateVisualState(e.NewState);
-        }
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            UpdateVisualState(VisualStateGroup.CurrentState);
         }
         private void BackRequested(ref bool handled)
         {
@@ -104,6 +103,43 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
+
+            //Listening for Sign In message
+            Messenger.Default.Register<User>(this, RecieveSignInMessage);
+
+            //listen for sign out message
+            Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
+
+            /* This has to be done because the visibilty of BottomAppBar
+             * is dependent on screen size as well as isLoggedin property
+             * If visibility is bound with isLoggedin, it will disregard 
+             * VisualStateManager at first loading of Page.
+             * */
+            if (Window.Current.Bounds.Width < 720)
+            {
+                if (ViewModel.isLoggedin)
+                {
+                    BottomAppBar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    BottomAppBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+        public void RecieveSignOutMessage(SignOutMessageType empty)
+        {
+            if (Window.Current.Bounds.Width < 720)
+            {
+                BottomAppBar.Visibility = Visibility.Collapsed;
+            }
+        }
+        public void RecieveSignInMessage(User user)
+        {
+            if (Window.Current.Bounds.Width < 720)
+            {
+                BottomAppBar.Visibility = Visibility.Visible;
+            }
         }
     }
 }
