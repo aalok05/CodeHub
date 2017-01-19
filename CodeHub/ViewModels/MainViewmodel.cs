@@ -13,12 +13,27 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
+using Windows.UI.Xaml;
 
 namespace CodeHub.ViewModels
 {
     public class MainViewmodel : AppViewmodel 
     {
         #region properties
+
+        private VisualState _currentState;
+        public VisualState CurrentState
+        {
+            get { return _currentState; }
+            set
+            {
+                if (!Equals(_currentState, value))
+                {
+                    _currentState = value;
+                }
+            }
+        }
+
         public string _headerText;
         public string HeaderText
         {

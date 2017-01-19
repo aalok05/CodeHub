@@ -24,8 +24,10 @@ namespace CodeHub.Views
 
             ViewModel = new MainViewmodel();
             this.DataContext = ViewModel;
+
+            Loaded += Page_Loaded;
            
-            SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
+            //SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
 
             Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage); //Listening for No Internet message
             Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage); //Listening Internet available message
@@ -43,6 +45,7 @@ namespace CodeHub.Views
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
         }
+
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             bool handled = e.Handled;
@@ -62,6 +65,18 @@ namespace CodeHub.Views
         {
             ViewModel.NavigateToSettings();
             HamSplitView.IsPaneOpen = false;
+        }
+        private void UpdateVisualState(VisualState currentState)
+        {
+            ViewModel.CurrentState = currentState;
+        }
+        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            UpdateVisualState(e.NewState);
+        }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateVisualState(VisualStateGroup.CurrentState);
         }
         private void BackRequested(ref bool handled)
         {
