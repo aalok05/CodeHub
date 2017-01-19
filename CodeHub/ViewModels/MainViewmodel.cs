@@ -13,12 +13,14 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
+using Windows.UI.Xaml;
 
 namespace CodeHub.ViewModels
 {
     public class MainViewmodel : AppViewmodel 
     {
         #region properties
+
         public string _headerText;
         public string HeaderText
         {
@@ -180,10 +182,6 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if (await AuthService.checkAuth())
-                                              {
-                                                  isLoggedin = true;
-                                              }
                                               if (!GlobalHelper.IsInternet())
                                               {
                                                   HasInternet = false;

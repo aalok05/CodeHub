@@ -104,7 +104,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Backdrop.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>
@@ -114,9 +113,6 @@
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LoginScreen.xaml.cs">
-      <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
@@ -130,7 +126,6 @@
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Helpers\SurfaceLoader.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\INavigationService.cs" />
@@ -266,10 +261,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\LoginScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\RepoListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -343,6 +334,9 @@
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

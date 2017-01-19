@@ -23,11 +23,11 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Background="{ThemeResource SystemChromeLowColor}">
-
+                
             <HyperlinkButton Content="{x:Bind ViewModel.Repository.FullName,Mode=OneWay}"
                              Command="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                              HorizontalAlignment="Center"
-                             Margin="0 12 0 12">
+                             Margin="0 5 0 5">
                 <HyperlinkButton.ContentTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" 
@@ -38,23 +38,31 @@
                 </HyperlinkButton.ContentTemplate>
             </HyperlinkButton>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-            <TextBlock Text="Branch"
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    Margin="0 0 0 10">
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        Margin="10 10 10 2">
+                <TextBlock Text="Branch"
                        FontSize="13"
                        Foreground="Gray"/>
-            <TextBlock Text="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
+                <TextBlock Text="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
                        Margin="5 0 0 0"
                        FontSize="13"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-            <TextBlock Text="Path"
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        Margin="10 10 0 2">
+                <TextBlock Text="Path"
                        FontSize="13"
                        Foreground="Gray"/>
-            <TextBlock Text="{x:Bind ViewModel.Path,Mode=OneWay}"
-                       Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                <TextBlock Text="{x:Bind ViewModel.Path,Mode=OneWay}"
                        Margin="5 0 0 0"
+                       TextWrapping="Wrap"
                        FontSize="13"/>
+            </StackPanel>
         </StackPanel>
+
         <ListView x:Name="ContentListView"
                   Grid.Row="3"
                   Grid.RowSpan="2"
@@ -91,7 +99,9 @@
                     Style="{StaticResource EmptyButtonStyle}"
                     HorizontalAlignment="Right"
                     Click="ScrollUpButton_Click">
-
+            <ToolTipService.ToolTip>
+                <TextBlock Text="Scroll to top"/>
+            </ToolTipService.ToolTip>
             <Border CornerRadius="25" 
                         Padding="15"
                         Background="#689F38" 

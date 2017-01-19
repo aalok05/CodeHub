@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Authentication.Web;
+using Windows.Security.Credentials;
 using Windows.Storage;
 
 namespace CodeHub.Services
@@ -16,7 +17,6 @@ namespace CodeHub.Services
         #region App Creds
         GitHubClient client = new GitHubClient(new ProductHeaderValue("CodeHub"));
         Uri endUri = new Uri("http://example.com/path");
-        static string TOKEN_FILE_NAME = "CodeHubToken93dc7.dat";
         #endregion
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace CodeHub.Services
                 if (token != null)
                 {
                     client.Credentials = new Credentials(token.AccessToken);
-                    await SaveToken(token.AccessToken);
+                    SaveToken(token.AccessToken, clientId);
                 }
                 return true;
             }
@@ -99,28 +99,20 @@ namespace CodeHub.Services
 
 
         }
-    
+
         /// <summary>
         /// Saves access token in device
         /// </summary>
-        /// <param name="token">Access token</param>
+        /// <param name="token"></param>
+        /// <param name="clientId">Client Id is used as resource string for PasswordCredential</param>
         /// <returns></returns>
-        private async Task<bool> SaveToken(string token)
+        private bool SaveToken(string token, string clientId)
         {
             try
             {
-                StorageFile savedFile = await ApplicationData.Current.LocalFolder.
-                  CreateFileAsync(TOKEN_FILE_NAME, CreationCollisionOption.ReplaceExisting);
-
-                using (Stream writeStream = await savedFile.OpenStreamForWriteAsync())
-                {
-                    DataContractSerializer serializer =
-                        new DataContractSerializer(typeof(string));
-
-                    serializer.WriteObject(writeStream, token);
-                    await writeStream.FlushAsync();
-                    writeStream.Dispose();
-                }
+                var vault = new PasswordVault();
+                vault.Add(new PasswordCredential(
+                   clientId, clientId, token));
 
                 return true;
             }
@@ -138,17 +130,20 @@ namespace CodeHub.Services
         {
             try
             {
-                var readStream =
-                await ApplicationData.Current.LocalFolder.OpenStreamForReadAsync(TOKEN_FILE_NAME);
-                if (readStream == null)
+                string clientId = await AppCredentials.getAppKey();
+                var vault = new PasswordVault();
+
+                var credentialList = vault.FindAllByResource(clientId);
+
+                if (credentialList.Count > 0)
+                {
+                    credentialList[0].RetrievePassword();
+                    return credentialList[0].Password;
+                }
+                else
                 {
                     return null;
                 }
-                DataContractSerializer serializer =
-                    new DataContractSerializer(typeof(string));
-
-                var token = serializer.ReadObject(readStream).ToString();
-                return token;
             }
             catch
             {
@@ -185,13 +180,16 @@ namespace CodeHub.Services
         {
             try
             {
-                StorageFile savedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(TOKEN_FILE_NAME);
+                string clientId = await AppCredentials.getAppKey();
+                var vault = new PasswordVault();
 
-                if (savedFile != null)
+                var credentialList = vault.FindAllByResource(clientId);
+
+                if (credentialList.Count > 0)
                 {
-                    await savedFile.DeleteAsync();
-                    return true;
+                    vault.Remove(credentialList[0]);
                 }
+
                 return true;
             }
             catch
