@@ -22,16 +22,26 @@
                     <Button  x:Name="DarkThemeButton"
                              Tapped="DarkThemeButton_Tapped"
                              Margin="5 10 5 0"
-                             Height="30">
+                             Background="Transparent"
+                             Height="50">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Glyph="&#xE708;" 
-                                          FontSize="13"
-                                          Margin="0 0 5 0"/>
-                                <TextBlock Text="Turn on dark theme"
+                                          FontSize="18"
+                                          Margin="0 0 10 0"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Turn on dark theme"
                                            FontSize="13"
                                            VerticalAlignment="Center"
                                            />
+                                    <TextBlock 
+                                         Foreground="Gray"
+                                         TextWrapping="Wrap"
+                                         FontWeight="Light"
+                                         FontSize="12"
+                                         Text="App needs to restart to apply theme change"/>
+                                </StackPanel>
+                                
                             </StackPanel>
                             
                         </Button.Content>
@@ -39,25 +49,30 @@
                     <Button  x:Name="LightThemeButton"
                              Tapped="LightThemeButton_Tapped"
                              Margin="5 10 5 0"
-                             Height="30">
+                             Background="Transparent"
+                             Height="50">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Glyph="&#xE706;" 
-                                          FontSize="13"
-                                          Margin="0 0 5 0"/>
-                                <TextBlock Text="Turn on light theme"
+                                          FontSize="18"
+                                          Margin="0 0 10 0"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Turn on light theme"
                                            VerticalAlignment="Center"
                                            FontSize="13"/>
+                                    <TextBlock 
+                                        Foreground="Gray"
+                                        TextWrapping="Wrap"
+                                        FontWeight="Light"
+                                        FontSize="12"
+                                        Text="App needs to restart to apply theme change"/>
+                                </StackPanel>
+                                   
                             </StackPanel>
 
                         </Button.Content>
                     </Button>
-                    <TextBlock 
-                           Foreground="Gray"
-                           TextWrapping="Wrap"
-                           FontWeight="SemiBold"
-                           Margin="10 20 0 0"
-                           Text="App needs to restart to apply theme change"/>
+                    
                 </StackPanel>
 
             </PivotItem>
