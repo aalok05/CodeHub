@@ -100,7 +100,9 @@
                     Style="{StaticResource EmptyButtonStyle}"
                     HorizontalAlignment="Right"
                     Click="ScrollUpButton_Click">
-
+            <ToolTipService.ToolTip>
+                <TextBlock Text="Scroll to top"/>
+            </ToolTipService.ToolTip>
             <Border CornerRadius="25" 
                         Padding="15"
                         Background="#689F38" 
