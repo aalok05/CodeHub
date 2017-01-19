@@ -286,12 +286,16 @@
                DisplayMode="Overlay"
                PaneBackground="Transparent">
                 <SplitView.Pane>
-
                     <Grid BorderThickness="0 0 1 0"
                         BorderBrush="{ThemeResource SystemChromeLowColor}">
-                        <control:BackDrop TintColor="#00FFFFFF" BlurAmount="30"/>
-                        <RelativePanel Name="HamRelative" Padding="0 10 0 0">
-
+                        <Grid>
+                            <i:Interaction.Behaviors>
+                                <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                            </i:Interaction.Behaviors>
+                        </Grid>
+                        <RelativePanel Name="HamRelative" 
+                                       Padding="0 10 0 0"
+                                       Background="Transparent">
                             <Grid x:Name="UserPicPanel"
                                   RelativePanel.AlignLeftWithPanel="True"
                                   RelativePanel.AlignTopWithPanel="True">
@@ -329,12 +333,13 @@
                                                 VerticalAlignment="Center"
                                                 Visibility="{x:Bind ViewModel.isLoggedin,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock
-                                                   FontSize="12"
+                                                   FontSize="14"
                                                    Margin="0 0 0 4"
+                                                   FontWeight="Medium"
                                                    Text="{x:Bind ViewModel.User.Name,Mode=OneWay}"/>
                                         <TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                    FontSize="11.5"
-                                                   FontWeight="SemiLight"
+                                                   FontWeight="SemiBold"
                                                    Margin="0 0 0 10"
                                                    Text="{x:Bind ViewModel.User.Login,Mode=OneWay}"/>
                                     </StackPanel>
@@ -342,11 +347,6 @@
                                 </StackPanel>
 
                             </Grid>
-
-                            <Line Stretch="Fill" 
-                              Stroke="#FF444141" 
-                              X2="1"
-                              RelativePanel.Above="HamListView"/>
 
                             <ListView Name="HamListView"
                                   IsItemClickEnabled="True" 
@@ -359,10 +359,6 @@
                                   ItemsSource="{x:Bind ViewModel.HamItems,Mode=OneWay}">
 
                             </ListView>
-                            <Line Stretch="Fill" 
-                              Stroke="#FF444141" 
-                              X2="1"
-                              RelativePanel.Above="HamListViewBottom"/>
 
                             <ListView x:Name="HamListViewBottom"
                                   Width="270"
@@ -451,7 +447,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/Assets/Images/codeBack.jpg"/>
             </Grid.Background>
-
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="Auto"/>
@@ -460,13 +456,16 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <control:BackDrop TintColor="#00FFFFFF" BlurAmount="30"
-                              VerticalAlignment="Stretch"
-                              Grid.RowSpan="5"/>
+            <Grid VerticalAlignment="Stretch"
+                  Grid.RowSpan="5">
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur Value="30" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                </i:Interaction.Behaviors>
+            </Grid>
 
             <Image x:Name="AppLogoImage" VerticalAlignment="Bottom"
                Source="/Assets/Images/appLogoPurple.png"
-               Width="80"
+               Width="100"
                Margin="0 0 0 20"
                Grid.Row="0">
 
