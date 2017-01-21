@@ -69,8 +69,6 @@ namespace CodeHub.Views
         }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
-            //await mainFrame.Navigate((e.ClickedItem as HamItem).DestPage, ViewModel.User);
             ViewModel.HamItemClicked(e.ClickedItem as HamItem);
             HamSplitView.IsPaneOpen = false;
         }
