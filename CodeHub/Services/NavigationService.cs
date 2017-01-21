@@ -37,7 +37,8 @@ namespace CodeHub.Services
         private CustomFrame _mainFrame;
         public async void Navigate(Type type)
         {
-           await _mainFrame.Navigate(type);
+           if(_mainFrame.CurrentSourcePageType!= type)
+                await _mainFrame.Navigate(type);
         }
         public async void Navigate(Type type, object parameter)
         {
