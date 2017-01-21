@@ -22,7 +22,7 @@
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Height="48" VerticalAlignment="Top"/>
         <Pivot>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="all" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
@@ -65,7 +65,7 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="starred" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>

@@ -218,7 +218,7 @@
         </RelativePanel>
         <Pivot Grid.Row="1"
                Visibility="{x:Bind ViewModel.CanFollow,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="followers" FontSize="15" FontWeight="SemiBold" Margin="0 0 10 0"/>
@@ -282,7 +282,7 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="following" FontSize="15" FontWeight="SemiBold" Margin="0 0 10 0"/>

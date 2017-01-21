@@ -36,7 +36,7 @@
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="today" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
@@ -93,7 +93,7 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="this week" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
@@ -148,7 +148,7 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="this month" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
