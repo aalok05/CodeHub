@@ -110,6 +110,7 @@
     <Compile Include="Controls\CodeListItem.xaml.cs">
       <DependentUpon>CodeListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CustomFrame.cs" />
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
@@ -330,7 +331,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
@@ -338,6 +338,11 @@
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UICompositionAnimations">
+      <HintPath>E:\UICompositionAnimations-master\UICompositionAnimations-master\UICompositionAnimations\bin\Debug\UICompositionAnimations.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

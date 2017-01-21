@@ -166,7 +166,6 @@ namespace CodeHub.ViewModels
 
                                                   //Sending Sign Out message to all viewModels
                                                   Messenger.Default.Send<GlobalHelper.SignOutMessageType>(new GlobalHelper.SignOutMessageType());
-                                                  HamItemClicked(HamItems[0]);
                                               }
                                               isLoading = false;
                                           }));
@@ -251,15 +250,6 @@ namespace CodeHub.ViewModels
                 i.IsSelected = false;
             }
             Navigate(typeof(SearchView));
-        }
-        public void HamItemClicked(HamItem item)
-        {
-            foreach(var i in HamItems)
-            {
-                i.IsSelected = false;
-            }
-            item.IsSelected = true;
-            Navigate(item.DestPage);
         }
         public void RecieveNoInternetMessage(NoInternetMessageType empty)
         {

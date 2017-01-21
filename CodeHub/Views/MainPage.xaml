@@ -424,7 +424,12 @@
 
                 </SplitView.Pane>
                 <SplitView.Content>
-                    <Frame x:Name="mainFrame" Navigated="{x:Bind ViewModel.mainFrame_Navigated}">
+                    <control:CustomFrame x:Name="mainFrame" 
+                                         Navigated="{x:Bind ViewModel.mainFrame_Navigated}">
+                        
+
+                    </control:CustomFrame>
+                    <!--<Frame x:Name="mainFrame" Navigated="{x:Bind ViewModel.mainFrame_Navigated}">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
                                 <NavigationThemeTransition>
@@ -434,7 +439,7 @@
                                 </NavigationThemeTransition>
                             </TransitionCollection>
                         </Frame.ContentTransitions>
-                    </Frame>
+                    </Frame>-->
 
                 </SplitView.Content>
             </SplitView>

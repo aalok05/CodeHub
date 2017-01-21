@@ -37,7 +37,7 @@ namespace CodeHub.Views
 
             SimpleIoc.Default.Register<INavigationService>(() =>
             { return new NavigationService(mainFrame); });
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
+
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
@@ -67,10 +67,16 @@ namespace CodeHub.Views
         {
             HamSplitView.IsPaneOpen = !HamSplitView.IsPaneOpen;
         }
-        private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ViewModel.HamItemClicked(e.ClickedItem as HamItem);
             HamSplitView.IsPaneOpen = false;
+            await mainFrame.Navigate((e.ClickedItem as HamItem).DestPage, ViewModel.User);
+            foreach (var i in ViewModel.HamItems)
+            {
+                i.IsSelected = false;
+            }
+            (e.ClickedItem as HamItem).IsSelected = true;
+
         }
         private void SettingsItem_ItemClick(object sender, TappedRoutedEventArgs e)
         {
@@ -88,21 +94,43 @@ namespace CodeHub.Views
                 this.AppFrame.GoBack();
             }
         }
-        private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[0]);
+            await mainFrame.Navigate(ViewModel.HamItems[0].DestPage, ViewModel.User);
+            foreach (var i in ViewModel.HamItems)
+            {
+                i.IsSelected = false;
+            }
+            ViewModel.HamItems[0].IsSelected = true;
         }
-        private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[1]);
+            await mainFrame.Navigate(ViewModel.HamItems[1].DestPage, ViewModel.User);
+            foreach (var i in ViewModel.HamItems)
+            {
+                i.IsSelected = false;
+            }
+            ViewModel.HamItems[1].IsSelected = true;
         }
-        private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+            await mainFrame.Navigate(ViewModel.HamItems[2].DestPage, ViewModel.User);
+            foreach (var i in ViewModel.HamItems)
+            {
+                i.IsSelected = false;
+            }
+            ViewModel.HamItems[2].IsSelected = true;
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
+
+            await mainFrame.Navigate(ViewModel.HamItems[0].DestPage, ViewModel.User);
+            foreach (var i in ViewModel.HamItems)
+            {
+                i.IsSelected = false;
+            }
+            ViewModel.HamItems[0].IsSelected = true;
 
             //Listening for Sign In message
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
