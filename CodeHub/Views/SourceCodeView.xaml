@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:octo="using:Octokit"
+    xmlns:controls="using:CodeHub.Controls"
     xmlns:converters="using:CodeHub.Converters"
     mc:Ignorable="d">
     <Page.Resources>
@@ -57,16 +58,7 @@
                       />
 
         </StackPanel>
-        <Frame x:Name="ContentFrame" Grid.Row="2" Grid.RowSpan="2">
-            <Frame.ContentTransitions>
-                <TransitionCollection>
-                    <NavigationThemeTransition>
-                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                            <DrillInNavigationTransitionInfo/>
-                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    </NavigationThemeTransition>
-                </TransitionCollection>
-            </Frame.ContentTransitions>
+        <controls:CustomFrame x:Name="ContentFrame" Grid.Row="2" Grid.RowSpan="2">
             <ListView x:Name="ContentListView"
                       IsItemClickEnabled="True"
                       SelectionMode="Single"
@@ -88,7 +80,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </Frame>
+        </controls:CustomFrame>
 
         <ProgressRing Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
