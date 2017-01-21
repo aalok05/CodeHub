@@ -26,24 +26,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
-                    Background="{ThemeResource SystemChromeLowColor}">
 
-            <HyperlinkButton Content="{x:Bind ViewModel.Repository.FullName,Mode=OneWay}"
-                             Command="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                             HorizontalAlignment="Center"
-                             Margin="0 12 0 12">
-                <HyperlinkButton.ContentTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" 
-                                   FontSize="17"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource RepoNameTextBlockStyle}"/>
-                    </DataTemplate>
-                </HyperlinkButton.ContentTemplate>
-            </HyperlinkButton>
-
-        </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
             <TextBlock Text="Branch "
                        FontSize="13"

@@ -4,6 +4,8 @@ using CodeHub.ViewModels;
 using Octokit;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using GalaSoft.MvvmLight.Messaging;
+using CodeHub.Helpers;
 
 namespace CodeHub.Views
 {
@@ -21,7 +23,9 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             //This page recieves repository ,path and branch
-            var tuple = e.Parameter as Tuple<Repository, string, string>; 
+            var tuple = e.Parameter as Tuple<Repository, string, string>;
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = tuple.Item1.FullName });
 
             ContentListView.SelectedIndex = -1;
 

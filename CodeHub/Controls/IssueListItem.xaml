@@ -18,7 +18,7 @@
                     RelativePanel.AlignTopWithPanel="True"
                     RelativePanel.AlignLeftWithPanel="True">
             <TextBlock 
-                    Margin="10 10 3 5"
+                    Margin="5 10 3 5"
                     Text="#"
                     FontSize="16"
                     VerticalAlignment="Center"
