@@ -15,12 +15,10 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Row="1" Orientation="Horizontal"
+        <StackPanel Grid.Row="0" Orientation="Horizontal"
                     Margin="0 0 0 10">
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center" 
@@ -45,7 +43,7 @@
             </StackPanel>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="3"
+        <ScrollViewer Grid.Row="2"
                   VerticalScrollMode="Enabled"
                   HorizontalScrollMode="Enabled"
                   VerticalScrollBarVisibility="Auto"
@@ -78,13 +76,13 @@
 
 
 
-        <TextBlock Grid.Row="3" Text="File type not supported"
+        <TextBlock Grid.Row="2" Text="File type not supported"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="Gray"
                    Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"/>
 
-        <ProgressRing Grid.Row="3"
+        <ProgressRing Grid.Row="2"
                       Width="40"
                       Height="40"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
