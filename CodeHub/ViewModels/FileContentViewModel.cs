@@ -169,7 +169,11 @@ namespace CodeHub.ViewModels
 
                 if ((Path.ToLower().EndsWith(".exe")) ||
                    (Path.ToLower().EndsWith(".pdf")) ||
-                   (Path.ToLower().EndsWith(".ttf")))
+                   (Path.ToLower().EndsWith(".ttf")) ||
+                   (Path.ToLower().EndsWith(".suo")) ||
+                   (Path.ToLower().EndsWith(".mp3")) ||
+                   (Path.ToLower().EndsWith(".mp4")) ||
+                   (Path.ToLower().EndsWith(".avi")))
                 {
                     /*
                      * Unsupported file types
