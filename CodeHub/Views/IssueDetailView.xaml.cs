@@ -38,7 +38,11 @@ namespace CodeHub.Views
 
             if (e.NavigationMode != NavigationMode.Back)
             {
-               await ViewModel.Load((e.Parameter as Tuple<string,string, Issue>));
+                if (ViewModel.Comments != null)
+                {
+                    ViewModel.Comments.Clear();
+                }
+                await ViewModel.Load((e.Parameter as Tuple<string,string, Issue>));
             }
         }
     }
