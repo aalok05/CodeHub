@@ -183,6 +183,8 @@
                         <Setter Target="HeaderText.FontWeight" Value="SemiLight"/>
                         <Setter Target="HeaderText.FontSize" Value="14"/>
                         <Setter Target="HeaderText.Margin" Value="10 0 0 0"/>
+                        <Setter Target="SearchButton.MaxHeight" Value="19"/>
+                        <Setter Target="SearchButton.MaxWidth" Value="19"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">

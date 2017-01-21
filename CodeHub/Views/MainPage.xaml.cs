@@ -58,11 +58,16 @@ namespace CodeHub.Views
                 }
             }
         }
-        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        private async void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            bool handled = e.Handled;
-            this.BackRequested(ref handled);
-            e.Handled = handled;
+            if (this.AppFrame == null)
+                return;
+
+            if (this.AppFrame.CanGoBack && !e.Handled)
+            {
+                e.Handled = true;
+                await this.AppFrame.GoBack();
+            }
         }
         private void HamButton_Click(object sender, RoutedEventArgs e)
         {
@@ -77,17 +82,6 @@ namespace CodeHub.Views
         {
             ViewModel.NavigateToSettings();
             HamSplitView.IsPaneOpen = false;
-        }
-        private void BackRequested(ref bool handled)
-        {
-            if (this.AppFrame == null)
-                return;
-
-            if (this.AppFrame.CanGoBack && !handled)
-            {
-                handled = true;
-                this.AppFrame.GoBack();
-            }
         }
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
