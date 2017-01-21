@@ -74,8 +74,8 @@
                          Visibility="{x:Bind ViewModel.IsReadme,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
 
                 <Grid Visibility="{x:Bind ViewModel.IsReadme,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
-                    <TextBlock VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
+                    <TextBlock VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
                            IsTextSelectionEnabled="True"
                            FontSize="13"
                            Padding="10"
