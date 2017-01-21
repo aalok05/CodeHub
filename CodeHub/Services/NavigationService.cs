@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeHub.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace CodeHub.Services
 {
     public class NavigationService : INavigationService
     {
-        public NavigationService(Frame mainFrame)
+        public NavigationService(CustomFrame mainFrame)
         {
             _mainFrame = mainFrame;
             _mainFrame.Navigated += OnMainFrameNavigated;
@@ -33,24 +34,24 @@ namespace CodeHub.Services
             }
         }
 
-        private Frame _mainFrame;
-        public void Navigate(Type type)
+        private CustomFrame _mainFrame;
+        public async void Navigate(Type type)
         {
-            _mainFrame.Navigate(type);
+           await _mainFrame.Navigate(type);
         }
-        public void Navigate(Type type, object parameter)
+        public async void Navigate(Type type, object parameter)
         {
-            _mainFrame.Navigate(type, parameter);
+           await _mainFrame.Navigate(type, parameter);
         }
         public bool CanGoBack()
         {
             return _mainFrame.CanGoBack;
         }
-        public void GoBack()
+        public async void GoBack()
         {
             if (_mainFrame.CanGoBack)
             {
-                _mainFrame.GoBack();
+               await _mainFrame.GoBack();
             }
         }
 
