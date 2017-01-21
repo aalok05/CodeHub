@@ -42,7 +42,8 @@
                 </PivotItem.Header>
                 <Grid>
 
-                    <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
+                    <toolkitControl:PullToRefreshListView x:Name="todayListView"
+                                                          IsItemClickEnabled="True"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposToday,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -97,7 +98,8 @@
                     <TextBlock Text="this week" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
+                    <toolkitControl:PullToRefreshListView x:Name="weekListView"  
+                                                          IsItemClickEnabled="True"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposWeek,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -151,7 +153,8 @@
                     <TextBlock Text="this month" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
+                    <toolkitControl:PullToRefreshListView x:Name="monthListView"
+                                                          IsItemClickEnabled="True"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposMonth,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"

@@ -20,7 +20,15 @@ namespace CodeHub.Views
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var tuple = e.Parameter as Tuple<Repository, string, string>; //This page recieves repository ,path and branch
+            //This page recieves repository ,path and branch
+            var tuple = e.Parameter as Tuple<Repository, string, string>; 
+
+            ContentListView.SelectedIndex = -1;
+
+            if (ViewModel.Content != null)
+            {
+                ViewModel.Content.Clear();
+            }
             await ViewModel.Load(tuple);
         }
         private void ScrollUpButton_Click(object sender, RoutedEventArgs e)

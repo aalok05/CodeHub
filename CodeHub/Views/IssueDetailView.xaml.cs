@@ -33,7 +33,9 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-           
+
+            commentsListView.SelectedIndex = -1;
+
             if (e.NavigationMode != NavigationMode.Back)
             {
                await ViewModel.Load((e.Parameter as Tuple<string,string, Issue>));

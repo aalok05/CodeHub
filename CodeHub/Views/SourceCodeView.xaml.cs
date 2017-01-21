@@ -21,10 +21,14 @@ namespace CodeHub.Views
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             if (e.NavigationMode == NavigationMode.Back)
             {
+                ContentListView.SelectedIndex = -1;
                 return;
+            }
+            if(ViewModel.Content!=null)
+            {
+                ViewModel.Content.Clear();
             }
             await ViewModel.Load(e.Parameter as Repository);
         }

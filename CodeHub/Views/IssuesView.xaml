@@ -30,7 +30,7 @@
                     <TextBlock Text="open" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <ListView
+                    <ListView x:Name="openIssueListView"
                            IsItemClickEnabled="True"
                            ItemsSource="{x:Bind ViewModel.OpenIssues,Mode=OneWay}"
                            ItemClick="{x:Bind ViewModel.IssueTapped}">
@@ -64,7 +64,7 @@
                     <TextBlock Text="closed" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <ListView
+                    <ListView x:Name="closedIssueListView"
                            IsItemClickEnabled="True"
                            ItemsSource="{x:Bind ViewModel.ClosedIssues,Mode=OneWay}"
                            ItemClick="{x:Bind ViewModel.IssueTapped}">
@@ -98,7 +98,7 @@
                     <TextBlock Text="mine" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <ListView
+                    <ListView x:Name="mineIssueListView"
                            IsItemClickEnabled="True"
                            ItemsSource="{x:Bind ViewModel.MyIssues,Mode=OneWay}"
                            ItemClick="{x:Bind ViewModel.IssueTapped}">
