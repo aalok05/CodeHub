@@ -12,13 +12,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
+using CodeHub.Controls;
 
 namespace CodeHub.Views
 {
     public sealed partial class MainPage : Windows.UI.Xaml.Controls.Page
     {
         public MainViewmodel ViewModel { get; set; }
-        public Frame AppFrame { get { return this.mainFrame; } }
+        public CustomFrame AppFrame { get { return this.mainFrame; } }
         public MainPage()
         {
             this.InitializeComponent();
