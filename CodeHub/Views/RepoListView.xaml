@@ -14,7 +14,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <toolkitControl:PullToRefreshListView 
+        <toolkitControl:PullToRefreshListView x:Name="repoListView"
                                     IsItemClickEnabled="True"
                                     ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                     ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
