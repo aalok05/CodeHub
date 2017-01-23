@@ -22,7 +22,7 @@ Pull requests are welcome in the `dev` branch!
 #Things to be done
 CodeHub aims to do all those things that the GitHub Desktop app doesn't do. Our goal is to make an app for UWP which lets you keep up with the open source world on the go.
 I think these features are needed in CodeHub:
-* Find out a better way to get Trending repositories (web page scraping is being done currently)
+* Find out a better way to get Trending repositories (web page scraping is done as of now)
 * Fork repos
 * Trending developers
 * Syntax highlighting for code
