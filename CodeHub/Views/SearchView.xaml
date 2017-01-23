@@ -92,7 +92,7 @@
 
         <Grid  Grid.Row="2"
                Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
-            <ListView 
+            <ListView x:Name="repoListView"
                 Grid.Row="2"
                 Grid.Column="0"
                 IsItemClickEnabled="True"
@@ -108,7 +108,7 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-            <ListView
+            <ListView x:Name="userListView"
                 Grid.Row="2"
                 Grid.Column="0"
                 IsItemClickEnabled="True"
@@ -122,7 +122,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView
+            <ListView x:Name="codeListView"
                 Grid.Row="2"
                 Grid.Column="0"
                 IsItemClickEnabled="True"
@@ -137,7 +137,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView 
+            <ListView x:Name="issueListView"
                 Grid.Row="2"
                 Grid.Column="0"
                 IsItemClickEnabled="True"

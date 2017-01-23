@@ -31,6 +31,8 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
+            repoListView.SelectedIndex = codeListView.SelectedIndex = userListView.SelectedIndex = issueListView.SelectedIndex = -1;
+
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Search" });
 
         }
