@@ -33,9 +33,15 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-          
+
+            repoListView.SelectedIndex = -1;
+
             if (e.NavigationMode != NavigationMode.Back)
             {
+                if (ViewModel.Repositories != null)
+                {
+                    ViewModel.Repositories.Clear();
+                }
                 await ViewModel.Load((string)e.Parameter);
             }
         }

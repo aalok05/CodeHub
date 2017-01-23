@@ -227,7 +227,8 @@
                         Text="{x:Bind ViewModel.Issue.Comments,Mode=OneWay}"/>
             </StackPanel>
 
-            <ListView Grid.Row="1"
+            <ListView x:Name="commentsListView" 
+                   Grid.Row="1"
                    ScrollViewer.HorizontalScrollMode="Disabled"
                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                    ScrollViewer.VerticalScrollMode="Enabled" 

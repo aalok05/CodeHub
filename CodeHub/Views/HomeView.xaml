@@ -36,13 +36,14 @@
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="today" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
 
-                    <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
+                    <toolkitControl:PullToRefreshListView x:Name="todayListView"
+                                                          IsItemClickEnabled="True"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposToday,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -92,12 +93,13 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="this week" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
+                    <toolkitControl:PullToRefreshListView x:Name="weekListView"  
+                                                          IsItemClickEnabled="True"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposWeek,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -146,12 +148,13 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="this month" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView IsItemClickEnabled="True"
+                    <toolkitControl:PullToRefreshListView x:Name="monthListView"
+                                                          IsItemClickEnabled="True"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposMonth,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"

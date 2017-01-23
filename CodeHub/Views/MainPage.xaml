@@ -31,7 +31,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Rectangle Width="6"
-                           Height="42"
+                           Height="45"
                            Margin="-11,0,0,0"
                            Fill="{StaticResource AppPrimaryColorBrush}"
                            Visibility="{x:Bind SelectedVisual, Mode=TwoWay}"
@@ -183,6 +183,8 @@
                         <Setter Target="HeaderText.FontWeight" Value="SemiLight"/>
                         <Setter Target="HeaderText.FontSize" Value="14"/>
                         <Setter Target="HeaderText.Margin" Value="10 0 0 0"/>
+                        <Setter Target="SearchButton.MaxHeight" Value="19"/>
+                        <Setter Target="SearchButton.MaxWidth" Value="19"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -226,8 +228,8 @@
                      RelativePanel.AlignVerticalCenterWith="TopPanel"
                      Tapped="{x:Bind ViewModel.NavigateToSearch}"
                      Margin="0 0 15 0"
-                     MaxHeight="23"
-                     MaxWidth="23">
+                     MaxHeight="21"
+                     MaxWidth="21">
                     <SymbolIcon Symbol="Find"
                             Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                         <i:Interaction.Behaviors>
@@ -424,7 +426,12 @@
 
                 </SplitView.Pane>
                 <SplitView.Content>
-                    <Frame x:Name="mainFrame" Navigated="{x:Bind ViewModel.mainFrame_Navigated}">
+                    <control:CustomFrame x:Name="mainFrame" 
+                                         Navigated="{x:Bind ViewModel.mainFrame_Navigated}">
+                        
+
+                    </control:CustomFrame>
+                    <!--<Frame x:Name="mainFrame" Navigated="{x:Bind ViewModel.mainFrame_Navigated}">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
                                 <NavigationThemeTransition>
@@ -434,7 +441,7 @@
                                 </NavigationThemeTransition>
                             </TransitionCollection>
                         </Frame.ContentTransitions>
-                    </Frame>
+                    </Frame>-->
 
                 </SplitView.Content>
             </SplitView>

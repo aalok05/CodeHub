@@ -27,6 +27,8 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
+            todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
+
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
         }
 

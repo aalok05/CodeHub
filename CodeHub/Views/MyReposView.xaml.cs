@@ -25,7 +25,9 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-           
+
+            RepoListView.SelectedIndex = StarredRepoListView.SelectedIndex = -1;
+
             ViewModel.User = (User)e.Parameter;
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "My Repositories" });
         }

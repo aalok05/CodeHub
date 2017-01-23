@@ -25,12 +25,12 @@
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="open" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <ListView
+                    <ListView x:Name="openIssueListView"
                            IsItemClickEnabled="True"
                            ItemsSource="{x:Bind ViewModel.OpenIssues,Mode=OneWay}"
                            ItemClick="{x:Bind ViewModel.IssueTapped}">
@@ -59,12 +59,12 @@
                                   Height="40"/>
                 </Grid>
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="closed" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <ListView
+                    <ListView x:Name="closedIssueListView"
                            IsItemClickEnabled="True"
                            ItemsSource="{x:Bind ViewModel.ClosedIssues,Mode=OneWay}"
                            ItemClick="{x:Bind ViewModel.IssueTapped}">
@@ -93,12 +93,12 @@
                                   Height="40"/>
                 </Grid>
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock Text="mine" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-                    <ListView
+                    <ListView x:Name="mineIssueListView"
                            IsItemClickEnabled="True"
                            ItemsSource="{x:Bind ViewModel.MyIssues,Mode=OneWay}"
                            ItemClick="{x:Bind ViewModel.IssueTapped}">

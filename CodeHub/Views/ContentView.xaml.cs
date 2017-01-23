@@ -4,6 +4,8 @@ using CodeHub.ViewModels;
 using Octokit;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using GalaSoft.MvvmLight.Messaging;
+using CodeHub.Helpers;
 
 namespace CodeHub.Views
 {
@@ -20,7 +22,17 @@ namespace CodeHub.Views
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var tuple = e.Parameter as Tuple<Repository, string, string>; //This page recieves repository ,path and branch
+            //This page recieves repository ,path and branch
+            var tuple = e.Parameter as Tuple<Repository, string, string>;
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = tuple.Item1.FullName });
+
+            ContentListView.SelectedIndex = -1;
+
+            if (ViewModel.Content != null)
+            {
+                ViewModel.Content.Clear();
+            }
             await ViewModel.Load(tuple);
         }
         private void ScrollUpButton_Click(object sender, RoutedEventArgs e)

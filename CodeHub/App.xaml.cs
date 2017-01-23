@@ -9,6 +9,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
+using CodeHub.Controls;
 
 namespace CodeHub
 {
@@ -44,14 +45,14 @@ namespace CodeHub
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            CustomFrame rootFrame = Window.Current.Content as CustomFrame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                rootFrame = new CustomFrame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
@@ -74,11 +75,11 @@ namespace CodeHub
 
                     if (await AuthService.checkAuth())
                     {
-                        rootFrame.Navigate(typeof(MainPage), true);
+                       await rootFrame.Navigate(typeof(MainPage), true);
                     }
                     else
                     {
-                        rootFrame.Navigate(typeof(MainPage), false);
+                       await rootFrame.Navigate(typeof(MainPage), false);
                     }
                 }
 

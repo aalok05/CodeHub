@@ -12,13 +12,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
+using CodeHub.Controls;
 
 namespace CodeHub.Views
 {
     public sealed partial class MainPage : Windows.UI.Xaml.Controls.Page
     {
         public MainViewmodel ViewModel { get; set; }
-        public Frame AppFrame { get { return this.mainFrame; } }
+        public CustomFrame AppFrame { get { return this.mainFrame; } }
         public MainPage()
         {
             this.InitializeComponent();
@@ -28,16 +29,19 @@ namespace CodeHub.Views
 
             SizeChanged += MainPage_SizeChanged;
 
-            Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage); //Listening for No Internet message
-            Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage); //Listening Internet available message
+            //Listening for No Internet message
+            Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage);
+            //Listening Internet available message
+            Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage);
+            //Setting Header Text to the current page name
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m)
             {
                 ViewModel.setHeadertext(m.PageName);
-            });  //Setting Header Text to the current page name
+            });  
 
             SimpleIoc.Default.Register<INavigationService>(() =>
             { return new NavigationService(mainFrame); });
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
+            
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
@@ -57,11 +61,16 @@ namespace CodeHub.Views
                 }
             }
         }
-        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        private async void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            bool handled = e.Handled;
-            this.BackRequested(ref handled);
-            e.Handled = handled;
+            if (this.AppFrame == null)
+                return;
+
+            if (this.AppFrame.CanGoBack && !e.Handled)
+            {
+                e.Handled = true;
+                await this.AppFrame.GoBack();
+            }
         }
         private void HamButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,17 +85,6 @@ namespace CodeHub.Views
         {
             ViewModel.NavigateToSettings();
             HamSplitView.IsPaneOpen = false;
-        }
-        private void BackRequested(ref bool handled)
-        {
-            if (this.AppFrame == null)
-                return;
-
-            if (this.AppFrame.CanGoBack && !handled)
-            {
-                handled = true;
-                this.AppFrame.GoBack();
-            }
         }
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -120,6 +118,7 @@ namespace CodeHub.Views
                 if (ViewModel.isLoggedin)
                 {
                     BottomAppBar.Visibility = Visibility.Visible;
+                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
                 }
                 else
                 {
@@ -140,6 +139,7 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
+            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
         }
     }
 }

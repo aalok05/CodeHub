@@ -15,28 +15,10 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
-                    Background="{ThemeResource SystemChromeLowColor}">
-
-            <HyperlinkButton Content="{x:Bind ViewModel.Repository.FullName,Mode=OneWay}"
-                             Command="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                             HorizontalAlignment="Center"
-                             Margin="0 5 0 5">
-                <HyperlinkButton.ContentTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" 
-                                   FontSize="17"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource RepoNameTextBlockStyle}"/>
-                    </DataTemplate>
-                </HyperlinkButton.ContentTemplate>
-            </HyperlinkButton>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal"
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal"
                     Margin="0 0 0 10">
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center" 
@@ -61,7 +43,7 @@
             </StackPanel>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="3"
+        <ScrollViewer Grid.Row="2"
                   VerticalScrollMode="Enabled"
                   HorizontalScrollMode="Enabled"
                   VerticalScrollBarVisibility="Auto"
@@ -74,8 +56,8 @@
                          Visibility="{x:Bind ViewModel.IsReadme,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
 
                 <Grid Visibility="{x:Bind ViewModel.IsReadme,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
-                    <TextBlock VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
+                    <TextBlock VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
                            IsTextSelectionEnabled="True"
                            FontSize="13"
                            Padding="10"
@@ -94,13 +76,13 @@
 
 
 
-        <TextBlock Grid.Row="3" Text="File type not supported"
+        <TextBlock Grid.Row="2" Text="File type not supported"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="Gray"
                    Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"/>
 
-        <ProgressRing Grid.Row="3"
+        <ProgressRing Grid.Row="2"
                       Width="40"
                       Height="40"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
