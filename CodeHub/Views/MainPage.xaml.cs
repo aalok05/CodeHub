@@ -29,16 +29,19 @@ namespace CodeHub.Views
 
             SizeChanged += MainPage_SizeChanged;
 
-            Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage); //Listening for No Internet message
-            Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage); //Listening Internet available message
+            //Listening for No Internet message
+            Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage);
+            //Listening Internet available message
+            Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage);
+            //Setting Header Text to the current page name
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m)
             {
                 ViewModel.setHeadertext(m.PageName);
-            });  //Setting Header Text to the current page name
+            });  
 
             SimpleIoc.Default.Register<INavigationService>(() =>
             { return new NavigationService(mainFrame); });
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
+            
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
@@ -115,6 +118,7 @@ namespace CodeHub.Views
                 if (ViewModel.isLoggedin)
                 {
                     BottomAppBar.Visibility = Visibility.Visible;
+                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
                 }
                 else
                 {
@@ -135,6 +139,7 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
+            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
         }
     }
 }

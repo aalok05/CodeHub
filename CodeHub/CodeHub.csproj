@@ -340,8 +340,9 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UICompositionAnimations">
-      <HintPath>E:\UICompositionAnimations-master\UICompositionAnimations-master\UICompositionAnimations\bin\Debug\UICompositionAnimations.dll</HintPath>
+    <Reference Include="UICompositionAnimations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\UICompositionAnimations.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
