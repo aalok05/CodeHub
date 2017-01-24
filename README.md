@@ -1,4 +1,7 @@
 # CodeHub
+<span class="badge-patreon"><a href="https://www.patreon.com/aalok05" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+<span class="badge-paypal"><a href="https://www.paypal.me/aalok05" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+
 CodeHub is a Universal Windows GitHub client that helps you keep up with the open source world.
 
 Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codehub-a-client-for-github/9nblggh52tbd#).
