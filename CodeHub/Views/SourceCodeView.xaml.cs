@@ -30,7 +30,7 @@ namespace CodeHub.Views
                 ContentListView.SelectedIndex = -1;
                 return;
             }
-            if(ViewModel.Content!=null)
+            if(e.Parameter as Repository != ViewModel.Repository && ViewModel.Content!=null)
             {
                 ViewModel.Content.Clear();
             }
