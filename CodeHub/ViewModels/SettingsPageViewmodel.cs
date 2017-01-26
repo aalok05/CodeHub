@@ -6,6 +6,7 @@ using CodeHub.Helpers;
 using System.Collections.ObjectModel;
 using CodeHub.Models;
 using Windows.UI.Xaml.Controls;
+using CodeHub.Views;
 
 namespace CodeHub.ViewModels
 {
@@ -44,19 +45,22 @@ namespace CodeHub.ViewModels
                 {
                     MainText = "Appearance",
                     SubText = "UI customization",
-                    GlyphString = "\xE7F4"
+                    GlyphString = "\xE7F4",
+                    DestPage = typeof(AppearanceView)
                 },
                 new SettingsItem()
                 {
                     MainText = "About",
                     SubText = "Developer info and contacts",
-                    GlyphString = "\xE7BE"
+                    GlyphString = "\xE7BE",
+                    DestPage = typeof(AboutView)
                 },
                 new SettingsItem()
                 {
                     MainText = "Donate",
                     SubText = "Support the app and the developer",
-                    GlyphString = "\xE170"
+                    GlyphString = "\xE170",
+                    DestPage = typeof(DonateView)
                 }
             };
         }

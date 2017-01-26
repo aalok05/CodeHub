@@ -146,6 +146,9 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AppearanceView.xaml.cs">
+      <DependentUpon>AppearanceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,9 @@
     </Compile>
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DonateView.xaml.cs">
+      <DependentUpon>DonateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
@@ -279,6 +285,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AppearanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +298,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeveloperProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DonateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

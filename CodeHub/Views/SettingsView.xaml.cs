@@ -46,20 +46,13 @@ namespace CodeHub.Views
         {
             var setting = e.ClickedItem as SettingsItem;
 
-            switch(setting.MainText)
+            if (ViewModel.CurrentState == "Mobile")
             {
-                case "About":
-
-                    if (ViewModel.CurrentState == "Mobile")
-                    {
-                        SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(AboutView));
-                    }
-                    else
-                    {
-                        await settingsFrame.Navigate(typeof(AboutView));
-                    }
-
-                break;
+                SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(setting.DestPage);
+            }
+            else
+            {
+                await settingsFrame.Navigate(setting.DestPage);
             }
         }
     }
