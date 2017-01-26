@@ -13,7 +13,7 @@ using CodeHub.Views;
 
 namespace CodeHub.ViewModels
 {
-    public class FileContentViewModel : AppViewmodel
+    public class FileContentViewmodel : AppViewmodel
     {
         public Repository _repository;
         public Repository Repository
