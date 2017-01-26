@@ -10,7 +10,7 @@ using CodeHub.Views;
 
 namespace CodeHub.ViewModels
 {
-    public class SettingsPageViewModel : AppViewmodel
+    public class SettingsViewModel : AppViewmodel
     {
         public string _currentState;
         public string CurrentState
@@ -37,7 +37,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public SettingsPageViewModel()
+        public SettingsViewModel()
         {
             Settings = new ObservableCollection<SettingsItem>()
             {
@@ -64,5 +64,6 @@ namespace CodeHub.ViewModels
                 }
             };
         }
+
     }
 }

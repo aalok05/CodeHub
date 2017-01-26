@@ -23,19 +23,6 @@ namespace CodeHub.ViewModels
                 return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
             }
         }
-
-        public string _currentState;
-        public string CurrentState
-        {
-            get
-            {
-                return _currentState;
-            }
-            set
-            {
-                Set(() => CurrentState, ref _currentState, value);
-            }
-        }
         #endregion
     }
 }

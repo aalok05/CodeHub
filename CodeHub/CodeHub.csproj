@@ -187,7 +187,7 @@
     <Compile Include="ViewModels\ProfileViewmodel.cs" />
     <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
     <Compile Include="ViewModels\SearchViewmodel.cs" />
-    <Compile Include="ViewModels\SettingsPageViewmodel.cs" />
+    <Compile Include="ViewModels\SettingsViewmodel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -206,6 +206,7 @@
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsDetailPageBase.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
