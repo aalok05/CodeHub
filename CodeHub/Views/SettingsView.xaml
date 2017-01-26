@@ -67,6 +67,7 @@
             Grid.Column="0"
             Margin="0,10,0,0"
             IsItemClickEnabled="True"
+            SelectionMode="Single"
             ItemClick="SettingsListView_ItemClick"
             ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
             ItemTemplate="{StaticResource SettingsListItemTemplate}"

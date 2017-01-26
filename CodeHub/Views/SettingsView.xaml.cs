@@ -14,18 +14,27 @@ namespace CodeHub.Views
 {
     public sealed partial class SettingsView : Page
     {
-        public SettingsPageViewModel ViewModel;
+        public SettingsViewModel ViewModel;
         public SettingsView()
         {
             this.InitializeComponent();
-            ViewModel = new SettingsPageViewModel();
-          
+            ViewModel = new SettingsViewModel();
             this.DataContext = ViewModel;
+
+            NavigationCacheMode = NavigationCacheMode.Required;
+
         }
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             ViewModel.CurrentState = e.NewState.Name;
+            if (ViewModel.CurrentState == "Mobile")
+            {
+                if(SettingsListView.SelectedIndex != -1)
+                {
+                    SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage);
+                }
+            }
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -52,7 +61,8 @@ namespace CodeHub.Views
             }
             else
             {
-                await settingsFrame.Navigate(setting.DestPage);
+               if(settingsFrame.CurrentSourcePageType != setting.DestPage)
+                   await settingsFrame.Navigate(setting.DestPage);
             }
         }
     }
