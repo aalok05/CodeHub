@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
 using CodeHub.Controls;
+using UICompositionAnimations;
+using System.Threading.Tasks;
 
 namespace CodeHub.Views
 {
@@ -28,7 +30,7 @@ namespace CodeHub.Views
             this.DataContext = ViewModel;
 
             SizeChanged += MainPage_SizeChanged;
-
+            
             //Listening for No Internet message
             Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage);
             //Listening Internet available message
@@ -36,9 +38,9 @@ namespace CodeHub.Views
             //Setting Header Text to the current page name
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m)
             {
-                ViewModel.setHeadertext(m.PageName);
-            });  
-
+                setHeadertext(m.PageName);
+            });
+            
             SimpleIoc.Default.Register<INavigationService>(() =>
             { return new NavigationService(mainFrame); });
             
@@ -46,11 +48,23 @@ namespace CodeHub.Views
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
         }
+        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            ViewModel.CurrentState = e.NewState.Name;
 
+            if (ViewModel.CurrentState == "Mobile")
+            {
+                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 10, 200, null, 0, EasingFunctionNames.SineEaseIn);
+            }
+            else
+            {
+                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 58, 200, null, 0, EasingFunctionNames.SineEaseIn);
+            }
+        }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if(e.NewSize.Width < 720)
-            {
+            {   
                 if (ViewModel.isLoggedin)
                 {
                     BottomAppBar.Visibility = Visibility.Visible;
@@ -115,6 +129,7 @@ namespace CodeHub.Views
              * */
             if (Window.Current.Bounds.Width < 720)
             {
+                ViewModel.CurrentState = "Mobile";
                 if (ViewModel.isLoggedin)
                 {
                     BottomAppBar.Visibility = Visibility.Visible;
@@ -125,21 +140,38 @@ namespace CodeHub.Views
                     BottomAppBar.Visibility = Visibility.Collapsed;
                 }
             }
+            else
+            {
+                ViewModel.CurrentState = "Desktop";
+            }
         }
         public void RecieveSignOutMessage(SignOutMessageType empty)
         {
-            if (Window.Current.Bounds.Width < 720)
+            if (ViewModel.CurrentState == "Mobile")
             {
                 BottomAppBar.Visibility = Visibility.Collapsed;
             }
         }
         public void RecieveSignInMessage(User user)
         {
-            if (Window.Current.Bounds.Width < 720)
+            if (ViewModel.CurrentState == "Mobile")
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
             SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
+        }
+        public void setHeadertext(string pageName)
+        {
+            ViewModel.HeaderText = pageName.ToUpper();
+
+            if (ViewModel.CurrentState == "Mobile")
+            {
+                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 10, 200, null, 0, EasingFunctionNames.SineEaseIn);
+            }
+            else
+            {
+                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 58, 200, null, 0, EasingFunctionNames.SineEaseIn);
+            }
         }
     }
 }

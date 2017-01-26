@@ -36,21 +36,6 @@
         </DataTemplate>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="ListColumn" />
-            <ColumnDefinition x:Name="ListItemColumn" />
-        </Grid.ColumnDefinitions>
-        <ListView
-            x:Name="SettingsListView"
-            Grid.Column="0"
-            Margin="0,10,0,0"
-            IsItemClickEnabled="True"
-            ItemClick="SettingsListView_ItemClick"
-            ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-            ItemTemplate="{StaticResource SettingsListItemTemplate}"
-            ItemsSource="{x:Bind ViewModel.Settings, Mode=OneWay}" />
-
-        <control:CustomFrame x:Name="settingsFrame" Grid.Column="1" />
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -73,5 +58,21 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="ListColumn" />
+            <ColumnDefinition x:Name="ListItemColumn" />
+        </Grid.ColumnDefinitions>
+        <ListView
+            x:Name="SettingsListView"
+            Grid.Column="0"
+            Margin="0,10,0,0"
+            IsItemClickEnabled="True"
+            ItemClick="SettingsListView_ItemClick"
+            ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+            ItemTemplate="{StaticResource SettingsListItemTemplate}"
+            ItemsSource="{x:Bind ViewModel.Settings, Mode=OneWay}" />
+
+        <control:CustomFrame x:Name="settingsFrame" Grid.Column="1" />
+        
     </Grid>
 </Page>
