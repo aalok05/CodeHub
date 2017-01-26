@@ -8,6 +8,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace CodeHub.Views
 {
@@ -22,38 +23,44 @@ namespace CodeHub.Views
             this.DataContext = ViewModel;
         }
 
+        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            ViewModel.CurrentState = e.NewState.Name;
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Settings" });
 
-            if (SettingsService.GetSetting("AppTheme") == "Dark")
+            if (Window.Current.Bounds.Width < 720)
             {
-                DarkThemeButton.Visibility = Visibility.Collapsed;
-                LightThemeButton.Visibility = Visibility.Visible;
+                ViewModel.CurrentState = "Mobile";
             }
             else
             {
-                DarkThemeButton.Visibility = Visibility.Visible;
-                LightThemeButton.Visibility = Visibility.Collapsed;
+                ViewModel.CurrentState = "Desktop";
             }
-                
-
-        }
-        private void LightThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            SettingsService.SaveSetting("AppTheme", "Light");
-            DarkThemeButton.Visibility = Visibility.Visible;
-            LightThemeButton.Visibility = Visibility.Collapsed;
-            e.Handled = true;
         }
 
-        private void DarkThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void SettingsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            SettingsService.SaveSetting("AppTheme", "Dark");
-            DarkThemeButton.Visibility = Visibility.Collapsed;
-            LightThemeButton.Visibility = Visibility.Visible;
-            e.Handled = true;
+            var setting = e.ClickedItem as SettingsItem;
+
+            switch(setting.MainText)
+            {
+                case "About":
+
+                    if (ViewModel.CurrentState == "Mobile")
+                    {
+                        SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(AboutView));
+                    }
+                    else
+                    {
+                        await settingsFrame.Navigate(typeof(AboutView));
+                    }
+
+                break;
+            }
         }
     }
 }
