@@ -33,7 +33,7 @@
                Margin="12"
                RelativePanel.AlignRightWithPanel="True"
                RelativePanel.AlignTopWithPanel="True"
-               Source="{x:Bind Logo}" />
+               Source="{x:Bind ViewModel.Logo}" />
 
         <TextBlock x:Name="DisplayNameTextBlock"
                    Margin="0,0,0,12"
@@ -41,7 +41,7 @@
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.AlignRightWith="LogoImage"
                    RelativePanel.AlignTopWithPanel="True"
-                   Text="{x:Bind DisplayName}"
+                   Text="{x:Bind ViewModel.DisplayName}"
                    TextWrapping="Wrap" />
 
         <StackPanel x:Name="PublisherTextBlock"
@@ -49,7 +49,7 @@
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.Below="DisplayNameTextBlock">
             <TextBlock Margin="0,0,3,0" Text="Developed by " />
-            <TextBlock Text="{x:Bind Publisher}" />
+            <TextBlock Text="{x:Bind ViewModel.Publisher}" />
         </StackPanel>
 
         <TextBlock x:Name="VersionTextBlock"
@@ -57,7 +57,7 @@
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.Below="PublisherTextBlock">
             <Run>Version</Run>
-            <Run Text="{x:Bind Version}" />
+            <Run Text="{x:Bind ViewModel.Version}" />
         </TextBlock>
         <TextBlock x:Name="DisclaimerText"
                    Margin="0,0,0,10"
