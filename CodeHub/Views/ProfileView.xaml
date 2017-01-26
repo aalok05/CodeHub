@@ -68,11 +68,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Image  Grid.Row="0"
-                    Stretch="Fill"
-                    Source="{x:Bind ViewModel.User.AvatarUrl,Mode=OneWay}">
-                <i:Interaction.Behaviors>
-                    <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
-                </i:Interaction.Behaviors>
+                    Stretch="UniformToFill"
+                    Source="{x:Bind ViewModel.UserBlurredAvatar,Mode=OneWay}">
             </Image>
             <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
         </Grid>
@@ -87,7 +84,7 @@
                              Margin="0 10 0 0"
                              RelativePanel.AlignHorizontalCenterWithPanel="True">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl,Mode=OneWay}"/>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.UserAvatar,Mode=OneWay, FallbackValue=Assets/profile-placeholder.png}"/>
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock x:Name="UserNameText"

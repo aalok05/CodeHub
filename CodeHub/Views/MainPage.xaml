@@ -223,7 +223,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <RelativePanel x:Name="HeaderPanel" Background="{ThemeResource SystemChromeLowColor}">
+            <RelativePanel x:Name="HeaderPanel" Background="{ThemeResource SystemChromeLowColor}"
+                           Canvas.ZIndex="1">
                 <StackPanel
                     x:Name="TopPanel"
                     Orientation="Horizontal"

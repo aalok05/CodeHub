@@ -127,6 +127,8 @@
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\HTTPHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
@@ -364,9 +366,8 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UICompositionAnimations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\UICompositionAnimations.dll</HintPath>
+    <Reference Include="UICompositionAnimations">
+      <HintPath>..\..\UICompositionAnimations\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

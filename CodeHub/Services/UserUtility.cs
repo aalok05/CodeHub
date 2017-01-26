@@ -4,7 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media;
+using CodeHub.Helpers;
+using CodeHub.Models;
+using JetBrains.Annotations;
 
 namespace CodeHub.Services
 {
@@ -27,6 +33,20 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Loads a classic and a blurred version of the user avatar
+        /// </summary>
+        /// <param name="user">The original user to wrap</param>
+        /// <param name="blur">The amount of blur to use</param>
+        /// <param name="token">The cancellation token for the operation</param>
+        [ItemCanBeNull]
+        public static async Task<Tuple<ImageSource, ImageSource>> GetDeveloperAvatarOptionsAsync([NotNull] User user, int blur, CancellationToken token)
+        {
+            IBuffer imageBuffer = await HTTPHelper.DownloadDataAsync(user.AvatarUrl, token);
+            return imageBuffer == null ? null : await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(imageBuffer, blur);
+        }
+
         public static async Task<bool> FollowUser(string login)
         {
             try

@@ -88,12 +88,9 @@
                 </Grid.ColumnDefinitions>
 
                 <Image x:Name="BackgroundImage"
-                       Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl,Mode=OneWay}"
+                       Source="{x:Bind ViewModel.UserBlurredAvatar,Mode=OneWay}"
                        Grid.ColumnSpan="3"
                        Stretch="Fill">
-                    <i:Interaction.Behaviors>
-                        <behaviors:Blur Value="100" Duration="0" Delay="0" AutomaticallyStart="True"/>
-                    </i:Interaction.Behaviors>
                 </Image>
 
                 <Border x:Name="OwnerPic"
@@ -105,7 +102,7 @@
                         Width="70"
                         Height="70">
                     <Border.Background>
-                        <ImageBrush ImageSource="{x:Bind ViewModel.Repository.Owner.AvatarUrl,Mode=OneWay}"/>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.UserAvatar,Mode=OneWay, FallbackValue=Assets/profile-placeholder.png}"/>
                     </Border.Background>
                 </Border>
 

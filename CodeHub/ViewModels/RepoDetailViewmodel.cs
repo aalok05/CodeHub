@@ -5,13 +5,7 @@ using CodeHub.Helpers;
 using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -57,6 +51,7 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
                 
                 isLoading = true;
+                await TryLoadUserAvatarImagesAsync(Repository?.Owner, 256); // More blur as these image gets stretched more
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 isLoading = false;
                
