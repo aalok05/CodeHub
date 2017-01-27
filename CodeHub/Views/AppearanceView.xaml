@@ -31,7 +31,7 @@
             <TextBlock Margin="10 10 0 0"
                        HorizontalAlignment="Left"
                        FontSize="22"
-                       FontWeight="Medium"
+                       FontWeight="SemiLight"
                        Text="Theme" />
             <TextBlock Margin="10 10 0 0"
                        HorizontalAlignment="Left"
