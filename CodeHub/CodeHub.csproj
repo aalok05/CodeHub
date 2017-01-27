@@ -118,6 +118,9 @@
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TopScrollerControl.xaml.cs">
+      <DependentUpon>TopScrollerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,7 @@
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Models\SettingsItem.cs" />
@@ -277,6 +281,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RepoListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TopScrollerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
