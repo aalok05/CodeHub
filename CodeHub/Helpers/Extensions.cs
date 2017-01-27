@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -52,5 +54,11 @@ namespace CodeHub.Helpers
             scrollViewer.ChangeView(null, 0, null, false);
             return true;
         }
+
+        /// <summary>
+        /// Counts the number of items in an IEnumerable sequence
+        /// </summary>
+        /// <param name="enumerable">The sequence to count</param>
+        public static int Count([NotNull] this IEnumerable enumerable) => Enumerable.Count(enumerable.Cast<object>());
     }
 }
