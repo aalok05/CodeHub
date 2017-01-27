@@ -22,7 +22,7 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = " " });
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
             await ViewModel.Load(e.Parameter as Repository);
         }
     }
