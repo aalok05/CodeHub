@@ -17,7 +17,7 @@
         <!--Background Ellipse-->
         <Ellipse Width="48"
                  Height="48"
-                 Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                 Fill="{StaticResource AppPrimaryColorBrush}"
                  Opacity="0.8"
                  x:Uid="TopScrollerControl"
                  ToolTipService.ToolTip="Scroll to the top"/>
