@@ -84,7 +84,7 @@
                              Margin="0 10 0 0"
                              RelativePanel.AlignHorizontalCenterWithPanel="True">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.UserAvatar,Mode=OneWay, FallbackValue=Assets/profile-placeholder.png}"/>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.UserAvatar,Mode=OneWay, FallbackValue=Assets/profile-placeholder.png, TargetNullValue=Assets/profile-placeholder.png}"/>
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock x:Name="UserNameText"

@@ -43,7 +43,7 @@ namespace CodeHub.Services
         [ItemCanBeNull]
         public static async Task<Tuple<ImageSource, ImageSource>> GetDeveloperAvatarOptionsAsync([NotNull] User user, int blur, CancellationToken token)
         {
-            IBuffer imageBuffer = await HTTPHelper.DownloadDataAsync(user.AvatarUrl, token);
+            IBuffer imageBuffer = await HTTPHelper.GetBufferFromUrlAsync(user.AvatarUrl, token);
             return imageBuffer == null ? null : await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(imageBuffer, blur);
         }
 
