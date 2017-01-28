@@ -9,9 +9,7 @@ using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using Application = Windows.UI.Xaml.Application;
 
 namespace CodeHub.ViewModels
 {
