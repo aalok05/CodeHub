@@ -32,7 +32,7 @@ namespace CodeHub.Views
             {
                 if(SettingsListView.SelectedIndex != -1)
                 {
-                    SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage);
+                    SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage, "Settings");
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace CodeHub.Views
 
             if (ViewModel.CurrentState == "Mobile")
             {
-                SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(setting.DestPage);
+                SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(setting.DestPage, "Settings");
 
                 //Loading the page in settingsFrame also so that the page is visible in Desktop mode.
                 await settingsFrame.Navigate(setting.DestPage);

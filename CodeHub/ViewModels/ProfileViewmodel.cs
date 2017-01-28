@@ -108,7 +108,7 @@ namespace CodeHub.ViewModels
         }
         public void ProfileTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), ((User)e.ClickedItem).Login);
+            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), ((User)e.ClickedItem).Login, "Profile");
         }
         public void RecieveSignInMessage(User user)
         {

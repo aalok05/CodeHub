@@ -128,7 +128,7 @@ namespace CodeHub.Views
                 if (ViewModel.isLoggedin)
                 {
                     BottomAppBar.Visibility = Visibility.Visible;
-                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
+                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView), "Trending");
                 }
                 else
                 {
@@ -153,7 +153,7 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
+            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView), "Trending");
         }
 
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);

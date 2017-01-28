@@ -255,7 +255,7 @@ namespace CodeHub.ViewModels
             {
                 i.IsSelected = false;
             }
-            Navigate(typeof(SettingsView));
+            Navigate(typeof(SettingsView), "Settings");
         }
         public void NavigateToSearch()
         {
@@ -263,7 +263,7 @@ namespace CodeHub.ViewModels
             {
                 i.IsSelected = false;
             }
-            Navigate(typeof(SearchView));
+            Navigate(typeof(SearchView), "Search");
         }
         public void HamItemClicked(HamItem item)
         {
@@ -272,7 +272,7 @@ namespace CodeHub.ViewModels
                 i.IsSelected = false;
             }
             item.IsSelected = true;
-            Navigate(item.DestPage);
+            Navigate(item.DestPage,item.Label);
         }
         public void RecieveNoInternetMessage(NoInternetMessageType empty)
         {

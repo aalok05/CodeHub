@@ -37,9 +37,9 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-           
-            ViewModel.User = (User)e.Parameter;
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
+
+            ViewModel.User = (User)e.Parameter;
         }
         private async void ProfileView_Loading(FrameworkElement sender, object args)
         {
