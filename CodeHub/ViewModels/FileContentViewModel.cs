@@ -113,6 +113,22 @@ namespace CodeHub.ViewModels
             }
         }
 
+        // HTMLContent
+
+        public string _HTMLContent;
+        public string HTMLContent
+        {
+            get
+            {
+                return _HTMLContent;
+            }
+            set
+            {
+                Set(() => HTMLContent, ref _HTMLContent, value);
+
+            }
+        }
+
 
         public string _selectedBranch;
         public string SelectedBranch
@@ -211,6 +227,8 @@ namespace CodeHub.ViewModels
                 }
 
                 Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+
+                HTMLContent = await HTTPHelper.TestAsync(Content);
                 isLoading = false;
 
             }

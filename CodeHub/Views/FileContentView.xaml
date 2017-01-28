@@ -51,11 +51,12 @@
                   Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
             <Grid>
 
-                <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.Content,Mode=OneWay}"
+                <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
                          NavigationCompleted="WebView_NavigationCompleted"
-                         Visibility="{x:Bind ViewModel.IsReadme,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
+                         DefaultBackgroundColor="Black"
+                         Margin="-16,0,0,0"/>
 
-                <Grid Visibility="{x:Bind ViewModel.IsReadme,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
+                <Grid Visibility="Collapsed">
                     <TextBlock VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            IsTextSelectionEnabled="True"
