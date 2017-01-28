@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
@@ -45,6 +46,8 @@ namespace CodeHub.Helpers
         /// </summary>
         private const String CacheExtension = ".cache";
 
+        private static readonly HashAlgorithmProvider HashProvider = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
+
         /// <summary>
         /// Returns a buffer from the remote URL, loading a cached version if possible
         /// </summary>
@@ -62,7 +65,8 @@ namespace CodeHub.Helpers
 
                 // Get the filename for the cache storage
                 byte[] bytes = Encoding.Unicode.GetBytes(url);
-                String base64 = CryptographicBuffer.EncodeToBase64String(bytes.AsBuffer()), cacheFilename = $"{base64}{CacheExtension}";
+                IBuffer hash = HashProvider.HashData(bytes.AsBuffer());
+                String hex = CryptographicBuffer.EncodeToHexString(hash), cacheFilename = $"{hex}{CacheExtension}";
                 StorageFile file = (await ApplicationData.Current.LocalCacheFolder.TryGetItemAsync(cacheFilename)) as StorageFile;
 
                 // Check the cache result

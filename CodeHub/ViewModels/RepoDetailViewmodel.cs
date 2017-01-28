@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System;
+using System.Threading;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
@@ -6,6 +8,10 @@ using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Application = Windows.UI.Xaml.Application;
 
 namespace CodeHub.ViewModels
 {
@@ -37,6 +43,7 @@ namespace CodeHub.ViewModels
                 Set(() => IsStar, ref _isStar, value);
             }
         }
+
         public async Task Load(Repository repo)
         {
             Repository = repo;
@@ -51,10 +58,25 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
                 
                 isLoading = true;
-                await TryLoadUserAvatarImagesAsync(Repository?.Owner, 256); // More blur as these image gets stretched more
+                if (Repository?.Owner != null)
+                {
+                    // Get the image buffer manually to avoid making the HTTP call twice
+                    CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                    IBuffer buffer = await HTTPHelper.GetBufferFromUrlAsync(Repository.Owner.AvatarUrl, cts.Token);
+                    if (buffer != null)
+                    {
+                        // Load the user image
+                        Tuple<ImageSource, ImageSource> images = await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(buffer, 256);
+                        UserAvatar = images?.Item1;
+                        UserBlurredAvatar = images?.Item2;
+
+                        // Calculate the brightness
+                        byte brightness = await ImageHelper.CalculateAverageBrightnessAsync(buffer);
+                        Messenger.Default.Send(new GlobalHelper.SetBlurredAvatarUIBrightnessMessageType { Brightness = brightness });
+                    }
+                }
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 isLoading = false;
-               
             }
         }
 

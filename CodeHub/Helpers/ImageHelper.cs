@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
@@ -17,6 +18,46 @@ namespace CodeHub.Helpers
     /// </summary>
     public static class ImageHelper
     {
+        /// <summary>
+        /// Calculates the average image brightness from an input image buffer
+        /// </summary>
+        /// <param name="buffer">The image buffer to analyze</param>
+        public static async Task<byte> CalculateAverageBrightnessAsync([NotNull] IBuffer buffer)
+        {
+            // Extract the image RGBA pixel data
+            byte[] pixels;
+            using (Stream stream = buffer.AsStream())
+            using (IRandomAccessStream randomStream = stream.AsRandomAccessStream())
+            {
+                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(randomStream);
+                PixelDataProvider pixelData = await decoder.GetPixelDataAsync();
+                pixels = pixelData.DetachPixelData();
+            }
+
+            // Calculate the average brightness
+            int cores = Environment.ProcessorCount, chunks = pixels.Length / 4;
+            double[] partials = new double[cores];
+            ParallelLoopResult result = Parallel.For(0, cores, new ParallelOptions { MaxDegreeOfParallelism = cores }, workerId =>
+            {
+                // Setup and start the outer loops
+                int max = chunks * (workerId + 1) / cores * 4;
+                double partial = 0;
+                for (int i = chunks * workerId / cores * 4; i < max; i += 4)
+                {
+                    // Calculate the brightness of the current RGB pixel
+                    int
+                        r = pixels[i],
+                        g = pixels[i + 1],
+                        b = pixels[i + 2];
+                    partial += Math.Sqrt(0.299 * r * r + 0.587 * g * g + 0.114 * b * b);
+                }
+                partials[workerId] = partial;
+            });
+            if (!result.IsCompleted) throw new InvalidOperationException();
+            int brightness = (int)(partials.Sum() / (pixels.Length / 4));
+            return brightness > 255 ? byte.MaxValue : (byte)brightness;
+        }
+
         /// <summary>
         /// Loads an image and returns it and a blurred copy
         /// </summary>
