@@ -18,6 +18,7 @@ namespace CodeHub.Views
             ViewModel = new SourceCodeViewmodel();
             this.DataContext = ViewModel;
             this.Unloaded += (s, e) => TopScroller.Dispose();
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
