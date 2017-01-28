@@ -12,11 +12,11 @@ namespace CodeHub.Views
 {
     public sealed partial class FileContentView : Windows.UI.Xaml.Controls.Page
     {
-        public FileContentViewModel ViewModel;
+        public FileContentViewmodel ViewModel;
         public FileContentView()
         {
             this.InitializeComponent();
-            ViewModel = new FileContentViewModel();
+            ViewModel = new FileContentViewmodel();
 
             this.DataContext = ViewModel;
         }

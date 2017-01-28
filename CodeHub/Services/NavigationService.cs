@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight;
 
 namespace CodeHub.Services
 {
     public class NavigationService : INavigationService
     {
+        public Type CurrentSourcePageType { get; set; }
         public NavigationService(CustomFrame mainFrame)
         {
             _mainFrame = mainFrame;
@@ -20,6 +22,7 @@ namespace CodeHub.Services
 
         private void OnMainFrameNavigated(object sender, NavigationEventArgs navigationEventArgs)
         {
+            CurrentSourcePageType = _mainFrame.CurrentSourcePageType;
             if (_mainFrame.CanGoBack)
             {
                 // Show UI in title bar if opted-in and in-app backstack is not empty.
@@ -43,6 +46,11 @@ namespace CodeHub.Services
         public async void Navigate(Type type, object parameter)
         {
            await _mainFrame.Navigate(type, parameter);
+        }
+        public void NavigateWithoutAnimations(Type type)
+        {
+            if (_mainFrame.CurrentSourcePageType != type)
+                _mainFrame.NavigateWithoutAnimations(type);
         }
         public bool CanGoBack()
         {

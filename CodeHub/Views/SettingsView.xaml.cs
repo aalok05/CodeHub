@@ -8,52 +8,65 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace CodeHub.Views
 {
     public sealed partial class SettingsView : Page
     {
-        public SettingsPageViewModel ViewModel;
+        public SettingsViewModel ViewModel;
         public SettingsView()
         {
             this.InitializeComponent();
-            ViewModel = new SettingsPageViewModel();
-          
+            ViewModel = new SettingsViewModel();
             this.DataContext = ViewModel;
+
+            NavigationCacheMode = NavigationCacheMode.Required;
+
         }
 
+        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            ViewModel.CurrentState = e.NewState.Name;
+            if (ViewModel.CurrentState == "Mobile")
+            {
+                if(SettingsListView.SelectedIndex != -1)
+                {
+                    SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage);
+                }
+            }
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Settings" });
 
-            if (SettingsService.GetSetting("AppTheme") == "Dark")
+            if (Window.Current.Bounds.Width < 720)
             {
-                DarkThemeButton.Visibility = Visibility.Collapsed;
-                LightThemeButton.Visibility = Visibility.Visible;
+                ViewModel.CurrentState = "Mobile";
             }
             else
             {
-                DarkThemeButton.Visibility = Visibility.Visible;
-                LightThemeButton.Visibility = Visibility.Collapsed;
+                ViewModel.CurrentState = "Desktop";
             }
-                
-
-        }
-        private void LightThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            SettingsService.SaveSetting("AppTheme", "Light");
-            DarkThemeButton.Visibility = Visibility.Visible;
-            LightThemeButton.Visibility = Visibility.Collapsed;
-            e.Handled = true;
         }
 
-        private void DarkThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void SettingsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            SettingsService.SaveSetting("AppTheme", "Dark");
-            DarkThemeButton.Visibility = Visibility.Collapsed;
-            LightThemeButton.Visibility = Visibility.Visible;
-            e.Handled = true;
+            var setting = e.ClickedItem as SettingsItem;
+
+            if (ViewModel.CurrentState == "Mobile")
+            {
+                SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(setting.DestPage);
+
+                //Loading the page in settingsFrame also so that the page is visible in Desktop mode.
+                await settingsFrame.Navigate(setting.DestPage);
+            }
+            else
+            {
+               if(settingsFrame.CurrentSourcePageType != setting.DestPage)
+                   await settingsFrame.Navigate(setting.DestPage);
+            }
         }
     }
 }

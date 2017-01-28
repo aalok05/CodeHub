@@ -104,6 +104,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AnimatedComboBox.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>
@@ -118,6 +119,9 @@
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TopScrollerControl.xaml.cs">
+      <DependentUpon>TopScrollerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
@@ -127,20 +131,31 @@
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\HTTPHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
+    <Compile Include="ViewModels\AboutViewmodel.cs" />
     <Compile Include="ViewModels\CommentsViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
-    <Compile Include="ViewModels\FileContentViewModel.cs" />
+    <Compile Include="ViewModels\FileContentViewmodel.cs" />
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
     <Compile Include="ViewModels\RepoListViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppearanceView.xaml.cs">
+      <DependentUpon>AppearanceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +164,9 @@
     </Compile>
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DonateView.xaml.cs">
+      <DependentUpon>DonateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
@@ -176,7 +194,7 @@
     <Compile Include="ViewModels\ProfileViewmodel.cs" />
     <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
     <Compile Include="ViewModels\SearchViewmodel.cs" />
-    <Compile Include="ViewModels\SettingsPageViewmodel.cs" />
+    <Compile Include="ViewModels\SettingsViewmodel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -195,6 +213,7 @@
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsDetailPageBase.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -266,7 +285,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\TopScrollerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\UserListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MiscStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Styles\TextStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppearanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -279,6 +320,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeveloperProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DonateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -340,9 +385,8 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UICompositionAnimations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\UICompositionAnimations.dll</HintPath>
+    <Reference Include="UICompositionAnimations">
+      <HintPath>..\..\UICompositionAnimations\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

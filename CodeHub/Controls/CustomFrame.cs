@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using UICompositionAnimations;
 using Windows.UI.Xaml;
@@ -21,11 +19,6 @@ namespace CodeHub.Controls
         /// The duration of each navigation animation, in milliseconds
         /// </summary>
         private const int ContentAnimationDuration = 200;
-
-        /// <summary>
-        /// The offset of the X/Y axis, when the CustomFrame is using a slide animation to navigate
-        /// </summary>
-        private const int TargetContentAxisOffset = 30;
 
         /// <summary>
         /// Raised when the CustomFrame contains at least one page, and when it gets empty

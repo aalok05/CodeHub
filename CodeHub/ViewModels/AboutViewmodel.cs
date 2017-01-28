@@ -1,13 +1,14 @@
-﻿using GalaSoft.MvvmLight.Command;
-using System;
-using CodeHub.Services;
-using Windows.UI.Xaml;
-using CodeHub.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CodeHub.ViewModels
 {
-    public class SettingsPageViewModel : AppViewmodel
+    public class AboutViewmodel : AppViewmodel
     {
+        #region properties
         public string Logo => "/Assets/Images/appLogoPurple.png";
 
         public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
@@ -22,5 +23,6 @@ namespace CodeHub.ViewModels
                 return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
             }
         }
+        #endregion
     }
 }

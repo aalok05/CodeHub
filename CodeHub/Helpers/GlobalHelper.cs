@@ -36,6 +36,18 @@ namespace CodeHub.Helpers
         {
 
         }
+
+        /// <summary>
+        /// A class used to signal the UI to refresh when loading the blurred avatar image in the repo detail view
+        /// </summary>
+        public class SetBlurredAvatarUIBrightnessMessageType
+        {
+            /// <summary>
+            /// Gets or sets the calculated average brightness for the current user avatar
+            /// </summary>
+            public byte Brightness { get; set; }
+        }
+
         #endregion
 
         /*The Username (login) of the Authenticated user is available throughout the app to make calls for User's data*/

@@ -21,6 +21,19 @@ namespace CodeHub.ViewModels
     {
         #region properties
 
+        public string _currentState;
+        public string CurrentState
+        {
+            get
+            {
+                return _currentState;
+            }
+            set
+            {
+                Set(() => CurrentState, ref _currentState, value);
+            }
+        }
+
         public string _headerText;
         public string HeaderText
         {
@@ -273,11 +286,6 @@ namespace CodeHub.ViewModels
                 LoadCommand.Execute(null);
             }
         }
-        public void setHeadertext(string pageName)
-        {
-            HeaderText = pageName.ToUpper();
-        }
-
         public void mainFrame_Navigated(object sender, NavigationEventArgs e)
         {
             foreach (var i in HamItems)

@@ -11,6 +11,8 @@ namespace CodeHub.Services
     {
         void Navigate(Type type);
         void Navigate(Type type, object parameter);
+        void NavigateWithoutAnimations(Type type);
+        Type CurrentSourcePageType { get; set; }
         void GoBack();
         bool CanGoBack();
     }

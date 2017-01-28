@@ -1,18 +1,12 @@
-﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -77,6 +71,9 @@ namespace CodeHub.ViewModels
                         User = await UserUtility.getUserInfo(User.Login);
                         GlobalHelper.NewFollowActivity = false;
                     }
+
+                    // Load the user images
+                    await TryLoadUserAvatarImagesAsync();
 
                     isLoggedin = true;
                     if (User.Type == AccountType.Organization)
