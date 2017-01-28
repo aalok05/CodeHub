@@ -22,5 +22,89 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Left">
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="10 10 0 0"
+                       FontSize="20"
+                       FontWeight="SemiLight"
+                       Text="Donate to support CodeHub"/>
+            <TextBlock  Margin="10 10 0 0"
+                        Text="Pick an option to support the developer"
+                        FontWeight="SemiLight"
+                        FontSize="16"
+                        TextWrapping="Wrap"
+                        HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical"
+                    Margin="10 10 10 0">
+            <Button Background="Transparent"
+                    Tapped="first_tier_Tapped">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Padding="10">
+                        <TextBlock Text="$0.99"
+                                   FontSize="18"/>
+                        <TextBlock Text="Buy the developer a coffee."
+                                   TextWrapping="Wrap"
+                                   FontSize="14"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Background="Transparent"
+                    Tapped="second_tier_Tapped">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Padding="10">
+                        <TextBlock Text="$2.99"
+                                   FontSize="18"/>
+                        <TextBlock Text="Give the developer a present."
+                                   TextWrapping="Wrap"
+                                   FontSize="14"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Background="Transparent"
+                    Tapped="third_tier_Tapped">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Padding="10">
+                        <TextBlock Text="$4.99"
+                                   FontSize="18"/>
+                        <TextBlock Text="Actively support the development of CodeHub with this awesome donation."
+                                   TextWrapping="Wrap"
+                                   FontSize="14"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Background="Transparent"
+                    Tapped="fourth_tier_Tapped">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Padding="10">
+                        <TextBlock Text="$9.99"
+                                   FontSize="18"/>
+                        <TextBlock Text="Donate this magnificent sum if you are feeling generous and love CodeHub."
+                                   TextWrapping="Wrap"
+                                   FontSize="14"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
     </Grid>
 </local:SettingsDetailPageBase>

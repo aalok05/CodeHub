@@ -1,13 +1,16 @@
-﻿<local:SettingsDetailPageBase
-    x:Class="CodeHub.Views.AppearanceView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CodeHub.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<local:SettingsDetailPageBase x:Class="CodeHub.Views.AppearanceView"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:local="using:CodeHub.Views"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -22,5 +25,62 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <StackPanel Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    Orientation="Vertical">
+            <TextBlock Margin="10 10 0 0"
+                       HorizontalAlignment="Left"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Theme" />
+            <TextBlock Margin="10 10 0 0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       FontWeight="SemiLight"
+                       Text="Theme changes require app restart"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <Button x:Name="DarkThemeButton"
+                Height="50"
+                Grid.Row="1"
+                Margin="5 10 5 0"
+                Background="Transparent"
+                Tapped="DarkThemeButton_Tapped">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Margin="0 0 10 0"
+                              FontSize="18"
+                              Glyph="&#xE708;" />
+
+                     <TextBlock VerticalAlignment="Center"
+                                FontSize="13"
+                                Text="Turn on dark theme" />
+
+                </StackPanel>
+
+            </Button.Content>
+        </Button>
+        <Button x:Name="LightThemeButton"
+                Height="50"
+                Grid.Row="1"
+                Margin="5 10 5 0"
+                Background="Transparent"
+                Tapped="LightThemeButton_Tapped">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Margin="0 0 10 0"
+                              FontSize="18"
+                              Glyph="&#xE706;" />
+
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Turn on light theme" />
+
+
+                </StackPanel>
+
+            </Button.Content>
+        </Button>
     </Grid>
+
 </local:SettingsDetailPageBase>

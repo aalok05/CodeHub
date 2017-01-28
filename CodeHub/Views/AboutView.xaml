@@ -84,6 +84,25 @@
                          Foreground="{StaticResource AppPrimaryColorBrush}"
                          NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
                          RelativePanel.Below="TwitterLink" />
+        <Button x:Name="RateButton"
+                Tapped="RateButton_Tapped"
+                RelativePanel.Below="PrivacyLink"
+                Margin="0 5 0 0"
+                Background="{StaticResource AppPrimaryColorBrush}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal"
+                            Padding="5">
+                    <Viewbox MaxHeight="25"
+                             MaxWidth="25">
+                        <SymbolIcon Symbol="OutlineStar" Foreground="White" Margin="0 0 10 0"/>
+                    </Viewbox>
+                    <TextBlock Text="Rate in the store"
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button.Content>
+
+        </Button>
 
     </RelativePanel>
 </local:SettingsDetailPageBase>
