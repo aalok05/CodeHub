@@ -5,14 +5,9 @@ using CodeHub.Helpers;
 using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -135,6 +130,7 @@ namespace CodeHub.ViewModels
                 {
                     isLoading = true;
                     Developer = await UserUtility.getUserInfo(login);
+                    if (Developer != null) await TryLoadUserAvatarImagesAsync(Developer);
                     isLoading = false;
                     if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
                     {
@@ -226,7 +222,7 @@ namespace CodeHub.ViewModels
         public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
         {
             Developer = await UserUtility.getUserInfo(Developer.Login);
-            
+            if (Developer != null) await TryLoadUserAvatarImagesAsync(Developer);
             FollowersLoading = true;
             Followers = await UserDataService.getAllFollowers(Developer.Login);
             FollowersLoading = false;

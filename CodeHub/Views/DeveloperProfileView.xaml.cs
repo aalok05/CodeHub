@@ -37,7 +37,7 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
            
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = " " });
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
             await ViewModel.Load(e.Parameter as string);
         }
     }

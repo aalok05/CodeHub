@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System.Threading;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Models;
@@ -48,18 +49,12 @@ namespace CodeHub.Views
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
         }
-        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             ViewModel.CurrentState = e.NewState.Name;
 
-            if (ViewModel.CurrentState == "Mobile")
-            {
-                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 10, 200, null, 0, EasingFunctionNames.SineEaseIn);
-            }
-            else
-            {
-                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 58, 200, null, 0, EasingFunctionNames.SineEaseIn);
-            }
+            await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
+            await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
         }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -160,18 +155,19 @@ namespace CodeHub.Views
             }
             SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView));
         }
-        public void setHeadertext(string pageName)
-        {
-            ViewModel.HeaderText = pageName.ToUpper();
 
-            if (ViewModel.CurrentState == "Mobile")
+        private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
+
+        public async void setHeadertext(string pageName)
+        {
+            await HeaderAnimationSemaphore.WaitAsync();
+            if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
             {
-                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 10, 200, null, 0, EasingFunctionNames.SineEaseIn);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
+                ViewModel.HeaderText = pageName.ToUpper();
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
             }
-            else
-            {
-                HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 100, 58, 200, null, 0, EasingFunctionNames.SineEaseIn);
-            }
+            HeaderAnimationSemaphore.Release();
         }
     }
 }

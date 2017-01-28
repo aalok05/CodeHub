@@ -14,11 +14,11 @@ namespace CodeHub.Views
         public ContentViewmodel ViewModel;
         public ContentView()
         {
+            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(ContentListView);
             this.InitializeComponent();
             ViewModel = new ContentViewmodel();
             this.DataContext = ViewModel;
-
-            NavigationCacheMode = NavigationCacheMode.Required;
+            this.Unloaded += (s, e) => TopScroller.Dispose();
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -35,9 +35,10 @@ namespace CodeHub.Views
             }
             await ViewModel.Load(tuple);
         }
-        private void ScrollUpButton_Click(object sender, RoutedEventArgs e)
+
+        private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
         {
-            ContentListView?.ScrollIntoView(ContentListView.Items[0], ScrollIntoViewAlignment.Leading);
+            ContentListView.ScrollToTheTop();
         }
     }
 }

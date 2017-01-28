@@ -197,9 +197,6 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Visible" />
                         <Setter Target="HamButton.Visibility" Value="Collapsed" />
                         <Setter Target="HeaderPanel.Height" Value="40" />
-                        <Setter Target="HeaderText.FontWeight" Value="SemiLight" />
-                        <Setter Target="HeaderText.FontSize" Value="14" />
-                        <Setter Target="HeaderText.Margin" Value="10 0 0 0" />
                         <Setter Target="SearchButton.MaxHeight" Value="19" />
                         <Setter Target="SearchButton.MaxWidth" Value="19" />
                     </VisualState.Setters>
@@ -211,6 +208,17 @@
                     <VisualState.Setters>
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
+                        <Setter Target="HamSplitView.DisplayMode" Value="Overlay"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopEx">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
+                        <Setter Target="HamButton.Visibility" Value="Visible" />
+                        <Setter Target="HamSplitView.DisplayMode" Value="Inline"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -223,7 +231,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <RelativePanel x:Name="HeaderPanel" Background="{ThemeResource SystemChromeLowColor}">
+            <RelativePanel x:Name="HeaderPanel" Background="{ThemeResource SystemChromeLowColor}"
+                           Canvas.ZIndex="1">
                 <StackPanel
                     x:Name="TopPanel"
                     Orientation="Horizontal"
@@ -233,15 +242,16 @@
                         Click="HamButton_Click"
                         Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
 
-                    <TextBlock
-                        Name="HeaderText"
-                        Margin="10 0 0 0"
-                        VerticalAlignment="Center"
-                        FontFamily="Segoe UI"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                        Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                    <Grid Margin="12,0,0,0">
+                        <TextBlock
+                            Name="HeaderText"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe UI"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                            Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                    </Grid>
                 </StackPanel>
                 <Viewbox
                     x:Name="SearchButton"

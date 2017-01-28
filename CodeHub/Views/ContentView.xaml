@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:octo="using:Octokit"
     xmlns:converters="using:CodeHub.Converters"
+    xmlns:controls="using:CodeHub.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
@@ -17,7 +18,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal"
@@ -72,26 +72,12 @@
         <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
 
-        <Button x:Name="ScrollUpButton"
-                    Background="Transparent"
-                    Grid.Row="2"
-                    Margin="0 0 30 25"
-                    Style="{StaticResource EmptyButtonStyle}"
-                    HorizontalAlignment="Right"
-                    Click="ScrollUpButton_Click">
-            <ToolTipService.ToolTip>
-                <TextBlock Text="Scroll to top"/>
-            </ToolTipService.ToolTip>
-            <Border CornerRadius="25" 
-                        Padding="15"
-                        Background="#689F38" 
-                        BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Viewbox MaxHeight="21"
-                         MaxWidth="21">
-                    <SymbolIcon Symbol="Up" Foreground="White"/>
-                </Viewbox>
-            </Border>
-        </Button>
+        <controls:TopScrollerControl x:Name="TopScroller"
+                                     HorizontalAlignment="Right"
+                                     VerticalAlignment="Bottom"
+                                     Margin="0,0,32,24"
+                                     Grid.Row="1"
+                                     TopScrollingRequested="TopScroller_OnTopScrollingRequested"/>
 
     </Grid>
 </Page>
