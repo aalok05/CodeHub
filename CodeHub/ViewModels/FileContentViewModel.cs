@@ -3,9 +3,11 @@ using CodeHub.Helpers;
 using CodeHub.Services;
 using Octokit;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using CodeHub.Services.Hilite_me;
 using MarkdownSharp;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -227,8 +229,8 @@ namespace CodeHub.ViewModels
                 }
 
                 Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
-
-                HTMLContent = await HTTPHelper.TestAsync(Content);
+                
+                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(Content, Path, SyntaxHighlightStyle.Monokai, true, CancellationToken.None);
                 isLoading = false;
 
             }

@@ -136,6 +136,8 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Services\AppCredentials.cs" />
+    <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
+    <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\SearchUtility.cs" />

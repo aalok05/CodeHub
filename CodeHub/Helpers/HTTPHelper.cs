@@ -42,31 +42,6 @@ namespace CodeHub.Helpers
             }
         }
 
-        private const String APIUrl = "http://hilite.me/api";
-
-        public static async Task<String> TestAsync(String code)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                var values = new Dictionary<string, string>
-                {
-                    { "code", code },
-                    { "lexer", "xml" },
-                    { "style", "monokai" },
-                    { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" },
-                    { "linenos", "pls" }
-                };
-                var content = new HttpFormUrlEncodedContent(values);
-                var r = await client.PostAsync(new Uri(APIUrl), content);
-                if (r.IsSuccessStatusCode)
-                {
-                    var s = await r.Content.ReadAsStringAsync();
-                    return s;
-                }
-                return String.Empty;
-            }
-        }
-
         /// <summary>
         /// Gets the extension for the local cached files
         /// </summary>
