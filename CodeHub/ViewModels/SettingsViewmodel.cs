@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using CodeHub.Models;
 using Windows.UI.Xaml.Controls;
 using CodeHub.Views;
+using CodeHub.Services.Hilite_me;
 
 namespace CodeHub.ViewModels
 {
@@ -55,6 +56,21 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
+        #region about settings properties
+
+        public SyntaxHighlightStyle _selectedHighlightStyle;
+        public SyntaxHighlightStyle SelectedHighlightStyle
+        {
+            get
+            {
+                return _selectedHighlightStyle;
+            }
+            set
+            {
+                Set(() => SelectedHighlightStyle, ref _selectedHighlightStyle, value);
+            }
+        }
+        #endregion
         public SettingsViewModel()
         {
             Settings = new ObservableCollection<SettingsItem>()

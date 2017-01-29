@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CodeHub.Services.Hilite_me;
+using CodeHub.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,18 +15,40 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace CodeHub.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class GeneralSettingsView : Page
+    public sealed partial class GeneralSettingsView : SettingsDetailPageBase
     {
+        private SettingsViewModel ViewModel;
         public GeneralSettingsView()
         {
             this.InitializeComponent();
+
+            ViewModel = new SettingsViewModel();
+            this.DataContext = ViewModel;
         }
+        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            TryNavigateBackForDesktopState(e.NewState.Name);
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            
+            var _enumval = Enum.GetValues(typeof(SyntaxHighlightStyle)).Cast<SyntaxHighlightStyle>();
+            SyntaxStyleCombobox.ItemsSource = _enumval.ToList();
+            SyntaxStyleCombobox.SelectedItem = _enumval.ToList()[4];
+            ViewModel.SelectedHighlightStyle = SyntaxHighlightStyle.Monokai;
+
+        }
+        private void SyntaxStyleCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           if(e.AddedItems.Count != 0)
+           {
+
+           }
+        }
+
     }
 }

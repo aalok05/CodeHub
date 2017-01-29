@@ -28,12 +28,12 @@
         <StackPanel Grid.Row="0"
                     HorizontalAlignment="Left"
                     Orientation="Vertical">
-            <TextBlock Margin="10 10 0 0"
+            <TextBlock Margin="12 12 0 0"
                        HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Theme" />
-            <TextBlock Margin="10 10 0 0"
+            <TextBlock Margin="12 12 0 0"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiLight"
