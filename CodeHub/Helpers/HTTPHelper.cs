@@ -153,16 +153,23 @@ namespace CodeHub.Helpers
                     // Try to get the remote buffer
                     HttpResponseMessage response;
                     using (HttpClient client = new HttpClient())
-                    using (IHttpContent content = new HttpFormUrlEncodedContent(parameters))
                     {
-                        // Make the POST call
                         try
                         {
-                            response = await client.PostAsync(new Uri(url), content).AsTask(token).ContinueWith(t => t.GetAwaiter().GetResult());
+                            using (IHttpContent content = new HttpFormUrlEncodedContent(parameters))
+                            {
+                                // Make the POST call
+                                response = await client.PostAsync(new Uri(url), content).AsTask(token).ContinueWith(t => t.GetAwaiter().GetResult());
+                            }
                         }
                         catch (OperationCanceledException e)
                         {
                             // Token expired
+                            return e;
+                        }
+                        catch (ArgumentException e)
+                        {
+                            // Invalid POST content
                             return e;
                         }
                     }

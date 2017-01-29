@@ -226,12 +226,18 @@ namespace CodeHub.ViewModels
                     return;
                 }
 
-                string content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+
+                String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))?[0].Content;
+                if (content == null)
+                {
+                    IsSupportedFile = false;
+                    isLoading = false;
+                    return;
+                }
                 SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
                 bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
                 HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
-
-                IsSupportedFile = HTMLContent == null ? false : true;
+                IsSupportedFile = HTMLContent != null;
                 isLoading = false;
 
             }
