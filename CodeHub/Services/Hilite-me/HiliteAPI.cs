@@ -26,7 +26,15 @@ namespace CodeHub.Services.Hilite_me
         {
             { ".h", "c" },
             { ".xaml", "xml" },
-            { ".cs", "csharp" }
+            { ".cs", "csharp" },
+            { ".gitignore", "c" },
+            { ".gitattributes", "c" },
+            { ".jshintrc", "xml" },
+            { ".yml", "xml" },
+            { ".snyk", "xml" },
+            { ".lock", "xml" },
+            { ".sln", "xml" },
+
         });
 
         /// <summary>
