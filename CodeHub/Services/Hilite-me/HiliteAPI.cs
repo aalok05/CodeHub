@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,13 +71,13 @@ namespace CodeHub.Services.Hilite_me
 
             // Prepare the POST request content
             Dictionary<String, String> values = new Dictionary<String, String>
-                {
-                    { "code", code }, // The code to highlight
-                    { "lexer", lexer }, // The code language
-                    { "style", style.ToString().ToLowerInvariant() }, // The requested syntax highlight style
-                    { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" }, // Default CSS properties
-                    { "linenos", lineNumbers ? "pls" : String.Empty } // Includes the line numbers if not empty
-                };
+            {
+                { "code", code }, // The code to highlight
+                { "lexer", lexer }, // The code language
+                { "style", style.ToString().ToLowerInvariant() }, // The requested syntax highlight style
+                { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" }, // Default CSS properties
+                { "linenos", lineNumbers ? "pls" : String.Empty } // Includes the line numbers if not empty
+            };
 
             // Make the POST
             WrappedWebResult<String> result = await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);

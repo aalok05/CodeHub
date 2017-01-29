@@ -52,7 +52,8 @@
             <!--Preview-->
             <controls:Hilite_meHighlightStylePreviewControl Height="340"
                                                             Margin="0,12,0,0"
-                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"/>
+                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
+                                                            LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </local:SettingsDetailPageBase>
