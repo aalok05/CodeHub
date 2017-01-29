@@ -165,6 +165,7 @@
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Models\SettingsItem.cs" />
+    <Compile Include="Models\WrappedWebResult.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />

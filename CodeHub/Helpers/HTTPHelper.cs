@@ -11,6 +11,7 @@ using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
+using CodeHub.Models;
 using JetBrains.Annotations;
 
 namespace CodeHub.Helpers
@@ -123,18 +124,17 @@ namespace CodeHub.Helpers
         /// <param name="url">The POST URL</param>
         /// <param name="parameters">The POST parameters</param>
         /// <param name="token">The cancellation token for the operation</param>
-        [ItemCanBeNull]
-        public static async Task<String> POSTWithCacheSupportAsync(
+        public static async Task<WrappedWebResult<String>> POSTWithCacheSupportAsync(
             [NotNull] String url, [NotNull] IEnumerable<KeyValuePair<String, String>> parameters, CancellationToken token)
         {
             // URL check
-            if (String.IsNullOrEmpty(url)) return null;
+            if (String.IsNullOrEmpty(url)) return new ArgumentException("The URL is invalid");
 
             // Loop to make sure to retry once if the existing cached file is invalid
             while (true)
             {
                 // Input check
-                if (token.IsCancellationRequested) return null;
+                if (token.IsCancellationRequested) return new OperationCanceledException("The operation was canceled");
 
                 // Get the filename for the cache storage
                 String serialized = parameters.Aggregate(new StringBuilder(url), (b, s) =>
@@ -160,13 +160,13 @@ namespace CodeHub.Helpers
                         {
                             response = await client.PostAsync(new Uri(url), content).AsTask(token).ContinueWith(t => t.GetAwaiter().GetResult());
                         }
-                        catch (OperationCanceledException)
+                        catch (OperationCanceledException e)
                         {
                             // Token expired
-                            return null;
+                            return e;
                         }
                     }
-                    if (response == null) return null;
+                    if (response == null) return new InvalidOperationException("The result content is null");
 
                     // Save the buffer if possible
                     try
@@ -174,15 +174,15 @@ namespace CodeHub.Helpers
 #if DEBUG
                         System.Diagnostics.Debug.WriteLine("[POST] HTTP call made, response cached");
 #endif
-                        if (!response.IsSuccessStatusCode) return null;
+                        if (!response.IsSuccessStatusCode) return response.StatusCode;
                         String html = await response.Content.ReadAsStringAsync();
                         StorageFile cacheFile = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync(cacheFilename, CreationCollisionOption.OpenIfExists);
                         await FileIO.WriteTextAsync(cacheFile, html);
                         return html;
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return null;
+                        return e;
                     }
                     finally
                     {
@@ -192,7 +192,7 @@ namespace CodeHub.Helpers
                 }
 
                 // Load the buffer from the cached file
-                if (token.IsCancellationRequested) return null;
+                if (token.IsCancellationRequested) return new OperationCanceledException("The operation was canceled");
                 try
                 {
 #if DEBUG
