@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace CodeHub.Services.Hilite_me
         /// Gets the web API URL
         /// </summary>
         public const String APIUrl = "http://hilite.me/api";
+
+        /// <summary>
+        /// Gets the fallback lexer used for unknown file extensions
+        /// </summary>
+        private const String FallbackLexer = "c";
 
         /// <summary>
         /// Gets a collection of lexers for less common source code files extensions
@@ -77,13 +83,17 @@ namespace CodeHub.Services.Hilite_me
             // Make the POST
             WrappedWebResult<String> result = await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);
 
-#if DEBUG
-            // For debugging, inform if an unsupported extesion is found
+            // Check if the lexer is unsupported
             if (result.StatusCode == HttpStatusCode.InternalServerError)
             {
+#if DEBUG
+                //For debugging, inform if an unsupported extesion is found
                 System.Diagnostics.Debug.WriteLine($"Possible unsupported extension: {extension} > {lexer}");
-            }
 #endif
+                // Retry with the fallback lexer
+                values["lexer"] = FallbackLexer;
+                return (await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token)).Result;
+            }
 
             // Return the result
             return result.Result;
