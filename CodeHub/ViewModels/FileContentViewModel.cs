@@ -5,6 +5,7 @@ using Octokit;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using CodeHub.Services.Hilite_me;
@@ -146,6 +147,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public Color _HTMLBackgroundColor = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? Colors.White : Colors.Black;
+
+        /// <summary>
+        /// Gets the base background color for the HTML content
+        /// </summary>
+        public Color HTMLBackgroundColor
+        {
+            get { return _HTMLBackgroundColor; }
+            private set
+            { 
+                Set(() => HTMLBackgroundColor, ref _HTMLBackgroundColor, value);
+            }
+        }
+
         public async Task Load(Tuple<Repository, string, string> repoPath)  //This page recieves RepositoryId and name of the file
         {
             Content = "";
@@ -221,15 +236,15 @@ namespace CodeHub.ViewModels
                      *  Files with .md extension will be shown with full markdown
                      */
                     IsReadme = true;
-
+                    HTMLBackgroundColor = Colors.White;
                     var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
                     Content = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
+                    HTMLContent = Content;
                     isLoading = false;
                     return;
                 }
 
                 Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
-
                 SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
                 bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
                 HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(Content, Path, style, lineNumbers, CancellationToken.None);
