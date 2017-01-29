@@ -78,6 +78,7 @@ namespace CodeHub.ViewModels
                 if (_SelectedHighlightStyleIndex != value)
                 {
                     _SelectedHighlightStyleIndex = value;
+                    SettingsService.Save(SettingsKeys.HighlightStyleIndex, value);
                     RaisePropertyChanged();
                     RaisePropertyChanged(nameof(HighlightStyle));
                 }
