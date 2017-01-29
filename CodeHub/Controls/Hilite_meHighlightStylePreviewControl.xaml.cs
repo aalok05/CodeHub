@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -34,6 +35,34 @@ namespace CodeHub.Controls
             BlurBehaviour.Duration = duration.TotalMilliseconds;
             BlurBehaviour.StartAnimation();
             return Task.Delay(duration);
+        }
+
+        /// <summary>
+        /// Gets or sets whether or not the line numbers are visible
+        /// </summary>
+        public bool LineNumbersVisible
+        {
+            get { return (bool)GetValue(LineNumbersVisibleProperty); }
+            set { SetValue(LineNumbersVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty LineNumbersVisibleProperty = DependencyProperty.Register(
+            nameof(LineNumbersVisible), typeof(SyntaxHighlightStyle), typeof(Hilite_meHighlightStylePreviewControl),
+            new PropertyMetadata(false, OnLineNumbersVisiblePropertyChanged));
+
+        private static async void OnLineNumbersVisiblePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Unpack the parameters and lock the UI
+            Hilite_meHighlightStylePreviewControl @this = d.To<Hilite_meHighlightStylePreviewControl>();
+            await @this.AnimationSemaphore.WaitAsync();
+
+            // Update the preview
+            if (@this.ReadLocalValue(HighlightStyleProperty) != DependencyProperty.UnsetValue)
+            {
+                String preview = await @this.LoadHTMLPreviewAsync();
+                @this.WebControl.NavigateToString(preview);
+            }
+            @this.AnimationSemaphore.Release();
         }
 
         /// <summary>
@@ -101,13 +130,7 @@ namespace CodeHub.Controls
             }
 
             // Function to load the sample HTML
-            Func<SyntaxHighlightStyle, Task<String>> f = async s =>
-            {
-                Uri uri = new Uri($"ms-appx:///Services/Hilite-me/Samples/{s.ToString().ToLowerInvariant()}.html");
-                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(uri);
-                return await FileIO.ReadTextAsync(file);
-            };
-            Task<String> htmlTask = f(style);
+            Task<String> htmlTask = @this.LoadHTMLPreviewAsync();
 
             // Await the out animations and the HTML loading
             List<Task> outTasks = new List<Task>
@@ -136,6 +159,17 @@ namespace CodeHub.Controls
                 @this.BlurAsync(0, TimeSpan.FromMilliseconds(AnimationDuration)));
             if (@this.LoadingRing.Visibility == Visibility.Visible) @this.LoadingRing.Visibility = Visibility.Collapsed;
             @this.AnimationSemaphore.Release();
+        }
+
+        // Loads the right preview HTML content to display on the control
+        private async Task<String> LoadHTMLPreviewAsync()
+        {
+            StringBuilder builder = new StringBuilder("ms-appx:///Services/Hilite-me/Samples/");
+            if (LineNumbersVisible) builder.Append("LineNumbers/");
+            builder.Append($"{HighlightStyle.ToString().ToLowerInvariant()}.html");
+            Uri uri = new Uri(builder.ToString());
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+            return await FileIO.ReadTextAsync(file);
         }
     }
 }
