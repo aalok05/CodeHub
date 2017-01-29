@@ -21,9 +21,7 @@
                             Duration="0" 
                             x:Name="BlurBehaviour"/>
         </interactivity:Interaction.Behaviors>
-        <Border HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                x:Name="BlurBorder"/>
+        <Canvas x:Name="FadeCanvas"/>
         <WebView x:Name="WebControl"
                  Margin="-12"/>
     </Grid>

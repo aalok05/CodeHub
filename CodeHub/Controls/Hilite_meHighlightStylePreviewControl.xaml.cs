@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
 using UICompositionAnimations;
@@ -20,7 +23,6 @@ namespace CodeHub.Controls
         public Hilite_meHighlightStylePreviewControl()
         {
             this.InitializeComponent();
-            this.Unloaded += (s, e) => ElementCompositionPreview.SetElementChildVisual(BlurBorder, null);
             this.SizeChanged += (s, e) => ClippingRect.Rect = new Rect(0, 0, ActualWidth, ActualHeight);
         }
 
@@ -53,12 +55,44 @@ namespace CodeHub.Controls
         // The duration of each fade in/out animation
         private const int AnimationDuration = 400;
 
+        // Gets a collection of the highlight styles with a white background
+        private static readonly IReadOnlyCollection<SyntaxHighlightStyle> LightStyles = new[]
+        {
+            SyntaxHighlightStyle.Borland, SyntaxHighlightStyle.Colorful, SyntaxHighlightStyle.Emacs,
+            SyntaxHighlightStyle.Perldoc, SyntaxHighlightStyle.VS
+        };
+
+        // Indicates the transition needed when changing the highlight preview
+        private enum HighlightTransitionType
+        {
+            None,
+            DarkToLight,
+            LightToDark
+        }
+
         private static async void OnHighlightStylePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // Unpack the parameters and lock the UI
             Hilite_meHighlightStylePreviewControl @this = d.To<Hilite_meHighlightStylePreviewControl>();
             await @this.AnimationSemaphore.WaitAsync();
             SyntaxHighlightStyle style = e.NewValue.To<SyntaxHighlightStyle>();
+
+            // Check if there's a background transition
+            HighlightTransitionType transition = HighlightTransitionType.None;
+            if (e.OldValue != DependencyProperty.UnsetValue && e.OldValue != null)
+            {
+                SyntaxHighlightStyle old = e.OldValue.To<SyntaxHighlightStyle>();
+                if (LightStyles.Contains(style) && !LightStyles.Contains(old))
+                {
+                    // Dark to light transition needed
+                    transition = HighlightTransitionType.DarkToLight;
+                }
+                else if (!LightStyles.Contains(style) && LightStyles.Contains(old))
+                {
+                    // Light to dark transition
+                    transition = HighlightTransitionType.LightToDark;
+                }
+            }
 
             // Function to load the sample HTML
             Func<SyntaxHighlightStyle, Task<String>> f = async s =>
@@ -70,8 +104,12 @@ namespace CodeHub.Controls
             Task<String> htmlTask = f(style);
 
             // Await the out animations and the HTML loading
+            if (transition != HighlightTransitionType.None)
+            {
+                @this.FadeCanvas.Background = new SolidColorBrush(transition == HighlightTransitionType.LightToDark ? Colors.Black : Colors.White);
+            }
             await Task.WhenAll(
-                @this.WebControl.StartCompositionFadeScaleAnimationAsync(1, 0.8f, 1, 1.05f, AnimationDuration, null, null, EasingFunctionNames.Linear),
+                @this.WebControl.StartCompositionFadeScaleAnimationAsync(1, 0.6f, 1, 1.05f, AnimationDuration, null, null, EasingFunctionNames.Linear),
                 @this.BlurAsync(20, TimeSpan.FromMilliseconds(AnimationDuration)),
                 htmlTask);
 
