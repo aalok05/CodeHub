@@ -54,28 +54,16 @@
                 <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
                          NavigationCompleted="WebView_NavigationCompleted"
                          DefaultBackgroundColor="{x:Bind ViewModel.HTMLBackgroundColor, Mode=OneWay}"
+                         Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
                          Margin="-8,-8,-12,-8"/>
 
-                <Grid Visibility="Collapsed">
-                    <TextBlock VerticalAlignment="Top"
-                           HorizontalAlignment="Left"
-                           IsTextSelectionEnabled="True"
-                           FontSize="13"
-                           Padding="10"
-                           Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                           Text="{x:Bind ViewModel.Content,Mode=OneWay}"/>
-                    <Image Grid.Row="3"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Source="{x:Bind ViewModel.ImageFile,Mode=OneWay}"
-                       Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
-                </Grid>
-
+                <Image HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind ViewModel.ImageFile,Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
             </Grid>
 
         </ScrollViewer>
-
-
 
         <TextBlock Grid.Row="2" Text="File type not supported"
                    HorizontalAlignment="Center"

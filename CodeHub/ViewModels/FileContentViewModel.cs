@@ -60,20 +60,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _isReadme;
-        public bool IsReadme
-        {
-            get
-            {
-                return _isReadme;
-            }
-            set
-            {
-                Set(() => IsReadme, ref _isReadme, value);
-
-            }
-        }
-
         public ImageSource _imageFile;
         public ImageSource ImageFile
         {
@@ -102,16 +88,17 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public string _content;
-        public string Content
+        //TextContent
+        public string _Textcontent;
+        public string TextContent
         {
             get
             {
-                return _content;
+                return _Textcontent;
             }
             set
             {
-                Set(() => Content, ref _content, value);
+                Set(() => TextContent, ref _Textcontent, value);
 
             }
         }
@@ -163,7 +150,6 @@ namespace CodeHub.ViewModels
 
         public async Task Load(Tuple<Repository, string, string> repoPath)  //This page recieves RepositoryId and name of the file
         {
-            Content = "";
             IsSupportedFile = true;
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
@@ -196,8 +182,6 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-
-                IsReadme = false;
                 IsImage = false;
 
                 if ((Path.ToLower().EndsWith(".exe")) ||
@@ -235,19 +219,19 @@ namespace CodeHub.ViewModels
                     /*
                      *  Files with .md extension will be shown with full markdown
                      */
-                    IsReadme = true;
                     HTMLBackgroundColor = Colors.White;
                     var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
-                    Content = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
-                    HTMLContent = Content;
+                    HTMLContent = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
                     isLoading = false;
                     return;
                 }
 
-                Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+                string content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
                 SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
                 bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
-                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(Content, Path, style, lineNumbers, CancellationToken.None);
+                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
+
+                IsSupportedFile = HTMLContent == null ? false : true;
                 isLoading = false;
 
             }
