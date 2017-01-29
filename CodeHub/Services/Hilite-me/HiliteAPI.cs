@@ -34,6 +34,11 @@ namespace CodeHub.Services.Hilite_me
             { ".snyk", "xml" },
             { ".lock", "xml" },
             { ".sln", "xml" },
+            { ".eslintrc", "xml" },
+            { ".babelrc", "json" },
+            { ".bowerrc", "json" },
+            { ".editorconfig", "xml" },
+            { ".eslintignore", "xml" },
 
         });
 
