@@ -23,20 +23,20 @@ namespace CodeHub.Views
         {
             this.InitializeComponent();
 
-            if (SettingsService.GetSetting("AppTheme") == "Dark")
-            {
-                DarkThemeButton.Visibility = Visibility.Collapsed;
-                LightThemeButton.Visibility = Visibility.Visible;
-            }
-            else
+            if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
             {
                 DarkThemeButton.Visibility = Visibility.Visible;
                 LightThemeButton.Visibility = Visibility.Collapsed;
             }
+            else
+            {
+                DarkThemeButton.Visibility = Visibility.Collapsed;
+                LightThemeButton.Visibility = Visibility.Visible;
+            }
         }
         private void LightThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            SettingsService.SaveSetting("AppTheme", "Light");
+            SettingsService.Save(SettingsKeys.AppLightThemeEnabled, true);
             DarkThemeButton.Visibility = Visibility.Visible;
             LightThemeButton.Visibility = Visibility.Collapsed;
             e.Handled = true;
@@ -44,7 +44,7 @@ namespace CodeHub.Views
 
         private void DarkThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            SettingsService.SaveSetting("AppTheme", "Dark");
+            SettingsService.Save(SettingsKeys.AppLightThemeEnabled, false);
             DarkThemeButton.Visibility = Visibility.Collapsed;
             LightThemeButton.Visibility = Visibility.Visible;
             e.Handled = true;

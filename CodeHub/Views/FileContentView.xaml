@@ -54,7 +54,7 @@
                 <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
                          NavigationCompleted="WebView_NavigationCompleted"
                          DefaultBackgroundColor="Black"
-                         Margin="-12"/>
+                         Margin="-8,-8,-12,-8"/>
 
                 <Grid Visibility="Collapsed">
                     <TextBlock VerticalAlignment="Top"
