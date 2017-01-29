@@ -11,18 +11,25 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Grid.Clip>
-            <RectangleGeometry x:Name="ClippingRect"/>
-        </Grid.Clip>
-        <interactivity:Interaction.Behaviors>
-            <behaviors:Blur AutomaticallyStart="True"
-                            Delay="0"
-                            Value="100"
-                            Duration="0" 
-                            x:Name="BlurBehaviour"/>
-        </interactivity:Interaction.Behaviors>
-        <Canvas x:Name="FadeCanvas"/>
-        <WebView x:Name="WebControl"
-                 Margin="-12"/>
+        <Grid>
+            <Grid.Clip>
+                <RectangleGeometry x:Name="ClippingRect"/>
+            </Grid.Clip>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:Blur AutomaticallyStart="True"
+                                Delay="0"
+                                Value="100"
+                                Duration="0" 
+                                x:Name="BlurBehaviour"/>
+            </interactivity:Interaction.Behaviors>
+            <Canvas x:Name="FadeCanvas"/>
+            <WebView x:Name="WebControl"
+                     Margin="-8,-8,-12,-8"/>
+        </Grid>
+        <ProgressRing Width="32"
+                      Height="32"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="True"
+                      x:Name="LoadingRing"/>
     </Grid>
 </UserControl>
