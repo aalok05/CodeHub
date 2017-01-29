@@ -9,9 +9,7 @@ using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using Application = Windows.UI.Xaml.Application;
 
 namespace CodeHub.ViewModels
 {
@@ -89,7 +87,7 @@ namespace CodeHub.ViewModels
                     ?? (_sourceCodeNavigate = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(SourceCodeView), Repository);
+                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(SourceCodeView), Repository, Repository.FullName);
                                              
                                           }));
             }
@@ -144,7 +142,7 @@ namespace CodeHub.ViewModels
                     ?? (_profileTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), Repository.Owner.Login);
+                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), Repository.Owner.Login, "Profile");
                                           }));
             }
         }
@@ -158,7 +156,7 @@ namespace CodeHub.ViewModels
                     ?? (_issuesTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssuesView), Repository);
+                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(IssuesView), Repository, "Issues");
                                           }));
             }
         }

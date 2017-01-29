@@ -108,11 +108,11 @@ namespace CodeHub.ViewModels
             {
                 if (item.Type == ContentType.File)
                 {
-                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(FileContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
+                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(FileContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch), Repository.FullName);
                 }
                 else if (item.Type == ContentType.Dir)
                 {
-                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(ContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
+                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(ContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch), Repository.FullName);
                 }
             }
 
@@ -127,7 +127,7 @@ namespace CodeHub.ViewModels
                     ?? (_repoDetailNavigateCommand = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), Repository);
+                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), Repository, "Repository");
                                           }));
             }
         }

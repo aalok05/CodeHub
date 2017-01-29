@@ -104,9 +104,9 @@ namespace CodeHub.ViewModels
             UserBlurredAvatar = images?.Item2;
         }
 
-        public void Navigate(Type pageType)
+        public void Navigate(Type pageType, string pageTitle)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(pageType, User);
+            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(pageType, User, pageTitle);
         }
         public void GoBack()
         {

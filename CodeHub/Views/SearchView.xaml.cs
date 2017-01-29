@@ -30,11 +30,9 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            repoListView.SelectedIndex = codeListView.SelectedIndex = userListView.SelectedIndex = issueListView.SelectedIndex = -1;
-
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Search" });
 
+            repoListView.SelectedIndex = codeListView.SelectedIndex = userListView.SelectedIndex = issueListView.SelectedIndex = -1;
         }
 
     }

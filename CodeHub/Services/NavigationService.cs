@@ -8,6 +8,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight;
+using CodeHub.Helpers;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CodeHub.Services
 {
@@ -38,19 +40,27 @@ namespace CodeHub.Services
         }
 
         private CustomFrame _mainFrame;
-        public async void Navigate(Type type)
+        public async void Navigate(Type type, string pageTitle)
         {
            if(_mainFrame.CurrentSourcePageType!= type)
+           {
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
                 await _mainFrame.Navigate(type);
+           }
         }
-        public async void Navigate(Type type, object parameter)
+        public async void Navigate(Type type, object parameter, string pageTitle)
         {
-           await _mainFrame.Navigate(type, parameter);
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
+            await _mainFrame.Navigate(type, parameter);
         }
-        public void NavigateWithoutAnimations(Type type)
+        public void NavigateWithoutAnimations(Type type, string pageTitle)
         {
             if (_mainFrame.CurrentSourcePageType != type)
+            {
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
                 _mainFrame.NavigateWithoutAnimations(type);
+            }
+                
         }
         public bool CanGoBack()
         {
