@@ -24,6 +24,7 @@ namespace CodeHub.ViewModels
                 Set(() => CurrentState, ref _currentState, value);
             }
         }
+
         public ObservableCollection<SettingsItem> _settings;
         public ObservableCollection<SettingsItem> Settings
         {
@@ -37,10 +38,34 @@ namespace CodeHub.ViewModels
             }
         }
 
+        #region about settings properties
+        public string Logo => "/Assets/Images/appLogoPurple.png";
+
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
+
+        public string Publisher => Windows.ApplicationModel.Package.Current.PublisherDisplayName;
+
+        public string Version
+        {
+            get
+            {
+                var v = Windows.ApplicationModel.Package.Current.Id.Version;
+                return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
+            }
+        }
+        #endregion
+
         public SettingsViewModel()
         {
             Settings = new ObservableCollection<SettingsItem>()
             {
+                new SettingsItem()
+                {
+                    MainText = "General",
+                    SubText = "App preferences",
+                    GlyphString = "\xEC7A",
+                    DestPage = typeof(GeneralSettingsView)
+                },
                 new SettingsItem()
                 {
                     MainText = "Appearance",
@@ -53,7 +78,7 @@ namespace CodeHub.ViewModels
                     MainText = "About",
                     SubText = "Developer info and contacts",
                     GlyphString = "\xE7BE",
-                    DestPage = typeof(AboutView)
+                    DestPage = typeof(AboutSettingsView)
                 },
                 new SettingsItem()
                 {
