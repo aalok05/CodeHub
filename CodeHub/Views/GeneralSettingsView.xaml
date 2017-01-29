@@ -24,12 +24,14 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
+        <!--Options panel-->
         <StackPanel Margin="12">
             <TextBlock HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Syntax Highlighting style" />
 
+            <!--Style-->
             <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
                                        Margin="0,12,0,0"
                                        FontSize="13"
@@ -37,17 +39,20 @@
                                        SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
                                        Style="{StaticResource AnimatedComboBoxStyle}"
                                        MinWidth="120"/>
-            <controls:Hilite_meHighlightStylePreviewControl Height="220"
-                                                            Margin="0,12,0,0"
-                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"/>
 
+            <!--Line numbers-->
             <TextBlock HorizontalAlignment="Left"
                        Margin="0,20,0,0"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Show line numbers" />
             <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}"
-                          Margin="0,8,0,0"/>
+                          Margin="0,4,0,0"/>
+            
+            <!--Preview-->
+            <controls:Hilite_meHighlightStylePreviewControl Height="340"
+                                                            Margin="0,12,0,0"
+                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </local:SettingsDetailPageBase>

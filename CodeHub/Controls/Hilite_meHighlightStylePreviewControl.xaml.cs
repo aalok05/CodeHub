@@ -93,6 +93,12 @@ namespace CodeHub.Controls
                     transition = HighlightTransitionType.LightToDark;
                 }
             }
+            else
+            {
+                bool light = LightStyles.Contains(style);
+                @this.FadeCanvas.Background = new SolidColorBrush(light ? Colors.White : Colors.Black);
+                @this.WebControl.DefaultBackgroundColor = light ? Colors.White : Colors.Black;
+            }
 
             // Function to load the sample HTML
             Func<SyntaxHighlightStyle, Task<String>> f = async s =>
@@ -118,6 +124,7 @@ namespace CodeHub.Controls
             await Task.WhenAll(
                 @this.WebControl.StartCompositionFadeScaleAnimationAsync(null, 1, 1.05f, 1, AnimationDuration, null, null, EasingFunctionNames.Linear),
                 @this.BlurAsync(0, TimeSpan.FromMilliseconds(AnimationDuration)));
+            if (@this.LoadingRing.Visibility == Visibility.Visible) @this.LoadingRing.Visibility = Visibility.Collapsed;
             @this.AnimationSemaphore.Release();
         }
     }
