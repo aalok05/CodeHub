@@ -110,19 +110,29 @@ namespace CodeHub.Controls
             Task<String> htmlTask = f(style);
 
             // Await the out animations and the HTML loading
+            List<Task> outTasks = new List<Task>
+            {
+                @this.BlurAsync(20, TimeSpan.FromMilliseconds(AnimationDuration)),
+                htmlTask
+            };
             if (transition != HighlightTransitionType.None)
             {
                 @this.FadeCanvas.Background = new SolidColorBrush(transition == HighlightTransitionType.LightToDark ? Colors.Black : Colors.White);
+                outTasks.Add(
+                    @this.WebControl.StartCompositionFadeScaleAnimationAsync(1, 0.4f, 1, 1.05f, AnimationDuration, null, null, EasingFunctionNames.Linear));
             }
-            await Task.WhenAll(
-                @this.WebControl.StartCompositionFadeScaleAnimationAsync(1, 0.6f, 1, 1.05f, AnimationDuration, null, null, EasingFunctionNames.Linear),
-                @this.BlurAsync(20, TimeSpan.FromMilliseconds(AnimationDuration)),
-                htmlTask);
+            else
+            {
+                outTasks.Add(
+                    @this.WebControl.StartCompositionScaleAnimationAsync(1, 1.05f, AnimationDuration, null, EasingFunctionNames.Linear));
+            }
+            await Task.WhenAll(outTasks);
 
             // Show the HTML, animate back in and then release the semaphore
+            @this.WebControl.SetVisualOpacity(1);
             @this.WebControl.NavigateToString(htmlTask.Result);
             await Task.WhenAll(
-                @this.WebControl.StartCompositionFadeScaleAnimationAsync(null, 1, 1.05f, 1, AnimationDuration, null, null, EasingFunctionNames.Linear),
+                @this.WebControl.StartCompositionScaleAnimationAsync(1.05f, 1, AnimationDuration, null, EasingFunctionNames.Linear),
                 @this.BlurAsync(0, TimeSpan.FromMilliseconds(AnimationDuration)));
             if (@this.LoadingRing.Visibility == Visibility.Visible) @this.LoadingRing.Visibility = Visibility.Collapsed;
             @this.AnimationSemaphore.Release();
