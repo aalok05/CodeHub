@@ -10,6 +10,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -50,6 +51,7 @@
                     Orientation="Vertical"
                     Margin="10 10 10 0">
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="first_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -65,6 +67,7 @@
                 </Button.Content>
             </Button>
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="second_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -80,6 +83,7 @@
                 </Button.Content>
             </Button>
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="third_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -95,6 +99,7 @@
                 </Button.Content>
             </Button>
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="fourth_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
