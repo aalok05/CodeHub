@@ -59,6 +59,9 @@ namespace CodeHub.Controls
             // Update the preview
             if (@this.ReadLocalValue(HighlightStyleProperty) != DependencyProperty.UnsetValue)
             {
+                bool light = LightStyles.Contains(@this.HighlightStyle);
+                @this.FadeCanvas.Background = new SolidColorBrush(light ? Colors.White : Colors.Black);
+                @this.WebControl.DefaultBackgroundColor = light ? Colors.White : Colors.Black;
                 String preview = await @this.LoadHTMLPreviewAsync();
                 @this.WebControl.NavigateToString(preview);
             }
