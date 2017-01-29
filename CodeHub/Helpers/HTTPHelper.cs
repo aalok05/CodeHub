@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
@@ -47,6 +48,7 @@ namespace CodeHub.Helpers
         /// </summary>
         private const String CacheExtension = ".cache";
 
+        // The hash algorithm to use to manage cached files
         private static readonly HashAlgorithmProvider HashProvider = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
 
         /// <summary>
@@ -57,11 +59,13 @@ namespace CodeHub.Helpers
         [ItemCanBeNull]
         public static async Task<IBuffer> GetBufferFromUrlAsync([NotNull] String url, CancellationToken token)
         {
+            // URL check
+            if (String.IsNullOrEmpty(url)) return null;
+
             // Loop to make sure to retry once if the existing cached file is invalid
             while (true)
             {
                 // Input check
-                if (String.IsNullOrEmpty(url)) return null;
                 if (token.IsCancellationRequested) return null;
 
                 // Get the filename for the cache storage
@@ -109,6 +113,97 @@ namespace CodeHub.Helpers
                 catch
                 {
                     return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the serialized result to a POST call that uses a local cache
+        /// </summary>
+        /// <param name="url">The POST URL</param>
+        /// <param name="parameters">The POST parameters</param>
+        /// <param name="token">The cancellation token for the operation</param>
+        [ItemCanBeNull]
+        public static async Task<String> POSTWithCacheSupportAsync(
+            [NotNull] String url, [NotNull] IEnumerable<KeyValuePair<String, String>> parameters, CancellationToken token)
+        {
+            // URL check
+            if (String.IsNullOrEmpty(url)) return null;
+
+            // Loop to make sure to retry once if the existing cached file is invalid
+            while (true)
+            {
+                // Input check
+                if (token.IsCancellationRequested) return null;
+
+                // Get the filename for the cache storage
+                String serialized = parameters.Aggregate(new StringBuilder(url), (b, s) =>
+                {
+                    b.Append(s);
+                    return b;
+                }).ToString();
+                byte[] request = Encoding.Unicode.GetBytes(serialized);
+                IBuffer hash = HashProvider.HashData(request.AsBuffer());
+                String hex = CryptographicBuffer.EncodeToHexString(hash), cacheFilename = $"{hex}{CacheExtension}";
+                StorageFile file = await ApplicationData.Current.LocalCacheFolder.TryGetItemAsync(cacheFilename) as StorageFile;
+
+                // Check the cache result
+                if (file == null)
+                {
+                    // Try to get the remote buffer
+                    HttpResponseMessage response;
+                    using (HttpClient client = new HttpClient())
+                    using (IHttpContent content = new HttpFormUrlEncodedContent(parameters))
+                    {
+                        // Make the POST call
+                        try
+                        {
+                            response = await client.PostAsync(new Uri(url), content).AsTask(token).ContinueWith(t => t.GetAwaiter().GetResult());
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // Token expired
+                            return null;
+                        }
+                    }
+                    if (response == null) return null;
+
+                    // Save the buffer if possible
+                    try
+                    {
+#if DEBUG
+                        System.Diagnostics.Debug.WriteLine("[POST] HTTP call made, response cached");
+#endif
+                        if (!response.IsSuccessStatusCode) return null;
+                        String html = await response.Content.ReadAsStringAsync();
+                        StorageFile cacheFile = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync(cacheFilename, CreationCollisionOption.OpenIfExists);
+                        await FileIO.WriteTextAsync(cacheFile, html);
+                        return html;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    finally
+                    {
+                        // Manually dispose since the response was assigned in a try/catch block
+                        response.Dispose();
+                    }
+                }
+
+                // Load the buffer from the cached file
+                if (token.IsCancellationRequested) return null;
+                try
+                {
+#if DEBUG
+                    System.Diagnostics.Debug.WriteLine("[POST] Content retrieved from local cache");
+#endif
+                    return await FileIO.ReadTextAsync(file);
+                }
+                catch
+                {
+                    // Delete the cached file
+                    await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
                 }
             }
         }

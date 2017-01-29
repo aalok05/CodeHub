@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Web.Http;
+using CodeHub.Helpers;
 using JetBrains.Annotations;
 
 namespace CodeHub.Services.Hilite_me
@@ -50,47 +51,18 @@ namespace CodeHub.Services.Hilite_me
                     ? UncommonExtensions[extension]
                     : extension.Substring(1); // Remove the leading '.'
 
-            // Prepare the API call
-            using (HttpClient client = new HttpClient())
+            // Prepare the POST request content
+            IDictionary<String, String> values = new Dictionary<String, String>
             {
-                // Prepare the POST request content
-                Dictionary <String, String> values = new Dictionary<String, String>
-                {
-                    { "code", code }, // The code to highlight
-                    { "lexer", lexer }, // The code language
-                    { "style", style.ToString().ToLowerInvariant() }, // The requested syntax highlight style
-                    { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" }, // Default CSS properties
-                    { "linenos", lineNumbers ? "pls" : String.Empty } // Includes the line numbers if not empty
-                };
-                IHttpContent content = new HttpFormUrlEncodedContent(values);
+                { "code", code }, // The code to highlight
+                { "lexer", lexer }, // The code language
+                { "style", style.ToString().ToLowerInvariant() }, // The requested syntax highlight style
+                { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" }, // Default CSS properties
+                { "linenos", lineNumbers ? "pls" : String.Empty } // Includes the line numbers if not empty
+            };
 
-                // Make the POST call
-                HttpResponseMessage response;
-                try
-                {
-                    response = await client.PostAsync(new Uri(APIUrl), content).AsTask(token).ContinueWith(t => t.GetAwaiter().GetResult());
-                }
-                catch (OperationCanceledException)
-                {
-                    // Token expired
-                    return null;
-                }
-
-#if DEBUG
-                // For debugging, inform if an unsupported extesion is found
-                if (response?.StatusCode == HttpStatusCode.InternalServerError)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Possible unsupported extension: {extension} > {lexer}");
-                }
-#endif
-
-                // Read the response
-                if (response?.IsSuccessStatusCode == true)
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
-                return null;
-            }
+            // Make the POST
+            return await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);
         }
     }
 }
