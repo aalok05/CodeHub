@@ -229,8 +229,10 @@ namespace CodeHub.ViewModels
                 }
 
                 Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
-                
-                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(Content, Path, SyntaxHighlightStyle.Monokai, true, CancellationToken.None);
+
+                SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
+                bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
+                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(Content, Path, style, lineNumbers, CancellationToken.None);
                 isLoading = false;
 
             }

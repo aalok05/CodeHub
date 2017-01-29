@@ -85,6 +85,25 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _ShowLineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
+
+        /// <summary>
+        /// Gets or sets whether or not the line numbers should be visible in the highlighted code
+        /// </summary>
+        public bool ShowLineNumbers
+        {
+            get { return _ShowLineNumbers; }
+            set
+            {
+                if (_ShowLineNumbers != value)
+                {
+                    _ShowLineNumbers = value;
+                    SettingsService.Save(SettingsKeys.ShowLineNumbers, value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>
