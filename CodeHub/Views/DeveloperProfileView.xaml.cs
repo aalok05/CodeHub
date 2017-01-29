@@ -30,13 +30,13 @@ namespace CodeHub.Views
            
             this.DataContext = ViewModel;
 
-            Messenger.Default.Register<GlobalHelper.FollowActivityMessageType>(this, ViewModel.FollowActivity); //Follow activity happened, refresh UI 
+            //Follow activity happened, refresh UI 
+            Messenger.Default.Register<GlobalHelper.FollowActivityMessageType>(this, ViewModel.FollowActivity);
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-           
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
             await ViewModel.Load(e.Parameter as string);
         }

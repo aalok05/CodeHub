@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CodeHub.ViewModels;
 using CodeHub.Helpers;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CodeHub.Views
 {
@@ -33,6 +34,8 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repositories" });
 
             repoListView.SelectedIndex = -1;
 

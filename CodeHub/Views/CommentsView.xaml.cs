@@ -1,5 +1,6 @@
 ﻿using CodeHub.Helpers;
 using CodeHub.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-          
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Comments" });
             if (e.NavigationMode != NavigationMode.Back)
             {
                  ViewModel.Load((e.Parameter as IssueComment));

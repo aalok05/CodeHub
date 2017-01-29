@@ -5,8 +5,13 @@
     xmlns:local="using:CodeHub.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CodeHub.Controls"
+    xmlns:converters="using:CodeHub.Converters"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
@@ -24,7 +29,7 @@
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Vertical"
@@ -46,6 +51,7 @@
                     Orientation="Vertical"
                     Margin="10 10 10 0">
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="first_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -61,6 +67,7 @@
                 </Button.Content>
             </Button>
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="second_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -76,6 +83,7 @@
                 </Button.Content>
             </Button>
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="third_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -91,6 +99,7 @@
                 </Button.Content>
             </Button>
             <Button Background="Transparent"
+                    IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="fourth_tier_Tapped">
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
@@ -106,5 +115,12 @@
                 </Button.Content>
             </Button>
         </StackPanel>
+        
+        <controls:BusyScreen
+            x:Name="busyScreen"
+            Grid.RowSpan="2"
+            BusyText="Please wait..."
+            IsBusy="True"
+            Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 </local:SettingsDetailPageBase>

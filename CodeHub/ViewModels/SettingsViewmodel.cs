@@ -58,7 +58,7 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
-        #region about settings properties
+        #region general settings properties
 
         /// <summary>
         /// Gets the collection of the available highlight styles

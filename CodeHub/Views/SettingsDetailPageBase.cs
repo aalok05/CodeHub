@@ -10,7 +10,10 @@ namespace CodeHub.Views
         {
             if (stateName == "Desktop")
             {
-                SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(typeof(SettingsView));
+                if (SimpleIoc.Default.GetInstance<Services.INavigationService>().CurrentSourcePageType != typeof(SettingsView))
+                {
+                    SimpleIoc.Default.GetInstance<Services.INavigationService>().GoBack();
+                }
             }
         }
     }
