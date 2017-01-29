@@ -21,7 +21,7 @@
                                FontFamily="Segoe MDL2 Assets"
                                FontSize="22"
                                Text="{x:Bind GlyphString}"
-                               Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
+                               Foreground="{StaticResource AppPrimaryColorBrush}"
                                x:Name="IconBlock"
                                RelativePanel.AlignTopWithPanel="True"
                                RelativePanel.AlignBottomWithPanel="True"/>
@@ -85,7 +85,14 @@
             ItemTemplate="{StaticResource SettingsListItemTemplate}"
             ItemsSource="{x:Bind ViewModel.Settings, Mode=OneWay}" />
 
-        <control:CustomFrame x:Name="settingsFrame" Grid.Column="1" />
+        <!--Secondary frame-->
+        <control:CustomFrame x:Name="settingsFrame" 
+                             Grid.Column="1"
+                             SizeChanged="SettingsFrame_OnSizeChanged">
+            <control:CustomFrame.Clip>
+                <RectangleGeometry x:Name="FrameClip"/>
+            </control:CustomFrame.Clip>
+        </control:CustomFrame>
         
     </Grid>
 </Page>
