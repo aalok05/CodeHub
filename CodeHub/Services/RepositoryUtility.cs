@@ -1,7 +1,9 @@
 ﻿using CodeHub.Helpers;
 using Octokit;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using static CodeHub.ViewModels.HomeViewmodel;
 
@@ -73,17 +75,9 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
-                var content = await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch);
-
-
-                ObservableCollection<RepositoryContent> contentList = new ObservableCollection<RepositoryContent>();
-                foreach (RepositoryContent c in content)
-                {
-                    contentList.Add(c);
-                }
-
-                return contentList;
+                GitHubClient client = await UserDataService.getAuthenticatedClient();
+                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch);
+                return new ObservableCollection<RepositoryContent>(content.OrderByDescending(item => item.Type));
             }
             catch
             {
@@ -95,16 +89,9 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
-                var content = await client.Repository.Content.GetAllContentsByRef(repoId, path, branch);
-
-                ObservableCollection<RepositoryContent> contentList = new ObservableCollection<RepositoryContent>();
-                foreach (RepositoryContent c in content)
-                {
-                    contentList.Add(c);
-                }
-
-                return contentList;
+                GitHubClient client = await UserDataService.getAuthenticatedClient();
+                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repoId, path, branch);
+                return new ObservableCollection<RepositoryContent>(content.OrderByDescending(item => item.Type));
             }
             catch
             {
