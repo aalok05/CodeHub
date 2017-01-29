@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System;
+using System.Collections.Generic;
 using CodeHub.Services;
 using Windows.UI.Xaml;
 using CodeHub.Helpers;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CodeHub.Models;
 using Windows.UI.Xaml.Controls;
 using CodeHub.Views;
@@ -58,18 +60,36 @@ namespace CodeHub.ViewModels
 
         #region about settings properties
 
-        public SyntaxHighlightStyle _selectedHighlightStyle;
-        public SyntaxHighlightStyle SelectedHighlightStyle
+        /// <summary>
+        /// Gets the collection of the available highlight styles
+        /// </summary>
+        public IEnumerable<SyntaxHighlightStyle> AvailableHighlightStyles { get; } = Enum.GetValues(typeof(SyntaxHighlightStyle)).Cast<SyntaxHighlightStyle>();
+
+        public int _SelectedHighlightStyleIndex = SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
+
+        /// <summary>
+        /// Gets or sets the index of the currently selected highlight style
+        /// </summary>
+        public int SelectedHighlightStyleIndex
         {
-            get
-            {
-                return _selectedHighlightStyle;
-            }
+            get { return _SelectedHighlightStyleIndex; }
             set
             {
-                Set(() => SelectedHighlightStyle, ref _selectedHighlightStyle, value);
+                if (_SelectedHighlightStyleIndex != value)
+                {
+                    _SelectedHighlightStyleIndex = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(HighlightStyle));
+                }
             }
         }
+
+        /// <summary>
+        /// Gets the currently selected highlight style
+        /// </summary>
+        public SyntaxHighlightStyle HighlightStyle => (SyntaxHighlightStyle)SelectedHighlightStyleIndex;
+
+
         #endregion
         public SettingsViewModel()
         {

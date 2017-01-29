@@ -9,6 +9,7 @@ using Windows.UI;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
 using CodeHub.Controls;
+using CodeHub.Services.Hilite_me;
 
 namespace CodeHub
 {
@@ -27,6 +28,7 @@ namespace CodeHub
           
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
+            SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai);
         }
 
         /// <summary>

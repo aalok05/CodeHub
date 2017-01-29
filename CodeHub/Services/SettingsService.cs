@@ -48,5 +48,6 @@ namespace CodeHub.Services
          * ============================== */
 
         public const String AppLightThemeEnabled = nameof(AppLightThemeEnabled);
+        public const String HighlightStyleIndex = nameof(HighlightStyleIndex);
     }
 }

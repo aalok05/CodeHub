@@ -38,13 +38,16 @@
 
         <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
                                    Grid.Row="1"
-                                   Margin="8 8 0 0"
+                                   Margin="12 8 0 0"
                                    FontSize="13"
-                                   SelectionChanged="SyntaxStyleCombobox_SelectionChanged"
+                                   ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
+                                   SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
                                    Style="{StaticResource AnimatedComboBoxStyle}"
                                    MinWidth="120"/>
         <controls:Hilite_meHighlightStylePreviewControl Grid.Row="2"
-                                                        HighlightStyle="{x:Bind ViewModel.SelectedHighlightStyle, Mode=OneWay}"/>
+                                                        Height="220"
+                                                        Margin="12,8,12,0"
+                                                        HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"/>
 
 
 

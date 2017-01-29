@@ -35,11 +35,6 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            
-            var _enumval = Enum.GetValues(typeof(SyntaxHighlightStyle)).Cast<SyntaxHighlightStyle>();
-            SyntaxStyleCombobox.ItemsSource = _enumval.ToList();
-            SyntaxStyleCombobox.SelectedItem = _enumval.ToList()[4];
-            ViewModel.SelectedHighlightStyle = SyntaxHighlightStyle.Monokai;
 
         }
         private void SyntaxStyleCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)

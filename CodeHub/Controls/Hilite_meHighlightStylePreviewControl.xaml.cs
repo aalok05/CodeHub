@@ -20,7 +20,6 @@ namespace CodeHub.Controls
         public Hilite_meHighlightStylePreviewControl()
         {
             this.InitializeComponent();
-            this.Loaded += (s, e) => HighlightStyle = SyntaxHighlightStyle.Monokai;
             this.Unloaded += (s, e) => ElementCompositionPreview.SetElementChildVisual(BlurBorder, null);
             this.SizeChanged += (s, e) => ClippingRect.Rect = new Rect(0, 0, ActualWidth, ActualHeight);
         }
@@ -28,6 +27,7 @@ namespace CodeHub.Controls
         // Blurs the control with an animation
         private Task BlurAsync(double value, TimeSpan duration)
         {
+            BlurBehaviour.AutomaticallyStart = false;
             BlurBehaviour.Value = value;
             BlurBehaviour.Duration = duration.TotalMilliseconds;
             BlurBehaviour.StartAnimation();

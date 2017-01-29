@@ -15,9 +15,9 @@
             <RectangleGeometry x:Name="ClippingRect"/>
         </Grid.Clip>
         <interactivity:Interaction.Behaviors>
-            <behaviors:Blur AutomaticallyStart="False"
+            <behaviors:Blur AutomaticallyStart="True"
                             Delay="0"
-                            Value="0"
+                            Value="100"
                             Duration="0" 
                             x:Name="BlurBehaviour"/>
         </interactivity:Interaction.Behaviors>
