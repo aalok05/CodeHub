@@ -192,7 +192,8 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].DownloadUrl;
+                    // TODO: loading the WHOLE files list is really necessary here?
+                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content.DownloadUrl;
                     ImageFile = new BitmapImage(uri);
                     isLoading = false;
                     return;
@@ -204,13 +205,13 @@ namespace CodeHub.ViewModels
                      */
                     IsReadme = true;
 
-                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content.Content;
                     Content = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
                     isLoading = false;
                     return;
                 }
 
-                Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+                Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content.Content;
                 isLoading = false;
 
             }

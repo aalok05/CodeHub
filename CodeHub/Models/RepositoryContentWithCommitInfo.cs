@@ -33,5 +33,8 @@ namespace CodeHub.Models
             Commit = commit;
             LastEditTime = editTime;
         }
+
+        // Implicit converter for the content
+        public static implicit operator RepositoryContent([NotNull] RepositoryContentWithCommitInfo instance) => instance.Content;
     }
 }

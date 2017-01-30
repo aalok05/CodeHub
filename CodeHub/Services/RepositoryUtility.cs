@@ -1,6 +1,7 @@
 ﻿using CodeHub.Helpers;
 using Octokit;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -133,79 +134,42 @@ namespace CodeHub.Services
             }
         }
 
-        public static async Task<ObservableCollection<RepositoryContent>> GetRepositoryContent(Repository repo, string branch)
+        public static async Task<ObservableCollection<RepositoryContentWithCommitInfo>> GetRepositoryContent(Repository repo, string branch)
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
-                var content = await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch);
+                // Get the files list
+                GitHubClient client = await UserDataService.getAuthenticatedClient();
+                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch);
 
-
-                ObservableCollection<RepositoryContent> contentList = new ObservableCollection<RepositoryContent>();
-                foreach (RepositoryContent c in content)
-                {
-                    if (c.Type == ContentType.File)
-                    {
-                        
-                    }
-                    contentList.Add(c);
-                }
-                return contentList;
+                IEnumerable<Task<RepositoryContentWithCommitInfo>> fullContent =
+                    from entry in content
+                    orderby entry.Type descending
+                    let task = TryLoadLinkedCommitDataAsync(client, repo.Id, entry, CancellationToken.None)
+                    select task;
+                RepositoryContentWithCommitInfo[] result = await Task.WhenAll(fullContent);
+                return new ObservableCollection<RepositoryContentWithCommitInfo>(result);
             }
             catch
             {
                 return null;
             }
         }
-        public static async Task<ObservableCollection<RepositoryContent>> GetRepositoryContentByPath(long repoId, string path, string branch)
+        public static async Task<ObservableCollection<RepositoryContentWithCommitInfo>> GetRepositoryContentByPath(long repoId, string path, string branch)
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
-                var content = await client.Repository.Content.GetAllContentsByRef(repoId, path, branch);
+                // Get the files list
+                GitHubClient client = await UserDataService.getAuthenticatedClient();
+                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repoId, path, branch);
 
-
-                
-                    ObservableCollection<RepositoryContent> contentList = new ObservableCollection<RepositoryContent>();
-                foreach (RepositoryContent c in content)
-                {
-                    if (c.Type == ContentType.File)
-                    {
-                        using (var http = new HttpClient())
-                        {
-
-                            var a = await http.GetStringAsync(c.HtmlUrl);
-
-                            XmlDocument d = new XmlDocument();
-
-                            HtmlAgilityPack.HtmlDocument ht = new HtmlDocument();
-                            ht.LoadHtml(a);
-                            var sha2 = ht.DocumentNode?.Descendants("a")?.FirstOrDefault(node =>
-                                        node.Attributes?.AttributesWithName("class")?.FirstOrDefault()?.Value?.Equals("commit-tease-sha") == true)?
-                                .InnerText;
-                            if (sha2 != null)
-                            {
-                                var match = Regex.Match(sha2, "[a-z0-9]{7,7}")?.Value;
-                                var test = await client.Repository.Commit.Get(repoId, match);
-                                //var t2 = await client.Repository.Comment.GetAllForCommit(repoId, )
-                                var comment = await client.Repository.Comment.GetAllForCommit(repoId, match);
-                            }
-
-                            var timestr = ht.DocumentNode?.Descendants("relative-time")?.FirstOrDefault()?.Attributes?
-                                .AttributesWithName("datetime")?.FirstOrDefault()?.Value;
-                            if (timestr != null)
-                            {
-                                DateTime edit;
-                                DateTime.TryParse(timestr, out edit);
-                            }
-                        }
-
-                        
-                    }
-                    contentList.Add(c);
-                }
-
-                return contentList;
+                IEnumerable<Task<RepositoryContentWithCommitInfo>> fullContent =
+                    from entry in content
+                    orderby entry.Type descending
+                    let task = TryLoadLinkedCommitDataAsync(client, repoId, entry, CancellationToken.None)
+                    select task;
+                RepositoryContentWithCommitInfo[] result = await Task.WhenAll(fullContent);
+                return new ObservableCollection<RepositoryContentWithCommitInfo>(result);
             }
             catch
             {

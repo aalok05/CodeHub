@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using CodeHub.Models;
 
 namespace CodeHub.ViewModels
 {
@@ -59,8 +60,8 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public ObservableCollection<RepositoryContent> _content;
-        public ObservableCollection<RepositoryContent> Content
+        public ObservableCollection<RepositoryContentWithCommitInfo> _content;
+        public ObservableCollection<RepositoryContentWithCommitInfo> Content
         {
             get
             {
