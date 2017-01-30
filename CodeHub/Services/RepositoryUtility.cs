@@ -259,7 +259,7 @@ namespace CodeHub.Services
         /// <param name="repoId">Repository Id</param>
         /// <param name="path">file path</param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<GitHubCommit>> GetCommitsForFile(long repoId, string path)
+        public static async Task<ObservableCollection<GitHubCommit>> GetAllCommitsForFile(long repoId, string path)
         {
             try
             {
@@ -281,6 +281,7 @@ namespace CodeHub.Services
                 return null;
             }
         }
+
     }
 }
 
