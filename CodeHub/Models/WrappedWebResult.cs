@@ -1,5 +1,6 @@
 ﻿using System;
 using Windows.Web.Http;
+using JetBrains.Annotations;
 
 namespace CodeHub.Models
 {
@@ -12,6 +13,7 @@ namespace CodeHub.Models
         /// <summary>
         /// Gets the available result
         /// </summary>
+        [CanBeNull]
         public T Result { get; }
 
         /// <summary>
@@ -22,10 +24,11 @@ namespace CodeHub.Models
         /// <summary>
         /// Gets the exception generated during the request, if present
         /// </summary>
+        [CanBeNull]
         public Exception RequestException { get; }
 
         // Private constructor
-        private WrappedWebResult(T result, HttpStatusCode? status, Exception e = null)
+        private WrappedWebResult([CanBeNull] T result, HttpStatusCode? status, [CanBeNull] Exception e)
         {
             Result = result;
             StatusCode = status;
@@ -33,12 +36,12 @@ namespace CodeHub.Models
         }
 
         // Implicit converter for successful results
-        public static implicit operator WrappedWebResult<T>(T result) => new WrappedWebResult<T>(result, HttpStatusCode.Ok);
+        public static implicit operator WrappedWebResult<T>([NotNull] T result) => new WrappedWebResult<T>(result, HttpStatusCode.Ok, null);
 
         // Implicit converters for faulted results
-        public static implicit operator WrappedWebResult<T>(HttpStatusCode status) => new WrappedWebResult<T>(null, status);
+        public static implicit operator WrappedWebResult<T>(HttpStatusCode status) => new WrappedWebResult<T>(null, status, null);
 
         // Failed web call
-        public static implicit operator WrappedWebResult<T>(Exception e) => new WrappedWebResult<T>(null, null, e);
+        public static implicit operator WrappedWebResult<T>([NotNull] Exception e) => new WrappedWebResult<T>(null, null, e);
     }
 }
