@@ -88,7 +88,7 @@ namespace CodeHub.Services.Hilite_me
             };
 
             // Make the POST
-            WrappedWebResult<String> result = await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);
+            WrappedHTTPWebResult<String> result = await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);
 
             // Check if the lexer is unsupported
             if (result.StatusCode == HttpStatusCode.InternalServerError)

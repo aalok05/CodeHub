@@ -124,7 +124,7 @@ namespace CodeHub.Helpers
         /// <param name="url">The POST URL</param>
         /// <param name="parameters">The POST parameters</param>
         /// <param name="token">The cancellation token for the operation</param>
-        public static async Task<WrappedWebResult<String>> POSTWithCacheSupportAsync(
+        public static async Task<WrappedHTTPWebResult<String>> POSTWithCacheSupportAsync(
             [NotNull] String url, [NotNull] IEnumerable<KeyValuePair<String, String>> parameters, CancellationToken token)
         {
             // URL check
