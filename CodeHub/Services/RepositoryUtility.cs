@@ -234,6 +234,12 @@ namespace CodeHub.Services
                 return false;
             }
         }
+
+        /// <summary>
+        /// Checks if a repository is starred by the authorized user
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
         public static async Task<bool> CheckStarred(Repository repo)
         {
             try
@@ -248,19 +254,26 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets a single commit for a given repository
+        /// Gets a single commit for a given file path
         /// </summary>
         /// <param name="repoId">Repository Id</param>
-        /// <param name="reference">Path</param>
+        /// <param name="path">file path</param>
         /// <returns></returns>
-        public static async Task<GitHubCommit> GetCommit(long repoId, string reference)
+        public static async Task<ObservableCollection<GitHubCommit>> GetCommitsForFile(long repoId, string path)
         {
             try
             {
                 var client = await UserDataService.getAuthenticatedClient();
-                return await client.Repository.Commit.Get(repoId, reference);
+                CommitRequest request = new CommitRequest{ Path = path };
+                var list = await client.Repository.Commit.GetAll(repoId, request);
+                ObservableCollection<GitHubCommit> commitList = new ObservableCollection<GitHubCommit>();
+                foreach (GitHubCommit c in list)
+                {
+                    commitList.Add(c);
+                }
+                return commitList;
             }
-            catch
+            catch(Exception e)
             {
                 return null;
             }
