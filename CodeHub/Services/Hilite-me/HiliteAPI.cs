@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,6 +61,13 @@ namespace CodeHub.Services.Hilite_me
         public static async Task<String> TryGetHighlightedCodeAsync([NotNull] String code, [NotNull] String path, 
             SyntaxHighlightStyle style, bool lineNumbers, CancellationToken token)
         {
+            // Check if the code is possibly invalid
+            const int threshold = 50, length = 1000;
+            if (code.Substring(0, length > code.Length ? code.Length : length).Count(char.IsControl) > threshold)
+            {
+                return null;
+            }
+
             // Try to extract the code language
             Match match = Regex.Match(path, @".*([.]\w+)");
             if (!match.Success || match.Groups.Count != 2) return null;
