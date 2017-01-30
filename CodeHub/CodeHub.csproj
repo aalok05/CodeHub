@@ -134,6 +134,7 @@
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\HtmlParseService.cs" />

@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -60,5 +63,24 @@ namespace CodeHub.Helpers
         /// </summary>
         /// <param name="enumerable">The sequence to count</param>
         public static int Count([NotNull] this IEnumerable enumerable) => Enumerable.Count(enumerable.Cast<object>());
+
+        /// <summary>
+        /// Waits for a task with the given token
+        /// </summary>
+        /// <typeparam name="T">The type returned by the task</typeparam>
+        /// <param name="task">The task to wait</param>
+        /// <param name="token">The cancellation token</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static async Task<T> AsCancellableTask<T>([NotNull] this Task<T> task, CancellationToken token) where T : class
+        {
+            try
+            {
+                return await task.ContinueWith(t => t.GetAwaiter().GetResult());
+            }
+            catch (OperationCanceledException)
+            {
+                return null;
+            }
+        }
     }
 }
