@@ -254,7 +254,7 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets a single commit for a given file path
+        /// Gets all commits for a given file path
         /// </summary>
         /// <param name="repoId">Repository Id</param>
         /// <param name="path">file path</param>
@@ -263,17 +263,20 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
+                GitHubClient client = await UserDataService.getAuthenticatedClient();
                 CommitRequest request = new CommitRequest{ Path = path };
+
                 var list = await client.Repository.Commit.GetAll(repoId, request);
+
                 ObservableCollection<GitHubCommit> commitList = new ObservableCollection<GitHubCommit>();
+
                 foreach (GitHubCommit c in list)
                 {
                     commitList.Add(c);
                 }
                 return commitList;
             }
-            catch(Exception e)
+            catch
             {
                 return null;
             }
