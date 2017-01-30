@@ -88,23 +88,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        //TextContent
-        public string _Textcontent;
-        public string TextContent
-        {
-            get
-            {
-                return _Textcontent;
-            }
-            set
-            {
-                Set(() => TextContent, ref _Textcontent, value);
-
-            }
-        }
-
         // HTMLContent
-
         public string _HTMLContent;
         public string HTMLContent
         {
