@@ -13,8 +13,8 @@ namespace CodeHub.Services
         /// Two calls are made to this method to emulate Incremental Loading. First call (second parameter = true) returns first 7 repositories, 
         /// Second call (second parameter = false) returns the rest
         ///</summary>
-        /// <param name="range"></param>
-        /// <param name="firstCall"></param>
+        /// <param name="range">Today, weekly or monthly</param>
+        /// <param name="firstCall">Indicates if this is the first call in incremental calls or not</param>
         /// <returns>Trending Repositories in a Time range</returns>
         public static async Task<ObservableCollection<Repository>> GetTrendingRepos(TimeRange range, bool firstCall)
         {
@@ -25,7 +25,7 @@ namespace CodeHub.Services
                 var trendingReposNames = await HtmlParseService.ExtractTrendingRepos(range);
 
                 var client = await UserDataService.getAuthenticatedClient();
-
+               
                 if (firstCall)
                 {
                     for (int i = 0; i < 7; i++)
@@ -244,6 +244,25 @@ namespace CodeHub.Services
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets a single commit for a given repository
+        /// </summary>
+        /// <param name="repoId">Repository Id</param>
+        /// <param name="reference">Path</param>
+        /// <returns></returns>
+        public static async Task<GitHubCommit> GetCommit(long repoId, string reference)
+        {
+            try
+            {
+                var client = await UserDataService.getAuthenticatedClient();
+                return await client.Repository.Commit.Get(repoId, reference);
+            }
+            catch
+            {
+                return null;
             }
         }
     }
