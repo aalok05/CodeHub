@@ -343,15 +343,20 @@ namespace CodeHub.ViewModels
                 switch ((int)e.AddedItems.First())
                 {
                     case 0:
-                        SearchRepoCommand.Execute(null);
+                        if(Repositories == null)
+                            SearchRepoCommand.Execute(null);
                         break;
                     case 1:
-                        SearchUsersCommand.Execute(null);
+                        if (Users == null)
+                            SearchUsersCommand.Execute(null);
                         break;
                     case 2:
-                        SearchIssuesCommand.Execute(null);
+                        if (Issues == null)
+                            SearchIssuesCommand.Execute(null);
                         break;
-                    case 3: SearchCodeCommand.Execute(null);
+                    case 3:
+                        if (SearchCodes == null)
+                            SearchCodeCommand.Execute(null);
                         break;
                 }
             }
