@@ -43,52 +43,15 @@
 
         </AutoSuggestBox>
 
-
-        <Button Grid.Row="1"
-                HorizontalAlignment="Right"
-                Style="{StaticResource EmptyButtonStyle}"
-                Margin="0 3 5 0">
-            <Button.Flyout>
-                <MenuFlyout Placement="Bottom">
-                    <ToggleMenuFlyoutItem Text="Repositories"
-                                          Command="{x:Bind ViewModel.SearchRepoCommand}"
-                                          IsEnabled="{x:Bind ViewModel.IsSearchingRepo,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
-                                          IsChecked="{x:Bind ViewModel.IsSearchingRepo,Mode=TwoWay}"/>
-                    <ToggleMenuFlyoutItem Text="Users" 
-                                          Command="{x:Bind ViewModel.SearchUsersCommand}"
-                                          IsEnabled="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
-                                          IsChecked="{x:Bind ViewModel.IsSearchingUsers,Mode=TwoWay}"/>
-                    <ToggleMenuFlyoutItem Text="Code" 
-                                          Command="{x:Bind ViewModel.SearchCodeCommand}"
-                                          IsEnabled="{x:Bind ViewModel.IsSearchingCode,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
-                                          IsChecked="{x:Bind ViewModel.IsSearchingCode,Mode=TwoWay}"/>
-                    <ToggleMenuFlyoutItem Text="Issues" 
-                                          Command="{x:Bind ViewModel.SearchIssuesCommand}"
-                                          IsEnabled="{x:Bind ViewModel.IsSearchingIssues,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
-                                          IsChecked="{x:Bind ViewModel.IsSearchingIssues,Mode=TwoWay}"/>
-                </MenuFlyout>
-            </Button.Flyout>
-            <StackPanel Orientation="Horizontal" Height="16" Padding="10 0 10 0">
-                <TextBlock FontSize="12" Margin="0 0 5 0"
-                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
-                <i:Interaction.Behaviors>
-                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingUsers,Mode=OneWay}" Value="True">
-                        <core:ChangePropertyAction PropertyName="Text" Value="Users"/>
-                    </core:DataTriggerBehavior>
-                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingRepo,Mode=OneWay}" Value="True">
-                        <core:ChangePropertyAction PropertyName="Text" Value="Repositories"/>
-                    </core:DataTriggerBehavior>
-                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingCode,Mode=OneWay}" Value="True">
-                        <core:ChangePropertyAction PropertyName="Text" Value="Code"/>
-                    </core:DataTriggerBehavior>
-                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsSearchingIssues,Mode=OneWay}" Value="True">
-                        <core:ChangePropertyAction PropertyName="Text" Value="Issues"/>
-                    </core:DataTriggerBehavior>
-                </i:Interaction.Behaviors>
-                </TextBlock>
-                <SymbolIcon Symbol="More" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
-            </StackPanel>
-        </Button>
+        <control:AnimatedComboBox ItemsSource="{x:Bind ViewModel.AvailableSearchItems,Mode=OneWay}"
+                                  Grid.Row="1"
+                                  HorizontalAlignment="Right"
+                                  Margin="0 4 4 0"
+                                  FontSize="13"
+                                  SelectionChanged="{x:Bind ViewModel.SearchItem_SelectionChanged}"
+                                  SelectedIndex="{x:Bind ViewModel.SelectedSearchItemIndex,Mode=TwoWay}"
+                                  Style="{StaticResource AnimatedComboBoxStyle}"
+                                  MinWidth="120"/>
 
         <Grid  Grid.Row="2"
                Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">

@@ -70,58 +70,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _isSearchingUsers;
-        public bool IsSearchingUsers
-        {
-            get
-            {
-                return _isSearchingUsers;
-            }
-            set
-            {
-                Set(() => IsSearchingUsers, ref _isSearchingUsers, value);
-            }
-        }
-
-        public bool _isSearchingRepo;
-        public bool IsSearchingRepo
-        {
-            get
-            {
-                return _isSearchingRepo;
-            }
-            set
-            {
-                Set(() => IsSearchingRepo, ref _isSearchingRepo, value);
-            }
-        }
-
-        public bool _isSearchingCode;
-        public bool IsSearchingCode
-        {
-            get
-            {
-                return _isSearchingCode;
-            }
-            set
-            {
-                Set(() => IsSearchingCode, ref _isSearchingCode, value);
-            }
-        }
-
-        public bool _isSearchingIssues;
-        public bool IsSearchingIssues
-        {
-            get
-            {
-                return _isSearchingIssues;
-            }
-            set
-            {
-                Set(() => IsSearchingIssues, ref _isSearchingIssues, value);
-            }
-        }
-
         /// <summary>
         /// 'No Results' TextBlock will be displayed if this property is true
         /// </summary>
@@ -164,6 +112,81 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _isSearchingRepo;
+        public bool IsSearchingRepo
+        {
+            get
+            {
+                return _isSearchingRepo;
+            }
+            set
+            {
+                Set(() => IsSearchingRepo, ref _isSearchingRepo, value);
+            }
+        }
+
+        public bool _isSearchingCode;
+        public bool IsSearchingCode
+        {
+            get
+            {
+                return _isSearchingCode;
+            }
+            set
+            {
+                Set(() => IsSearchingCode, ref _isSearchingCode, value);
+            }
+        }
+
+        public bool _isSearchingIssues;
+        public bool IsSearchingIssues
+        {
+            get
+            {
+                return _isSearchingIssues;
+            }
+            set
+            {
+                Set(() => IsSearchingIssues, ref _isSearchingIssues, value);
+            }
+        }
+        public bool _isSearchingUsers;
+        public bool IsSearchingUsers
+        {
+            get
+            {
+                return _isSearchingUsers;
+            }
+            set
+            {
+                Set(() => IsSearchingUsers, ref _isSearchingUsers, value);
+            }
+        }
+        public enum SearchItems
+        {
+            Repositories,
+            Users,
+            Issues,
+            Code
+        }
+
+        /// <summary>
+        /// Gets the collection of the available search items
+        /// </summary>
+        public IEnumerable<SearchItems> AvailableSearchItems { get; } = Enum.GetValues(typeof(SearchItems)).Cast<SearchItems>();
+
+        public int _SelectedSearchItemIndex ;
+        public int SelectedSearchItemIndex
+        {
+            get
+            {
+                return _SelectedSearchItemIndex;
+            }
+            set
+            {
+                Set(() => SelectedSearchItemIndex, ref _SelectedSearchItemIndex, value);
+            }
+        }
         #endregion
 
         public RelayCommand _loadCommand;
@@ -175,7 +198,9 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           () =>
                                           {
-                                              ZeroResultCount = IsSearchingRepo = true;
+                                              ZeroResultCount = true;
+                                              SelectedSearchItemIndex = 0;
+                                              ChangeVisibilityOfListViews(SelectedSearchItemIndex);
 
                                               if (!GlobalHelper.IsInternet())
                                               {
@@ -201,8 +226,6 @@ namespace CodeHub.ViewModels
                     ?? (_searchRepoCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              IsSearchingRepo = true;
-                                              IsSearchingUsers = IsSearchingIssues = IsSearchingCode = false;
                                               if (!string.IsNullOrWhiteSpace(QueryString))
                                               {
 
@@ -234,8 +257,6 @@ namespace CodeHub.ViewModels
                     ?? (_searchUsersCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              IsSearchingUsers = true;
-                                              IsSearchingRepo = IsSearchingCode = IsSearchingIssues = false;
                                               if (!string.IsNullOrWhiteSpace(QueryString))
                                               {
                                                   isLoading = true;
@@ -265,8 +286,6 @@ namespace CodeHub.ViewModels
                     ?? (_searchCodeCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              IsSearchingCode = true;
-                                              IsSearchingIssues = IsSearchingRepo = IsSearchingUsers = false;
                                               if (!string.IsNullOrWhiteSpace(QueryString))
                                               {
                                                   isLoading = true;
@@ -296,8 +315,6 @@ namespace CodeHub.ViewModels
                     ?? (_searchIssuesCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              IsSearchingIssues = true;
-                                              IsSearchingRepo = IsSearchingUsers = IsSearchingCode = false;
                                               if (!string.IsNullOrWhiteSpace(QueryString))
                                               {
                                                   isLoading = true;
@@ -318,23 +335,44 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public void SearchItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(e.AddedItems.Count != 0)
+            {
+                ChangeVisibilityOfListViews((int)e.AddedItems.First());
+                switch ((int)e.AddedItems.First())
+                {
+                    case 0:
+                        SearchRepoCommand.Execute(null);
+                        break;
+                    case 1:
+                        SearchUsersCommand.Execute(null);
+                        break;
+                    case 2:
+                        SearchIssuesCommand.Execute(null);
+                        break;
+                    case 3: SearchCodeCommand.Execute(null);
+                        break;
+                }
+            }
+        }
         public void QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (IsSearchingRepo)
+            ChangeVisibilityOfListViews(SelectedSearchItemIndex);
+            switch (SelectedSearchItemIndex)
             {
-                SearchRepoCommand.Execute(null);
-            }
-            else if (IsSearchingUsers)
-            {
-                SearchUsersCommand.Execute(null);
-            }
-            else if (IsSearchingIssues)
-            {
-                SearchIssuesCommand.Execute(null);
-            }
-            else if (IsSearchingCode)
-            {
-                SearchCodeCommand.Execute(null);
+                case 0:
+                    SearchRepoCommand.Execute(null);
+                    break;
+                case 1:
+                    SearchUsersCommand.Execute(null);
+                    break;
+                case 2:
+                    SearchIssuesCommand.Execute(null);
+                    break;
+                case 3:
+                    SearchCodeCommand.Execute(null);
+                    break;
             }
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
@@ -364,6 +402,26 @@ namespace CodeHub.ViewModels
             string repo = issue.HtmlUrl.Segments[2].Replace("/", "");
 
             SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(IssueDetailView), new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue),"Issues");
+        }
+
+        private void ChangeVisibilityOfListViews(int selectedSearchItemIndex)
+        {
+            IsSearchingRepo = IsSearchingUsers = IsSearchingIssues = IsSearchingCode = false;
+            switch (selectedSearchItemIndex)
+            {
+                case 0:
+                    IsSearchingRepo = true;
+                    break;
+                case 1:
+                    IsSearchingUsers = true;
+                    break;
+                case 2:
+                    IsSearchingIssues = true;
+                    break;
+                case 3:
+                    IsSearchingCode = true;
+                    break;
+            }
         }
 
     }
