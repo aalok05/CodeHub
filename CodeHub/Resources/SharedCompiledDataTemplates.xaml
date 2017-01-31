@@ -30,7 +30,7 @@
                 <TextBlock x:Name="IconTextBlock"
                            Margin="0,2,0,0"
                            FontFamily="Segoe MDL2 Assets"
-                           FontSize="20"
+                           FontSize="16"
                            Foreground="{StaticResource AppPrimaryColorBrush}"
                            IsTextScaleFactorEnabled="False"
                            Text="{x:Bind Content, Converter={StaticResource FileIconConverter}, FallbackValue=&#xE8C8;}" />
@@ -83,6 +83,28 @@
                                 <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="2" />
                                 <Setter Target="LastEditTimeTextBlock.FontSize" Value="12" />
                                 <Setter Target="LastEditTimeTextBlock.Margin" Value="12 0 0 8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="LargeMobile">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="440" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="NameTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
+                                <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="1" />
+                                <Setter Target="CommitMessageTextBlock.FontSize" Value="13" />
+                                <Setter Target="CommitMessageTextBlock.Margin" Value="12 8 0 8" />
+
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="3" />
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="LastEditTimeTextBlock.FontSize" Value="13" />
+                                <Setter Target="LastEditTimeTextBlock.Margin" Value="4 0 16 8" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Desktop">
