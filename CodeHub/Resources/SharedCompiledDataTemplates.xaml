@@ -73,6 +73,7 @@
 
                                 <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
                                 <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="IconTextBlock.Margin" Value="0 4 0 0" />
 
                                 <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="1" />
                                 <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="1" />
@@ -95,6 +96,7 @@
 
                                 <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
                                 <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="IconTextBlock.Margin" Value="0 4 0 0" />
 
                                 <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="1" />
                                 <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="1" />
