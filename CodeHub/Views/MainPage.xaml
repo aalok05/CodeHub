@@ -44,8 +44,16 @@
                     MaxHeight="20">
                     <Path
                         Data="{x:Bind Symbol}"
-                        Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                        StrokeThickness="0" />
+                        StrokeThickness="0" >
+                        <interactivity:Interaction.Behaviors>
+                            <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
+                                <core:ChangePropertyAction PropertyName="Fill" Value="{StaticResource AppPrimaryColorBrush}" />
+                            </core:DataTriggerBehavior>
+                            <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="False">
+                                <core:ChangePropertyAction PropertyName="Fill" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+                            </core:DataTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </Path>
                 </Viewbox>
 
                 <TextBlock
