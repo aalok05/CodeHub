@@ -104,7 +104,7 @@ namespace CodeHub.ViewModels
         }
         public void RepoContentDrillNavigate(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as RepositoryContent;
+            RepositoryContent item = e.ClickedItem as RepositoryContentWithCommitInfo;
             if (item != null)
             {
                 if (item.Type == ContentType.File)
