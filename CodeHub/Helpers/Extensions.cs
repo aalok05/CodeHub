@@ -72,14 +72,20 @@ namespace CodeHub.Helpers
         /// <typeparam name="T">The type returned by the task</typeparam>
         /// <param name="task">The task to wait</param>
         /// <param name="token">The cancellation token</param>
+        /// <param name="failsafe">If true, all possible exceptions will be handled too</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static async Task<T> AsCancellableTask<T>([NotNull] this Task<T> task, CancellationToken token) where T : class
+        public static async Task<T> AsCancellableTask<T>([NotNull] this Task<T> task, 
+            CancellationToken token, bool failsafe = false) where T : class
         {
             try
             {
                 return await task.ContinueWith(t => t.GetAwaiter().GetResult());
             }
             catch (OperationCanceledException)
+            {
+                return null;
+            }
+            catch when (failsafe)
             {
                 return null;
             }

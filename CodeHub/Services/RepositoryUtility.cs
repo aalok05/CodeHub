@@ -84,94 +84,104 @@ namespace CodeHub.Services
         /// <summary>
         /// Returns a wrapped repository content with all the additional info that can be retrieved from the associated HTML page
         /// </summary>
+        /// <param name="contentTask">The task with the contents to load</param>
         /// <param name="htmlUrl">The URL to the repository page</param>
-        /// <param name="contents">The contents to load</param>
         /// <param name="token">The cancellation token for the operation</param>
-        public static async Task<IEnumerable<RepositoryContentWithCommitInfo>> TryLoadLinkedCommitDataAsync([NotNull] String htmlUrl, [NotNull] IEnumerable<RepositoryContent> contents , CancellationToken token)
+        [ItemCanBeNull]
+        public static async Task<IEnumerable<RepositoryContentWithCommitInfo>> TryLoadLinkedCommitDataAsync(
+            [NotNull] Task<IReadOnlyList<RepositoryContent>> contentTask, [NotNull] String htmlUrl, CancellationToken token)
         {
             // Try to download the file info
+            IEnumerable<RepositoryContent> contents = null;
             try
             {
+                // Run the web calls in parallel
+                String html;
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    // Get the HTML for the current file
-                    String html = await httpClient.GetStringAsync(new Uri(htmlUrl)).AsTask(token).AsCancellableTask(token);
-                    if (html == null) return contents.Select(content => new RepositoryContentWithCommitInfo(content));
+                    // Get the HTML for the current file and unpack the results
+                    Task<String> htmlTask = httpClient.GetStringAsync(new Uri(htmlUrl)).AsTask(token).AsCancellableTask(token, true);
+                    await Task.WhenAll(contentTask, htmlTask);
+                    contents = contentTask.Result;
+                    html = htmlTask.Result;
 
-                    // Load the HTML document
-                    HtmlDocument document = new HtmlDocument();
-                    document.LoadHtml(html);
-
-                    /* ================
-                     * HTML STRUCTURE
-                     * ================ 
-                     * ...
-                     * <tr class="js-navigation-item">
-                     *   ...
-                     *   <td class="content">
-                     *     <span ...>
-                     *       <a href="CONTENT_URL">...</a>
-                     *     </span>
-                     *   </td>
-                     *   <td class="message">
-                     *     <span ...>
-                     *       <a title="COMMIT_MESSAGE">...</a>
-                     *     </span>
-                     *   </td>
-                     *   <td class="age">
-                     *     <span ...>
-                     *       <time-ago datetime="EDIT_TIME">...</a>
-                     *     </span>
-                     *   </td> 
-                     * ... */
-
-                    // Try to extract the commit info
-                    List<RepositoryContentWithCommitInfo> results = new List<RepositoryContentWithCommitInfo>();
-                    foreach (RepositoryContent content in contents)
+                    // Handle HTML failure
+                    if (htmlTask.Result == null)
                     {
-                        // Find the right node
-                        HtmlNode target = document.DocumentNode?.Descendants("a")
-                            ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("href")
-                            ?.FirstOrDefault()?.Value?.Equals(content.HtmlUrl.AbsolutePath) == true);
-                        if (target != null)
-                        {
-                            // Get the commit and time nodes
-                            HtmlNode
-                                messageRoot = target.Ancestors("td")?.FirstOrDefault()?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td")),
-                                timeRoot = messageRoot?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td"));
-                            HtmlAttribute
-                                messageTitle = messageRoot?.Descendants("a")?.FirstOrDefault()?.Attributes?.AttributesWithName("title")?.FirstOrDefault(),
-                                timestamp = timeRoot?.Descendants("time-ago")?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault();
-
-                            // Fix the message, if present
-                            String message = messageTitle?.Value;
-                            if (message != null)
-                            {
-                                message = WebUtility.HtmlDecode(message); // Remove HTML-encoded characters
-                                message = Regex.Replace(message, @":[^:]+: ?| ?:[^:]+:", String.Empty); // Remove GitHub emojis
-                            }
-
-                            // Add the parsed contents
-                            bool added = false;
-                            if (timestamp?.Value != null)
-                            {
-                                DateTime time;
-                                if (DateTime.TryParse(timestamp.Value, out time))
-                                {
-                                    results.Add(new RepositoryContentWithCommitInfo(content, null, message, time));
-                                    added = true;
-                                }
-                            }
-                            if (!added) results.Add(new RepositoryContentWithCommitInfo(content, null, message));
-                        }
+                        return contents.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
                     }
-                    return results;
                 }
+
+                // Load the HTML document
+                HtmlDocument document = new HtmlDocument();
+                document.LoadHtml(html);
+
+                /* ================
+                    * HTML STRUCTURE
+                    * ================ 
+                    * ...
+                    * <tr class="js-navigation-item">
+                    *   ...
+                    *   <td class="content">
+                    *     <span ...>
+                    *       <a href="CONTENT_URL">...</a>
+                    *     </span>
+                    *   </td>
+                    *   <td class="message">
+                    *     <span ...>
+                    *       <a title="COMMIT_MESSAGE">...</a>
+                    *     </span>
+                    *   </td>
+                    *   <td class="age">
+                    *     <span ...>
+                    *       <time-ago datetime="EDIT_TIME">...</a>
+                    *     </span>
+                    *   </td> 
+                    * ... */
+
+                // Try to extract the commit info
+                return contents.AsParallel().OrderByDescending(entry => entry.Type).Select(content =>
+                {
+                    // Find the right node
+                    HtmlNode target = document.DocumentNode?.Descendants("a")
+                        ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("href")
+                        ?.FirstOrDefault()?.Value?.Equals(content.HtmlUrl.AbsolutePath) == true);
+                    if (target != null)
+                    {
+                        // Get the commit and time nodes
+                        HtmlNode
+                            messageRoot = target.Ancestors("td")?.FirstOrDefault()?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td")),
+                            timeRoot = messageRoot?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td"));
+                        HtmlAttribute
+                            messageTitle = messageRoot?.Descendants("a")?.FirstOrDefault()?.Attributes?.AttributesWithName("title")?.FirstOrDefault(),
+                            timestamp = timeRoot?.Descendants("time-ago")?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault();
+
+                        // Fix the message, if present
+                        String message = messageTitle?.Value;
+                        if (message != null)
+                        {
+                            message = WebUtility.HtmlDecode(message); // Remove HTML-encoded characters
+                            message = Regex.Replace(message, @":[^:]+: ?| ?:[^:]+:", String.Empty); // Remove GitHub emojis
+                        }
+
+                        // Add the parsed contents
+                        if (timestamp?.Value != null)
+                        {
+                            DateTime time;
+                            if (DateTime.TryParse(timestamp.Value, out time))
+                            {
+                                return new RepositoryContentWithCommitInfo(content, null, message, time);
+                            }
+                        }
+                        return new RepositoryContentWithCommitInfo(content, null, message);
+                    }
+                    return new RepositoryContentWithCommitInfo(content);
+                });
             }
             catch
             {
                 // Just return the original content without additional info
-                return contents.Select(content => new RepositoryContentWithCommitInfo(content));
+                return contents?.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
             }
         }
 
@@ -181,12 +191,9 @@ namespace CodeHub.Services
             {
                 // Get the files list
                 GitHubClient client = await UserDataService.getAuthenticatedClient();
-                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch);
-                IEnumerable<RepositoryContent> sorted = content.OrderByDescending(entry => entry.Type);
-
-                // Load the info and prepare the results
-                IEnumerable<RepositoryContentWithCommitInfo> result = await TryLoadLinkedCommitDataAsync(repo.HtmlUrl, sorted, CancellationToken.None);
-                return new ObservableCollection<RepositoryContentWithCommitInfo>(result);
+                IEnumerable<RepositoryContentWithCommitInfo> results = await TryLoadLinkedCommitDataAsync(
+                    client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl, CancellationToken.None);
+                return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
             {
@@ -200,13 +207,10 @@ namespace CodeHub.Services
             {
                 // Get the files list
                 GitHubClient client = await UserDataService.getAuthenticatedClient();
-                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch);
-                IEnumerable<RepositoryContent> sorted = content.OrderByDescending(entry => entry.Type);
-
-                // Load the info and prepare the results
                 String url = $"{repo.HtmlUrl}/tree/{branch}/{path}";
-                IEnumerable<RepositoryContentWithCommitInfo> result = await TryLoadLinkedCommitDataAsync(url, sorted, CancellationToken.None);
-                return new ObservableCollection<RepositoryContentWithCommitInfo>(result);
+                IEnumerable<RepositoryContentWithCommitInfo> results = await TryLoadLinkedCommitDataAsync(
+                    client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url, CancellationToken.None);
+                return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
             {
