@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using Windows.Data.Xml.Dom;
 using Windows.Web.Http;
 using CodeHub.Models;
@@ -141,6 +143,14 @@ namespace CodeHub.Services
                                 messageTitle = messageRoot?.Descendants("a")?.FirstOrDefault()?.Attributes?.AttributesWithName("title")?.FirstOrDefault(),
                                 timestamp = timeRoot?.Descendants("time-ago")?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault();
 
+                            // Fix the message, if present
+                            String message = messageTitle?.Value;
+                            if (message != null)
+                            {
+                                message = WebUtility.HtmlDecode(message); // Remove HTML-encoded characters
+                                message = Regex.Replace(message, @":[^:]+: ?| ?:[^:]+:", String.Empty); // Remove GitHub emojis
+                            }
+
                             // Add the parsed contents
                             bool added = false;
                             if (timestamp?.Value != null)
@@ -148,11 +158,11 @@ namespace CodeHub.Services
                                 DateTime time;
                                 if (DateTime.TryParse(timestamp.Value, out time))
                                 {
-                                    results.Add(new RepositoryContentWithCommitInfo(content, null, messageTitle?.Value, time));
+                                    results.Add(new RepositoryContentWithCommitInfo(content, null, message, time));
                                     added = true;
                                 }
                             }
-                            if (!added) results.Add(new RepositoryContentWithCommitInfo(content, null, messageTitle?.Value));
+                            if (!added) results.Add(new RepositoryContentWithCommitInfo(content, null, message));
                         }
                     }
                     return results;
