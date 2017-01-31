@@ -78,16 +78,14 @@ namespace CodeHub.Services
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Returns a wrapped repository content with all the additional info that can be retrieved from the associated HTML page
         /// </summary>
-        /// <param name="client">The logged GitHub client</param>
-        /// <param name="id">The repository id for the current file</param>
-        /// <param name="content">The source content</param>
+        /// <param name="htmlUrl">The URL to the repository page</param>
+        /// <param name="contents">The contents to load</param>
         /// <param name="token">The cancellation token for the operation</param>
-        [ItemNotNull]
-        public static async Task<RepositoryContentWithCommitInfo> TryLoadLinkedCommitDataAsync([NotNull] GitHubClient client, long id, [NotNull] RepositoryContent content, CancellationToken token)
+        public static async Task<IEnumerable<RepositoryContentWithCommitInfo>> TryLoadLinkedCommitDataAsync([NotNull] String htmlUrl, [NotNull] IEnumerable<RepositoryContent> contents , CancellationToken token)
         {
             // Try to download the file info
             try
@@ -95,42 +93,75 @@ namespace CodeHub.Services
                 using (HttpClient httpClient = new HttpClient())
                 {
                     // Get the HTML for the current file
-                    String html = await httpClient.GetStringAsync(content.HtmlUrl).AsTask(token).AsCancellableTask(token);
-                    if (html == null) return new RepositoryContentWithCommitInfo(content, null, null);
+                    String html = await httpClient.GetStringAsync(new Uri(htmlUrl)).AsTask(token).AsCancellableTask(token);
+                    if (html == null) return contents.Select(content => new RepositoryContentWithCommitInfo(content));
 
                     // Load the HTML document
                     HtmlDocument document = new HtmlDocument();
                     document.LoadHtml(html);
 
-                    // Try to extract the commit SHA1
-                    String shaText =
-                        document.DocumentNode?.Descendants("a")
-                        ?.FirstOrDefault(node => node.Attributes?.AttributesWithName("class")
-                        ?.FirstOrDefault()?.Value?.Equals("commit-tease-sha") == true)?.InnerText;
-                    if (shaText == null) return new RepositoryContentWithCommitInfo(content, null, null);
-                    String sha = Regex.Match(shaText, "[a-z0-9]{7,7}")?.Value;
-                    if (sha == null) return new RepositoryContentWithCommitInfo(content, null, null);
+                    /* ================
+                     * HTML STRUCTURE
+                     * ================ 
+                     * ...
+                     * <tr class="js-navigation-item">
+                     *   ...
+                     *   <td class="content">
+                     *     <span ...>
+                     *       <a href="CONTENT_URL">...</a>
+                     *     </span>
+                     *   </td>
+                     *   <td class="message">
+                     *     <span ...>
+                     *       <a title="COMMIT_MESSAGE">...</a>
+                     *     </span>
+                     *   </td>
+                     *   <td class="age">
+                     *     <span ...>
+                     *       <time-ago datetime="EDIT_TIME">...</a>
+                     *     </span>
+                     *   </td> 
+                     * ... */
 
-                    // Try to get the latest commit for the current file from the extracted SHA1
-                    GitHubCommit commit = await client.Repository.Commit.Get(id, sha).AsCancellableTask(token);
-                    if (commit == null) return new RepositoryContentWithCommitInfo(content, null, null);
-
-                    // Try to extract the last edit time for this document
-                    String timestr = document.DocumentNode?.Descendants("relative-time")
-                        ?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault()?.Value;
-                    if (timestr == null) return new RepositoryContentWithCommitInfo(content, commit, null);
-                    DateTime edit;
-                    if (DateTime.TryParse(timestr, out edit))
+                    // Try to extract the commit info
+                    List<RepositoryContentWithCommitInfo> results = new List<RepositoryContentWithCommitInfo>();
+                    foreach (RepositoryContent content in contents)
                     {
-                        return new RepositoryContentWithCommitInfo(content, commit, edit);
+                        // Find the right node
+                        HtmlNode target = document.DocumentNode?.Descendants("a")
+                            ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("href")
+                            ?.FirstOrDefault()?.Value?.Equals(content.HtmlUrl.AbsolutePath) == true);
+                        if (target != null)
+                        {
+                            // Get the commit and time nodes
+                            HtmlNode
+                                messageRoot = target.Ancestors("td")?.FirstOrDefault()?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td")),
+                                timeRoot = messageRoot?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td"));
+                            HtmlAttribute
+                                messageTitle = messageRoot?.Descendants("a")?.FirstOrDefault()?.Attributes?.AttributesWithName("title")?.FirstOrDefault(),
+                                timestamp = timeRoot?.Descendants("time-ago")?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault();
+
+                            // Add the parsed contents
+                            bool added = false;
+                            if (timestamp?.Value != null)
+                            {
+                                DateTime time;
+                                if (DateTime.TryParse(timestamp.Value, out time))
+                                {
+                                    results.Add(new RepositoryContentWithCommitInfo(content, null, messageTitle?.Value, time));
+                                    added = true;
+                                }
+                            }
+                            if (!added) results.Add(new RepositoryContentWithCommitInfo(content, null, messageTitle?.Value));
+                        }
                     }
-                    return new RepositoryContentWithCommitInfo(content, commit, null);
+                    return results;
                 }
             }
             catch
             {
                 // Just return the original content without additional info
-                return new RepositoryContentWithCommitInfo(content, null, null);
+                return contents.Select(content => new RepositoryContentWithCommitInfo(content));
             }
         }
 
@@ -141,13 +172,10 @@ namespace CodeHub.Services
                 // Get the files list
                 GitHubClient client = await UserDataService.getAuthenticatedClient();
                 IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch);
+                IEnumerable<RepositoryContent> sorted = content.OrderByDescending(entry => entry.Type);
 
-                IEnumerable<Task<RepositoryContentWithCommitInfo>> fullContent =
-                    from entry in content
-                    orderby entry.Type descending
-                    let task = TryLoadLinkedCommitDataAsync(client, repo.Id, entry, CancellationToken.None)
-                    select task;
-                RepositoryContentWithCommitInfo[] result = await Task.WhenAll(fullContent);
+                // Load the info and prepare the results
+                IEnumerable<RepositoryContentWithCommitInfo> result = await TryLoadLinkedCommitDataAsync(repo.HtmlUrl, sorted, CancellationToken.None);
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(result);
             }
             catch
@@ -155,28 +183,27 @@ namespace CodeHub.Services
                 return null;
             }
         }
-        public static async Task<ObservableCollection<RepositoryContentWithCommitInfo>> GetRepositoryContentByPath(long repoId, string path, string branch)
+
+        public static async Task<ObservableCollection<RepositoryContentWithCommitInfo>> GetRepositoryContentByPath(Repository repo, string path, string branch)
         {
             try
             {
                 // Get the files list
                 GitHubClient client = await UserDataService.getAuthenticatedClient();
-                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repoId, path, branch);
+                IReadOnlyList<RepositoryContent> content = await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch);
+                IEnumerable<RepositoryContent> sorted = content.OrderByDescending(entry => entry.Type);
 
-                IEnumerable<Task<RepositoryContentWithCommitInfo>> fullContent =
-                    from entry in content
-                    orderby entry.Type descending
-                    let task = TryLoadLinkedCommitDataAsync(client, repoId, entry, CancellationToken.None)
-                    select task;
-                RepositoryContentWithCommitInfo[] result = await Task.WhenAll(fullContent);
+                // Load the info and prepare the results
+                String url = $"{repo.HtmlUrl}/tree/{branch}/{path}";
+                IEnumerable<RepositoryContentWithCommitInfo> result = await TryLoadLinkedCommitDataAsync(url, sorted, CancellationToken.None);
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(result);
             }
             catch
             {
                 return null;
             }
-
         }
+
         public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepo(long repoId, RepositoryIssueRequest filter)
         {
             try

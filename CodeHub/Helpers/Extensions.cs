@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using HtmlAgilityPack;
 using JetBrains.Annotations;
 
 namespace CodeHub.Helpers
@@ -80,6 +82,19 @@ namespace CodeHub.Helpers
             catch (OperationCanceledException)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets a sequence of sibling nodes from the input node
+        /// </summary>
+        /// <param name="node">The source node</param>
+        public static IEnumerable<HtmlNode> Siblings([NotNull] this HtmlNode node)
+        {
+            while (node != null)
+            {
+                yield return node.NextSibling;
+                node = node.NextSibling;
             }
         }
     }

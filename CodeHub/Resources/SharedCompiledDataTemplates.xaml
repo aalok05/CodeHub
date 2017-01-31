@@ -19,7 +19,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"
-                                            MinWidth="240"/>
+                                  MinWidth="320"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -36,7 +36,7 @@
                        TextWrapping="NoWrap"
                        TextTrimming="CharacterEllipsis"
                        IsTextScaleFactorEnabled="False"/>
-            <TextBlock Text="{x:Bind Commit.Commit.Message}" 
+            <TextBlock Text="{x:Bind CommitMessage}" 
                        Margin="8,0,0,0"
                        IsTextScaleFactorEnabled="False"
                        MaxLines="1"
@@ -46,7 +46,7 @@
                        Foreground="#FFA0A0A0"
                        Grid.Column="2"/>
             <TextBlock Text="{x:Bind LastEditTime, Converter={StaticResource TimePassedConverter}}" 
-                       Margin="12,0,0,0"
+                       Margin="12,0,16,0"
                        MaxLines="1"
                        TextWrapping="NoWrap"
                        TextTrimming="CharacterEllipsis"

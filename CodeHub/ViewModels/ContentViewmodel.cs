@@ -96,7 +96,7 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-                Content = await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch);
+                Content = await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch);
 
                 isLoading = false;
 
