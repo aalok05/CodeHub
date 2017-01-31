@@ -8,8 +8,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
-using Windows.Data.Xml.Dom;
 using Windows.Web.Http;
 using CodeHub.Models;
 using HtmlAgilityPack;
@@ -92,7 +90,7 @@ namespace CodeHub.Services
             [NotNull] Task<IReadOnlyList<RepositoryContent>> contentTask, [NotNull] String htmlUrl, CancellationToken token)
         {
             // Try to download the file info
-            IEnumerable<RepositoryContent> contents = null;
+            IReadOnlyList<RepositoryContent> contents = null;
             try
             {
                 // Run the web calls in parallel
@@ -129,6 +127,7 @@ namespace CodeHub.Services
                     *   </td>
                     *   <td class="message">
                     *     <span ...>
+                    *       [...]?
                     *       <a title="COMMIT_MESSAGE">...</a>
                     *     </span>
                     *   </td>
@@ -139,44 +138,60 @@ namespace CodeHub.Services
                     *   </td> 
                     * ... */
 
-                // Try to extract the commit info
-                return contents.AsParallel().OrderByDescending(entry => entry.Type).Select(content =>
+                // Try to extract the commit info, in parallel
+                int cores = Environment.ProcessorCount;
+                List<RepositoryContentWithCommitInfo>[] partials =
+                    (from i in Enumerable.Range(1, cores)
+                    let list = new List<RepositoryContentWithCommitInfo>()
+                    select list).ToArray();
+                ParallelLoopResult result = Parallel.For(0, cores, new ParallelOptions { MaxDegreeOfParallelism = cores }, workerId =>
                 {
-                    // Find the right node
-                    HtmlNode target = document.DocumentNode?.Descendants("a")
-                        ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("href")
-                        ?.FirstOrDefault()?.Value?.Equals(content.HtmlUrl.AbsolutePath) == true);
-                    if (target != null)
+                    int max = contents.Count * (workerId + 1) / cores;
+                    for (int i = contents.Count * workerId / cores; i < max; i++)
                     {
-                        // Get the commit and time nodes
-                        HtmlNode
-                            messageRoot = target.Ancestors("td")?.FirstOrDefault()?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td")),
-                            timeRoot = messageRoot?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td"));
-                        HtmlAttribute
-                            messageTitle = messageRoot?.Descendants("a")?.FirstOrDefault()?.Attributes?.AttributesWithName("title")?.FirstOrDefault(),
-                            timestamp = timeRoot?.Descendants("time-ago")?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault();
-
-                        // Fix the message, if present
-                        String message = messageTitle?.Value;
-                        if (message != null)
+                        // Find the right node
+                        RepositoryContent element = contents[i];
+                        HtmlNode target = document.DocumentNode?.Descendants("a")
+                            ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("href")
+                            ?.FirstOrDefault()?.Value?.Equals(element.HtmlUrl.AbsolutePath) == true);
+                        if (target != null)
                         {
-                            message = WebUtility.HtmlDecode(message); // Remove HTML-encoded characters
-                            message = Regex.Replace(message, @":[^:]+: ?| ?:[^:]+:", String.Empty); // Remove GitHub emojis
-                        }
+                            // Get the commit and time nodes
+                            HtmlNode
+                                messageRoot = target.Ancestors("td")?.FirstOrDefault()?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td")),
+                                timeRoot = messageRoot?.Siblings()?.FirstOrDefault(node => node.Name.Equals("td"));
+                            HtmlAttribute
+                                messageTitle = messageRoot?.Descendants("a")
+                                    ?.Select(node => node.Attributes?.AttributesWithName("title")?.FirstOrDefault())
+                                    ?.FirstOrDefault(node => node != null),
+                                timestamp = timeRoot?.Descendants("time-ago")?.FirstOrDefault()?.Attributes?.AttributesWithName("datetime")?.FirstOrDefault();
 
-                        // Add the parsed contents
-                        if (timestamp?.Value != null)
-                        {
-                            DateTime time;
-                            if (DateTime.TryParse(timestamp.Value, out time))
+                            // Fix the message, if present
+                            String message = messageTitle?.Value;
+                            if (message != null)
                             {
-                                return new RepositoryContentWithCommitInfo(content, null, message, time);
+                                message = WebUtility.HtmlDecode(message); // Remove HTML-encoded characters
+                                message = Regex.Replace(message, @":[^:]+: ?| ?:[^:]+:", String.Empty); // Remove GitHub emojis
                             }
+
+                            // Add the parsed contents
+                            if (timestamp?.Value != null)
+                            {
+                                DateTime time;
+                                if (DateTime.TryParse(timestamp.Value, out time))
+                                {
+                                    partials[workerId].Add(new RepositoryContentWithCommitInfo(element, null, message, time));
+                                    continue;
+                                }
+                            }
+                            partials[workerId].Add(new RepositoryContentWithCommitInfo(element, null, message));
+                            continue;
                         }
-                        return new RepositoryContentWithCommitInfo(content, null, message);
+                        partials[workerId].Add(new RepositoryContentWithCommitInfo(element));
                     }
-                    return new RepositoryContentWithCommitInfo(content);
                 });
+                if (!result.IsCompleted) throw new InvalidOperationException();
+                return partials.SelectMany(list => list).OrderByDescending(entry => entry.Content.Type);
             }
             catch
             {
