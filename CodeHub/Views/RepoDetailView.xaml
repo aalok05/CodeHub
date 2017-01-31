@@ -326,7 +326,10 @@
                                  Command="{x:Bind ViewModel.IssuesTapped}">
                     <HyperlinkButton.ContentTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" FontSize="15"/>
+                            <TextBlock Text="{Binding}" 
+                                       FontSize="15" 
+                                       FontWeight="Medium"
+                                       Foreground="{StaticResource AppPrimaryColorBrush}"/>
                         </DataTemplate>
                     </HyperlinkButton.ContentTemplate>
                 </HyperlinkButton>
@@ -334,12 +337,23 @@
             </StackPanel>
 
             <HyperlinkButton Grid.Row="7"
-                             FontSize="14"
                              Margin="20 0 0 0"
-                             Content="Show in Github"
-                             NavigateUri="{x:Bind ViewModel.Repository.HtmlUrl}"/>
-
-
+                             NavigateUri="{x:Bind ViewModel.Repository.HtmlUrl}">
+                <HyperlinkButton.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="Segoe MDL2 Assets"
+                                   Text="&#xE8A7;"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"
+                                   Margin="0 0 5 0"
+                                   Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                        <TextBlock Text="Open in GitHub"
+                                   VerticalAlignment="Center"
+                                   FontSize="13"
+                                   Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                    </StackPanel>
+                </HyperlinkButton.Content>
+            </HyperlinkButton>
         </Grid>
     </ScrollViewer>
  

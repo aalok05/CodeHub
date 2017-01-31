@@ -90,14 +90,14 @@
                 Margin="0 5 0 0"
                 Background="{StaticResource AppPrimaryColorBrush}">
             <Button.Content>
-                <StackPanel Orientation="Horizontal"
-                            Padding="5">
-                    <Viewbox MaxHeight="25"
-                             MaxWidth="25">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox MaxHeight="18"
+                             MaxWidth="18">
                         <SymbolIcon Symbol="OutlineStar" Foreground="White" Margin="0 0 10 0"/>
                     </Viewbox>
                     <TextBlock Text="Rate in the store"
                                Foreground="White"
+                               FontSize="12"
                                VerticalAlignment="Center"/>
                 </StackPanel>
             </Button.Content>

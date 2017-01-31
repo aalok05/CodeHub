@@ -116,6 +116,7 @@
         <ProgressRing x:Name="RefreshProgressRing"
                       Width="50"
                       Height="50"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>

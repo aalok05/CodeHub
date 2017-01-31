@@ -70,7 +70,8 @@
         </ListView>
 
         <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40"
-                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
+                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
         <controls:TopScrollerControl x:Name="TopScroller"
                                      HorizontalAlignment="Right"
