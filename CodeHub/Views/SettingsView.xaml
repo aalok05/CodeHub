@@ -11,30 +11,43 @@
     xmlns:model="using:CodeHub.Models"
     mc:Ignorable="d">
     <Page.Resources>
+        
+        <!--Setting template-->
         <DataTemplate x:Key="SettingsListItemTemplate" x:DataType="model:SettingsItem">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-                    Margin="15,0,15,0"
-                    VerticalAlignment="Center"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="24"
-                    Text="{x:Bind GlyphString}" />
-                <StackPanel Orientation="Vertical">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        Text="{x:Bind MainText}" />
-                    <TextBlock
-                        FontSize="13"
-                        FontWeight="Light"
-                        Foreground="Gray"
-                        Text="{x:Bind SubText}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-
-            </StackPanel>
+            <Grid>
+                <RelativePanel Margin="0,8,0,6">
+                    <TextBlock Margin="16,0,16,0"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="22"
+                               Text="{x:Bind GlyphString}"
+                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                               x:Name="IconBlock"
+                               RelativePanel.AlignTopWithPanel="True"
+                               RelativePanel.AlignBottomWithPanel="True"/>
+                    <StackPanel Orientation="Vertical" 
+                                Margin="0,0,16,0"
+                                VerticalAlignment="Center"
+                                RelativePanel.RightOf="IconBlock"
+                                RelativePanel.AlignRightWithPanel="True">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="15"
+                                   Text="{x:Bind MainText}"
+                                   MaxLines="1"
+                                   TextWrapping="NoWrap"
+                                   TextTrimming="CharacterEllipsis"/>
+                        <TextBlock FontSize="13"
+                                   FontWeight="SemiLight"
+                                   Foreground="Gray"
+                                   Text="{x:Bind SubText}"
+                                   TextWrapping="Wrap"/>
+                        </StackPanel>
+                </RelativePanel>
+            </Grid>
         </DataTemplate>
     </Page.Resources>
+    
+    <!--Root grid-->
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
@@ -65,7 +78,6 @@
         <ListView
             x:Name="SettingsListView"
             Grid.Column="0"
-            Margin="0,10,0,0"
             IsItemClickEnabled="True"
             SelectionMode="Single"
             ItemClick="SettingsListView_ItemClick"
@@ -73,7 +85,14 @@
             ItemTemplate="{StaticResource SettingsListItemTemplate}"
             ItemsSource="{x:Bind ViewModel.Settings, Mode=OneWay}" />
 
-        <control:CustomFrame x:Name="settingsFrame" Grid.Column="1" />
+        <!--Secondary frame-->
+        <control:CustomFrame x:Name="settingsFrame" 
+                             Grid.Column="1"
+                             SizeChanged="SettingsFrame_OnSizeChanged">
+            <control:CustomFrame.Clip>
+                <RectangleGeometry x:Name="FrameClip"/>
+            </control:CustomFrame.Clip>
+        </control:CustomFrame>
         
     </Grid>
 </Page>
