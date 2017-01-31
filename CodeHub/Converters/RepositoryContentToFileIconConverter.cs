@@ -12,7 +12,7 @@ namespace CodeHub.Converters
             RepositoryContent content = value as RepositoryContent;
             if (content == null) return String.Empty;
 
-            const int unknown = 0xE160, file = 0xE7C3, link = 0xE816, folder = 0xE8DA;
+            const int unknown = 0xE160, file = 0xE7C3, link = 0xE816, folder = 0xE8D5;
             switch (content.Type)
             {
                 case ContentType.File:
