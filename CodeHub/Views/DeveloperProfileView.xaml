@@ -195,7 +195,7 @@
 
                 </PivotItem.Header>
 
-                <Grid>
+                <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.ProfileTapped}"
                               ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
@@ -256,7 +256,7 @@
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Following, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
-                <Grid>
+                <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.ProfileTapped}"
                               ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
