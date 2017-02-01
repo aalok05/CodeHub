@@ -45,6 +45,7 @@ namespace CodeHub.Views
             if (Window.Current.Bounds.Width < 720)
             {
                 ViewModel.CurrentState = "Mobile";
+                SettingsListView.SelectedIndex = -1;
             }
             else
             {
