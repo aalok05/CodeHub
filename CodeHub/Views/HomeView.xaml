@@ -33,6 +33,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
+        <!--Empty grid to provide grey background to pivot headers-->
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">

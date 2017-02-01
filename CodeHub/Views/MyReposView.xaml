@@ -19,6 +19,7 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <!--Empty grid to provide grey background to pivot headers-->
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Height="48" VerticalAlignment="Top"/>
         <Pivot>
