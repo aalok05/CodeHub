@@ -104,7 +104,12 @@ namespace CodeHub.Services
                         tcs.SetResult(t.Status == TaskStatus.RanToCompletion ? t.Result : null);
                     });
                 };
-                view.Navigate(new Uri(htmlUrl));
+
+                // Manually set the user agent to get the full desktop site
+                String userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop) like Gecko";
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(htmlUrl));
+                httpRequestMessage.Headers.Append("User-Agent", userAgent);
+                view.NavigateWithHttpRequestMessage(httpRequestMessage);
                 
                 // Run the web calls in parallel
                 await Task.WhenAll(contentTask, tcs.Task);

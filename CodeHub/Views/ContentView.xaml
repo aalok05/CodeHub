@@ -57,8 +57,7 @@
             SelectionMode="Single"
             ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
             ItemsSource="{x:Bind ViewModel.Content,Mode=OneWay}"
-            OddRowBackground="#06FFFFFF"
-            EvenRowBackground="Black"
+            OddRowBackground="{StaticResource OddAlternatingRowsBrush}"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             ItemTemplate="{StaticResource RepositoryEntryTemplate}">
