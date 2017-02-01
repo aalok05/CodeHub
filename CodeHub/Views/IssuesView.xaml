@@ -37,6 +37,7 @@
                 <Grid>
                     <ListView x:Name="openIssueListView"
                               IsItemClickEnabled="True"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.OpenIssues, Mode=OneWay}">
                         <ListView.ItemContainerStyle>
@@ -71,6 +72,7 @@
                 <Grid>
                     <ListView x:Name="closedIssueListView"
                               IsItemClickEnabled="True"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.ClosedIssues, Mode=OneWay}">
                         <ListView.ItemContainerStyle>
@@ -105,6 +107,7 @@
                 <Grid>
                     <ListView x:Name="mineIssueListView"
                               IsItemClickEnabled="True"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.MyIssues, Mode=OneWay}">
                         <ListView.ItemContainerStyle>
