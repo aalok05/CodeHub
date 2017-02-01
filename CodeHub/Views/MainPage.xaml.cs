@@ -17,6 +17,7 @@ using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace CodeHub.Views
 {
@@ -67,7 +68,22 @@ namespace CodeHub.Views
         }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(e.NewSize.Width < 720)
+            // Manage the system tray in landscape mode
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                bool portrait = ApplicationView.GetForCurrentView().Orientation == ApplicationViewOrientation.Portrait;
+                if (portrait)
+                {
+                    if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
+                    {
+                        SystemTrayManager.HideAsync().AsTask().Forget();
+                    }
+                    else SystemTrayManager.TryShowAsync().Forget();
+                }
+                else SystemTrayManager.HideAsync().AsTask().Forget();
+            }); // TODO: add the Forget method after the merge
+
+            if (e.NewSize.Width < 720)
             {   
                 if (ViewModel.isLoggedin)
                 {
