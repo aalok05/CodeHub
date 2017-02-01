@@ -8,6 +8,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using CodeHub.Models;
 using HtmlAgilityPack;
@@ -93,20 +94,37 @@ namespace CodeHub.Services
             IReadOnlyList<RepositoryContent> contents = null;
             try
             {
-                // Run the web calls in parallel
-                String html;
-                using (HttpClient httpClient = new HttpClient())
+                // Load the full HTML body
+                WebView view = new WebView();
+                TaskCompletionSource<String> tcs = new TaskCompletionSource<String>();
+                view.NavigationCompleted += (s, e) =>
                 {
-                    // Get the HTML for the current file and unpack the results
-                    Task<String> htmlTask = httpClient.GetStringAsync(new Uri(htmlUrl)).AsTask(token).AsCancellableTask(token, true);
-                    await Task.WhenAll(contentTask, htmlTask);
-                    contents = contentTask.Result;
-                    html = htmlTask.Result;
-
-                    // Handle HTML failure
-                    if (htmlTask.Result == null)
+                    view.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" }).AsTask().ContinueWith(t =>
                     {
-                        return contents.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
+                        tcs.SetResult(t.Status == TaskStatus.RanToCompletion ? t.Result : null);
+                    });
+                };
+                view.Navigate(new Uri(htmlUrl));
+                
+                // Run the web calls in parallel
+                await Task.WhenAll(contentTask, tcs.Task);
+                contents = contentTask.Result;
+                String html = tcs.Task.Result;
+                if (token.IsCancellationRequested)
+                {
+                    return contents?.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
+                }
+
+                // Fallback case (this shouldn't happen)
+                if (html == null)
+                {
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        html = await httpClient.GetStringAsync(new Uri(htmlUrl)).AsTask(token).AsCancellableTask(token, true);
+                        if (html == null)
+                        {
+                            return contents.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
+                        }
                     }
                 }
 
