@@ -78,7 +78,7 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -87,7 +87,7 @@
                     </TextBlock>
 
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingToday,Mode=OneWay}"
-                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   Width="40"
                                   Height="40"/>
                 </Grid>
@@ -134,7 +134,7 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -142,7 +142,7 @@
                                Visibility="{x:Bind ViewModel.ZeroWeeklyCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingWeek,Mode=OneWay}"
-                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   Width="40"
                                   Height="40"/>
                 </Grid>
@@ -189,7 +189,7 @@
                                  MaxHeight="5"
                                  MaxWidth="800"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -197,7 +197,7 @@
                                Visibility="{x:Bind ViewModel.ZeroMonthlyCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingMonth,Mode=OneWay}"
-                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   Width="40"
                                   Height="40"/>
                 </Grid>

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace CodeHub.ViewModels
 {
@@ -259,11 +260,14 @@ namespace CodeHub.ViewModels
         }
         public void NavigateToSearch()
         {
-            foreach (var i in HamItems)
+            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != typeof(SearchView))
             {
-                i.IsSelected = false;
+                foreach (var i in HamItems)
+                {
+                    i.IsSelected = false;
+                }
+                Navigate(typeof(SearchView), "Search");
             }
-            Navigate(typeof(SearchView), "Search");
         }
         public void HamItemClicked(HamItem item)
         {
