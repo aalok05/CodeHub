@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -20,6 +21,20 @@ namespace CodeHub.Helpers
         /// <param name="target">The object to cast into the given Type</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T To<T>(this object target) => (T)target;
+
+        /// <summary>
+        /// Forgets a task without any warnings
+        /// </summary>
+        /// <param name="task">The task to forget</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Forget([NotNull] this Task task) { }
+
+        /// <summary>
+        /// Forgets a task that returns a value
+        /// </summary>
+        /// <param name="task">The task to forget</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Forget<T>([NotNull] this Task<T> task) { }
 
         /// <summary>
         /// Returns the first element of a specific type in the visual tree of a DependencyObject

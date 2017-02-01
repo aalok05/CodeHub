@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
@@ -25,6 +26,14 @@ namespace CodeHub.Views
         public CustomFrame AppFrame { get { return this.mainFrame; } }
         public MainPage()
         {
+            this.Loaded += (s, e) =>
+            {
+                if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
+                {
+                    SystemTrayManager.HideAsync().AsTask().Forget();
+                }
+                else SystemTrayManager.TryShowAsync().Forget();
+            };
             this.InitializeComponent();
 
             ViewModel = new MainViewmodel();
