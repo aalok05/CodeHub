@@ -174,9 +174,16 @@ namespace CodeHub.Services
                     {
                         // Find the right node
                         RepositoryContent element = contents[i];
-                        HtmlNode target = document.DocumentNode?.Descendants("a")
+                        HtmlNode target = 
+                            document.DocumentNode?.Descendants("a")
                             ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("href")
-                            ?.FirstOrDefault()?.Value?.Equals(element.HtmlUrl.AbsolutePath) == true);
+                            ?.FirstOrDefault()?.Value?.Equals(element.HtmlUrl.AbsolutePath) == true) 
+                            ??
+                                document.DocumentNode?.Descendants("a")
+                                ?.FirstOrDefault(child => child.Attributes?.AttributesWithName("id")
+                                ?.FirstOrDefault()?.Value?.EndsWith(element.Sha) == true);
+
+                        // Parse the node contents
                         if (target != null)
                         {
                             // Get the commit and time nodes
@@ -196,6 +203,9 @@ namespace CodeHub.Services
                                 message = WebUtility.HtmlDecode(message); // Remove HTML-encoded characters
                                 message = Regex.Replace(message, @":[^:]+: ?| ?:[^:]+:", String.Empty); // Remove GitHub emojis
                             }
+#if DEBUG
+                            else System.Diagnostics.Debugger.Break();
+#endif
 
                             // Add the parsed contents
                             if (timestamp?.Value != null)
