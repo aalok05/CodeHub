@@ -19,6 +19,7 @@
             <SolidColorBrush x:Key="GitHubLightBlueColorBrush" Color="{StaticResource GitHubLightBlueColor}"/>
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
             <Color x:Key="GitHubLightBlueColor">#4078C0</Color>
+            <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="#08FFFFFF"/>
 
         </ResourceDictionary>
     </Application.Resources>

@@ -9,7 +9,9 @@ using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
+using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
+using CodeHub.Helpers;
 
 namespace CodeHub
 {
@@ -44,6 +46,14 @@ namespace CodeHub
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            // Set the right theme-depending color for the alternating rows
+            var s = SettingsService.GetSetting("AppTheme");
+            if (s != "Dark")
+            {
+                // TODO: update this section with the new settings manager after the merge
+                XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush",
+                    new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
+            }
 
             CustomFrame rootFrame = Window.Current.Content as CustomFrame;
 
