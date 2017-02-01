@@ -1,27 +1,13 @@
 ﻿<local:SettingsDetailPageBase x:Class="CodeHub.Views.AboutSettingsView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="using:CodeHub.Views"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:CodeHub.ViewModels"
-      mc:Ignorable="d">
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:local="using:CodeHub.Views"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:vm="using:CodeHub.ViewModels"
+                              mc:Ignorable="d">
 
     <RelativePanel Padding="20,10,0,0">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
-                <VisualState x:Name="Mobile">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="320" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="Desktop">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Image x:Name="LogoImage"
                Width="90"
                Height="90"
@@ -39,70 +25,122 @@
                    Text="{x:Bind ViewModel.DisplayName}"
                    TextWrapping="Wrap" />
 
-        <StackPanel x:Name="PublisherTextBlock"
-                    Orientation="Horizontal"
+        <StackPanel Orientation="Vertical"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.Below="DisplayNameTextBlock">
-            <TextBlock Margin="0,0,3,0" Text="Developed by " />
-            <TextBlock Text="{x:Bind ViewModel.Publisher}" />
-        </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Margin="0,0,0,8" Text="Developers " />
 
-        <TextBlock x:Name="VersionTextBlock"
-                   Margin="0,0,0,10"
-                   RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.Below="PublisherTextBlock">
-            <Run>Version</Run>
-            <Run Text="{x:Bind ViewModel.Version}" />
-        </TextBlock>
-        <TextBlock x:Name="DisclaimerText"
-                   Margin="0,0,0,10"
-                   FontSize="12"
-                   FontWeight="SemiLight"
-                   Foreground="Gray"
-                   RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.Below="VersionTextBlock"
-                   Text="This app is in no way affiliated with GitHub." />
-        <TextBlock x:Name="EmailText"
-                   Margin="0,0,0,10"
-                   FontSize="13"
-                   RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.Below="DisclaimerText">
-            <Run xml:space="preserve">Contact at  </Run>
-            <Run Foreground="{StaticResource AppPrimaryColorBrush}">contact@devnextdoor.com</Run>
-        </TextBlock>
-        <HyperlinkButton x:Name="TwitterLink"
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0 0 8 0" FontSize="13" Text="{x:Bind ViewModel.Publisher}" VerticalAlignment="Center"/>
+                    <HyperlinkButton Margin="0,0,0,0"
+                                     FontSize="13"
+                                     Foreground="{StaticResource AppPrimaryColorBrush}"
+                                     NavigateUri="https://twitter.com/devaalok">
+                        <HyperlinkButton.Content>
+                            <TextBlock Margin="0 0 8 0" FontSize="12" Text="@devaalok"/>
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0 0 8 0" FontSize="13" Text="Sergio Pedri" VerticalAlignment="Center"/>
+                    <HyperlinkButton Margin="0,0,0,0"
+                                     FontSize="13"
+                                     Foreground="{StaticResource AppPrimaryColorBrush}"
+                                     NavigateUri="https://twitter.com/SergioPedri">
+                        <HyperlinkButton.Content>
+                            <TextBlock Margin="0 0 8 0" FontSize="12" Text="@SergioPedri"/>
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Margin="0,8,0,8" Text="Contributors" />
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0 0 8 0" FontSize="13" Text="Glenn Versweyveld" VerticalAlignment="Center"/>
+                    <HyperlinkButton Margin="0,0,0,0"
+                                     FontSize="13"
+                                     Foreground="{StaticResource AppPrimaryColorBrush}"
+                                     NavigateUri="https://twitter.com/Depechie">
+                        <HyperlinkButton.Content>
+                            <TextBlock Margin="0 0 8 0" FontSize="12" Text="@Depechie"/>
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0 0 8 0" FontSize="13" Text="Giacomo Lawrance" VerticalAlignment="Center"/>
+                    <HyperlinkButton Margin="0,0,0,0"
+                                     FontSize="13"
+                                     Foreground="{StaticResource AppPrimaryColorBrush}"
+                                     NavigateUri="https://twitter.com/GiacomoLaw">
+                        <HyperlinkButton.Content>
+                            <TextBlock Margin="0 0 8 0" FontSize="12" Text="@GiacomoLaw"/>
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                </StackPanel>
+            </StackPanel>
+
+
+            <TextBlock Margin="0,8,0,10">
+                <Run>Version</Run>
+                <Run Text="{x:Bind ViewModel.Version}" />
+            </TextBlock>
+            <TextBlock Margin="0,0,0,10"
+                       FontSize="12"
+                       FontWeight="SemiLight"
+                       Foreground="Gray"
+                       Text="This app is in no way affiliated with GitHub." />
+            <TextBlock Margin="0,0,0,10"
+                       FontSize="13">
+                <Run xml:space="preserve">Contact at  </Run>
+                <Run Foreground="{StaticResource AppPrimaryColorBrush}">contact@devnextdoor.com</Run>
+            </TextBlock>
+            <!--<HyperlinkButton x:Name="TwitterLink"
                          Margin="0,0,0,10"
                          Content="Follow @devaalok on Twitter"
                          FontSize="13"
                          Foreground="{StaticResource AppPrimaryColorBrush}"
                          NavigateUri="https://twitter.com/devaalok"
-                         RelativePanel.Below="EmailText" />
+                         RelativePanel.Below="EmailText" />-->
 
-        <HyperlinkButton x:Name="PrivacyLink"
-                         Content="Privacy Policy"
-                         FontSize="13"
-                         Foreground="{StaticResource AppPrimaryColorBrush}"
-                         NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
-                         RelativePanel.Below="TwitterLink" />
-        <Button x:Name="RateButton"
-                Tapped="RateButton_Tapped"
-                RelativePanel.Below="PrivacyLink"
-                Margin="0 5 0 0"
-                Background="{StaticResource AppPrimaryColorBrush}">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <Viewbox MaxHeight="18"
-                             MaxWidth="18">
-                        <SymbolIcon Symbol="OutlineStar" Foreground="White" Margin="0 0 10 0"/>
-                    </Viewbox>
-                    <TextBlock Text="Rate in the store"
-                               Foreground="White"
-                               FontSize="12"
-                               VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button.Content>
+            <HyperlinkButton Content="Privacy Policy"
+                             FontSize="13"
+                             Foreground="{StaticResource AppPrimaryColorBrush}"
+                             NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
+                             RelativePanel.Below="EmailText" />
+            <Button Margin="0 5 0 0"
+                    Background="{StaticResource AppPrimaryColorBrush}"
+                    Tapped="RateButton_Tapped">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox MaxWidth="18" MaxHeight="18">
+                            <SymbolIcon Margin="0 0 10 0"
+                                        Foreground="White"
+                                        Symbol="OutlineStar" />
+                        </Viewbox>
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Text="Rate in the store" />
+                    </StackPanel>
+                </Button.Content>
 
-        </Button>
-
+            </Button>
+        </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </RelativePanel>
 </local:SettingsDetailPageBase>
