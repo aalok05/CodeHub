@@ -1,5 +1,6 @@
 ﻿using CodeHub.Helpers;
 using CodeHub.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issues" });
 
             commentsListView.SelectedIndex = -1;
 

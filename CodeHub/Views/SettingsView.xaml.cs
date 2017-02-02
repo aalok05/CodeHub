@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using Windows.Foundation;
+using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
@@ -32,7 +33,7 @@ namespace CodeHub.Views
             {
                 if(SettingsListView.SelectedIndex != -1)
                 {
-                    SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage);
+                    SimpleIoc.Default.GetInstance<Services.INavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage, "Settings");
                 }
             }
         }
@@ -44,6 +45,7 @@ namespace CodeHub.Views
             if (Window.Current.Bounds.Width < 720)
             {
                 ViewModel.CurrentState = "Mobile";
+                SettingsListView.SelectedIndex = -1;
             }
             else
             {
@@ -57,7 +59,7 @@ namespace CodeHub.Views
 
             if (ViewModel.CurrentState == "Mobile")
             {
-                SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(setting.DestPage);
+                SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(setting.DestPage, "Settings");
 
                 //Loading the page in settingsFrame also so that the page is visible in Desktop mode.
                 await settingsFrame.Navigate(setting.DestPage);
@@ -67,6 +69,11 @@ namespace CodeHub.Views
                if(settingsFrame.CurrentSourcePageType != setting.DestPage)
                    await settingsFrame.Navigate(setting.DestPage);
             }
+        }
+
+        private void SettingsFrame_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            FrameClip.Rect = new Rect(0, 0, settingsFrame.ActualWidth, settingsFrame.ActualHeight);
         }
     }
 }

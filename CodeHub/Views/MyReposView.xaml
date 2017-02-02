@@ -19,6 +19,7 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <!--Empty grid to provide grey background to pivot headers-->
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Height="48" VerticalAlignment="Top"/>
         <Pivot>
@@ -42,7 +43,7 @@
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
 
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
                         <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
@@ -85,7 +86,7 @@
 
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
                         <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
@@ -116,6 +117,7 @@
         <ProgressRing x:Name="RefreshProgressRing"
                       Width="50"
                       Height="50"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>

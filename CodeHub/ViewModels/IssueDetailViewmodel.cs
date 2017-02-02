@@ -109,7 +109,7 @@ namespace CodeHub.ViewModels
 
         public void CommentTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(CommentsView), e.ClickedItem as IssueComment);
+            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(CommentsView), e.ClickedItem as IssueComment, "Comments");
         }
         private RelayCommand _userTapped;
         public RelayCommand UserTapped
@@ -120,7 +120,7 @@ namespace CodeHub.ViewModels
                     ?? (_userTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), Issue.User.Login);
+                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), Issue.User.Login, "Profile");
                                           }));
             }
         }

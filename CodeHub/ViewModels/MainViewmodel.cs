@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace CodeHub.ViewModels
 {
@@ -255,15 +256,18 @@ namespace CodeHub.ViewModels
             {
                 i.IsSelected = false;
             }
-            Navigate(typeof(SettingsView));
+            Navigate(typeof(SettingsView), "Settings");
         }
         public void NavigateToSearch()
         {
-            foreach (var i in HamItems)
+            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != typeof(SearchView))
             {
-                i.IsSelected = false;
+                foreach (var i in HamItems)
+                {
+                    i.IsSelected = false;
+                }
+                Navigate(typeof(SearchView), "Search");
             }
-            Navigate(typeof(SearchView));
         }
         public void HamItemClicked(HamItem item)
         {
@@ -272,7 +276,7 @@ namespace CodeHub.ViewModels
                 i.IsSelected = false;
             }
             item.IsSelected = true;
-            Navigate(item.DestPage);
+            Navigate(item.DestPage,item.Label);
         }
         public void RecieveNoInternetMessage(NoInternetMessageType empty)
         {

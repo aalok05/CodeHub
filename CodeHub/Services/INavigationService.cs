@@ -9,9 +9,9 @@ namespace CodeHub.Services
 {
     public interface INavigationService
     {
-        void Navigate(Type type);
-        void Navigate(Type type, object parameter);
-        void NavigateWithoutAnimations(Type type);
+        void Navigate(Type type, string pageTitle);
+        void Navigate(Type type, object parameter, string pageTitle);
+        void NavigateWithoutAnimations(Type type, string pageTitle);
         Type CurrentSourcePageType { get; set; }
         void GoBack();
         bool CanGoBack();

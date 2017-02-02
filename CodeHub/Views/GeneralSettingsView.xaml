@@ -1,0 +1,64 @@
+﻿<local:SettingsDetailPageBase 
+    x:Class="CodeHub.Views.GeneralSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CodeHub.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!--Options panel-->
+        <StackPanel Margin="12">
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Syntax Highlighting style" />
+
+            <!--Style-->
+            <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
+                                       Margin="0,12,0,0"
+                                       FontSize="13"
+                                       ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
+                                       SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
+                                       Style="{StaticResource AnimatedComboBoxStyle}"
+                                       MinWidth="120"/>
+
+            <!--Line numbers-->
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="0,20,0,0"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Show line numbers" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}"
+                          Margin="0,4,0,0"/>
+            
+            <!--Preview-->
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="0,20,0,0"
+                       FontSize="19"
+                       FontWeight="SemiLight"
+                       Text="Preview" />
+            <controls:Hilite_meHighlightStylePreviewControl Height="340"
+                                                            Margin="0,12,0,0"
+                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
+                                                            LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}"/>
+        </StackPanel>
+    </Grid>
+</local:SettingsDetailPageBase>

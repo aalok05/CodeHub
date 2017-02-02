@@ -9,6 +9,7 @@ using Octokit;
 using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations;
 using Application = Windows.UI.Xaml.Application;
+using Windows.UI.Xaml.Controls;
 
 namespace CodeHub.Views
 {
@@ -35,6 +36,9 @@ namespace CodeHub.Views
                     FavoriteBlock.Foreground = brush;
                     BranchPath.Fill = brush;
                     BranchBlock.Foreground = brush;
+                    BranchPath.Fill = brush;
+                    BranchBlock.Foreground = brush;
+
                 }
                 else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
                 {
@@ -45,9 +49,39 @@ namespace CodeHub.Views
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
+
             await ViewModel.Load(e.Parameter as Repository);
+            ReadmeWebView.Navigate(new Uri(ViewModel.Repository.HtmlUrl));
+            ReadmeWebView.Visibility = Visibility.Collapsed;
+
+        }
+        private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            /*  We are getting the readme div and setting it as the root of the webview.
+             *  Also We are running a Javascript function that will make all links in the WebView open in an external browser
+             *  instead of within the WebView itself.
+             */
+            var webView = sender as WebView;
+            await webView.InvokeScriptAsync("eval", new[]
+            {
+                @"(function()
+                {
+                   var node = document.getElementById('readme');
+                   node.style.marginBottom = '0px';
+                   var body = document.getElementsByTagName('body')[0];
+                   while (body.firstChild) { body.removeChild(body.firstChild); }
+                   body.appendChild(node);
+
+                    var hyperlinks = document.getElementsByTagName('a');
+                    for(var i = 0; i < hyperlinks.length; i++)
+                    {
+                         hyperlinks[i].setAttribute('target', '_blank');
+                    }
+                })()"
+            });
+
+            webView.Visibility = Visibility.Visible;
         }
     }
 }

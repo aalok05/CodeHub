@@ -240,7 +240,6 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 IsLoadingToday = true;
                 await LoadTrendingRepos(TimeRange.TODAY);
-
             }
             IsLoadingToday = false;
         }
@@ -275,7 +274,7 @@ namespace CodeHub.ViewModels
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), e.ClickedItem as Repository);
+            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), e.ClickedItem as Repository, "Repository");
         }
         private async Task LoadTrendingRepos(TimeRange range)
         {
@@ -285,6 +284,7 @@ namespace CodeHub.ViewModels
                 IsLoadingToday = false;
                 if (repos != null)
                 {
+                    ZeroTodayCount = false;
                     TrendingReposToday = repos;
 
                     IsIncrementalLoadingToday = true;
@@ -314,6 +314,7 @@ namespace CodeHub.ViewModels
                 IsLoadingWeek = false;
                 if (repos != null)
                 {
+                    ZeroWeeklyCount = false;
                     TrendingReposWeek = repos;
 
                     IsIncrementalLoadingWeek = true;
@@ -342,6 +343,7 @@ namespace CodeHub.ViewModels
                 IsLoadingMonth = false;
                 if (repos != null)
                 {
+                    ZeroMonthlyCount = false;
                     TrendingReposMonth = repos;
 
                     IsIncrementalLoadingMonth = true;

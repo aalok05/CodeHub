@@ -25,10 +25,6 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-
-
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Normal">
                     <VisualState.StateTriggers>
@@ -39,10 +35,7 @@
                         <Setter Target="UserPic.Height" Value="150"/>
                         <Setter Target="UserNameText.FontSize" Value="25"/>
                         <Setter Target="LoginText.FontSize" Value="16"/>
-
-
                     </VisualState.Setters>
-
                 </VisualState>
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
@@ -53,7 +46,6 @@
                         <Setter Target="UserPic.Height" Value="190"/>
                         <Setter Target="UserNameText.FontSize" Value="30"/>
                         <Setter Target="LoginText.FontSize" Value="18"/>
-
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -144,7 +136,7 @@
 
                 </PivotItem.Header>
 
-                <Grid>
+                <Grid ManipulationMode="System">
                     <ListView
                                     ScrollViewer.HorizontalScrollMode="Disabled"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -201,7 +193,7 @@
                                            Style="{StaticResource FollowerCountStyle}"/>
                     </StackPanel>
                 </PivotItem.Header>
-                <Grid>
+                <Grid ManipulationMode="System">
                     <ListView
                                         ScrollViewer.HorizontalScrollMode="Disabled"
                                         ScrollViewer.VerticalScrollBarVisibility="Auto"

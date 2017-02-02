@@ -23,9 +23,9 @@ namespace CodeHub.Views
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = (e.Parameter as Repository).FullName });
             if (e.NavigationMode == NavigationMode.Back)
             {
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = (e.Parameter as Repository).FullName });
                 ContentListView.SelectedIndex = -1;
                 return;
             }

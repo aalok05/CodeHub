@@ -27,9 +27,9 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
-            todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
-
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
+
+            todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
         }
 
         private void Today_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
