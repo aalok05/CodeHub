@@ -269,7 +269,7 @@
                 <TextBlock Margin="0 0 10 0"
                            Style="{StaticResource RepoDetailTextBlockStyle}"
                            Text="Created on" />
-                <!--<TextBlock FontSize="13" Text="{x:Bind ViewModel.Repository.CreatedAt.ToString('dd MMM yyyy',{x:Null}),Mode=OneWay}" />-->
+                <TextBlock FontSize="13" Text="{x:Bind ViewModel.Repository.CreatedAt.ToString('dd MMM yyyy',{x:Null}),Mode=OneWay}" />
             </StackPanel>
 
             <StackPanel Grid.Row="5"
