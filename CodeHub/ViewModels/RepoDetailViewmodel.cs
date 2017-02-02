@@ -10,6 +10,7 @@ using Octokit;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
+using MarkdownSharp;
 
 namespace CodeHub.ViewModels
 {
@@ -25,6 +26,21 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => Repository, ref _repository, value);
+
+            }
+        }
+
+        // HTMLContent
+        public string _HTMLContent;
+        public string HTMLContent
+        {
+            get
+            {
+                return _HTMLContent;
+            }
+            set
+            {
+                Set(() => HTMLContent, ref _HTMLContent, value);
 
             }
         }
@@ -54,7 +70,7 @@ namespace CodeHub.ViewModels
             {
                 //Sending Internet available message to all viewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
-                
+
                 isLoading = true;
                 if (Repository?.Owner != null)
                 {
@@ -74,6 +90,8 @@ namespace CodeHub.ViewModels
                     }
                 }
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
+
+                HTMLContent = await RepositoryUtility.GetReadmeHTMLForRepository(Repository.Id);
                 isLoading = false;
             }
         }

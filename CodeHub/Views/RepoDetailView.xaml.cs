@@ -9,6 +9,7 @@ using Octokit;
 using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations;
 using Application = Windows.UI.Xaml.Application;
+using Windows.UI.Xaml.Controls;
 
 namespace CodeHub.Views
 {
@@ -48,6 +49,25 @@ namespace CodeHub.Views
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter as Repository);
+        }
+        private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            /*
+             * We are running a Javascript function that will make all links in the WebView open in an external browser
+             * instead of within the WebView itself
+             */
+            var webView = sender as WebView;
+            await webView.InvokeScriptAsync("eval", new[]
+            {
+                @"(function()
+                {
+                    var hyperlinks = document.getElementsByTagName('a');
+                    for(var i = 0; i < hyperlinks.length; i++)
+                    {
+                         hyperlinks[i].setAttribute('target', '_blank');
+                    }
+                })()"
+            });
         }
     }
 }

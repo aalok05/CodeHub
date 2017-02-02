@@ -184,6 +184,17 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Gets the preferred README's HTML for a repository
+        /// </summary>
+        /// <param name="repoId">Repsitory Id</param>
+        /// <returns></returns>
+        public static async Task<string> GetReadmeHTMLForRepository(long repoId)
+        {
+            GitHubClient client = await UserDataService.getAuthenticatedClient();
+            return await client.Repository.Content.GetReadmeHtml(repoId);
+        }
         public static async Task<string> GetDefaultBranch(long repoId)
         {
             try
