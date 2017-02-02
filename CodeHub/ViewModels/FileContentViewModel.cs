@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Services;
 using Octokit;
@@ -193,7 +193,8 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].DownloadUrl;
+                    // TODO: loading the WHOLE files list is really necessary here?
+                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.DownloadUrl;
                     ImageFile = new BitmapImage(uri);
                     isLoading = false;
                     return;
@@ -209,7 +210,6 @@ namespace CodeHub.ViewModels
                     isLoading = false;
                     return;
                 }
-
 
                 String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))?[0].Content;
                 if (content == null)
