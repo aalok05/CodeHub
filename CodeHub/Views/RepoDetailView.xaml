@@ -274,7 +274,7 @@
 
             <StackPanel Grid.Row="5"
                         Grid.ColumnSpan="2"
-                        Margin="20 0 0 20"
+                        Margin="20 0 0 12"
                         Orientation="Horizontal">
                 <Viewbox MaxWidth="15"
                          MaxHeight="15"
