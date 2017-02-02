@@ -36,6 +36,9 @@ namespace CodeHub.Views
                     FavoriteBlock.Foreground = brush;
                     BranchPath.Fill = brush;
                     BranchBlock.Foreground = brush;
+                    BranchPath.Fill = brush;
+                    BranchBlock.Foreground = brush;
+
                 }
                 else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
                 {
