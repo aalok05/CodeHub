@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using Windows.Foundation;
+using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
@@ -44,6 +45,7 @@ namespace CodeHub.Views
             if (Window.Current.Bounds.Width < 720)
             {
                 ViewModel.CurrentState = "Mobile";
+                SettingsListView.SelectedIndex = -1;
             }
             else
             {
@@ -67,6 +69,11 @@ namespace CodeHub.Views
                if(settingsFrame.CurrentSourcePageType != setting.DestPage)
                    await settingsFrame.Navigate(setting.DestPage);
             }
+        }
+
+        private void SettingsFrame_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            FrameClip.Rect = new Rect(0, 0, settingsFrame.ActualWidth, settingsFrame.ActualHeight);
         }
     }
 }

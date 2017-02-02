@@ -1,11 +1,14 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Services;
 using Octokit;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using CodeHub.Services.Hilite_me;
 using MarkdownSharp;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -57,20 +60,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _isReadme;
-        public bool IsReadme
-        {
-            get
-            {
-                return _isReadme;
-            }
-            set
-            {
-                Set(() => IsReadme, ref _isReadme, value);
-
-            }
-        }
-
         public ImageSource _imageFile;
         public ImageSource ImageFile
         {
@@ -99,16 +88,17 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public string _content;
-        public string Content
+        // HTMLContent
+        public string _HTMLContent;
+        public string HTMLContent
         {
             get
             {
-                return _content;
+                return _HTMLContent;
             }
             set
             {
-                Set(() => Content, ref _content, value);
+                Set(() => HTMLContent, ref _HTMLContent, value);
 
             }
         }
@@ -128,9 +118,22 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public Color _HTMLBackgroundColor = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? Colors.White : Colors.Black;
+
+        /// <summary>
+        /// Gets the base background color for the HTML content
+        /// </summary>
+        public Color HTMLBackgroundColor
+        {
+            get { return _HTMLBackgroundColor; }
+            private set
+            { 
+                Set(() => HTMLBackgroundColor, ref _HTMLBackgroundColor, value);
+            }
+        }
+
         public async Task Load(Tuple<Repository, string, string> repoPath)  //This page recieves RepositoryId and name of the file
         {
-            Content = "";
             IsSupportedFile = true;
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
@@ -163,8 +166,6 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-
-                IsReadme = false;
                 IsImage = false;
 
                 if ((Path.ToLower().EndsWith(".exe")) ||
@@ -203,15 +204,24 @@ namespace CodeHub.ViewModels
                     /*
                      *  Files with .md extension will be shown with full markdown
                      */
-                    IsReadme = true;
-
-                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
-                    Content = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
+                    HTMLBackgroundColor = Colors.White;
+                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+                    HTMLContent = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
                     isLoading = false;
                     return;
                 }
 
-                Content = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
+                String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))?[0].Content;
+                if (content == null)
+                {
+                    IsSupportedFile = false;
+                    isLoading = false;
+                    return;
+                }
+                SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
+                bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
+                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
+                IsSupportedFile = HTMLContent != null;
                 isLoading = false;
 
             }

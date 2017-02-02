@@ -2,7 +2,6 @@
 using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using CodeHub.Services;
 using Windows.UI.ViewManagement;
@@ -12,6 +11,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
 using CodeHub.Helpers;
+using CodeHub.Services.Hilite_me;
 
 namespace CodeHub
 {
@@ -28,15 +28,10 @@ namespace CodeHub
         {
             this.InitializeComponent();;
           
-            var s = SettingsService.GetSetting("AppTheme");
-            if (SettingsService.GetSetting("AppTheme") == "Dark")
-            {
-                this.RequestedTheme = ApplicationTheme.Dark;
-            }
-            else
-            {
-                this.RequestedTheme = ApplicationTheme.Light;
-            }
+            // Theme setup
+            RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
+            SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai, false);
+            SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
         }
 
         /// <summary>

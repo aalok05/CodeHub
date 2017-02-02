@@ -4,9 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+<<<<<<< files_extended_info
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+=======
+>>>>>>> dev
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
@@ -375,6 +378,17 @@ namespace CodeHub.Services
                 return null;
             }
 
+        }
+
+        /// <summary>
+        /// Gets the preferred README's HTML for a repository
+        /// </summary>
+        /// <param name="repoId">Repsitory Id</param>
+        /// <returns></returns>
+        public static async Task<string> GetReadmeHTMLForRepository(long repoId)
+        {
+            GitHubClient client = await UserDataService.getAuthenticatedClient();
+            return await client.Repository.Content.GetReadmeHtml(repoId);
         }
         public static async Task<string> GetDefaultBranch(long repoId)
         {

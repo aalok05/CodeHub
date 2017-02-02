@@ -89,20 +89,20 @@
                                Text="#"
                                FontSize="18"
                                VerticalAlignment="Center"
-                               Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                               Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock 
                                Margin="0 10 0 5"
                                Text="{x:Bind ViewModel.Issue.Number,Mode=OneWay,FallbackValue='1234'}"
                                FontSize="18"
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"
-                               Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                               Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Name="TitleBlock" 
                                VerticalAlignment="Center"
                                TextWrapping="Wrap"
                                Text="{x:Bind ViewModel.Issue.Title,Mode=OneWay}"
                                FontSize="14"
-                               Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                               Foreground="{StaticResource AppPrimaryColorBrush}"
                                Margin="5 10 0 5">
                         <ToolTipService.ToolTip>
                             <TextBlock Text="{x:Bind ViewModel.Issue.Title,Mode=OneWay}"/>
@@ -223,7 +223,7 @@
                 <TextBlock
                         FontWeight="SemiLight"
                         FontSize="17"
-                        Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                        Foreground="{StaticResource AppPrimaryColorBrush}"
                         Text="{x:Bind ViewModel.Issue.Comments,Mode=OneWay}"/>
             </StackPanel>
 

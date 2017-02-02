@@ -136,7 +136,7 @@
 
                 </PivotItem.Header>
 
-                <Grid>
+                <Grid ManipulationMode="System">
                     <ListView
                                     ScrollViewer.HorizontalScrollMode="Disabled"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -193,7 +193,7 @@
                                            Style="{StaticResource FollowerCountStyle}"/>
                     </StackPanel>
                 </PivotItem.Header>
-                <Grid>
+                <Grid ManipulationMode="System">
                     <ListView
                                         ScrollViewer.HorizontalScrollMode="Disabled"
                                         ScrollViewer.VerticalScrollBarVisibility="Auto"

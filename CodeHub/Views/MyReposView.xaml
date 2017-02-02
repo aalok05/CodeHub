@@ -19,6 +19,7 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <!--Empty grid to provide grey background to pivot headers-->
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Height="48" VerticalAlignment="Top"/>
         <Pivot>
@@ -30,6 +31,7 @@
                     <toolkitControl:PullToRefreshListView 
                                     x:Name="RepoListView"
                                     IsItemClickEnabled="True"
+                                    ScrollViewer.HorizontalScrollMode="Disabled"
                                     ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                     ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
                                     IsPullToRefreshWithMouseEnabled="True"
@@ -42,7 +44,7 @@
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
 
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
                         <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
@@ -74,6 +76,7 @@
                     <toolkitControl:PullToRefreshListView 
                         x:Name="StarredRepoListView"
                         IsItemClickEnabled="True"
+                        ScrollViewer.HorizontalScrollMode="Disabled"
                         ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                         ItemsSource="{x:Bind ViewModel.StarredRepositories,Mode=OneWay}"
                         OverscrollLimit="0.4"
@@ -85,7 +88,7 @@
 
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
                         <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
@@ -116,6 +119,7 @@
         <ProgressRing x:Name="RefreshProgressRing"
                       Width="50"
                       Height="50"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>
