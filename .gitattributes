@@ -17,4 +17,4 @@
 *.RTF	 diff=astextplain
 
 #Linguist manual override
-CodeHub/Services/Hilite-me/Samples/* linguist-language=HTML
+CodeHub/Services/Hilite-me/Samples/* linguist-vendored
