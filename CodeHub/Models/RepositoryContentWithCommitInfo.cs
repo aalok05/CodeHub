@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Octokit;
 
@@ -28,7 +29,17 @@ namespace CodeHub.Models
         /// Gets the available commit message, if present
         /// </summary>
         [CanBeNull]
-        public String CommitMessage => Commit?.Commit.Message ?? _CommitMessage;
+        public String CommitMessage
+        {
+            get
+            {
+                if (Commit?.Commit.Message != null)
+                {
+                    return Regex.Replace(Commit.Commit.Message, @":[^:]+: ?| ?:[^:]+:", String.Empty);
+                }
+                return _CommitMessage;
+            }
+        }
 
         /// <summary>
         /// Gets the last edit time for this instance, if available
