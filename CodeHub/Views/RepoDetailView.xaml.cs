@@ -52,18 +52,27 @@ namespace CodeHub.Views
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter as Repository);
+            ReadmeWebView.Navigate(new Uri(ViewModel.Repository.HtmlUrl));
+            ReadmeWebView.Visibility = Visibility.Collapsed;
+
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            /*
-             * We are running a Javascript function that will make all links in the WebView open in an external browser
-             * instead of within the WebView itself
+            /*  We are getting the readme div and setting it as the root of the webview.
+             *  Also We are running a Javascript function that will make all links in the WebView open in an external browser
+             *  instead of within the WebView itself.
              */
             var webView = sender as WebView;
             await webView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
                 {
+                   var node = document.getElementById('readme');
+                   node.style.marginBottom = '0px';
+                   var body = document.getElementsByTagName('body')[0];
+                   while (body.firstChild) { body.removeChild(body.firstChild); }
+                   body.appendChild(node);
+
                     var hyperlinks = document.getElementsByTagName('a');
                     for(var i = 0; i < hyperlinks.length; i++)
                     {
@@ -71,6 +80,8 @@ namespace CodeHub.Views
                     }
                 })()"
             });
+
+            webView.Visibility = Visibility.Visible;
         }
     }
 }

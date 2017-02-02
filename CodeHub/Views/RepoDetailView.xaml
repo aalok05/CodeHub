@@ -340,7 +340,7 @@
             
             <Grid Grid.Row="7"
                   Grid.ColumnSpan="2">
-                <WebView control:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent, Mode=OneWay}"
+                <WebView x:Name="ReadmeWebView"
                          NavigationCompleted="WebView_NavigationCompleted" 
                          Height="600"
                          Margin="16 0 16 0"/>

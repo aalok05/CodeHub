@@ -30,21 +30,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        // HTMLContent
-        public string _HTMLContent;
-        public string HTMLContent
-        {
-            get
-            {
-                return _HTMLContent;
-            }
-            set
-            {
-                Set(() => HTMLContent, ref _HTMLContent, value);
-
-            }
-        }
-
         public bool _isStar;
         public bool IsStar
         {
@@ -90,8 +75,6 @@ namespace CodeHub.ViewModels
                     }
                 }
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
-
-                HTMLContent = await RepositoryUtility.GetReadmeHTMLForRepository(Repository.Id);
                 isLoading = false;
             }
         }
