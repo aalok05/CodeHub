@@ -183,7 +183,6 @@
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
