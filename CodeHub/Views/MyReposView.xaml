@@ -31,6 +31,7 @@
                     <toolkitControl:PullToRefreshListView 
                                     x:Name="RepoListView"
                                     IsItemClickEnabled="True"
+                                    ScrollViewer.HorizontalScrollMode="Disabled"
                                     ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                     ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
                                     IsPullToRefreshWithMouseEnabled="True"
@@ -75,6 +76,7 @@
                     <toolkitControl:PullToRefreshListView 
                         x:Name="StarredRepoListView"
                         IsItemClickEnabled="True"
+                        ScrollViewer.HorizontalScrollMode="Disabled"
                         ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                         ItemsSource="{x:Bind ViewModel.StarredRepositories,Mode=OneWay}"
                         OverscrollLimit="0.4"

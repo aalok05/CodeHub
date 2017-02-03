@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using CodeHub.Models;
 
 namespace CodeHub.ViewModels
 {
@@ -32,8 +33,8 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public ObservableCollection<RepositoryContent> _content;
-        public ObservableCollection<RepositoryContent> Content
+        public ObservableCollection<RepositoryContentWithCommitInfo> _content;
+        public ObservableCollection<RepositoryContentWithCommitInfo> Content
         {
             get
             {
@@ -110,7 +111,7 @@ namespace CodeHub.ViewModels
 
         public void RepoContentDrillNavigate(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as RepositoryContent;
+            RepositoryContent item = e.ClickedItem as RepositoryContentWithCommitInfo;
             if (item.Type == Octokit.ContentType.File)
             {
                 SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(FileContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch),Repository.FullName);

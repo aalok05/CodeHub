@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.Services;
 using Octokit;
@@ -193,7 +193,8 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].DownloadUrl;
+                    // TODO: loading the WHOLE files list is really necessary here?
+                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.DownloadUrl;
                     ImageFile = new BitmapImage(uri);
                     isLoading = false;
                     return;
@@ -204,14 +205,13 @@ namespace CodeHub.ViewModels
                      *  Files with .md extension will be shown with full markdown
                      */
                     HTMLBackgroundColor = Colors.White;
-                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))[0].Content;
+                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
                     HTMLContent = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
                     isLoading = false;
                     return;
                 }
 
-
-                String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch))?[0].Content;
+                String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.Content;
                 if (content == null)
                 {
                     IsSupportedFile = false;

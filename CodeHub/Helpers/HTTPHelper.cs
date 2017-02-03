@@ -73,7 +73,7 @@ namespace CodeHub.Helpers
                 byte[] bytes = Encoding.Unicode.GetBytes(url);
                 IBuffer hash = HashProvider.HashData(bytes.AsBuffer());
                 String hex = CryptographicBuffer.EncodeToHexString(hash), cacheFilename = $"{hex}{CacheExtension}";
-                StorageFile file = (await ApplicationData.Current.LocalCacheFolder.TryGetItemAsync(cacheFilename)) as StorageFile;
+                StorageFile file = await ApplicationData.Current.LocalCacheFolder.TryGetItemAsync(cacheFilename) as StorageFile;
 
                 // Check the cache result
                 if (file == null)

@@ -1,0 +1,167 @@
+﻿<ResourceDictionary x:Class="CodeHub.Resources.SharedCompiledDataTemplates"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:CodeHub.Converters"
+                    xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:models="using:CodeHub.Models"
+                    mc:Ignorable="d">
+
+    <!--  Shared converters  -->
+    <converters:TimeAgoConverter x:Key="TimePassedConverter" />
+    <converters:RepositoryContentToFileIconConverter x:Key="FileIconConverter" />
+    <converter:StringVisibilityConverter x:Key="StringVisibilityConverter"/>
+
+    <!--  Template for the repository items  -->
+    <DataTemplate x:Key="RepositoryEntryTemplate" x:DataType="models:RepositoryContentWithCommitInfo">
+        <UserControl>
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="320" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="IconTextBlock"
+                           Margin="0,2,0,0"
+                           FontFamily="Segoe MDL2 Assets"
+                           FontSize="16"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="{x:Bind Content, Converter={StaticResource FileIconConverter}, FallbackValue=&#xE8C8;}" />
+                <TextBlock x:Name="NameTextBlock"
+                           Margin="12,0,0,0"
+                           IsTextScaleFactorEnabled="False"
+                           MaxLines="1"
+                           Text="{x:Bind Content.Name}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+
+                <TextBlock x:Name="CommitMessageTextBlock"
+                           Margin="8,0,0,0"
+                           FontWeight="SemiLight"
+                           Foreground="#FFA0A0A0"
+                           IsTextScaleFactorEnabled="False"
+                           MaxLines="1"
+                           Text="{x:Bind CommitMessage}"
+                           Visibility="{x:Bind CommitMessage, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+                <TextBlock x:Name="LastEditTimeTextBlock"
+                           Margin="12,0,16,0"
+                           FontWeight="Normal"
+                           Foreground="#FFE0E0E0"
+                           IsTextScaleFactorEnabled="False"
+                           MaxLines="1"
+                           Text="{x:Bind LastEditTime, Converter={StaticResource TimePassedConverter}}"
+                           Visibility="{x:Bind LastEditTime, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="VisualStateGroup">
+                        <VisualState x:Name="Mobile">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="320" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="NameTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
+                                <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="IconTextBlock.Margin" Value="0 4 0 0" />
+
+                                <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="1" />
+                                <Setter Target="CommitMessageTextBlock.FontSize" Value="13" />
+                                <Setter Target="CommitMessageTextBlock.Margin" Value="12 8 0 4" />
+
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="2" />
+                                <Setter Target="LastEditTimeTextBlock.FontSize" Value="12" />
+                                <Setter Target="LastEditTimeTextBlock.Margin" Value="12 0 0 8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="LargeMobile">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="440" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="NameTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
+                                <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="IconTextBlock.Margin" Value="0 4 0 0" />
+
+                                <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="1" />
+                                <Setter Target="CommitMessageTextBlock.FontSize" Value="13" />
+                                <Setter Target="CommitMessageTextBlock.Margin" Value="12 8 0 8" />
+
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="3" />
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="LastEditTimeTextBlock.FontSize" Value="13" />
+                                <Setter Target="LastEditTimeTextBlock.Margin" Value="4 0 16 8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Desktop">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="720" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
+                                <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="IconTextBlock.(Grid.RowSpan)" Value="3" />
+                                <Setter Target="IconTextBlock.VerticalAlignment" Value="Center" />
+
+                                <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="NameTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="NameTextBlock.(Grid.RowSpan)" Value="3" />
+                                <Setter Target="NameTextBlock.VerticalAlignment" Value="Center" />
+
+                                <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="2" />
+                                <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="CommitMessageTextBlock.FontSize" Value="15" />
+
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="2" />
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="1" />
+                                <Setter Target="LastEditTimeTextBlock.Margin" Value="8,0,16,0"/>
+                                <Setter Target="LastEditTimeTextBlock.FontSize" Value="13" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="DesktopEx">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="1024" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
+                                <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
+                                <Setter Target="NameTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="2" />
+                                <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="0" />
+
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="3" />
+                                <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="0" />
+
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </UserControl>
+
+    </DataTemplate>
+
+</ResourceDictionary>

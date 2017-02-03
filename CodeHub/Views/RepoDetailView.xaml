@@ -278,7 +278,7 @@
                         Orientation="Horizontal">
                 <Viewbox MaxWidth="15"
                          MaxHeight="15"
-                         Margin="0 0 10 0">
+                         Margin="0 0 8 0">
                     <SymbolIcon Foreground="#525252" Symbol="Calendar" />
                 </Viewbox>
                 <TextBlock Margin="0 0 10 0"
@@ -293,7 +293,7 @@
                         Orientation="Horizontal">
                 <Viewbox MaxWidth="15"
                          MaxHeight="15"
-                         Margin="0 0 10 0">
+                         Margin="0 0 8 0">
                     <SymbolIcon Foreground="#525252" Symbol="Edit" />
                 </Viewbox>
                 <TextBlock Margin="0 0 10 0"
@@ -310,17 +310,17 @@
                         Orientation="Horizontal">
                 <Viewbox MaxWidth="15"
                          MaxHeight="15"
-                         Margin="0 0 10 0">
+                         Margin="0 0 8 0">
                     <Path Data="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
                           Fill="#525252"
                           StrokeThickness="0" />
                 </Viewbox>
 
-                <TextBlock Margin="0 0 20 0"
+                <TextBlock Margin="0 0 12 0"
                            Style="{StaticResource RepoDetailTextBlockStyle}"
                            Text="Issues" />
                 <HyperlinkButton Command="{x:Bind ViewModel.IssuesTapped}" 
-                                 Content="{x:Bind ViewModel.Repository.OpenIssuesCount}">
+                                 Content="{x:Bind ViewModel.Repository.OpenIssuesCount,FallbackValue='5'}">
                     <HyperlinkButton.ContentTemplate>
                         <DataTemplate>
                             <TextBlock FontSize="15"
@@ -330,8 +330,14 @@
                         </DataTemplate>
                     </HyperlinkButton.ContentTemplate>
                 </HyperlinkButton>
+                
+                <Viewbox MaxWidth="15"
+                         MaxHeight="15"
+                         Margin="20 0 8 0">
+                    <SymbolIcon Symbol="Shop" Foreground="#525252"/>
+                </Viewbox>
                 <TextBlock Text="Size"
-                           Margin="20 0 20 0"
+                           Margin="0 0 12 0"
                            Style="{StaticResource RepoDetailTextBlockStyle}"/>
                 <TextBlock Text="{x:Bind ViewModel.Repository.Size,Mode=OneWay}"
                            FontSize="13" Margin="0 0 4 0" VerticalAlignment="Center"/>
