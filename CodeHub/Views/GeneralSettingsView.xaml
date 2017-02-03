@@ -8,7 +8,11 @@
     xmlns:controls="using:CodeHub.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Hidden"
+                  VerticalScrollMode="Enabled">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -55,10 +59,20 @@
                        FontSize="19"
                        FontWeight="SemiLight"
                        Text="Preview" />
-            <controls:Hilite_meHighlightStylePreviewControl Height="340"
+            <controls:Hilite_meHighlightStylePreviewControl Height="200"
                                                             Margin="0,12,0,0"
                                                             HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
                                                             LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}"/>
+
+            <!--Show Readme in RepoDetail Page-->
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="0,20,0,0"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       TextWrapping="Wrap"
+                       Text="Show README in Repository page" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}"
+                          Margin="0,4,0,0"/>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </local:SettingsDetailPageBase>
