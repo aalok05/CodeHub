@@ -4,12 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-<<<<<<< files_extended_info
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-=======
->>>>>>> dev
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
