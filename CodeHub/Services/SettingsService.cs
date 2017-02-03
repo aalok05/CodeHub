@@ -50,5 +50,6 @@ namespace CodeHub.Services
         public const String AppLightThemeEnabled = nameof(AppLightThemeEnabled);
         public const String HighlightStyleIndex = nameof(HighlightStyleIndex);
         public const String ShowLineNumbers = nameof(ShowLineNumbers);
+        public const String ShowReadme = nameof(ShowReadme);
     }
 }

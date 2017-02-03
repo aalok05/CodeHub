@@ -51,7 +51,8 @@ namespace CodeHub.Views
         }
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            ViewModel.CurrentState = e.NewState.Name;
+            if(e.NewState != null)
+                ViewModel.CurrentState = e.NewState.Name;
 
             await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
             await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);

@@ -265,7 +265,6 @@
                        Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
             <TextBlock Grid.Row="3"
                        Grid.ColumnSpan="2"
-                       MaxWidth="230"
                        Margin="20 16 0 20"
                        HorizontalAlignment="Left"
                        FontSize="13"

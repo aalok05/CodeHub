@@ -104,6 +104,25 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _ShowReadmeInRepoPage = SettingsService.Get<bool>(SettingsKeys.ShowReadme);
+
+        /// <summary>
+        /// Gets or sets whether or not the README Webview is visible in RepoDetailView
+        /// </summary>
+        public bool ShowReadmeInRepoPage
+        {
+            get { return _ShowReadmeInRepoPage; }
+            set
+            {
+                if (_ShowReadmeInRepoPage != value)
+                {
+                    _ShowReadmeInRepoPage = value;
+                    SettingsService.Save(SettingsKeys.ShowReadme, value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>

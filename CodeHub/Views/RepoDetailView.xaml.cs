@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations;
 using Application = Windows.UI.Xaml.Application;
 using Windows.UI.Xaml.Controls;
+using CodeHub.Services;
 
 namespace CodeHub.Views
 {
@@ -52,9 +53,14 @@ namespace CodeHub.Views
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter as Repository);
-            ReadmeWebView.Navigate(new Uri(ViewModel.Repository.HtmlUrl));
-            ReadmeWebView.Visibility = Visibility.Collapsed;
 
+            if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
+            {
+                ReadmeWebView.Navigate(new Uri(ViewModel.Repository.HtmlUrl));
+            }
+
+            // ReadmeWebview will be hidden untill JS script is executed.
+            ReadmeWebView.Visibility = Visibility.Collapsed;
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
