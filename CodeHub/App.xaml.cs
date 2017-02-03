@@ -42,7 +42,7 @@ namespace CodeHub
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Set the right theme-depending color for the alternating rows
-            var s = SettingsService.GetSetting("AppTheme");
+            var s = SettingsService.Get<String>("AppTheme");
             if (s != "Dark")
             {
                 // TODO: update this section with the new settings manager after the merge
