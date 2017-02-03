@@ -27,7 +27,8 @@ namespace CodeHub.Views
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            TryNavigateBackForDesktopState(e.NewState.Name);
+            if (e.NewState != null)
+                TryNavigateBackForDesktopState(e.NewState.Name);
         }
 
         private async void first_tier_Tapped(object sender, TappedRoutedEventArgs e)
