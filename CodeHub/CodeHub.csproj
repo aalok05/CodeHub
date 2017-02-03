@@ -177,6 +177,9 @@
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TopScrollerControl.xaml.cs">
       <DependentUpon>TopScrollerControl.xaml</DependentUpon>
     </Compile>
@@ -354,6 +357,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RepoListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

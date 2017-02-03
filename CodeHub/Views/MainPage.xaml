@@ -1,21 +1,20 @@
-﻿<Page
-    x:Class="CodeHub.Views.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
-    xmlns:control="using:CodeHub.Controls"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:CodeHub.Converters"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:local="using:CodeHub"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
-    xmlns:model="using:CodeHub.Models"
-    xmlns:vm="using:CodeHub.ViewModels"
-    mc:Ignorable="d">
+﻿<Page x:Class="CodeHub.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+      xmlns:control="using:CodeHub.Controls"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:local="using:CodeHub"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+      xmlns:model="using:CodeHub.Models"
+      xmlns:vm="using:CodeHub.ViewModels"
+      mc:Ignorable="d">
     <interactivity:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
             <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}" />
@@ -29,22 +28,18 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Rectangle
-                    Width="6"
-                    Height="45"
-                    Margin="-12,0,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Fill="{StaticResource AppPrimaryColorBrush}"
-                    Visibility="{x:Bind SelectedVisual, Mode=TwoWay}" />
+                <Rectangle Width="6"
+                           Height="45"
+                           Margin="-12,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Fill="{StaticResource AppPrimaryColorBrush}"
+                           Visibility="{x:Bind SelectedVisual, Mode=TwoWay}" />
 
-                <Viewbox
-                    Grid.Column="0"
-                    MaxWidth="20"
-                    MaxHeight="20">
-                    <Path
-                        Data="{x:Bind Symbol}"
-                        StrokeThickness="0" >
+                <Viewbox Grid.Column="0"
+                         MaxWidth="20"
+                         MaxHeight="20">
+                    <Path Data="{x:Bind Symbol}" StrokeThickness="0">
                         <interactivity:Interaction.Behaviors>
                             <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
                                 <core:ChangePropertyAction PropertyName="Fill" Value="{StaticResource AppPrimaryColorBrush}" />
@@ -56,11 +51,10 @@
                     </Path>
                 </Viewbox>
 
-                <TextBlock
-                    Grid.Column="1"
-                    Margin="24,0,0,0"
-                    VerticalAlignment="Center"
-                    Text="{x:Bind Label}">
+                <TextBlock Grid.Column="1"
+                           Margin="24,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="{x:Bind Label}">
                     <interactivity:Interaction.Behaviors>
                         <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
                             <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
@@ -99,12 +93,11 @@
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="InternetPopupCloseStoryboard">
-            <DoubleAnimation
-                d:IsOptimized="True"
-                Storyboard.TargetName="InternetPopup"
-                Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
-                To="-200"
-                Duration="0:0:0.2">
+            <DoubleAnimation d:IsOptimized="True"
+                             Storyboard.TargetName="InternetPopup"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                             To="-200"
+                             Duration="0:0:0.2">
                 <DoubleAnimation.EasingFunction>
                     <BackEase Amplitude="0.5" EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
@@ -124,57 +117,50 @@
         </Storyboard>
     </Page.Resources>
     <Page.BottomAppBar>
-        <CommandBar
-            x:Name="BottomAppBar"
-            Background="{ThemeResource SystemChromeLowColor}"
-            Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+        <CommandBar x:Name="BottomAppBar"
+                    Background="{ThemeResource SystemChromeLowColor}"
+                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
 
-            <AppBarButton
-                x:Name="AppBarTrending"
-                HorizontalAlignment="Center"
-                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                Label="Trending"
-                Tapped="AppBarTrending_Tapped">
+            <AppBarButton x:Name="AppBarTrending"
+                          HorizontalAlignment="Center"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Label="Trending"
+                          Tapped="AppBarTrending_Tapped">
                 <AppBarButton.Icon>
 
-                    <PathIcon
-                        HorizontalAlignment="Center"
-                        Data="F0 M12,16z M0,0z M5.05,0.31C5.86,2.48 5.46,3.69 4.53,4.62 3.55,5.67 1.98,6.45 0.9,7.98 -0.55,10.03 -0.8,14.51 4.43,15.68 2.23,14.52 1.76,11.16 4.13,9.07 3.52,11.1 4.66,12.4 6.07,11.93 7.46,11.46 8.37,12.46 8.34,13.6 8.32,14.38 8.03,15.04 7.21,15.41 10.63,14.82 11.99,11.99 11.99,9.85 11.99,7.01 9.46,6.63 10.74,4.24 9.22,4.37 8.71,5.37 8.85,6.99 8.94,8.07 7.83,8.79 6.99,8.32 6.32,7.91 6.33,7.13 6.93,6.54 8.18,5.31 8.68,2.45 5.05,0.32L5.03,0.3 5.05,0.31z"
-                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+                    <PathIcon HorizontalAlignment="Center"
+                              Data="F0 M12,16z M0,0z M5.05,0.31C5.86,2.48 5.46,3.69 4.53,4.62 3.55,5.67 1.98,6.45 0.9,7.98 -0.55,10.03 -0.8,14.51 4.43,15.68 2.23,14.52 1.76,11.16 4.13,9.07 3.52,11.1 4.66,12.4 6.07,11.93 7.46,11.46 8.37,12.46 8.34,13.6 8.32,14.38 8.03,15.04 7.21,15.41 10.63,14.82 11.99,11.99 11.99,9.85 11.99,7.01 9.46,6.63 10.74,4.24 9.22,4.37 8.71,5.37 8.85,6.99 8.94,8.07 7.83,8.79 6.99,8.32 6.32,7.91 6.33,7.13 6.93,6.54 8.18,5.31 8.68,2.45 5.05,0.32L5.03,0.3 5.05,0.31z"
+                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                         <PathIcon.RenderTransform>
                             <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                         </PathIcon.RenderTransform>
                     </PathIcon>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton
-                x:Name="AppBarProfile"
-                HorizontalAlignment="Center"
-                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                Label="Profile"
-                Tapped="AppBarProfile_Tapped">
+            <AppBarButton x:Name="AppBarProfile"
+                          HorizontalAlignment="Center"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Label="Profile"
+                          Tapped="AppBarProfile_Tapped">
                 <AppBarButton.Icon>
-                    <PathIcon
-                        HorizontalAlignment="Center"
-                        Data="F0 M12,16z M0,0z M12,14.002A0.998,0.998,0,0,1,11.002,15L1.001,15A1,1,0,0,1,0,13.999L0,13C0,10.367 4,9 4,9 4,9 4.229,8.591 4,8 3.159,7.38 3.056,6.41 3,4 3.173,1.587 4.867,1 6,1 7.133,1 8.827,1.586 9,4 8.944,6.41 8.841,7.38 8,8 7.771,8.59 8,9 8,9 8,9 12,10.367 12,13L12,14.002z"
-                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+                    <PathIcon HorizontalAlignment="Center"
+                              Data="F0 M12,16z M0,0z M12,14.002A0.998,0.998,0,0,1,11.002,15L1.001,15A1,1,0,0,1,0,13.999L0,13C0,10.367 4,9 4,9 4,9 4.229,8.591 4,8 3.159,7.38 3.056,6.41 3,4 3.173,1.587 4.867,1 6,1 7.133,1 8.827,1.586 9,4 8.944,6.41 8.841,7.38 8,8 7.771,8.59 8,9 8,9 8,9 12,10.367 12,13L12,14.002z"
+                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                         <PathIcon.RenderTransform>
                             <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                         </PathIcon.RenderTransform>
                     </PathIcon>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton
-                x:Name="AppBarMyRepos"
-                HorizontalAlignment="Center"
-                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                Label="My Repos"
-                Tapped="AppBarMyRepos_Tapped">
+            <AppBarButton x:Name="AppBarMyRepos"
+                          HorizontalAlignment="Center"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Label="My Repos"
+                          Tapped="AppBarMyRepos_Tapped">
                 <AppBarButton.Icon>
-                    <PathIcon
-                        HorizontalAlignment="Center"
-                        Data="F0 M12,16z M0,0z M4,9L3,9 3,8 4,8 4,9z M4,6L3,6 3,7 4,7 4,6z M4,4L3,4 3,5 4,5 4,4z M4,2L3,2 3,3 4,3 4,2z M12,1L12,13C12,13.55,11.55,14,11,14L6,14 6,16 4.5,14.5 3,16 3,14 1,14C0.45,14,0,13.55,0,13L0,1C0,0.45,0.45,0,1,0L11,0C11.55,0,12,0.45,12,1z M11,11L1,11 1,13 3,13 3,12 6,12 6,13 11,13 11,11z M11,1L2,1 2,10 11,10 11,1z"
-                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+                    <PathIcon HorizontalAlignment="Center"
+                              Data="F0 M12,16z M0,0z M4,9L3,9 3,8 4,8 4,9z M4,6L3,6 3,7 4,7 4,6z M4,4L3,4 3,5 4,5 4,4z M4,2L3,2 3,3 4,3 4,2z M12,1L12,13C12,13.55,11.55,14,11,14L6,14 6,16 4.5,14.5 3,16 3,14 1,14C0.45,14,0,13.55,0,13L0,1C0,0.45,0.45,0,1,0L11,0C11.55,0,12,0.45,12,1z M11,11L1,11 1,13 3,13 3,12 6,12 6,13 11,13 11,11z M11,1L2,1 2,10 11,10 11,1z"
+                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                         <PathIcon.RenderTransform>
                             <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                         </PathIcon.RenderTransform>
@@ -183,14 +169,12 @@
             </AppBarButton>
 
             <CommandBar.SecondaryCommands>
-                <AppBarButton
-                    x:Name="AppBarSettings"
-                    Label="settings"
-                    Tapped="SettingsItem_ItemClick" />
-                <AppBarButton
-                    x:Name="AppBarLogout"
-                    Command="{x:Bind ViewModel.SignOutCommand}"
-                    Label="sign out" />
+                <AppBarButton x:Name="AppBarSettings"
+                              Label="settings"
+                              Tapped="SettingsItem_ItemClick" />
+                <AppBarButton x:Name="AppBarLogout"
+                              Command="{x:Bind ViewModel.SignOutCommand}"
+                              Label="sign out" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
@@ -216,7 +200,7 @@
                     <VisualState.Setters>
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
-                        <Setter Target="HamSplitView.DisplayMode" Value="Overlay"/>
+                        <Setter Target="HamSplitView.DisplayMode" Value="Overlay" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -226,49 +210,46 @@
                     <VisualState.Setters>
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
-                        <Setter Target="HamSplitView.DisplayMode" Value="Inline"/>
+                        <Setter Target="HamSplitView.DisplayMode" Value="Inline" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="MainGrid"
-            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <RelativePanel x:Name="HeaderPanel" Background="{ThemeResource SystemChromeLowColor}"
+            <RelativePanel x:Name="HeaderPanel"
+                           Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
-                <StackPanel
-                    x:Name="TopPanel"
-                    Orientation="Horizontal"
-                    RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Button
-                        Name="HamButton"
-                        Click="HamButton_Click"
-                        Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
+                <StackPanel x:Name="TopPanel"
+                            Orientation="Horizontal"
+                            RelativePanel.AlignVerticalCenterWithPanel="True">
+                    <Button Name="HamButton"
+                            Click="HamButton_Click"
+                            Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
 
                     <Grid Margin="12,0,0,0">
-                        <TextBlock
-                            Name="HeaderText"
-                            VerticalAlignment="Center"
-                            FontFamily="Segoe UI"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                            Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                        <TextBlock Name="HeaderText"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Segoe UI"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                   Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
                     </Grid>
                 </StackPanel>
-                <Viewbox
-                    x:Name="SearchButton"
-                    MaxWidth="21"
-                    MaxHeight="21"
-                    Margin="0 0 15 0"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWith="TopPanel"
-                    Tapped="{x:Bind ViewModel.NavigateToSearch}">
+                <Viewbox x:Name="SearchButton"
+                         MaxWidth="21"
+                         MaxHeight="21"
+                         Margin="0 0 15 0"
+                         RelativePanel.AlignRightWithPanel="True"
+                         RelativePanel.AlignVerticalCenterWith="TopPanel"
+                         Tapped="{x:Bind ViewModel.NavigateToSearch}">
                     <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="PointerPressed">
@@ -285,13 +266,12 @@
 
                 </Viewbox>
 
-                <Popup
-                    x:Name="InternetPopup"
-                    IsOpen="True"
-                    Opacity="0.7"
-                    RelativePanel.AlignBottomWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RenderTransformOrigin="0.5,0.5">
+                <Popup x:Name="InternetPopup"
+                       IsOpen="True"
+                       Opacity="0.7"
+                       RelativePanel.AlignBottomWithPanel="True"
+                       RelativePanel.AlignLeftWithPanel="True"
+                       RenderTransformOrigin="0.5,0.5">
                     <Popup.RenderTransform>
                         <CompositeTransform />
                     </Popup.RenderTransform>
@@ -317,32 +297,28 @@
                 </Popup>
             </RelativePanel>
 
-            <SplitView
-                x:Name="HamSplitView"
-                Grid.Row="1"
-                x:FieldModifier="Public"
-                DisplayMode="Overlay"
-                OpenPaneLength="270"
-                PaneBackground="Transparent">
+            <SplitView x:Name="HamSplitView"
+                       Grid.Row="1"
+                       x:FieldModifier="Public"
+                       DisplayMode="Overlay"
+                       OpenPaneLength="270"
+                       PaneBackground="Transparent">
                 <SplitView.Pane>
                     <Grid BorderBrush="{ThemeResource SystemChromeLowColor}" BorderThickness="0 0 1 0">
                         <Grid>
                             <interactivity:Interaction.Behaviors>
-                                <behaviors:Blur
-                                    AutomaticallyStart="True"
-                                    Delay="0"
-                                    Value="100"
-                                    Duration="0" />
+                                <behaviors:Blur AutomaticallyStart="True"
+                                                Delay="0"
+                                                Value="100"
+                                                Duration="0" />
                             </interactivity:Interaction.Behaviors>
                         </Grid>
-                        <RelativePanel
-                            Name="HamRelative"
-                            Padding="0 10 0 0"
-                            Background="Transparent">
-                            <Grid
-                                x:Name="UserPicPanel"
-                                RelativePanel.AlignLeftWithPanel="True"
-                                RelativePanel.AlignTopWithPanel="True">
+                        <RelativePanel Name="HamRelative"
+                                       Padding="0 10 0 0"
+                                       Background="Transparent">
+                            <Grid x:Name="UserPicPanel"
+                                  RelativePanel.AlignLeftWithPanel="True"
+                                  RelativePanel.AlignTopWithPanel="True">
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="3*" />
@@ -350,71 +326,63 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                                     <Grid Margin="15 10 10 10">
-                                        <Ellipse
-                                            Grid.Row="0"
-                                            Width="85"
-                                            Height="85">
+                                        <Ellipse Grid.Row="0"
+                                                 Width="85"
+                                                 Height="85">
                                             <Ellipse.Fill>
                                                 <ImageBrush ImageSource="ms-appx:///Assets/profile-placeholder.png" />
                                             </Ellipse.Fill>
                                         </Ellipse>
-                                        <Ellipse
-                                            x:Name="avatarEllipse"
-                                            Grid.Row="0"
-                                            Width="85"
-                                            Height="85"
-                                            HorizontalAlignment="Center"
-                                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                                        <Ellipse x:Name="avatarEllipse"
+                                                 Grid.Row="0"
+                                                 Width="85"
+                                                 Height="85"
+                                                 HorizontalAlignment="Center"
+                                                 Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                                             <Ellipse.Fill>
                                                 <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
                                             </Ellipse.Fill>
                                         </Ellipse>
-                                        <ProgressRing
-                                            x:Name="ProfilePicProgressRing"
-                                            Grid.Row="0"
-                                            Width="25"
-                                            Height="25"
-                                            IsActive="{x:Bind ViewModel.isStartLoading, Mode=OneWay}" />
+                                        <ProgressRing x:Name="ProfilePicProgressRing"
+                                                      Grid.Row="0"
+                                                      Width="25"
+                                                      Height="25"
+                                                      IsActive="{x:Bind ViewModel.isStartLoading, Mode=OneWay}" />
                                     </Grid>
-                                    <StackPanel
-                                        VerticalAlignment="Center"
-                                        Orientation="Vertical"
-                                        Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <TextBlock
-                                            Margin="0 0 0 4"
-                                            FontSize="14"
-                                            FontWeight="Medium"
-                                            Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
-                                        <TextBlock
-                                            Margin="0 0 0 10"
-                                            FontSize="11.5"
-                                            FontWeight="SemiBold"
-                                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                            Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
+                                    <StackPanel VerticalAlignment="Center"
+                                                Orientation="Vertical"
+                                                Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <TextBlock Margin="0 0 0 4"
+                                                   FontSize="14"
+                                                   FontWeight="Medium"
+                                                   Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                                        <TextBlock Margin="0 0 0 10"
+                                                   FontSize="11.5"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
                                     </StackPanel>
 
                                 </StackPanel>
 
                             </Grid>
 
-                            <ListView
-                                Name="HamListView"
-                                Width="270"
-                                IsItemClickEnabled="True"
-                                ItemClick="HamListView_ItemClick"
-                                ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                ItemTemplate="{StaticResource HamMenuItemTemplate}"
-                                ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
-                                RelativePanel.Below="UserPicPanel"
-                                SelectionMode="Single" />
+                            <ListView Name="HamListView"
+                                      Width="270"
+                                      IsItemClickEnabled="True"
+                                      ItemClick="HamListView_ItemClick"
+                                      ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                      ItemTemplate="{StaticResource HamMenuItemTemplate}"
+                                      ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
+                                      RelativePanel.Below="UserPicPanel"
+                                      SelectionMode="Single" />
 
-                            <ListView
-                                x:Name="HamListViewBottom"
-                                Width="270"
-                                ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                RelativePanel.AlignBottomWithPanel="True"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                SelectionMode="Single">
+                            <ListView x:Name="HamListViewBottom"
+                                      Width="270"
+                                      ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                      RelativePanel.AlignBottomWithPanel="True"
+                                      RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                      SelectionMode="Single">
 
                                 <ListViewItem Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                                     <interactivity:Interaction.Behaviors>
@@ -424,18 +392,16 @@
                                     </interactivity:Interaction.Behaviors>
                                     <StackPanel Width="270" Orientation="Horizontal">
                                         <Grid Margin="0 0 10 0">
-                                            <Ellipse
-                                                Width="27"
-                                                Height="27"
-                                                HorizontalAlignment="Center">
+                                            <Ellipse Width="27"
+                                                     Height="27"
+                                                     HorizontalAlignment="Center">
                                                 <Ellipse.Fill>
                                                     <ImageBrush ImageSource="ms-appx:///Assets/profile-placeholder.png" />
                                                 </Ellipse.Fill>
                                             </Ellipse>
-                                            <Ellipse
-                                                Width="27"
-                                                Height="27"
-                                                HorizontalAlignment="Center">
+                                            <Ellipse Width="27"
+                                                     Height="27"
+                                                     HorizontalAlignment="Center">
                                                 <Ellipse.Fill>
                                                     <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
                                                 </Ellipse.Fill>
@@ -443,32 +409,28 @@
                                         </Grid>
 
                                         <RelativePanel>
-                                            <TextBlock
-                                                x:Name="EmailText"
-                                                FontSize="10"
-                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}"
-                                                TextAlignment="Left" />
-                                            <TextBlock
-                                                x:Name="SignoutText"
-                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                RelativePanel.AlignLeftWith="EmailText"
-                                                RelativePanel.Below="EmailText"
-                                                Text="Sign out" />
+                                            <TextBlock x:Name="EmailText"
+                                                       FontSize="10"
+                                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                       Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}"
+                                                       TextAlignment="Left" />
+                                            <TextBlock x:Name="SignoutText"
+                                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                       RelativePanel.AlignLeftWith="EmailText"
+                                                       RelativePanel.Below="EmailText"
+                                                       Text="Sign out" />
                                         </RelativePanel>
                                     </StackPanel>
                                 </ListViewItem>
                                 <ListViewItem Tapped="SettingsItem_ItemClick">
-                                    <StackPanel
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
+                                    <StackPanel HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
                                         <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Setting" />
-                                        <TextBlock
-                                            Margin="15 0 0 0"
-                                            VerticalAlignment="Center"
-                                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                            Text="Settings" />
+                                        <TextBlock Margin="15 0 0 0"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   Text="Settings" />
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>
@@ -481,111 +443,14 @@
                 </SplitView.Content>
             </SplitView>
         </Grid>
-        <Grid x:Name="SignInPage" Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-
-            <Grid.Background>
-                <ImageBrush ImageSource="/Assets/Images/codeBack.jpg" />
-            </Grid.Background>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
-
-            <Grid Grid.RowSpan="5" VerticalAlignment="Stretch">
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:Blur
-                        AutomaticallyStart="True"
-                        Delay="0"
-                        Value="30"
-                        Duration="0" />
-                </interactivity:Interaction.Behaviors>
-            </Grid>
-
-            <Image
-                x:Name="AppLogoImage"
-                Grid.Row="0"
-                Width="100"
-                Margin="0 0 0 20"
-                VerticalAlignment="Bottom"
-                Source="/Assets/Images/appLogoPurple.png">
-
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:Offset
-                        AutomaticallyStart="True"
-                        Delay="500"
-                        OffsetX="0"
-                        OffsetY="-35"
-                        Duration="1000" />
-                </interactivity:Interaction.Behaviors>
-
-
-            </Image>
-            <TextBlock
-                Grid.Row="1"
-                Margin="0 0 0 20"
-                FontSize="19"
-                FontWeight="SemiBold"
-                Foreground="White"
-                Text="Welcome to CodeHub"
-                TextAlignment="Center">
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:Offset
-                        AutomaticallyStart="True"
-                        Delay="550"
-                        OffsetX="0"
-                        OffsetY="-30"
-                        Duration="1000" />
-                </interactivity:Interaction.Behaviors>
-            </TextBlock>
-            <TextBlock
-                Grid.Row="2"
-                Margin="0 0 0 20"
-                FontSize="14"
-                Foreground="White"
-                Text="Sign in to your GitHub account to continue"
-                TextAlignment="Center">
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:Offset
-                        AutomaticallyStart="True"
-                        Delay="560"
-                        OffsetX="0"
-                        OffsetY="-25"
-                        Duration="1000" />
-                </interactivity:Interaction.Behaviors>
-            </TextBlock>
-
-            <Button
-                Grid.Row="3"
-                Width="100"
-                HorizontalAlignment="Center"
-                Command="{x:Bind ViewModel.SignInCommand}"
-                Content="Sign In"
-                FontSize="12"
-                FontWeight="SemiBold"
-                Style="{StaticResource SignInButtonStyle}">
-
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:Offset
-                        AutomaticallyStart="True"
-                        Delay="570"
-                        OffsetX="0"
-                        OffsetY="-20"
-                        Duration="1000" />
-                </interactivity:Interaction.Behaviors>
-            </Button>
-
-        </Grid>
-        <control:BusyScreen
-            x:Name="busyScreen"
-            Grid.RowSpan="2"
-            BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
-            IsBusy="True"
-            Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-       
+        <control:SignInPage x:Name="SignInPage"
+                            SignInCommand="{x:Bind ViewModel.SignInCommand}"
+                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+        <control:BusyScreen x:Name="busyScreen"
+                            Grid.RowSpan="2"
+                            BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
+                            IsBusy="True"
+                            Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 
 </Page>
