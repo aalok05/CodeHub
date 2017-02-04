@@ -15,9 +15,10 @@ namespace CodeHub.Views
         public FileContentViewmodel ViewModel;
         public FileContentView()
         {
+            this.Loaded += (s, e) => Header.InitializeScrollViewer(Scroller);
             this.InitializeComponent();
             ViewModel = new FileContentViewmodel();
-
+            this.Unloaded += (s, e) => Header.Dispose();
             this.DataContext = ViewModel;
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)

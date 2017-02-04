@@ -26,6 +26,12 @@ namespace CodeHub.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T To<T>(this object target) => (T)target;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Abs(this double value) => value >= 0 ? value : -value;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool EqualsWithDelta(this double value, double comparison, double delta = 0.1) => (value - comparison).Abs() < delta;
+
         /// <summary>
         /// Forgets a task without any warnings
         /// </summary>

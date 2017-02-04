@@ -52,6 +52,7 @@ namespace CodeHub.Views
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
+            ReadmeLoadingRing.IsActive = true;
             await ViewModel.Load(e.Parameter as Repository);
 
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
@@ -69,25 +70,30 @@ namespace CodeHub.Views
              *  instead of within the WebView itself.
              */
             var webView = sender as WebView;
-            await webView.InvokeScriptAsync("eval", new[]
+            String html = await webView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
+            ViewModel.TryParseRepositoryLanguageColor(html);
+            String heightString = await webView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
                 {
-                   var node = document.getElementById('readme');
-                   node.style.marginBottom = '0px';
-                   var body = document.getElementsByTagName('body')[0];
-                   while (body.firstChild) { body.removeChild(body.firstChild); }
-                   body.appendChild(node);
-
+                    var node = document.getElementById('readme');
+                    node.style.marginBottom = '0px';
+                    var body = document.getElementsByTagName('body')[0];
+                    while (body.firstChild) { body.removeChild(body.firstChild); }
+                    body.appendChild(node);
                     var hyperlinks = document.getElementsByTagName('a');
                     for(var i = 0; i < hyperlinks.length; i++)
                     {
-                         hyperlinks[i].setAttribute('target', '_blank');
+                        hyperlinks[i].setAttribute('target', '_blank');
                     }
+                    return body.scrollHeight.toString();
                 })()"
             });
-
+            webView.Height = double.Parse(heightString);
+            webView.SetVisualOpacity(0);
             webView.Visibility = Visibility.Visible;
+            webView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
+            ReadmeLoadingRing.IsActive = false;
         }
     }
 }

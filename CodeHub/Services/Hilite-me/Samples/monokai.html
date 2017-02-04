@@ -1,5 +1,5 @@
-﻿<!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">System;</span>
-<span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">Windows.UI.Xaml.Media.Imaging;</span>
+﻿<!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">Windows.Graphics.Imaging;</span>
+<span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">Windows.UI.Xaml.Media;</span>
 <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">Lumia.Imaging;</span>
 <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">Lumia.Imaging.Adjustments;</span>
 
@@ -75,11 +75,42 @@
                 <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">(BlurEffect</span> <span style="color: #f8f8f2">blurEffect</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">BlurEffect(imageProvider)</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">KernelSize</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">blur</span> <span style="color: #f8f8f2">})</span>
                 <span style="color: #f8f8f2">{</span>
                     <span style="color: #75715e">// Process the blurred image</span>
-                    <span style="color: #f8f8f2">WriteableBitmap</span> <span style="color: #f8f8f2">blurred</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">WriteableBitmap((</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)original.PixelWidth,</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)original.PixelHeight);</span>
+                    <span style="color: #f8f8f2">WriteableBitmap</span> <span style="color: #f8f8f2">blurred</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">WriteableBitmap(original.PixelWidth,</span> <span style="color: #f8f8f2">original.PixelHeight);</span>
                     <span style="color: #66d9ef">await</span> <span style="color: #f8f8f2">blurEffect.GetBitmapAsync(blurred,</span> <span style="color: #f8f8f2">OutputOption.Stretch);</span>
 
                     <span style="color: #75715e">// Return the two images</span>
                     <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">Tuple.Create&lt;ImageSource,</span> <span style="color: #f8f8f2">ImageSource&gt;(original,</span> <span style="color: #f8f8f2">blurred);</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+        <span style="color: #f8f8f2">}</span>
+
+        <span style="color: #75715e">/// &lt;summary&gt;</span>
+        <span style="color: #75715e">/// Blurs a single image from a data stream</span>
+        <span style="color: #75715e">/// &lt;/summary&gt;</span>
+        <span style="color: #75715e">/// &lt;param name=&quot;buffer&quot;&gt;The buffer that contains the data of the image to blur&lt;/param&gt;</span>
+        <span style="color: #75715e">/// &lt;param name=&quot;blur&quot;&gt;The amount of blur to apply&lt;/param&gt;</span>
+<span style="color: #a6e22e">        [ItemCanBeNull]</span>
+        <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">async</span> <span style="color: #f8f8f2">Task&lt;ImageSource&gt;</span> <span style="color: #f8f8f2">BlurImageAsync([NotNull]</span> <span style="color: #f8f8f2">IBuffer</span> <span style="color: #f8f8f2">buffer,</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">blur)</span>
+        <span style="color: #f8f8f2">{</span>
+            <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">(Stream</span> <span style="color: #f8f8f2">imageStream</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">buffer.AsStream())</span>
+            <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">(IRandomAccessStream</span> <span style="color: #f8f8f2">randomImageStream</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">imageStream.AsRandomAccessStream())</span>
+            <span style="color: #f8f8f2">{</span>
+                <span style="color: #f8f8f2">BitmapDecoder</span> <span style="color: #f8f8f2">decoder;</span>
+                <span style="color: #66d9ef">try</span>
+                <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">decoder</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">await</span> <span style="color: #f8f8f2">BitmapDecoder.CreateAsync(randomImageStream);</span>
+                <span style="color: #f8f8f2">}</span>
+                <span style="color: #66d9ef">catch</span>
+                <span style="color: #f8f8f2">{</span>
+                    <span style="color: #75715e">// Invalid image data</span>
+                    <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+                <span style="color: #f8f8f2">}</span>
+                <span style="color: #f8f8f2">randomImageStream.Seek(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+                <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">(RandomAccessStreamImageSource</span> <span style="color: #f8f8f2">imageProvider</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">RandomAccessStreamImageSource(randomImageStream))</span>
+                <span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">(BlurEffect</span> <span style="color: #f8f8f2">blurEffect</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">BlurEffect(imageProvider)</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">KernelSize</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">blur</span> <span style="color: #f8f8f2">})</span>
+                <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">WriteableBitmap</span> <span style="color: #f8f8f2">blurred</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">WriteableBitmap((</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)decoder.PixelWidth,</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)decoder.PixelHeight);</span>
+                    <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">await</span> <span style="color: #f8f8f2">blurEffect.GetBitmapAsync(blurred,</span> <span style="color: #f8f8f2">OutputOption.Stretch);</span>
                 <span style="color: #f8f8f2">}</span>
             <span style="color: #f8f8f2">}</span>
         <span style="color: #f8f8f2">}</span>

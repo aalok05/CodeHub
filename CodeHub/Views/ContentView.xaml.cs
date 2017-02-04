@@ -14,11 +14,19 @@ namespace CodeHub.Views
         public ContentViewmodel ViewModel;
         public ContentView()
         {
-            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(ContentListView);
+            this.Loaded += (s, e) =>
+            {
+                Header.InitializeScrollViewer(ContentListView);
+                TopScroller.InitializeScrollViewer(ContentListView);
+            };
             this.InitializeComponent();
             ViewModel = new ContentViewmodel();
             this.DataContext = ViewModel;
-            this.Unloaded += (s, e) => TopScroller.Dispose();
+            this.Unloaded += (s, e) =>
+            {
+                Header.Dispose();
+                TopScroller.Dispose();
+            };
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {

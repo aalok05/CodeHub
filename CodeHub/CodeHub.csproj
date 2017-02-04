@@ -159,6 +159,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>    <Compile Include="Controls\AlternatingRowListView.cs" />
     <Compile Include="Controls\AnimatedComboBox.cs" />
+    <Compile Include="Controls\AutoHideGrid.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>
@@ -175,6 +176,9 @@
     </Compile>
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TopScrollerControl.xaml.cs">
       <DependentUpon>TopScrollerControl.xaml</DependentUpon>
@@ -358,6 +362,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SignInPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TopScrollerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -365,6 +373,11 @@
     <Page Include="Controls\UserListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\SVGIconsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Styles\MiscStyles.xaml">
       <SubType>Designer</SubType>

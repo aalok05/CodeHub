@@ -204,7 +204,6 @@
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Auto">
                 <TextBlock Text="{x:Bind ViewModel.Issue.Body,Mode=OneWay}" 
-                           IsTextSelectionEnabled="True"
                            FontSize="13"/>
             </ScrollViewer>
         </Grid>

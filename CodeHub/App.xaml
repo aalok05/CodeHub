@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/MiscStyles.xaml"/>
                 <ResourceDictionary Source="/Styles/TextStyles.xaml"/>
+                <ResourceDictionary Source="/Resources/SVGIconsDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--Resources-->

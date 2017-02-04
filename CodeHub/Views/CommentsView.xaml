@@ -59,7 +59,6 @@
                 <TextBlock HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           IsTextSelectionEnabled="True"
                            Text="{x:Bind ViewModel.Comment.Body, Mode=OneWay}"
                            TextWrapping="Wrap" />
                 <TextBlock Margin="0,5,0,5"
