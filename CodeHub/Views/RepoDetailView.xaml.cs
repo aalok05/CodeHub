@@ -52,6 +52,7 @@ namespace CodeHub.Views
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
+            ReadmeLoadingRing.IsActive = true;
             await ViewModel.Load(e.Parameter as Repository);
 
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
@@ -69,7 +70,7 @@ namespace CodeHub.Views
              *  instead of within the WebView itself.
              */
             var webView = sender as WebView;
-            await webView.InvokeScriptAsync("eval", new[]
+            String heightString = await webView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
                 {
@@ -83,9 +84,11 @@ namespace CodeHub.Views
                     {
                         hyperlinks[i].setAttribute('target', '_blank');
                     }
+                    return body.scrollHeight.toString();
                 })()"
             });
-
+            webView.Height = double.Parse(heightString);
+            ReadmeLoadingRing.IsActive = false;
             webView.Visibility = Visibility.Visible;
         }
     }
