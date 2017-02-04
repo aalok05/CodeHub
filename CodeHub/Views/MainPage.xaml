@@ -226,29 +226,28 @@
             <RelativePanel x:Name="HeaderPanel"
                            Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
-                <StackPanel x:Name="TopPanel"
-                            Orientation="Horizontal"
-                            RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Button Name="HamButton"
-                            Click="HamButton_Click"
-                            Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
 
-                    <Grid Margin="12,0,0,0">
-                        <TextBlock Name="HeaderText"
-                                   VerticalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                   Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
-                    </Grid>
-                </StackPanel>
+                <Button Name="HamButton"
+                        Click="HamButton_Click"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
+
+                <Grid Margin="12,0,0,0"
+                      RelativePanel.AlignVerticalCenterWith="HamButton"
+                      RelativePanel.RightOf="HamButton">
+                    <TextBlock Name="HeaderText"
+                               FontFamily="Segoe UI"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                               Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                </Grid>
                 <Viewbox x:Name="SearchButton"
                          MaxWidth="21"
                          MaxHeight="21"
                          Margin="0 0 15 0"
                          RelativePanel.AlignRightWithPanel="True"
-                         RelativePanel.AlignVerticalCenterWith="TopPanel"
+                         RelativePanel.AlignVerticalCenterWith="HamButton"
                          Tapped="{x:Bind ViewModel.NavigateToSearch}">
                     <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find">
                         <interactivity:Interaction.Behaviors>
