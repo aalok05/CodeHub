@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -102,6 +103,19 @@ namespace CodeHub.Helpers
                 yield return node.NextSibling;
                 node = node.NextSibling;
             }
+        }
+
+        public static Color GetLight(this Color color, double delta)
+        {
+            double R = (255 - color.R) * delta + color.R;
+            double G = (255 - color.G) * delta + color.G;
+            double B = (255 - color.B) * delta + color.B;
+            Func<double, byte> normalize = d =>
+            {
+                if (d < 0) return 0;
+                return d <= 255 ? (byte)d : (byte)255;
+            };
+            return Color.FromArgb(color.A, normalize(R), normalize(G), normalize(B));
         }
     }
 }

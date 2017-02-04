@@ -12,6 +12,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     xmlns:octo="using:Octokit"
+    xmlns:controls1="using:CodeHub.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
@@ -125,7 +126,16 @@
                        Text="{x:Bind ViewModel.User.Bio,Mode=OneWay}"/>
 
         </RelativePanel>
-        <Pivot Grid.Row="1">
+        
+        <controls1:UserContributionsChartControl Grid.Row="1"
+                                                 x:Name="Chart"
+                                                 VerticalAlignment="Top"
+                                                 HorizontalAlignment="Left"
+                                                 Months="{x:Bind ViewModel.Months, Mode=OneWay}"
+                                                 Source="{x:Bind ViewModel.Data, Mode=OneWay}"
+                                                 Width="620"
+                                                 Height="128"/>
+        <Pivot Grid.Row="1" Visibility="Collapsed">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
