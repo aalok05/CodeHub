@@ -70,6 +70,8 @@ namespace CodeHub.Views
              *  instead of within the WebView itself.
              */
             var webView = sender as WebView;
+            String html = await webView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
+            ViewModel.TryParseRepositoryLanguageColor(html);
             String heightString = await webView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()

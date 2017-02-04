@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -9,8 +10,13 @@ using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Xaml.Media;
+using Windows.Web.Http;
+using HtmlAgilityPack;
+using JetBrains.Annotations;
 using MarkdownSharp;
+using Microsoft.Toolkit.Uwp;
 
 namespace CodeHub.ViewModels
 {
@@ -41,6 +47,34 @@ namespace CodeHub.ViewModels
             {
                 Set(() => IsStar, ref _isStar, value);
             }
+        }
+
+        public SolidColorBrush _LanguageColor;
+
+        /// <summary>
+        /// Gets the color of the main language of the repository
+        /// </summary>
+        public SolidColorBrush LanguageColor
+        {
+            get { return _LanguageColor; }
+            private set { Set(() => LanguageColor, ref _LanguageColor, value); }
+        }
+
+        /// <summary>
+        /// Tries to parse the language color of a repository from its HTML code
+        /// </summary>
+        /// <param name="html">The HTML code of the repository page</param>
+        public void TryParseRepositoryLanguageColor([NotNull] String html)
+        {
+            HtmlDocument document = new HtmlDocument();
+            document.LoadHtml(html);
+            HtmlNode
+                node = document.DocumentNode?.Descendants("span").FirstOrDefault(child =>
+                        child.Attributes?.AttributesWithName("class")?.FirstOrDefault()?.Value?.Equals("color-block language-color") == true);
+            String
+                style = node?.Attributes.AttributesWithName("style").FirstOrDefault()?.Value,
+                colorStr = style?.Substring(style.Length - 7, 6);
+            if (colorStr != null) LanguageColor = new SolidColorBrush($"#FF{colorStr}".ToColor());
         }
 
         public async Task Load(Repository repo)
