@@ -141,6 +141,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\ContributionsDataModel.cs" />
+    <Compile Include="Models\PinnedUserRepository.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Services\AppCredentials.cs" />

@@ -8,11 +8,13 @@ using CodeHub.Views;
 using Octokit;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using CodeHub.Models;
 using HtmlAgilityPack;
+using Microsoft.Toolkit.Uwp;
 
 namespace CodeHub.ViewModels
 {
@@ -73,6 +75,17 @@ namespace CodeHub.ViewModels
             set { Set(() => Months, ref _Months, value); }
         }
 
+        public IEnumerable<PinnedUserRepository> _PinnedRepositories;
+
+        /// <summary>
+        /// The public pinned repositories for the current user
+        /// </summary>
+        public IEnumerable<PinnedUserRepository> PinnedRepositories
+        {
+            get { return _PinnedRepositories; }
+            private set { Set(() => PinnedRepositories, ref _PinnedRepositories, value); }
+        }
+
         public async Task Load()
         {
             if (!GlobalHelper.IsInternet())
@@ -124,9 +137,7 @@ namespace CodeHub.ViewModels
                                                                                  att.Value?.Equals("js-calendar-graph-svg") == true) == true),
                         root = graph?.Descendants("g")?.FirstOrDefault();
                     List<String> months = new List<String>();
-                    Months = graph?.Descendants("text").Where(
-                            node => node.Attributes.AttributesWithName("class")?.FirstOrDefault()?.Value?.Equals("month") == true)
-                            .Select(node => node.InnerText).ToArray();
+                    Months = graph?.DescendantsWithAttribute("text", "class", "month").Select(node => node.InnerText).ToArray();
                     if (root != null)
                     {
                         int? test = root?.Descendants("g").Count();
@@ -147,7 +158,33 @@ namespace CodeHub.ViewModels
                         Data = data;
                     }
 
-                    // Load the user images
+                    // Parse the pinned repositories
+                    HtmlNode repoList = document.DocumentNode?.DescendantsWithAttribute("ol", "class", "pinned-repos-list mb-4").FirstOrDefault();
+                    IReadOnlyList<HtmlNode> repos = repoList?.DescendantsWithAttribute("li", "class", "pinned-repo-item p-3 mb-3 border border-gray-dark rounded-1 public source").ToList();
+                    if (repos?.Any() == true)
+                    {
+                        PinnedRepositories =
+                            from repo in repos
+                            let urlNode = repo.DescendantsWithAttribute("a", "class", "text-bold").First()
+                            let url = urlNode.Attributes.AttributesWithName("href").First().Value
+                            let nameNode = urlNode.DescendantsWithAttribute("span", "class", "repo js-repo").First()
+                            let descriptionNode = repo.DescendantsWithAttribute("p", "class", "pinned-repo-desc text-gray text-small d-block mt-2 mb-3").FirstOrDefault()
+                            let lanNode = repo.DescendantsWithAttribute("span", "class", "repo-language-color pinned-repo-meta").First()
+                            let language = lanNode.NextSibling.InnerText.Trim(' ', '\n', '\r')
+                            let colorAtt = lanNode.Attributes.AttributesWithName("style").First().Value
+                            let colorStr = colorAtt.Substring(colorAtt.Length - 7, 6)
+                            let color = $"#FF{colorStr}".ToColor()
+                            let features = repo.DescendantsWithAttribute("a", "class", "pinned-repo-meta muted-link")
+                            let starsNode = features.FirstOrDefault(child => child.DescendantsWithAttribute("svg", "class", "octicon octicon-star").Any())
+                            let stars = starsNode == null ? 0 : int.Parse(Regex.Match(starsNode.InnerText, @"\d+").Value)
+                            let forksNode = features.FirstOrDefault(child => child.DescendantsWithAttribute("svg", "class", "octicon octicon-repo-forked").Any())
+                            let forks = forksNode == null ? 0 : int.Parse(Regex.Match(forksNode.InnerText, @"\d+").Value)
+                            select new PinnedUserRepository(
+                                nameNode.InnerText, url, descriptionNode?.InnerText,
+                                language, color, stars, forks);
+                    }
+
+                        // Load the user images
                     await TryLoadUserAvatarImagesAsync();
 
                     isLoggedin = true;

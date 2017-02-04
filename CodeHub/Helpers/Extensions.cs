@@ -105,6 +105,21 @@ namespace CodeHub.Helpers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="tag"></param>
+        /// <param name="attribute"></param>
+        /// <param name="value"></param>
+        public static IEnumerable<HtmlNode> DescendantsWithAttribute([NotNull] this HtmlNode node, 
+            [NotNull] String tag, [NotNull] String attribute, [NotNull] String value)
+        {
+            return node.Descendants(tag)
+                ?.Where(child => child.Attributes
+                    ?.AttributesWithName(attribute)?.FirstOrDefault()?.Value?.Equals(value) == true);
+        }
+
         public static Color GetLight(this Color color, double delta)
         {
             double R = (255 - color.R) * delta + color.R;
