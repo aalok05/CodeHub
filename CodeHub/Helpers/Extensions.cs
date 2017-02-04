@@ -1,10 +1,14 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using HtmlAgilityPack;
 using JetBrains.Annotations;
 
 namespace CodeHub.Helpers
@@ -75,5 +79,43 @@ namespace CodeHub.Helpers
         /// </summary>
         /// <param name="enumerable">The sequence to count</param>
         public static int Count([NotNull] this IEnumerable enumerable) => Enumerable.Count(enumerable.Cast<object>());
+
+        /// <summary>
+        /// Waits for a task with the given token
+        /// </summary>
+        /// <typeparam name="T">The type returned by the task</typeparam>
+        /// <param name="task">The task to wait</param>
+        /// <param name="token">The cancellation token</param>
+        /// <param name="failsafe">If true, all possible exceptions will be handled too</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static async Task<T> AsCancellableTask<T>([NotNull] this Task<T> task, 
+            CancellationToken token, bool failsafe = false) where T : class
+        {
+            try
+            {
+                return await task.ContinueWith(t => t.GetAwaiter().GetResult());
+            }
+            catch (OperationCanceledException)
+            {
+                return null;
+            }
+            catch when (failsafe)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets a sequence of sibling nodes from the input node
+        /// </summary>
+        /// <param name="node">The source node</param>
+        public static IEnumerable<HtmlNode> Siblings([NotNull] this HtmlNode node)
+        {
+            while (node != null)
+            {
+                yield return node.NextSibling;
+                node = node.NextSibling;
+            }
+        }
     }
 }

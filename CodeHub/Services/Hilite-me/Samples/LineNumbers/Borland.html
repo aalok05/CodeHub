@@ -200,37 +200,6 @@
                 }
             }
         }
-
-        <span style="color: #008800; font-style: italic">/// &lt;summary&gt;</span>
-        <span style="color: #008800; font-style: italic">/// Blurs a single image from a data stream</span>
-        <span style="color: #008800; font-style: italic">/// &lt;/summary&gt;</span>
-        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;buffer&quot;&gt;The buffer that contains the data of the image to blur&lt;/param&gt;</span>
-        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;blur&quot;&gt;The amount of blur to apply&lt;/param&gt;</span>
-<span style="color: #FF0000">        [ItemCanBeNull]</span>
-        <span style="color: #000080; font-weight: bold">public</span> <span style="color: #000080; font-weight: bold">static</span> <span style="color: #000080; font-weight: bold">async</span> Task&lt;ImageSource&gt; BlurImageAsync([NotNull] IBuffer buffer, <span style="color: #000080; font-weight: bold">int</span> blur)
-        {
-            <span style="color: #000080; font-weight: bold">using</span> (Stream imageStream = buffer.AsStream())
-            <span style="color: #000080; font-weight: bold">using</span> (IRandomAccessStream randomImageStream = imageStream.AsRandomAccessStream())
-            {
-                BitmapDecoder decoder;
-                <span style="color: #000080; font-weight: bold">try</span>
-                {
-                    decoder = <span style="color: #000080; font-weight: bold">await</span> BitmapDecoder.CreateAsync(randomImageStream);
-                }
-                <span style="color: #000080; font-weight: bold">catch</span>
-                {
-                    <span style="color: #008800; font-style: italic">// Invalid image data</span>
-                    <span style="color: #000080; font-weight: bold">return</span> <span style="color: #000080; font-weight: bold">null</span>;
-                }
-                randomImageStream.Seek(<span style="color: #0000FF">0</span>);
-                <span style="color: #000080; font-weight: bold">using</span> (RandomAccessStreamImageSource imageProvider = <span style="color: #000080; font-weight: bold">new</span> RandomAccessStreamImageSource(randomImageStream))
-                <span style="color: #000080; font-weight: bold">using</span> (BlurEffect blurEffect = <span style="color: #000080; font-weight: bold">new</span> BlurEffect(imageProvider) { KernelSize = blur })
-                {
-                    WriteableBitmap blurred = <span style="color: #000080; font-weight: bold">new</span> WriteableBitmap((<span style="color: #000080; font-weight: bold">int</span>)decoder.PixelWidth, (<span style="color: #000080; font-weight: bold">int</span>)decoder.PixelHeight);
-                    <span style="color: #000080; font-weight: bold">return</span> <span style="color: #000080; font-weight: bold">await</span> blurEffect.GetBitmapAsync(blurred, OutputOption.Stretch);
-                }
-            }
-        }
     }
 }
 </pre></td></tr></table></div>

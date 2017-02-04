@@ -8,9 +8,15 @@
     xmlns:octo="using:Octokit"
     xmlns:controls="using:CodeHub.Controls"
     xmlns:converters="using:CodeHub.Converters"
+    xmlns:models="using:CodeHub.Models"
+    xmlns:resources="using:CodeHub.Resources"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:FileTypeToSymbolConverter x:Key="FileTypeToSymbolConverter" x:Name="FileTypeToSymbolConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:SharedCompiledDataTemplates/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -34,31 +40,27 @@
                                        MinWidth="120"/>
 
         </StackPanel>
-        <ListView x:Name="ContentListView"
-                      Grid.Row="1" Grid.RowSpan="2"
-                      IsItemClickEnabled="True"
-                      SelectionMode="Single"
-                      ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
-                      ItemsSource="{x:Bind ViewModel.Content,Mode=OneWay}">
-
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="octo:RepositoryContent">
-                    <StackPanel Orientation="Horizontal">
-                        <Viewbox MaxHeight="20"
-                                 MaxWidth="20"
-                                 Margin="0 0 5 0">
-                            <SymbolIcon
-                                    Foreground="#808281"
-                                    Symbol="{x:Bind Converter={StaticResource FileTypeToSymbolConverter},Mode=OneWay}" />
-                        </Viewbox>
-                        <TextBlock Text="{x:Bind Name}" Margin="0 0 50 0"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <controls:AlternatingRowListView 
+            x:Name="ContentListView"
+            Grid.Row="1" 
+            IsItemClickEnabled="True"
+            SelectionMode="Single"
+            ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
+            ItemsSource="{x:Bind ViewModel.Content,Mode=OneWay}"
+            OddRowBackground="{StaticResource OddAlternatingRowsBrush}"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            ItemTemplate="{StaticResource RepositoryEntryTemplate}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </controls:AlternatingRowListView>
 
         <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40"
-                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
+                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
         <controls:TopScrollerControl x:Name="TopScroller"
                                      HorizontalAlignment="Right"

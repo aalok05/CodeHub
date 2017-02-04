@@ -44,7 +44,8 @@ namespace CodeHub.Views
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            TryNavigateBackForDesktopState(e.NewState.Name);
+            if (e.NewState != null)
+                TryNavigateBackForDesktopState(e.NewState.Name);
         }
     }
 }

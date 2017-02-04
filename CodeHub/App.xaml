@@ -16,9 +16,9 @@
             <x:Double x:Key="NormalMinWidth">580</x:Double>
             <x:Double x:Key="WideMinWidth">1200</x:Double>
             <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
-            <SolidColorBrush x:Key="GitHubLightBlueColorBrush" Color="{StaticResource GitHubLightBlueColor}"/>
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
-            <Color x:Key="GitHubLightBlueColor">#4078C0</Color>
+
+            <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="#08FFFFFF"/>
 
         </ResourceDictionary>
     </Application.Resources>

@@ -28,7 +28,9 @@ namespace CodeHub.Views
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            ViewModel.CurrentState = e.NewState.Name;
+            if (e.NewState != null)
+                ViewModel.CurrentState = e.NewState.Name;
+
             if (ViewModel.CurrentState == "Mobile")
             {
                 if(SettingsListView.SelectedIndex != -1)

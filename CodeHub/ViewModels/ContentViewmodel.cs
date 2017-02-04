@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using CodeHub.Models;
 
 namespace CodeHub.ViewModels
 {
@@ -59,8 +60,8 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public ObservableCollection<RepositoryContent> _content;
-        public ObservableCollection<RepositoryContent> Content
+        public ObservableCollection<RepositoryContentWithCommitInfo> _content;
+        public ObservableCollection<RepositoryContentWithCommitInfo> Content
         {
             get
             {
@@ -95,7 +96,7 @@ namespace CodeHub.ViewModels
             {
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-                Content = await RepositoryUtility.GetRepositoryContentByPath(Repository.Id, Path, SelectedBranch);
+                Content = await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch);
 
                 isLoading = false;
 
@@ -103,7 +104,7 @@ namespace CodeHub.ViewModels
         }
         public void RepoContentDrillNavigate(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as RepositoryContent;
+            RepositoryContent item = e.ClickedItem as RepositoryContentWithCommitInfo;
             if (item != null)
             {
                 if (item.Type == ContentType.File)

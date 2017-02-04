@@ -61,7 +61,8 @@ namespace CodeHub.Views
         }
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            ViewModel.CurrentState = e.NewState.Name;
+            if(e.NewState != null)
+                ViewModel.CurrentState = e.NewState.Name;
 
             await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
             await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
@@ -108,29 +109,45 @@ namespace CodeHub.Views
         }
         private void HamButton_Click(object sender, RoutedEventArgs e)
         {
+            //Toggle Hamburger menu
             HamSplitView.IsPaneOpen = !HamSplitView.IsPaneOpen;
         }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ViewModel.HamItemClicked(e.ClickedItem as HamItem);
-            HamSplitView.IsPaneOpen = false;
+            if(SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
+            {
+                ViewModel.HamItemClicked(e.ClickedItem as HamItem);
+
+                //Don't close the Hamburger menu if visual state is DesktopEx
+                if (ViewModel.CurrentState != "DesktopEx")
+                    HamSplitView.IsPaneOpen = false;
+            }
         }
         private void SettingsItem_ItemClick(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.NavigateToSettings();
-            HamSplitView.IsPaneOpen = false;
+            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != typeof(SettingsView))
+            {
+                ViewModel.NavigateToSettings();
+
+                //Don't close the Hamburger menu if visual state is DesktopEx
+                if (ViewModel.CurrentState != "DesktopEx")
+                    HamSplitView.IsPaneOpen = false;
+            }
         }
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[0]);
+            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[0]);
         }
         private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[1]);
+            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[1]);
         }
         private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[2]);
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

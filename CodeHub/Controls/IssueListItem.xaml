@@ -22,13 +22,13 @@
                     Text="#"
                     FontSize="16"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                    Foreground="{StaticResource AppPrimaryColorBrush}"/>
             <TextBlock 
                     Margin="0 10 0 5"
                     Text="{Binding Number}"
                     FontSize="16"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                    Foreground="{StaticResource AppPrimaryColorBrush}"/>
         </StackPanel>
         <TextBlock x:Name="TitleBlock" 
                    Text="{Binding Title}"

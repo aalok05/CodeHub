@@ -157,7 +157,7 @@
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
+    </Compile>    <Compile Include="Controls\AlternatingRowListView.cs" />
     <Compile Include="Controls\AnimatedComboBox.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
@@ -182,15 +182,17 @@
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
-    <Compile Include="Converters\FileTypeToSymbolConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\XAMLHelper.cs" />
+    <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Models\WrappedWebResult.cs" />
@@ -202,6 +204,9 @@
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
+    <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
+      <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CommentsViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
@@ -365,6 +370,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\SharedCompiledDataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextStyles.xaml">
       <SubType>Designer</SubType>

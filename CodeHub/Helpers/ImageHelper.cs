@@ -83,7 +83,7 @@ namespace CodeHub.Helpers
                 using (BlurEffect blurEffect = new BlurEffect(imageProvider) { KernelSize = blur })
                 {
                     // Process the blurred image
-                    WriteableBitmap blurred = new WriteableBitmap((int)original.PixelWidth, (int)original.PixelHeight);
+                    WriteableBitmap blurred = new WriteableBitmap(original.PixelWidth, original.PixelHeight);
                     await blurEffect.GetBitmapAsync(blurred, OutputOption.Stretch);
 
                     // Return the two images

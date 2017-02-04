@@ -10,6 +10,7 @@ using Octokit;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
+using MarkdownSharp;
 
 namespace CodeHub.ViewModels
 {
@@ -54,7 +55,7 @@ namespace CodeHub.ViewModels
             {
                 //Sending Internet available message to all viewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
-                
+
                 isLoading = true;
                 if (Repository?.Owner != null)
                 {
