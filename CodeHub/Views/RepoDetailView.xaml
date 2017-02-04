@@ -63,18 +63,12 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="150" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -176,12 +170,10 @@
                     </StackPanel>
                 </StackPanel>
             </RelativePanel>
+            <RelativePanel Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Margin="20 20 0 0">
 
-            <StackPanel x:Name="ButtonPanel"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="15 20 0 0"
-                        Orientation="Horizontal">
                 <Grid x:Name="StarButton">
                     <Button Width="90"
                             Height="30"
@@ -224,10 +216,9 @@
                 <Button x:Name="ViewCodeButton"
                         Width="90"
                         Height="30"
-                        Margin="0 5 10 0"
+                        Margin="0 10 10 0"
                         Command="{x:Bind ViewModel.SourceCodeNavigate}"
-                        RelativePanel.AlignLeftWith="StarButton"
-                        RelativePanel.Below="StarButton"
+                        RelativePanel.RightOf="StarButton"
                         Style="{StaticResource FollowButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Viewbox MaxWidth="14" MaxHeight="14">
@@ -242,7 +233,7 @@
                                    xml:space="preserve"
                                    FontSize="12"
                                    Text="  Code">
-                        </TextBlock>
+                            </TextBlock>
 
                     </StackPanel>
                 </Button>
@@ -252,77 +243,88 @@
                               Margin="0 10 0 5"
                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                               IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}"
-                              RelativePanel.Above="ViewCodeButton"
-                              RelativePanel.AlignHorizontalCenterWith="ViewCodeButton" />
+                              RelativePanel.RightOf="ViewCodeButton" />
 
-            </StackPanel>
+                <TextBlock x:Name="LanguageText"
+                           Padding="0 12 20 8"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="SemiLight"
+                           RelativePanel.AlignLeftWith="StarButton"
+                           RelativePanel.Below="StarButton"
+                           Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                <TextBlock x:Name="DescriptionText"
+                           Margin="0 16 0 20"
+                           FontSize="13"
+                           RelativePanel.AlignLeftWith="LanguageText"
+                           RelativePanel.Below="LanguageText"
+                           Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
+                           TextWrapping="Wrap"
+                           Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
 
-            <TextBlock x:Name="LanguageText"
-                       Grid.Row="2"
-                       Grid.ColumnSpan="2"
-                       Padding="20 12 20 8"
-                       VerticalAlignment="Center"
-                       FontSize="18"
-                       FontWeight="SemiLight"
-                       Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
-                       Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-            <TextBlock Grid.Row="3"
-                       Grid.ColumnSpan="2"
-                       Margin="20 16 0 20"
-                       HorizontalAlignment="Left"
-                       FontSize="13"
-                       Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
-                       TextWrapping="Wrap"
-                       Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-            <StackPanel Grid.Row="4"
-                        Grid.ColumnSpan="2"
-                        Margin="20 8 0 20"
-                        Orientation="Horizontal">
-                <Viewbox MaxWidth="15"
+                <Viewbox x:Name="calendarSymbol"
+                         MaxWidth="15"
                          MaxHeight="15"
-                         Margin="0 0 8 0">
+                         Margin="0 0 8 0"
+                         RelativePanel.AlignLeftWith="DescriptionText"
+                         RelativePanel.Below="DescriptionText">
                     <SymbolIcon Foreground="#525252" Symbol="Calendar" />
                 </Viewbox>
-                <TextBlock Margin="0 0 10 0"
+                <TextBlock x:Name="createdText"
+                           Margin="0 0 12 0"
+                           RelativePanel.AlignVerticalCenterWith="calendarSymbol"
+                           RelativePanel.Below="DescriptionText"
+                           RelativePanel.RightOf="calendarSymbol"
                            Style="{StaticResource RepoDetailTextBlockStyle}"
                            Text="Created" />
-                <TextBlock FontSize="13" Text="{x:Bind ViewModel.Repository.CreatedAt.ToString('dd MMM yyyy',{x:Null}),Mode=OneWay}" />
-            </StackPanel>
+                <TextBlock FontSize="13" RelativePanel.RightOf="createdText"
+                           Text="{x:Bind ViewModel.Repository.CreatedAt.ToString('dd MMM yyyy',{x:Null}),Mode=OneWay}"
+                           RelativePanel.Below="DescriptionText"/>
 
-            <StackPanel Grid.Row="5"
-                        Grid.ColumnSpan="2"
-                        Margin="20 0 0 12"
-                        Orientation="Horizontal">
-                <Viewbox MaxWidth="15"
+                <Viewbox x:Name="editSymbol"
+                         MaxWidth="15"
                          MaxHeight="15"
-                         Margin="0 0 8 0">
+                         Margin="0 16 8 0"
+                         RelativePanel.Below="calendarSymbol">
                     <SymbolIcon Foreground="#525252" Symbol="Edit" />
                 </Viewbox>
-                <TextBlock Margin="0 0 10 0"
+                <TextBlock x:Name="editText"
+                           Margin="0 16 12 0"
+                           RelativePanel.AlignVerticalCenterWith="editSymbol"
+                           RelativePanel.Below="calendarSymbol"
+                           RelativePanel.RightOf="editSymbol"
                            Style="{StaticResource RepoDetailTextBlockStyle}"
                            Text="Updated" />
-                <TextBlock VerticalAlignment="Center"
+                <TextBlock Margin="0 16 0 0"
                            FontSize="13"
+                           RelativePanel.Below="calendarSymbol"
+                           RelativePanel.RightOf="editText"
                            Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}, Mode=OneWay}" />
-            </StackPanel>
 
-            <StackPanel Grid.Row="6"
-                        Grid.ColumnSpan="2"
-                        Margin="20 0 0 20"
-                        Orientation="Horizontal">
-                <Viewbox MaxWidth="15"
+                <Viewbox x:Name="issueSymbol"
+                         Margin="0 16 8 0"
+                         MaxWidth="15"
                          MaxHeight="15"
-                         Margin="0 0 8 0">
+                         RelativePanel.Below="editSymbol">
                     <Path Data="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
                           Fill="#525252"
                           StrokeThickness="0" />
                 </Viewbox>
 
-                <TextBlock Margin="0 0 12 0"
+                <TextBlock x:Name="issueText"
+                           Margin="0 16 8 0"
+                           RelativePanel.Below="editSymbol"
+                           RelativePanel.RightOf="issueSymbol"
                            Style="{StaticResource RepoDetailTextBlockStyle}"
                            Text="Issues" />
-                <HyperlinkButton Command="{x:Bind ViewModel.IssuesTapped}" 
-                                 Content="{x:Bind ViewModel.Repository.OpenIssuesCount,FallbackValue='5'}">
+
+                <HyperlinkButton x:Name="issueCount"
+                                 Margin="0 8 16 0"
+                                 Command="{x:Bind ViewModel.IssuesTapped}"
+                                 Content="{x:Bind ViewModel.Repository.OpenIssuesCount}"
+                                 RelativePanel.Below="editSymbol"
+                                 RelativePanel.RightOf="issueText">
                     <HyperlinkButton.ContentTemplate>
                         <DataTemplate>
                             <TextBlock FontSize="15"
@@ -332,35 +334,50 @@
                         </DataTemplate>
                     </HyperlinkButton.ContentTemplate>
                 </HyperlinkButton>
-                
-                <Viewbox MaxWidth="15"
+
+                <Viewbox x:Name="sizeSymbol"
+                         MaxWidth="15"
                          MaxHeight="15"
-                         Margin="20 0 8 0">
-                    <SymbolIcon Symbol="Shop" Foreground="#525252"/>
+                         Margin="0 16 8 0"
+                         RelativePanel.Below="editSymbol"
+                         RelativePanel.RightOf="issueCount">
+                    <SymbolIcon Foreground="#525252" Symbol="Shop" />
                 </Viewbox>
-                <TextBlock Text="Size"
-                           Margin="0 0 12 0"
-                           Style="{StaticResource RepoDetailTextBlockStyle}"/>
-                <TextBlock Text="{x:Bind ViewModel.Repository.Size,Mode=OneWay}"
-                           FontSize="13" Margin="0 0 4 0" VerticalAlignment="Center"/>
-                <TextBlock Text="KB" FontSize="13" VerticalAlignment="Center"/>
-            </StackPanel>
-            
-            <Grid Grid.Row="7"
-                  Grid.ColumnSpan="2">
+                <TextBlock x:Name="sizeText"
+                           Margin="0 16 12 0"
+                           RelativePanel.Below="editSymbol"
+                           RelativePanel.RightOf="sizeSymbol"
+                           Style="{StaticResource RepoDetailTextBlockStyle}"
+                           Text="Size" />
+                <TextBlock x:Name="sizeCount"
+                           FontSize="13"
+                           Margin="0 16 4 0"
+                           RelativePanel.Below="editSymbol"
+                           RelativePanel.RightOf="sizeText"
+                           Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
+                <TextBlock Margin="0 16 0 0"
+                           FontSize="13"
+                           RelativePanel.Below="editSymbol"
+                           RelativePanel.RightOf="sizeCount"
+                           Text="KB" />
+            </RelativePanel>
+
+
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
                 <WebView x:Name="ReadmeWebView"
-                         NavigationCompleted="WebView_NavigationCompleted" 
                          Height="600"
-                         Margin="16 0 16 0"/>
+                         Margin="16 16 16 0"
+                         NavigationCompleted="WebView_NavigationCompleted" />
                 <ProgressRing Width="25"
                               Height="25"
                               Margin="0 12 0 0"
-                              VerticalAlignment="Top"
                               HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
                               Foreground="{StaticResource AppPrimaryColorBrush}"
-                              IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}"/>
+                              IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
             </Grid>
         </Grid>
+        
     </ScrollViewer>
 
 </Page>
