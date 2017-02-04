@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +25,20 @@ namespace CodeHub.Helpers
         /// <param name="target">The object to cast into the given Type</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T To<T>(this object target) => (T)target;
+
+        /// <summary>
+        /// Forgets a task without any warnings
+        /// </summary>
+        /// <param name="task">The task to forget</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Forget([NotNull] this Task task) { }
+
+        /// <summary>
+        /// Forgets a task that returns a value
+        /// </summary>
+        /// <param name="task">The task to forget</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Forget<T>([NotNull] this Task<T> task) { }
 
         /// <summary>
         /// Returns the first element of a specific type in the visual tree of a DependencyObject

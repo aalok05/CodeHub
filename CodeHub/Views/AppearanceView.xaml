@@ -8,8 +8,9 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
@@ -26,14 +27,13 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Grid.Row="0"
-                    HorizontalAlignment="Left"
-                    Orientation="Vertical">
-            <TextBlock Margin="12 12 0 0"
-                       HorizontalAlignment="Left"
+                    Orientation="Vertical"
+                    Margin="12,12,0,0">
+            <TextBlock HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Theme" />
-            <TextBlock Margin="12 12 0 0"
+            <TextBlock Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiLight"
@@ -43,7 +43,7 @@
         <Button x:Name="DarkThemeButton"
                 Height="50"
                 Grid.Row="1"
-                Margin="5 10 5 0"
+                Margin="12 10 5 0"
                 Background="Transparent"
                 Tapped="DarkThemeButton_Tapped">
             <Button.Content>
@@ -52,7 +52,7 @@
                               FontSize="18"
                               Glyph="&#xE708;" />
 
-                     <TextBlock VerticalAlignment="Center"
+                    <TextBlock VerticalAlignment="Center"
                                 FontSize="13"
                                 Text="Turn on dark theme" />
 
@@ -63,7 +63,7 @@
         <Button x:Name="LightThemeButton"
                 Height="50"
                 Grid.Row="1"
-                Margin="5 10 5 0"
+                Margin="12 10 5 0"
                 Background="Transparent"
                 Tapped="LightThemeButton_Tapped">
             <Button.Content>
@@ -81,6 +81,20 @@
 
             </Button.Content>
         </Button>
+
+        <!--Other settings-->
+        <StackPanel Grid.Row="2"
+                    Margin="12,20,0,0"
+                    Visibility="{x:Bind ViewModel.SystemTrayOptionAvailable, FallbackValue=Collapsed}">
+
+            <!--Line numbers-->
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Hide system tray" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.HideSystemTray, Mode=TwoWay}"
+                          Margin="0,4,0,0"/>
+        </StackPanel>
     </Grid>
 
 </local:SettingsDetailPageBase>
