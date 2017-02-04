@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
@@ -16,6 +17,7 @@ using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace CodeHub.Views
 {
@@ -25,6 +27,14 @@ namespace CodeHub.Views
         public CustomFrame AppFrame { get { return this.mainFrame; } }
         public MainPage()
         {
+            this.Loaded += (s, e) =>
+            {
+                if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
+                {
+                    SystemTrayManager.HideAsync().AsTask().Forget();
+                }
+                else SystemTrayManager.TryShowAsync().Forget();
+            };
             this.InitializeComponent();
 
             ViewModel = new MainViewmodel();
@@ -59,7 +69,22 @@ namespace CodeHub.Views
         }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(e.NewSize.Width < 720)
+            // Manage the system tray in landscape mode
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                bool portrait = ApplicationView.GetForCurrentView().Orientation == ApplicationViewOrientation.Portrait;
+                if (portrait)
+                {
+                    if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
+                    {
+                        SystemTrayManager.HideAsync()?.AsTask().Forget();
+                    }
+                    else SystemTrayManager.TryShowAsync().Forget();
+                }
+                else SystemTrayManager.HideAsync()?.AsTask().Forget();
+            }).AsTask().Forget();
+
+            if (e.NewSize.Width < 720)
             {   
                 if (ViewModel.isLoggedin)
                 {

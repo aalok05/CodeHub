@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using CodeHub.Helpers;
@@ -50,6 +50,7 @@ namespace CodeHub.Services
         public const String AppLightThemeEnabled = nameof(AppLightThemeEnabled);
         public const String HighlightStyleIndex = nameof(HighlightStyleIndex);
         public const String ShowLineNumbers = nameof(ShowLineNumbers);
+        public const String HideSystemTray = nameof(HideSystemTray);
         public const String ShowReadme = nameof(ShowReadme);
     }
 }

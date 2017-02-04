@@ -1,5 +1,7 @@
 ﻿using CodeHub.Services;
 using Windows.UI.Xaml;
+using CodeHub.Helpers;
+using CodeHub.ViewModels;
 
 
 namespace CodeHub.Views
@@ -9,7 +11,7 @@ namespace CodeHub.Views
         public AppearanceView()
         {
             this.InitializeComponent();
-
+            this.DataContext = new AppearenceSettingsViewModel();
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
             {
                 DarkThemeButton.Visibility = Visibility.Visible;
@@ -21,6 +23,9 @@ namespace CodeHub.Views
                 LightThemeButton.Visibility = Visibility.Visible;
             }
         }
+
+        public AppearenceSettingsViewModel ViewModel => this.DataContext.To<AppearenceSettingsViewModel>();
+
         private void LightThemeButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             SettingsService.Save(SettingsKeys.AppLightThemeEnabled, true);
@@ -36,6 +41,7 @@ namespace CodeHub.Views
             LightThemeButton.Visibility = Visibility.Visible;
             e.Handled = true;
         }
+
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             if (e.NewState != null)
