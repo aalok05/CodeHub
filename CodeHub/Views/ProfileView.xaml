@@ -108,7 +108,6 @@
                 <TextBlock Text="{x:Bind ViewModel.User.Email,Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.User.Email,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                            FontWeight="SemiLight"
-                           IsTextSelectionEnabled="True"
                            FontSize="12"/>
             </StackPanel>
 
