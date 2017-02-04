@@ -224,6 +224,7 @@
             </Grid.RowDefinitions>
 
             <RelativePanel x:Name="HeaderPanel"
+                           Height="48"
                            Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
 
@@ -304,6 +305,7 @@
                        PaneBackground="Transparent">
                 <SplitView.Pane>
                     <Grid BorderBrush="{ThemeResource SystemChromeLowColor}" BorderThickness="0 0 1 0">
+                        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3"/>
                         <Grid>
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:Blur AutomaticallyStart="True"
