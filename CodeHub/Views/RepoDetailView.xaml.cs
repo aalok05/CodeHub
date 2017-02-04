@@ -73,16 +73,15 @@ namespace CodeHub.Views
             {
                 @"(function()
                 {
-                   var node = document.getElementById('readme');
-                   node.style.marginBottom = '0px';
-                   var body = document.getElementsByTagName('body')[0];
-                   while (body.firstChild) { body.removeChild(body.firstChild); }
-                   body.appendChild(node);
-
+                    var node = document.getElementById('readme');
+                    node.style.marginBottom = '0px';
+                    var body = document.getElementsByTagName('body')[0];
+                    while (body.firstChild) { body.removeChild(body.firstChild); }
+                    body.appendChild(node);
                     var hyperlinks = document.getElementsByTagName('a');
                     for(var i = 0; i < hyperlinks.length; i++)
                     {
-                         hyperlinks[i].setAttribute('target', '_blank');
+                        hyperlinks[i].setAttribute('target', '_blank');
                     }
                 })()"
             });
