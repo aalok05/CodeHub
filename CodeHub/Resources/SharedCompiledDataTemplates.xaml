@@ -97,20 +97,22 @@
                             <VisualState.Setters>
                                 <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
                                 <Setter Target="NameTextBlock.(Grid.Row)" Value="0" />
+                                <Setter Target="NameTextBlock.Margin" Value="12,4,0,0" />
 
                                 <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
                                 <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
-                                <Setter Target="IconTextBlock.Margin" Value="0 4 0 0" />
+                                <Setter Target="IconTextBlock.Margin" Value="0 8 0 0" />
+                                <Setter Target="IconTextBlock.VerticalAlignment" Value="Top" />
 
                                 <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="1" />
                                 <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="1" />
-                                <Setter Target="CommitMessageTextBlock.FontSize" Value="13" />
-                                <Setter Target="CommitMessageTextBlock.Margin" Value="12 8 0 8" />
+                                <Setter Target="CommitMessageTextBlock.FontSize" Value="14" />
+                                <Setter Target="CommitMessageTextBlock.Margin" Value="12 2 0 6" />
 
                                 <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="3" />
                                 <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="0" />
                                 <Setter Target="LastEditTimeTextBlock.FontSize" Value="13" />
-                                <Setter Target="LastEditTimeTextBlock.Margin" Value="4 0 16 8" />
+                                <Setter Target="LastEditTimeTextBlock.Margin" Value="4 6 16 0" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Desktop">
@@ -121,6 +123,7 @@
                                 <Setter Target="IconTextBlock.(Grid.Column)" Value="0" />
                                 <Setter Target="IconTextBlock.(Grid.Row)" Value="0" />
                                 <Setter Target="IconTextBlock.(Grid.RowSpan)" Value="3" />
+                                <Setter Target="IconTextBlock.Margin" Value="0 0 0 0" />
                                 <Setter Target="IconTextBlock.VerticalAlignment" Value="Center" />
 
                                 <Setter Target="NameTextBlock.(Grid.Column)" Value="1" />
@@ -130,11 +133,12 @@
 
                                 <Setter Target="CommitMessageTextBlock.(Grid.Column)" Value="2" />
                                 <Setter Target="CommitMessageTextBlock.(Grid.Row)" Value="0" />
-                                <Setter Target="CommitMessageTextBlock.FontSize" Value="15" />
+                                <Setter Target="CommitMessageTextBlock.FontSize" Value="14" />
+                                <Setter Target="CommitMessageTextBlock.Margin" Value="8,4,16,0"/>
 
                                 <Setter Target="LastEditTimeTextBlock.(Grid.Column)" Value="2" />
                                 <Setter Target="LastEditTimeTextBlock.(Grid.Row)" Value="1" />
-                                <Setter Target="LastEditTimeTextBlock.Margin" Value="8,0,16,0"/>
+                                <Setter Target="LastEditTimeTextBlock.Margin" Value="8,0,16,-2"/>
                                 <Setter Target="LastEditTimeTextBlock.FontSize" Value="13" />
                             </VisualState.Setters>
                         </VisualState>
