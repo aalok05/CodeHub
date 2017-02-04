@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Controls\AlternatingRowListView.cs" />
     <Compile Include="Controls\AnimatedComboBox.cs" />
+    <Compile Include="Controls\AutoHideGrid.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>
@@ -371,6 +372,11 @@
     <Page Include="Controls\UserListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\SVGIconsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Styles\MiscStyles.xaml">
       <SubType>Designer</SubType>

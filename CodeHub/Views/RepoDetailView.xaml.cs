@@ -88,8 +88,10 @@ namespace CodeHub.Views
                 })()"
             });
             webView.Height = double.Parse(heightString);
-            ReadmeLoadingRing.IsActive = false;
+            webView.SetVisualOpacity(0);
             webView.Visibility = Visibility.Visible;
+            webView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
+            ReadmeLoadingRing.IsActive = false;
         }
     }
 }
