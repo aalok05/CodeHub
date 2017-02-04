@@ -17,38 +17,68 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" Orientation="Horizontal"
-                    Margin="0 0 0 10">
-            <StackPanel Orientation="Horizontal" 
-                        VerticalAlignment="Center" 
-                        Margin="10 10 10 2">
-                <TextBlock Text="Branch"
-                       FontSize="13"
-                       Foreground="Gray"/>
-                <TextBlock Text="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
-                       Margin="5 0 0 0"
-                       FontSize="13"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" 
-                        VerticalAlignment="Center" 
-                        Margin="10 10 0 2">
-                <TextBlock Text="Path"
-                       FontSize="13"
-                       Foreground="Gray"/>
-                <TextBlock Text="{x:Bind ViewModel.Path,Mode=OneWay}"
-                       Margin="5 0 0 0"
-                       TextWrapping="Wrap"
-                       FontSize="13"/>
-            </StackPanel>
-        </StackPanel>
 
-        <ScrollViewer Grid.Row="2"
-                  VerticalScrollMode="Enabled"
-                  HorizontalScrollMode="Enabled"
-                  VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto"
-                  Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+        <!--Header-->
+        <controls:AutoHideGrid Background="#FF171717"
+                               Height="48"
+                               x:Name="Header"
+                               VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"
+                                      MaxWidth="140"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Branch-->
+                <Viewbox Height="16"
+                         Width="16"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Margin="8,0,0,0">
+                    <Path Data="{StaticResource RepoForkIcon}"
+                          Fill="{ThemeResource ApplicationForegroundThemeBrush}"
+                          StrokeThickness="0.0"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+                </Viewbox>
+                <TextBlock Text="{x:Bind ViewModel.SelectedBranch,Mode=OneWay, FallbackValue=master}"
+                           Margin="8,0,0,0"
+                           FontSize="14"
+                           Grid.Column="1"
+                           TextTrimming="CharacterEllipsis"
+                           MaxLines="1"
+                           TextWrapping="NoWrap"
+                           VerticalAlignment="Center"/>
+
+                <!--Current path-->
+                <TextBlock FontFamily="Segoe MDL2 Assets"
+                           Text="&#xE211;"
+                           VerticalAlignment="Center"
+                           Grid.Column="2"
+                           FontSize="16"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Margin="12,2,0,0"/>
+                <TextBlock Text="{x:Bind ViewModel.Path, Mode=OneWay, FallbackValue=/}"
+                           Margin="8,0,0,0"
+                           FontSize="14"
+                           Grid.Column="3"
+                           TextTrimming="CharacterEllipsis"
+                           MaxLines="1"
+                           TextWrapping="NoWrap"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </controls:AutoHideGrid>
+
+        <ScrollViewer Grid.Row="1"
+                      x:Name="Scroller"
+                      VerticalScrollMode="Enabled"
+                      HorizontalScrollMode="Enabled"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto"
+                      Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
             <Grid>
 
                 <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
@@ -65,13 +95,13 @@
 
         </ScrollViewer>
 
-        <TextBlock Grid.Row="2" Text="File type not supported"
+        <TextBlock Grid.Row="1" Text="File type not supported"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="Gray"
                    Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"/>
 
-        <ProgressRing Grid.Row="2"
+        <ProgressRing Grid.Row="1"
                       Width="40"
                       Height="40"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>

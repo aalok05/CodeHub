@@ -224,6 +224,7 @@
             </Grid.RowDefinitions>
 
             <RelativePanel x:Name="HeaderPanel"
+                           Height="48"
                            Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
                 <StackPanel x:Name="TopPanel"
