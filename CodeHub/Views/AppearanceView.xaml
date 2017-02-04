@@ -27,13 +27,13 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Grid.Row="0"
-                    Orientation="Vertical">
-            <TextBlock Margin="12 12 0 0"
-                       HorizontalAlignment="Left"
+                    Orientation="Vertical"
+                    Margin="12,12,0,0">
+            <TextBlock HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Theme" />
-            <TextBlock Margin="12 12 0 0"
+            <TextBlock Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiLight"
@@ -43,7 +43,7 @@
         <Button x:Name="DarkThemeButton"
                 Height="50"
                 Grid.Row="1"
-                Margin="5 10 5 0"
+                Margin="12 10 5 0"
                 Background="Transparent"
                 Tapped="DarkThemeButton_Tapped">
             <Button.Content>
@@ -63,7 +63,7 @@
         <Button x:Name="LightThemeButton"
                 Height="50"
                 Grid.Row="1"
-                Margin="5 10 5 0"
+                Margin="12 10 5 0"
                 Background="Transparent"
                 Tapped="LightThemeButton_Tapped">
             <Button.Content>
@@ -83,11 +83,12 @@
         </Button>
 
         <!--Other settings-->
-        <StackPanel Grid.Row="2">
+        <StackPanel Grid.Row="2"
+                    Margin="12,20,0,0"
+                    Visibility="{x:Bind ViewModel.SystemTrayOptionAvailable, FallbackValue=Collapsed}">
 
             <!--Line numbers-->
             <TextBlock HorizontalAlignment="Left"
-                       Margin="0,20,0,0"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Hide system tray" />

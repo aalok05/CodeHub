@@ -76,12 +76,12 @@ namespace CodeHub.Views
                 {
                     if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
                     {
-                        SystemTrayManager.HideAsync().AsTask().Forget();
+                        SystemTrayManager.HideAsync()?.AsTask().Forget();
                     }
                     else SystemTrayManager.TryShowAsync().Forget();
                 }
-                else SystemTrayManager.HideAsync().AsTask().Forget();
-            }); // TODO: add the Forget method after the merge
+                else SystemTrayManager.HideAsync()?.AsTask().Forget();
+            }).AsTask().Forget();
 
             if (e.NewSize.Width < 720)
             {   

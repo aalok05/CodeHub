@@ -20,6 +20,11 @@ namespace CodeHub.Helpers
         }
 
         /// <summary>
+        /// Gets whether or not the system tray is available on the current device
+        /// </summary>
+        public static bool IsAPIAvailable => ApiInformation.IsTypePresent(StatusBarString);
+
+        /// <summary>
         /// Tries to display the status bar
         /// </summary>
         /// <returns>The occluded height if the operation succedes</returns>

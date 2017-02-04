@@ -9,6 +9,8 @@ namespace CodeHub.ViewModels
     /// </summary>
     public class AppearenceSettingsViewModel : AppViewmodel
     {
+        public bool SystemTrayOptionAvailable => SystemTrayManager.IsAPIAvailable;
+
         public bool _HideSystemTray = SettingsService.Get<bool>(SettingsKeys.HideSystemTray);
 
         /// <summary>
