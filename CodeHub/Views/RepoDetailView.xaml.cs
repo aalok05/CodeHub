@@ -1,5 +1,7 @@
 ﻿using System;
+using Windows.Graphics.Display;
 using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,6 +12,7 @@ using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations;
 using Application = Windows.UI.Xaml.Application;
 using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
 using CodeHub.Services;
 
 namespace CodeHub.Views
@@ -57,7 +60,11 @@ namespace CodeHub.Views
 
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
             {
-                ReadmeWebView.Navigate(new Uri(ViewModel.Repository.HtmlUrl));
+                // Manually set the user agent to get the full desktop site
+                String userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop) like Gecko";
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(ViewModel.Repository.HtmlUrl));
+                httpRequestMessage.Headers.Append("User-Agent", userAgent);
+                ReadmeWebView.NavigateWithHttpRequestMessage(httpRequestMessage);
             }
 
             // ReadmeWebview will be hidden untill JS script is executed.
@@ -77,6 +84,7 @@ namespace CodeHub.Views
                 @"(function()
                 {
                     var node = document.getElementById('readme');
+                    if (node == null) return null;
                     node.style.marginBottom = '0px';
                     var body = document.getElementsByTagName('body')[0];
                     while (body.firstChild) { body.removeChild(body.firstChild); }
@@ -89,7 +97,8 @@ namespace CodeHub.Views
                     return body.scrollHeight.toString();
                 })()"
             });
-            webView.Height = double.Parse(heightString);
+            if (heightString == null) return;
+            webView.Height = double.Parse(heightString) / DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
             webView.SetVisualOpacity(0);
             webView.Visibility = Visibility.Visible;
             webView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
