@@ -160,7 +160,7 @@ namespace CodeHub.ViewModels
         }
         public void ProfileTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), ((User)e.ClickedItem).Login, "Profile");
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }
 
         private RelayCommand _followCommand;
@@ -215,7 +215,7 @@ namespace CodeHub.ViewModels
                     ?? (_reposNavigate = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(RepoListView), Developer.Login, "Repositories");
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoListView), "Repositories", Developer.Login);
                                           }));
             }
         }

@@ -222,7 +222,7 @@
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
-    <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\IAsyncNavigationService.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />

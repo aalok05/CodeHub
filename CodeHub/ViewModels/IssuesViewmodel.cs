@@ -232,8 +232,8 @@ namespace CodeHub.ViewModels
 
         public void IssueTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<INavigationService>()
-                            .Navigate(typeof(IssueDetailView), new Tuple<string, string, Issue>(Repository.Owner.Login, Repository.Name, e.ClickedItem as Issue), "Issues");
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
+                            .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<string, string, Issue>(Repository.Owner.Login, Repository.Name, e.ClickedItem as Issue));
         }
     }
 }
