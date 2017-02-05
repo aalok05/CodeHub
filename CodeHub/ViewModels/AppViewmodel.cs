@@ -106,11 +106,11 @@ namespace CodeHub.ViewModels
 
         public void Navigate(Type pageType, string pageTitle)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(pageType, User, pageTitle);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(pageType, pageTitle, User);
         }
         public void GoBack()
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().GoBack();
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
         }
     }
 }

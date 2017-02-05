@@ -52,7 +52,7 @@ namespace CodeHub.Views
                 setHeadertext(m.PageName);
             });
             
-            SimpleIoc.Default.Register<INavigationService>(() =>
+            SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
             { return new NavigationService(mainFrame); });
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
@@ -96,15 +96,15 @@ namespace CodeHub.Views
                 }
             }
         }
-        private async void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (this.AppFrame == null)
-                return;
 
-            if (this.AppFrame.CanGoBack && !e.Handled)
+        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (AppFrame == null) return;
+            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
+            if (service != null && AppFrame.CanGoBack && !e.Handled) // The base CanGoBack is synchronous and not reliable here
             {
                 e.Handled = true;
-                await this.AppFrame.GoBack();
+                service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
             }
         }
         private void HamButton_Click(object sender, RoutedEventArgs e)
@@ -114,7 +114,7 @@ namespace CodeHub.Views
         }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if(SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
+            if(SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
             {
                 ViewModel.HamItemClicked(e.ClickedItem as HamItem);
 
@@ -125,7 +125,7 @@ namespace CodeHub.Views
         }
         private void SettingsItem_ItemClick(object sender, TappedRoutedEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != typeof(SettingsView))
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(SettingsView))
             {
                 ViewModel.NavigateToSettings();
 
@@ -136,17 +136,17 @@ namespace CodeHub.Views
         }
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[0]);
         }
         private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[1]);
         }
         private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[2]);
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -170,7 +170,7 @@ namespace CodeHub.Views
                 if (ViewModel.isLoggedin)
                 {
                     BottomAppBar.Visibility = Visibility.Visible;
-                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView), "Trending");
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
                 }
                 else
                 {
@@ -195,7 +195,7 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView), "Trending");
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
         }
 
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
