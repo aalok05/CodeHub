@@ -375,7 +375,6 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top"
                               Foreground="{StaticResource AppPrimaryColorBrush}"
-                              IsActive="True"
                               IsHitTestVisible="False"
                               x:Name="ReadmeLoadingRing"/>
             </Grid>
