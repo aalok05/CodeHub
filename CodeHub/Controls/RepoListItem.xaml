@@ -18,7 +18,11 @@
                  RelativePanel.AlignLeftWithPanel="True"
                  RelativePanel.AlignTopWithPanel="True">
             <Ellipse.Fill>
-                <ImageBrush ImageSource="/Assets/Images/placeholder.jpg" />
+                <ImageBrush>
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="/Assets/Images/placeholder.jpg" DecodePixelHeight="60" DecodePixelWidth="60" DecodePixelType="Logical"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
             </Ellipse.Fill>
         </Ellipse>
         <Ellipse x:Name="OwnerAvatarEllipse"
@@ -28,7 +32,11 @@
                  RelativePanel.AlignLeftWithPanel="True"
                  RelativePanel.AlignTopWithPanel="True">
             <Ellipse.Fill>
-                <ImageBrush ImageSource="{Binding Owner.AvatarUrl, Mode=OneWay}" />
+                <ImageBrush>
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="{Binding Owner.AvatarUrl, Mode=OneWay}" DecodePixelHeight="60" DecodePixelWidth="60" DecodePixelType="Logical"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
             </Ellipse.Fill>
         </Ellipse>
 

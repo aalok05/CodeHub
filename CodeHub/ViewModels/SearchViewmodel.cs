@@ -382,18 +382,18 @@ namespace CodeHub.ViewModels
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), e.ClickedItem as Repository,"Repository");
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", e.ClickedItem as Repository);
         }
         public void UserDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), (e.ClickedItem as User).Login, "Profile");
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (e.ClickedItem as User).Login);
         }
         public void CodeNavigate(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as SearchCode;
             if (item != null)
             {
-                SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(FileContentView), new Tuple<Repository, string, string>(item.Repository, item.Path, item.Repository.DefaultBranch),item.Repository.FullName);
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FileContentView),item.Repository.FullName, new Tuple<Repository, string, string>(item.Repository, item.Path, item.Repository.DefaultBranch));
             }
         }
         public void IssueNavigate(object sender, ItemClickEventArgs e)
@@ -406,7 +406,7 @@ namespace CodeHub.ViewModels
             string owner = (issue.HtmlUrl.Segments[1]).Replace("/", "");
             string repo = issue.HtmlUrl.Segments[2].Replace("/", "");
 
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(IssueDetailView), new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue),"Issues");
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView),"Issues", new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
         }
 
         private void ChangeVisibilityOfListViews(int selectedSearchItemIndex)

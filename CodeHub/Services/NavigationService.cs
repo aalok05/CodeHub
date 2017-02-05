@@ -1,78 +1,100 @@
 ﻿using CodeHub.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using GalaSoft.MvvmLight;
 using CodeHub.Helpers;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CodeHub.Services
 {
-    public class NavigationService : INavigationService
+    /// <summary>
+    /// A navigation service that implements the IAsyncNavigationService interface
+    /// </summary>
+    public class NavigationService : IAsyncNavigationService
     {
-        public Type CurrentSourcePageType { get; set; }
-        public NavigationService(CustomFrame mainFrame)
+        public Type CurrentSourcePageType { get; private set; }
+
+        /// <summary>
+        /// Gets the frame instance to use when navigating
+        /// </summary>
+        private readonly CustomFrame Frame;
+
+        /// <summary>
+        /// Gets the internal semaphore to synchronize the navigation
+        /// </summary>
+        private readonly SemaphoreSlim NavigationSemaphore = new SemaphoreSlim(1);
+
+        public NavigationService(CustomFrame frame)
         {
-            _mainFrame = mainFrame;
-            _mainFrame.Navigated += OnMainFrameNavigated;
+            Frame = frame;
+            Frame.Navigated += OnFrameNavigated;
         }
 
-        private void OnMainFrameNavigated(object sender, NavigationEventArgs navigationEventArgs)
+        // Refreshes the navigation back button
+        private async void OnFrameNavigated(object sender, NavigationEventArgs navigationEventArgs)
         {
-            CurrentSourcePageType = _mainFrame.CurrentSourcePageType;
-            if (_mainFrame.CanGoBack)
-            {
-                // Show UI in title bar if opted-in and in-app backstack is not empty.
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Visible;
-            }
+            CurrentSourcePageType = Frame.CurrentSourcePageType;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = await CanGoBackAsync() 
+                ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        // Navigates to a target page
+        private async Task<bool> NavigateCoreAsync(Type type, String pageTitle, object parameter)
+        {
+            await NavigationSemaphore.WaitAsync();
+            bool result;
+            if (Frame.CurrentSourcePageType == type) result = true;
             else
             {
-                // Remove the UI from the title bar if in-app back stack is empty.
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Collapsed;
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
+                result = await Frame.Navigate(type, parameter);
             }
+            NavigationSemaphore.Release();
+            return result;
         }
 
-        private CustomFrame _mainFrame;
-        public async void Navigate(Type type, string pageTitle)
+        // Navigation without parameters
+        public Task<bool> NavigateAsync(Type type, String pageTitle) => NavigateCoreAsync(type, pageTitle, null);
+
+        // Navigation with parameters
+        public Task<bool> NavigateAsync(Type type, String pageTitle, object parameter) => NavigateCoreAsync(type, pageTitle, parameter);
+
+        // Straight, synchronous navigation without animations
+        public async void NavigateWithoutAnimations(Type type, String pageTitle)
         {
-           if(_mainFrame.CurrentSourcePageType!= type)
-           {
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
-                await _mainFrame.Navigate(type);
-           }
-        }
-        public async void Navigate(Type type, object parameter, string pageTitle)
-        {
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
-            await _mainFrame.Navigate(type, parameter);
-        }
-        public void NavigateWithoutAnimations(Type type, string pageTitle)
-        {
-            if (_mainFrame.CurrentSourcePageType != type)
+            await NavigationSemaphore.WaitAsync();
+            if (Frame.CurrentSourcePageType != type)
             {
                 Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
-                _mainFrame.NavigateWithoutAnimations(type);
+                Frame.NavigateWithoutAnimations(type);
             }
-                
-        }
-        public bool CanGoBack()
-        {
-            return _mainFrame.CanGoBack;
-        }
-        public async void GoBack()
-        {
-            if (_mainFrame.CanGoBack)
-            {
-               await _mainFrame.GoBack();
-            }
+            NavigationSemaphore.Release();
         }
 
+        // Checks if the app can navigate back
+        public async Task<bool> CanGoBackAsync()
+        {
+            await NavigationSemaphore.WaitAsync();
+            bool check = Frame.CanGoBack;
+            NavigationSemaphore.Release();
+            return check;
+        }
+
+        // Tries to navigate back
+        public async Task<bool> GoBackAsync()
+        {
+            await NavigationSemaphore.WaitAsync();
+            bool result;
+            if (Frame.CanGoBack)
+            {
+                await Frame.GoBack();
+                result = true;
+            }
+            else result = false;
+            NavigationSemaphore.Release();
+            return result;
+        }
     }
 }

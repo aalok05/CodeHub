@@ -260,7 +260,7 @@ namespace CodeHub.ViewModels
         }
         public void NavigateToSearch()
         {
-            if (SimpleIoc.Default.GetInstance<INavigationService>().CurrentSourcePageType != typeof(SearchView))
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(SearchView))
             {
                 foreach (var i in HamItems)
                 {

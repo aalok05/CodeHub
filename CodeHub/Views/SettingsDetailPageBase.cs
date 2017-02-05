@@ -10,9 +10,9 @@ namespace CodeHub.Views
         {
             if (stateName == "Desktop")
             {
-                if (SimpleIoc.Default.GetInstance<Services.INavigationService>().CurrentSourcePageType != typeof(SettingsView))
+                if (SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().CurrentSourcePageType != typeof(SettingsView))
                 {
-                    SimpleIoc.Default.GetInstance<Services.INavigationService>().GoBack();
+                    SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
                 }
             }
         }

@@ -227,29 +227,28 @@
                            Height="48"
                            Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
-                <StackPanel x:Name="TopPanel"
-                            Orientation="Horizontal"
-                            RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Button Name="HamButton"
-                            Click="HamButton_Click"
-                            Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
 
-                    <Grid Margin="12,0,0,0">
-                        <TextBlock Name="HeaderText"
-                                   VerticalAlignment="Center"
-                                   FontFamily="Segoe UI"
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                   Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
-                    </Grid>
-                </StackPanel>
+                <Button Name="HamButton"
+                        Click="HamButton_Click"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
+
+                <Grid Margin="12,0,0,0"
+                      RelativePanel.AlignVerticalCenterWith="HamButton"
+                      RelativePanel.RightOf="HamButton">
+                    <TextBlock Name="HeaderText"
+                               FontFamily="Segoe UI"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                               Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                </Grid>
                 <Viewbox x:Name="SearchButton"
                          MaxWidth="21"
                          MaxHeight="21"
                          Margin="0 0 15 0"
                          RelativePanel.AlignRightWithPanel="True"
-                         RelativePanel.AlignVerticalCenterWith="TopPanel"
+                         RelativePanel.AlignVerticalCenterWith="HamButton"
                          Tapped="{x:Bind ViewModel.NavigateToSearch}">
                     <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find">
                         <interactivity:Interaction.Behaviors>
@@ -306,7 +305,7 @@
                        PaneBackground="Transparent">
                 <SplitView.Pane>
                     <Grid BorderBrush="{ThemeResource SystemChromeLowColor}" BorderThickness="0 0 1 0">
-                        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3"/>
+                        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
                         <Grid>
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:Blur AutomaticallyStart="True"
@@ -318,56 +317,38 @@
                         <RelativePanel Name="HamRelative"
                                        Padding="0 10 0 0"
                                        Background="Transparent">
-                            <Grid x:Name="UserPicPanel"
-                                  RelativePanel.AlignLeftWithPanel="True"
-                                  RelativePanel.AlignTopWithPanel="True">
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="3*" />
-                                    <RowDefinition Height="1*" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                    <Grid Margin="15 10 10 10">
-                                        <Ellipse Grid.Row="0"
-                                                 Width="85"
-                                                 Height="85">
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="ms-appx:///Assets/profile-placeholder.png" />
-                                            </Ellipse.Fill>
-                                        </Ellipse>
-                                        <Ellipse x:Name="avatarEllipse"
-                                                 Grid.Row="0"
-                                                 Width="85"
-                                                 Height="85"
-                                                 HorizontalAlignment="Center"
-                                                 Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
-                                            </Ellipse.Fill>
-                                        </Ellipse>
-                                        <ProgressRing x:Name="ProfilePicProgressRing"
-                                                      Grid.Row="0"
-                                                      Width="25"
-                                                      Height="25"
-                                                      IsActive="{x:Bind ViewModel.isStartLoading, Mode=OneWay}" />
-                                    </Grid>
-                                    <StackPanel VerticalAlignment="Center"
-                                                Orientation="Vertical"
-                                                Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <TextBlock Margin="0 0 0 4"
-                                                   FontSize="14"
-                                                   FontWeight="Medium"
-                                                   Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
-                                        <TextBlock Margin="0 0 0 10"
-                                                   FontSize="11.5"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                   Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
-                                    </StackPanel>
-
-                                </StackPanel>
-
-                            </Grid>
+                            <Ellipse x:Name="avatarEllipse"
+                                     Width="85"
+                                     Height="85"
+                                     Margin="15 10 10 10"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.AlignTopWithPanel="True"
+                                     Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ProgressRing x:Name="ProfilePicProgressRing"
+                                          Width="25"
+                                          Height="25"
+                                          Margin="36 10 10 10"
+                                          RelativePanel.AlignVerticalCenterWith="avatarEllipse"
+                                          IsActive="{x:Bind ViewModel.isStartLoading, Mode=OneWay}" />
+                            <StackPanel RelativePanel.RightOf="avatarEllipse"
+                                        RelativePanel.AlignVerticalCenterWith="avatarEllipse"
+                                        Orientation="Vertical"
+                                        Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Margin="0 0 0 4"
+                                           FontSize="14"
+                                           FontWeight="Medium"
+                                           Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                                <TextBlock Margin="0 0 0 10"
+                                           FontSize="11.5"
+                                           FontWeight="SemiBold"
+                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                           Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
+                            </StackPanel>
 
                             <ListView Name="HamListView"
                                       Width="270"
@@ -376,7 +357,7 @@
                                       ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                       ItemTemplate="{StaticResource HamMenuItemTemplate}"
                                       ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
-                                      RelativePanel.Below="UserPicPanel"
+                                      RelativePanel.Below="avatarEllipse"
                                       SelectionMode="Single" />
 
                             <ListView x:Name="HamListViewBottom"
