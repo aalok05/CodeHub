@@ -23,24 +23,14 @@
                              Margin="15,20,0,0"
                              VerticalAlignment="Top"
                              Command="{x:Bind ViewModel.UserTapped}">
-                <Grid>
-                    <Border Width="23"
+                <Border Width="23"
                             Height="23"
                             Margin="0,0,10,0"
                             CornerRadius="8,8,8,8">
                         <Border.Background>
-                            <ImageBrush ImageSource="/Assets/Images/placeholder.jpg" />
+                            <ImageBrush ImageSource="{x:Bind ViewModel.Comment.User.AvatarUrl,FallbackValue='/Assets/Images/placeholder.jpg', Mode=OneWay}" />
                         </Border.Background>
-                    </Border>
-                    <Border Width="23"
-                            Height="23"
-                            Margin="0,0,10,0"
-                            CornerRadius="8,8,8,8">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.Comment.User.AvatarUrl, Mode=OneWay}" />
-                        </Border.Background>
-                    </Border>
-                </Grid>
+                </Border>
             </HyperlinkButton>
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <HyperlinkButton Margin="0,20,0,5"
