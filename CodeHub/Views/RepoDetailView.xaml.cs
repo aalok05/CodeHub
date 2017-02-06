@@ -25,6 +25,8 @@ namespace CodeHub.Views
         public RepoDetailViewmodel ViewModel;
         public RepoDetailView()
         {
+            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(MainScroller);
+            this.Unloaded += (s, e) => TopScroller.Dispose();
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
@@ -135,6 +137,12 @@ namespace CodeHub.Views
             {
                 Launcher.LaunchUriAsync(new Uri(url)).AsTask().Forget();
             }
+        }
+
+        // Scrolls the page content back to the top
+        private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
+        {
+            MainScroller.ChangeView(null, 0, null, false);
         }
     }
 }
