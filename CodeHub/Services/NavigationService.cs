@@ -45,12 +45,10 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
             bool result;
-            if (Frame.CurrentSourcePageType == type) result = true;
-            else
-            {
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
-                result = await Frame.Navigate(type, parameter);
-            }
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
+            result = await Frame.Navigate(type, parameter);
+
             NavigationSemaphore.Release();
             return result;
         }
