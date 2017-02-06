@@ -20,6 +20,7 @@
             <Setter Property="TextAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
+        <converters:RepositoryCreationTimeConverter x:Key="RepoCreationTimeConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
         <converters:DateFormatConverter x:Key="DateFormatConverter" x:Name="DateFormatConverter" />
@@ -279,7 +280,7 @@
                            Style="{StaticResource RepoDetailTextBlockStyle}"
                            Text="Created" />
                 <TextBlock FontSize="13" RelativePanel.RightOf="createdText"
-                           Text="{x:Bind ViewModel.Repository.CreatedAt.ToString('dd MMM yyyy',{x:Null}),Mode=OneWay}"
+                           Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepoCreationTimeConverter}, Mode=OneWay}"
                            RelativePanel.Below="DescriptionText"/>
 
                 <Viewbox x:Name="editSymbol"
