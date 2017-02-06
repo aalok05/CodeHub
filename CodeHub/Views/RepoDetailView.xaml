@@ -263,20 +263,35 @@
                                   RelativePanel.RightOf="ViewCodeButton" />
 
                     <!--Repo language-->
-                    <TextBlock x:Name="LanguageText"
-                               Padding="0 12 20 8"
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               FontWeight="SemiLight"
-                               RelativePanel.AlignLeftWith="StarButton"
-                               RelativePanel.Below="StarButton"
-                               Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
-                               Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                    <Grid RelativePanel.AlignLeftWith="StarButton"
+                          RelativePanel.Below="StarButton"
+                          x:Name="LanguageGrid"
+                          Margin="0,12,0,0"
+                          Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Stretch="UniformToFill"
+                                 Width="28"
+                                 Height="28"
+                                 HorizontalAlignment="Left"
+                                 Fill="{x:Bind ViewModel.LanguageColor, Mode=OneWay}"/>
+                        <TextBlock Grid.Column="1"
+                                   Margin="12,0,8,0"
+                                   TextWrapping="NoWrap"
+                                   MaxLines="1"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Normal"
+                                   Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"/>
+                    </Grid>
                     <TextBlock x:Name="DescriptionText"
                                Margin="0 16 0 20"
                                FontSize="13"
-                               RelativePanel.AlignLeftWith="LanguageText"
-                               RelativePanel.Below="LanguageText"
+                               RelativePanel.AlignLeftWith="LanguageGrid"
+                               RelativePanel.Below="LanguageGrid"
                                Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
                                TextWrapping="Wrap"
                                Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
