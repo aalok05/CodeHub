@@ -40,8 +40,8 @@ namespace CodeHub.Views
                     FavoriteBlock.Foreground = brush;
                     BranchPath.Fill = brush;
                     BranchBlock.Foreground = brush;
-                    BranchPath.Fill = brush;
-                    BranchBlock.Foreground = brush;
+                    watchPath.Fill = brush;
+                    WatchBlock.Foreground = brush;
 
                 }
                 else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
