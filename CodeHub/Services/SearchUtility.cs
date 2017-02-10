@@ -10,7 +10,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
+                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchRepositoriesRequest(query);
                 var result = await client.Search.SearchRepo(request);
                 ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
@@ -30,7 +30,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
+                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchCodeRequest(query);
                 var result = await client.Search.SearchCode(request);
                 ObservableCollection<SearchCode> codes = new ObservableCollection<SearchCode>();
@@ -50,7 +50,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
+                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchUsersRequest(query);
                 var result = await client.Search.SearchUsers(request);
                 ObservableCollection<User> users = new ObservableCollection<User>();
@@ -70,7 +70,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserDataService.getAuthenticatedClient();
+                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchIssuesRequest(query);
                 var result = await client.Search.SearchIssues(request);
                 ObservableCollection<Issue> issues = new ObservableCollection<Issue>();

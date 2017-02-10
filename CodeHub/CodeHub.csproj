@@ -278,7 +278,6 @@
     <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\RepositoryUtility.cs" />
-    <Compile Include="Services\UserDataService.cs" />
     <Compile Include="ViewModels\AppViewmodel.cs" />
     <Compile Include="ViewModels\HomeViewmodel.cs" />
     <Compile Include="ViewModels\MainViewmodel.cs" />

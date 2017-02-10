@@ -68,7 +68,7 @@ namespace CodeHub.ViewModels
                 {
                     if (GlobalHelper.NewFollowActivity)
                     {
-                        User = await UserUtility.getUserInfo(User.Login);
+                        User = await UserUtility.GetUserInfo(User.Login);
                         GlobalHelper.NewFollowActivity = false;
                     }
 
@@ -84,12 +84,12 @@ namespace CodeHub.ViewModels
                     {
                         if (User.Followers < 300 && User.Followers > 0)
                         {
-                            Followers = await UserDataService.getAllFollowers(User.Login);
+                            Followers = await UserUtility.GetAllFollowers(User.Login);
                         }
 
                         if (User.Following < 300 && User.Following > 0)
                         {
-                            Following = await UserDataService.getAllFollowing(User.Login);
+                            Following = await UserUtility.GetAllFollowing(User.Login);
                         }
                     }
                 }

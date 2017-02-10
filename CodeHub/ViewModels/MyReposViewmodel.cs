@@ -177,7 +177,7 @@ namespace CodeHub.ViewModels
         }
         private async Task LoadRepos()
         {
-            var repos = await UserDataService.getUserRepositories();
+            var repos = await UserUtility.GetUserRepositories();
             if (repos.Count == 0 || repos == null)
             {
                 ZeroRepo = true;
@@ -194,7 +194,7 @@ namespace CodeHub.ViewModels
         }
         private async Task LoadStarRepos()
         {
-            var starred = await UserDataService.getStarredRepositories();
+            var starred = await UserUtility.GetStarredRepositories();
             if (starred.Count == 0 || starred == null)
             {
                 ZeroStarRepo = true;

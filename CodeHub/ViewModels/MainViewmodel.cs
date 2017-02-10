@@ -135,7 +135,7 @@ namespace CodeHub.ViewModels
 
                                               if (await service.Authenticate())
                                               { 
-                                                  var user = await UserDataService.getUserInfo();
+                                                  var user = await UserUtility.GetCurrentUserInfo();
                                                   if (user != null)
                                                   {
                                                       GlobalHelper.UserLogin = user.Login;
@@ -147,7 +147,7 @@ namespace CodeHub.ViewModels
                                                           /*  If User's email is not visible publicly, the email field will return null
                                                            *  In this case we have to get the email separately
                                                            */
-                                                           this.Email = await UserDataService.getUserEmail();
+                                                           this.Email = await UserUtility.GetUserEmail();
                                                       }
                                                       else
                                                       {
@@ -206,7 +206,7 @@ namespace CodeHub.ViewModels
                                                   isStartLoading = true;
                                                   if (isLoggedin == true)
                                                   {
-                                                      var user = await UserDataService.getUserInfo();
+                                                      var user = await UserUtility.GetCurrentUserInfo();
 
                                                       if (user != null)
                                                       {
@@ -219,7 +219,7 @@ namespace CodeHub.ViewModels
                                                               /*  If User's email is not visible publicly, the email field will return null
                                                               *   In this case we have to get the email separately
                                                               */
-                                                              this.Email = await UserDataService.getUserEmail();
+                                                              this.Email = await UserUtility.GetUserEmail();
                                                           }
                                                           else
                                                           {
