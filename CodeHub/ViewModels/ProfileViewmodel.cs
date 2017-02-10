@@ -72,9 +72,6 @@ namespace CodeHub.ViewModels
                         GlobalHelper.NewFollowActivity = false;
                     }
 
-                    // Load the user images
-                    await TryLoadUserAvatarImagesAsync();
-
                     isLoggedin = true;
                     if (User.Type == AccountType.Organization)
                     {
