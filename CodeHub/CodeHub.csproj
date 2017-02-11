@@ -213,7 +213,6 @@
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Helpers\SystemTrayManager.cs" />
@@ -278,7 +277,6 @@
     <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\RepositoryUtility.cs" />
-    <Compile Include="Services\UserDataService.cs" />
     <Compile Include="ViewModels\AppViewmodel.cs" />
     <Compile Include="ViewModels\HomeViewmodel.cs" />
     <Compile Include="ViewModels\MainViewmodel.cs" />
