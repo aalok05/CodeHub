@@ -20,26 +20,27 @@
 
     <Grid>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Narrow">
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Mobile">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="320" />
                     </VisualState.StateTriggers>
                 </VisualState>
-                <VisualState x:Name="Normal">
+                <VisualState x:Name="Desktop">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserPic.Width" Value="150"/>
                         <Setter Target="UserPic.Height" Value="150"/>
                         <Setter Target="UserNameText.FontSize" Value="25"/>
                         <Setter Target="LoginText.FontSize" Value="16"/>
+
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="Wide">
+                <VisualState x:Name="DesktopEx">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}"/>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="UserPic.Width" Value="190"/>
@@ -50,6 +51,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+       
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1.4*"/>

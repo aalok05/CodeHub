@@ -12,19 +12,6 @@
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
     </UserControl.Resources>
     <RelativePanel Margin="8,0,0,0">
-        <Ellipse Width="60"
-                 Height="60"
-                 Margin="0,10,10,5"
-                 RelativePanel.AlignLeftWithPanel="True"
-                 RelativePanel.AlignTopWithPanel="True">
-            <Ellipse.Fill>
-                <ImageBrush>
-                    <ImageBrush.ImageSource>
-                        <BitmapImage UriSource="/Assets/Images/placeholder.jpg" DecodePixelHeight="60" DecodePixelWidth="60" DecodePixelType="Logical"/>
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Ellipse.Fill>
-        </Ellipse>
         <Ellipse x:Name="OwnerAvatarEllipse"
                  Width="60"
                  Height="60"
@@ -34,7 +21,7 @@
             <Ellipse.Fill>
                 <ImageBrush>
                     <ImageBrush.ImageSource>
-                        <BitmapImage UriSource="{Binding Owner.AvatarUrl, Mode=OneWay}" DecodePixelHeight="60" DecodePixelWidth="60" DecodePixelType="Logical"/>
+                        <BitmapImage UriSource="{Binding Owner.AvatarUrl,FallbackValue='/Assets/Images/placeholder.jpg',Mode=OneWay}" DecodePixelHeight="60" DecodePixelWidth="60" DecodePixelType="Logical"/>
                     </ImageBrush.ImageSource>
                 </ImageBrush>
             </Ellipse.Fill>

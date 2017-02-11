@@ -58,7 +58,7 @@
                 
                 <!--Current path-->
                 <TextBlock FontFamily="Segoe MDL2 Assets"
-                           Text="&#xE211;"
+                           Text="&#xED43;"
                            VerticalAlignment="Center"
                            Grid.Column="2"
                            FontSize="16"

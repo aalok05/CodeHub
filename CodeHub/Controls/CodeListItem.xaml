@@ -10,17 +10,6 @@
     d:DesignWidth="400">
 
     <RelativePanel Margin="7 0 0 0">
-        <Border 
-             Margin="0 10 10 5"
-             Width="35" 
-             Height="35"
-             RelativePanel.AlignTopWithPanel="True"
-             RelativePanel.AlignLeftWithPanel="True"
-             CornerRadius="8,8,8,8">
-            <Border.Background>
-                <ImageBrush ImageSource="/Assets/Images/placeholder.jpg"/>
-            </Border.Background>
-        </Border>
         <Border
                 x:Name="OwnerAvatarEllipse"
                 Margin="0 10 10 5"
@@ -30,7 +19,7 @@
                 RelativePanel.AlignLeftWithPanel="True"
                 CornerRadius="8,8,8,8">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding Repository.Owner.AvatarUrl,Mode=OneWay}"/>
+                <ImageBrush ImageSource="{Binding Repository.Owner.AvatarUrl,FallbackValue='/Assets/Images/placeholder.jpg',Mode=OneWay}"/>
             </Border.Background>
         </Border>
 

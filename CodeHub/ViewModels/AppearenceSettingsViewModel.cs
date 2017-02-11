@@ -31,5 +31,24 @@ namespace CodeHub.ViewModels
                 }
             }
         }
+
+        public bool _AppLightThemeEnabled = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled);
+
+        /// <summary>
+        /// Gets or sets if Light theme is enabled
+        /// </summary>
+        public bool AppLightThemeEnabled
+        {
+            get { return _AppLightThemeEnabled; }
+            set
+            {
+                if (_AppLightThemeEnabled != value)
+                {
+                    _AppLightThemeEnabled = value;
+                    SettingsService.Save(SettingsKeys.AppLightThemeEnabled, value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
     }
 }

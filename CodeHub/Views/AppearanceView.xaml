@@ -39,48 +39,12 @@
                        FontWeight="SemiLight"
                        Text="Theme changes require app restart"
                        TextWrapping="Wrap" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.AppLightThemeEnabled, Mode=TwoWay}"
+                      OnContent="Light Theme"
+                      OffContent="Dark Theme"
+                      Margin="0,8,0,0"/>
         </StackPanel>
-        <Button x:Name="DarkThemeButton"
-                Height="50"
-                Grid.Row="1"
-                Margin="12 10 5 0"
-                Background="Transparent"
-                Tapped="DarkThemeButton_Tapped">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <FontIcon Margin="0 0 10 0"
-                              FontSize="18"
-                              Glyph="&#xE708;" />
 
-                    <TextBlock VerticalAlignment="Center"
-                                FontSize="13"
-                                Text="Turn on dark theme" />
-
-                </StackPanel>
-
-            </Button.Content>
-        </Button>
-        <Button x:Name="LightThemeButton"
-                Height="50"
-                Grid.Row="1"
-                Margin="12 10 5 0"
-                Background="Transparent"
-                Tapped="LightThemeButton_Tapped">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <FontIcon Margin="0 0 10 0"
-                              FontSize="18"
-                              Glyph="&#xE706;" />
-
-                    <TextBlock VerticalAlignment="Center"
-                               FontSize="13"
-                               Text="Turn on light theme" />
-
-
-                </StackPanel>
-
-            </Button.Content>
-        </Button>
 
         <!--Other settings-->
         <StackPanel Grid.Row="2"

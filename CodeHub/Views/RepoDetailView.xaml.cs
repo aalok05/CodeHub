@@ -30,17 +30,19 @@ namespace CodeHub.Views
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
-            ReadmeLoadingRing.IsActive = true;
             await ViewModel.Load(e.Parameter as Repository);
 
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
             {
+                ReadmeLoadingRing.IsActive = true;
                 // Manually set the user agent to get the full desktop site
                 String userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop) like Gecko";
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(ViewModel.Repository.HtmlUrl));
                 httpRequestMessage.Headers.Append("User-Agent", userAgent);
                 ReadmeWebView.NavigateWithHttpRequestMessage(httpRequestMessage);
             }
+            else
+                ReadmeLoadingRing.IsActive = false;
 
             // ReadmeWebview will be hidden untill JS script is executed.
             ReadmeWebView.Visibility = Visibility.Collapsed;

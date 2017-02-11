@@ -118,6 +118,7 @@
     </Page.Resources>
     <Page.BottomAppBar>
         <CommandBar x:Name="BottomAppBar"
+                    x:DeferLoadStrategy="Lazy"
                     Background="{ThemeResource SystemChromeLowColor}"
                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
 

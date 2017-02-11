@@ -61,7 +61,7 @@ namespace CodeHub.Views
 
             if (ViewModel.CurrentState == "Mobile")
             {
-                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(setting.DestPage, "Settings");
+                await SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(setting.DestPage, "Settings");
 
                 //Loading the page in settingsFrame also so that the page is visible in Desktop mode.
                 await settingsFrame.Navigate(setting.DestPage);

@@ -153,34 +153,26 @@ namespace CodeHub.Views
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
 
+            /* This has to be done because the visibilty of BottomAppBar is dependent on screen size as well as isLoggedin property
+             * If visibility is bound with isLoggedin, it will disregard VisualStateManager at first loading of Page.
+             */
+            if (ViewModel.isLoggedin)
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+                if (Window.Current.Bounds.Width < 720)
+                {
+                    FindName("BottomAppBar");
+                    ViewModel.CurrentState = "Mobile";
+                }
+                else
+                    ViewModel.CurrentState = "Desktop";
+            }
+
             //Listening for Sign In message
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
 
             //listen for sign out message
             Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
-
-            /* This has to be done because the visibilty of BottomAppBar
-             * is dependent on screen size as well as isLoggedin property
-             * If visibility is bound with isLoggedin, it will disregard 
-             * VisualStateManager at first loading of Page.
-             * */
-            if (Window.Current.Bounds.Width < 720)
-            {
-                ViewModel.CurrentState = "Mobile";
-                if (ViewModel.isLoggedin)
-                {
-                    BottomAppBar.Visibility = Visibility.Visible;
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
-                }
-                else
-                {
-                    BottomAppBar.Visibility = Visibility.Collapsed;
-                }
-            }
-            else
-            {
-                ViewModel.CurrentState = "Desktop";
-            }
         }
         public void RecieveSignOutMessage(SignOutMessageType empty)
         {
@@ -195,7 +187,10 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
-            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(HomeView))
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+            }
         }
 
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
