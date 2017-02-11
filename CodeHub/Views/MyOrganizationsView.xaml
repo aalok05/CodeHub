@@ -1,0 +1,57 @@
+﻿<Page x:Class="CodeHub.Views.MyOrganizationsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:CodeHub.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:octo="using:Octokit"
+      xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:userControls="using:CodeHub.Controls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
+        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <toolkitControl:PullToRefreshListView x:Name="OrganizationsListView"
+                                              IsItemClickEnabled="True"
+                                              ItemClick="{x:Bind ViewModel.OrganizationDetailNavigateCommand}"
+                                              IsPullToRefreshWithMouseEnabled="True"
+                                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                              ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}"
+                                              OverscrollLimit="0.4"
+                                              PullProgressChanged="OrganizationsList_PullProgressChanged"
+                                              PullThreshold="100"
+                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
+                                              ScrollViewer.HorizontalScrollMode="Disabled">
+
+            <toolkitControl:PullToRefreshListView.ItemTemplate>
+
+                <DataTemplate x:DataType="octo:Organization">
+                    <userControls:OrganizationListItem ManipulationMode="System" />
+                </DataTemplate>
+            </toolkitControl:PullToRefreshListView.ItemTemplate>
+            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+
+                <Border x:Name="refreshindicator"
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Center"
+                        CornerRadius="30" />
+            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+        </toolkitControl:PullToRefreshListView>
+
+        <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                   Text="You have no organizations yet"
+                   Visibility="{x:Bind ViewModel.ZeroOrganizations, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+        <ProgressRing x:Name="RefreshProgressRing"
+                      Width="50"
+                      Height="50"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+    </Grid>
+</Page>

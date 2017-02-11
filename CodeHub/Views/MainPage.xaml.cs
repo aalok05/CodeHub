@@ -134,6 +134,8 @@ namespace CodeHub.Views
                     HamSplitView.IsPaneOpen = false;
             }
         }
+
+        #region App Bar Events
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
@@ -149,6 +151,12 @@ namespace CodeHub.Views
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[2]);
         }
+        private void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[3].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
+        }
+        #endregion
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
