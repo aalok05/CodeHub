@@ -26,16 +26,11 @@
         <toolkitControl:PullToRefreshListView x:Name="FeedListView"
                                               IsItemClickEnabled="False"
                                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
+                                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                                               OverscrollLimit="0.4"
                                               PullProgressChanged="AllRepos_PullProgressChanged"
                                               PullThreshold="100"
                                               RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
-
-            <toolkitControl:PullToRefreshListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </toolkitControl:PullToRefreshListView.ItemContainerStyle>
             <toolkitControl:PullToRefreshListView.ItemTemplate>
                 <DataTemplate x:DataType="octo:Activity">
                     <Button Style="{StaticResource EmptyButtonStyle}">
