@@ -46,14 +46,14 @@ namespace CodeHub.Views
         {
             //The following navigation to DeveloperProfileView does not work because we do not get hold of Actor.Login from this click event
 
-            //SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), ((Activity)e.OriginalSource).Actor.Login);
+            //SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView),"Profile", ((Activity)e.OriginalSource).Actor.Login);
 
         }
         private void Repo_Click(object sender, RoutedEventArgs e)
         {
             //The following navigation to RepoDetailView does not work because we do not get hold of Repository from this click event
 
-            //SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), ((Activity)e.OriginalSource).Repo as Repository);
+            //SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", ((Activity)e.OriginalSource).Repo as Repository);
         }
     }
 }
