@@ -37,8 +37,12 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
             await ViewModel.Load(e.Parameter as string);
+
+            if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
+            else
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
         }
     }
 }

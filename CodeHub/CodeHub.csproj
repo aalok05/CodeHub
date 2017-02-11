@@ -193,6 +193,9 @@
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OrganizationListItem.xaml.cs">
+      <DependentUpon>OrganizationListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,7 @@
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\IAsyncNavigationService.cs" />
+    <Compile Include="Services\OrganizationsUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
@@ -235,6 +239,7 @@
     <Compile Include="ViewModels\FileContentViewmodel.cs" />
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
+    <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\RepoListViewmodel.cs" />
     <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
@@ -287,6 +292,9 @@
     <Compile Include="ViewModels\SettingsViewmodel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyOrganizationsView.xaml.cs">
+      <DependentUpon>MyOrganizationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MyReposView.xaml.cs">
       <DependentUpon>MyReposView.xaml</DependentUpon>
@@ -375,6 +383,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\OrganizationListItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\RepoListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -457,6 +469,10 @@
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MyOrganizationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MyReposView.xaml">
       <SubType>Designer</SubType>
