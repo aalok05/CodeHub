@@ -138,23 +138,33 @@ namespace CodeHub.Views
         #region App Bar Events
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to Trending page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[0]);
         }
-        private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        private void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to News feed page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[1]);
         }
+        private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //Navigate to Profile page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+        }
         private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to My Repositories page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
-                ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
         }
         private void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to My Organizations page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[3].DestPage)
-                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
+                ViewModel.HamItemClicked(ViewModel.HamItems[4]);
         }
         #endregion
         protected override void OnNavigatedTo(NavigationEventArgs e)
