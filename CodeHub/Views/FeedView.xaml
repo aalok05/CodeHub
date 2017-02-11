@@ -1,0 +1,125 @@
+﻿<Page
+    x:Class="CodeHub.Views.FeedView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:octo="using:Octokit"
+    xmlns:converters="using:CodeHub.Converters"
+    xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:xaml="using:Microsoft.Toolkit.Uwp.UI"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}"/>
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Page.Resources>
+        <converters:EventTypeToSymbolConverter x:Name="EventTypeToSymbolConverter" x:Key="EventTypeToSymbolConverter"/>
+        <converters:DateFormatConverter x:Name="DateFormatConverter" x:Key="DateFormatConverter"/>
+        <converters:BooleanToVisibilityConverter x:Name="BooleanToVisibilityConverter" x:Key="BooleanToVisibilityConverter"/>
+        <converters:EventTypeToActionStringConverter x:Name="EventTypeToActionStringConverter" x:Key="EventTypeToActionStringConverter"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+        <toolkitControl:PullToRefreshListView 
+                        x:Name="FeedListView"
+                        ItemsSource="{x:Bind ViewModel.Events,Mode=OneWay}"
+                        IsItemClickEnabled="False"
+                        OverscrollLimit="0.4"
+                        PullThreshold="100"
+                        RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
+                        PullProgressChanged="AllRepos_PullProgressChanged">
+
+            <toolkitControl:PullToRefreshListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </toolkitControl:PullToRefreshListView.ItemContainerStyle>
+            <toolkitControl:PullToRefreshListView.ItemTemplate>
+                <DataTemplate x:DataType="octo:Activity">
+                    <Button Style="{StaticResource EmptyButtonStyle}">
+                        <RelativePanel>
+                            <StackPanel Orientation="Horizontal"
+                                        x:Name="NotifPanel">
+                                <Path
+                                  Data="{x:Bind Type,Converter={StaticResource EventTypeToSymbolConverter}}"
+                                  StrokeThickness="0"
+                                  Margin="10 10 5 5"
+                                  Fill="{StaticResource NavItemForegroundColorBrush}"/>
+
+                                <HyperlinkButton Content="{x:Bind Actor.Login}"
+                                         Click="User_Click"
+                                         Margin="0 0 3 0">
+                                    <HyperlinkButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" FontSize="13.5"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                        </DataTemplate>
+                                    </HyperlinkButton.ContentTemplate>
+                                </HyperlinkButton>
+
+                                <TextBlock Text="{x:Bind Type,Converter={StaticResource EventTypeToActionStringConverter},Mode=OneWay}" 
+                                   FontWeight="SemiLight" 
+                                   Margin="3 0 3 0"
+                                   FontSize="13"
+                                   VerticalAlignment="Center"/>
+
+                                <HyperlinkButton Content="{x:Bind Repo.Name}"
+                                         Click="Repo_Click"
+                                         Margin="0 0 3 0">
+                                    <HyperlinkButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" FontSize="13.5"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                        </DataTemplate>
+                                    </HyperlinkButton.ContentTemplate>
+                                </HyperlinkButton>
+                               
+                            </StackPanel>
+                          
+                            <TextBlock  RelativePanel.Below="NotifPanel"
+                                        RelativePanel.AlignLeftWith="NotifPanel"
+                                        Text="{x:Bind CreatedAt,Converter={StaticResource DateFormatConverter}}"
+                                        FontSize="13"
+                                        Margin="10 0 0 0"
+                                        VerticalAlignment="Center"/>
+                        </RelativePanel>
+                    </Button>
+                    
+                </DataTemplate>
+            </toolkitControl:PullToRefreshListView.ItemTemplate>
+            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+
+                <Border HorizontalAlignment="Center"
+                                 x:Name="refreshindicator"
+                                 CornerRadius="30"
+                                 Height="20" 
+                                 Width="20" >
+
+                </Border>
+            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+        </toolkitControl:PullToRefreshListView>
+        
+        <ProgressRing HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      Width="40"
+                      Height="40"
+                      Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+        <TextBlock     
+                       Style="{StaticResource ZeroItemsTextBoxStyle}"
+                       Text="You have no Events yet"
+                       Visibility="{x:Bind ViewModel.ZeroEventCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+
+        </TextBlock>
+    </Grid>
+</Page>
