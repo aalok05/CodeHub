@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -208,6 +208,8 @@
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
+    <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Models\WrappedWebResult.cs" />
+    <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
@@ -236,6 +239,7 @@
     <Compile Include="ViewModels\CommentsViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
+    <Compile Include="ViewModels\FeedViewmodel.cs" />
     <Compile Include="ViewModels\FileContentViewmodel.cs" />
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
@@ -260,6 +264,9 @@
     </Compile>
     <Compile Include="Views\DonateView.xaml.cs">
       <DependentUpon>DonateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedView.xaml.cs">
+      <DependentUpon>FeedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
@@ -446,6 +453,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FeedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\FileContentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -513,7 +524,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UICompositionAnimations">
-      <HintPath>..\..\UICompositionAnimations\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
+      <HintPath>E:\UICompositionAnimations-master\UICompositionAnimations-master\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
