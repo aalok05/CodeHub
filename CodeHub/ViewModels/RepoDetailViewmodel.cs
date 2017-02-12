@@ -77,9 +77,8 @@ namespace CodeHub.ViewModels
             if (colorStr != null) LanguageColor = new SolidColorBrush($"#FF{colorStr}".ToColor());
         }
 
-        public async Task Load(Repository repo)
+        public async Task Load(object repo)
         {
-            Repository = repo;
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
@@ -91,6 +90,16 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
 
                 isLoading = true;
+                if (repo.GetType() == typeof(string))
+                {
+                    //Splitting repository name and owner name
+                    var names = (repo as string).Split('/');
+                    Repository = await RepositoryUtility.GetRepository(names[0],names[1]);
+                }
+                else
+                {
+                    Repository = repo as Repository;
+                }
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 isLoading = false;
             }

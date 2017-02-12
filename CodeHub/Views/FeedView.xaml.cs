@@ -49,7 +49,7 @@ namespace CodeHub.Views
         }
         private void Repo_Click(object sender, RoutedEventArgs e)
         {
-            //SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", ((Activity)e.OriginalSource).Repo as Repository);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", (sender as HyperlinkButton).Content);
         }
     }
 }
