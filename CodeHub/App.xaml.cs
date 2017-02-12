@@ -1,5 +1,6 @@
 ﻿using CodeHub.Views;
 using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
+using Lumia.Imaging.Direct2D;
 
 namespace CodeHub
 {
@@ -26,13 +28,22 @@ namespace CodeHub
         /// </summary>
         public App()
         {
-            this.InitializeComponent();;
+            this.InitializeComponent();
+            this.Suspending += App_Suspending;
           
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.ShowReadme, false, false);
+        }
+
+        private void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            // Releases the memory allocated by the Imaging SDK
+            SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
+            using (DxgiDeviceManager manager = new DxgiDeviceManager()) manager.Trim();
+            deferral.Complete();
         }
 
         /// <summary>
@@ -43,12 +54,10 @@ namespace CodeHub
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Set the right theme-depending color for the alternating rows
-            var s = SettingsService.Get<String>("AppTheme");
-            if (s != "Dark")
+            if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
             {
-                // TODO: update this section with the new settings manager after the merge
                 XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush",
-                    new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
+                   new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
             }
 
             CustomFrame rootFrame = Window.Current.Content as CustomFrame;
