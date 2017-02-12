@@ -9,6 +9,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:usercontrols="using:CodeHub.Controls"
       xmlns:xaml="using:Microsoft.Toolkit.Uwp.UI"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
@@ -25,67 +26,64 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <toolkitControl:PullToRefreshListView x:Name="FeedListView"
                                               IsItemClickEnabled="False"
-                                              ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                              ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                                               OverscrollLimit="0.4"
                                               PullProgressChanged="AllRepos_PullProgressChanged"
                                               PullThreshold="100"
                                               RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
             <toolkitControl:PullToRefreshListView.ItemTemplate>
                 <DataTemplate x:DataType="octo:Activity">
-                    <Button Style="{StaticResource EmptyButtonStyle}">
-                        <RelativePanel>
-                            <StackPanel x:Name="NotifPanel" Orientation="Horizontal">
-                                <Path Margin="10,10,5,5"
-                                      Data="{x:Bind Type, Converter={StaticResource EventTypeToSymbolConverter}}"
-                                      Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      StrokeThickness="0" />
+                    <RelativePanel>
+                        <StackPanel x:Name="NotifPanel" Orientation="Horizontal">
+                            <Path Margin="12,12,4,4"
+                                  Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
+                                  Fill="{ThemeResource ApplicationForegroundThemeBrush}"
+                                  StrokeThickness="0" />
 
-                                <HyperlinkButton Margin="0,0,3,0"
-                                                 Click="User_Click"
-                                                 Content="{x:Bind Actor.Login}">
-                                    <HyperlinkButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <TextBlock VerticalAlignment="Center"
-                                                       FontSize="13.5"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                       Text="{Binding}" />
-                                        </DataTemplate>
-                                    </HyperlinkButton.ContentTemplate>
-                                </HyperlinkButton>
+                            <HyperlinkButton Margin="0,0,4,0"
+                                             Tapped="Actor_Click"
+                                             Content="{Binding Actor.Login}">
+                                <HyperlinkButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontSize="13.5"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </HyperlinkButton.ContentTemplate>
+                            </HyperlinkButton>
 
-                                <TextBlock Margin="3,0,3,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="13"
-                                           FontWeight="SemiLight"
-                                           Text="{x:Bind Type, Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
-
-                                <HyperlinkButton Margin="0,0,3,0"
-                                                 Click="Repo_Click"
-                                                 Content="{x:Bind Repo.Name}">
-                                    <HyperlinkButton.ContentTemplate>
-                                        <DataTemplate>
-                                            <TextBlock VerticalAlignment="Center"
-                                                       FontSize="13.5"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                       Text="{Binding}" />
-                                        </DataTemplate>
-                                    </HyperlinkButton.ContentTemplate>
-                                </HyperlinkButton>
-
-                            </StackPanel>
-
-                            <TextBlock Margin="10,0,0,0"
+                            <TextBlock Margin="4,0,4,0"
                                        VerticalAlignment="Center"
                                        FontSize="13"
-                                       RelativePanel.AlignLeftWith="NotifPanel"
-                                       RelativePanel.Below="NotifPanel"
-                                       Text="{x:Bind CreatedAt, Converter={StaticResource DateFormatConverter}}" />
-                        </RelativePanel>
-                    </Button>
+                                       FontWeight="SemiLight"
+                                       Text="{Binding Type, Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
 
+                            <HyperlinkButton Margin="0,0,4,0"
+                                             Tapped="Repo_Click"
+                                             Content="{Binding Repo.Name}">
+                                <HyperlinkButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontSize="13.5"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </HyperlinkButton.ContentTemplate>
+                            </HyperlinkButton>
+
+                        </StackPanel>
+
+                        <TextBlock Margin="10,0,0,4"
+                                   VerticalAlignment="Center"
+                                   FontSize="13"
+                                   RelativePanel.AlignLeftWith="NotifPanel"
+                                   RelativePanel.Below="NotifPanel"
+                                   Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}" />
+                    </RelativePanel>
                 </DataTemplate>
             </toolkitControl:PullToRefreshListView.ItemTemplate>
             <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>

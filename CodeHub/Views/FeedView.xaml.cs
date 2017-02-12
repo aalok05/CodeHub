@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using Octokit;
 using GalaSoft.MvvmLight.Ioc;
+using Windows.UI.Xaml.Controls;
 
 namespace CodeHub.Views
 {
@@ -42,17 +43,12 @@ namespace CodeHub.Views
             refreshindicator.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
         }
 
-        private void User_Click(object sender, RoutedEventArgs e)
+        private void Actor_Click(object sender, RoutedEventArgs e)
         {
-            //The following navigation to DeveloperProfileView does not work because we do not get hold of Actor.Login from this click event
-
-            //SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView),"Profile", ((Activity)e.OriginalSource).Actor.Login);
-
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (sender as HyperlinkButton).Content);
         }
         private void Repo_Click(object sender, RoutedEventArgs e)
         {
-            //The following navigation to RepoDetailView does not work because we do not get hold of Repository from this click event
-
             //SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", ((Activity)e.OriginalSource).Repo as Repository);
         }
     }
