@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
+using CodeHub.Models;
 
 namespace CodeHub.Converters
 {
@@ -21,39 +22,51 @@ namespace CodeHub.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if( (((string)value) == "IssueCommentEvent") || ((string)value) == "PullRequestReviewCommentEvent" || ((string)value) == "CommitCommentEvent")
+            Activity activity = value as Activity;
+
+            switch (activity.Type)
             {
-                return "commented on";
+                case "IssueCommentEvent":
+                    return "commented on issue #"+ ((IssueCommentPayload)activity.Payload).Issue.Number+" in";
+
+                case "PullRequestReviewCommentEvent":
+                    return "commented on PR #" + ((PullRequestCommentPayload)activity.Payload).PullRequest.Number;
+
+                case "PullRequestEvent":
+                    return ((PullRequestEventPayload)activity.Payload).Action+" PR #" + ((PullRequestEventPayload)activity.Payload).PullRequest.Number;
+
+                case "CommitCommentEvent":
+                    return "commented on commit in";
+  
+                case "PushEvent":
+                    return "pushed "+((PushEventPayload)activity.Payload).Commits.Count+" commits to";
+
+                case "IssuesEvent":
+                    return ((IssueEventPayload)activity.Payload).Action+" issue #"+ ((IssueEventPayload)activity.Payload).Issue.Number+" in";
+
+                case "CreateEvent":
+                    return "created in";
+
+                case "PullRequestReviewEvent":
+                    return ((PullRequestEventPayload)activity.Payload).Action + " PR #" + ((PullRequestEventPayload)activity.Payload).PullRequest.Number;
+                   
+                case "DeleteEvent":
+                    return "deleted in";
+
+                case "ForkEvent":
+                    return "forked";
+
+                case "WatchEvent":
+                    return "started watching";
+
+                case "PublicEvent":
+                    return "open sourced";
+
+                case "ReleaseEvent":
+                    return "published a release to";
+
+                default: return "acted on";
             }
-            else if(((string)value) == "PushEvent")
-            {
-                return "pushed to";
-            }
-            else if (((string)value) == "CreateEvent")
-            {
-                return "created";
-            }
-            else if (((string)value) == "DeleteEvent")
-            {
-                return "deleted";
-            }
-            else if (((string)value) == "ForkEvent" || ((string)value) == "ForkApplyEvent")
-            {
-                return "forked";
-            }
-            else if (((string)value) == "WatchEvent")
-            {
-                return "started watching";
-            }
-            else if (((string)value) == "PublicEvent")
-            {
-                return "open sourced";
-            }
-            else if (((string)value) == "FollowEvent")
-            {
-                return "followed";
-            }
-            return "acted on"; 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
