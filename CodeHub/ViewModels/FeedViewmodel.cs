@@ -119,17 +119,8 @@ namespace CodeHub.ViewModels
             Events = await ActivityService.GetUserActivity();
             if(Events!=null)
             {
-                if (Events.Count == 0)
-                {
-                    ZeroEventCount = true;
-                }
-                else
-                {
-                    ZeroEventCount = false;
-                }
+                ZeroEventCount = (Events.Count == 0) ? true : false;
             }
-           
         }
-
     }
 }
