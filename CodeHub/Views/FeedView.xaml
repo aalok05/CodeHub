@@ -26,10 +26,11 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <toolkitControl:PullToRefreshListView x:Name="FeedListView"
                                               IsItemClickEnabled="False"
+                                              IsPullToRefreshWithMouseEnabled="True"
                                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                                               OverscrollLimit="0.4"
-                                              PullProgressChanged="AllRepos_PullProgressChanged"
+                                              PullProgressChanged="Feed_PullProgressChanged"
                                               PullThreshold="100"
                                               RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
             <toolkitControl:PullToRefreshListView.ItemTemplate>
