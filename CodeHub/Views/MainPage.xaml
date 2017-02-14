@@ -153,12 +153,11 @@
                     </PathIcon>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton
-                x:Name="AppBarMyOrganizations"
-                HorizontalAlignment="Center"
-                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                Label="Organizations"
-                Tapped="AppBarMyOrganizations_Tapped">
+            <AppBarButton x:Name="AppBarMyOrganizations"
+                          HorizontalAlignment="Center"
+                          Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                          Label="Organizations"
+                          Tapped="AppBarMyOrganizations_Tapped">
                 <AppBarButton.Icon>
                     <PathIcon
                         HorizontalAlignment="Center"
