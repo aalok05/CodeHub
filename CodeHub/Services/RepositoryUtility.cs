@@ -80,6 +80,25 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Gets the Repository from repository name and owner name
+        /// </summary>
+        /// <param name="repoName"></param>
+        /// <param name="ownerName"></param>
+        /// <returns></returns>
+        public static async Task<Repository> GetRepository(string repoName, string ownerName)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Repository.Get(repoName, ownerName);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         #region Files info parsing
 
         /// <summary>

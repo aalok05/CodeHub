@@ -97,7 +97,7 @@
                 <Ellipse.Fill>
                     <ImageBrush>
                         <ImageBrush.ImageSource>
-                            <BitmapImage UriSource="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay, FallbackValue='Assets/profile-placeholder.png'}" DecodePixelHeight="130" DecodePixelWidth="130" DecodePixelType="Logical"/>
+                            <BitmapImage UriSource="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" DecodePixelHeight="130" DecodePixelWidth="130" DecodePixelType="Logical"/>
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Ellipse.Fill>
@@ -333,7 +333,7 @@
             <HyperlinkButton x:Name="issueCount"
                              Margin="0 12 16 0"
                              Command="{x:Bind ViewModel.IssuesTapped}"
-                             Content="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}"
+                             Content="{x:Bind ViewModel.Repository.OpenIssuesCount,FallbackValue=' ', Mode=OneWay}"
                              RelativePanel.Below="editSymbol"
                              RelativePanel.RightOf="issueText">
                 <HyperlinkButton.ContentTemplate>
@@ -341,7 +341,7 @@
                         <TextBlock FontSize="15"
                                    FontWeight="Medium"
                                    Foreground="{StaticResource AppPrimaryColorBrush}"
-                                   Text="{Binding}" />
+                                   Text="{Binding}"/>
                     </DataTemplate>
                 </HyperlinkButton.ContentTemplate>
             </HyperlinkButton>

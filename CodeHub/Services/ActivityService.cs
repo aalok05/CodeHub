@@ -8,15 +8,14 @@ namespace CodeHub.Services
     class ActivityService
     {
         /// <summary>
-        /// Gets public activities of authenticated user
+        /// Gets all public events of current user
         /// </summary>
         /// <returns></returns>
         public static async Task<ObservableCollection<Activity>> GetUserActivity()
         {
             try
             {
-                ObservableCollection<Activity> events = new ObservableCollection<Activity>();
-                var client = await UserDataService.getAuthenticatedClient();
+                var client = await UserUtility.GetAuthenticatedClient();
 
                 var options = new ApiOptions
                 {
@@ -24,25 +23,25 @@ namespace CodeHub.Services
                     PageCount = 1
                 };
                 var result = await client.Activity.Events.GetAllUserReceivedPublic(GlobalHelper.UserLogin, options);
-             
-                foreach ( var i in result)
-                {
-                    events.Add(i);
-                }
-                return events;
-                
+
+                return new ObservableCollection<Activity>(result);
             }
             catch
             {
                 return null;
             }
         }
+
+        /// <summary>
+        /// Gets all public events of a given user
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Activity>> GetUserPerformedActivity(string login)
         {
             try
             {
-                ObservableCollection<Activity> events = new ObservableCollection<Activity>();
-                var client = await UserDataService.getAuthenticatedClient();
+                var client = await UserUtility.GetAuthenticatedClient();
 
                 var options = new ApiOptions
                 {
@@ -51,11 +50,7 @@ namespace CodeHub.Services
                 };
                 var result = await client.Activity.Events.GetAllUserPerformedPublic(login, options);
 
-                foreach (var i in result)
-                {
-                    events.Add(i);
-                }
-                return events;
+                return new ObservableCollection<Activity>(result);
             }
             catch
             {
