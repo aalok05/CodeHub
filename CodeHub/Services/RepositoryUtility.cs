@@ -60,6 +60,11 @@ namespace CodeHub.Services
 
         }
 
+        /// <summary>
+        /// Gets names of all branches of a given repository 
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<string>> GetAllBranches(Repository repo)
         {
             try
@@ -275,6 +280,12 @@ namespace CodeHub.Services
 
         #endregion
 
+        /// <summary>
+        /// Gets contents of a given repository and branch
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="branch"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<RepositoryContentWithCommitInfo>> GetRepositoryContent(Repository repo, string branch)
         {
             try
@@ -292,6 +303,13 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Gets contents of a given repository, branch and path
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="path"></param>
+        /// <param name="branch"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<RepositoryContentWithCommitInfo>> GetRepositoryContentByPath(Repository repo, string path, string branch)
         {
             try
@@ -310,6 +328,12 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Gets all issues for a given repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepo(long repoId, RepositoryIssueRequest filter)
         {
             try
@@ -330,6 +354,12 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Gets all issues started by the current user for a given repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepoByUser(long repoId)
         {
             try
@@ -355,6 +385,12 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Gets all repositories owned by a given user
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Repository>> GetRepositoriesForUser(string login)
         {
             try
@@ -374,6 +410,14 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Gets all comments for a given issue
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="name"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(string owner, string name, int number)
         {
             try
@@ -406,6 +450,12 @@ namespace CodeHub.Services
             GitHubClient client = await UserUtility.GetAuthenticatedClient();
             return await client.Repository.Content.GetReadmeHtml(repoId);
         }
+
+        /// <summary>
+        /// Gets default branch for a given repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <returns></returns>
         public static async Task<string> GetDefaultBranch(long repoId)
         {
             try
@@ -419,6 +469,12 @@ namespace CodeHub.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Stars a given reposiory
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
         public static async Task<bool> StarRepository(Repository repo)
         {
             try
@@ -431,6 +487,12 @@ namespace CodeHub.Services
                 return false;
             }
         }
+
+        /// <summary>
+        /// Unstars a given repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
         public static async Task<bool> UnstarRepository(Repository repo)
         {
             try
