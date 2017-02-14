@@ -30,8 +30,10 @@ namespace CodeHub.Views
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
-            await ViewModel.Load(e.Parameter);
-
+            if (ViewModel.Repository != e.Parameter as Repository)
+            {
+                await ViewModel.Load(e.Parameter);
+            }
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
             {
                 ReadmeLoadingRing.IsActive = true;
