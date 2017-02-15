@@ -30,10 +30,26 @@ namespace CodeHub.Views
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
-            if (ViewModel.Repository != e.Parameter as Repository)
-            {
-                await ViewModel.Load(e.Parameter);
-            }
+            await ViewModel.Load(e.Parameter);
+            FindName("LanguageText");
+            FindName("DescriptionText");
+            FindName("calendarSymbol");
+            FindName("createdText");
+            FindName("createdDateText");
+            FindName("editSymbol");
+            FindName("editText");
+            FindName("updatedDateText");
+            FindName("issueSymbol");
+            FindName("issueText");
+            FindName("issueCount");
+            FindName("sizeSymbol");
+            FindName("sizeText");
+            FindName("sizeCount");
+            FindName("sizeUnitText");
+
+            // ReadmeWebview will be hidden untill JS script is executed.
+            ReadmeWebView.Visibility = Visibility.Collapsed;
+
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
             {
                 ReadmeLoadingRing.IsActive = true;
@@ -45,9 +61,6 @@ namespace CodeHub.Views
             }
             else
                 ReadmeLoadingRing.IsActive = false;
-
-            // ReadmeWebview will be hidden untill JS script is executed.
-            ReadmeWebView.Visibility = Visibility.Collapsed;
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
