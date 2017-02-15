@@ -2,6 +2,12 @@
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Media;
+using System;
+using Windows.Storage.Streams;
+using CodeHub.Helpers;
+using JetBrains.Annotations;
+using System.Threading;
 
 namespace CodeHub.Services
 {
@@ -26,6 +32,20 @@ namespace CodeHub.Services
                 return null;
             }
 
+        }
+
+        [ItemCanBeNull]
+        /// <summary>
+        /// Loads a classic and a blurred version of the user avatar
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="blur"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static async Task<Tuple<ImageSource, ImageSource>> GetDeveloperAvatarOptionsAsync([NotNull] User user, int blur, CancellationToken token)
+        {
+            IBuffer imageBuffer = await HTTPHelper.GetBufferFromUrlAsync(user.AvatarUrl, token);
+            return imageBuffer == null ? null : await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(imageBuffer, blur);
         }
 
         /// <summary>
