@@ -148,8 +148,11 @@ namespace CodeHub.Services
                         != null) // There must be a node with these specs if the HTML loading failed
                     ?.Descendants("div") // Get the inner <div/> nodes
                     ?.FirstOrDefault(node => node.Attributes?.AttributesWithName("class")?.FirstOrDefault() // Check the class name
-                        ?.Value?.Equals("loader-error") == true) != null) // Make sure there was in fact a loading error
+                        ?.Value?.Equals("loader-error") == true) != null || // Make sure there was in fact a loading error
+                        html.Contains("class=\"warning include - fragment - error\"") ||
+                        html.Contains("Failed to load latest commit information"))
                 {
+                    System.Diagnostics.Debug.WriteLine("[DEBUG] Fallback");
                     // Use the Oktokit APIs to get the info
                     IEnumerable<Task<IReadOnlyList<GitHubCommit>>> tasks = contents.Select(r => client.Repository.Commit.GetAll(repoId,
                         new CommitRequest { Path = r.Path, Sha = branch }, // Only get the commits that edited the current file
@@ -165,6 +168,7 @@ namespace CodeHub.Services
                             : new RepositoryContentWithCommitInfo(file);
                     });
                 }
+                System.Diagnostics.Debug.WriteLine("[DEBUG] HTML parsing");
 
                 /* ================
                  * HTML STRUCTURE
