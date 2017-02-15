@@ -1,5 +1,7 @@
 ﻿using System;
+using Windows.Foundation;
 using Windows.Graphics.Display;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -12,6 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations;
 using Application = Windows.UI.Xaml.Application;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.Web.Http;
 using CodeHub.Services;
 
@@ -22,6 +25,8 @@ namespace CodeHub.Views
         public RepoDetailViewmodel ViewModel;
         public RepoDetailView()
         {
+            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(MainScroller);
+            this.Unloaded += (s, e) => TopScroller.Dispose();
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
@@ -68,10 +73,9 @@ namespace CodeHub.Views
              *  Also We are running a Javascript function that will make all links in the WebView open in an external browser
              *  instead of within the WebView itself.
              */
-            var webView = sender as WebView;
-            String html = await webView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
+            String html = await ReadmeWebView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
             ViewModel.TryParseRepositoryLanguageColor(html);
-            String heightString = await webView.InvokeScriptAsync("eval", new[]
+            String heightString = await ReadmeWebView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
                 {
@@ -90,11 +94,45 @@ namespace CodeHub.Views
                 })()"
             });
             if (heightString == null) return;
-            webView.Height = double.Parse(heightString) / DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
-            webView.SetVisualOpacity(0);
-            webView.Visibility = Visibility.Visible;
-            webView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
+            double 
+                scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
+                height = double.Parse(heightString) / (scale >= 2 ? scale - 1 : scale); // Approximate height (not so precise with high scaling)
+            ReadmeWebView.Height = height;
+            ReadmeGrid.Height = height;
+            ReadmeWebView.SetVisualOpacity(0);
+            ReadmeWebView.Visibility = Visibility.Visible;
+            ReadmeWebView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
             ReadmeLoadingRing.IsActive = false;
+        }
+
+        private async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Point p = e.GetPosition(ReadmeWebView);
+            int 
+                x = Convert.ToInt32(p.X),
+                y = Convert.ToInt32(p.Y);
+            String url = await ReadmeWebView.InvokeScriptAsync("eval", new[]
+            {
+                $@"(function()
+                {{
+                    var target = document.elementFromPoint({x}, {y});
+                    if (target != null)
+                    {{
+                        return target.getAttribute('href', 2);
+                    }}
+                    return null;
+                }})()"
+            });
+            if (!String.IsNullOrEmpty(url))
+            {
+                Launcher.LaunchUriAsync(new Uri(url)).AsTask().Forget();
+            }
+        }
+
+        // Scrolls the page content back to the top
+        private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
+        {
+            MainScroller.ChangeView(null, 0, null, false);
         }
     }
 }

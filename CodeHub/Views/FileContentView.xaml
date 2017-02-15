@@ -37,7 +37,7 @@
                          Width="16"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
-                         Margin="8,0,0,0">
+                         Margin="12,0,0,0">
                     <Path Data="{StaticResource RepoForkIcon}"
                           Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                           StrokeThickness="0.0"

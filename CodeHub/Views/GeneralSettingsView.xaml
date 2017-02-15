@@ -8,11 +8,7 @@
     xmlns:controls="using:CodeHub.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  HorizontalScrollBarVisibility="Disabled"
-                  HorizontalScrollMode="Disabled"
-                  VerticalScrollBarVisibility="Hidden"
-                  VerticalScrollMode="Enabled">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -27,9 +23,15 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           x:Name="ScrollRow"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <!--Options panel-->
-        <StackPanel Margin="12">
+        <StackPanel Margin="12,12,12,0">
             <TextBlock HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
@@ -55,15 +57,23 @@
             
             <!--Preview-->
             <TextBlock HorizontalAlignment="Left"
-                       Margin="0,20,0,0"
+                       Margin="0,12,0,12"
                        FontSize="19"
                        FontWeight="SemiLight"
                        Text="Preview" />
-            <controls:Hilite_meHighlightStylePreviewControl Height="200"
-                                                            Margin="0,12,0,0"
-                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
-                                                            LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}"/>
+        </StackPanel>
 
+        <controls:Hilite_meHighlightStylePreviewControl MinHeight="200"
+                                                        Grid.Row="1"
+                                                        Margin="12,0,12,0"
+                                                        VerticalAlignment="Stretch"
+                                                        VerticalContentAlignment="Stretch"
+                                                        HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
+                                                        LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}"/>
+
+        <StackPanel Grid.Row="2"
+                    Margin="12,0,12,12">
+            
             <!--Show Readme in RepoDetail Page-->
             <TextBlock HorizontalAlignment="Left"
                        Margin="0,20,0,0"
@@ -73,6 +83,16 @@
                        Text="Show README in Repository page" />
             <ToggleSwitch IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}"
                           Margin="0,4,0,0"/>
+
+            <!--Show Readme in RepoDetail Page-->
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="0,20,0,0"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       TextWrapping="Wrap"
+                       Text="Load repository file extended info" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}"
+                          Margin="0,4,0,0"/>
         </StackPanel>
-    </ScrollViewer>
+    </Grid>
 </local:SettingsDetailPageBase>

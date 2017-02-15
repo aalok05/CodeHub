@@ -1,4 +1,4 @@
-﻿using CodeHub.Helpers;
+using CodeHub.Helpers;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -172,8 +172,11 @@ namespace CodeHub.Services
                         != null) // There must be a node with these specs if the HTML loading failed
                     ?.Descendants("div") // Get the inner <div/> nodes
                     ?.FirstOrDefault(node => node.Attributes?.AttributesWithName("class")?.FirstOrDefault() // Check the class name
-                        ?.Value?.Equals("loader-error") == true) != null) // Make sure there was in fact a loading error
+                        ?.Value?.Equals("loader-error") == true) != null || // Make sure there was in fact a loading error
+                        html.Contains("class=\"warning include - fragment - error\"") ||
+                        html.Contains("Failed to load latest commit information"))
                 {
+                    System.Diagnostics.Debug.WriteLine("[DEBUG] Fallback");
                     // Use the Oktokit APIs to get the info
                     IEnumerable<Task<IReadOnlyList<GitHubCommit>>> tasks = contents.Select(r => client.Repository.Commit.GetAll(repoId,
                         new CommitRequest { Path = r.Path, Sha = branch }, // Only get the commits that edited the current file
@@ -189,6 +192,7 @@ namespace CodeHub.Services
                             : new RepositoryContentWithCommitInfo(file);
                     });
                 }
+                System.Diagnostics.Debug.WriteLine("[DEBUG] HTML parsing");
 
                 /* ================
                  * HTML STRUCTURE
@@ -291,10 +295,15 @@ namespace CodeHub.Services
             try
             {
                 // Get the files list
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                IEnumerable<RepositoryContentWithCommitInfo> results = await TryLoadLinkedCommitDataAsync(
-                    client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
-                    client, repo.Id, branch, CancellationToken.None);
+
+                GitHubClient client = await UserDataService.getAuthenticatedClient();
+                IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
+                    ? await TryLoadLinkedCommitDataAsync(
+                        client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
+                        client, repo.Id, branch, CancellationToken.None)
+                    : from item in await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
+                        select new RepositoryContentWithCommitInfo(item);
+              
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
@@ -317,9 +326,12 @@ namespace CodeHub.Services
                 // Get the files list
                 GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 String url = $"{repo.HtmlUrl}/tree/{branch}/{path}";
-                IEnumerable<RepositoryContentWithCommitInfo> results = await TryLoadLinkedCommitDataAsync(
-                    client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
-                    client, repo.Id, branch, CancellationToken.None);
+                IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
+                    ? await TryLoadLinkedCommitDataAsync(
+                        client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
+                        client, repo.Id, branch, CancellationToken.None)
+                    : from item in await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
+                        select new RepositoryContentWithCommitInfo(item);
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
