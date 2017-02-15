@@ -134,53 +134,63 @@ namespace CodeHub.Views
                     HamSplitView.IsPaneOpen = false;
             }
         }
+
+        #region App Bar Events
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to Trending page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[0]);
         }
-        private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        private void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to News feed page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[1]);
         }
-        private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //Navigate to Profile page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
                 ViewModel.HamItemClicked(ViewModel.HamItems[2]);
         }
+        private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //Navigate to My Repositories page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[3].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
+        }
+        private void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //Navigate to My Organizations page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[4].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[4]);
+        }
+        #endregion
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
+
+            /* This has to be done because the visibilty of BottomAppBar is dependent on screen size as well as isLoggedin property
+             * If visibility is bound with isLoggedin, it will disregard VisualStateManager at first loading of Page.
+             */
+            if (ViewModel.isLoggedin)
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+                if (Window.Current.Bounds.Width < 720)
+                {
+                    FindName("BottomAppBar");
+                    ViewModel.CurrentState = "Mobile";
+                }
+                else
+                    ViewModel.CurrentState = "Desktop";
+            }
 
             //Listening for Sign In message
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
 
             //listen for sign out message
             Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
-
-            /* This has to be done because the visibilty of BottomAppBar
-             * is dependent on screen size as well as isLoggedin property
-             * If visibility is bound with isLoggedin, it will disregard 
-             * VisualStateManager at first loading of Page.
-             * */
-            if (Window.Current.Bounds.Width < 720)
-            {
-                ViewModel.CurrentState = "Mobile";
-                if (ViewModel.isLoggedin)
-                {
-                    BottomAppBar.Visibility = Visibility.Visible;
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
-                }
-                else
-                {
-                    BottomAppBar.Visibility = Visibility.Collapsed;
-                }
-            }
-            else
-            {
-                ViewModel.CurrentState = "Desktop";
-            }
         }
         public void RecieveSignOutMessage(SignOutMessageType empty)
         {
@@ -195,7 +205,10 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
-            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(HomeView))
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+            }
         }
 
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);

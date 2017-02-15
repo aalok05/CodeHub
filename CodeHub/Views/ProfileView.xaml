@@ -58,14 +58,21 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.6*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.6*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <Image  Grid.Row="0"
-                    Stretch="UniformToFill"
-                    Source="{x:Bind ViewModel.UserBlurredAvatar,Mode=OneWay}">
-            </Image>
-            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+            <controls:ImageEx Grid.Row="0"
+                              IsCacheEnabled="True"
+                              Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                              Stretch="UniformToFill">
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur AutomaticallyStart="True"
+                                    Delay="0"
+                                    Value="100"
+                                    Duration="0" />
+                </i:Interaction.Behaviors>
+            </controls:ImageEx>
+            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
         </Grid>
 
         <RelativePanel Grid.Row="0"
@@ -73,12 +80,20 @@
                        Background="Transparent">
 
             <Ellipse x:Name="UserPic"
-                             Width="125"
-                             Height="125"
-                             Margin="0 10 0 0"
-                             RelativePanel.AlignHorizontalCenterWithPanel="True">
+                     Width="125"
+                     Height="125"
+                     Margin="0 10 0 0"
+                     RelativePanel.AlignHorizontalCenterWithPanel="True">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.UserAvatar,Mode=OneWay, FallbackValue=Assets/profile-placeholder.png, TargetNullValue=Assets/profile-placeholder.png}"/>
+                    <ImageBrush>
+                        <ImageBrush.ImageSource>
+                            <BitmapImage DecodePixelHeight="125"
+                                         DecodePixelType="Logical"
+                                         DecodePixelWidth="125"
+                                         UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='Assets/profile-placeholder.png'}" />
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
+
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock x:Name="UserNameText"

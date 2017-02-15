@@ -77,9 +77,8 @@ namespace CodeHub.ViewModels
             if (colorStr != null) LanguageColor = new SolidColorBrush($"#FF{colorStr}".ToColor());
         }
 
-        public async Task Load(Repository repo)
+        public async Task Load(object repo)
         {
-            Repository = repo;
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
@@ -91,22 +90,15 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
 
                 isLoading = true;
-                if (Repository?.Owner != null)
+                if (repo.GetType() == typeof(string))
                 {
-                    // Get the image buffer manually to avoid making the HTTP call twice
-                    CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-                    IBuffer buffer = await HTTPHelper.GetBufferFromUrlAsync(Repository.Owner.AvatarUrl, cts.Token);
-                    if (buffer != null)
-                    {
-                        // Load the user image
-                        Tuple<ImageSource, ImageSource> images = await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(buffer, 256);
-                        UserAvatar = images?.Item1;
-                        UserBlurredAvatar = images?.Item2;
-
-                        // Calculate the brightness
-                        byte brightness = await ImageHelper.CalculateAverageBrightnessAsync(buffer);
-                        Messenger.Default.Send(new GlobalHelper.SetBlurredAvatarUIBrightnessMessageType { Brightness = brightness });
-                    }
+                    //Splitting repository name and owner name
+                    var names = (repo as string).Split('/');
+                    Repository = await RepositoryUtility.GetRepository(names[0],names[1]);
+                }
+                else
+                {
+                    Repository = repo as Repository;
                 }
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 isLoading = false;
