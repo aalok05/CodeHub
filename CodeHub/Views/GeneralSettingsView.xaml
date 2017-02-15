@@ -83,6 +83,16 @@
                        Text="Show README in Repository page" />
             <ToggleSwitch IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}"
                           Margin="0,4,0,0"/>
+
+            <!--Show Readme in RepoDetail Page-->
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="0,20,0,0"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       TextWrapping="Wrap"
+                       Text="Load repository file extended info" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}"
+                          Margin="0,4,0,0"/>
         </StackPanel>
     </Grid>
 </local:SettingsDetailPageBase>

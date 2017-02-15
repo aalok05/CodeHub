@@ -36,6 +36,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.ShowReadme, false, false);
+            SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
         }
 
         private void App_Suspending(object sender, SuspendingEventArgs e)

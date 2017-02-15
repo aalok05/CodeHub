@@ -262,9 +262,12 @@ namespace CodeHub.Services
             {
                 // Get the files list
                 GitHubClient client = await UserDataService.getAuthenticatedClient();
-                IEnumerable<RepositoryContentWithCommitInfo> results = await TryLoadLinkedCommitDataAsync(
-                    client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
-                    client, repo.Id, branch, CancellationToken.None);
+                IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
+                    ? await TryLoadLinkedCommitDataAsync(
+                        client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
+                        client, repo.Id, branch, CancellationToken.None)
+                    : from item in await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
+                        select new RepositoryContentWithCommitInfo(item);
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
@@ -280,9 +283,12 @@ namespace CodeHub.Services
                 // Get the files list
                 GitHubClient client = await UserDataService.getAuthenticatedClient();
                 String url = $"{repo.HtmlUrl}/tree/{branch}/{path}";
-                IEnumerable<RepositoryContentWithCommitInfo> results = await TryLoadLinkedCommitDataAsync(
-                    client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
-                    client, repo.Id, branch, CancellationToken.None);
+                IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
+                    ? await TryLoadLinkedCommitDataAsync(
+                        client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
+                        client, repo.Id, branch, CancellationToken.None)
+                    : from item in await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
+                        select new RepositoryContentWithCommitInfo(item);
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
