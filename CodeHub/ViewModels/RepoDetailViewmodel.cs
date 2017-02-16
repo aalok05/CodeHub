@@ -82,7 +82,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); 
+                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType());
             }
             else
             {
@@ -90,16 +90,38 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
 
                 isLoading = true;
+
                 if (repo.GetType() == typeof(string))
                 {
                     //Splitting repository name and owner name
                     var names = (repo as string).Split('/');
-                    Repository = await RepositoryUtility.GetRepository(names[0],names[1]);
+                    Repository = await RepositoryUtility.GetRepository(names[0], names[1]);
                 }
                 else
                 {
                     Repository = repo as Repository;
                 }
+
+                if (Repository?.Owner != null)
+                {
+
+                    // Get the image buffer manually to avoid making the HTTP call twice		 
+                    CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                    IBuffer buffer = await HTTPHelper.GetBufferFromUrlAsync(Repository.Owner.AvatarUrl, cts.Token);
+                    if (buffer != null)
+                    {
+
+                        // Load the user image		
+                        Tuple<ImageSource, ImageSource> images = await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(buffer, 256);
+                        UserAvatar = images?.Item1;
+                        UserBlurredAvatar = images?.Item2;
+
+                        // Calculate the brightness		
+                        byte brightness = await ImageHelper.CalculateAverageBrightnessAsync(buffer);
+                        Messenger.Default.Send(new GlobalHelper.SetBlurredAvatarUIBrightnessMessageType { Brightness = brightness });
+                    }
+                }
+
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 isLoading = false;
             }
@@ -115,7 +137,7 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
-                                             
+
                                           }));
             }
         }

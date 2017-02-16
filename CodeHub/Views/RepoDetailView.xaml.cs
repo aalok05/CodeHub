@@ -30,13 +30,38 @@ namespace CodeHub.Views
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
+
+            // Adjust the UI to make sure the text is readable		
+            Messenger.Default.Register<GlobalHelper.SetBlurredAvatarUIBrightnessMessageType>(this, b =>
+            {
+                if (Application.Current.RequestedTheme == ApplicationTheme.Light && b.Brightness <= 80)
+                {
+                    byte delta = (byte)(128 - b.Brightness + 24);
+                    Color color = Color.FromArgb(byte.MaxValue, delta, delta, delta);
+                    SolidColorBrush brush = new SolidColorBrush(color);
+                    RepoName.Foreground = brush;
+                    ProfileLinkBlock.Foreground = brush;
+                    FavoriteIcon.Foreground = brush;
+                    FavoriteBlock.Foreground = brush;
+                    BranchPath.Fill = brush;
+                    BranchBlock.Foreground = brush;
+                    BranchPath.Fill = brush;
+                    BranchBlock.Foreground = brush;
+
+                }
+                else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
+                {
+                    double opacity = 1.0 - b.Brightness * 0.5 / 255;
+                    BackgroundImage.StartCompositionFadeAnimation(null, (float)opacity, 200, null, EasingFunctionNames.Linear);
+                }
+            });
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter);
-            FindName("LanguageText");
+            FindName("LanguageGrid");
             FindName("DescriptionText");
             FindName("calendarSymbol");
             FindName("createdText");
@@ -94,7 +119,7 @@ namespace CodeHub.Views
                 })()"
             });
             if (heightString == null) return;
-            double 
+            double
                 scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
                 height = double.Parse(heightString) / (scale >= 2 ? scale - 1 : scale); // Approximate height (not so precise with high scaling)
             ReadmeWebView.Height = height;
@@ -108,7 +133,7 @@ namespace CodeHub.Views
         private async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             Point p = e.GetPosition(ReadmeWebView);
-            int 
+            int
                 x = Convert.ToInt32(p.X),
                 y = Convert.ToInt32(p.Y);
             String url = await ReadmeWebView.InvokeScriptAsync("eval", new[]

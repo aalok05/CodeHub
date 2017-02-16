@@ -30,46 +30,45 @@
 
     <!--Root grid-->
     <Grid>
-
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="200"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepoName.FontSize" Value="25" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="OwnerPic.Width" Value="140" />
+                        <Setter Target="OwnerPic.Height" Value="140" />
+                        <Setter Target="RepoName.FontSize" Value="25" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopEx">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="OwnerPic.Width" Value="150" />
+                        <Setter Target="OwnerPic.Height" Value="150" />
+                        <Setter Target="RepoName.FontSize" Value="30" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <!--Main scroller with the page content-->
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       HorizontalScrollMode="Disabled"
                       VerticalScrollBarVisibility="Hidden"
                       VerticalScrollMode="Enabled"
                       x:Name="MainScroller">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup x:Name="VisualStateGroup">
-                    <VisualState x:Name="Mobile">
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="200"/>
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="RepoName.FontSize" Value="25" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Desktop">
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="720" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="OwnerPic.Width" Value="140" />
-                            <Setter Target="OwnerPic.Height" Value="140" />
-                            <Setter Target="RepoName.FontSize" Value="25" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="DesktopEx">
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="1024" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="OwnerPic.Width" Value="150" />
-                            <Setter Target="OwnerPic.Height" Value="150" />
-                            <Setter Target="RepoName.FontSize" Value="30" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-
+            
             <!--Inner grid with the page content-->
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.ColumnDefinitions>
@@ -270,6 +269,7 @@
                     <Grid RelativePanel.AlignLeftWith="StarButton"
                           RelativePanel.Below="StarButton"
                           x:Name="LanguageGrid"
+                          x:DeferLoadStrategy="Lazy"
                           Margin="0,12,0,0"
                           Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
                         <Grid.ColumnDefinitions>
@@ -292,6 +292,7 @@
                                    Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"/>
                     </Grid>
                     <TextBlock x:Name="DescriptionText"
+                               x:DeferLoadStrategy="Lazy"
                                Margin="0 16 0 20"
                                FontSize="13"
                                RelativePanel.AlignLeftWith="LanguageGrid"
@@ -302,6 +303,7 @@
 
                     <!--Time info-->
                     <Viewbox x:Name="calendarSymbol"
+                             x:DeferLoadStrategy="Lazy"
                              MaxWidth="15"
                              MaxHeight="15"
                              Margin="0 0 8 0"
@@ -310,16 +312,21 @@
                         <SymbolIcon Foreground="#525252" Symbol="Calendar" />
                     </Viewbox>
                     <TextBlock x:Name="createdText"
+                               x:DeferLoadStrategy="Lazy"
                                Margin="0 0 12 0"
                                RelativePanel.AlignVerticalCenterWith="calendarSymbol"
                                RelativePanel.Below="DescriptionText"
                                RelativePanel.RightOf="calendarSymbol"
                                Style="{StaticResource RepoDetailTextBlockStyle}"
                                Text="Created" />
-                    <TextBlock FontSize="13" RelativePanel.RightOf="createdText"
+                    <TextBlock x:Name="createdDateText"
+                               x:DeferLoadStrategy="Lazy"
+                               FontSize="13" 
+                               RelativePanel.RightOf="createdText"
                                Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepoCreationTimeConverter}, Mode=OneWay}"
                                RelativePanel.Below="DescriptionText"/>
                     <Viewbox x:Name="editSymbol"
+                             x:DeferLoadStrategy="Lazy"
                              MaxWidth="15"
                              MaxHeight="15"
                              Margin="0 16 8 0"
@@ -327,13 +334,16 @@
                         <SymbolIcon Foreground="#525252" Symbol="Edit" />
                     </Viewbox>
                     <TextBlock x:Name="editText"
+                               x:DeferLoadStrategy="Lazy"
                                Margin="0 16 12 0"
                                RelativePanel.AlignVerticalCenterWith="editSymbol"
                                RelativePanel.Below="calendarSymbol"
                                RelativePanel.RightOf="editSymbol"
                                Style="{StaticResource RepoDetailTextBlockStyle}"
                                Text="Updated" />
-                    <TextBlock Margin="0 16 0 0"
+                    <TextBlock x:Name="updatedDateText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 16 0 0"
                                FontSize="13"
                                RelativePanel.Below="calendarSymbol"
                                RelativePanel.RightOf="editText"
@@ -341,6 +351,7 @@
 
                     <!--Issues-->
                     <Viewbox x:Name="issueSymbol"
+                             x:DeferLoadStrategy="Lazy"
                              Margin="0 16 8 0"
                              MaxWidth="15"
                              MaxHeight="15"
@@ -350,17 +361,19 @@
                               StrokeThickness="0" />
                     </Viewbox>
                     <TextBlock x:Name="issueText"
+                               x:DeferLoadStrategy="Lazy"
                                Margin="0 16 8 0"
                                RelativePanel.Below="editSymbol"
                                RelativePanel.RightOf="issueSymbol"
                                Style="{StaticResource RepoDetailTextBlockStyle}"
                                Text="Issues" />
                     <HyperlinkButton x:Name="issueCount"
-                                 Margin="0 8 16 0"
-                                 Command="{x:Bind ViewModel.IssuesTapped}"
-                                 Content="{x:Bind ViewModel.Repository.OpenIssuesCount}"
-                                 RelativePanel.Below="editSymbol"
-                                 RelativePanel.RightOf="issueText">
+                                     x:DeferLoadStrategy="Lazy"
+                                     Margin="0 8 16 0"
+                                     Command="{x:Bind ViewModel.IssuesTapped}"
+                                     Content="{x:Bind ViewModel.Repository.OpenIssuesCount}"
+                                     RelativePanel.Below="editSymbol"
+                                     RelativePanel.RightOf="issueText">
                         <HyperlinkButton.ContentTemplate>
                             <DataTemplate>
                                 <TextBlock FontSize="15"
@@ -373,6 +386,7 @@
 
                     <!--Size info-->
                     <Viewbox x:Name="sizeSymbol"
+                             x:DeferLoadStrategy="Lazy"
                              MaxWidth="15"
                              MaxHeight="15"
                              Margin="0 16 8 0"
@@ -381,18 +395,22 @@
                         <SymbolIcon Foreground="#525252" Symbol="Shop" />
                     </Viewbox>
                     <TextBlock x:Name="sizeText"
+                               x:DeferLoadStrategy="Lazy"
                                Margin="0 16 12 0"
                                RelativePanel.Below="editSymbol"
                                RelativePanel.RightOf="sizeSymbol"
                                Style="{StaticResource RepoDetailTextBlockStyle}"
                                Text="Size" />
                     <TextBlock x:Name="sizeCount"
+                               x:DeferLoadStrategy="Lazy"
                                FontSize="13"
                                Margin="0 16 4 0"
                                RelativePanel.Below="editSymbol"
                                RelativePanel.RightOf="sizeText"
                                Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
-                    <TextBlock Margin="0 16 0 0"
+                    <TextBlock x:Name="sizeUnitText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 16 0 0"
                                FontSize="13"
                                RelativePanel.Below="editSymbol"
                                RelativePanel.RightOf="sizeCount"
