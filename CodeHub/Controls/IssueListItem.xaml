@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <converters:DateFormatConverter x:Key="DateFormatConverter" x:Name="DateFormatConverter"/>
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter"/>
     </UserControl.Resources>
     <RelativePanel Margin="0 0 0 5">
         <StackPanel x:Name="NumberBlock"
@@ -106,7 +106,7 @@
                 FontSize="12"
                 TextAlignment="Left"
                 Foreground="Gray"
-                Text="{Binding UpdatedAt,Converter={StaticResource DateFormatConverter}}"/>
+                Text="{Binding UpdatedAt,Converter={StaticResource TimeAgoConverter}}"/>
         </StackPanel>
 
     </RelativePanel>

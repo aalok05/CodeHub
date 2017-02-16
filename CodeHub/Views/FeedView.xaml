@@ -19,7 +19,7 @@
     </i:Interaction.Behaviors>
     <Page.Resources>
         <converters:EventTypeToSymbolConverter x:Key="EventTypeToSymbolConverter" x:Name="EventTypeToSymbolConverter" />
-        <converters:DateFormatConverter x:Key="DateFormatConverter" x:Name="DateFormatConverter" />
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:EventTypeToActionStringConverter x:Key="EventTypeToActionStringConverter" x:Name="EventTypeToActionStringConverter" />
     </Page.Resources>
@@ -91,7 +91,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Bottom"
                                    FontSize="13"
-                                   Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}" />
+                                   Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
                     </RelativePanel>
                 </DataTemplate>
             </toolkitControl:PullToRefreshListView.ItemTemplate>

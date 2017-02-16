@@ -9,7 +9,7 @@
                     mc:Ignorable="d">
 
     <!--  Shared converters  -->
-    <converters:DateFormatConverter x:Key="DateFormatConverter" />
+    <converters:TimeAgoConverter x:Key="TimeAgoConverter" />
     <converters:RepositoryContentToFileIconConverter x:Key="FileIconConverter" />
     <converter:StringVisibilityConverter x:Key="StringVisibilityConverter"/>
 
@@ -60,7 +60,7 @@
                            Foreground="#FFE0E0E0"
                            IsTextScaleFactorEnabled="False"
                            MaxLines="1"
-                           Text="{x:Bind LastEditTime, Converter={StaticResource DateFormatConverter}}"
+                           Text="{x:Bind LastEditTime, Converter={StaticResource TimeAgoConverter}}"
                            Visibility="{x:Bind LastEditTime, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="NoWrap" />

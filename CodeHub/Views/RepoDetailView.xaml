@@ -23,7 +23,8 @@
         </Style>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
-        <converters:DateFormatConverter x:Key="DateFormatConverter" x:Name="DateFormatConverter" />
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
+        <converters:RepositoryCreationTimeConverter x:Key="RepositoryCreationTimeConverter" x:Name="RepositoryCreationTimeConverter"/>
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
     </Page.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
@@ -291,7 +292,7 @@
                        RelativePanel.AlignVerticalCenterWith="createdText"
                        RelativePanel.Below="DescriptionText"
                        RelativePanel.RightOf="createdText"
-                       Text="{x:Bind ViewModel.Repository.CreatedAt.ToString('dd MMM yyyy',{x:Null}),Mode=OneWay}" />
+                       Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepositoryCreationTimeConverter}, Mode=OneWay}"/>
 
             <Viewbox x:Name="editSymbol"
                      x:DeferLoadStrategy="Lazy"
@@ -316,7 +317,7 @@
                        RelativePanel.AlignVerticalCenterWith="editText"
                        RelativePanel.Below="calendarSymbol"
                        RelativePanel.RightOf="editText"
-                       Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}, Mode=OneWay}" />
+                       Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
 
             <Viewbox x:Name="issueSymbol"
                      x:DeferLoadStrategy="Lazy"
