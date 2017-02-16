@@ -1,14 +1,17 @@
-﻿<local:SettingsDetailPageBase 
-    x:Class="CodeHub.Views.GeneralSettingsView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CodeHub.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CodeHub.Controls"
-    mc:Ignorable="d">
+﻿<local:SettingsDetailPageBase x:Class="CodeHub.Views.GeneralSettingsView"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:controls="using:CodeHub.Controls"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:local="using:CodeHub.Views"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  VerticalScrollMode="Enabled">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -23,76 +26,73 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"
-                           x:Name="ScrollRow"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition x:Name="ScrollRow" Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <!--Options panel-->
-        <StackPanel Margin="12,12,12,0">
-            <TextBlock HorizontalAlignment="Left"
-                       FontSize="22"
-                       FontWeight="SemiLight"
-                       Text="Syntax Highlighting style" />
+            <!--  Options panel  -->
+            <StackPanel Margin="12,12,12,0">
+                <TextBlock HorizontalAlignment="Left"
+                           FontSize="22"
+                           FontWeight="SemiLight"
+                           Text="Syntax Highlighting style" />
 
-            <!--Style-->
-            <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
-                                       Margin="0,12,0,0"
-                                       FontSize="13"
-                                       ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
-                                       SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
-                                       Style="{StaticResource AnimatedComboBoxStyle}"
-                                       MinWidth="120"/>
+                <!--  Style  -->
+                <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
+                                           MinWidth="120"
+                                           Margin="0,12,0,0"
+                                           FontSize="13"
+                                           ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
+                                           SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
+                                           Style="{StaticResource AnimatedComboBoxStyle}" />
 
-            <!--Line numbers-->
-            <TextBlock HorizontalAlignment="Left"
-                       Margin="0,20,0,0"
-                       FontSize="22"
-                       FontWeight="SemiLight"
-                       Text="Show line numbers" />
-            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}"
-                          Margin="0,4,0,0"/>
-            
-            <!--Preview-->
-            <TextBlock HorizontalAlignment="Left"
-                       Margin="0,12,0,12"
-                       FontSize="19"
-                       FontWeight="SemiLight"
-                       Text="Preview" />
-        </StackPanel>
+                <!--  Line numbers  -->
+                <TextBlock Margin="0,20,0,0"
+                           HorizontalAlignment="Left"
+                           FontSize="22"
+                           FontWeight="SemiLight"
+                           Text="Show line numbers" />
+                <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
 
-        <controls:Hilite_meHighlightStylePreviewControl MinHeight="200"
-                                                        Grid.Row="1"
-                                                        Margin="12,0,12,0"
-                                                        VerticalAlignment="Stretch"
-                                                        VerticalContentAlignment="Stretch"
-                                                        HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
-                                                        LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}"/>
+                <!--  Preview  -->
+                <TextBlock Margin="0,12,0,12"
+                           HorizontalAlignment="Left"
+                           FontSize="19"
+                           FontWeight="SemiLight"
+                           Text="Preview" />
+            </StackPanel>
 
-        <StackPanel Grid.Row="2"
-                    Margin="12,0,12,12">
-            
-            <!--Show Readme in RepoDetail Page-->
-            <TextBlock HorizontalAlignment="Left"
-                       Margin="0,20,0,0"
-                       FontSize="22"
-                       FontWeight="SemiLight"
-                       TextWrapping="Wrap"
-                       Text="Show README in Repository page" />
-            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}"
-                          Margin="0,4,0,0"/>
+            <controls:Hilite_meHighlightStylePreviewControl Grid.Row="1"
+                                                            MinHeight="200"
+                                                            Margin="12,0,12,0"
+                                                            VerticalAlignment="Stretch"
+                                                            VerticalContentAlignment="Stretch"
+                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
+                                                            LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}" />
 
-            <!--Show Readme in RepoDetail Page-->
-            <TextBlock HorizontalAlignment="Left"
-                       Margin="0,20,0,0"
-                       FontSize="22"
-                       FontWeight="SemiLight"
-                       TextWrapping="Wrap"
-                       Text="Load repository file extended info" />
-            <ToggleSwitch IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}"
-                          Margin="0,4,0,0"/>
-        </StackPanel>
-    </Grid>
+            <StackPanel Grid.Row="2" Margin="12,0,12,12">
+
+                <!--  Show Readme in RepoDetail Page  -->
+                <TextBlock Margin="0,20,0,0"
+                           HorizontalAlignment="Left"
+                           FontSize="22"
+                           FontWeight="SemiLight"
+                           Text="Show README in Repository page"
+                           TextWrapping="Wrap" />
+                <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}" />
+
+                <!--  Show Readme in RepoDetail Page  -->
+                <TextBlock Margin="0,20,0,0"
+                           HorizontalAlignment="Left"
+                           FontSize="22"
+                           FontWeight="SemiLight"
+                           Text="Load repository file extended info"
+                           TextWrapping="Wrap" />
+                <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </local:SettingsDetailPageBase>
