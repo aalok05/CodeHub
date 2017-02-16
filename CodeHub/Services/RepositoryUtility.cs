@@ -296,7 +296,7 @@ namespace CodeHub.Services
             {
                 // Get the files list
 
-                GitHubClient client = await UserDataService.getAuthenticatedClient();
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
                     ? await TryLoadLinkedCommitDataAsync(
                         client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
