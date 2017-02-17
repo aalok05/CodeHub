@@ -89,7 +89,7 @@
                            HorizontalAlignment="Left"
                            FontSize="22"
                            FontWeight="SemiLight"
-                           Text="Load repository file extended info"
+                           Text="Load commit messages for files"
                            TextWrapping="Wrap" />
                 <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
             </StackPanel>
