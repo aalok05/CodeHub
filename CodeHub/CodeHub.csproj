@@ -209,6 +209,7 @@
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
+    <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
