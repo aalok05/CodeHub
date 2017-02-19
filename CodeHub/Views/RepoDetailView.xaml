@@ -280,7 +280,18 @@
                                  Width="28"
                                  Height="28"
                                  HorizontalAlignment="Left"
-                                 Fill="{x:Bind ViewModel.LanguageColor, Mode=OneWay}"/>
+                                 Fill="{x:Bind ViewModel.LanguageColor, Mode=OneWay}"
+                                 x:Name="ColorEllipse"
+                                 Canvas.ZIndex="1"/>
+                        <ProgressRing MinHeight="20"
+                                      MinWidth="20"
+                                      Width="20"
+                                      Height="20"
+                                      HorizontalAlignment="Left"
+                                      IsActive="True"
+                                      Grid.Column="0"
+                                      x:Name="LanguageColorProgressRing"
+                                      Canvas.ZIndex="0"/>
                         <TextBlock Grid.Column="1"
                                    Margin="12,0,8,0"
                                    TextWrapping="NoWrap"

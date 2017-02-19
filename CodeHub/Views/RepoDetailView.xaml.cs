@@ -3,13 +3,11 @@ using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
-using Octokit;
 using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations;
 using Application = Windows.UI.Xaml.Application;
@@ -56,26 +54,11 @@ namespace CodeHub.Views
                 }
             });
         }
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter);
-            FindName("LanguageGrid");
-            FindName("DescriptionText");
-            FindName("calendarSymbol");
-            FindName("createdText");
-            FindName("createdDateText");
-            FindName("editSymbol");
-            FindName("editText");
-            FindName("updatedDateText");
-            FindName("issueSymbol");
-            FindName("issueText");
-            FindName("issueCount");
-            FindName("sizeSymbol");
-            FindName("sizeText");
-            FindName("sizeCount");
-            FindName("sizeUnitText");
 
             // ReadmeWebview will be hidden untill JS script is executed.
             ReadmeWebView.Visibility = Visibility.Collapsed;
@@ -90,7 +73,10 @@ namespace CodeHub.Views
                 ReadmeWebView.NavigateWithHttpRequestMessage(httpRequestMessage);
             }
             else
+            {
+                LanguageColorProgressRing.Visibility = Visibility.Collapsed;
                 ReadmeLoadingRing.IsActive = false;
+            }
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
@@ -100,6 +86,8 @@ namespace CodeHub.Views
              */
             String html = await ReadmeWebView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
             ViewModel.TryParseRepositoryLanguageColor(html);
+            LanguageColorProgressRing.Visibility = Visibility.Collapsed;
+            if (ViewModel.LanguageColor == null) ColorEllipse.Visibility = Visibility.Collapsed;
             String heightString = await ReadmeWebView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
