@@ -63,7 +63,8 @@ namespace CodeHub.Services.Hilite_me
         {
             // Check if the code is possibly invalid
             const int threshold = 50, length = 1000;
-            if (code.Substring(0, length > code.Length ? code.Length : length).Count(char.IsControl) > threshold)
+            if (code.Substring(0, length > code.Length ? code.Length : length).Count(
+                c => char.IsControl(c) && c != '\n' && c != '\r' && c != '\t') > threshold)
             {
                 return null;
             }
