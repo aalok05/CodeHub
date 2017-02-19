@@ -96,7 +96,7 @@
                                        Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
 
                             <HyperlinkButton x:Name="userText"
-                                             Margin="12,0,8,0"
+                                             Margin="12,0,4,4"
                                              Padding="0"
                                              Content="{Binding Actor.Login}"
                                              RelativePanel.Below="timeText"
@@ -113,14 +113,16 @@
                             </HyperlinkButton>
 
                             <TextBlock x:Name="actionText"
-                                       Margin="0,0,8,0"
+                                       Margin="0,0,4,4"
                                        FontSize="13"
+                                       FontWeight="SemiBold"
                                        RelativePanel.AlignVerticalCenterWith="userText"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="userText"
                                        Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
 
                             <HyperlinkButton x:Name="RepoText"
+                                             Margin="0 0 0 4"
                                              Padding="0"
                                              Content="{Binding Repo.Name}"
                                              FontSize="13"
@@ -137,16 +139,19 @@
                                 </HyperlinkButton.ContentTemplate>
                             </HyperlinkButton>
 
-                            <TextBlock Padding="12 8 0 8"
-                                       FontSize="12"
-                                       MaxLines="5"
-                                       RelativePanel.AlignLeftWithPanel="True"
-                                       RelativePanel.AlignRightWithPanel="True"
-                                       RelativePanel.Below="RepoText"
-                                       Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
-                                       TextTrimming="CharacterEllipsis"
-                                       TextWrapping="Wrap"
-                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
+                            <Border Margin="12 4 12 4"
+                                    Background="{ThemeResource SystemChromeLowColor}"
+                                    RelativePanel.AlignLeftWithPanel="True"
+                                    RelativePanel.AlignRightWithPanel="True"
+                                    RelativePanel.Below="RepoText">
+                                <TextBlock Padding="12 8 0 8"
+                                           FontSize="13"
+                                           MaxLines="5"
+                                           Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="Wrap"
+                                           Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
+                            </Border>
                         </RelativePanel>
                     </UserControl>
 
