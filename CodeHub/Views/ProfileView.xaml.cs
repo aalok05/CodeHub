@@ -27,24 +27,23 @@ namespace CodeHub.Views
         public ProfileView()
         {
             this.InitializeComponent();
-            Loading += ProfileView_Loading;
             ViewModel = new ProfileViewmodel();
            
             this.DataContext = ViewModel;
 
+            //Listening for Sign In message
+            Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
+            //Listening for Sign Out message
+            Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage);
+
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
 
             ViewModel.User = (User)e.Parameter;
-        }
-        private async void ProfileView_Loading(FrameworkElement sender, object args)
-        {
-            Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage); //Listening for Sign In message
-            Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage);  //Listening for Sign Out message
             await ViewModel.Load();
         }
     }
