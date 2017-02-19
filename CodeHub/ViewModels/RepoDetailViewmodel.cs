@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -10,13 +9,8 @@ using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
-using Windows.UI;
 using Windows.UI.Xaml.Media;
-using Windows.Web.Http;
-using HtmlAgilityPack;
-using JetBrains.Annotations;
 using MarkdownSharp;
-using Microsoft.Toolkit.Uwp;
 
 namespace CodeHub.ViewModels
 {
@@ -49,41 +43,12 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public SolidColorBrush _LanguageColor;
-
-        /// <summary>
-        /// Gets the color of the main language of the repository
-        /// </summary>
-        public SolidColorBrush LanguageColor
+        public async Task Load(object repo)
         {
-            get { return _LanguageColor; }
-            private set { Set(() => LanguageColor, ref _LanguageColor, value); }
-        }
-
-        /// <summary>
-        /// Tries to parse the language color of a repository from its HTML code
-        /// </summary>
-        /// <param name="html">The HTML code of the repository page</param>
-        public void TryParseRepositoryLanguageColor([NotNull] String html)
-        {
-            HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(html);
-            HtmlNode
-                node = document.DocumentNode?.Descendants("span").FirstOrDefault(child =>
-                        child.Attributes?.AttributesWithName("class")?.FirstOrDefault()?.Value?.Equals("color-block language-color") == true);
-            String
-                style = node?.Attributes.AttributesWithName("style").FirstOrDefault()?.Value,
-                colorStr = style?.Substring(style.Length - 7, 6);
-            if (colorStr != null) LanguageColor = new SolidColorBrush($"#FF{colorStr}".ToColor());
-        }
-
-        public async Task Load(Repository repo)
-        {
-            Repository = repo;
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); 
+                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType());
             }
             else
             {
@@ -91,6 +56,16 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
 
                 isLoading = true;
+                if (repo.GetType() == typeof(string))
+                {
+                    //Splitting repository name and owner name
+                    var names = (repo as string).Split('/');
+                    Repository = await RepositoryUtility.GetRepository(names[0], names[1]);
+                }
+                else
+                {
+                    Repository = repo as Repository;
+                }
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 isLoading = false;
             }
@@ -106,7 +81,6 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
-                                             
                                           }));
             }
         }

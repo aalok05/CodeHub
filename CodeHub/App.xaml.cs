@@ -26,13 +26,14 @@ namespace CodeHub
         /// </summary>
         public App()
         {
-            this.InitializeComponent();;
+            this.InitializeComponent();
           
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.ShowReadme, false, false);
+            SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
         }
 
         /// <summary>
@@ -43,12 +44,10 @@ namespace CodeHub
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Set the right theme-depending color for the alternating rows
-            var s = SettingsService.Get<String>("AppTheme");
-            if (s != "Dark")
+            if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
             {
-                // TODO: update this section with the new settings manager after the merge
                 XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush",
-                    new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
+                   new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
             }
 
             CustomFrame rootFrame = Window.Current.Content as CustomFrame;

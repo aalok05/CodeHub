@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Data;
 
 namespace CodeHub.Converters
 {
-    class DateFormatConverter : IValueConverter
+    class TimeAgoConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

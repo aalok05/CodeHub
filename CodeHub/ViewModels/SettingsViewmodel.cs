@@ -123,6 +123,25 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _LoadCommitsInfo = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo);
+
+        /// <summary>
+        /// Gets or sets whether or not to load the additional commits info when browsing the contents of a repository
+        /// </summary>
+        public bool LoadCommitsInfo
+        {
+            get { return _LoadCommitsInfo; }
+            set
+            {
+                if (_LoadCommitsInfo != value)
+                {
+                    _LoadCommitsInfo = value;
+                    SettingsService.Save(SettingsKeys.LoadCommitsInfo, value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>
@@ -130,6 +149,7 @@ namespace CodeHub.ViewModels
 
 
         #endregion
+
         public SettingsViewModel()
         {
             Settings = new ObservableCollection<SettingsItem>()

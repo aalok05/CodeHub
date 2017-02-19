@@ -1,16 +1,9 @@
 ﻿using System;
-using Windows.Graphics.Display;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
-using Octokit;
 using Windows.UI.Xaml.Navigation;
-using UICompositionAnimations;
-using Application = Windows.UI.Xaml.Application;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using CodeHub.Services;
@@ -30,8 +23,24 @@ namespace CodeHub.Views
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
-            await ViewModel.Load(e.Parameter as Repository);
+            await ViewModel.Load(e.Parameter);
+            FindName("LanguageText");
+            FindName("DescriptionText");
+            FindName("calendarSymbol");
+            FindName("createdText");
+            FindName("createdDateText");
+            FindName("editSymbol");
+            FindName("editText");
+            FindName("updatedDateText");
+            FindName("issueSymbol");
+            FindName("issueText");
+            FindName("issueCount");
+            FindName("sizeSymbol");
+            FindName("sizeText");
+            FindName("sizeCount");
+            FindName("sizeUnitText");
 
+            ReadmeWebView.Visibility = Visibility.Collapsed;
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
             {
                 ReadmeLoadingRing.IsActive = true;
@@ -44,19 +53,12 @@ namespace CodeHub.Views
             else
                 ReadmeLoadingRing.IsActive = false;
 
-            // ReadmeWebview will be hidden untill JS script is executed.
-            ReadmeWebView.Visibility = Visibility.Collapsed;
+
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            /*  We are getting the readme div and setting it as the root of the webview.
-             *  Also We are running a Javascript function that will make all links in the WebView open in an external browser
-             *  instead of within the WebView itself.
-             */
             var webView = sender as WebView;
-            String html = await webView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
-            ViewModel.TryParseRepositoryLanguageColor(html);
-            String heightString = await webView.InvokeScriptAsync("eval", new[]
+            await webView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
                 {
@@ -71,14 +73,10 @@ namespace CodeHub.Views
                     {
                         hyperlinks[i].setAttribute('target', '_blank');
                     }
-                    return body.scrollHeight.toString();
                 })()"
             });
-            if (heightString == null) return;
-            webView.Height = double.Parse(heightString) / DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
-            webView.SetVisualOpacity(0);
-            webView.Visibility = Visibility.Visible;
-            webView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
+
+            ReadmeWebView.Visibility = Visibility.Visible;
             ReadmeLoadingRing.IsActive = false;
         }
     }
