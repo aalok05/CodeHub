@@ -61,18 +61,24 @@ namespace CodeHub.ViewModels
 
         public ContributionsDataModel[,] _Data;
 
+        /// <summary>
+        /// Gets the matrix that represents the contributions chart of the current user
+        /// </summary>
         public ContributionsDataModel[,] Data
         {
             get { return _Data; }
-            set { Set(() => Data, ref _Data, value); }
+            private set { Set(() => Data, ref _Data, value); }
         }
 
         public String[] _Months;
 
+        /// <summary>
+        /// Gets the list of months to display in the horizontal axis of the contributions chart
+        /// </summary>
         public String[] Months
         {
             get { return _Months; }
-            set { Set(() => Months, ref _Months, value); }
+            private set { Set(() => Months, ref _Months, value); }
         }
 
         public IEnumerable<PinnedUserRepository> _PinnedRepositories;
@@ -127,20 +133,22 @@ namespace CodeHub.ViewModels
                     view.NavigateWithHttpRequestMessage(httpRequestMessage);
                     String html = await tcs.Task;
 
+                    // Load the HTML document
                     HtmlDocument document = new HtmlDocument();
                     document.LoadHtml(html);
 
+                    // Get the contributions chart node
                     HtmlNode
                         graph = document.DocumentNode
                             ?.Descendants("svg")
                             ?.FirstOrDefault(node => node.Attributes?.Any(att => att.Name?.Equals("class") == true &&
                                                                                  att.Value?.Equals("js-calendar-graph-svg") == true) == true),
                         root = graph?.Descendants("g")?.FirstOrDefault();
-                    List<String> months = new List<String>();
                     Months = graph?.DescendantsWithAttribute("text", "class", "month").Select(node => node.InnerText).ToArray();
+
+                    // Extract the chart data
                     if (root != null)
                     {
-                        int? test = root?.Descendants("g").Count();
                         ContributionsDataModel[,] data = new ContributionsDataModel[7, 53]; // 7 days per week by 53 weeks
                         int i = 0;
                         foreach (var week in root.Descendants("g"))
