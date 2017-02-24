@@ -159,7 +159,7 @@ namespace CodeHub.Services
             try
             {
                 var client = await GetAuthenticatedClient();
-                var repo = await client.Activity.Starring.GetAllForCurrent();
+                var repos = await client.Activity.Starring.GetAllForCurrent();
                 return new ObservableCollection<Repository>(new List<Repository>(repos));
             }
             catch

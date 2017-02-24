@@ -14,7 +14,7 @@ namespace CodeHub.Services
                 var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchRepositoriesRequest(query);
                 var result = await client.Search.SearchRepo(request);
-                return new ObservableCollection<Repository>(new List<Repository>(result));
+                return new ObservableCollection<Repository>(new List<Repository>(result.Items));
             }
             catch
             {
