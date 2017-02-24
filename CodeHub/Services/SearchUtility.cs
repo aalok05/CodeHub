@@ -7,6 +7,11 @@ namespace CodeHub.Services
 {
     class SearchUtility
     {
+        /// <summary>
+        /// Searches repositories 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Repository>> SearchRepos(string query)
         {
             try
@@ -22,6 +27,12 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Searches code
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<SearchCode>> SearchCode(string query)
         {
             try
@@ -37,6 +48,12 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Searches users
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<User>> SearchUsers(string query)
         {
             try
@@ -52,6 +69,12 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Searches issues
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Issue>> SearchIssues(string query)
         {
             try
