@@ -36,7 +36,6 @@
                     </Grid.RowDefinitions>
                     <AutoSuggestBox Grid.Row="0"
                                     PlaceholderText="filter"
-                                    QueryIcon="Find"
                                     Style="{StaticResource SearchBoxStyle}"
                                     Text="{x:Bind ViewModel.MyReposQueryString, Mode=TwoWay}"
                                     TextChanged="{x:Bind ViewModel.MyReposQueryString_TextChanged}" />
@@ -88,7 +87,6 @@
                     </Grid.RowDefinitions>
                     <AutoSuggestBox Grid.Row="0"
                                     PlaceholderText="filter"
-                                    QueryIcon="Find"
                                     Style="{StaticResource SearchBoxStyle}"
                                     Text="{x:Bind ViewModel.StarredQueryString, Mode=TwoWay}"
                                     TextChanged="{x:Bind ViewModel.StarredQueryString_TextChanged}" />
