@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using System.Linq;
 
 namespace CodeHub.ViewModels
 {
@@ -48,6 +49,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public string _MyReposQueryString;
+        public string MyReposQueryString
+        {
+            get
+            {
+                return _MyReposQueryString;
+            }
+            set
+            {
+                Set(() => MyReposQueryString, ref _MyReposQueryString, value);
+            }
+        }
+
+        public string _StarredQueryString;
+        public string StarredQueryString
+        {
+            get
+            {
+                return _StarredQueryString;
+            }
+            set
+            {
+                Set(() => StarredQueryString, ref _StarredQueryString, value);
+            }
+        }
+
         public ObservableCollection<Repository> _repositories;
         public ObservableCollection<Repository> Repositories
         {
@@ -74,6 +101,10 @@ namespace CodeHub.ViewModels
                 Set(() => StarredRepositories, ref _starredRepositories, value);
             }
         }
+
+        public ObservableCollection<Repository> RepositoriesNotFiltered { get; set; }
+        public ObservableCollection<Repository> StarredRepositoriesNotFiltered { get; set; }
+
         public async Task Load()
         {
           
@@ -189,7 +220,7 @@ namespace CodeHub.ViewModels
             else
             {
                 ZeroRepo = false;
-                Repositories = repos;
+                RepositoriesNotFiltered = Repositories = repos;
             }
         }
         private async Task LoadStarRepos()
@@ -206,8 +237,28 @@ namespace CodeHub.ViewModels
             else
             {
                 ZeroStarRepo = false;
-                StarredRepositories = starred;
+                StarredRepositoriesNotFiltered = StarredRepositories = starred;
             }
+        }
+        public void MyReposQueryString_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(sender.Text))
+            {
+                var filtered = RepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
+                Repositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+            }
+            else
+                Repositories = RepositoriesNotFiltered;
+        }
+        public void StarredQueryString_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(sender.Text))
+            {
+                var filtered = StarredRepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
+                StarredRepositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+            }
+            else
+                StarredRepositories = StarredRepositoriesNotFiltered;
         }
     }
 }
