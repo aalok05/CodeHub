@@ -141,13 +141,8 @@ namespace CodeHub.Services
             try
             {
                 var client = await GetAuthenticatedClient();
-                ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
-                var repo = await client.Repository.GetAllForCurrent();
-                foreach (Repository r in repo)
-                {
-                    repos.Add(r);
-                }
-                return repos;
+                var repos = await client.Repository.GetAllForCurrent();
+                return new ObservableCollection<Repository>(new List<Repository>(repos));
             }
             catch
             {
@@ -164,15 +159,8 @@ namespace CodeHub.Services
             try
             {
                 var client = await GetAuthenticatedClient();
-                ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
                 var repo = await client.Activity.Starring.GetAllForCurrent();
-                foreach (Repository r in repo)
-                {
-                    repos.Add(r);
-                }
-
-
-                return repos;
+                return new ObservableCollection<Repository>(new List<Repository>(repos));
             }
             catch
             {
