@@ -146,6 +146,7 @@ namespace CodeHub.ViewModels
         }
         public async void RefreshCommand(object sender, EventArgs e)
         {
+            MyReposQueryString = string.Empty;
             if (!GlobalHelper.IsInternet())
             {
                 Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
@@ -163,6 +164,7 @@ namespace CodeHub.ViewModels
         }
         public async void RefreshStarredCommand(object sender, EventArgs e)
         {
+            StarredQueryString = string.Empty;
             if (!GlobalHelper.IsInternet())
             {
                 Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
