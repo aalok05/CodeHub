@@ -352,13 +352,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var issues = await client.Issue.GetAllForRepository(repoId, filter);
-                ObservableCollection<Issue> issueList = new ObservableCollection<Issue>();
-                foreach (Issue c in issues)
-                {
-                    issueList.Add(c);
-                }
-
-                return issueList;
+                return new ObservableCollection<Issue>(new List<Issue>(issues));
             }
             catch
             {
@@ -383,13 +377,8 @@ namespace CodeHub.Services
                     Creator = GlobalHelper.UserLogin
 
                 });
-                ObservableCollection<Issue> issueList = new ObservableCollection<Issue>();
-                foreach (Issue c in issues)
-                {
-                    issueList.Add(c);
-                }
 
-                return issueList;
+                return new ObservableCollection<Issue>(new List<Issue>(issues));
             }
             catch
             {
@@ -409,12 +398,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var result = await client.Repository.GetAllForUser(login);
-                ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
-                foreach (Repository r in result)
-                {
-                    repos.Add(r);
-                }
-                return repos;
+                return new ObservableCollection<Repository>(new List<Repository>(result));
             }
             catch
             {
@@ -436,14 +420,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
-
-                ObservableCollection<IssueComment> commentList = new ObservableCollection<IssueComment>();
-                foreach (IssueComment c in comments)
-                {
-                    commentList.Add(c);
-                }
-
-                return commentList;
+                return new ObservableCollection<IssueComment>(new List<IssueComment>(comments));
             }
             catch
             {
@@ -551,13 +528,7 @@ namespace CodeHub.Services
 
                 var list = await client.Repository.Commit.GetAll(repoId, request);
 
-                ObservableCollection<GitHubCommit> commitList = new ObservableCollection<GitHubCommit>();
-
-                foreach (GitHubCommit c in list)
-                {
-                    commitList.Add(c);
-                }
-                return commitList;
+                return new ObservableCollection<GitHubCommit>(new List<GitHubCommit>(list));
             }
             catch
             {
