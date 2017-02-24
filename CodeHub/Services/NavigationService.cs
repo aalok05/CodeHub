@@ -59,15 +59,25 @@ namespace CodeHub.Services
         // Navigation with parameters
         public Task<bool> NavigateAsync(Type type, String pageTitle, object parameter) => NavigateCoreAsync(type, pageTitle, parameter);
 
+        // Navigation with parameters without animations
+        public async void NavigateWithoutAnimations(Type type, String pageTitle, object parameter)
+        {
+            await NavigationSemaphore.WaitAsync();
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
+            Frame.NavigateWithoutAnimations(type, parameter);
+
+            NavigationSemaphore.Release();
+        }
+
         // Straight, synchronous navigation without animations
         public async void NavigateWithoutAnimations(Type type, String pageTitle)
         {
             await NavigationSemaphore.WaitAsync();
-            if (Frame.CurrentSourcePageType != type)
-            {
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
-                Frame.NavigateWithoutAnimations(type);
-            }
+
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
+            Frame.NavigateWithoutAnimations(type);
+
             NavigationSemaphore.Release();
         }
 

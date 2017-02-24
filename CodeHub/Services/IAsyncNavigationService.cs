@@ -31,6 +31,13 @@ namespace CodeHub.Services
         void NavigateWithoutAnimations(Type pageType, String pageTitle);
 
         /// <summary>
+        /// Navigates to the target page with a given parameter without displaying any animations
+        /// </summary>
+        /// <param name="pageType">The type of the target page</param>
+        /// <param name="pageTitle">The page title</param>
+        void NavigateWithoutAnimations(Type pageType, String pageTitle, object parameter);
+
+        /// <summary>
         /// Gets the current page type
         /// </summary>
         Type CurrentSourcePageType { get; }
