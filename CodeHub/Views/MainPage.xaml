@@ -221,8 +221,8 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Visible" />
                         <Setter Target="HamButton.Visibility" Value="Collapsed" />
                         <Setter Target="HeaderPanel.Height" Value="40" />
-                        <Setter Target="SearchButton.MaxHeight" Value="19" />
-                        <Setter Target="SearchButton.MaxWidth" Value="19" />
+                        <Setter Target="SearchSymbol.MaxHeight" Value="19" />
+                        <Setter Target="SearchSymbol.MaxWidth" Value="19" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -275,28 +275,22 @@
                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
                 </Grid>
-                <Viewbox x:Name="SearchButton"
-                         MaxWidth="21"
-                         MaxHeight="21"
-                         Margin="0 0 15 0"
-                         RelativePanel.AlignRightWithPanel="True"
-                         RelativePanel.AlignVerticalCenterWith="HamButton"
-                         Tapped="{x:Bind ViewModel.NavigateToSearch}">
-                    <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="PointerPressed">
-                                <core:ChangePropertyAction PropertyName="Foreground" Value="#454545" />
-                            </core:EventTriggerBehavior>
-                            <core:EventTriggerBehavior EventName="PointerEntered">
-                                <core:ChangePropertyAction PropertyName="Foreground" Value="Gray" />
-                            </core:EventTriggerBehavior>
-                            <core:EventTriggerBehavior EventName="PointerExited">
-                                <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </SymbolIcon>
-
-                </Viewbox>
+                <Button x:Name="SearchButton"
+                        Style="{StaticResource ActionButtonStyle}"
+                        BorderThickness="0"
+                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                        Padding="12 0 12 0"
+                        Width="50"
+                        Height="48"
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignVerticalCenterWith="HamButton"
+                        Tapped="{x:Bind ViewModel.NavigateToSearch}">
+                    <Viewbox x:Name="SearchSymbol"
+                             MaxWidth="21"
+                             MaxHeight="21">
+                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find"/>
+                    </Viewbox>
+                </Button>
 
                 <Popup x:Name="InternetPopup"
                        IsOpen="True"
@@ -458,9 +452,9 @@
                 </SplitView.Content>
             </SplitView>
         </Grid>
-        <control:SignInPage x:Name="SignInPage"
+        <!--<control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
-                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />-->
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
