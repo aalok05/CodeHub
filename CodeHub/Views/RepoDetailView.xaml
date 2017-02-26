@@ -190,7 +190,7 @@
                         Margin="0 0 10 0"
                         Padding="5 0 0 0"
                         Command="{x:Bind ViewModel.StarRepo}"
-                        Style="{StaticResource FollowButtonStyle}"
+                        Style="{StaticResource ActionButtonStyle}"
                         Visibility="{x:Bind ViewModel.IsStar, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <Viewbox MaxWidth="12" MaxHeight="12">
@@ -208,7 +208,7 @@
                         Margin="0 0 10 0"
                         Padding="5 0 0 0"
                         Command="{x:Bind ViewModel.UnstarRepo}"
-                        Style="{StaticResource FollowButtonStyle}"
+                        Style="{StaticResource ActionButtonStyle}"
                         Visibility="{x:Bind ViewModel.IsStar, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <Viewbox MaxWidth="12" MaxHeight="12">
@@ -231,7 +231,7 @@
                     RelativePanel.AlignVerticalCenterWith="StarButton"
                     RelativePanel.Below="OwnerPic"
                     RelativePanel.RightOf="StarButton"
-                    Style="{StaticResource FollowButtonStyle}">
+                    Style="{StaticResource ActionButtonStyle}">
                 <StackPanel Orientation="Horizontal">
                     <Viewbox MaxWidth="14" MaxHeight="14">
                         <Path Data="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"

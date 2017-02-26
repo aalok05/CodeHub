@@ -363,7 +363,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="FollowButtonStyle" TargetType="Button">
+    <Style x:Key="ActionButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" />
