@@ -240,7 +240,7 @@
                     </Viewbox>
                     <TextBlock x:Name="ViewCodeTextBlock"
                                Height="30"
-                               Padding="0 7 0 0"
+                               Padding="0 8 0 0"
                                VerticalAlignment="Center"
                                xml:space="preserve"
                                FontSize="12"
