@@ -223,6 +223,7 @@
                         <Setter Target="HeaderPanel.Height" Value="40" />
                         <Setter Target="SearchSymbol.MaxHeight" Value="19" />
                         <Setter Target="SearchSymbol.MaxWidth" Value="19" />
+                        <Setter Target="HeaderText.MaxWidth" Value="195" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -273,7 +274,8 @@
                                FontSize="16"
                                FontWeight="Bold"
                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                               Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                               Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" 
+                               TextTrimming="CharacterEllipsis"/>
                 </Grid>
                 <Button x:Name="SearchButton"
                         Style="{StaticResource ActionButtonStyle}"
