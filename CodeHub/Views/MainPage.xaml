@@ -266,7 +266,7 @@
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
 
-                <Grid Margin="12,0,0,0"
+                <Canvas Margin="12,0,0,0"
                       RelativePanel.AlignVerticalCenterWith="HamButton"
                       RelativePanel.RightOf="HamButton">
                     <TextBlock Name="HeaderText"
@@ -276,7 +276,7 @@
                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" 
                                TextTrimming="CharacterEllipsis"/>
-                </Grid>
+                </Canvas>
                 <Button x:Name="SearchButton"
                         Style="{StaticResource ActionButtonStyle}"
                         BorderThickness="0"
@@ -454,9 +454,9 @@
                 </SplitView.Content>
             </SplitView>
         </Grid>
-        <!--<control:SignInPage x:Name="SignInPage"
+        <control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
-                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />-->
+                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
