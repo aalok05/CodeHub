@@ -1,19 +1,8 @@
 ﻿using CodeHub.Helpers;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UICompositionAnimations;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace CodeHub.Controls
 {
@@ -76,7 +65,7 @@ namespace CodeHub.Controls
             }
             else if (sender.To<ScrollViewer>().VerticalOffset < VerticalOffsetThreshold &&
                 _ButtonShown)
-            {;
+            {
                 _ButtonShown = false;
                 this.IsHitTestVisible = false;
                 this.StartXAMLTransformFadeSlideAnimation(null, 0, TranslationAxis.Y, 0, 20, 200, null, null, EasingFunctionNames.SineEaseOut);
