@@ -25,9 +25,13 @@
         <Pivot>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               FontWeight="Normal"
-                               Text="all" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="15"
+                                   Margin="0 0 12 0"
+                                   FontWeight="Normal"
+                                   Text="all" />
+                        <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}" />
+                    </StackPanel>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -76,9 +80,13 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               FontWeight="Normal"
-                               Text="starred" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="15"
+                                   Margin="0 0 12 0"
+                                   FontWeight="Normal"
+                                   Text="starred" />
+                        <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.StarredRepositories.Count, Mode=OneWay}" />
+                    </StackPanel>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
