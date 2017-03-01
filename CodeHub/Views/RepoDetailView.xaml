@@ -85,7 +85,6 @@
                                         Value="100"
                                         Duration="0" />
                     </i:Interaction.Behaviors>
-
                 </controls:ImageEx>
             </Grid>
             <Ellipse x:Name="OwnerPic"
@@ -143,6 +142,9 @@
                             <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="False">
                                 <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                             </core:DataTriggerBehavior>
+                            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStarLoading, Mode=OneWay}" Value="True">
+                                <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource SystemChromeLowColor}" />
+                            </core:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </SymbolIcon>
                 </Viewbox>
@@ -172,6 +174,9 @@
                         </core:DataTriggerBehavior>
                         <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsWatching, Mode=TwoWay}" Value="False">
                             <core:ChangePropertyAction PropertyName="Fill" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+                        </core:DataTriggerBehavior>
+                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsWatchLoading, Mode=OneWay}" Value="True">
+                            <core:ChangePropertyAction PropertyName="Fill" Value="{ThemeResource SystemChromeLowColor}" />
                         </core:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Path>
@@ -223,14 +228,14 @@
                        Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
 
             <StackPanel x:Name="ButtonsPanel"
-                        Margin="0 8 0 0"
+                        Margin="0,8,0,0"
                         Orientation="Horizontal"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
                         RelativePanel.Below="LanguageText">
                 <Button x:Name="ViewCodeButton"
                         Width="90"
                         Height="30"
-                        Margin="0 0 20 0"
+                        Margin="0,0,20,0"
                         Command="{x:Bind ViewModel.SourceCodeNavigate}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -241,20 +246,20 @@
                         </Viewbox>
                         <TextBlock x:Name="ViewCodeTextBlock"
                                    Height="30"
-                                   Padding="0 8 0 0"
-                                   FontWeight="Light"
+                                   Padding="0,8,0,0"
                                    VerticalAlignment="Center"
                                    xml:space="preserve"
                                    FontSize="12"
+                                   FontWeight="Medium"
                                    Text="  CODE">
                         </TextBlock>
 
                     </StackPanel>
                 </Button>
                 <Button x:Name="IssuesButton"
+                        Height="30"
                         MinWidth="90"
                         HorizontalAlignment="Center"
-                        Height="30"
                         Command="{x:Bind ViewModel.IssuesTapped}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -264,16 +269,16 @@
                                   StrokeThickness="0" />
                         </Viewbox>
                         <TextBlock Height="30"
-                                   Padding="0 8 4 0"
+                                   Padding="0,8,4,0"
                                    VerticalAlignment="Center"
-                                   FontWeight="Light"
                                    xml:space="preserve"
                                    FontSize="12"
+                                   FontWeight="Medium"
                                    Text="  ISSUES">
                         </TextBlock>
-                        <TextBlock Margin="0 4 0 2" 
-                                   FontSize="12"
+                        <TextBlock Margin="0,4,0,2"
                                    VerticalAlignment="Center"
+                                   FontSize="12"
                                    Text="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}" />
 
                     </StackPanel>
@@ -299,29 +304,16 @@
                          MaxHeight="15"
                          Margin="0,0,8,0"
                          x:DeferLoadStrategy="Lazy"
-                         RelativePanel.AlignLeftWithPanel="True">
+                         RelativePanel.LeftOf="createdDateText">
                     <SymbolIcon Foreground="#525252" Symbol="Calendar" />
                 </Viewbox>
                 <TextBlock x:Name="createdDateText"
                            x:DeferLoadStrategy="Lazy"
                            FontSize="12"
-                           RelativePanel.RightOf="calendarSymbol"
+                           Margin="0 0 12 0"
+                           RelativePanel.LeftOf="sizeSymbol"
                            Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepositoryCreationTimeConverter}, Mode=OneWay}" />
-
-                <Viewbox x:Name="editSymbol"
-                         MaxWidth="15"
-                         MaxHeight="15"
-                         Margin="0,0,8,0"
-                         x:DeferLoadStrategy="Lazy"
-                         RelativePanel.LeftOf="updatedDateText">
-                    <SymbolIcon Foreground="#525252" Symbol="Edit" />
-                </Viewbox>
-                <TextBlock x:Name="updatedDateText"
-                           x:DeferLoadStrategy="Lazy"
-                           FontSize="12"
-                           RelativePanel.AlignRightWithPanel="True"
-                           Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
-
+                
                 <Viewbox x:Name="sizeSymbol"
                          MaxWidth="15"
                          MaxHeight="15"
@@ -341,8 +333,23 @@
                            x:DeferLoadStrategy="Lazy"
                            FontSize="12"
                            RelativePanel.AlignVerticalCenterWith="sizeCount"
+                           Margin="0 0 12 0"
                            RelativePanel.RightOf="sizeCount"
                            Text="KB" />
+                
+                <Viewbox x:Name="editSymbol"
+                         MaxWidth="15"
+                         MaxHeight="15"
+                         Margin="0,0,8,0"
+                         x:DeferLoadStrategy="Lazy"
+                         RelativePanel.RightOf="sizeUnitText">
+                    <SymbolIcon Foreground="#525252" Symbol="Edit" />
+                </Viewbox>
+                <TextBlock x:Name="updatedDateText"
+                           x:DeferLoadStrategy="Lazy"
+                           FontSize="12"
+                           RelativePanel.RightOf="editSymbol"
+                           Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </RelativePanel>
 
             <WebView x:Name="ReadmeWebView"
