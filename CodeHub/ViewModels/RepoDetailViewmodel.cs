@@ -57,6 +57,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsStarLoading;
+        public bool IsStarLoading
+        {
+            get
+            {
+                return _IsStarLoading;
+            }
+            set
+            {
+                Set(() => IsStarLoading, ref _IsStarLoading, value);
+            }
+        }
+
+        public bool _IsWatchLoading;
+        public bool IsWatchLoading
+        {
+            get
+            {
+                return _IsWatchLoading;
+            }
+            set
+            {
+                Set(() => IsWatchLoading, ref _IsWatchLoading, value);
+            }
+        }
+
         public bool _IsForkLoading;
         public bool IsForkLoading
         {
@@ -154,16 +180,20 @@ namespace CodeHub.ViewModels
                                           {
                                               if (!IsStar)
                                               {
+                                                  IsStarLoading = true;
                                                   if (await RepositoryUtility.StarRepository(Repository))
                                                   {
+                                                      IsStarLoading = false;
                                                       IsStar = true;
                                                       GlobalHelper.NewStarActivity = true;
                                                   }
                                               }
                                               else
                                               {
+                                                  IsStarLoading = true;
                                                   if (await RepositoryUtility.UnstarRepository(Repository))
                                                   {
+                                                      IsStarLoading = false;
                                                       IsStar = false;
                                                       GlobalHelper.NewStarActivity = true;
                                                   }
@@ -183,15 +213,19 @@ namespace CodeHub.ViewModels
                                           {
                                               if (!IsWatching)
                                               {
+                                                  IsWatchLoading = true;
                                                   if (await RepositoryUtility.WatchRepository(Repository))
                                                   {
+                                                      IsWatchLoading = false;
                                                       IsWatching = true;
                                                   }
                                               }
                                               else
                                               {
+                                                  IsWatchLoading = true;
                                                   if (await RepositoryUtility.UnwatchRepository(Repository))
                                                   {
+                                                      IsWatchLoading = false;
                                                       IsWatching = false;
                                                   }
                                               }
