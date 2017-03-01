@@ -104,7 +104,6 @@ namespace CodeHub.ViewModels
 
         public ObservableCollection<Repository> RepositoriesNotFiltered { get; set; }
         public ObservableCollection<Repository> StarredRepositoriesNotFiltered { get; set; }
-
         public async Task Load()
         {
           
@@ -185,7 +184,6 @@ namespace CodeHub.ViewModels
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
         }
-       
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
         {
             isLoggedin = false;

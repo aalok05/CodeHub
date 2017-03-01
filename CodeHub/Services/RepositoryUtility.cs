@@ -496,6 +496,78 @@ namespace CodeHub.Services
         }
 
         /// <summary>
+        /// Watches a repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
+        public static async Task<bool> WatchRepository(Repository repo)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return (await client.Activity.Watching.WatchRepo(repo.Id, new NewSubscription{ Subscribed = true })).Subscribed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Unwatches a repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
+        public static async Task<bool> UnwatchRepository(Repository repo)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return await client.Activity.Watching.UnwatchRepo(repo.Id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Forks a repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns>Forked repository</returns>
+        public static async Task<Repository> ForkRepository(Repository repo)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return await client.Repository.Forks.Create(repo.Id, new NewRepositoryFork());
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Checks if a repository is watched by the authorized user
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
+        public static async Task<bool> CheckWatched(Repository repo)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Activity.Watching.CheckWatched(repo.Id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Checks if a repository is starred by the authorized user
         /// </summary>
         /// <param name="repo"></param>

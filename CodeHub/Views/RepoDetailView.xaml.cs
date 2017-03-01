@@ -27,16 +27,10 @@ namespace CodeHub.Views
             FindName("LanguageText");
             FindName("DescriptionText");
             FindName("calendarSymbol");
-            FindName("createdText");
             FindName("createdDateText");
             FindName("editSymbol");
-            FindName("editText");
             FindName("updatedDateText");
-            FindName("issueSymbol");
-            FindName("issueText");
-            FindName("issueCount");
             FindName("sizeSymbol");
-            FindName("sizeText");
             FindName("sizeCount");
             FindName("sizeUnitText");
 
