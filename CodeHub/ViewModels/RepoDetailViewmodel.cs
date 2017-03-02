@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using MarkdownSharp;
+using Windows.UI.Core;
 
 namespace CodeHub.ViewModels
 {
@@ -43,6 +44,58 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsWatching;
+        public bool IsWatching
+        {
+            get
+            {
+                return _IsWatching;
+            }
+            set
+            {
+                Set(() => IsWatching, ref _IsWatching, value);
+            }
+        }
+
+        public bool _IsStarLoading;
+        public bool IsStarLoading
+        {
+            get
+            {
+                return _IsStarLoading;
+            }
+            set
+            {
+                Set(() => IsStarLoading, ref _IsStarLoading, value);
+            }
+        }
+
+        public bool _IsWatchLoading;
+        public bool IsWatchLoading
+        {
+            get
+            {
+                return _IsWatchLoading;
+            }
+            set
+            {
+                Set(() => IsWatchLoading, ref _IsWatchLoading, value);
+            }
+        }
+
+        public bool _IsForkLoading;
+        public bool IsForkLoading
+        {
+            get
+            {
+                return _IsForkLoading;
+            }
+            set
+            {
+                Set(() => IsForkLoading, ref _IsForkLoading, value);
+            }
+        }
+
         public async Task Load(object repo)
         {
             if (!GlobalHelper.IsInternet())
@@ -66,7 +119,10 @@ namespace CodeHub.ViewModels
                 {
                     Repository = repo as Repository;
                 }
+
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
+                IsWatching = await RepositoryUtility.CheckWatched(Repository);
+
                 isLoading = false;
             }
         }
@@ -81,46 +137,6 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
-                                          }));
-            }
-        }
-
-        private RelayCommand _starRepo;
-        public RelayCommand StarRepo
-        {
-            get
-            {
-                return _starRepo
-                    ?? (_starRepo = new RelayCommand(
-                                          async () =>
-                                          {
-                                              isLoading = true;
-                                              if (await RepositoryUtility.StarRepository(Repository))
-                                              {
-                                                  isLoading = false;
-                                                  IsStar = true;
-                                                  GlobalHelper.NewStarActivity = true;
-                                              }
-                                          }));
-            }
-        }
-
-        private RelayCommand _unStarRepo;
-        public RelayCommand UnstarRepo
-        {
-            get
-            {
-                return _unStarRepo
-                    ?? (_unStarRepo = new RelayCommand(
-                                          async () =>
-                                          {
-                                              isLoading = true;
-                                              if (await RepositoryUtility.UnstarRepository(Repository))
-                                              {
-                                                  isLoading = false;
-                                                  IsStar = false;
-                                                  GlobalHelper.NewStarActivity = true;
-                                              }
                                           }));
             }
         }
@@ -149,6 +165,90 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(IssuesView), "Issues", Repository);
+                                          }));
+            }
+        }
+
+        private RelayCommand _StarCommand;
+        public RelayCommand StarCommand
+        {
+            get
+            {
+                return _StarCommand
+                    ?? (_StarCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if (!IsStar)
+                                              {
+                                                  IsStarLoading = true;
+                                                  if (await RepositoryUtility.StarRepository(Repository))
+                                                  {
+                                                      IsStarLoading = false;
+                                                      IsStar = true;
+                                                      GlobalHelper.NewStarActivity = true;
+                                                  }
+                                              }
+                                              else
+                                              {
+                                                  IsStarLoading = true;
+                                                  if (await RepositoryUtility.UnstarRepository(Repository))
+                                                  {
+                                                      IsStarLoading = false;
+                                                      IsStar = false;
+                                                      GlobalHelper.NewStarActivity = true;
+                                                  }
+                                              }
+                                          }));
+            }
+        }
+
+        private RelayCommand _WatchCommand;
+        public RelayCommand WatchCommand
+        {
+            get
+            {
+                return _WatchCommand
+                    ?? (_WatchCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if (!IsWatching)
+                                              {
+                                                  IsWatchLoading = true;
+                                                  if (await RepositoryUtility.WatchRepository(Repository))
+                                                  {
+                                                      IsWatchLoading = false;
+                                                      IsWatching = true;
+                                                  }
+                                              }
+                                              else
+                                              {
+                                                  IsWatchLoading = true;
+                                                  if (await RepositoryUtility.UnwatchRepository(Repository))
+                                                  {
+                                                      IsWatchLoading = false;
+                                                      IsWatching = false;
+                                                  }
+                                              }
+                                          }));
+            }
+        }
+
+        private RelayCommand _ForkCommand;
+        public RelayCommand ForkCommand
+        {
+            get
+            {
+                return _ForkCommand
+                    ?? (_ForkCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsForkLoading = true;
+                                              Repository forkedRepo = await RepositoryUtility.ForkRepository(Repository);
+                                              IsForkLoading = false;
+                                              if (forkedRepo != null)
+                                              {
+                                                  SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", forkedRepo);
+                                              }
                                           }));
             }
         }
