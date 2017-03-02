@@ -228,56 +228,57 @@
                        Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
 
             <StackPanel x:Name="ButtonsPanel"
-                        Margin="0,8,0,0"
+                        Margin="0,8,0,8"
                         Orientation="Horizontal"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
                         RelativePanel.Below="LanguageText">
                 <Button x:Name="ViewCodeButton"
-                        Width="90"
-                        Height="30"
+                        Width="110"
+                        Height="35"
                         Margin="0,0,20,0"
                         Command="{x:Bind ViewModel.SourceCodeNavigate}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
-                        <Viewbox MaxWidth="14" MaxHeight="14">
+                        <Viewbox MaxWidth="14" 
+                                 MaxHeight="14"
+                                 VerticalAlignment="Center"
+                                 Margin="0 0 0 2">
                             <Path Data="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"
                                   Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                                   StrokeThickness="0" />
                         </Viewbox>
                         <TextBlock x:Name="ViewCodeTextBlock"
-                                   Height="30"
-                                   Padding="0,8,0,0"
                                    VerticalAlignment="Center"
                                    xml:space="preserve"
                                    FontSize="12"
-                                   FontWeight="Medium"
-                                   Text="  CODE">
+                                   FontWeight="SemiLight"
+                                   Text="  Code">
                         </TextBlock>
 
                     </StackPanel>
                 </Button>
                 <Button x:Name="IssuesButton"
-                        Height="30"
-                        MinWidth="90"
+                        Height="35"
+                        MinWidth="110"
                         HorizontalAlignment="Center"
                         Command="{x:Bind ViewModel.IssuesTapped}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
-                        <Viewbox MaxWidth="14" MaxHeight="14">
+                        <Viewbox MaxWidth="14" 
+                                 MaxHeight="14"
+                                 VerticalAlignment="Center">
                             <Path Data="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
                                   Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                                   StrokeThickness="0" />
                         </Viewbox>
-                        <TextBlock Height="30"
-                                   Padding="0,8,4,0"
+                        <TextBlock Margin="0 0 4 0"
                                    VerticalAlignment="Center"
                                    xml:space="preserve"
                                    FontSize="12"
-                                   FontWeight="Medium"
-                                   Text="  ISSUES">
+                                   FontWeight="SemiLight"
+                                   Text="  Issues">
                         </TextBlock>
-                        <TextBlock Margin="0,4,0,2"
-                                   VerticalAlignment="Center"
+                        <TextBlock VerticalAlignment="Center"
                                    FontSize="12"
                                    Text="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}" />
 
@@ -286,7 +287,7 @@
             </StackPanel>
 
             <TextBlock x:Name="DescriptionText"
-                       Margin="20,16,0,20"
+                       Margin="20,8,0,12"
                        x:DeferLoadStrategy="Lazy"
                        FontSize="13"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -295,7 +296,7 @@
                        TextWrapping="Wrap"
                        Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
             <RelativePanel x:Name="DetailPanel"
-                           Margin="20,0,20,0"
+                           Margin="20,4,20,0"
                            RelativePanel.AlignLeftWithPanel="True"
                            RelativePanel.AlignRightWithPanel="True"
                            RelativePanel.Below="DescriptionText">
