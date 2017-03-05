@@ -142,10 +142,11 @@ namespace CodeHub.ViewModels
 
                 isLoading = true;
 
-                if (repo.GetType() == typeof(string))
+                string s = repo as string;
+                if (s != null)
                 {
                     //Splitting repository name and owner name
-                    var names = (repo as string).Split('/');
+                    var names = s.Split('/');
                     Repository = await RepositoryUtility.GetRepository(names[0], names[1]);
                 }
                 else
@@ -161,7 +162,6 @@ namespace CodeHub.ViewModels
                     IBuffer buffer = await HTTPHelper.GetBufferFromUrlAsync(Repository.Owner.AvatarUrl, cts.Token);
                     if (buffer != null)
                     {
-
                         // Load the user image		
                         Tuple<ImageSource, ImageSource> images = await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(buffer, 256);
                         UserAvatar = images?.Item1;
