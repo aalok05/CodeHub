@@ -48,7 +48,7 @@ namespace CodeHub.Views
             SizeChanged += MainPage_SizeChanged;
             
             //Listening for No Internet message
-            Messenger.Default.Register<NoInternetMessageType>(this, RecieveNoInternetMessage);
+            Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             //Listening Internet available message
             Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage);
             //Setting Header Text to the current page name
@@ -198,16 +198,16 @@ namespace CodeHub.Views
 
             notifManager = new LocalNotificationManager(NotificationGrid);
         }
-        public void RecieveNoInternetMessage(NoInternetMessageType empty)
+        public void RecieveLocalNotificationMessage(LocalNotificationMessageType notif)
         {
             ViewModel.HasInternet = false;
 
             notifManager.Show(new SimpleNotificationPresenter
             (
-                TimeSpan.FromSeconds(2),
-                text: "No Internet",
-                action: async () => await new MessageDialog("No Internet").ShowAsync(),
-                glyph: "\uE704"
+                TimeSpan.FromSeconds(3),
+                text: notif.Message,
+                action: async () => await new MessageDialog(notif.Message).ShowAsync(),
+                glyph: notif.Glyph
             )
             {
                 Background = GetSolidColorBrush("60B53BFF"),
