@@ -31,15 +31,18 @@
                   HorizontalScrollMode="Disabled"
                   VerticalScrollBarVisibility="Hidden"
                   VerticalScrollMode="Enabled">
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">
                     <VisualState.StateTriggers>
+
                         <AdaptiveTrigger MinWindowWidth="200" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RepoName.FontSize" Value="19" />
                         <Setter Target="OwnerName.FontSize" Value="15" />
+
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -47,8 +50,10 @@
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+
                         <Setter Target="OwnerPic.Width" Value="120" />
                         <Setter Target="OwnerPic.Height" Value="120" />
+
                         <Setter Target="RepoName.FontSize" Value="25" />
                     </VisualState.Setters>
                 </VisualState>
@@ -57,13 +62,16 @@
                         <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+
                         <Setter Target="OwnerPic.Width" Value="130" />
                         <Setter Target="OwnerPic.Height" Value="130" />
+
                         <Setter Target="RepoName.FontSize" Value="30" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+
         <RelativePanel Grid.RowSpan="2" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid Height="155"
                   Background="Transparent"
@@ -274,6 +282,147 @@
                                    FontSize="12"
                                    Text="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}" />
 
+
+                    <!--Repo language-->
+                    <Grid RelativePanel.AlignLeftWith="StarButton"
+                          RelativePanel.Below="StarButton"
+                          x:Name="LanguageGrid"
+                          x:DeferLoadStrategy="Lazy"
+                          Margin="0,12,0,0"
+                          Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Stretch="UniformToFill"
+                                 Width="28"
+                                 Height="28"
+                                 HorizontalAlignment="Left"
+                                 Fill="{x:Bind ViewModel.LanguageColor, Mode=OneWay}"
+                                 x:Name="ColorEllipse"
+                                 Canvas.ZIndex="1"/>
+                        <ProgressRing MinHeight="20"
+                                      MinWidth="20"
+                                      Width="20"
+                                      Height="20"
+                                      HorizontalAlignment="Left"
+                                      IsActive="True"
+                                      Grid.Column="0"
+                                      x:Name="LanguageColorProgressRing"
+                                      Canvas.ZIndex="0"/>
+                        <TextBlock Grid.Column="1"
+                                   Margin="12,0,8,0"
+                                   TextWrapping="NoWrap"
+                                   MaxLines="1"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Normal"
+                                   Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"/>
+                    </Grid>
+                    <TextBlock x:Name="DescriptionText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 16 0 20"
+                               FontSize="13"
+                               RelativePanel.AlignLeftWith="LanguageGrid"
+                               RelativePanel.Below="LanguageGrid"
+                               Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
+                               TextWrapping="Wrap"
+                               Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+
+                    <!--Time info-->
+                    <Viewbox x:Name="calendarSymbol"
+                             x:DeferLoadStrategy="Lazy"
+                             MaxWidth="15"
+                             MaxHeight="15"
+                             Margin="0 0 8 0"
+                             RelativePanel.AlignLeftWith="DescriptionText"
+                             RelativePanel.Below="DescriptionText">
+                        <SymbolIcon Foreground="#525252" Symbol="Calendar" />
+                    </Viewbox>
+                    <TextBlock x:Name="createdText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 0 12 0"
+                               RelativePanel.AlignVerticalCenterWith="calendarSymbol"
+                               RelativePanel.Below="DescriptionText"
+                               RelativePanel.RightOf="calendarSymbol"
+                               Style="{StaticResource RepoDetailTextBlockStyle}"
+                               Text="Created" />
+                    <TextBlock x:Name="createdDateText"
+                               x:DeferLoadStrategy="Lazy"
+                               FontSize="13" 
+                               RelativePanel.RightOf="createdText"
+                               Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepoCreationTimeConverter}, Mode=OneWay}"
+                               RelativePanel.Below="DescriptionText"/>
+                    <Viewbox x:Name="editSymbol"
+                             x:DeferLoadStrategy="Lazy"
+                             MaxWidth="15"
+                             MaxHeight="15"
+                             Margin="0 16 8 0"
+                             RelativePanel.Below="calendarSymbol">
+                        <SymbolIcon Foreground="#525252" Symbol="Edit" />
+                    </Viewbox>
+                    <TextBlock x:Name="editText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 16 12 0"
+                               RelativePanel.AlignVerticalCenterWith="editSymbol"
+                               RelativePanel.Below="calendarSymbol"
+                               RelativePanel.RightOf="editSymbol"
+                               Style="{StaticResource RepoDetailTextBlockStyle}"
+                               Text="Updated" />
+                    <TextBlock x:Name="updatedDateText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 16 0 0"
+                               FontSize="13"
+                               RelativePanel.Below="calendarSymbol"
+                               RelativePanel.RightOf="editText"
+                               Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}, Mode=OneWay}" />
+
+                    <!--Issues-->
+                    <Viewbox x:Name="issueSymbol"
+                             x:DeferLoadStrategy="Lazy"
+                             Margin="0 16 8 0"
+                             MaxWidth="15"
+                             MaxHeight="15"
+                             RelativePanel.Below="editSymbol">
+                        <Path Data="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+                              Fill="#525252"
+                              StrokeThickness="0" />
+                    </Viewbox>
+                    <TextBlock x:Name="issueText"
+                               x:DeferLoadStrategy="Lazy"
+                               Margin="0 16 8 0"
+                               RelativePanel.Below="editSymbol"
+                               RelativePanel.RightOf="issueSymbol"
+                               Style="{StaticResource RepoDetailTextBlockStyle}"
+                               Text="Issues" />
+                    <HyperlinkButton x:Name="issueCount"
+                                     x:DeferLoadStrategy="Lazy"
+                                     Margin="0 8 16 0"
+                                     Command="{x:Bind ViewModel.IssuesTapped}"
+                                     Content="{x:Bind ViewModel.Repository.OpenIssuesCount}"
+                                     RelativePanel.Below="editSymbol"
+                                     RelativePanel.RightOf="issueText">
+                        <HyperlinkButton.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="15"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                                           Text="{Binding}" />
+                            </DataTemplate>
+                        </HyperlinkButton.ContentTemplate>
+                    </HyperlinkButton>
+
+                    <!--Size info-->
+                    <Viewbox x:Name="sizeSymbol"
+                             x:DeferLoadStrategy="Lazy"
+                             MaxWidth="15"
+                             MaxHeight="15"
+                             Margin="0 16 8 0"
+                             RelativePanel.Below="editSymbol"
+                             RelativePanel.RightOf="issueCount">
+                        <SymbolIcon Foreground="#525252" Symbol="Shop" />
+                      </Viewbox>
                     </StackPanel>
                 </Button>
             </StackPanel>

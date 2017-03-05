@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -23,7 +23,7 @@ namespace CodeHub.ViewModels
             get
             {
                 return _repository;
-            }
+              }
             set
             {
                 Set(() => Repository, ref _repository, value);
@@ -109,6 +109,7 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
 
                 isLoading = true;
+
                 if (repo.GetType() == typeof(string))
                 {
                     //Splitting repository name and owner name
@@ -118,6 +119,26 @@ namespace CodeHub.ViewModels
                 else
                 {
                     Repository = repo as Repository;
+                }
+
+                if (Repository?.Owner != null)
+                {
+
+                    // Get the image buffer manually to avoid making the HTTP call twice		 
+                    CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                    IBuffer buffer = await HTTPHelper.GetBufferFromUrlAsync(Repository.Owner.AvatarUrl, cts.Token);
+                    if (buffer != null)
+                    {
+
+                        // Load the user image		
+                        Tuple<ImageSource, ImageSource> images = await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(buffer, 256);
+                        UserAvatar = images?.Item1;
+                        UserBlurredAvatar = images?.Item2;
+
+                        // Calculate the brightness		
+                        byte brightness = await ImageHelper.CalculateAverageBrightnessAsync(buffer);
+                        Messenger.Default.Send(new GlobalHelper.SetBlurredAvatarUIBrightnessMessageType { Brightness = brightness });
+                    }
                 }
 
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
@@ -137,6 +158,7 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
+
                                           }));
             }
         }
