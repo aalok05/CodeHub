@@ -113,18 +113,19 @@ namespace CodeHub.Views
                     {
                         hyperlinks[i].setAttribute('target', '_blank');
                     }
+                    return body.scrollHeight.toString(); 
                 })()"
             });
 
-            if (heightString == null) return;
+            if (String.IsNullOrEmpty(heightString)) return;
             double
                 scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
                 height = double.Parse(heightString) / (scale >= 2 ? scale - 1 : scale); // Approximate height (not so precise with high scaling)
             ReadmeWebView.Height = height;
-            //ReadmeGrid.Height = height;
+            ReadmeGrid.Height = height;
             ReadmeWebView.SetVisualOpacity(0);
-
             ReadmeWebView.Visibility = Visibility.Visible;
+            ReadmeWebView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
             ReadmeLoadingRing.IsActive = false;
         }
 
