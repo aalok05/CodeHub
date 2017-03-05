@@ -114,11 +114,11 @@ namespace CodeHub.ViewModels
             RepositoryContent item = e.ClickedItem as RepositoryContentWithCommitInfo;
             if (item.Type == Octokit.ContentType.File)
             {
-                SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(FileContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch),Repository.FullName);
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateWithoutAnimations(typeof(FileContentView),Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
             }
             else if (item.Type == Octokit.ContentType.Dir)
             {
-                SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(ContentView), new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch), Repository.FullName);
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateWithoutAnimations(typeof(ContentView), Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
             }
         }
         public async void BranchChanged(object sender, SelectionChangedEventArgs e)
@@ -151,7 +151,7 @@ namespace CodeHub.ViewModels
                     ?? (_repoDetailNavigateCommand = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), Repository, "Repository");
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", Repository);
                                           }));
             }
         }

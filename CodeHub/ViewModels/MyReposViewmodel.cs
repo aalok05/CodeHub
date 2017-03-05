@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using System.Linq;
 
 namespace CodeHub.ViewModels
 {
@@ -48,6 +49,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public string _MyReposQueryString;
+        public string MyReposQueryString
+        {
+            get
+            {
+                return _MyReposQueryString;
+            }
+            set
+            {
+                Set(() => MyReposQueryString, ref _MyReposQueryString, value);
+            }
+        }
+
+        public string _StarredQueryString;
+        public string StarredQueryString
+        {
+            get
+            {
+                return _StarredQueryString;
+            }
+            set
+            {
+                Set(() => StarredQueryString, ref _StarredQueryString, value);
+            }
+        }
+
         public ObservableCollection<Repository> _repositories;
         public ObservableCollection<Repository> Repositories
         {
@@ -74,6 +101,9 @@ namespace CodeHub.ViewModels
                 Set(() => StarredRepositories, ref _starredRepositories, value);
             }
         }
+
+        public ObservableCollection<Repository> RepositoriesNotFiltered { get; set; }
+        public ObservableCollection<Repository> StarredRepositoriesNotFiltered { get; set; }
         public async Task Load()
         {
           
@@ -115,6 +145,7 @@ namespace CodeHub.ViewModels
         }
         public async void RefreshCommand(object sender, EventArgs e)
         {
+            MyReposQueryString = string.Empty;
             if (!GlobalHelper.IsInternet())
             {
                 Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
@@ -132,6 +163,7 @@ namespace CodeHub.ViewModels
         }
         public async void RefreshStarredCommand(object sender, EventArgs e)
         {
+            StarredQueryString = string.Empty;
             if (!GlobalHelper.IsInternet())
             {
                 Messenger.Default.Send(new GlobalHelper.NoInternetMessageType()); //Sending NoInternet message to all viewModels
@@ -150,9 +182,8 @@ namespace CodeHub.ViewModels
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(RepoDetailView), e.ClickedItem as Repository, "Repository");
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
         }
-       
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
         {
             isLoggedin = false;
@@ -177,7 +208,7 @@ namespace CodeHub.ViewModels
         }
         private async Task LoadRepos()
         {
-            var repos = await UserDataService.getUserRepositories();
+            var repos = await UserUtility.GetUserRepositories();
             if (repos.Count == 0 || repos == null)
             {
                 ZeroRepo = true;
@@ -189,12 +220,12 @@ namespace CodeHub.ViewModels
             else
             {
                 ZeroRepo = false;
-                Repositories = repos;
+                RepositoriesNotFiltered = Repositories = repos;
             }
         }
         private async Task LoadStarRepos()
         {
-            var starred = await UserDataService.getStarredRepositories();
+            var starred = await UserUtility.GetStarredRepositories();
             if (starred.Count == 0 || starred == null)
             {
                 ZeroStarRepo = true;
@@ -206,8 +237,28 @@ namespace CodeHub.ViewModels
             else
             {
                 ZeroStarRepo = false;
-                StarredRepositories = starred;
+                StarredRepositoriesNotFiltered = StarredRepositories = starred;
             }
+        }
+        public void MyReposQueryString_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(sender.Text))
+            {
+                var filtered = RepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
+                Repositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+            }
+            else
+                Repositories = RepositoriesNotFiltered;
+        }
+        public void StarredQueryString_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(sender.Text))
+            {
+                var filtered = StarredRepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
+                StarredRepositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+            }
+            else
+                StarredRepositories = StarredRepositoriesNotFiltered;
         }
     }
 }

@@ -110,7 +110,7 @@ namespace CodeHub.ViewModels
                 {
                     if (GlobalHelper.NewFollowActivity)
                     {
-                        User = await UserUtility.getUserInfo(User.Login);
+                        User = await UserUtility.GetUserInfo(User.Login);
                         GlobalHelper.NewFollowActivity = false;
                     }
 
@@ -193,8 +193,8 @@ namespace CodeHub.ViewModels
                     }
 
                         // Load the user images
-                    await TryLoadUserAvatarImagesAsync();
-
+                    //await TryLoadUserAvatarImagesAsync();
+                    
                     isLoggedin = true;
                     if (User.Type == AccountType.Organization)
                     {
@@ -204,12 +204,12 @@ namespace CodeHub.ViewModels
                     {
                         if (User.Followers < 300 && User.Followers > 0)
                         {
-                            Followers = await UserDataService.getAllFollowers(User.Login);
+                            Followers = await UserUtility.GetAllFollowers(User.Login);
                         }
 
                         if (User.Following < 300 && User.Following > 0)
                         {
-                            Following = await UserDataService.getAllFollowing(User.Login);
+                            Following = await UserUtility.GetAllFollowing(User.Login);
                         }
                     }
                 }
@@ -228,7 +228,7 @@ namespace CodeHub.ViewModels
         }
         public void ProfileTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), ((User)e.ClickedItem).Login, "Profile");
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }
         public void RecieveSignInMessage(User user)
         {

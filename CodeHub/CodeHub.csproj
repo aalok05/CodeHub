@@ -97,6 +97,78 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\NewStoreLogo.scale-100.png" />
+    <Content Include="Assets\NewStoreLogo.scale-125.png" />
+    <Content Include="Assets\NewStoreLogo.scale-150.png" />
+    <Content Include="Assets\NewStoreLogo.scale-200.png" />
+    <Content Include="Assets\NewStoreLogo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
+    <Content Include="Services\Hilite-me\Samples\Borland.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\Colorful.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\Emacs.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\Fruity.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\Borland.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\Colorful.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\Emacs.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\Fruity.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\monokai.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\native.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\Perldoc.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\vim.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\LineNumbers\VS.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\monokai.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\native.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\Perldoc.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\vim.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Hilite-me\Samples\VS.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="CodeHub_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
@@ -106,6 +178,7 @@
     </Compile>
     <Compile Include="Controls\AlternatingRowListView.cs" />
     <Compile Include="Controls\AnimatedComboBox.cs" />
+    <Compile Include="Controls\AutoHideGrid.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>
@@ -113,12 +186,24 @@
       <DependentUpon>CodeListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomFrame.cs" />
+    <Compile Include="Controls\Hilite_meHighlightStylePreviewControl.xaml.cs">
+      <DependentUpon>Hilite_meHighlightStylePreviewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
+    <Compile Include="Controls\IncrementalLoadButtonControl.xaml.cs">
+      <DependentUpon>IncrementalLoadButtonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OrganizationListItem.xaml.cs">
+      <DependentUpon>OrganizationListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TopScrollerControl.xaml.cs">
       <DependentUpon>TopScrollerControl.xaml</DependentUpon>
@@ -129,41 +214,51 @@
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\TimeAgoConverter.cs" />
+    <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
+    <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
+    <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
+    <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\DateFormatConverter.cs" />
+    <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\ContributionsDataModel.cs" />
     <Compile Include="Models\PinnedUserRepository.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
+    <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
+    <Compile Include="Models\WrappedWebResult.cs" />
+    <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
+    <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
+    <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
-    <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\IAsyncNavigationService.cs" />
+    <Compile Include="Services\OrganizationsUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
     <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
       <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AboutViewmodel.cs" />
     <Compile Include="ViewModels\CommentsViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
+    <Compile Include="ViewModels\FeedViewmodel.cs" />
     <Compile Include="ViewModels\FileContentViewmodel.cs" />
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
+    <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\RepoListViewmodel.cs" />
+    <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
-    <Compile Include="Views\AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
+    <Compile Include="Views\AboutSettingsView.xaml.cs">
+      <DependentUpon>AboutSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppearanceView.xaml.cs">
       <DependentUpon>AppearanceView.xaml</DependentUpon>
@@ -180,8 +275,14 @@
     <Compile Include="Views\DonateView.xaml.cs">
       <DependentUpon>DonateView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FeedView.xaml.cs">
+      <DependentUpon>FeedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GeneralSettingsView.xaml.cs">
+      <DependentUpon>GeneralSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IssueDetailView.xaml.cs">
       <DependentUpon>IssueDetailView.xaml</DependentUpon>
@@ -198,7 +299,6 @@
     <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\RepositoryUtility.cs" />
-    <Compile Include="Services\UserDataService.cs" />
     <Compile Include="ViewModels\AppViewmodel.cs" />
     <Compile Include="ViewModels\HomeViewmodel.cs" />
     <Compile Include="ViewModels\MainViewmodel.cs" />
@@ -209,6 +309,9 @@
     <Compile Include="ViewModels\SettingsViewmodel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyOrganizationsView.xaml.cs">
+      <DependentUpon>MyOrganizationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MyReposView.xaml.cs">
       <DependentUpon>MyReposView.xaml</DependentUpon>
@@ -289,11 +392,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Hilite_meHighlightStylePreviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\IncrementalLoadButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\IssueListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\OrganizationListItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\RepoListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -309,6 +428,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\SVGIconsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Styles\MiscStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -323,7 +447,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\AboutView.xaml">
+    <Page Include="Views\AboutSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -347,7 +471,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FeedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\FileContentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GeneralSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,6 +498,10 @@
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MyOrganizationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MyReposView.xaml">
       <SubType>Designer</SubType>
@@ -406,7 +542,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UICompositionAnimations">
-      <HintPath>..\..\UICompositionAnimations\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
+      <HintPath>E:\UICompositionAnimations-master\UICompositionAnimations-master\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

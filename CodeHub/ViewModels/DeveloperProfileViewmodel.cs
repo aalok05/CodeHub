@@ -129,8 +129,7 @@ namespace CodeHub.ViewModels
                 if (!string.IsNullOrWhiteSpace(login))
                 {
                     isLoading = true;
-                    Developer = await UserUtility.getUserInfo(login);
-                    if (Developer != null) await TryLoadUserAvatarImagesAsync(Developer);
+                    Developer = await UserUtility.GetUserInfo(login);
                     isLoading = false;
                     if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
                     {
@@ -140,18 +139,18 @@ namespace CodeHub.ViewModels
                     {
                         CanFollow = true;
                         FollowProgress = true;
-                        if (await UserUtility.checkFollow(Developer.Login))
+                        if (await UserUtility.CheckFollow(Developer.Login))
                         {
                             IsFollowing = true;
                         }
                         FollowProgress = false;
 
                         FollowersLoading = true;
-                        Followers = await UserDataService.getAllFollowers(Developer.Login);
+                        Followers = await UserUtility.GetAllFollowers(Developer.Login);
                         FollowersLoading = false;
 
                         FollowingLoading = true;
-                        Following = await UserDataService.getAllFollowing(Developer.Login);
+                        Following = await UserUtility.GetAllFollowing(Developer.Login);
                         FollowingLoading = false;
                     }
                 }
@@ -160,7 +159,7 @@ namespace CodeHub.ViewModels
         }
         public void ProfileTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.INavigationService>().Navigate(typeof(DeveloperProfileView), ((User)e.ClickedItem).Login, "Profile");
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }
 
         private RelayCommand _followCommand;
@@ -215,16 +214,15 @@ namespace CodeHub.ViewModels
                     ?? (_reposNavigate = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(RepoListView), Developer.Login, "Repositories");
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoListView), "Repositories", Developer.Login);
                                           }));
             }
         }
         public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
         {
-            Developer = await UserUtility.getUserInfo(Developer.Login);
-            if (Developer != null) await TryLoadUserAvatarImagesAsync(Developer);
+            Developer = await UserUtility.GetUserInfo(Developer.Login);
             FollowersLoading = true;
-            Followers = await UserDataService.getAllFollowers(Developer.Login);
+            Followers = await UserUtility.GetAllFollowers(Developer.Login);
             FollowersLoading = false;
         }
     }

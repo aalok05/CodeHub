@@ -25,21 +25,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-            <TextBlock Text="Branch "
-                       FontSize="13"
-                       VerticalAlignment="Center"
-                       Foreground="Gray"/>
-            <controls:AnimatedComboBox PlaceholderText="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
-                                       ItemsSource="{x:Bind ViewModel.Branches,Mode=OneWay}"
-                                       Margin="5 0 0 0"
-                                       FontSize="13"
-                                       SelectionChanged="{x:Bind ViewModel.BranchChanged}"
-                                       SelectedItem="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
-                                       Style="{StaticResource AnimatedComboBoxStyle}"
-                                       MinWidth="120"/>
+        <controls:AnimatedComboBox PlaceholderText="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
+                                   ItemsSource="{x:Bind ViewModel.Branches,Mode=OneWay}"
+                                   Grid.Row="0"
+                                   Margin="12 8 0 12"
+                                   FontSize="13"
+                                   SelectionChanged="{x:Bind ViewModel.BranchChanged}"
+                                   SelectedItem="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
+                                   Style="{StaticResource AnimatedComboBoxStyle}"
+                                   MinWidth="120"/>
 
-        </StackPanel>
         <controls:AlternatingRowListView 
             x:Name="ContentListView"
             Grid.Row="1" 
@@ -59,7 +54,8 @@
         </controls:AlternatingRowListView>
 
         <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40"
-                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
+                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
         <controls:TopScrollerControl x:Name="TopScroller"
                                      HorizontalAlignment="Right"

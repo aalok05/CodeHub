@@ -1,5 +1,6 @@
 ﻿using CodeHub.ViewModels;
 using System;
+using System.Threading.Tasks;
 using Windows.Services.Store;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -26,7 +27,8 @@ namespace CodeHub.Views
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            TryNavigateBackForDesktopState(e.NewState.Name);
+            if (e.NewState != null)
+                TryNavigateBackForDesktopState(e.NewState.Name);
         }
 
         private async void first_tier_Tapped(object sender, TappedRoutedEventArgs e)
@@ -34,31 +36,31 @@ namespace CodeHub.Views
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFirstAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            await reactToPurchaseResult(result);
         }
         private async void second_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateSecondAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            await reactToPurchaseResult(result);
         }
         private async void third_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateThirdAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            await reactToPurchaseResult(result);
         }
         private async void fourth_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFourthAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            await reactToPurchaseResult(result);
         }
 
-        private async void reactToPurchaseResult(StorePurchaseResult result)
+        private async Task reactToPurchaseResult(StorePurchaseResult result)
         {
             if(result.Status == StorePurchaseStatus.Succeeded)
             {

@@ -8,8 +8,9 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
@@ -26,61 +27,38 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Grid.Row="0"
-                    HorizontalAlignment="Left"
-                    Orientation="Vertical">
-            <TextBlock Margin="10 10 0 0"
-                       HorizontalAlignment="Left"
+                    Orientation="Vertical"
+                    Margin="12,12,0,0">
+            <TextBlock HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Theme" />
-            <TextBlock Margin="10 10 0 0"
+            <TextBlock Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiLight"
                        Text="Theme changes require app restart"
                        TextWrapping="Wrap" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.AppLightThemeEnabled, Mode=TwoWay}"
+                      OnContent="Light Theme"
+                      OffContent="Dark Theme"
+                      Margin="0,8,0,0"/>
         </StackPanel>
-        <Button x:Name="DarkThemeButton"
-                Height="50"
-                Grid.Row="1"
-                Margin="5 10 5 0"
-                Background="Transparent"
-                Tapped="DarkThemeButton_Tapped">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <FontIcon Margin="0 0 10 0"
-                              FontSize="18"
-                              Glyph="&#xE708;" />
-
-                     <TextBlock VerticalAlignment="Center"
-                                FontSize="13"
-                                Text="Turn on dark theme" />
-
-                </StackPanel>
-
-            </Button.Content>
-        </Button>
-        <Button x:Name="LightThemeButton"
-                Height="50"
-                Grid.Row="1"
-                Margin="5 10 5 0"
-                Background="Transparent"
-                Tapped="LightThemeButton_Tapped">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <FontIcon Margin="0 0 10 0"
-                              FontSize="18"
-                              Glyph="&#xE706;" />
-
-                    <TextBlock VerticalAlignment="Center"
-                               FontSize="13"
-                               Text="Turn on light theme" />
 
 
-                </StackPanel>
+        <!--Other settings-->
+        <StackPanel Grid.Row="2"
+                    Margin="12,20,0,0"
+                    Visibility="{x:Bind ViewModel.SystemTrayOptionAvailable, FallbackValue=Collapsed}">
 
-            </Button.Content>
-        </Button>
+            <!--Line numbers-->
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Hide system tray" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.HideSystemTray, Mode=TwoWay}"
+                          Margin="0,4,0,0"/>
+        </StackPanel>
     </Grid>
 
 </local:SettingsDetailPageBase>

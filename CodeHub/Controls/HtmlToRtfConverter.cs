@@ -19,7 +19,7 @@ namespace CodeHub.Controls
         private static void OnHtmlChanged(DependencyObject sender, DependencyPropertyChangedEventArgs eventArgs)
         {
             WebView wv = sender as WebView;
-            if (wv != null)
+            if (wv != null && eventArgs.NewValue != null)
             {
                 wv.NavigateToString((string)eventArgs.NewValue);
             }

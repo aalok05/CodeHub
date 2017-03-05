@@ -1,0 +1,119 @@
+﻿<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">Windows.Graphics.Imaging;</span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">Windows.UI.Xaml.Media;</span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">Lumia.Imaging;</span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">Lumia.Imaging.Adjustments;</span>
+
+<span style="color: #fb660a; font-weight: bold">namespace</span> <span style="color: #ffffff">CodeHub.Helpers</span>
+<span style="color: #ffffff">{</span>
+    <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;summary&gt;</span>
+    <span style="color: #008800; font-style: italic; background-color: #0f140f">/// A static class with some methods to manipulate images</span>
+    <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;/summary&gt;</span>
+    <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #fb660a; font-weight: bold">static</span> <span style="color: #fb660a; font-weight: bold">class</span> <span style="color: #ffffff">ImageHelper</span>
+    <span style="color: #ffffff">{</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;summary&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// Calculates the average image brightness from an input image buffer</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;/summary&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;param name=&quot;buffer&quot;&gt;The image buffer to analyze&lt;/param&gt;</span>
+        <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #fb660a; font-weight: bold">static</span> <span style="color: #fb660a; font-weight: bold">async</span> <span style="color: #ffffff">Task&lt;</span><span style="color: #cdcaa9; font-weight: bold">byte</span><span style="color: #ffffff">&gt;</span> <span style="color: #ffffff">CalculateAverageBrightnessAsync([NotNull]</span> <span style="color: #ffffff">IBuffer</span> <span style="color: #ffffff">buffer)</span>
+        <span style="color: #ffffff">{</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Extract the image RGBA pixel data</span>
+            <span style="color: #cdcaa9; font-weight: bold">byte</span><span style="color: #ffffff">[]</span> <span style="color: #ffffff">pixels;</span>
+            <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(Stream</span> <span style="color: #ffffff">stream</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">buffer.AsStream())</span>
+            <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(IRandomAccessStream</span> <span style="color: #ffffff">randomStream</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">stream.AsRandomAccessStream())</span>
+            <span style="color: #ffffff">{</span>
+                <span style="color: #ffffff">BitmapDecoder</span> <span style="color: #ffffff">decoder</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">await</span> <span style="color: #ffffff">BitmapDecoder.CreateAsync(randomStream);</span>
+                <span style="color: #ffffff">PixelDataProvider</span> <span style="color: #ffffff">pixelData</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">await</span> <span style="color: #ffffff">decoder.GetPixelDataAsync();</span>
+                <span style="color: #ffffff">pixels</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">pixelData.DetachPixelData();</span>
+            <span style="color: #ffffff">}</span>
+
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Calculate the average brightness</span>
+            <span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">cores</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">Environment.ProcessorCount,</span> <span style="color: #ffffff">chunks</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">pixels.Length</span> <span style="color: #ffffff">/</span> <span style="color: #0086f7; font-weight: bold">4</span><span style="color: #ffffff">;</span>
+            <span style="color: #cdcaa9; font-weight: bold">double</span><span style="color: #ffffff">[]</span> <span style="color: #ffffff">partials</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #cdcaa9; font-weight: bold">double</span><span style="color: #ffffff">[cores];</span>
+            <span style="color: #ffffff">ParallelLoopResult</span> <span style="color: #ffffff">result</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">Parallel.For(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">,</span> <span style="color: #ffffff">cores,</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">ParallelOptions</span> <span style="color: #ffffff">{</span> <span style="color: #ffffff">MaxDegreeOfParallelism</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">cores</span> <span style="color: #ffffff">},</span> <span style="color: #ffffff">workerId</span> <span style="color: #ffffff">=&gt;</span>
+            <span style="color: #ffffff">{</span>
+                <span style="color: #008800; font-style: italic; background-color: #0f140f">// Setup and start the outer loops</span>
+                <span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">max</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">chunks</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">(workerId</span> <span style="color: #ffffff">+</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">)</span> <span style="color: #ffffff">/</span> <span style="color: #ffffff">cores</span> <span style="color: #ffffff">*</span> <span style="color: #0086f7; font-weight: bold">4</span><span style="color: #ffffff">;</span>
+                <span style="color: #cdcaa9; font-weight: bold">double</span> <span style="color: #fb660a; font-weight: bold">partial</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span>
+                <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">chunks</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">workerId</span> <span style="color: #ffffff">/</span> <span style="color: #ffffff">cores</span> <span style="color: #ffffff">*</span> <span style="color: #0086f7; font-weight: bold">4</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">max;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">+=</span> <span style="color: #0086f7; font-weight: bold">4</span><span style="color: #ffffff">)</span>
+                <span style="color: #ffffff">{</span>
+                    <span style="color: #008800; font-style: italic; background-color: #0f140f">// Calculate the brightness of the current RGB pixel</span>
+                    <span style="color: #cdcaa9; font-weight: bold">int</span>
+                        <span style="color: #ffffff">r</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">pixels[i],</span>
+                        <span style="color: #ffffff">g</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">pixels[i</span> <span style="color: #ffffff">+</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">],</span>
+                        <span style="color: #ffffff">b</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">pixels[i</span> <span style="color: #ffffff">+</span> <span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">];</span>
+                    <span style="color: #fb660a; font-weight: bold">partial</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">Math.Sqrt(</span><span style="color: #0086f7; font-weight: bold">0.299</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">r</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">r</span> <span style="color: #ffffff">+</span> <span style="color: #0086f7; font-weight: bold">0.587</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">g</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">g</span> <span style="color: #ffffff">+</span> <span style="color: #0086f7; font-weight: bold">0.114</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">b</span> <span style="color: #ffffff">*</span> <span style="color: #ffffff">b);</span>
+                <span style="color: #ffffff">}</span>
+                <span style="color: #ffffff">partials[workerId]</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">partial</span><span style="color: #ffffff">;</span>
+            <span style="color: #ffffff">});</span>
+            <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(!result.IsCompleted)</span> <span style="color: #fb660a; font-weight: bold">throw</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">InvalidOperationException();</span>
+            <span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">brightness</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span><span style="color: #ffffff">)(partials.Sum()</span> <span style="color: #ffffff">/</span> <span style="color: #ffffff">(pixels.Length</span> <span style="color: #ffffff">/</span> <span style="color: #0086f7; font-weight: bold">4</span><span style="color: #ffffff">));</span>
+            <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">brightness</span> <span style="color: #ffffff">&gt;</span> <span style="color: #0086f7; font-weight: bold">255</span> <span style="color: #ffffff">?</span> <span style="color: #cdcaa9; font-weight: bold">byte</span><span style="color: #ffffff">.MaxValue</span> <span style="color: #ffffff">:</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">byte</span><span style="color: #ffffff">)brightness;</span>
+        <span style="color: #ffffff">}</span>
+
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;summary&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// Loads an image and returns it and a blurred copy</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;/summary&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;param name=&quot;buffer&quot;&gt;The pixel data of the image to load&lt;/param&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;param name=&quot;blur&quot;&gt;The amount of blur to apply&lt;/param&gt;</span>
+<span style="color: #ff0086; font-weight: bold">        [ItemCanBeNull]</span>
+        <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #fb660a; font-weight: bold">static</span> <span style="color: #fb660a; font-weight: bold">async</span> <span style="color: #ffffff">Task&lt;Tuple&lt;ImageSource,</span> <span style="color: #ffffff">ImageSource&gt;&gt;</span> <span style="color: #ffffff">GetImageAndBlurredCopyFromPixelDataAsync([NotNull]</span> <span style="color: #ffffff">IBuffer</span> <span style="color: #ffffff">buffer,</span> <span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">blur)</span>
+        <span style="color: #ffffff">{</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Check if the input is valid</span>
+            <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(buffer.Length</span> <span style="color: #ffffff">==</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">)</span> <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">null</span><span style="color: #ffffff">;</span>
+
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Apply the blur effect on a copy of the original image</span>
+            <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(Stream</span> <span style="color: #ffffff">imageStream</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">buffer.AsStream())</span>
+            <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(IRandomAccessStream</span> <span style="color: #ffffff">randomImageStream</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">imageStream.AsRandomAccessStream())</span>
+            <span style="color: #ffffff">{</span>
+                <span style="color: #008800; font-style: italic; background-color: #0f140f">// Load the default image</span>
+                <span style="color: #ffffff">BitmapImage</span> <span style="color: #ffffff">original</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">BitmapImage();</span>
+                <span style="color: #fb660a; font-weight: bold">await</span> <span style="color: #ffffff">original.SetSourceAsync(randomImageStream);</span>
+
+                <span style="color: #008800; font-style: italic; background-color: #0f140f">// Blur the copy of the image</span>
+                <span style="color: #ffffff">randomImageStream.Seek(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">);</span>
+                <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(RandomAccessStreamImageSource</span> <span style="color: #ffffff">imageProvider</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">RandomAccessStreamImageSource(randomImageStream))</span>
+                <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(BlurEffect</span> <span style="color: #ffffff">blurEffect</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">BlurEffect(imageProvider)</span> <span style="color: #ffffff">{</span> <span style="color: #ffffff">KernelSize</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">blur</span> <span style="color: #ffffff">})</span>
+                <span style="color: #ffffff">{</span>
+                    <span style="color: #008800; font-style: italic; background-color: #0f140f">// Process the blurred image</span>
+                    <span style="color: #ffffff">WriteableBitmap</span> <span style="color: #ffffff">blurred</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">WriteableBitmap(original.PixelWidth,</span> <span style="color: #ffffff">original.PixelHeight);</span>
+                    <span style="color: #fb660a; font-weight: bold">await</span> <span style="color: #ffffff">blurEffect.GetBitmapAsync(blurred,</span> <span style="color: #ffffff">OutputOption.Stretch);</span>
+
+                    <span style="color: #008800; font-style: italic; background-color: #0f140f">// Return the two images</span>
+                    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">Tuple.Create&lt;ImageSource,</span> <span style="color: #ffffff">ImageSource&gt;(original,</span> <span style="color: #ffffff">blurred);</span>
+                <span style="color: #ffffff">}</span>
+            <span style="color: #ffffff">}</span>
+        <span style="color: #ffffff">}</span>
+
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;summary&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// Blurs a single image from a data stream</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;/summary&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;param name=&quot;buffer&quot;&gt;The buffer that contains the data of the image to blur&lt;/param&gt;</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/// &lt;param name=&quot;blur&quot;&gt;The amount of blur to apply&lt;/param&gt;</span>
+<span style="color: #ff0086; font-weight: bold">        [ItemCanBeNull]</span>
+        <span style="color: #fb660a; font-weight: bold">public</span> <span style="color: #fb660a; font-weight: bold">static</span> <span style="color: #fb660a; font-weight: bold">async</span> <span style="color: #ffffff">Task&lt;ImageSource&gt;</span> <span style="color: #ffffff">BlurImageAsync([NotNull]</span> <span style="color: #ffffff">IBuffer</span> <span style="color: #ffffff">buffer,</span> <span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">blur)</span>
+        <span style="color: #ffffff">{</span>
+            <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(Stream</span> <span style="color: #ffffff">imageStream</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">buffer.AsStream())</span>
+            <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(IRandomAccessStream</span> <span style="color: #ffffff">randomImageStream</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">imageStream.AsRandomAccessStream())</span>
+            <span style="color: #ffffff">{</span>
+                <span style="color: #ffffff">BitmapDecoder</span> <span style="color: #ffffff">decoder;</span>
+                <span style="color: #fb660a; font-weight: bold">try</span>
+                <span style="color: #ffffff">{</span>
+                    <span style="color: #ffffff">decoder</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">await</span> <span style="color: #ffffff">BitmapDecoder.CreateAsync(randomImageStream);</span>
+                <span style="color: #ffffff">}</span>
+                <span style="color: #fb660a; font-weight: bold">catch</span>
+                <span style="color: #ffffff">{</span>
+                    <span style="color: #008800; font-style: italic; background-color: #0f140f">// Invalid image data</span>
+                    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">null</span><span style="color: #ffffff">;</span>
+                <span style="color: #ffffff">}</span>
+                <span style="color: #ffffff">randomImageStream.Seek(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">);</span>
+                <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(RandomAccessStreamImageSource</span> <span style="color: #ffffff">imageProvider</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">RandomAccessStreamImageSource(randomImageStream))</span>
+                <span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #ffffff">(BlurEffect</span> <span style="color: #ffffff">blurEffect</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">BlurEffect(imageProvider)</span> <span style="color: #ffffff">{</span> <span style="color: #ffffff">KernelSize</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">blur</span> <span style="color: #ffffff">})</span>
+                <span style="color: #ffffff">{</span>
+                    <span style="color: #ffffff">WriteableBitmap</span> <span style="color: #ffffff">blurred</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">WriteableBitmap((</span><span style="color: #cdcaa9; font-weight: bold">int</span><span style="color: #ffffff">)decoder.PixelWidth,</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span><span style="color: #ffffff">)decoder.PixelHeight);</span>
+                    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #fb660a; font-weight: bold">await</span> <span style="color: #ffffff">blurEffect.GetBitmapAsync(blurred,</span> <span style="color: #ffffff">OutputOption.Stretch);</span>
+                <span style="color: #ffffff">}</span>
+            <span style="color: #ffffff">}</span>
+        <span style="color: #ffffff">}</span>
+    <span style="color: #ffffff">}</span>
+<span style="color: #ffffff">}</span>
+</pre></div>

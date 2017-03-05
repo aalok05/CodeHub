@@ -1,14 +1,12 @@
 ﻿using System;
-using Windows.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
-using Octokit;
 using Windows.UI.Xaml.Navigation;
-using UICompositionAnimations;
-using Application = Windows.UI.Xaml.Application;
+using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
+using CodeHub.Services;
 
 namespace CodeHub.Views
 {
@@ -20,34 +18,60 @@ namespace CodeHub.Views
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
-
-            // Adjust the UI to make sure the text is readable
-            Messenger.Default.Register<GlobalHelper.SetBlurredAvatarUIBrightnessMessageType>(this, b =>
-            {
-                if (Application.Current.RequestedTheme == ApplicationTheme.Light && b.Brightness <= 80)
-                {
-                    byte delta = (byte)(128 - b.Brightness + 24);
-                    Color color = Color.FromArgb(byte.MaxValue, delta, delta, delta);
-                    SolidColorBrush brush = new SolidColorBrush(color);
-                    RepoName.Foreground = brush;
-                    ProfileLinkBlock.Foreground = brush;
-                    FavoriteIcon.Foreground = brush;
-                    FavoriteBlock.Foreground = brush;
-                    BranchPath.Fill = brush;
-                    BranchBlock.Foreground = brush;
-                }
-                else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
-                {
-                    double opacity = 1.0 - b.Brightness * 0.5 / 255;
-                    BackgroundImage.StartCompositionFadeAnimation(null, (float)opacity, 200, null, EasingFunctionNames.Linear);
-                }
-            });
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
-            await ViewModel.Load(e.Parameter as Repository);
+            await ViewModel.Load(e.Parameter);
+            FindName("LanguageText");
+            FindName("DescriptionText");
+            FindName("calendarSymbol");
+            FindName("createdDateText");
+            FindName("editSymbol");
+            FindName("updatedDateText");
+            FindName("sizeSymbol");
+            FindName("sizeCount");
+            FindName("sizeUnitText");
+
+            ReadmeWebView.Visibility = Visibility.Collapsed;
+            if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
+            {
+                ReadmeLoadingRing.IsActive = true;
+                // Manually set the user agent to get the full desktop site
+                String userAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop) like Gecko";
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(ViewModel.Repository.HtmlUrl));
+                httpRequestMessage.Headers.Append("User-Agent", userAgent);
+                ReadmeWebView.NavigateWithHttpRequestMessage(httpRequestMessage);
+            }
+            else
+                ReadmeLoadingRing.IsActive = false;
+
+
+        }
+        private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            var webView = sender as WebView;
+            await webView.InvokeScriptAsync("eval", new[]
+            {
+                @"(function()
+                {
+                    var node = document.getElementById('readme');
+                    if (node == null) return null;
+                    node.style.marginBottom = '0px';
+                    var body = document.getElementsByTagName('body')[0];
+                    while (body.firstChild) { body.removeChild(body.firstChild); }
+                    body.appendChild(node);
+                    var hyperlinks = document.getElementsByTagName('a');
+                    for(var i = 0; i < hyperlinks.length; i++)
+                    {
+                        hyperlinks[i].setAttribute('target', '_blank');
+                    }
+                })()"
+            });
+
+            ReadmeWebView.Visibility = Visibility.Visible;
+            ReadmeLoadingRing.IsActive = false;
         }
     }
 }

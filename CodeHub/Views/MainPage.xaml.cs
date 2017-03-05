@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
@@ -16,6 +17,7 @@ using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace CodeHub.Views
 {
@@ -25,6 +27,14 @@ namespace CodeHub.Views
         public CustomFrame AppFrame { get { return this.mainFrame; } }
         public MainPage()
         {
+            this.Loaded += (s, e) =>
+            {
+                if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
+                {
+                    SystemTrayManager.HideAsync().AsTask().Forget();
+                }
+                else SystemTrayManager.TryShowAsync().Forget();
+            };
             this.InitializeComponent();
 
             ViewModel = new MainViewmodel();
@@ -42,7 +52,7 @@ namespace CodeHub.Views
                 setHeadertext(m.PageName);
             });
             
-            SimpleIoc.Default.Register<INavigationService>(() =>
+            SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
             { return new NavigationService(mainFrame); });
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
@@ -51,14 +61,30 @@ namespace CodeHub.Views
         }
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            ViewModel.CurrentState = e.NewState.Name;
+            if(e.NewState != null)
+                ViewModel.CurrentState = e.NewState.Name;
 
             await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
             await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
         }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(e.NewSize.Width < 720)
+            // Manage the system tray in landscape mode
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                bool portrait = ApplicationView.GetForCurrentView().Orientation == ApplicationViewOrientation.Portrait;
+                if (portrait)
+                {
+                    if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
+                    {
+                        SystemTrayManager.HideAsync()?.AsTask().Forget();
+                    }
+                    else SystemTrayManager.TryShowAsync().Forget();
+                }
+                else SystemTrayManager.HideAsync()?.AsTask().Forget();
+            }).AsTask().Forget();
+
+            if (e.NewSize.Width < 720)
             {   
                 if (ViewModel.isLoggedin)
                 {
@@ -70,75 +96,101 @@ namespace CodeHub.Views
                 }
             }
         }
-        private async void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (this.AppFrame == null)
-                return;
 
-            if (this.AppFrame.CanGoBack && !e.Handled)
+        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (AppFrame == null) return;
+            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
+            if (service != null && AppFrame.CanGoBack && !e.Handled) // The base CanGoBack is synchronous and not reliable here
             {
                 e.Handled = true;
-                await this.AppFrame.GoBack();
+                service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
             }
         }
         private void HamButton_Click(object sender, RoutedEventArgs e)
         {
+            //Toggle Hamburger menu
             HamSplitView.IsPaneOpen = !HamSplitView.IsPaneOpen;
         }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ViewModel.HamItemClicked(e.ClickedItem as HamItem);
-            HamSplitView.IsPaneOpen = false;
+            if(SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
+            {
+                ViewModel.HamItemClicked(e.ClickedItem as HamItem);
+
+                //Don't close the Hamburger menu if visual state is DesktopEx
+                if (ViewModel.CurrentState != "DesktopEx")
+                    HamSplitView.IsPaneOpen = false;
+            }
         }
         private void SettingsItem_ItemClick(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.NavigateToSettings();
-            HamSplitView.IsPaneOpen = false;
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(SettingsView))
+            {
+                ViewModel.NavigateToSettings();
+
+                //Don't close the Hamburger menu if visual state is DesktopEx
+                if (ViewModel.CurrentState != "DesktopEx")
+                    HamSplitView.IsPaneOpen = false;
+            }
         }
+
+        #region App Bar Events
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[0]);
+            //Navigate to Trending page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[0].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[0]);
+        }
+        private void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //Navigate to News feed page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[1].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[1]);
         }
         private void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[1]);
+            //Navigate to Profile page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[2]);
         }
         private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+            //Navigate to My Repositories page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[3].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
         }
+        private void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //Navigate to My Organizations page using the BottomAppBar
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[4].DestPage)
+                ViewModel.HamItemClicked(ViewModel.HamItems[4]);
+        }
+        #endregion
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
+
+            /* This has to be done because the visibilty of BottomAppBar is dependent on screen size as well as isLoggedin property
+             * If visibility is bound with isLoggedin, it will disregard VisualStateManager at first loading of Page.
+             */
+            if (ViewModel.isLoggedin)
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+                if (Window.Current.Bounds.Width < 720)
+                {
+                    FindName("BottomAppBar");
+                    ViewModel.CurrentState = "Mobile";
+                }
+                else
+                    ViewModel.CurrentState = "Desktop";
+            }
 
             //Listening for Sign In message
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
 
             //listen for sign out message
             Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
-
-            /* This has to be done because the visibilty of BottomAppBar
-             * is dependent on screen size as well as isLoggedin property
-             * If visibility is bound with isLoggedin, it will disregard 
-             * VisualStateManager at first loading of Page.
-             * */
-            if (Window.Current.Bounds.Width < 720)
-            {
-                ViewModel.CurrentState = "Mobile";
-                if (ViewModel.isLoggedin)
-                {
-                    BottomAppBar.Visibility = Visibility.Visible;
-                    SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView), "Trending");
-                }
-                else
-                {
-                    BottomAppBar.Visibility = Visibility.Collapsed;
-                }
-            }
-            else
-            {
-                ViewModel.CurrentState = "Desktop";
-            }
         }
         public void RecieveSignOutMessage(SignOutMessageType empty)
         {
@@ -153,7 +205,10 @@ namespace CodeHub.Views
             {
                 BottomAppBar.Visibility = Visibility.Visible;
             }
-            SimpleIoc.Default.GetInstance<INavigationService>().Navigate(typeof(HomeView), "Trending");
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(HomeView))
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+            }
         }
 
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);

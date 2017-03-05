@@ -1,0 +1,119 @@
+﻿<!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #AA22FF; font-weight: bold">using</span> <span style="color: #0000FF; font-weight: bold">Windows.Graphics.Imaging</span>;
+<span style="color: #AA22FF; font-weight: bold">using</span> <span style="color: #0000FF; font-weight: bold">Windows.UI.Xaml.Media</span>;
+<span style="color: #AA22FF; font-weight: bold">using</span> <span style="color: #0000FF; font-weight: bold">Lumia.Imaging</span>;
+<span style="color: #AA22FF; font-weight: bold">using</span> <span style="color: #0000FF; font-weight: bold">Lumia.Imaging.Adjustments</span>;
+
+<span style="color: #AA22FF; font-weight: bold">namespace</span> <span style="color: #0000FF; font-weight: bold">CodeHub.Helpers</span>
+{
+    <span style="color: #008800; font-style: italic">/// &lt;summary&gt;</span>
+    <span style="color: #008800; font-style: italic">/// A static class with some methods to manipulate images</span>
+    <span style="color: #008800; font-style: italic">/// &lt;/summary&gt;</span>
+    <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #AA22FF; font-weight: bold">class</span> <span style="color: #0000FF">ImageHelper</span>
+    {
+        <span style="color: #008800; font-style: italic">/// &lt;summary&gt;</span>
+        <span style="color: #008800; font-style: italic">/// Calculates the average image brightness from an input image buffer</span>
+        <span style="color: #008800; font-style: italic">/// &lt;/summary&gt;</span>
+        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;buffer&quot;&gt;The image buffer to analyze&lt;/param&gt;</span>
+        <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #AA22FF; font-weight: bold">async</span> Task&lt;<span style="color: #00BB00; font-weight: bold">byte</span>&gt; CalculateAverageBrightnessAsync([NotNull] IBuffer buffer)
+        {
+            <span style="color: #008800; font-style: italic">// Extract the image RGBA pixel data</span>
+            <span style="color: #00BB00; font-weight: bold">byte</span>[] pixels;
+            <span style="color: #AA22FF; font-weight: bold">using</span> (Stream stream = buffer.AsStream())
+            <span style="color: #AA22FF; font-weight: bold">using</span> (IRandomAccessStream randomStream = stream.AsRandomAccessStream())
+            {
+                BitmapDecoder decoder = <span style="color: #AA22FF; font-weight: bold">await</span> BitmapDecoder.CreateAsync(randomStream);
+                PixelDataProvider pixelData = <span style="color: #AA22FF; font-weight: bold">await</span> decoder.GetPixelDataAsync();
+                pixels = pixelData.DetachPixelData();
+            }
+
+            <span style="color: #008800; font-style: italic">// Calculate the average brightness</span>
+            <span style="color: #00BB00; font-weight: bold">int</span> cores = Environment.ProcessorCount, chunks = pixels.Length / <span style="color: #666666">4</span>;
+            <span style="color: #00BB00; font-weight: bold">double</span>[] partials = <span style="color: #AA22FF; font-weight: bold">new</span> <span style="color: #00BB00; font-weight: bold">double</span>[cores];
+            ParallelLoopResult result = Parallel.For(<span style="color: #666666">0</span>, cores, <span style="color: #AA22FF; font-weight: bold">new</span> ParallelOptions { MaxDegreeOfParallelism = cores }, workerId =&gt;
+            {
+                <span style="color: #008800; font-style: italic">// Setup and start the outer loops</span>
+                <span style="color: #00BB00; font-weight: bold">int</span> max = chunks * (workerId + <span style="color: #666666">1</span>) / cores * <span style="color: #666666">4</span>;
+                <span style="color: #00BB00; font-weight: bold">double</span> <span style="color: #AA22FF; font-weight: bold">partial</span> = <span style="color: #666666">0</span>;
+                <span style="color: #AA22FF; font-weight: bold">for</span> (<span style="color: #00BB00; font-weight: bold">int</span> i = chunks * workerId / cores * <span style="color: #666666">4</span>; i &lt; max; i += <span style="color: #666666">4</span>)
+                {
+                    <span style="color: #008800; font-style: italic">// Calculate the brightness of the current RGB pixel</span>
+                    <span style="color: #00BB00; font-weight: bold">int</span>
+                        r = pixels[i],
+                        g = pixels[i + <span style="color: #666666">1</span>],
+                        b = pixels[i + <span style="color: #666666">2</span>];
+                    <span style="color: #AA22FF; font-weight: bold">partial</span> += Math.Sqrt(<span style="color: #666666">0.299</span> * r * r + <span style="color: #666666">0.587</span> * g * g + <span style="color: #666666">0.114</span> * b * b);
+                }
+                partials[workerId] = <span style="color: #AA22FF; font-weight: bold">partial</span>;
+            });
+            <span style="color: #AA22FF; font-weight: bold">if</span> (!result.IsCompleted) <span style="color: #AA22FF; font-weight: bold">throw</span> <span style="color: #AA22FF; font-weight: bold">new</span> InvalidOperationException();
+            <span style="color: #00BB00; font-weight: bold">int</span> brightness = (<span style="color: #00BB00; font-weight: bold">int</span>)(partials.Sum() / (pixels.Length / <span style="color: #666666">4</span>));
+            <span style="color: #AA22FF; font-weight: bold">return</span> brightness &gt; <span style="color: #666666">255</span> ? <span style="color: #00BB00; font-weight: bold">byte</span>.MaxValue : (<span style="color: #00BB00; font-weight: bold">byte</span>)brightness;
+        }
+
+        <span style="color: #008800; font-style: italic">/// &lt;summary&gt;</span>
+        <span style="color: #008800; font-style: italic">/// Loads an image and returns it and a blurred copy</span>
+        <span style="color: #008800; font-style: italic">/// &lt;/summary&gt;</span>
+        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;buffer&quot;&gt;The pixel data of the image to load&lt;/param&gt;</span>
+        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;blur&quot;&gt;The amount of blur to apply&lt;/param&gt;</span>
+<span style="color: #BB4444">        [ItemCanBeNull]</span>
+        <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #AA22FF; font-weight: bold">async</span> Task&lt;Tuple&lt;ImageSource, ImageSource&gt;&gt; GetImageAndBlurredCopyFromPixelDataAsync([NotNull] IBuffer buffer, <span style="color: #00BB00; font-weight: bold">int</span> blur)
+        {
+            <span style="color: #008800; font-style: italic">// Check if the input is valid</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span> (buffer.Length == <span style="color: #666666">0</span>) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF; font-weight: bold">null</span>;
+
+            <span style="color: #008800; font-style: italic">// Apply the blur effect on a copy of the original image</span>
+            <span style="color: #AA22FF; font-weight: bold">using</span> (Stream imageStream = buffer.AsStream())
+            <span style="color: #AA22FF; font-weight: bold">using</span> (IRandomAccessStream randomImageStream = imageStream.AsRandomAccessStream())
+            {
+                <span style="color: #008800; font-style: italic">// Load the default image</span>
+                BitmapImage original = <span style="color: #AA22FF; font-weight: bold">new</span> BitmapImage();
+                <span style="color: #AA22FF; font-weight: bold">await</span> original.SetSourceAsync(randomImageStream);
+
+                <span style="color: #008800; font-style: italic">// Blur the copy of the image</span>
+                randomImageStream.Seek(<span style="color: #666666">0</span>);
+                <span style="color: #AA22FF; font-weight: bold">using</span> (RandomAccessStreamImageSource imageProvider = <span style="color: #AA22FF; font-weight: bold">new</span> RandomAccessStreamImageSource(randomImageStream))
+                <span style="color: #AA22FF; font-weight: bold">using</span> (BlurEffect blurEffect = <span style="color: #AA22FF; font-weight: bold">new</span> BlurEffect(imageProvider) { KernelSize = blur })
+                {
+                    <span style="color: #008800; font-style: italic">// Process the blurred image</span>
+                    WriteableBitmap blurred = <span style="color: #AA22FF; font-weight: bold">new</span> WriteableBitmap(original.PixelWidth, original.PixelHeight);
+                    <span style="color: #AA22FF; font-weight: bold">await</span> blurEffect.GetBitmapAsync(blurred, OutputOption.Stretch);
+
+                    <span style="color: #008800; font-style: italic">// Return the two images</span>
+                    <span style="color: #AA22FF; font-weight: bold">return</span> Tuple.Create&lt;ImageSource, ImageSource&gt;(original, blurred);
+                }
+            }
+        }
+
+        <span style="color: #008800; font-style: italic">/// &lt;summary&gt;</span>
+        <span style="color: #008800; font-style: italic">/// Blurs a single image from a data stream</span>
+        <span style="color: #008800; font-style: italic">/// &lt;/summary&gt;</span>
+        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;buffer&quot;&gt;The buffer that contains the data of the image to blur&lt;/param&gt;</span>
+        <span style="color: #008800; font-style: italic">/// &lt;param name=&quot;blur&quot;&gt;The amount of blur to apply&lt;/param&gt;</span>
+<span style="color: #BB4444">        [ItemCanBeNull]</span>
+        <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #AA22FF; font-weight: bold">async</span> Task&lt;ImageSource&gt; BlurImageAsync([NotNull] IBuffer buffer, <span style="color: #00BB00; font-weight: bold">int</span> blur)
+        {
+            <span style="color: #AA22FF; font-weight: bold">using</span> (Stream imageStream = buffer.AsStream())
+            <span style="color: #AA22FF; font-weight: bold">using</span> (IRandomAccessStream randomImageStream = imageStream.AsRandomAccessStream())
+            {
+                BitmapDecoder decoder;
+                <span style="color: #AA22FF; font-weight: bold">try</span>
+                {
+                    decoder = <span style="color: #AA22FF; font-weight: bold">await</span> BitmapDecoder.CreateAsync(randomImageStream);
+                }
+                <span style="color: #AA22FF; font-weight: bold">catch</span>
+                {
+                    <span style="color: #008800; font-style: italic">// Invalid image data</span>
+                    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF; font-weight: bold">null</span>;
+                }
+                randomImageStream.Seek(<span style="color: #666666">0</span>);
+                <span style="color: #AA22FF; font-weight: bold">using</span> (RandomAccessStreamImageSource imageProvider = <span style="color: #AA22FF; font-weight: bold">new</span> RandomAccessStreamImageSource(randomImageStream))
+                <span style="color: #AA22FF; font-weight: bold">using</span> (BlurEffect blurEffect = <span style="color: #AA22FF; font-weight: bold">new</span> BlurEffect(imageProvider) { KernelSize = blur })
+                {
+                    WriteableBitmap blurred = <span style="color: #AA22FF; font-weight: bold">new</span> WriteableBitmap((<span style="color: #00BB00; font-weight: bold">int</span>)decoder.PixelWidth, (<span style="color: #00BB00; font-weight: bold">int</span>)decoder.PixelHeight);
+                    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF; font-weight: bold">await</span> blurEffect.GetBitmapAsync(blurred, OutputOption.Stretch);
+                }
+            }
+        }
+    }
+}
+</pre></div>

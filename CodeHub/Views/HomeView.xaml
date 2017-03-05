@@ -33,6 +33,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
+        <!--Empty grid to provide grey background to pivot headers-->
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1">
@@ -41,9 +42,10 @@
                     <TextBlock Text="today" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-
                     <toolkitControl:PullToRefreshListView x:Name="todayListView"
                                                           IsItemClickEnabled="True"
+                                                          ScrollViewer.HorizontalScrollMode="Disabled"
+                                                          Loaded="todayListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposToday,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -55,7 +57,7 @@
 
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
 
@@ -78,8 +80,12 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
-
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                    
+                    <userControls:IncrementalLoadButtonControl x:Name="todayIncrementalLoadButton"
+                                                               Visibility="{x:Bind ViewModel.CanLoadMoreToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                                               Tapped="{x:Bind ViewModel.todayIncrementalLoad}"
+                                                               VerticalAlignment="Bottom"/>
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="Trending Repositories are being updated by Github"
@@ -87,7 +93,8 @@
                     </TextBlock>
 
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingToday,Mode=OneWay}"
-                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  FontSize="40"
                                   Width="40"
                                   Height="40"/>
                 </Grid>
@@ -100,6 +107,8 @@
                 <Grid>
                     <toolkitControl:PullToRefreshListView x:Name="weekListView"  
                                                           IsItemClickEnabled="True"
+                                                          ScrollViewer.HorizontalScrollMode="Disabled"
+                                                          Loaded="weekListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposWeek,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -111,7 +120,7 @@
 
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
 
@@ -134,7 +143,12 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
+
+                    <userControls:IncrementalLoadButtonControl x:Name="weekIncrementalLoadButton"
+                                                               Visibility="{x:Bind ViewModel.CanLoadMoreWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                                               Tapped="{x:Bind ViewModel.weekIncrementalLoad}"
+                                                               VerticalAlignment="Bottom"/>
 
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -142,7 +156,7 @@
                                Visibility="{x:Bind ViewModel.ZeroWeeklyCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingWeek,Mode=OneWay}"
-                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   Width="40"
                                   Height="40"/>
                 </Grid>
@@ -155,6 +169,8 @@
                 <Grid>
                     <toolkitControl:PullToRefreshListView x:Name="monthListView"
                                                           IsItemClickEnabled="True"
+                                                          ScrollViewer.HorizontalScrollMode="Disabled"
+                                                          Loaded="monthListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposMonth,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -166,7 +182,7 @@
 
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
                             <DataTemplate  x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
+                                <userControls:RepoListItem ManipulationMode="System"/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
 
@@ -189,15 +205,20 @@
                                  MaxHeight="5"
                                  MaxWidth="800"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource GitHubLightBlueColorBrush}"/>
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
+                    <userControls:IncrementalLoadButtonControl x:Name="monthIncrementalLoadButton"
+                                                               Visibility="{x:Bind ViewModel.CanLoadMoreMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                                               Tapped="{x:Bind ViewModel.monthIncrementalLoad}"
+                                                               VerticalAlignment="Bottom"/>
+                    
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="Trending Repositories are being updated by Github"
                                Visibility="{x:Bind ViewModel.ZeroMonthlyCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingMonth,Mode=OneWay}"
-                                  Foreground="{StaticResource GitHubLightBlueColorBrush}"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   Width="40"
                                   Height="40"/>
                 </Grid>

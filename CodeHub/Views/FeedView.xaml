@@ -1,0 +1,179 @@
+﻿<Page x:Class="CodeHub.Views.FeedView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:local="using:CodeHub.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:octo="using:Octokit"
+      xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:usercontrols="using:CodeHub.Controls"
+      xmlns:xaml="using:Microsoft.Toolkit.Uwp.UI"
+      mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Page.Resources>
+        <converters:EventTypeToSymbolConverter x:Key="EventTypeToSymbolConverter" x:Name="EventTypeToSymbolConverter" />
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
+        <converters:EventTypeToActionStringConverter x:Key="EventTypeToActionStringConverter" x:Name="EventTypeToActionStringConverter" />
+        <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
+        <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <toolkitControl:PullToRefreshListView x:Name="FeedListView"
+                                              IsItemClickEnabled="False"
+                                              IsPullToRefreshWithMouseEnabled="True"
+                                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                              ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
+                                              OverscrollLimit="0.4"
+                                              PullProgressChanged="Feed_PullProgressChanged"
+                                              PullThreshold="100"
+                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
+            <toolkitControl:PullToRefreshListView.ItemTemplate>
+                <DataTemplate x:DataType="octo:Activity">
+                    <UserControl>
+                        <RelativePanel>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="320" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
+                                            <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                                            <Setter Target="RepoText.Margin" Value="4 0 0 0" />
+                                            <Setter Target="timeText.Margin" Value="4 12 0 0" />
+                                            <Setter Target="userText.Margin" Value="4 0 8 0" />
+                                            <Setter Target="notifSymbolScale.ScaleX" Value="1.6" />
+                                            <Setter Target="notifSymbolScale.ScaleY" Value="1.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="400" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
+                                            <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                                            <Setter Target="RepoText.Margin" Value="12 0 0 0" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="720" />
+                                        </VisualState.StateTriggers>
+
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Path x:Name="notifSymbol"
+                                  Margin="12,12,12,4"
+                                  Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
+                                  Fill="Gray"
+                                  RelativePanel.AlignLeftWithPanel="True"
+                                  RelativePanel.AlignTopWithPanel="True"
+                                  StrokeThickness="0">
+                                <Path.RenderTransform>
+                                    <CompositeTransform x:Name="notifSymbolScale"
+                                                        ScaleX="2"
+                                                        ScaleY="2" />
+                                </Path.RenderTransform>
+                            </Path>
+
+                            <TextBlock x:Name="timeText"
+                                       Margin="12,12,0,0"
+                                       FontSize="12"
+                                       Foreground="Gray"
+                                       RelativePanel.RightOf="notifSymbol"
+                                       Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
+
+                            <HyperlinkButton x:Name="userText"
+                                             Margin="12,0,4,4"
+                                             Padding="0"
+                                             Content="{Binding Actor.Login}"
+                                             RelativePanel.Below="timeText"
+                                             RelativePanel.RightOf="notifSymbol"
+                                             Tapped="Actor_Click">
+                                <HyperlinkButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontSize="13.5"
+                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </HyperlinkButton.ContentTemplate>
+                            </HyperlinkButton>
+
+                            <TextBlock x:Name="actionText"
+                                       Margin="0,0,4,4"
+                                       FontSize="13"
+                                       FontWeight="SemiBold"
+                                       RelativePanel.AlignVerticalCenterWith="userText"
+                                       RelativePanel.Below="timeText"
+                                       RelativePanel.RightOf="userText"
+                                       Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
+
+                            <HyperlinkButton x:Name="RepoText"
+                                             Margin="0 0 0 4"
+                                             Padding="0"
+                                             Content="{Binding Repo.Name}"
+                                             FontSize="13"
+                                             RelativePanel.Below="timeText"
+                                             RelativePanel.RightOf="actionText"
+                                             Tapped="Repo_Click">
+                                <HyperlinkButton.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontSize="13.5"
+                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </HyperlinkButton.ContentTemplate>
+                            </HyperlinkButton>
+
+                            <Border Margin="12 4 12 4"
+                                    Background="{ThemeResource SystemChromeLowColor}"
+                                    RelativePanel.AlignLeftWithPanel="True"
+                                    RelativePanel.AlignRightWithPanel="True"
+                                    RelativePanel.Below="RepoText">
+                                <TextBlock Padding="12 8 0 8"
+                                           FontSize="13"
+                                           MaxLines="5"
+                                           Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="Wrap"
+                                           Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
+                            </Border>
+                        </RelativePanel>
+                    </UserControl>
+
+                </DataTemplate>
+            </toolkitControl:PullToRefreshListView.ItemTemplate>
+            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+                <Border x:Name="refreshindicator"
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Center"
+                        CornerRadius="30" />
+            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
+        </toolkitControl:PullToRefreshListView>
+
+        <ProgressRing Width="40"
+                      Height="40"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
+        <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                   Text="You have no Events yet"
+                   Visibility="{x:Bind ViewModel.ZeroEventCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+    </Grid>
+</Page>

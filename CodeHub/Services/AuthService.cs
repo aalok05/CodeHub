@@ -76,8 +76,9 @@ namespace CodeHub.Services
             try
             {
                 string responseData = response.Substring(response.IndexOf("code"));
-                String[] keyValPairs = responseData.Split('=');
-                string code = keyValPairs[1];
+                string[] keyValPairs = responseData.Split('=');
+                string code = keyValPairs[1].Split('&')[0];
+
 
                 string clientId = await AppCredentials.getAppKey();
                 string appSecret = await AppCredentials.getAppSecret();
@@ -95,9 +96,6 @@ namespace CodeHub.Services
             {
                 return false;
             }
-
-
-
         }
 
         /// <summary>

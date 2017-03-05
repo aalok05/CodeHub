@@ -7,19 +7,20 @@ using Windows.UI.Xaml.Controls;
 
 namespace CodeHub.Views
 {
-    public sealed partial class AboutView : SettingsDetailPageBase
+    public sealed partial class AboutSettingsView : SettingsDetailPageBase
     {
-        private AboutViewmodel ViewModel;
-        public AboutView()
+        private SettingsViewModel ViewModel;
+        public AboutSettingsView()
         {
             this.InitializeComponent();
 
-            ViewModel = new AboutViewmodel();
+            ViewModel = new SettingsViewModel();
             this.DataContext = ViewModel;
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            TryNavigateBackForDesktopState(e.NewState.Name);
+            if (e.NewState != null)
+                TryNavigateBackForDesktopState(e.NewState.Name);
         }
 
         private async void RateButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
