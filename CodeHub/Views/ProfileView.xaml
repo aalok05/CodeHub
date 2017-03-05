@@ -1,20 +1,17 @@
-<Page
-    x:Class="CodeHub.Views.ProfileView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CodeHub.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="using:CodeHub.Converters"
-    xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
-    xmlns:octo="using:Octokit"
-    xmlns:controls1="using:CodeHub.Controls"
-    mc:Ignorable="d">
+<Page x:Class="CodeHub.Views.ProfileView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:local="using:CodeHub.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:octo="using:Octokit"
+      mc:Ignorable="d">
     <Page.Resources>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
@@ -142,16 +139,7 @@
                        TextWrapping="Wrap" />
 
         </RelativePanel>
-        
-        <controls1:UserContributionsChartControl Grid.Row="1"
-                                                 x:Name="Chart"
-                                                 VerticalAlignment="Top"
-                                                 HorizontalAlignment="Left"
-                                                 Months="{x:Bind ViewModel.Months, Mode=OneWay}"
-                                                 Source="{x:Bind ViewModel.Data, Mode=OneWay}"
-                                                 Width="620"
-                                                 Height="128"/>
-        <Pivot Grid.Row="1" Visibility="Collapsed">
+        <Pivot Grid.Row="1">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
