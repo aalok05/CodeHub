@@ -210,22 +210,40 @@
                        RelativePanel.Below="ForkButton"
                        Text="{x:Bind ViewModel.Repository.ForksCount, Mode=OneWay}" />
 
-                <TextBlock x:Name="LanguageText"
-                       Padding="20,12,20,8"
-                       VerticalAlignment="Center"
-                       x:DeferLoadStrategy="Lazy"
-                       FontSize="18"
-                       FontWeight="SemiLight"
-                       RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       RelativePanel.Below="StarCountText"
-                       Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
-                       Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                <Grid x:Name="LanguageGrid"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"
+                      RelativePanel.Below="StarCountText"
+                      Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ProgressRing Height="16"
+                                  Width="16"
+                                  MinWidth="16"
+                                  MinHeight="16"
+                                  IsActive="True"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  x:Name="LanguageRing"/>
+                    <Ellipse Width="24"
+                             Height="24"
+                             Grid.Column="0"
+                             x:Name="LanguageEllipse"
+                             Fill="{x:Bind ViewModel.LanguageColor, Mode=OneWay}"/>
+                    <TextBlock x:Name="LanguageText"
+                               Padding="20,12,20,8"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               FontWeight="SemiLight"
+                               Grid.Column="1"
+                               Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"/>
+                </Grid>
 
                 <StackPanel x:Name="ButtonsPanel"
                         Margin="0,8,0,8"
                         Orientation="Horizontal"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
-                        RelativePanel.Below="LanguageText">
+                        RelativePanel.Below="LanguageGrid">
                     <Button x:Name="ViewCodeButton"
                         Width="110"
                         Height="35"

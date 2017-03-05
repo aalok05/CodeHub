@@ -96,8 +96,10 @@ namespace CodeHub.Views
              */
             String html = await ReadmeWebView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
             ViewModel.TryParseRepositoryLanguageColor(html);
-            //LanguageColorProgressRing.Visibility = Visibility.Collapsed;
-            //if (ViewModel.LanguageColor == null) ColorEllipse.Visibility = Visibility.Collapsed;
+
+            // TODO: implement language color
+            LanguageRing.Visibility = Visibility.Collapsed;
+            if (ViewModel.LanguageColor == null) LanguageEllipse.Visibility = Visibility.Collapsed;
             String heightString = await ReadmeWebView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
