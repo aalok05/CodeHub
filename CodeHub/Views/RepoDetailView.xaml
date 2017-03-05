@@ -10,6 +10,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:controls1="using:CodeHub.Controls"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -21,7 +22,8 @@
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   HorizontalScrollMode="Disabled"
                   VerticalScrollBarVisibility="Hidden"
-                  VerticalScrollMode="Enabled">
+                  VerticalScrollMode="Enabled"
+                  x:Name="MainScrollViewer">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">
@@ -336,28 +338,44 @@
                            Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </RelativePanel>
 
-            <WebView x:Name="ReadmeWebView"
-                     Height="500"
-                     Margin="12,20,12,0"
-                     NavigationCompleted="WebView_NavigationCompleted"
-                     RelativePanel.AlignBottomWithPanel="True"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     RelativePanel.AlignRightWithPanel="True"
-                     RelativePanel.Below="DetailPanel" />
-            <ProgressRing x:Name="ReadmeLoadingRing"
-                          Width="32"
-                          Height="32"
-                          Margin="0,20,0,0"
-                          Foreground="{StaticResource AppPrimaryColorBrush}"
-                          IsHitTestVisible="False"
-                          RelativePanel.AlignHorizontalCenterWith="ReadmeWebView"
-                          RelativePanel.Below="DetailPanel" />
+            <Grid x:Name="ReadmeGrid"
+                  RelativePanel.AlignBottomWithPanel="True"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.Below="DetailPanel"
+                  Margin="0,16,0,0">
+                <WebView x:Name="ReadmeWebView"
+                         Height="500"
+                         NavigationCompleted="WebView_NavigationCompleted"/>
+                <Rectangle HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           Fill="#00FFFFFF"
+                           Tapped="UIElement_OnTapped"/>
+                <ProgressRing x:Name="ReadmeLoadingRing"
+                              Width="32"
+                              Height="32"
+                              Margin="0,20,0,0"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              IsHitTestVisible="False"
+                              RelativePanel.AlignHorizontalCenterWith="ReadmeWebView"
+                              RelativePanel.Below="DetailPanel" />
+            </Grid>
+            
             <ProgressRing Width="40"
                           Height="40"
                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                           IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}"
                           RelativePanel.AlignHorizontalCenterWithPanel="True"
                           RelativePanel.AlignVerticalCenterWithPanel="True" />
+
+            <!--Top scroller button-->
+            <controls1:TopScrollerControl x:Name="TopScroller" 
+                                          HorizontalAlignment="Right" 
+                                          VerticalAlignment="Bottom" 
+                                          Margin="0,0,32,24" 
+                                          TopScrollingRequested="TopScroller_OnTopScrollingRequested"
+                                          RelativePanel.AlignBottomWithPanel="True"
+                                          RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
     </ScrollViewer>
 </Page>

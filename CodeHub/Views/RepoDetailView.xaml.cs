@@ -22,6 +22,8 @@ namespace CodeHub.Views
         public RepoDetailViewmodel ViewModel;
         public RepoDetailView()
         {
+            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(MainScrollViewer);
+            this.Unloaded += (s, e) => TopScroller.Dispose();
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
@@ -36,13 +38,14 @@ namespace CodeHub.Views
                     SolidColorBrush brush = new SolidColorBrush(color);
                     RepoName.Foreground = brush;
                     ProfileLinkBlock.Foreground = brush;
+
+                    /* TODO: UI changes made here
                     FavoriteIcon.Foreground = brush;
                     FavoriteBlock.Foreground = brush;
                     BranchPath.Fill = brush;
                     BranchBlock.Foreground = brush;
                     BranchPath.Fill = brush;
-                    BranchBlock.Foreground = brush;
-
+                    BranchBlock.Foreground = brush; */
                 }
                 else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
                 {
@@ -80,7 +83,7 @@ namespace CodeHub.Views
             }
             else
             {
-                LanguageColorProgressRing.Visibility = Visibility.Collapsed;
+                //LanguageColorProgressRing.Visibility = Visibility.Collapsed;
                 ReadmeLoadingRing.IsActive = false;
 
             }
@@ -93,8 +96,8 @@ namespace CodeHub.Views
              */
             String html = await ReadmeWebView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
             ViewModel.TryParseRepositoryLanguageColor(html);
-            LanguageColorProgressRing.Visibility = Visibility.Collapsed;
-            if (ViewModel.LanguageColor == null) ColorEllipse.Visibility = Visibility.Collapsed;
+            //LanguageColorProgressRing.Visibility = Visibility.Collapsed;
+            //if (ViewModel.LanguageColor == null) ColorEllipse.Visibility = Visibility.Collapsed;
             String heightString = await ReadmeWebView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
@@ -118,7 +121,7 @@ namespace CodeHub.Views
                 scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
                 height = double.Parse(heightString) / (scale >= 2 ? scale - 1 : scale); // Approximate height (not so precise with high scaling)
             ReadmeWebView.Height = height;
-            ReadmeGrid.Height = height;
+            //ReadmeGrid.Height = height;
             ReadmeWebView.SetVisualOpacity(0);
 
             ReadmeWebView.Visibility = Visibility.Visible;
@@ -152,7 +155,7 @@ namespace CodeHub.Views
         // Scrolls the page content back to the top
         private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
         {
-            MainScroller.ChangeView(null, 0, null, false);
+            MainScrollViewer.ChangeView(null, 0, null, false);
         }
     }
 }
