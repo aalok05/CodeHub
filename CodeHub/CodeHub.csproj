@@ -190,6 +190,9 @@
       <DependentUpon>Hilite_meHighlightStylePreviewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
+    <Compile Include="Controls\IncrementalLoadButtonControl.xaml.cs">
+      <DependentUpon>IncrementalLoadButtonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
     </Compile>
@@ -205,15 +208,19 @@
     <Compile Include="Controls\TopScrollerControl.xaml.cs">
       <DependentUpon>TopScrollerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserContributionsChartControl.xaml.cs">
+      <DependentUpon>UserContributionsChartControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
+    <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\DateFormatConverter.cs" />
+    <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
@@ -221,6 +228,8 @@
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
+    <Compile Include="Models\ContributionsDataModel.cs" />
+    <Compile Include="Models\PinnedUserRepository.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
@@ -388,6 +397,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\IncrementalLoadButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\IssueListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -405,6 +418,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TopScrollerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserContributionsChartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

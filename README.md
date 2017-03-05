@@ -6,14 +6,16 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codehub-a-client-for-github/9nblggh52tbd#).
 
-![codehub-logo](/CodeHub/Assets/Images/appLogoPurple.png?raw=true)
+![codehub-newsFeed-screenshot](http://imagizer.imageshack.us/a/img921/8086/bhBO7h.png)
 
 #Features
 * See Trending repositories
-* View code, issues and comments. 
+* See your News Feed
+* View code (with syntax highlighting), issues and comments. 
+* Choose from 9 different syntax highlighting styles
 * Search repositories, users, issues and code
 * Star repositories
-* Follow people
+* Follow users
 
 #Contributions
 Pull requests are welcome in the `dev` branch!
@@ -25,10 +27,10 @@ Pull requests are welcome in the `dev` branch!
 #Things to be done
 CodeHub aims to do all those things that the GitHub Desktop app doesn't do. Our goal is to make an app for UWP which lets you keep up with the open source world on the go.
 I think these features are needed in CodeHub:
-* Find out a better way to get Trending repositories (web page scraping is done as of now)
+* Receive notifications on new issues on your repos
 * Fork repos
 * Trending developers
-* Syntax highlighting for code
+* Syntax highlighting for code (Implemented)
 * Search code, issues (Implemented)
 
 #Dependencies

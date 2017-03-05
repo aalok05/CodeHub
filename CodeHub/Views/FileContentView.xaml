@@ -5,6 +5,7 @@
     xmlns:local="using:CodeHub.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:CodeHub.Controls"
     xmlns:converters="using:CodeHub.Converters"
     mc:Ignorable="d">
@@ -87,10 +88,10 @@
                          Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
                          Margin="-8,-8,-12,-8"/>
 
-                <Image HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Source="{x:Bind ViewModel.ImageFile,Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
+                <control:ImageEx HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Source="{x:Bind ViewModel.ImageFile,Mode=OneWay}"
+                                 Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
             </Grid>
 
         </ScrollViewer>

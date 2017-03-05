@@ -1,6 +1,5 @@
 ﻿using CodeHub.Views;
 using System;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -13,7 +12,6 @@ using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
-using Lumia.Imaging.Direct2D;
 
 namespace CodeHub
 {
@@ -29,7 +27,6 @@ namespace CodeHub
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += App_Suspending;
           
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
@@ -37,14 +34,6 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.ShowReadme, false, false);
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
-        }
-
-        private void App_Suspending(object sender, SuspendingEventArgs e)
-        {
-            // Releases the memory allocated by the Imaging SDK
-            SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
-            using (DxgiDeviceManager manager = new DxgiDeviceManager()) manager.Trim();
-            deferral.Complete();
         }
 
         /// <summary>

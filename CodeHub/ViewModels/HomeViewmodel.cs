@@ -39,7 +39,6 @@ namespace CodeHub.ViewModels
                 Set(() => ZeroTodayCount, ref _zeroTodayCount, value);
             }
         }
-
         public bool _zeroWeeklyCount;
         /// <summary>
         /// 'Trending Repositories are being updated by Github' textblock will be displayed if this is true
@@ -68,6 +67,51 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => ZeroMonthlyCount, ref _zeroMonthlyCount, value);
+            }
+        }
+        public bool _CanLoadMoreToday;
+        /// <summary>
+        /// Indicates whether Load more button is visible or not
+        /// </summary>
+        public bool CanLoadMoreToday
+        {
+            get
+            {
+                return _CanLoadMoreToday;
+            }
+            set
+            {
+                Set(() => CanLoadMoreToday, ref _CanLoadMoreToday, value);
+            }
+        }
+        public bool _CanLoadMoreWeek;
+        /// <summary>
+        /// Indicates whether Load more button is visible or not
+        /// </summary>
+        public bool CanLoadMoreWeek
+        {
+            get
+            {
+                return _CanLoadMoreWeek;
+            }
+            set
+            {
+                Set(() => CanLoadMoreWeek, ref _CanLoadMoreWeek, value);
+            }
+        }
+        public bool _CanLoadMoreMonth;
+        /// <summary>
+        /// Indicates whether Load more button is visible or not
+        /// </summary>
+        public bool CanLoadMoreMonth
+        {
+            get
+            {
+                return _CanLoadMoreMonth;
+            }
+            set
+            {
+                Set(() => CanLoadMoreMonth, ref _CanLoadMoreMonth, value);
             }
         }
 
@@ -117,7 +161,11 @@ namespace CodeHub.ViewModels
         }
 
         public bool _isIncrementalLoadingToday;
-        public bool IsIncrementalLoadingToday  //For the Incremental Loading call
+
+        /// <summary>
+        /// Indicates visibility of progressbar for incremental loading
+        /// </summary>
+        public bool IsIncrementalLoadingToday
         {
             get
             {
@@ -130,7 +178,11 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _isIncrementalLoadingWeek;
-        public bool IsIncrementalLoadingWeek  //For the Incremental Loading call
+
+        /// <summary>
+        /// Indicates visibility of progressbar for incremental loading
+        /// </summary>
+        public bool IsIncrementalLoadingWeek
         {
             get
             {
@@ -143,7 +195,11 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _isIncrementalLoadingMonth;
-        public bool IsIncrementalLoadingMonth  //For the Incremental Loading call
+
+        /// <summary>
+        /// Indicates visibility of progressbar for incremental loading
+        /// </summary>
+        public bool IsIncrementalLoadingMonth
         {
             get
             {
@@ -155,9 +211,12 @@ namespace CodeHub.ViewModels
 
             }
         }
-
         public bool _isloadingToday;
-        public bool IsLoadingToday  //For the first progressRing
+
+        /// <summary>
+        /// Indicates if progressRing is active
+        /// </summary>
+        public bool IsLoadingToday
         {
             get
             {
@@ -169,9 +228,12 @@ namespace CodeHub.ViewModels
 
             }
         }
-
         public bool _isloadingWeek;
-        public bool IsLoadingWeek   //For the second progressRing
+
+        /// <summary>
+        /// Indicates if progressRing is active
+        /// </summary>
+        public bool IsLoadingWeek
         {
             get
             {
@@ -183,9 +245,12 @@ namespace CodeHub.ViewModels
 
             }
         }
-
         public bool _isloadingMonth;
-        public bool IsLoadingMonth  //For the third progressRing
+
+        /// <summary>
+        /// Indicates if progressRing is active
+        /// </summary>
+        public bool IsLoadingMonth
         {
             get
             {
@@ -216,7 +281,13 @@ namespace CodeHub.ViewModels
                                                   Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                                                   if (TrendingReposToday == null)
                                                   {
-                                                      IsLoadingToday = IsLoadingWeek = IsLoadingMonth = true;
+                                                      IsLoadingToday = 
+                                                      IsLoadingWeek = 
+                                                      IsLoadingMonth = 
+                                                      CanLoadMoreToday =
+                                                      CanLoadMoreWeek =
+                                                      CanLoadMoreMonth =
+                                                      true;
 
                                                       await LoadTrendingRepos(TimeRange.TODAY);
                                                       await LoadTrendingRepos(TimeRange.WEEKLY);
@@ -228,7 +299,6 @@ namespace CodeHub.ViewModels
                                           }));
             }
         }
-
         public async void RefreshTodayCommand(object sender, EventArgs e)
         {
             if (!GlobalHelper.IsInternet())
@@ -286,19 +356,6 @@ namespace CodeHub.ViewModels
                 {
                     ZeroTodayCount = false;
                     TrendingReposToday = repos;
-
-                    IsIncrementalLoadingToday = true;
-                    //Second Incremental call
-                    repos = await RepositoryUtility.GetTrendingRepos(range, false);
-                    IsIncrementalLoadingToday = false;
-
-                    if (repos != null)
-                    {
-                        foreach (var i in repos)
-                        {
-                            TrendingReposToday.Add(i);
-                        }
-                    }
                 }
                 else
                 {
@@ -316,19 +373,6 @@ namespace CodeHub.ViewModels
                 {
                     ZeroWeeklyCount = false;
                     TrendingReposWeek = repos;
-
-                    IsIncrementalLoadingWeek = true;
-                    //Second Incremental call
-                    repos = await RepositoryUtility.GetTrendingRepos(range, false);
-                    IsIncrementalLoadingWeek = false;
-
-                    if (repos != null)
-                    {
-                        foreach (var i in repos)
-                        {
-                            TrendingReposWeek.Add(i);
-                        }
-                    }
                 }
                 else
                 {
@@ -345,25 +389,60 @@ namespace CodeHub.ViewModels
                 {
                     ZeroMonthlyCount = false;
                     TrendingReposMonth = repos;
-
-                    IsIncrementalLoadingMonth = true;
-                    //Second Incremental call
-                    repos = await RepositoryUtility.GetTrendingRepos(range, false);
-                    IsIncrementalLoadingMonth = false;
-
-                    if (repos != null)
-                    {
-                        foreach (var i in repos)
-                        {
-                            TrendingReposMonth.Add(i);
-                        }
-                    }
                 }
                 else
                 {
                     ZeroMonthlyCount = true;
                     if (TrendingReposMonth != null)
                         TrendingReposMonth.Clear();
+                }
+            }
+
+        }
+        public async void todayIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            IsIncrementalLoadingToday = true;
+            CanLoadMoreToday = false;
+            var repos = await RepositoryUtility.GetTrendingRepos(TimeRange.TODAY, false);
+            IsIncrementalLoadingToday = false;
+
+            if (repos != null)
+            {
+                foreach (var i in repos)
+                {
+                    TrendingReposToday.Add(i);
+                }
+            }
+        }
+
+        public async void weekIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            IsIncrementalLoadingWeek = true;
+            CanLoadMoreWeek = false;
+            var repos = await RepositoryUtility.GetTrendingRepos(TimeRange.WEEKLY, false);
+            IsIncrementalLoadingWeek = false;
+
+            if (repos != null)
+            {
+                foreach (var i in repos)
+                {
+                    TrendingReposWeek.Add(i);
+                }
+            }
+        }
+
+        public async void monthIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            IsIncrementalLoadingMonth = true;
+            CanLoadMoreMonth = false;
+            var repos = await RepositoryUtility.GetTrendingRepos(TimeRange.MONTHLY, false);
+            IsIncrementalLoadingMonth = false;
+
+            if (repos != null)
+            {
+                foreach (var i in repos)
+                {
+                    TrendingReposMonth.Add(i);
                 }
             }
 

@@ -20,7 +20,7 @@ namespace CodeHub.Services
     class RepositoryUtility
     {
         /// <summary>
-        /// Two calls are made to this method to emulate Incremental Loading. First call (second parameter = true) returns first 7 repositories, 
+        /// Returns trending repos. First call (second parameter = true) returns first 7 repositories, 
         /// Second call (second parameter = false) returns the rest
         ///</summary>
         /// <param name="range">Today, weekly or monthly</param>
@@ -28,26 +28,48 @@ namespace CodeHub.Services
         /// <returns>Trending Repositories in a Time range</returns>
         public static async Task<ObservableCollection<Repository>> GetTrendingRepos(TimeRange range, bool firstCall)
         {
-
             try
             {
                 ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
-                var trendingReposNames = await HtmlParseService.ExtractTrendingRepos(range);
+                List<Tuple<string, string>> repoNames = new List<Tuple<string, string>>();
 
-                var client = await UserUtility.GetAuthenticatedClient();
+                if (firstCall)
+                {
+                    repoNames = await HtmlParseService.ExtractTrendingRepos(range);
+                }
+                else
+                {
+                    switch (range)
+                    {
+                        case TimeRange.TODAY:
+
+                            repoNames = GlobalHelper.TrendingTodayRepoNames;
+                            break;
+                        case TimeRange.WEEKLY:
+
+                            repoNames = GlobalHelper.TrendingWeekRepoNames;
+                            break;
+                        case TimeRange.MONTHLY:
+
+                            repoNames = GlobalHelper.TrendingMonthRepoNames;
+                            break;
+                    }
+                }
+
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
 
                 if (firstCall)
                 {
                     for (int i = 0; i < 7; i++)
                     {
-                        repos.Add(await client.Repository.Get(trendingReposNames[i].Item1, trendingReposNames[i].Item2));
+                        repos.Add(await client.Repository.Get(repoNames[i].Item1, repoNames[i].Item2));
                     }
                 }
                 else
                 {
-                    for (int i = 7; i < trendingReposNames.Count; i++)
+                    for (int i = 7; i < repoNames.Count; i++)
                     {
-                        repos.Add(await client.Repository.Get(trendingReposNames[i].Item1, trendingReposNames[i].Item2));
+                        repos.Add(await client.Repository.Get(repoNames[i].Item1, repoNames[i].Item2));
                     }
                 }
 
@@ -302,8 +324,8 @@ namespace CodeHub.Services
                         client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
                         client, repo.Id, branch, CancellationToken.None)
                     : from item in await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
-                        select new RepositoryContentWithCommitInfo(item);
-              
+                      select new RepositoryContentWithCommitInfo(item);
+
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
@@ -331,7 +353,7 @@ namespace CodeHub.Services
                         client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
                         client, repo.Id, branch, CancellationToken.None)
                     : from item in await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
-                        select new RepositoryContentWithCommitInfo(item);
+                      select new RepositoryContentWithCommitInfo(item);
                 return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
             }
             catch
@@ -352,13 +374,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var issues = await client.Issue.GetAllForRepository(repoId, filter);
-                ObservableCollection<Issue> issueList = new ObservableCollection<Issue>();
-                foreach (Issue c in issues)
-                {
-                    issueList.Add(c);
-                }
-
-                return issueList;
+                return new ObservableCollection<Issue>(new List<Issue>(issues));
             }
             catch
             {
@@ -383,13 +399,8 @@ namespace CodeHub.Services
                     Creator = GlobalHelper.UserLogin
 
                 });
-                ObservableCollection<Issue> issueList = new ObservableCollection<Issue>();
-                foreach (Issue c in issues)
-                {
-                    issueList.Add(c);
-                }
 
-                return issueList;
+                return new ObservableCollection<Issue>(new List<Issue>(issues));
             }
             catch
             {
@@ -409,12 +420,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var result = await client.Repository.GetAllForUser(login);
-                ObservableCollection<Repository> repos = new ObservableCollection<Repository>();
-                foreach (Repository r in result)
-                {
-                    repos.Add(r);
-                }
-                return repos;
+                return new ObservableCollection<Repository>(new List<Repository>(result));
             }
             catch
             {
@@ -436,14 +442,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
-
-                ObservableCollection<IssueComment> commentList = new ObservableCollection<IssueComment>();
-                foreach (IssueComment c in comments)
-                {
-                    commentList.Add(c);
-                }
-
-                return commentList;
+                return new ObservableCollection<IssueComment>(new List<IssueComment>(comments));
             }
             catch
             {
@@ -519,6 +518,78 @@ namespace CodeHub.Services
         }
 
         /// <summary>
+        /// Watches a repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
+        public static async Task<bool> WatchRepository(Repository repo)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return (await client.Activity.Watching.WatchRepo(repo.Id, new NewSubscription { Subscribed = true })).Subscribed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Unwatches a repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
+        public static async Task<bool> UnwatchRepository(Repository repo)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return await client.Activity.Watching.UnwatchRepo(repo.Id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Forks a repository
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns>Forked repository</returns>
+        public static async Task<Repository> ForkRepository(Repository repo)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return await client.Repository.Forks.Create(repo.Id, new NewRepositoryFork());
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Checks if a repository is watched by the authorized user
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <returns></returns>
+        public static async Task<bool> CheckWatched(Repository repo)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Activity.Watching.CheckWatched(repo.Id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Checks if a repository is starred by the authorized user
         /// </summary>
         /// <param name="repo"></param>
@@ -547,17 +618,11 @@ namespace CodeHub.Services
             try
             {
                 GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                CommitRequest request = new CommitRequest{ Path = path };
+                CommitRequest request = new CommitRequest { Path = path };
 
                 var list = await client.Repository.Commit.GetAll(repoId, request);
 
-                ObservableCollection<GitHubCommit> commitList = new ObservableCollection<GitHubCommit>();
-
-                foreach (GitHubCommit c in list)
-                {
-                    commitList.Add(c);
-                }
-                return commitList;
+                return new ObservableCollection<GitHubCommit>(new List<GitHubCommit>(list));
             }
             catch
             {

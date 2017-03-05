@@ -42,10 +42,10 @@
                     <TextBlock Text="today" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
-
                     <toolkitControl:PullToRefreshListView x:Name="todayListView"
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
+                                                          Loaded="todayListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposToday,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -81,7 +81,11 @@
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                  Foreground="{StaticResource AppPrimaryColorBrush}"/>
-
+                    
+                    <userControls:IncrementalLoadButtonControl x:Name="todayIncrementalLoadButton"
+                                                               Visibility="{x:Bind ViewModel.CanLoadMoreToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                                               Tapped="{x:Bind ViewModel.todayIncrementalLoad}"
+                                                               VerticalAlignment="Bottom"/>
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="Trending Repositories are being updated by Github"
@@ -90,6 +94,7 @@
 
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingToday,Mode=OneWay}"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  FontSize="40"
                                   Width="40"
                                   Height="40"/>
                 </Grid>
@@ -103,6 +108,7 @@
                     <toolkitControl:PullToRefreshListView x:Name="weekListView"  
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
+                                                          Loaded="weekListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposWeek,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -139,6 +145,11 @@
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                  Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
+                    <userControls:IncrementalLoadButtonControl x:Name="weekIncrementalLoadButton"
+                                                               Visibility="{x:Bind ViewModel.CanLoadMoreWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                                               Tapped="{x:Bind ViewModel.weekIncrementalLoad}"
+                                                               VerticalAlignment="Bottom"/>
+
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="Trending Repositories are being updated by Github"
@@ -159,6 +170,7 @@
                     <toolkitControl:PullToRefreshListView x:Name="monthListView"
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
+                                                          Loaded="monthListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposMonth,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -195,6 +207,11 @@
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                  Foreground="{StaticResource AppPrimaryColorBrush}"/>
 
+                    <userControls:IncrementalLoadButtonControl x:Name="monthIncrementalLoadButton"
+                                                               Visibility="{x:Bind ViewModel.CanLoadMoreMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                                               Tapped="{x:Bind ViewModel.monthIncrementalLoad}"
+                                                               VerticalAlignment="Bottom"/>
+                    
                     <TextBlock 
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="Trending Repositories are being updated by Github"

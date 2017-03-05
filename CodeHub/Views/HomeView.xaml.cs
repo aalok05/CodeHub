@@ -15,20 +15,27 @@ namespace CodeHub.Views
         public HomeViewmodel ViewModel;
 
         public HomeView()
-        {
+        { 
             this.InitializeComponent();
             ViewModel = new HomeViewmodel();
             this.DataContext = ViewModel;
 
+            Unloaded += HomeView_Unloaded;
+
             NavigationCacheMode = NavigationCacheMode.Required;
+        }
+
+        private void HomeView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            todayIncrementalLoadButton.Dispose();
+            weekIncrementalLoadButton.Dispose();
+            monthIncrementalLoadButton.Dispose();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
-
             todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
         }
 
@@ -47,8 +54,21 @@ namespace CodeHub.Views
         {
             refreshindicator3.Opacity = e.PullProgress;
             refreshindicator3.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-
         }
 
+        private void todayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            todayIncrementalLoadButton.InitializeScrollViewer(todayListView);
+        }
+
+        private void weekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            weekIncrementalLoadButton.InitializeScrollViewer(weekListView);
+        }
+
+        private void monthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            monthIncrementalLoadButton.InitializeScrollViewer(monthListView);
+        }
     }
 }

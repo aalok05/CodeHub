@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -122,6 +123,34 @@ namespace CodeHub.Helpers
                 yield return node.NextSibling;
                 node = node.NextSibling;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="tag"></param>
+        /// <param name="attribute"></param>
+        /// <param name="value"></param>
+        public static IEnumerable<HtmlNode> DescendantsWithAttribute([NotNull] this HtmlNode node, 
+            [NotNull] String tag, [NotNull] String attribute, [NotNull] String value)
+        {
+            return node.Descendants(tag)
+                ?.Where(child => child.Attributes
+                    ?.AttributesWithName(attribute)?.FirstOrDefault()?.Value?.Equals(value) == true);
+        }
+
+        public static Color GetLight(this Color color, double delta)
+        {
+            double R = (255 - color.R) * delta + color.R;
+            double G = (255 - color.G) * delta + color.G;
+            double B = (255 - color.B) * delta + color.B;
+            Func<double, byte> normalize = d =>
+            {
+                if (d < 0) return 0;
+                return d <= 255 ? (byte)d : (byte)255;
+            };
+            return Color.FromArgb(color.A, normalize(R), normalize(G), normalize(B));
         }
     }
 }

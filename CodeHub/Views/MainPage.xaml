@@ -221,8 +221,9 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Visible" />
                         <Setter Target="HamButton.Visibility" Value="Collapsed" />
                         <Setter Target="HeaderPanel.Height" Value="40" />
-                        <Setter Target="SearchButton.MaxHeight" Value="19" />
-                        <Setter Target="SearchButton.MaxWidth" Value="19" />
+                        <Setter Target="SearchSymbol.MaxHeight" Value="19" />
+                        <Setter Target="SearchSymbol.MaxWidth" Value="19" />
+                        <Setter Target="HeaderText.MaxWidth" Value="195" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -273,30 +274,25 @@
                                FontSize="16"
                                FontWeight="Bold"
                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                               Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" />
+                               Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}" 
+                               TextTrimming="CharacterEllipsis"/>
                 </Grid>
-                <Viewbox x:Name="SearchButton"
-                         MaxWidth="21"
-                         MaxHeight="21"
-                         Margin="0 0 15 0"
-                         RelativePanel.AlignRightWithPanel="True"
-                         RelativePanel.AlignVerticalCenterWith="HamButton"
-                         Tapped="{x:Bind ViewModel.NavigateToSearch}">
-                    <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="PointerPressed">
-                                <core:ChangePropertyAction PropertyName="Foreground" Value="#454545" />
-                            </core:EventTriggerBehavior>
-                            <core:EventTriggerBehavior EventName="PointerEntered">
-                                <core:ChangePropertyAction PropertyName="Foreground" Value="Gray" />
-                            </core:EventTriggerBehavior>
-                            <core:EventTriggerBehavior EventName="PointerExited">
-                                <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </SymbolIcon>
-
-                </Viewbox>
+                <Button x:Name="SearchButton"
+                        Style="{StaticResource ActionButtonStyle}"
+                        BorderThickness="0"
+                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                        Padding="12 0 12 0"
+                        Width="50"
+                        Height="48"
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignVerticalCenterWith="HamButton"
+                        Tapped="{x:Bind ViewModel.NavigateToSearch}">
+                    <Viewbox x:Name="SearchSymbol"
+                             MaxWidth="21"
+                             MaxHeight="21">
+                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find"/>
+                    </Viewbox>
+                </Button>
 
                 <Popup x:Name="InternetPopup"
                        IsOpen="True"
@@ -336,20 +332,19 @@
                        OpenPaneLength="270"
                        PaneBackground="Transparent">
                 <SplitView.Pane>
-                    <Grid BorderBrush="{ThemeResource SystemChromeLowColor}" BorderThickness="0 0 1 0">
-                        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
-                        <Grid>
+                    <Grid>
+                        <Canvas Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
+                        <Canvas>
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:Blur AutomaticallyStart="True"
                                                 Delay="0"
                                                 Value="100"
                                                 Duration="0" />
                             </interactivity:Interaction.Behaviors>
-                        </Grid>
+                        </Canvas>
                         <RelativePanel Name="HamRelative"
                                        Padding="0 10 0 0"
                                        Background="Transparent">
-
                             <Ellipse x:Name="avatarEllipse"
                                      Width="85"
                                      Height="85"
@@ -405,37 +400,29 @@
                                             <core:InvokeCommandAction Command="{x:Bind ViewModel.SignOutCommand}" />
                                         </core:EventTriggerBehavior>
                                     </interactivity:Interaction.Behaviors>
-                                    <StackPanel Width="270" Orientation="Horizontal">
-                                        <Grid Margin="0 0 10 0">
-                                            <Ellipse Width="27"
-                                                     Height="27"
-                                                     HorizontalAlignment="Center">
-                                                <Ellipse.Fill>
-                                                    <ImageBrush ImageSource="ms-appx:///Assets/profile-placeholder.png" />
-                                                </Ellipse.Fill>
-                                            </Ellipse>
-                                            <Ellipse Width="27"
-                                                     Height="27"
-                                                     HorizontalAlignment="Center">
-                                                <Ellipse.Fill>
-                                                    <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
-                                                </Ellipse.Fill>
-                                            </Ellipse>
-                                        </Grid>
+                                    <RelativePanel Width="270">
+                                        <Ellipse x:Name="smallAvatarEllipse"
+                                                 RelativePanel.AlignVerticalCenterWithPanel="True"
+                                                 Width="27"
+                                                 Height="27"
+                                                 Margin="0 0 10 0">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, FallbackValue='ms-appx:///Assets/profile-placeholder.png', Mode=OneWay}" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
 
-                                        <RelativePanel>
-                                            <TextBlock x:Name="EmailText"
-                                                       FontSize="10"
-                                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                       Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}"
-                                                       TextAlignment="Left" />
-                                            <TextBlock x:Name="SignoutText"
-                                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                       RelativePanel.AlignLeftWith="EmailText"
-                                                       RelativePanel.Below="EmailText"
-                                                       Text="Sign out" />
-                                        </RelativePanel>
-                                    </StackPanel>
+                                        <TextBlock x:Name="EmailText"
+                                                   FontSize="10"
+                                                   RelativePanel.RightOf="smallAvatarEllipse"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}"
+                                                        />
+                                        <TextBlock x:Name="SignoutText"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   RelativePanel.AlignLeftWith="EmailText"
+                                                   RelativePanel.Below="EmailText"
+                                                   Text="Sign out" />
+                                    </RelativePanel>
                                 </ListViewItem>
                                 <ListViewItem Tapped="SettingsItem_ItemClick">
                                     <StackPanel HorizontalAlignment="Left"

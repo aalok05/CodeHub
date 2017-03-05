@@ -1,18 +1,14 @@
-﻿using System;
+using System;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
 using Windows.UI.Xaml.Navigation;
-using UICompositionAnimations;
-using Application = Windows.UI.Xaml.Application;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.Web.Http;
 using CodeHub.Services;
 
@@ -23,8 +19,6 @@ namespace CodeHub.Views
         public RepoDetailViewmodel ViewModel;
         public RepoDetailView()
         {
-            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(MainScroller);
-            this.Unloaded += (s, e) => TopScroller.Dispose();
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
@@ -60,9 +54,18 @@ namespace CodeHub.Views
 
             await ViewModel.Load(e.Parameter);
 
-            // ReadmeWebview will be hidden untill JS script is executed.
-            ReadmeWebView.Visibility = Visibility.Collapsed;
+            FindName("LanguageText");
+            FindName("DescriptionText");
+            FindName("calendarSymbol");
+            FindName("createdDateText");
+            FindName("editSymbol");
+            FindName("updatedDateText");
+            FindName("sizeSymbol");
+            FindName("sizeCount");
+            FindName("sizeUnitText");
 
+
+            ReadmeWebView.Visibility = Visibility.Collapsed;
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
             {
                 ReadmeLoadingRing.IsActive = true;
@@ -76,6 +79,7 @@ namespace CodeHub.Views
             {
                 LanguageColorProgressRing.Visibility = Visibility.Collapsed;
                 ReadmeLoadingRing.IsActive = false;
+
             }
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -103,9 +107,9 @@ namespace CodeHub.Views
                     {
                         hyperlinks[i].setAttribute('target', '_blank');
                     }
-                    return body.scrollHeight.toString();
                 })()"
             });
+
             if (heightString == null) return;
             double
                 scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
@@ -113,8 +117,8 @@ namespace CodeHub.Views
             ReadmeWebView.Height = height;
             ReadmeGrid.Height = height;
             ReadmeWebView.SetVisualOpacity(0);
+
             ReadmeWebView.Visibility = Visibility.Visible;
-            ReadmeWebView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
             ReadmeLoadingRing.IsActive = false;
         }
 

@@ -109,11 +109,11 @@ namespace CodeHub.ViewModels
             {
                 if (item.Type == ContentType.File)
                 {
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FileContentView), Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateWithoutAnimations(typeof(FileContentView), Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
                 }
                 else if (item.Type == ContentType.Dir)
                 {
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(ContentView), Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateWithoutAnimations(typeof(ContentView), Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
                 }
             }
 
