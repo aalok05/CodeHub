@@ -227,6 +227,7 @@
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\PortableUWPSettingsManager.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\ContributionsDataModel.cs" />
     <Compile Include="Models\PinnedUserRepository.cs" />
@@ -537,11 +538,18 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.16.2">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BigWatson.PCL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\BigWatson\BigWatson.PCL.dll</HintPath>
+    </Reference>
     <Reference Include="UICompositionAnimations">
       <HintPath>E:\UICompositionAnimations-master\UICompositionAnimations-master\UICompositionAnimations\bin\Release\UICompositionAnimations.dll</HintPath>
     </Reference>

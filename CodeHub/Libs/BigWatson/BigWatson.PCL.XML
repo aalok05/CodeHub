@@ -1,0 +1,511 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BigWatson.PCL</name>
+    </assembly>
+    <members>
+        <member name="T:BigWatson.PCL.Core.BigWatson">
+            <summary>
+            Manages the exceptions database
+            </summary>
+        </member>
+        <member name="F:BigWatson.PCL.Core.BigWatson.DatabaseFolderName">
+            <summary>
+            Gets the name of the folder where the exceptions database is stored
+            </summary>
+        </member>
+        <member name="F:BigWatson.PCL.Core.BigWatson.DatabaseFileName">
+            <summary>
+            Gets the name of the local exceptions database file
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.Core.BigWatson.DatabaseConnection">
+            <summary>
+            The async connection to the local database in use
+            </summary>
+        </member>
+        <member name="F:BigWatson.PCL.Core.BigWatson._DatabaseInfo">
+            <summary>
+            The file and connection for the current database in use
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.Core.BigWatson.ExceptionsTable">
+            <summary>
+            Gets the table with all the stored exceptions
+            </summary>
+        </member>
+        <member name="M:BigWatson.PCL.Core.BigWatson.EnsureTablePresent``1(SQLite.Net.Async.SQLiteAsyncConnection)">
+            <summary>
+            Checks if the given Table is present in the database, and it creates it if it doesn't exist
+            </summary>
+            <typeparam name="T">The class that represents the database table</typeparam>
+        </member>
+        <member name="M:BigWatson.PCL.Core.BigWatson.EnsureDatabaseConnectionAsync">
+            <summary>
+            Loads a database up and connects to it, using a backup database if the target one isn't available
+            </summary>
+        </member>
+        <member name="M:BigWatson.PCL.Core.BigWatson.LogExceptionAsync(System.String,System.Int32,System.String,System.String,System.String,System.Version,System.DateTime,System.Int64)">
+            <summary>
+            Logs the given Exception into the local database
+            </summary>
+            <param name="type">The type of thee new Exception</param>
+            <param name="hResult">The HRESULT of the new Exception</param>
+            <param name="message">The optional message of the new Exception</param>
+            <param name="source">The optional source of the new Exception</param>
+            <param name="stackTrace">The optional stack trace of the new Exception</param>
+            <param name="version">The app version that generated this Exception</param>
+            <param name="crashTime">The crash time for the new exception to log</param>
+            <param name="usedMemory">The amount of used memory when the Exception was generated</param>
+        </member>
+        <member name="T:BigWatson.PCL.Core.LittleWatson">
+            <summary>
+            A static class that contains methods to log and save new exception reports
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.Core.LittleWatson.AppSettings">
+            <summary>
+            Gets the local settings instance to use
+            </summary>
+        </member>
+        <member name="M:BigWatson.PCL.Core.LittleWatson.LogException(System.Exception,System.Version)">
+            <summary>
+            Saves the info on the current exception in the local settings
+            </summary>
+            <param name="e">The exception that was thrown by the app</param>
+            <param name="version">The current app version</param>
+        </member>
+        <member name="M:BigWatson.PCL.Core.LittleWatson.TryFlushPreviousExceptionAsync">
+            <summary>
+            Tries to flush to disk and get the last stored exception, if present
+            </summary>
+        </member>
+        <member name="T:BigWatson.PCL.BigWatsonAPIs">
+            <summary>
+            A wrapper class with all the public TysAPIs exposed by the library
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.BigWatsonAPIs.Platform">
+            <summary>
+            Gets the current SQLite platform to use
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.BigWatsonAPIs.SettingsManager">
+            <summary>
+            Gets the current settings manager
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.BigWatsonAPIs.AppVersion">
+            <summary>
+            Gets the current app version
+            </summary>
+        </member>
+        <member name="P:BigWatson.PCL.BigWatsonAPIs.Reporter">
+            <summary>
+            Gets the <see cref="T:BigWatson.PCL.Misc.MemoryReporter"/> delegate instance to use
+            </summary>
+        </member>
+        <member name="M:BigWatson.PCL.BigWatsonAPIs.InitializeLibrary(SQLite.Net.Interop.ISQLitePlatform,BigWatson.PCL.Helpers.ISettingsManager,System.Version,BigWatson.PCL.Misc.MemoryReporter)">
+            <summary>
+            Initializes the SQLite platform to use in the PCL and stores the authorization token for the app, this method must be called during startup
+            </summary>
+            <param name="platform">The current device platform</param>
+            <param name="manager">The settings manager used to store the library data</param>
+            <param name="version">The current app version</param>
+            <param name="reporter">The <see cref="T:BigWatson.PCL.Misc.MemoryReporter"/> delegate instance to use</param>
+        </member>
+        <member name="M:BigWatson.PCL.BigWatsonAPIs.LogException(System.Exception)">
+            <summary>
+            Saves the crash report into local storage
+            </summary>
+            <param name="e">Exception that caused the app to crash</param>
+        </member>
+        <member name="M:BigWatson.PCL.BigWatsonAPIs.TryFlushPreviousExceptionAsync">
+            <summary>
+            Checks for a previous temporary exception report and flushes it into the internal database if possible
+            </summary>
+            <remarks>The status of the returned <see cref="T:BigWatson.Shared.Misc.AsyncOperationResult`1"/> instance will be set to <see cref="F:BigWatson.Shared.Misc.AsyncOperationStatus.RunToCompletion"/>
+            if a report is not found or if one is found and successfully stored to disk. In this case, the saved report will also be returned.
+            In case of an error, the returned status will be set to <see cref="F:BigWatson.Shared.Misc.AsyncOperationStatus.Faulted"/></remarks>
+            <returns>An <see cref="T:BigWatson.Shared.Misc.AsyncOperationResult`1"/> instance that indicates whether the method execution was successful, 
+            and eventually a <see cref="T:BigWatson.Shared.Models.ExceptionReport"/> instance that represents the last thrown exception that was just logged into the database</returns>
+        </member>
+        <member name="M:BigWatson.PCL.BigWatsonAPIs.LoadGroupedExceptionsAsync">
+            <summary>
+            Loads the groups with the previous exceptions that were thrown by the app
+            </summary>
+            <returns>A sequence of groups that have a <see cref="T:BigWatson.Shared.Models.VersionExtendedInfo"/> key with the app version and the number of
+            exception reports for that release, and a list of <see cref="T:BigWatson.Shared.Models.ExceptionReport"/> with all the available
+            reports for each version</returns>
+        </member>
+        <member name="M:BigWatson.PCL.BigWatsonAPIs.LoadAppVersionsInfoAsync(System.String)">
+            <summary>
+            Returns a set of data with all the app versions that generated the input Exception type
+            </summary>
+            <param name="exceptionType">The input Exception type to look for</param>
+            <remarks>The <paramref name="exceptionType"/> parameter can be passed by calling the equivalent string of <see cref="T:System.Exception"/>.GetType(),
+            by manually entering an exception type like "InvalidOperationException" or by passing the type from a loaded <see cref="T:BigWatson.Shared.Models.ExceptionReport"/></remarks>
+            <returns>A sequence of <see cref="T:BigWatson.Shared.Models.VersionExtendedInfo"/> instances with the number of occurrences of the given exception type
+            for each previous app version</returns>
+        </member>
+        <member name="M:BigWatson.PCL.BigWatsonAPIs.TryTrimAndOptimizeDatabaseAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Makes sure the number of exception reports in the database isn't too high
+            </summary>
+            <param name="length">The maximum number of items in the database</param>
+            <param name="token">The cancellation token for the operation</param>
+            <returns>An <see cref="T:BigWatson.Shared.Misc.AsyncOperationResult`1"/> instance that indicates whether the method execution was successful, 
+            and eventually a readonly list of <see cref="T:BigWatson.Shared.Models.ExceptionReport"/> instances that represents the reports that were just deleted</returns>
+        </member>
+        <member name="T:BigWatson.PCL.Helpers.FileSystemHelper">
+            <summary>
+            A simple class that manages the current file system in use
+            </summary>
+        </member>
+        <member name="M:BigWatson.PCL.Helpers.FileSystemHelper.TryGetFileAsync(System.String,System.String)">
+            <summary>
+            Gets the desired file in the target folder, creating them if they don't exist
+            </summary>
+            <param name="filename">The filename</param>
+            <param name="folderName">The name of the folder that contains the requested file</param>
+        </member>
+        <member name="T:BigWatson.PCL.Helpers.ISettingsManager">
+            <summary>
+            An interface to manage cross-platform settings
+            </summary>
+        </member>
+        <member name="M:BigWatson.PCL.Helpers.ISettingsManager.ContainsKey(System.String)">
+            <summary>
+            Checks whether or not there is a saved setting with the given key
+            </summary>
+            <param name="key">The key to look for</param>
+        </member>
+        <member name="M:BigWatson.PCL.Helpers.ISettingsManager.AddOrUpdateValue``1(System.String,``0)">
+            <summary>
+            Adds or updates a setting value
+            </summary>
+            <typeparam name="T">The type of the setting to store</typeparam>
+            <param name="key">The key of the setting</param>
+            <param name="value">The value of the setting to store</param>
+        </member>
+        <member name="M:BigWatson.PCL.Helpers.ISettingsManager.GetValueOrDefault``1(System.String)">
+            <summary>
+            Tries to get a setting value, returns the default value if it's not present
+            </summary>
+            <typeparam name="T">The type of the setting to get</typeparam>
+            <param name="key">The key to use to retrieve the setting</param>
+        </member>
+        <member name="M:BigWatson.PCL.Helpers.ISettingsManager.Clear">
+            <summary>
+            Clears all the existing settings
+            </summary>
+        </member>
+        <member name="T:BigWatson.PCL.Misc.DatabaseInfo">
+            <summary>
+            A class that wraps useful info for a database file in use on a generic platform
+            </summary>
+        </member>
+        <member name="T:BigWatson.PCL.Misc.MemoryReporter">
+            <summary>
+            A function that takes no arguments and returns the memory used by the application at any given time
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.Misc.AsyncOperationResult`1">
+            <summary>
+            A struct that wraps the result of a safe async operation
+            </summary>
+            <typeparam name="T">The expected return type</typeparam>
+        </member>
+        <member name="P:BigWatson.Shared.Misc.AsyncOperationResult`1.Result">
+            <summary>
+            Gets the available result
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Misc.AsyncOperationResult`1.Status">
+            <summary>
+            Gets the result status
+            </summary>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.AsyncOperationResult`1.Equals(BigWatson.Shared.Misc.AsyncOperationResult{`0})">
+            <summary>
+            Calls the default Equals method for the inner result of the wrapped instance
+            </summary>
+            <param name="other">The other instance to compare</param>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.AsyncOperationResult`1.Equals(`0)">
+            <summary>
+            Calls the default Equals method for another value of the same type as the result of this instance
+            </summary>
+            <param name="other">The other value to compare</param>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.AsyncOperationResult`1.op_Implicit(BigWatson.Shared.Misc.AsyncOperationResult{`0})~`0">
+            <summary>
+            Automatically extracts the inner result from an <see cref="T:BigWatson.Shared.Misc.AsyncOperationResult`1"/> instance
+            </summary>
+            <param name="wrappedResult">The wrapped result</param>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.AsyncOperationResult`1.op_Implicit(BigWatson.Shared.Misc.AsyncOperationResult{`0})~System.Boolean">
+            <summary>
+            Implicit cast to check if the operation completed successfully (so the status property is set to <see cref="F:BigWatson.Shared.Misc.AsyncOperationStatus.RunToCompletion"/>
+            </summary>
+            <param name="wrappedResult">The wrapped result</param>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.AsyncOperationResult`1.op_Implicit(`0)~BigWatson.Shared.Misc.AsyncOperationResult{`0}">
+            <summary>
+            Implicit converter for successful results
+            </summary>
+            <param name="result">The result to wrap</param>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.AsyncOperationResult`1.op_Implicit(BigWatson.Shared.Misc.AsyncOperationStatus)~BigWatson.Shared.Misc.AsyncOperationResult{`0}">
+            <summary>
+            Implicit converter for faulted results
+            </summary>
+            <param name="status">The result status</param>
+        </member>
+        <member name="T:BigWatson.Shared.Misc.AsyncOperationStatus">
+            <summary>
+            Indicates the result status of a self-contained async operation
+            </summary>
+        </member>
+        <member name="F:BigWatson.Shared.Misc.AsyncOperationStatus.RunToCompletion">
+            <summary>
+            The operation was completed successfully and the result is valid
+            </summary>
+        </member>
+        <member name="F:BigWatson.Shared.Misc.AsyncOperationStatus.Canceled">
+            <summary>
+            The operation was canceled and no return value is available
+            </summary>
+        </member>
+        <member name="F:BigWatson.Shared.Misc.AsyncOperationStatus.InternallyAborted">
+            <summary>
+            An invalid workflow was detected and the operation was stopped
+            </summary>
+        </member>
+        <member name="F:BigWatson.Shared.Misc.AsyncOperationStatus.Faulted">
+            <summary>
+            An exception was generated and handled within the async method
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.Misc.Extensions">
+            <summary>
+            A simple class with some useful extension methods
+            </summary>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.Extensions.To``1(System.Object)">
+            <summary>
+            Performs an explicit cast on the given object
+            </summary>
+            <typeparam name="T">The type to cast the object to</typeparam>
+            <param name="item">The object to cast</param>
+        </member>
+        <member name="M:BigWatson.Shared.Misc.Extensions.Forget(System.Threading.Tasks.Task)">
+            <summary>
+            Forgets a given task without raising any warnings
+            </summary>
+            <param name="task">The task to forget</param>
+        </member>
+        <member name="T:BigWatson.Shared.Models.DatabaseInfoBase`1">
+            <summary>
+            A class that wraps useful info for a database file in use
+            </summary>
+            <typeparam name="T">The type that represents the database file in use</typeparam>
+        </member>
+        <member name="P:BigWatson.Shared.Models.DatabaseInfoBase`1.File">
+            <summary>
+            Gets the database file
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.DatabaseInfoBase`1.Connection">
+            <summary>
+            Gets an open async connection to the database file
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.Models.ExceptionReport">
+            <summary>
+            A class that maps the database table used to store app crashes
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.Uid">
+            <summary>
+            Gets the key of the current Exception
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.ExceptionType">
+            <summary>
+            Gets a String representing the Type of the Exception
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.HResult">
+            <summary>
+            Gets the HResult associated to the Exception
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.Message">
+            <summary>
+            Gets the message that was generated when the Exception was thrown
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.Source">
+            <summary>
+            Gets the source of the Exception, if present
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.StackTrace">
+            <summary>
+            Gets the StackTrace for the current Exception
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.AppVersion">
+            <summary>
+            Gets the version of the app when the Exception was thrown
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.CrashTime">
+            <summary>
+            Gets the time of the crash
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.UsedMemory">
+            <summary>
+            Gets the amount of memory that the app was using when the Exception was thrown
+            </summary>
+        </member>
+        <member name="M:BigWatson.Shared.Models.ExceptionReport.New(System.String,System.Int32,System.String,System.String,System.String,System.Version,System.DateTime,System.Int64)">
+            <summary>
+            Creates a new instance of the ExceptionReport with the given parameters
+            </summary>
+            <param name="type">The Type of the Exception</param>
+            <param name="hResult">The Exception HResult</param>
+            <param name="message">The Exception message, if present</param>
+            <param name="source">The source of the Exception, if available</param>
+            <param name="stackTrace">The StackTrace of the Exception</param>
+            <param name="version">The app version when the crash happened</param>
+            <param name="crashTime">The crash time</param>
+            <param name="usedMemory">The amount of memory that the app was using when it crashed</param>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.MinExceptionVersion">
+            <summary>
+            Gets the minimum app version that generated this Exception type
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.MaxExceptionVersion">
+            <summary>
+            Gets the maximum app version that generated this Exception type
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.ExceptionTypeOccurrencies">
+            <summary>
+            Gets the total number of times this Exception type was generated by the app
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.CrashVersionsInfo">
+            <summary>
+            Gets the extended info on the crash times for this instance
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.RecentCrashTime">
+            <summary>
+            Gets the most recent crash time for this Exception type
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionReport.LessRecentCrashTime">
+            <summary>
+            Gets the first time this Exception type was generated
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.Models.ExceptionsCollection">
+            <summary>
+            A class that wraps a grouped collection of saved exception reports
+            </summary>
+        </member>
+        <member name="M:BigWatson.Shared.Models.ExceptionsCollection.GetEnumerator">
+            <summary>
+            Gets an enumerator that returns all the available groups of saved exception reports
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionsCollection.ExceptionsCount">
+            <summary>
+            Gets the total number of exceptions stored in this instance
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionsCollection.Exceptions">
+            <summary>
+            Gets a list of all the available exception reports stored in this instance
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionsCollection.CrashedAppVersions">
+            <summary>
+            Gets the list of all the app versions with at least a single stored exception report
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.ExceptionsCollection.ExceptionTypes">
+            <summary>
+            Gets an ordered list of all the types of the exceptions that have been logged so far
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.Models.GroupedList`2">
+            <summary>
+            A class that represents a single group of data to display to the end user
+            </summary>
+            <typeparam name="TKey">The type of the group key</typeparam>
+            <typeparam name="TItems">The type of the items in the group</typeparam>
+        </member>
+        <member name="P:BigWatson.Shared.Models.GroupedList`2.Key">
+            <summary>
+            Key that represents the group of objects and used as group header.
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.Models.VersionExtendedInfo">
+            <summary>
+            A simple model that wraps the number of crashes for a given app version number
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.VersionExtendedInfo.Occurrences">
+            <summary>
+            Gets the value of this instance
+            </summary>
+        </member>
+        <member name="P:BigWatson.Shared.Models.VersionExtendedInfo.AppVersion">
+            <summary>
+            Gets the app version associated with the current value
+            </summary>
+        </member>
+        <member name="T:BigWatson.Shared.SQLiteReportsExtractor">
+            <summary>
+            A class that executes queries on the input table to extract <see cref="T:BigWatson.Shared.Models.ExceptionReport"/> instances
+            </summary>
+        </member>
+        <member name="M:BigWatson.Shared.SQLiteReportsExtractor.LoadGroupedExceptionsAsync(SQLite.Net.Async.AsyncTableQuery{BigWatson.Shared.Models.ExceptionReport})">
+            <summary>
+            Loads the groups with the previous exceptions that were thrown by the app
+            </summary>
+            <param name="table">The source table query to use to read the data</param>
+            <returns>A sequence of groups that have a <see cref="T:BigWatson.Shared.Models.VersionExtendedInfo"/> key with the app version and the number of
+            exception reports for that release, and a list of <see cref="T:BigWatson.Shared.Models.ExceptionReport"/> with all the available
+            reports for each version</returns>
+        </member>
+        <member name="M:BigWatson.Shared.SQLiteReportsExtractor.LoadAppVersionsInfoAsync(SQLite.Net.Async.AsyncTableQuery{BigWatson.Shared.Models.ExceptionReport},System.String)">
+            <summary>
+            Returns a set of data with all the app versions that generated the input Exception type
+            </summary>
+            <param name="table">The source table query to use to read the data</param>
+            <param name="exceptionType">The input Exception type to look for</param>
+            <remarks>The <paramref name="exceptionType"/> parameter can be passed by calling the equivalent string of <see cref="T:System.Exception"/>GetType(),
+            by manually entering an exception type like "InvalidOperationException" or by passing the type from a loaded <see cref="T:BigWatson.Shared.Models.ExceptionReport"/></remarks>
+            <returns>A sequence of <see cref="T:BigWatson.Shared.Models.VersionExtendedInfo"/> instances with the number of occurrences of the given exception type
+            for each previous app version</returns>
+        </member>
+        <member name="M:BigWatson.Shared.SQLiteReportsExtractor.TryTrimAndOptimizeDatabaseAsync(SQLite.Net.Async.AsyncTableQuery{BigWatson.Shared.Models.ExceptionReport},SQLite.Net.Async.SQLiteAsyncConnection,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Makes sure the number of exception reports in the database isn't too high
+            </summary>
+            <param name="table">The source table query to use to read the data</param>
+            <param name="connection">The connection to the database in use</param>
+            <param name="length">The maximum number of items in the database</param>
+            <param name="token">The cancellation token for the operation</param>
+            <returns>An <see cref="T:BigWatson.Shared.Misc.AsyncOperationResult`1"/> instance that indicates whether the method execution was successful, 
+            and eventually a readonly list of <see cref="T:BigWatson.Shared.Models.ExceptionReport"/> instances that represents the reports that were just deleted</returns>
+        </member>
+    </members>
+</doc>

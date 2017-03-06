@@ -1,5 +1,6 @@
 ﻿using CodeHub.Views;
 using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -8,10 +9,15 @@ using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml.Media;
+using BigWatson.PCL;
+using BigWatson.Shared.Misc;
+using BigWatson.Shared.Models;
 using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
+using SQLite.Net.Platform.WinRT;
 
 namespace CodeHub
 {
@@ -34,6 +40,22 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.ShowReadme, false, false);
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
+
+            // BitWatson initialization
+            SQLitePlatformWinRT sqliteWinRT = new SQLitePlatformWinRT();
+            PackageVersion currentVersion = Package.Current.Id.Version;
+            Version version = new Version(currentVersion.Major, currentVersion.Minor, currentVersion.Build, currentVersion.Revision);
+            PortableUWPSettingsManager settingsManager = new PortableUWPSettingsManager();
+            BigWatsonAPIs.InitializeLibrary(sqliteWinRT, settingsManager, version, () => (long)MemoryManager.AppMemoryUsage);
+
+            // Exceptions handling
+            this.UnhandledException += (s, e) =>
+            {
+                BigWatsonAPIs.LogException(e.Exception);
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] Logged new {e.Exception.GetType()}");
+#endif
+            };
         }
 
         /// <summary>
@@ -110,6 +132,18 @@ namespace CodeHub
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            // Log previous exceptions
+#if DEBUG
+            AsyncOperationResult<ExceptionReport> report = await BigWatsonAPIs.TryFlushPreviousExceptionAsync();
+            if (report && report.Result != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] Flushed new {report.Result.ExceptionType} exception to database");
+            }
+            else System.Diagnostics.Debug.WriteLine($"[DEBUG] No new exception flushed, status: {report.Status}");
+#else
+            BigWatsonAPIs.TryFlushPreviousExceptionAsync().Forget();
+#endif
         }
 
         /// <summary>

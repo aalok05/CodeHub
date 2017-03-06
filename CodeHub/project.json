@@ -9,7 +9,9 @@
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "MvvmLightLibs": "5.3.0",
     "Octokit": "0.24.0",
+    "PCLStorage": "1.0.2",
     "RavinduL.LocalNotifications": "2.0.0",
+    "SQLite.Net-PCL": "3.1.1",
     "System.Numerics.Vectors": "4.3.0",
     "Win2D.uwp": "1.20.0"
   },
