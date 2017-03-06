@@ -86,8 +86,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-
                 isLoading = true;
                 if (string.IsNullOrWhiteSpace(repoPath.Item3))
                 {

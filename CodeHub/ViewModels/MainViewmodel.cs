@@ -204,13 +204,8 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if (!GlobalHelper.IsInternet())
+                                              if(IsInternet())
                                               {
-                                                  HasInternet = false;
-                                              }
-                                              else
-                                              {
-                                                  HasInternet = true;
                                                   isStartLoading = true;
                                                   if (isLoggedin == true)
                                                   {
@@ -272,14 +267,6 @@ namespace CodeHub.ViewModels
             }
             item.IsSelected = true;
             Navigate(item.DestPage,item.Label);
-        }
-        public void RecieveInternetMessage(HasInternetMessageType empty)
-        {
-            HasInternet = true;
-            if (isLoggedin == false)
-            {
-                LoadCommand.Execute(null);
-            }
         }
         public void mainFrame_Navigated(object sender, NavigationEventArgs e)
         {

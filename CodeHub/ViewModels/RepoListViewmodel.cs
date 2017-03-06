@@ -62,8 +62,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-
                 isLoading = true;
                 Repositories = await RepositoryUtility.GetRepositoriesForUser(login);
                 Login = login;
@@ -93,7 +91,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
 
                     isLoading = true;

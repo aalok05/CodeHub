@@ -34,20 +34,6 @@ namespace CodeHub.Services
 
         }
 
-        [ItemCanBeNull]
-        /// <summary>
-        /// Loads a classic and a blurred version of the user avatar
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="blur"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public static async Task<Tuple<ImageSource, ImageSource>> GetDeveloperAvatarOptionsAsync([NotNull] User user, int blur, CancellationToken token)
-        {
-            IBuffer imageBuffer = await HTTPHelper.GetBufferFromUrlAsync(user.AvatarUrl, token);
-            return imageBuffer == null ? null : await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(imageBuffer, blur);
-        }
-
         /// <summary>
         /// Follows a given user
         /// </summary>

@@ -186,8 +186,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-
                 
                 ProgressBarValue = 0;
                 isLoading = true; //For the progressBar at the top of the page

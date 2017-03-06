@@ -97,8 +97,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-
                 IsPull = Issue.PullRequest != null ? true : false;
 
                 isLoading = true;

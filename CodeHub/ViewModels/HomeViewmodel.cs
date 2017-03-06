@@ -279,7 +279,6 @@ namespace CodeHub.ViewModels
                                               }
                                               else
                                               {
-                                                  Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                                                   if (TrendingReposToday == null)
                                                   {
                                                       IsLoadingToday = 
@@ -309,7 +308,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 IsLoadingToday = true;
                 await LoadTrendingRepos(TimeRange.TODAY);
             }
@@ -324,7 +322,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 IsLoadingWeek = true;
 
                 await LoadTrendingRepos(TimeRange.WEEKLY);
@@ -340,9 +337,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                //Sending Internet available message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); 
-
                 IsLoadingMonth = true;
                 await LoadTrendingRepos(TimeRange.MONTHLY);
             }

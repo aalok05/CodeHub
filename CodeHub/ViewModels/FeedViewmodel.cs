@@ -61,7 +61,6 @@ namespace CodeHub.ViewModels
                                               }
                                               else
                                               {
-                                                  Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                                                   if(Events == null)
                                                   {   
                                                       isLoading = true;

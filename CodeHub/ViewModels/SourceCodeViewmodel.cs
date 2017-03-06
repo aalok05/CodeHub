@@ -84,9 +84,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                //Sending Internet available message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
-
                 isLoading = true;
                 if (repo != Repository)
                 {
@@ -132,8 +129,6 @@ namespace CodeHub.ViewModels
                 }
                 else
                 {
-                    //Sending Internet available message to all viewModels
-                    Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); 
                     isLoading = true;
                     SelectedBranch = e.AddedItems.First().ToString();
                     Content = await RepositoryUtility.GetRepositoryContent(Repository, SelectedBranch);

@@ -207,11 +207,6 @@ namespace CodeHub.ViewModels
                                                   //Sending NoInternet message to all viewModels
                                                   Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
                                               }
-                                              else
-                                              {
-                                                  //Sending Internet available message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); 
-                                              }
 
                                           }));
             }
