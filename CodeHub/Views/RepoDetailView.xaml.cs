@@ -27,32 +27,6 @@ namespace CodeHub.Views
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
-
-            // Adjust the UI to make sure the text is readable		
-            Messenger.Default.Register<GlobalHelper.SetBlurredAvatarUIBrightnessMessageType>(this, b =>
-            {
-                if (Application.Current.RequestedTheme == ApplicationTheme.Light && b.Brightness <= 80)
-                {
-                    byte delta = (byte)(128 - b.Brightness + 24);
-                    Color color = Color.FromArgb(byte.MaxValue, delta, delta, delta);
-                    SolidColorBrush brush = new SolidColorBrush(color);
-                    RepoName.Foreground = brush;
-                    ProfileLinkBlock.Foreground = brush;
-
-                    /* TODO: UI changes made here
-                    FavoriteIcon.Foreground = brush;
-                    FavoriteBlock.Foreground = brush;
-                    BranchPath.Fill = brush;
-                    BranchBlock.Foreground = brush;
-                    BranchPath.Fill = brush;
-                    BranchBlock.Foreground = brush; */
-                }
-                else if (Application.Current.RequestedTheme == ApplicationTheme.Dark && b.Brightness >= 180)
-                {
-                    double opacity = 1.0 - b.Brightness * 0.5 / 255;
-                    BackgroundImage.StartCompositionFadeAnimation(null, (float)opacity, 200, null, EasingFunctionNames.Linear);
-                }
-            });
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -83,9 +57,7 @@ namespace CodeHub.Views
             }
             else
             {
-                //LanguageColorProgressRing.Visibility = Visibility.Collapsed;
                 ReadmeLoadingRing.IsActive = false;
-
             }
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -94,12 +66,7 @@ namespace CodeHub.Views
              *  Also We are running a Javascript function that will make all links in the WebView open in an external browser
              *  instead of within the WebView itself.
              */
-            String html = await ReadmeWebView.InvokeScriptAsync("eval", new[] { "document.documentElement.outerHTML;" });
-            ViewModel.TryParseRepositoryLanguageColor(html);
 
-            // TODO: implement language color
-            LanguageRing.Visibility = Visibility.Collapsed;
-            if (ViewModel.LanguageColor == null) LanguageEllipse.Visibility = Visibility.Collapsed;
             String heightString = await ReadmeWebView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
@@ -129,30 +96,6 @@ namespace CodeHub.Views
             ReadmeWebView.Visibility = Visibility.Visible;
             ReadmeWebView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
             ReadmeLoadingRing.IsActive = false;
-        }
-
-        private async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Point p = e.GetPosition(ReadmeWebView);
-            int
-                x = Convert.ToInt32(p.X),
-                y = Convert.ToInt32(p.Y);
-            String url = await ReadmeWebView.InvokeScriptAsync("eval", new[]
-            {
-                $@"(function()
-                {{
-                    var target = document.elementFromPoint({x}, {y});
-                    if (target != null)
-                    {{
-                        return target.getAttribute('href', 2);
-                    }}
-                    return null;
-                }})()"
-            });
-            if (!String.IsNullOrEmpty(url))
-            {
-                Launcher.LaunchUriAsync(new Uri(url)).AsTask().Forget();
-            }
         }
 
         // Scrolls the page content back to the top

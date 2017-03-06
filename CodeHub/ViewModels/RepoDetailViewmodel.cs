@@ -154,25 +154,6 @@ namespace CodeHub.ViewModels
                     Repository = repo as Repository;
                 }
 
-                if (Repository?.Owner != null)
-                {
-
-                    // Get the image buffer manually to avoid making the HTTP call twice		 
-                    CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-                    IBuffer buffer = await HTTPHelper.GetBufferFromUrlAsync(Repository.Owner.AvatarUrl, cts.Token);
-                    if (buffer != null)
-                    {
-                        // Load the user image		
-                        Tuple<ImageSource, ImageSource> images = await ImageHelper.GetImageAndBlurredCopyFromPixelDataAsync(buffer, 256);
-                        UserAvatar = images?.Item1;
-                        UserBlurredAvatar = images?.Item2;
-
-                        // Calculate the brightness		
-                        byte brightness = await ImageHelper.CalculateAverageBrightnessAsync(buffer);
-                        Messenger.Default.Send(new GlobalHelper.SetBlurredAvatarUIBrightnessMessageType { Brightness = brightness });
-                    }
-                }
-
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 IsWatching = await RepositoryUtility.CheckWatched(Repository);
 
