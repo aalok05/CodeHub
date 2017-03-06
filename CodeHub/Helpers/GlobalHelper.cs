@@ -20,12 +20,14 @@ namespace CodeHub.Helpers
         {
 
         }
-        public class NoInternetMessageType
+        public class HasInternetMessageType
         {
 
         }
-        public class HasInternetMessageType
+        public class LocalNotificationMessageType
         {
+            public string Message { get; set; }
+            public string Glyph { get; set; }
 
         }
         public class SetHeaderTextMessageType
@@ -50,7 +52,9 @@ namespace CodeHub.Helpers
 
         #endregion
 
-        /*The Username (login) of the Authenticated user is available throughout the app to make calls for User's data*/
+        /// <summary>
+        /// Username of the Authenticated user 
+        /// </summary>
         public static string UserLogin { get; set; }
 
         /// <summary>
@@ -62,6 +66,26 @@ namespace CodeHub.Helpers
         /// Indicates whether user has performed a new Follow/UnFollow action. Used to update followers
         /// </summary>
         public static bool NewFollowActivity { get; set; }
+
+        /// <summary>
+        /// List of names and owner names of Trending repositories
+        /// </summary>
+        public static List<Tuple<string, string>> TrendingTodayRepoNames { get; set; }
+
+        /// <summary>
+        /// List of names and owner names of Trending repositories
+        /// </summary>
+        public static List<Tuple<string, string>> TrendingWeekRepoNames { get; set; }
+
+        /// <summary>
+        /// List of names and owner names of Trending repositories
+        /// </summary>
+        public static List<Tuple<string, string>> TrendingMonthRepoNames { get; set; }
+
+        /// <summary>
+        /// Determines if internet connection is available to device
+        /// </summary>
+        /// <returns></returns>
         public static bool IsInternet()
         {
             var connectionProfile = NetworkInformation.GetInternetConnectionProfile();
@@ -70,6 +94,12 @@ namespace CodeHub.Helpers
                                         NetworkConnectivityLevel.InternetAccess);
                
         }
+
+        /// <summary>
+        /// Converts a Hex string to corressponding SolidColorBrush
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <returns></returns>
         public static SolidColorBrush GetSolidColorBrush(string hex)
             {
                 byte r = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));

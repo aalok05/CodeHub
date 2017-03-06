@@ -1,12 +1,19 @@
-﻿using System;
+using System;
+using Windows.Foundation;
+using Windows.Graphics.Display;
+using Windows.System;
+using Windows.UI;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.Web.Http;
 using CodeHub.Services;
+using UICompositionAnimations;
 
 namespace CodeHub.Views
 {
@@ -15,30 +22,28 @@ namespace CodeHub.Views
         public RepoDetailViewmodel ViewModel;
         public RepoDetailView()
         {
+            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(MainScrollViewer);
+            this.Unloaded += (s, e) => TopScroller.Dispose();
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
         }
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter);
+
             FindName("LanguageText");
             FindName("DescriptionText");
             FindName("calendarSymbol");
-            FindName("createdText");
             FindName("createdDateText");
             FindName("editSymbol");
-            FindName("editText");
             FindName("updatedDateText");
-            FindName("issueSymbol");
-            FindName("issueText");
-            FindName("issueCount");
             FindName("sizeSymbol");
-            FindName("sizeText");
             FindName("sizeCount");
             FindName("sizeUnitText");
+
 
             ReadmeWebView.Visibility = Visibility.Collapsed;
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
@@ -51,14 +56,18 @@ namespace CodeHub.Views
                 ReadmeWebView.NavigateWithHttpRequestMessage(httpRequestMessage);
             }
             else
+            {
                 ReadmeLoadingRing.IsActive = false;
-
-
+            }
         }
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            var webView = sender as WebView;
-            await webView.InvokeScriptAsync("eval", new[]
+            /*  We are getting the readme div and setting it as the root of the webview.
+             *  Also We are running a Javascript function that will make all links in the WebView open in an external browser
+             *  instead of within the WebView itself.
+             */
+
+            String heightString = await ReadmeWebView.InvokeScriptAsync("eval", new[]
             {
                 @"(function()
                 {
@@ -73,11 +82,26 @@ namespace CodeHub.Views
                     {
                         hyperlinks[i].setAttribute('target', '_blank');
                     }
+                    return body.scrollHeight.toString(); 
                 })()"
             });
 
+            if (String.IsNullOrEmpty(heightString)) return;
+            double
+                scale = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel,
+                height = double.Parse(heightString) / (scale >= 2 ? scale - 1 : scale); // Approximate height (not so precise with high scaling)
+            ReadmeWebView.Height = height;
+            ReadmeGrid.Height = height;
+            ReadmeWebView.SetVisualOpacity(0);
             ReadmeWebView.Visibility = Visibility.Visible;
+            ReadmeWebView.StartCompositionFadeSlideAnimation(0, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.CircleEaseOut);
             ReadmeLoadingRing.IsActive = false;
+        }
+
+        // Scrolls the page content back to the top
+        private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
+        {
+            MainScrollViewer.ChangeView(null, 0, null, false);
         }
     }
 }

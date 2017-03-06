@@ -5,7 +5,8 @@ using Windows.Services.Store;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
-
+using CodeHub.Helpers;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CodeHub.Views
 {
@@ -36,62 +37,54 @@ namespace CodeHub.Views
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFirstAddOnId);
             ViewModel.isLoading = false;
-            await reactToPurchaseResult(result);
+            reactToPurchaseResult(result);
         }
         private async void second_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateSecondAddOnId);
             ViewModel.isLoading = false;
-            await reactToPurchaseResult(result);
+            reactToPurchaseResult(result);
         }
         private async void third_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateThirdAddOnId);
             ViewModel.isLoading = false;
-            await reactToPurchaseResult(result);
+            reactToPurchaseResult(result);
         }
         private async void fourth_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFourthAddOnId);
             ViewModel.isLoading = false;
-            await reactToPurchaseResult(result);
+            reactToPurchaseResult(result);
         }
 
-        private async Task reactToPurchaseResult(StorePurchaseResult result)
+        private void reactToPurchaseResult(StorePurchaseResult result)
         {
-            if(result.Status == StorePurchaseStatus.Succeeded)
+            if (result.Status == StorePurchaseStatus.Succeeded)
             {
-
-                var messageDialog = new MessageDialog("Thanks for your donation! I deeply appreciate your contribution to the development of CodeHub.");
-
-                messageDialog.Commands.Add(new UICommand("OK"));
-
-                messageDialog.CancelCommandIndex = 0;
-
-                await messageDialog.ShowAsync();
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType {
+                    Message = "Thanks for your donation! I deeply appreciate your contribution to the development of CodeHub",
+                    Glyph = "\uED54"
+                });
             }
-            else if(result.Status == StorePurchaseStatus.AlreadyPurchased)
+            else if (result.Status == StorePurchaseStatus.AlreadyPurchased)
             {
-                var messageDialog = new MessageDialog("It seems you have already made this donation.");
-
-                messageDialog.Commands.Add(new UICommand("OK"));
-
-                messageDialog.CancelCommandIndex = 0;
-
-                await messageDialog.ShowAsync();
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType
+                {
+                    Message = "It seems you have already made this donation",
+                    Glyph = "\uE783"
+                });
             }
             else
             {
-                var messageDialog = new MessageDialog("There seems to be a problem. Try again later.");
-
-                messageDialog.Commands.Add(new UICommand("OK"));
-
-                messageDialog.CancelCommandIndex = 0;
-
-                await messageDialog.ShowAsync();
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType
+                {
+                    Message = "There seems to be a problem. Try again later",
+                    Glyph = "\uE783"
+                });
             }
         }
     }

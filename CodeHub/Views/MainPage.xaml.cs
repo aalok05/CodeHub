@@ -18,6 +18,9 @@ using CodeHub.Controls;
 using UICompositionAnimations;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
+using RavinduL.LocalNotifications;
+using RavinduL.LocalNotifications.Presenters;
+using Windows.UI.Popups;
 
 namespace CodeHub.Views
 {
@@ -25,6 +28,8 @@ namespace CodeHub.Views
     {
         public MainViewmodel ViewModel { get; set; }
         public CustomFrame AppFrame { get { return this.mainFrame; } }
+
+        private LocalNotificationManager notifManager;
         public MainPage()
         {
             this.Loaded += (s, e) =>
@@ -43,7 +48,7 @@ namespace CodeHub.Views
             SizeChanged += MainPage_SizeChanged;
             
             //Listening for No Internet message
-            Messenger.Default.Register<NoInternetMessageType>(this, ViewModel.RecieveNoInternetMessage);
+            Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             //Listening Internet available message
             Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage);
             //Setting Header Text to the current page name
@@ -96,7 +101,6 @@ namespace CodeHub.Views
                 }
             }
         }
-
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (AppFrame == null) return;
@@ -191,6 +195,25 @@ namespace CodeHub.Views
 
             //listen for sign out message
             Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
+
+            notifManager = new LocalNotificationManager(NotificationGrid);
+        }
+        public void RecieveLocalNotificationMessage(LocalNotificationMessageType notif)
+        {
+            ViewModel.HasInternet = false;
+
+            notifManager.Show(new SimpleNotificationPresenter
+            (
+                TimeSpan.FromSeconds(3),
+                text: notif.Message,
+                action: async () => await new MessageDialog(notif.Message).ShowAsync(),
+                glyph: notif.Glyph
+            )
+            {
+                Background = GetSolidColorBrush("60B53BFF"),
+                Foreground = GetSolidColorBrush("FAFBFCFF"),
+            },
+            LocalNotificationCollisionBehaviour.Replace);
         }
         public void RecieveSignOutMessage(SignOutMessageType empty)
         {

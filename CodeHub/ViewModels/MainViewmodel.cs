@@ -242,19 +242,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public RelayCommand _closeInternetPopup;
-        public RelayCommand CloseInternetPopup
-        {
-            get
-            {
-                return _closeInternetPopup
-                   ?? (_closeInternetPopup = new RelayCommand(() =>
-                   {
-                       HasInternet = true;
-                   }));
-            }
-        }
-
         #endregion
 
         #region events and methods
@@ -285,10 +272,6 @@ namespace CodeHub.ViewModels
             }
             item.IsSelected = true;
             Navigate(item.DestPage,item.Label);
-        }
-        public void RecieveNoInternetMessage(NoInternetMessageType empty)
-        {
-            HasInternet = false;
         }
         public void RecieveInternetMessage(HasInternetMessageType empty)
         {

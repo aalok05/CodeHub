@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Linq;
 using System.Threading;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -11,6 +12,10 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using MarkdownSharp;
+using Windows.UI.Core;
+using HtmlAgilityPack;
+using JetBrains.Annotations;
+using Microsoft.Toolkit.Uwp;
 
 namespace CodeHub.ViewModels
 {
@@ -22,7 +27,7 @@ namespace CodeHub.ViewModels
             get
             {
                 return _repository;
-            }
+              }
             set
             {
                 Set(() => Repository, ref _repository, value);
@@ -43,12 +48,92 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsWatching;
+        public bool IsWatching
+        {
+            get
+            {
+                return _IsWatching;
+            }
+            set
+            {
+                Set(() => IsWatching, ref _IsWatching, value);
+            }
+        }
+
+        public bool _IsStarLoading;
+        public bool IsStarLoading
+        {
+            get
+            {
+                return _IsStarLoading;
+            }
+            set
+            {
+                Set(() => IsStarLoading, ref _IsStarLoading, value);
+            }
+        }
+
+        public bool _IsWatchLoading;
+        public bool IsWatchLoading
+        {
+            get
+            {
+                return _IsWatchLoading;
+            }
+            set
+            {
+                Set(() => IsWatchLoading, ref _IsWatchLoading, value);
+            }
+        }
+
+        public bool _IsForkLoading;
+        public bool IsForkLoading
+        {
+            get
+            {
+                return _IsForkLoading;
+            }
+            set
+            {
+                Set(() => IsForkLoading, ref _IsForkLoading, value);
+            }
+        }
+
+        private Brush _LanguageColor;
+
+        /// <summary>
+        /// Gets the color of the main language of the repository
+        /// </summary>
+        public Brush LanguageColor
+        {
+            get { return _LanguageColor; }
+            private set { Set(() => LanguageColor, ref _LanguageColor, value); }
+        }
+
+        /// <summary>
+        /// Tries to parse the language color of a repository from its HTML code
+        /// </summary>
+        /// <param name="html">The HTML code of the repository page</param>
+        public void TryParseRepositoryLanguageColor([NotNull] String html)
+        {
+            HtmlDocument document = new HtmlDocument();
+            document.LoadHtml(html);
+            HtmlNode
+                node = document.DocumentNode?.Descendants("span").FirstOrDefault(child =>
+                        child.Attributes?.AttributesWithName("class")?.FirstOrDefault()?.Value?.Equals("color-block language-color") == true);
+            String
+                style = node?.Attributes.AttributesWithName("style").FirstOrDefault()?.Value,
+                colorStr = style?.Substring(style.Length - 7, 6);
+            if (colorStr != null) LanguageColor = new SolidColorBrush($"#FF{colorStr}".ToColor());
+        }
+
         public async Task Load(object repo)
         {
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternetMessageType());
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
             }
             else
             {
@@ -56,17 +141,22 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
 
                 isLoading = true;
-                if (repo.GetType() == typeof(string))
+
+                string s = repo as string;
+                if (s != null)
                 {
                     //Splitting repository name and owner name
-                    var names = (repo as string).Split('/');
+                    var names = s.Split('/');
                     Repository = await RepositoryUtility.GetRepository(names[0], names[1]);
                 }
                 else
                 {
                     Repository = repo as Repository;
                 }
+
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
+                IsWatching = await RepositoryUtility.CheckWatched(Repository);
+
                 isLoading = false;
             }
         }
@@ -81,46 +171,7 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
-                                          }));
-            }
-        }
 
-        private RelayCommand _starRepo;
-        public RelayCommand StarRepo
-        {
-            get
-            {
-                return _starRepo
-                    ?? (_starRepo = new RelayCommand(
-                                          async () =>
-                                          {
-                                              isLoading = true;
-                                              if (await RepositoryUtility.StarRepository(Repository))
-                                              {
-                                                  isLoading = false;
-                                                  IsStar = true;
-                                                  GlobalHelper.NewStarActivity = true;
-                                              }
-                                          }));
-            }
-        }
-
-        private RelayCommand _unStarRepo;
-        public RelayCommand UnstarRepo
-        {
-            get
-            {
-                return _unStarRepo
-                    ?? (_unStarRepo = new RelayCommand(
-                                          async () =>
-                                          {
-                                              isLoading = true;
-                                              if (await RepositoryUtility.UnstarRepository(Repository))
-                                              {
-                                                  isLoading = false;
-                                                  IsStar = false;
-                                                  GlobalHelper.NewStarActivity = true;
-                                              }
                                           }));
             }
         }
@@ -149,6 +200,90 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(IssuesView), "Issues", Repository);
+                                          }));
+            }
+        }
+
+        private RelayCommand _StarCommand;
+        public RelayCommand StarCommand
+        {
+            get
+            {
+                return _StarCommand
+                    ?? (_StarCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if (!IsStar)
+                                              {
+                                                  IsStarLoading = true;
+                                                  if (await RepositoryUtility.StarRepository(Repository))
+                                                  {
+                                                      IsStarLoading = false;
+                                                      IsStar = true;
+                                                      GlobalHelper.NewStarActivity = true;
+                                                  }
+                                              }
+                                              else
+                                              {
+                                                  IsStarLoading = true;
+                                                  if (await RepositoryUtility.UnstarRepository(Repository))
+                                                  {
+                                                      IsStarLoading = false;
+                                                      IsStar = false;
+                                                      GlobalHelper.NewStarActivity = true;
+                                                  }
+                                              }
+                                          }));
+            }
+        }
+
+        private RelayCommand _WatchCommand;
+        public RelayCommand WatchCommand
+        {
+            get
+            {
+                return _WatchCommand
+                    ?? (_WatchCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if (!IsWatching)
+                                              {
+                                                  IsWatchLoading = true;
+                                                  if (await RepositoryUtility.WatchRepository(Repository))
+                                                  {
+                                                      IsWatchLoading = false;
+                                                      IsWatching = true;
+                                                  }
+                                              }
+                                              else
+                                              {
+                                                  IsWatchLoading = true;
+                                                  if (await RepositoryUtility.UnwatchRepository(Repository))
+                                                  {
+                                                      IsWatchLoading = false;
+                                                      IsWatching = false;
+                                                  }
+                                              }
+                                          }));
+            }
+        }
+
+        private RelayCommand _ForkCommand;
+        public RelayCommand ForkCommand
+        {
+            get
+            {
+                return _ForkCommand
+                    ?? (_ForkCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              IsForkLoading = true;
+                                              Repository forkedRepo = await RepositoryUtility.ForkRepository(Repository);
+                                              IsForkLoading = false;
+                                              if (forkedRepo != null)
+                                              {
+                                                  SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", forkedRepo);
+                                              }
                                           }));
             }
         }
