@@ -70,51 +70,6 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
-        <Storyboard x:Name="InternetPopupStoryboard">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="InternetPopup" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="-200">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase Amplitude="0.5" EasingMode="EaseOut" />
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InternetPopup" Storyboard.TargetProperty="(Popup.IsOpen)">
-                <DiscreteObjectKeyFrame KeyTime="0">
-                    <DiscreteObjectKeyFrame.Value>
-                        <x:Boolean>True</x:Boolean>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
-                    <DiscreteObjectKeyFrame.Value>
-                        <x:Boolean>True</x:Boolean>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Name="InternetPopupCloseStoryboard">
-            <DoubleAnimation d:IsOptimized="True"
-                             Storyboard.TargetName="InternetPopup"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
-                             To="-200"
-                             Duration="0:0:0.2">
-                <DoubleAnimation.EasingFunction>
-                    <BackEase Amplitude="0.5" EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InternetPopup" Storyboard.TargetProperty="(Popup.IsOpen)">
-                <DiscreteObjectKeyFrame KeyTime="0">
-                    <DiscreteObjectKeyFrame.Value>
-                        <x:Boolean>True</x:Boolean>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
-                    <DiscreteObjectKeyFrame.Value>
-                        <x:Boolean>True</x:Boolean>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
     </Page.Resources>
     <Page.BottomAppBar>
         <CommandBar x:Name="BottomAppBar"
@@ -293,36 +248,6 @@
                         <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find"/>
                     </Viewbox>
                 </Button>
-
-                <Popup x:Name="InternetPopup"
-                       IsOpen="True"
-                       Opacity="0.7"
-                       RelativePanel.AlignBottomWithPanel="True"
-                       RelativePanel.AlignLeftWithPanel="True"
-                       RenderTransformOrigin="0.5,0.5">
-                    <Popup.RenderTransform>
-                        <CompositeTransform />
-                    </Popup.RenderTransform>
-                    <interactivity:Interaction.Behaviors>
-                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.HasInternet, Mode=OneWay}" Value="False">
-                            <media:ControlStoryboardAction Storyboard="{StaticResource InternetPopupStoryboard}" />
-                        </core:DataTriggerBehavior>
-                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.HasInternet, Mode=OneWay}" Value="True">
-                            <media:ControlStoryboardAction Storyboard="{StaticResource InternetPopupCloseStoryboard}" />
-                        </core:DataTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-
-                    <Grid Width="200" Background="Black">
-                        <TextBlock Style="{StaticResource NoInternetTextBlockStyle}" Text="No Internet Connection  &#xE10A;">
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="Tapped">
-                                    <core:InvokeCommandAction Command="{x:Bind ViewModel.CloseInternetPopup}" />
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
-                        </TextBlock>
-                    </Grid>
-
-                </Popup>
             </RelativePanel>
 
             <SplitView x:Name="HamSplitView"
@@ -453,6 +378,7 @@
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+        <Grid x:Name="NotificationGrid" />
     </Grid>
 
 </Page>

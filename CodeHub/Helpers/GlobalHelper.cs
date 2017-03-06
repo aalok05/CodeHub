@@ -20,12 +20,14 @@ namespace CodeHub.Helpers
         {
 
         }
-        public class NoInternetMessageType
+        public class HasInternetMessageType
         {
 
         }
-        public class HasInternetMessageType
+        public class LocalNotificationMessageType
         {
+            public string Message { get; set; }
+            public string Glyph { get; set; }
 
         }
         public class SetHeaderTextMessageType

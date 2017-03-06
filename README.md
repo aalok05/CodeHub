@@ -43,6 +43,7 @@ I thank the makers of these libraries
 * [HTML Agility Pack](https://www.nuget.org/packages/HtmlAgilityPack)
 * [JetBrains ReSharper Annotations](https://www.nuget.org/packages/JetBrains.Annotations)
 * [Lumia Imaging SDK UWP](https://www.nuget.org/packages/LumiaImagingSDK.UWP/)
+* [LocalNotifications](https://github.com/RavinduL/LocalNotifications)
 
 #Gitter chat
 * https://gitter.im/CodehubUWP/Bugs
