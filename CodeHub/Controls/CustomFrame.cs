@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UICompositionAnimations;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Controls
 {

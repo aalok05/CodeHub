@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.Web.Http;
 using CodeHub.Services;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Views
 {

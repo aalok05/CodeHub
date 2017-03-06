@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using CodeHub.Helpers;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Controls
 {

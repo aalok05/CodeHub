@@ -21,6 +21,7 @@ using Windows.UI.ViewManagement;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Views
 {
