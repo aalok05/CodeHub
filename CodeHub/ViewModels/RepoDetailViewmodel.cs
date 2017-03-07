@@ -99,9 +99,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                //Sending Internet available message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
-
                 isLoading = true;
 
                 string s = repo as string;

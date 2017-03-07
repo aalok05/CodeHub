@@ -138,16 +138,6 @@ namespace CodeHub.ViewModels
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
 
-            if (string.IsNullOrWhiteSpace(repoPath.Item3))
-            {
-                SelectedBranch = await RepositoryUtility.GetDefaultBranch(Repository.Id);
-            }
-            else
-            {
-                SelectedBranch = repoPath.Item3;
-            }
-
-
             MarkdownOptions options = new MarkdownOptions
             {
                 AsteriskIntraWordEmphasis = true,
@@ -165,8 +155,17 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
+
+                if (string.IsNullOrWhiteSpace(repoPath.Item3))
+                {
+                    SelectedBranch = await RepositoryUtility.GetDefaultBranch(Repository.Id);
+                }
+                else
+                {
+                    SelectedBranch = repoPath.Item3;
+                }
+
                 IsImage = false;
 
                 if ((Path.ToLower().EndsWith(".exe")) ||

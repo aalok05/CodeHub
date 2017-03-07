@@ -14,7 +14,7 @@ Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codeh
 * View code (with syntax highlighting), issues and comments. 
 * Choose from 9 different syntax highlighting styles
 * Search repositories, users, issues and code
-* Star repositories
+* Star, Watch and Fork repositories
 * Follow users
 
 #Contributions

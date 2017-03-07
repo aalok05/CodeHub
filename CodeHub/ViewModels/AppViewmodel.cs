@@ -7,19 +7,6 @@ namespace CodeHub.ViewModels
 {
     public class AppViewmodel : ViewModelBase
     {
-        public bool _hasInternet;
-        public bool HasInternet
-        {
-            get
-            {
-                return _hasInternet;
-            }
-            set
-            {
-                Set(() => HasInternet, ref _hasInternet, value);
-            }
-        }
-
         public bool _isLoggedin;
         public bool isLoggedin
         {

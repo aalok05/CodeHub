@@ -49,8 +49,7 @@ namespace CodeHub.Views
             
             //Listening for No Internet message
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
-            //Listening Internet available message
-            Messenger.Default.Register<HasInternetMessageType>(this, ViewModel.RecieveInternetMessage);
+
             //Setting Header Text to the current page name
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m)
             {
@@ -200,8 +199,6 @@ namespace CodeHub.Views
         }
         public void RecieveLocalNotificationMessage(LocalNotificationMessageType notif)
         {
-            ViewModel.HasInternet = false;
-
             notifManager.Show(new SimpleNotificationPresenter
             (
                 TimeSpan.FromSeconds(3),

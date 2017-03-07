@@ -55,9 +55,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                //Sending Internet available message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType());
-
                 if (User != null)
                 {
                     isLoggedin = true;
@@ -86,7 +83,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
                 if (User != null)
                 {
