@@ -279,8 +279,23 @@ namespace CodeHub.ViewModels
                                               IsForkLoading = false;
                                               if (forkedRepo != null)
                                               {
+                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType
+                                                  {
+                                                      Message = forkedRepo.FullName + " was successfuly forked from " + Repository.FullName,
+                                                      Glyph = "\uE081"
+                                                  });
+
                                                   SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", forkedRepo);
                                               }
+                                              else
+                                              {
+                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType
+                                                  {
+                                                      Message = "Repository could not be forked",
+                                                      Glyph = "\uE783"
+                                                  });
+                                              }
+
                                           }));
             }
         }
