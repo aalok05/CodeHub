@@ -13,6 +13,7 @@
       xmlns:media="using:Microsoft.Xaml.Interactions.Media"
       xmlns:model="using:CodeHub.Models"
       xmlns:vm="using:CodeHub.ViewModels"
+      xmlns:AD="using:Microsoft.Advertising.WinRT.UI"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -365,7 +366,35 @@
 
                 </SplitView.Pane>
                 <SplitView.Content>
-                    <control:CustomFrame x:Name="mainFrame" Navigated="{x:Bind ViewModel.mainFrame_Navigated}" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <control:CustomFrame x:Name="mainFrame" 
+                                             Grid.Row="0"
+                                             Navigated="{x:Bind ViewModel.mainFrame_Navigated}" />
+                        <AD:AdControl x:Name="adControlDesktop"
+                                      Width="728"
+                                      Height="90"
+                                      Grid.Row="1"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Bottom"
+                                      AdUnitId="00000000"
+                                      ApplicationId="00000000-0000-0000-0000-000000000000"
+                                      AutoRefreshIntervalInSeconds="60"
+                                      IsAutoRefreshEnabled="True" />
+                        <AD:AdControl x:Name="adControlMobile"
+                                      Width="320"
+                                      Height="50"
+                                      Grid.Row="1"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Bottom"
+                                      AdUnitId="00000000"
+                                      ApplicationId="00000000-0000-0000-0000-000000000000"
+                                      AutoRefreshIntervalInSeconds="60"
+                                      IsAutoRefreshEnabled="True" />
+                    </Grid>
                 </SplitView.Content>
             </SplitView>
         </Grid>

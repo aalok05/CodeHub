@@ -9,18 +9,17 @@ using CodeHub.ViewModels;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
-using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
+using Windows.System.Profile;
 
 namespace CodeHub.Views
 {
@@ -28,11 +27,12 @@ namespace CodeHub.Views
     {
         public MainViewmodel ViewModel { get; set; }
         public CustomFrame AppFrame { get { return this.mainFrame; } }
-
+        private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
+
         public MainPage()
         {
-            this.Loaded += (s, e) =>
+            Loaded += (s, e) =>
             {
                 if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
                 {
@@ -46,22 +46,21 @@ namespace CodeHub.Views
             this.DataContext = ViewModel;
 
             SizeChanged += MainPage_SizeChanged;
-            
-            //Listening for No Internet message
-            Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
 
-            //Setting Header Text to the current page name
-            Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m)
-            {
-                setHeadertext(m.PageName);
-            });
-            
+            #region registering for messages
+            Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
+            Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
+            Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) {  ToggleAdsVisibility(m.isEnabled); });
+            #endregion
+
             SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
             { return new NavigationService(mainFrame); });
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
+
+            ConfigureAdsVisibility();
         }
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
@@ -110,6 +109,8 @@ namespace CodeHub.Views
                 service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
             }
         }
+
+        #region click events
         private void HamButton_Click(object sender, RoutedEventArgs e)
         {
             //Toggle Hamburger menu
@@ -117,7 +118,7 @@ namespace CodeHub.Views
         }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if(SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
             {
                 ViewModel.HamItemClicked(e.ClickedItem as HamItem);
 
@@ -137,6 +138,7 @@ namespace CodeHub.Views
                     HamSplitView.IsPaneOpen = false;
             }
         }
+        #endregion
 
         #region App Bar Events
         private void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
@@ -170,33 +172,8 @@ namespace CodeHub.Views
                 ViewModel.HamItemClicked(ViewModel.HamItems[4]);
         }
         #endregion
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.isLoggedin = (bool)e.Parameter;
 
-            /* This has to be done because the visibilty of BottomAppBar is dependent on screen size as well as isLoggedin property
-             * If visibility is bound with isLoggedin, it will disregard VisualStateManager at first loading of Page.
-             */
-            if (ViewModel.isLoggedin)
-            {
-                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
-                if (Window.Current.Bounds.Width < 720)
-                {
-                    FindName("BottomAppBar");
-                    ViewModel.CurrentState = "Mobile";
-                }
-                else
-                    ViewModel.CurrentState = "Desktop";
-            }
-
-            //Listening for Sign In message
-            Messenger.Default.Register<User>(this, RecieveSignInMessage);
-
-            //listen for sign out message
-            Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
-
-            notifManager = new LocalNotificationManager(NotificationGrid);
-        }
+        #region Messaging
         public void RecieveLocalNotificationMessage(LocalNotificationMessageType notif)
         {
             notifManager.Show(new SimpleNotificationPresenter
@@ -230,10 +207,43 @@ namespace CodeHub.Views
                 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
             }
         }
+        #endregion
 
-        private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.isLoggedin = (bool)e.Parameter;
 
-        public async void setHeadertext(string pageName)
+            /* This has to be done because the visibilty of BottomAppBar is dependent on screen size as well as isLoggedin property
+             * If visibility is bound with isLoggedin, it will disregard VisualStateManager at first loading of Page.
+             */
+            if (ViewModel.isLoggedin)
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+                if (Window.Current.Bounds.Width < 720)
+                {
+                    FindName("BottomAppBar");
+                    ViewModel.CurrentState = "Mobile";
+                }
+                else
+                    ViewModel.CurrentState = "Desktop";
+            }
+
+            //Listening for Sign In message
+            Messenger.Default.Register<User>(this, RecieveSignInMessage);
+
+            //listen for sign out message
+            Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
+
+            notifManager = new LocalNotificationManager(NotificationGrid);
+        }
+
+        #region other methods
+
+        /// <summary>
+        /// Sets the Header Text to pageName
+        /// </summary>
+        /// <param name="pageName"></param>
+        public async void SetHeadertext(string pageName)
         {
             await HeaderAnimationSemaphore.WaitAsync();
             if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
@@ -244,5 +254,44 @@ namespace CodeHub.Views
             }
             HeaderAnimationSemaphore.Release();
         }
+
+        /// <summary>
+        /// Sets the visibility of Ad units according to the app settings
+        /// </summary>
+        public void ConfigureAdsVisibility()
+        {
+            if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
+            {
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                    adControlDesktop.Visibility = Visibility.Collapsed;
+                else
+                    adControlMobile.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                adControlMobile.Visibility = adControlDesktop.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Toggles visibility of Ad units 
+        /// </summary>
+        /// <param name="isEnabled"></param>
+        public void ToggleAdsVisibility(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                    adControlMobile.Visibility = Visibility.Visible;
+                else
+                    adControlDesktop.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                adControlMobile.Visibility = adControlDesktop.Visibility = Visibility.Collapsed;
+            }
+        }
+        #endregion
+
     }
 }

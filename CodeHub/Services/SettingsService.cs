@@ -53,5 +53,6 @@ namespace CodeHub.Services
         public const String HideSystemTray = nameof(HideSystemTray);
         public const String ShowReadme = nameof(ShowReadme);
         public const String LoadCommitsInfo = nameof(LoadCommitsInfo);
+        public const String IsAdsEnabled = nameof(IsAdsEnabled);
     }
 }
