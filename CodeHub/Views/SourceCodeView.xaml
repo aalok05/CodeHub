@@ -1,51 +1,49 @@
-﻿<Page
-    x:Class="CodeHub.Views.SourceCodeView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CodeHub.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:octo="using:Octokit"
-    xmlns:controls="using:CodeHub.Controls"
-    xmlns:converters="using:CodeHub.Converters"
-    xmlns:models="using:CodeHub.Models"
-    xmlns:resources="using:CodeHub.Resources"
-    mc:Ignorable="d">
+﻿<Page x:Class="CodeHub.Views.SourceCodeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CodeHub.Controls"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:CodeHub.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:CodeHub.Models"
+      xmlns:octo="using:Octokit"
+      xmlns:resources="using:CodeHub.Resources"
+      mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <resources:SharedCompiledDataTemplates/>
+                <resources:SharedCompiledDataTemplates />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:AnimatedComboBox PlaceholderText="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
-                                   ItemsSource="{x:Bind ViewModel.Branches,Mode=OneWay}"
-                                   Grid.Row="0"
-                                   Margin="12 8 0 12"
+        <controls:AnimatedComboBox Grid.Row="0"
+                                   MinWidth="120"
+                                   Margin="12,8,0,12"
                                    FontSize="13"
+                                   ItemsSource="{x:Bind ViewModel.Branches, Mode=OneWay}"
+                                   PlaceholderText="{x:Bind ViewModel.SelectedBranch, Mode=OneWay}"
+                                   SelectedItem="{x:Bind ViewModel.SelectedBranch, Mode=OneWay}"
                                    SelectionChanged="{x:Bind ViewModel.BranchChanged}"
-                                   SelectedItem="{x:Bind ViewModel.SelectedBranch,Mode=OneWay}"
-                                   Style="{StaticResource AnimatedComboBoxStyle}"
-                                   MinWidth="120"/>
+                                   Style="{StaticResource AnimatedComboBoxStyle}" />
 
-        <controls:AlternatingRowListView 
-            x:Name="ContentListView"
-            Grid.Row="1" 
-            IsItemClickEnabled="True"
-            SelectionMode="Single"
-            ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
-            ItemsSource="{x:Bind ViewModel.Content,Mode=OneWay}"
-            OddRowBackground="{StaticResource OddAlternatingRowsBrush}"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Stretch"
-            ItemTemplate="{StaticResource RepositoryEntryTemplate}">
+        <controls:AlternatingRowListView x:Name="ContentListView"
+                                         Grid.Row="1"
+                                         HorizontalAlignment="Stretch"
+                                         HorizontalContentAlignment="Stretch"
+                                         IsItemClickEnabled="True"
+                                         ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
+                                         ItemTemplate="{StaticResource RepositoryEntryTemplate}"
+                                         ItemsSource="{x:Bind ViewModel.Content, Mode=OneWay}"
+                                         OddRowBackground="{StaticResource OddAlternatingRowsBrush}"
+                                         SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -53,15 +51,19 @@
             </ListView.ItemContainerStyle>
         </controls:AlternatingRowListView>
 
-        <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40"
-                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
+        <ProgressRing Grid.Row="1"
+                      Width="40"
+                      Height="40"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
 
         <controls:TopScrollerControl x:Name="TopScroller"
+                                     Grid.Row="1"
+                                     Margin="0,0,32,24"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom"
-                                     Margin="0,0,32,24"
-                                     Grid.Row="1"
-                                     TopScrollingRequested="TopScroller_OnTopScrollingRequested"/>
+                                     TopScrollingRequested="TopScroller_OnTopScrollingRequested" />
     </Grid>
 </Page>
