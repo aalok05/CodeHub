@@ -33,13 +33,6 @@
                        FontWeight="SemiLight"
                        Text="Support Development, Enable Ads" />
 
-            <TextBlock Margin="0,8,0,0"
-                       HorizontalAlignment="Left"
-                       FontSize="15"
-                       FontWeight="SemiLight"
-                       Text="Requires app restart"
-                       TextWrapping="Wrap" />
-
             <ToggleSwitch Margin="0,8,0,0"
                           IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
 

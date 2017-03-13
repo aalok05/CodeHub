@@ -16,6 +16,11 @@ namespace CodeHub.Helpers
         *  Message types are used for Viewodel to ViewModel communication
         */
         #region Message Types
+
+        public class AdsEnabledMessageType
+        {
+            public bool isEnabled { get; set; }
+        }
         public class SignOutMessageType
         {
 

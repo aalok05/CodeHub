@@ -10,6 +10,7 @@ using CodeHub.Models;
 using Windows.UI.Xaml.Controls;
 using CodeHub.Views;
 using CodeHub.Services.Hilite_me;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CodeHub.ViewModels
 {
@@ -156,6 +157,7 @@ namespace CodeHub.ViewModels
                 {
                     _IsAdsEnabled = value;
                     SettingsService.Save(SettingsKeys.IsAdsEnabled, value);
+                    Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType { isEnabled = value });
                     RaisePropertyChanged();
                 }
             }
