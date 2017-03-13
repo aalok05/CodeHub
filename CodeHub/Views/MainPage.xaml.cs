@@ -9,18 +9,17 @@ using CodeHub.ViewModels;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
-using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
+using Windows.System.Profile;
 
 namespace CodeHub.Views
 {
@@ -62,6 +61,18 @@ namespace CodeHub.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
+
+            if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
+            {
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                    adControlDesktop.Visibility = Visibility.Collapsed;
+                else
+                    adControlMobile.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                adControlMobile.Visibility = adControlDesktop.Visibility = Visibility.Collapsed;
+            }
         }
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {

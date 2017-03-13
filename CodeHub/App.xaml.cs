@@ -34,6 +34,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.ShowReadme, false, false);
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
+            SettingsService.Save(SettingsKeys.IsAdsEnabled, false, false);
         }
 
         /// <summary>

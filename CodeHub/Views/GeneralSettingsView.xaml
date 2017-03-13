@@ -26,73 +26,66 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition x:Name="ScrollRow" Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <StackPanel Margin="12">
+            <!--  Enable Ads  -->
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Support Development, Enable Ads" />
 
-            <!--  Options panel  -->
-            <StackPanel Margin="12,12,12,0">
-                <TextBlock HorizontalAlignment="Left"
-                           FontSize="22"
-                           FontWeight="SemiLight"
-                           Text="Syntax Highlighting style" />
+            <TextBlock Margin="0,8,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       FontWeight="SemiLight"
+                       Text="Requires app restart"
+                       TextWrapping="Wrap" />
 
-                <!--  Style  -->
-                <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
-                                           MinWidth="120"
-                                           Margin="0,12,0,0"
-                                           FontSize="13"
-                                           ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
-                                           SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
-                                           Style="{StaticResource AnimatedComboBoxStyle}" />
+            <ToggleSwitch Margin="0,8,0,0"
+                          IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
 
-                <!--  Line numbers  -->
-                <TextBlock Margin="0,20,0,0"
-                           HorizontalAlignment="Left"
-                           FontSize="22"
-                           FontWeight="SemiLight"
-                           Text="Show line numbers" />
-                <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
+            <!--  Show Readme  -->
+            <TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Text="Show README in Repository page"
+                       TextWrapping="Wrap" />
+            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}" />
 
-                <!--  Preview  -->
-                <TextBlock Margin="0,12,0,12"
-                           HorizontalAlignment="Left"
-                           FontSize="19"
-                           FontWeight="SemiLight"
-                           Text="Preview" />
-            </StackPanel>
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="22"
+                       Margin="0 20 0 0"
+                       FontWeight="SemiLight"
+                       Text="Syntax Highlighting style" />
 
-            <controls:Hilite_meHighlightStylePreviewControl Grid.Row="1"
-                                                            MinHeight="200"
-                                                            Margin="12,0,12,0"
-                                                            VerticalAlignment="Stretch"
-                                                            VerticalContentAlignment="Stretch"
+            <!--  Style  -->
+            <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
+                                       MinWidth="120"
+                                       Margin="0,12,0,0"
+                                       FontSize="13"
+                                       ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
+                                       SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
+                                       Style="{StaticResource AnimatedComboBoxStyle}" />
+
+            <!--  Line numbers  -->
+            <TextBlock Margin="0,20,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="19"
+                       FontWeight="SemiLight"
+                       Text="Show line numbers" />
+            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
+
+            <!--  Preview  -->
+            <TextBlock Margin="0,20,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="19"
+                       FontWeight="SemiLight"
+                       Text="Preview" />
+            <controls:Hilite_meHighlightStylePreviewControl Height="200"
+                                                            Margin="0,12,0,0"
                                                             HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
                                                             LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}" />
 
-            <StackPanel Grid.Row="2" Margin="12,0,12,12">
-
-                <!--  Show Readme in RepoDetail Page  -->
-                <TextBlock Margin="0,20,0,0"
-                           HorizontalAlignment="Left"
-                           FontSize="22"
-                           FontWeight="SemiLight"
-                           Text="Show README in Repository page"
-                           TextWrapping="Wrap" />
-                <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}" />
-
-                <!--  Show Readme in RepoDetail Page  -->
-                <TextBlock Margin="0,20,0,0"
-                           HorizontalAlignment="Left"
-                           FontSize="22"
-                           FontWeight="SemiLight"
-                           Text="Load commit messages for files"
-                           TextWrapping="Wrap" />
-                <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
-            </StackPanel>
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </local:SettingsDetailPageBase>

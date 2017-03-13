@@ -142,6 +142,25 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsAdsEnabled = SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled);
+
+        /// <summary>
+        /// Gets or sets whether or not the Ads are enabled in the app
+        /// </summary>
+        public bool IsAdsEnabled
+        {
+            get { return _IsAdsEnabled; }
+            set
+            {
+                if (_IsAdsEnabled != value)
+                {
+                    _IsAdsEnabled = value;
+                    SettingsService.Save(SettingsKeys.IsAdsEnabled, value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>
