@@ -1,10 +1,10 @@
 ﻿{
   "dependencies": {
     "HtmlAgilityPack": "1.4.9.5",
-    "JetBrains.Annotations": "10.2.1",
+    "JetBrains.Annotations": "10.4.0",
     "LumiaImagingSDK.UWP": "3.0.593",
     "MarkdownSharp.UWP": "1.5.2",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
     "Microsoft.Toolkit.Uwp.UI.Controls": "1.3.1",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "MvvmLightLibs": "5.3.0",
