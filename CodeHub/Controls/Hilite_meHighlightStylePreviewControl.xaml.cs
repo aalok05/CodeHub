@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Media;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Controls
 {

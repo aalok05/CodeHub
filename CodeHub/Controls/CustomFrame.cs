@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
