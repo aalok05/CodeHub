@@ -45,6 +45,7 @@
                        TextWrapping="Wrap" />
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}" />
 
+            <!--  Load commit messages  -->
             <TextBlock Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="22"
@@ -59,7 +60,7 @@
                        FontWeight="SemiLight"
                        Text="Syntax Highlighting style" />
 
-            <!--  Style  -->
+            <!-- Syntax Style  -->
             <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
                                        MinWidth="120"
                                        Margin="0,12,0,0"
