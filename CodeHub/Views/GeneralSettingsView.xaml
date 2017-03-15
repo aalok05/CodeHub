@@ -33,14 +33,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!--  Options panel  -->
             <StackPanel Margin="12,12,12,0">
                 <TextBlock HorizontalAlignment="Left"
                            FontSize="22"
                            FontWeight="SemiLight"
                            Text="Syntax Highlighting style" />
 
-                <!--  Style  -->
+                <!-- Syntax Styles  -->
                 <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
                                            MinWidth="120"
                                            Margin="0,12,0,0"
@@ -84,7 +83,7 @@
                            TextWrapping="Wrap" />
                 <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}" />
 
-                <!--  Show Readme in RepoDetail Page  -->
+                <!-- Load commit messages -->
                 <TextBlock Margin="0,20,0,0"
                            HorizontalAlignment="Left"
                            FontSize="22"
