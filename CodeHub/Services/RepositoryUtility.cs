@@ -316,17 +316,24 @@ namespace CodeHub.Services
         {
             try
             {
-                // Get the files list
-
                 GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
-                    ? await TryLoadLinkedCommitDataAsync(
-                        client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
-                        client, repo.Id, branch, CancellationToken.None)
-                    : from item in await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
-                      select new RepositoryContentWithCommitInfo(item);
+                IEnumerable<RepositoryContentWithCommitInfo> results;
 
-                return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
+                if (SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo))
+                {
+                    results = await TryLoadLinkedCommitDataAsync(
+                        client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
+                        client, repo.Id, branch, CancellationToken.None);
+
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
+                }
+                else
+                {
+                    results = from item in await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
+                              select new RepositoryContentWithCommitInfo(item);
+
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type));
+                }
             }
             catch
             {
@@ -345,16 +352,26 @@ namespace CodeHub.Services
         {
             try
             {
-                // Get the files list
                 GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 String url = $"{repo.HtmlUrl}/tree/{branch}/{path}";
-                IEnumerable<RepositoryContentWithCommitInfo> results = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo)
-                    ? await TryLoadLinkedCommitDataAsync(
+                IEnumerable<RepositoryContentWithCommitInfo> results;
+
+                if (SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo))
+                {
+                    results = await TryLoadLinkedCommitDataAsync(
                         client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
-                        client, repo.Id, branch, CancellationToken.None)
-                    : from item in await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
-                      select new RepositoryContentWithCommitInfo(item);
-                return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
+                        client, repo.Id, branch, CancellationToken.None);
+
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
+                }
+                else
+                {
+                    results = from item in await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
+                              select new RepositoryContentWithCommitInfo(item);
+
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type));
+                }
+
             }
             catch
             {
