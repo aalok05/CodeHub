@@ -15,6 +15,7 @@ using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 using Windows.UI.ViewManagement;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;

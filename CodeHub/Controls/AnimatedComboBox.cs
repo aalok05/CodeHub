@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using CodeHub.Helpers;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Controls
 {

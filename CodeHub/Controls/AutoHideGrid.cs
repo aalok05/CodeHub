@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using CodeHub.Helpers;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Controls
 {
