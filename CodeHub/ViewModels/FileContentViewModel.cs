@@ -103,6 +103,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        // Text Content
+        public string _TextContent;
+        public string TextContent
+        {
+            get
+            {
+                return _TextContent;
+            }
+            set
+            {
+                Set(() => TextContent, ref _TextContent, value);
+
+            }
+        }
 
         public string _selectedBranch;
         public string SelectedBranch
@@ -137,16 +151,6 @@ namespace CodeHub.ViewModels
             IsSupportedFile = true;
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
-
-            MarkdownOptions options = new MarkdownOptions
-            {
-                AsteriskIntraWordEmphasis = true,
-                AutoNewlines = true,
-                StrictBoldItalic = true,
-                AutoHyperlink = false,
-                LinkEmails = true
-            };
-            Markdown markDown = new Markdown(options);
 
             if (!GlobalHelper.IsInternet())
             {
@@ -204,6 +208,17 @@ namespace CodeHub.ViewModels
                     /*
                      *  Files with .md extension will be shown with full markdown
                      */
+
+                    MarkdownOptions options = new MarkdownOptions
+                    {
+                        AsteriskIntraWordEmphasis = true,
+                        AutoNewlines = true,
+                        StrictBoldItalic = true,
+                        AutoHyperlink = false,
+                        LinkEmails = true
+                    };
+                    Markdown markDown = new Markdown(options);
+
                     HTMLBackgroundColor = Colors.White;
                     var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
                     HTMLContent = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
@@ -221,7 +236,18 @@ namespace CodeHub.ViewModels
                 SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
                 bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
                 HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
-                IsSupportedFile = HTMLContent != null;
+
+                if (HTMLContent == null)
+                {
+                    //Getting HTML for syntax highlighting failed so trying to get plain text content of the file
+
+                    var result = await RepositoryUtility.GetRepositoryContentTextByPath(Repository, Path, SelectedBranch);
+                    TextContent = result.Content;
+                }
+
+                if (HTMLContent == null && TextContent == null)
+                    IsSupportedFile = false;
+
                 isLoading = false;
 
             }

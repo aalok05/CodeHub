@@ -307,6 +307,29 @@ namespace CodeHub.Services
         #endregion
 
         /// <summary>
+        /// Gets contents of a given repository, branch and path (Text)
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="path"></param>
+        /// <param name="branch"></param>
+        /// <returns></returns>
+        public static async Task<RepositoryContent> GetRepositoryContentTextByPath(Repository repo, string path, string branch)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+
+                var results = await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch);
+
+                return results.First();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Gets contents of a given repository and branch
         /// </summary>
         /// <param name="repo"></param>
@@ -342,7 +365,7 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets contents of a given repository, branch and path
+        /// Gets contents of a given repository, branch and path (HTML)
         /// </summary>
         /// <param name="repo"></param>
         /// <param name="path"></param>
