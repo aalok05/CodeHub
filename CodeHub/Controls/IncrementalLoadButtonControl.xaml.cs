@@ -1,6 +1,7 @@
 ﻿using CodeHub.Helpers;
 using System;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

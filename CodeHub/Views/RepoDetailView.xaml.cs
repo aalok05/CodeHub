@@ -1,19 +1,15 @@
 using System;
-using Windows.Foundation;
 using Windows.Graphics.Display;
-using Windows.System;
-using Windows.UI;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Messaging;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.Web.Http;
 using CodeHub.Services;
 using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Views
 {

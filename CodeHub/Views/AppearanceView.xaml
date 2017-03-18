@@ -30,7 +30,7 @@
                     Orientation="Vertical"
                     Margin="12,12,0,0">
             <TextBlock HorizontalAlignment="Left"
-                       FontSize="22"
+                       FontSize="20"
                        FontWeight="SemiLight"
                        Text="Theme" />
             <TextBlock Margin="0,12,0,0"
