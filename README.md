@@ -8,7 +8,7 @@ Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codeh
 
 ![codehub-newsFeed-screenshot](http://imagizer.imageshack.us/a/img921/8086/bhBO7h.png)
 
-#Features
+## Features
 * See Trending repositories
 * See your News Feed
 * View code (with syntax highlighting), issues and comments. 
@@ -17,14 +17,14 @@ Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codeh
 * Star, Watch and Fork repositories
 * Follow users
 
-#Contributions
+## Contributions
 Pull requests are welcome in the `dev` branch!
 
-#Setting up the project 
+## Setting up the project 
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
 * Don't forget to add a reference to [UICompositionAnimations](https://github.com/Sergio0694/UICompositionAnimations)
 
-#Things to be done
+## Things to be done
 CodeHub aims to do all those things that the GitHub Desktop app doesn't do. Our goal is to make an app for UWP which lets you keep up with the open source world on the go.
 I think these features are needed in CodeHub:
 * Receive notifications on new issues on your repos
@@ -33,7 +33,7 @@ I think these features are needed in CodeHub:
 * Syntax highlighting for code (Implemented)
 * Search code, issues (Implemented)
 
-#Dependencies
+## Dependencies
 I thank the makers of these libraries
 * [Octokit](https://github.com/octokit/octokit.net)
 * [UICompositionAnimations](https://github.com/Sergio0694/UICompositionAnimations)
@@ -45,6 +45,6 @@ I thank the makers of these libraries
 * [Lumia Imaging SDK UWP](https://www.nuget.org/packages/LumiaImagingSDK.UWP/)
 * [LocalNotifications](https://github.com/RavinduL/LocalNotifications)
 
-#Gitter chat
+## Gitter chat
 * https://gitter.im/CodehubUWP/Bugs
 * https://gitter.im/CodehubUWP/FeatureRequests
