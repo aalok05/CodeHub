@@ -101,13 +101,6 @@ namespace CodeHub
                     }
                 }
 
-                //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-                //{
-                //    var statusBar = StatusBar.GetForCurrentView();
-                //    statusBar.BackgroundOpacity = 100;
-                //    statusBar.BackgroundColor = (Color)Current.Resources["SystemAltHighColor"];
-                //}
-
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
