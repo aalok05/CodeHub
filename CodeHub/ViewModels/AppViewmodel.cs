@@ -2,11 +2,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using Octokit;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media;
-using CodeHub.Services;
-using JetBrains.Annotations;
 
 namespace CodeHub.ViewModels
 {
@@ -50,6 +45,7 @@ namespace CodeHub.ViewModels
                 Set(() => User, ref _user, value);
             }
         }
+
         public void Navigate(Type pageType, string pageTitle)
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(pageType, pageTitle, User);

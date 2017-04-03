@@ -33,14 +33,6 @@ namespace CodeHub.Views
 
         public MainPage()
         {
-            Loaded += (s, e) =>
-            {
-                if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
-                {
-                    SystemTrayManager.HideAsync().AsTask().Forget();
-                }
-                else SystemTrayManager.TryShowAsync().Forget();
-            };
             this.InitializeComponent();
 
             ViewModel = new MainViewmodel();
@@ -73,20 +65,6 @@ namespace CodeHub.Views
         }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // Manage the system tray in landscape mode
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                bool portrait = ApplicationView.GetForCurrentView().Orientation == ApplicationViewOrientation.Portrait;
-                if (portrait)
-                {
-                    if (SettingsService.Get<bool>(SettingsKeys.HideSystemTray))
-                    {
-                        SystemTrayManager.HideAsync()?.AsTask().Forget();
-                    }
-                    else SystemTrayManager.TryShowAsync().Forget();
-                }
-                else SystemTrayManager.HideAsync()?.AsTask().Forget();
-            }).AsTask().Forget();
 
             if (e.NewSize.Width < 720)
             {   
