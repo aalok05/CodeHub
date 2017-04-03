@@ -498,8 +498,35 @@ namespace CodeHub.Services
         /// <returns></returns>
         public static async Task<string> GetReadmeHTMLForRepository(long repoId)
         {
-            GitHubClient client = await UserUtility.GetAuthenticatedClient();
-            return await client.Repository.Content.GetReadmeHtml(repoId);
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return await client.Repository.Content.GetReadmeHtml(repoId);
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+
+        /// <summary>
+        /// Gets the preferred README for a repository
+        /// </summary>
+        /// <param name="repoId">Repsitory Id</param>
+        /// <returns></returns>
+        public static async Task<Readme> GetReadmeForRepository(long repoId)
+        {
+            try
+            {
+                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+                return await client.Repository.Content.GetReadme(repoId);
+            }
+            catch
+            {
+                return null;
+            }
+
         }
 
         /// <summary>

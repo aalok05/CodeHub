@@ -47,18 +47,18 @@
 
 
         <!--Other settings-->
-        <StackPanel Grid.Row="2"
+        <!--<StackPanel Grid.Row="2"
                     Margin="12,20,0,0"
                     Visibility="{x:Bind ViewModel.SystemTrayOptionAvailable, FallbackValue=Collapsed}">
 
-            <!--Line numbers-->
+            --><!--Line numbers--><!--
             <TextBlock HorizontalAlignment="Left"
                        FontSize="22"
                        FontWeight="SemiLight"
                        Text="Hide system tray" />
             <ToggleSwitch IsOn="{x:Bind ViewModel.HideSystemTray, Mode=TwoWay}"
                           Margin="0,4,0,0"/>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 
 </local:SettingsDetailPageBase>
