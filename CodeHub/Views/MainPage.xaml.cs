@@ -136,19 +136,19 @@ namespace CodeHub.Views
         {
             //Navigate to Profile page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[2].DestPage)
-                ViewModel.HamItemClicked(ViewModel.HamItems[2]);
+                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
         }
         private void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //Navigate to My Repositories page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[3].DestPage)
-                ViewModel.HamItemClicked(ViewModel.HamItems[3]);
+                ViewModel.HamItemClicked(ViewModel.HamItems[4]);
         }
         private void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //Navigate to My Organizations page using the BottomAppBar
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != ViewModel.HamItems[4].DestPage)
-                ViewModel.HamItemClicked(ViewModel.HamItems[4]);
+                ViewModel.HamItemClicked(ViewModel.HamItems[5]);
         }
         #endregion
 
