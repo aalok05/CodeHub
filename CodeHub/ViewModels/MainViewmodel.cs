@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Ioc;
+using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -286,6 +287,35 @@ namespace CodeHub.ViewModels
                 }
             }
         }
+
+        #region AppBar click events
+        public void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[0].DestPage)
+                HamItemClicked(HamItems[0]);
+        }
+        public void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[1].DestPage)
+                HamItemClicked(HamItems[1]);
+        }
+        public void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[2].DestPage)
+                HamItemClicked(HamItems[3]);
+        }
+        public void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[3].DestPage)
+                HamItemClicked(HamItems[4]);
+        }
+        public void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[4].DestPage)
+                HamItemClicked(HamItems[5]);
+        }
+        #endregion
+
         #endregion
     }
 }
