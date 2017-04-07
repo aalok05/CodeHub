@@ -36,6 +36,11 @@
                 <DataTemplate x:DataType="octo:Notification">
                     <UserControl>
                         <RelativePanel>
+                            <i:Interaction.Behaviors>
+                                <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
+                                    <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}"/>
+                                </core:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
                             <Path x:Name="notifSymbol"
                                   Margin="12,12,12,4"
                                   Data="{Binding Subject.Type, Converter={StaticResource NotifTypeToSymbolConverter}}"
@@ -56,7 +61,6 @@
                                        RelativePanel.AlignTopWith="notifSymbol"
                                        RelativePanel.RightOf="notifSymbol"
                                        Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
-
                             <TextBlock x:Name="titleText"
                                        Margin="12,0,0,0"
                                        FontSize="13"
@@ -81,17 +85,19 @@
                                     </DataTemplate>
                                 </HyperlinkButton.ContentTemplate>
                             </HyperlinkButton>
-                            <Viewbox MaxWidth="20"
-                                     MaxHeight="20"
-                                     Margin="0 0 20 0"
-                                     RelativePanel.AlignRightWithPanel="True"
-                                     RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <SymbolIcon Symbol="Accept" />
-                            </Viewbox>
+                            <Button RelativePanel.AlignRightWithPanel="True"
+                                    RelativePanel.AlignTopWithPanel="True"
+                                    RelativePanel.AlignBottomWithPanel="True"
+                                    Background="Transparent"
+                                    Margin="0 0 20 0">
+                                <Viewbox MaxWidth="20"
+                                         Visibility="{x:Bind Unread,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                                    <SymbolIcon Symbol="Accept" />
+                                </Viewbox>
+                            </Button>
 
                         </RelativePanel>
                     </UserControl>
-
                 </DataTemplate>
             </toolkitControl:PullToRefreshListView.ItemTemplate>
             <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>

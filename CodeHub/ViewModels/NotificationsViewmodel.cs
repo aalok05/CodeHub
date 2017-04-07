@@ -60,13 +60,13 @@ namespace CodeHub.ViewModels
                                                   if(Notifications == null)
                                                   {   
                                                       isLoading = true;
-                                                      await LoadNotifications();
+                                                      await LoadAllNotifications();
                                                       isLoading = false;
                                                   }
                                                   else
                                                   {
                                                       /*Silent loading */
-                                                      await LoadNotifications();
+                                                      await LoadAllNotifications();
                                                   }
 
 
@@ -87,7 +87,7 @@ namespace CodeHub.ViewModels
 
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
-                await LoadNotifications();
+                await LoadAllNotifications();
                 isLoading = false;
             }
         }
@@ -106,19 +106,35 @@ namespace CodeHub.ViewModels
             {
                 isLoggedin = true;
                 User = user;
-                await LoadNotifications();
+                await LoadAllNotifications();
             }
             isLoading = false;
 
         }
-        private async Task LoadNotifications()
+        private async Task LoadAllNotifications()
         {
-            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser();
+            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser(true,false);
             if (Notifications != null)
             {
                 ZeroNotificationCount = (Notifications.Count == 0) ? true : false;
             }
         }
-        
+        private async Task LoadUnreadNotifications()
+        {
+            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            if (Notifications != null)
+            {
+                ZeroNotificationCount = (Notifications.Count == 0) ? true : false;
+            }
+        }
+        private async Task LoadParticipatingNotifications()
+        {
+            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, true);
+            if (Notifications != null)
+            {
+                ZeroNotificationCount = (Notifications.Count == 0) ? true : false;
+            }
+        }
+
     }
 }
