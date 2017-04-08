@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Ioc;
+using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -104,6 +105,7 @@ namespace CodeHub.ViewModels
             var myRepoSymbol = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">F0 M12,16z M0,0z M4,9L3,9 3,8 4,8 4,9z M4,6L3,6 3,7 4,7 4,6z M4,4L3,4 3,5 4,5 4,4z M4,2L3,2 3,3 4,3 4,2z M12,1L12,13C12,13.55,11.55,14,11,14L6,14 6,16 4.5,14.5 3,16 3,14 1,14C0.45,14,0,13.55,0,13L0,1C0,0.45,0.45,0,1,0L11,0C11.55,0,12,0.45,12,1z M11,11L1,11 1,13 3,13 3,12 6,12 6,13 11,13 11,11z M11,1L2,1 2,10 11,10 11,1z</Geometry>";
             var organizationsSymbol = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4</Geometry>";
             var feedSymbol = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">M7 1C3.14 1 0 4.14 0 8s3.14 7 7 7c.48 0 .94-.05 1.38-.14-.17-.08-.2-.73-.02-1.09.19-.41.81-1.45.2-1.8-.61-.35-.44-.5-.81-.91-.37-.41-.22-.47-.25-.58-.08-.34.36-.89.39-.94.02-.06.02-.27 0-.33 0-.08-.27-.22-.34-.23-.06 0-.11.11-.2.13-.09.02-.5-.25-.59-.33-.09-.08-.14-.23-.27-.34-.13-.13-.14-.03-.33-.11s-.8-.31-1.28-.48c-.48-.19-.52-.47-.52-.66-.02-.2-.3-.47-.42-.67-.14-.2-.16-.47-.2-.41-.04.06.25.78.2.81-.05.02-.16-.2-.3-.38-.14-.19.14-.09-.3-.95s.14-1.3.17-1.75c.03-.45.38.17.19-.13-.19-.3 0-.89-.14-1.11-.13-.22-.88.25-.88.25.02-.22.69-.58 1.16-.92.47-.34.78-.06 1.16.05.39.13.41.09.28-.05-.13-.13.06-.17.36-.13.28.05.38.41.83.36.47-.03.05.09.11.22s-.06.11-.38.3c-.3.2.02.22.55.61s.38-.25.31-.55c-.07-.3.39-.06.39-.06.33.22.27.02.5.08.23.06.91.64.91.64-.83.44-.31.48-.17.59.14.11-.28.3-.28.3-.17-.17-.19.02-.3.08-.11.06-.02.22-.02.22-.56.09-.44.69-.42.83 0 .14-.38.36-.47.58-.09.2.25.64.06.66-.19.03-.34-.66-1.31-.41-.3.08-.94.41-.59 1.08.36.69.92-.19 1.11-.09.19.1-.06.53-.02.55.04.02.53.02.56.61.03.59.77.53.92.55.17 0 .7-.44.77-.45.06-.03.38-.28 1.03.09.66.36.98.31 1.2.47.22.16.08.47.28.58.2.11 1.06-.03 1.28.31.22.34-.88 2.09-1.22 2.28-.34.19-.48.64-.84.92s-.81.64-1.27.91c-.41.23-.47.66-.66.8 3.14-.7 5.48-3.5 5.48-6.84 0-3.86-3.14-7-7-7L7 1zm1.64 6.56c-.09.03-.28.22-.78-.08-.48-.3-.81-.23-.86-.28 0 0-.05-.11.17-.14.44-.05.98.41 1.11.41.13 0 .19-.13.41-.05.22.08.05.13-.05.14zM6.34 1.7c-.05-.03.03-.08.09-.14.03-.03.02-.11.05-.14.11-.11.61-.25.52.03-.11.27-.58.3-.66.25zm1.23.89c-.19-.02-.58-.05-.52-.14.3-.28-.09-.38-.34-.38-.25-.02-.34-.16-.22-.19.12-.03.61.02.7.08.08.06.52.25.55.38.02.13 0 .25-.17.25zm1.47-.05c-.14.09-.83-.41-.95-.52-.56-.48-.89-.31-1-.41-.11-.1-.08-.19.11-.34.19-.15.69.06 1 .09.3.03.66.27.66.55.02.25.33.5.19.63h-.01z</Geometry>";
+            var notifSymbol = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">M14 12v1H0v-1l.73-.58c.77-.77.81-2.55 1.19-4.42C2.69 3.23 6 2 6 2c0-.55.45-1 1-1s1 .45 1 1c0 0 3.39 1.23 4.16 5 .38 1.88.42 3.66 1.19 4.42l.66.58H14zm-7 4c1.11 0 2-.89 2-2H5c0 1.11.89 2 2 2z</Geometry>";
 
             HamItems = new ObservableCollection<HamItem>(){
                             new HamItem() { Label = "Trending",
@@ -112,6 +114,9 @@ namespace CodeHub.ViewModels
                             new HamItem() { Label = "News Feed",
                                             Symbol =(Geometry)XamlReader.Load(feedSymbol),
                                             DestPage =typeof(FeedView) },
+                            new HamItem() { Label = "Notifications",
+                                            Symbol =(Geometry)XamlReader.Load(notifSymbol),
+                                            DestPage =typeof(NotificationsView) },
                             new HamItem() { Label = "Profile",
                                             Symbol =(Geometry)XamlReader.Load(profileSymbol),
                                             DestPage =typeof(ProfileView) },
@@ -282,6 +287,35 @@ namespace CodeHub.ViewModels
                 }
             }
         }
+
+        #region AppBar click events
+        public void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[0].DestPage)
+                HamItemClicked(HamItems[0]);
+        }
+        public void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[1].DestPage)
+                HamItemClicked(HamItems[1]);
+        }
+        public void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[2].DestPage)
+                HamItemClicked(HamItems[3]);
+        }
+        public void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[3].DestPage)
+                HamItemClicked(HamItems[4]);
+        }
+        public void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[4].DestPage)
+                HamItemClicked(HamItems[5]);
+        }
+        #endregion
+
         #endregion
     }
 }
