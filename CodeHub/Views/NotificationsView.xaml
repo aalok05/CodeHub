@@ -1,6 +1,7 @@
 ﻿<Page x:Class="CodeHub.Views.NotificationsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
       xmlns:converters="using:CodeHub.Converters"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
@@ -23,91 +24,100 @@
         <converters:NotifTypeToSymbolConverter x:Key="NotifTypeToSymbolConverter" x:Name="NotifTypeToSymbolConverter" />
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <toolkitControl:PullToRefreshListView x:Name="FeedListView"
-                                              IsItemClickEnabled="False"
-                                              IsPullToRefreshWithMouseEnabled="True"
-                                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                                              ItemsSource="{x:Bind ViewModel.Notifications, Mode=OneWay}"
-                                              OverscrollLimit="0.4"
-                                              PullProgressChanged="Notif_PullProgressChanged"
-                                              PullThreshold="100"
-                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
-            <toolkitControl:PullToRefreshListView.ItemTemplate>
+        <ListView x:Name="FeedListView"
+                  IsItemClickEnabled="False"
+                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                  ItemsSource="{x:Bind ViewModel.Notifications, Mode=OneWay}">
+            <ListView.ItemTemplate>
                 <DataTemplate x:DataType="octo:Notification">
                     <UserControl>
-                        <RelativePanel>
-                            <i:Interaction.Behaviors>
-                                <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
-                                    <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}"/>
-                                </core:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Path x:Name="notifSymbol"
-                                  Margin="12,12,12,4"
-                                  Data="{Binding Subject.Type, Converter={StaticResource NotifTypeToSymbolConverter}}"
-                                  Fill="Gray"
-                                  RelativePanel.AlignLeftWithPanel="True"
-                                  RelativePanel.AlignTopWithPanel="True"
-                                  StrokeThickness="0">
-                                <Path.RenderTransform>
-                                    <CompositeTransform x:Name="notifSymbolScale"
-                                                        ScaleX="2"
-                                                        ScaleY="2" />
-                                </Path.RenderTransform>
-                            </Path>
-                            <TextBlock x:Name="timeText"
-                                       Margin="12,12,0,0"
-                                       FontSize="12"
-                                       Foreground="Gray"
-                                       RelativePanel.AlignTopWith="notifSymbol"
-                                       RelativePanel.RightOf="notifSymbol"
-                                       Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
-                            <TextBlock x:Name="titleText"
-                                       Margin="12,0,0,0"
-                                       FontSize="13"
-                                       RelativePanel.Below="timeText"
-                                       RelativePanel.RightOf="notifSymbol"
-                                       Text="{x:Bind Subject.Title, Mode=OneWay}" />
+                        <toolkitControl:SlidableListItem HorizontalAlignment="Stretch"
+                                                         LeftIcon="Mute" 
+                                                         RightIcon="Accept" 
+                                                         LeftLabel="Unsubscribe from this thread" 
+                                                         RightLabel="Mark as read"
+                                                         LeftBackground="OrangeRed" 
+                                                         RightBackground="LightSeaGreen"
+                                                         LeftForeground ="White" 
+                                                         RightForeground ="White"
+                                                         ActivationWidth="100"
+                                                         IsLeftCommandEnabled="True"
+                                                         IsRightCommandEnabled="True"
+                                                         IsOffsetLimited="True"
+                                                         MouseSlidingEnabled="True"
+                                                         IsPointerReleasedOnSwipingHandled="False"
+                                                         LeftCommand="{Binding ElementName=FeedListView,Path=ViewModel.UnsubscribeCommand}"
+                                                         RightCommand="{Binding ElementName=FeedListView,Path=ViewModel.MarkasReadCommand}"
+                                                         RightCommandParameter="{Binding}"
+                                                         LeftCommandParameter="{Binding}">
 
-                            <HyperlinkButton x:Name="RepoText"
-                                             Margin="12,0,0,4"
-                                             Padding="0"
-                                             Content="{Binding Repository.FullName}"
-                                             FontSize="13"
-                                             RelativePanel.Below="titleText"
-                                             RelativePanel.RightOf="notifSymbol"
-                                             Tapped="Repo_Click">
-                                <HyperlinkButton.ContentTemplate>
-                                    <DataTemplate>
-                                        <TextBlock VerticalAlignment="Center"
-                                                   FontSize="13.5"
-                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                   Text="{Binding}" />
-                                    </DataTemplate>
-                                </HyperlinkButton.ContentTemplate>
-                            </HyperlinkButton>
-                            <Button RelativePanel.AlignRightWithPanel="True"
-                                    RelativePanel.AlignTopWithPanel="True"
-                                    RelativePanel.AlignBottomWithPanel="True"
-                                    Background="Transparent"
-                                    Margin="0 0 20 0">
-                                <Viewbox MaxWidth="20"
-                                         Visibility="{x:Bind Unread,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
-                                    <SymbolIcon Symbol="Accept" />
-                                </Viewbox>
-                            </Button>
+                            <RelativePanel>
+                                <i:Interaction.Behaviors>
+                                    <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
+                                        <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
+                                    </core:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
 
-                        </RelativePanel>
+                                <Path x:Name="notifSymbol"
+                                      Margin="12,12,12,4"
+                                      Data="{Binding Subject.Type, Converter={StaticResource NotifTypeToSymbolConverter}}"
+                                      Fill="Gray"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.AlignTopWithPanel="True"
+                                      StrokeThickness="0">
+                                    <Path.RenderTransform>
+                                        <CompositeTransform x:Name="notifSymbolScale"
+                                                            ScaleX="2"
+                                                            ScaleY="2" />
+                                    </Path.RenderTransform>
+                                </Path>
+                                <TextBlock x:Name="timeText"
+                                           Margin="12,12,0,0"
+                                           FontSize="12"
+                                           Foreground="Gray"
+                                           RelativePanel.AlignTopWith="notifSymbol"
+                                           RelativePanel.RightOf="notifSymbol"
+                                           Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
+                                <TextBlock x:Name="titleText"
+                                           Margin="12,0,0,0"
+                                           FontSize="13"
+                                           RelativePanel.Below="timeText"
+                                           RelativePanel.RightOf="notifSymbol"
+                                           Text="{x:Bind Subject.Title, Mode=OneWay}" />
+
+                                <HyperlinkButton x:Name="RepoText"
+                                                 Margin="12,0,0,4"
+                                                 Padding="0"
+                                                 Content="{Binding Repository.FullName}"
+                                                 FontSize="13"
+                                                 RelativePanel.Below="titleText"
+                                                 RelativePanel.RightOf="notifSymbol"
+                                                 Tapped="Repo_Click">
+                                    <HyperlinkButton.ContentTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center"
+                                                       FontSize="13.5"
+                                                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                       Text="{Binding}" />
+                                        </DataTemplate>
+                                    </HyperlinkButton.ContentTemplate>
+                                </HyperlinkButton>
+                                <!--<Button Margin="0,0,20,0"
+                                        Background="Transparent"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                                        Visibility="{x:Bind Unread, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                                    <Viewbox Height="60" MaxWidth="20">
+                                        <SymbolIcon Symbol="Accept" />
+                                    </Viewbox>
+                                </Button>-->
+                            </RelativePanel>
+
+                        </toolkitControl:SlidableListItem>
                     </UserControl>
                 </DataTemplate>
-            </toolkitControl:PullToRefreshListView.ItemTemplate>
-            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-                <Border x:Name="refreshindicator"
-                        Width="20"
-                        Height="20"
-                        HorizontalAlignment="Center"
-                        CornerRadius="30" />
-            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-        </toolkitControl:PullToRefreshListView>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <ProgressRing Width="40"
                       Height="40"

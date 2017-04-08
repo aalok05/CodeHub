@@ -40,12 +40,20 @@ namespace CodeHub.Services
             }
         }
 
-        public static async Task<Notification> GetNotificationById(int notificationId)
+        public static async Task<Notification> GetNotificationById(string notificationId)
         {
             try
             {
                 var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Activity.Notifications.Get(notificationId);
+
+                if(int.TryParse(notificationId, out int id))
+                {
+                    return await client.Activity.Notifications.Get(id);
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch
             {
@@ -60,10 +68,25 @@ namespace CodeHub.Services
             await client.Activity.Notifications.MarkAsRead();
         }
 
-        public static async Task MarkNotificationAsRead(int notificationId)
+        public static async Task MarkNotificationAsRead(string notificationId)
         {
             var client = await UserUtility.GetAuthenticatedClient();
-            await client.Activity.Notifications.MarkAsRead(notificationId);
+
+            if (int.TryParse(notificationId, out int id))
+            {
+                await client.Activity.Notifications.MarkAsRead(id);
+            }
+        }
+
+        public static async Task UnsubscribeFromThread(string notificationId)
+        {
+            var client = await UserUtility.GetAuthenticatedClient();
+
+            if (int.TryParse(notificationId, out int id))
+            {
+                await client.Activity.Notifications.DeleteThreadSubscription(id);
+            }
+
         }
 
     }
