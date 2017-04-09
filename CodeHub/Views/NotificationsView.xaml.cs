@@ -66,8 +66,8 @@ namespace CodeHub.Views
                     ?? (_MarkasReadCommand = new RelayCommand<Notification>(
                                           async (Notification notification) =>
                                           {
-                                              await NotificationsService.MarkNotificationAsRead(notification.Id);
-                                              ViewModel.Refresh();
+                                          await NotificationsService.MarkNotificationAsRead(notification.Id);
+                                          ViewModel.Notifications[ViewModel.Notifications.IndexOf(notification)] = await NotificationsService.GetNotificationById(notification.Id);
                                           }));
             }
         }
@@ -81,7 +81,8 @@ namespace CodeHub.Views
                                           async (Notification notification) =>
                                           {
                                               await NotificationsService.UnsubscribeFromThread(notification.Id);
-                                              ViewModel.Refresh();
+                                              await NotificationsService.MarkNotificationAsRead(notification.Id);
+                                              ViewModel.Notifications[ViewModel.Notifications.IndexOf(notification)] = await NotificationsService.GetNotificationById(notification.Id);
                                           }));
             }
         }
