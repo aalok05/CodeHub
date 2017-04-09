@@ -76,50 +76,23 @@ namespace CodeHub.ViewModels
         }
 
 
-        public RelayCommand<Notification> _MarkasReadCommand;
-        public RelayCommand<Notification> MarkasReadCommand
+
+        public async void Refresh()
         {
-            get
+
+            if (!GlobalHelper.IsInternet())
             {
-                return _MarkasReadCommand
-                    ?? (_MarkasReadCommand = new RelayCommand<Notification>(
-                                          async (Notification notification) =>
-                                          {
-                                              await NotificationsService.MarkNotificationAsRead(notification.Id);
-                                          }));
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+            }
+            else
+            {
+
+                isLoading = true;
+                await LoadAllNotifications();
+                isLoading = false;
             }
         }
-        public RelayCommand<Notification> _UnsubscribeCommand;
-        public RelayCommand<Notification> UnsubscribeCommand
-        {
-            get
-            {
-                return _UnsubscribeCommand
-                    ?? (_UnsubscribeCommand = new RelayCommand<Notification>(
-                                          async (Notification notification) =>
-                                          {
-                                              await NotificationsService.UnsubscribeFromThread(notification.Id);
-                                          }));
-            }
-        }
-
-        //public async void RefreshCommand(object sender, EventArgs e)
-        //{
-
-        //    if (!GlobalHelper.IsInternet())
-        //    {
-        //        //Sending NoInternet message to all viewModels
-        //        Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-        //    }
-        //    else
-        //    {
-
-        //        Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
-        //        isLoading = true;
-        //        await LoadAllNotifications();
-        //        isLoading = false;
-        //    }
-        //}
 
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
         {

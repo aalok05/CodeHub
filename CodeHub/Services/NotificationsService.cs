@@ -17,7 +17,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 NotificationsRequest req = new NotificationsRequest{ All = all, Participating = participating};
-                ApiOptions options = new ApiOptions { PageSize = 100 };
+                ApiOptions options = new ApiOptions { PageSize = 50 };
                 return new ObservableCollection<Notification>(await client.Activity.Notifications.GetAllForCurrent(req,options));
             }
             catch

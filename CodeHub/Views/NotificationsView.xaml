@@ -1,4 +1,5 @@
 ﻿<Page x:Class="CodeHub.Views.NotificationsView"
+      x:Name="Page"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -23,9 +24,11 @@
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
         <converters:NotifTypeToSymbolConverter x:Key="NotifTypeToSymbolConverter" x:Name="NotifTypeToSymbolConverter" />
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          x:Name="Root">
         <ListView x:Name="FeedListView"
                   IsItemClickEnabled="False"
+                  SelectionMode="None"
                   ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                   ItemsSource="{x:Bind ViewModel.Notifications, Mode=OneWay}">
             <ListView.ItemTemplate>
@@ -37,7 +40,7 @@
                                                          LeftLabel="Unsubscribe from this thread" 
                                                          RightLabel="Mark as read"
                                                          LeftBackground="OrangeRed" 
-                                                         RightBackground="LightSeaGreen"
+                                                         RightBackground="#60B53B"
                                                          LeftForeground ="White" 
                                                          RightForeground ="White"
                                                          ActivationWidth="100"
@@ -46,8 +49,8 @@
                                                          IsOffsetLimited="True"
                                                          MouseSlidingEnabled="True"
                                                          IsPointerReleasedOnSwipingHandled="False"
-                                                         LeftCommand="{Binding ElementName=FeedListView,Path=ViewModel.UnsubscribeCommand}"
-                                                         RightCommand="{Binding ElementName=FeedListView,Path=ViewModel.MarkasReadCommand}"
+                                                         LeftCommand="{Binding UnsubscribeCommand, ElementName=Page, Mode=OneWay}"
+                                                         RightCommand="{Binding MarkasReadCommand, ElementName=Page, Mode=OneWay}"
                                                          RightCommandParameter="{Binding}"
                                                          LeftCommandParameter="{Binding}">
 
