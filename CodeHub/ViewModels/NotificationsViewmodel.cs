@@ -14,31 +14,122 @@ namespace CodeHub.ViewModels
 {
     public class NotificationsViewmodel : AppViewmodel
     {
-        public ObservableCollection<Notification> _Notifications;
-        public ObservableCollection<Notification> Notifications
+        public ObservableCollection<Notification> _AllNotifications;
+        public ObservableCollection<Notification> AllNotifications
         {
             get
             {
-                return _Notifications;
+                return _AllNotifications;
             }
             set
             {
-                Set(() => Notifications, ref _Notifications, value);
+                Set(() => AllNotifications, ref _AllNotifications, value);
+            }
+        }
+        public ObservableCollection<Notification> _UnreadNotifications;
+        public ObservableCollection<Notification> UnreadNotifications
+        {
+            get
+            {
+                return _UnreadNotifications;
+            }
+            set
+            {
+                Set(() => UnreadNotifications, ref _UnreadNotifications, value);
+            }
+        }
+        public ObservableCollection<Notification> _ParticipatingNotifications;
+        public ObservableCollection<Notification> ParticipatingNotifications
+        {
+            get
+            {
+                return _ParticipatingNotifications;
+            }
+            set
+            {
+                Set(() => ParticipatingNotifications, ref _ParticipatingNotifications, value);
             }
         }
 
-        public bool _ZeroNotificationCount;
-        public bool ZeroNotificationCount
+        public bool _ZeroAllCount;
+        public bool ZeroAllCount
         {
             get
             {
-                return _ZeroNotificationCount;
+                return _ZeroAllCount;
             }
             set
             {
-                Set(() => ZeroNotificationCount, ref _ZeroNotificationCount, value);
+                Set(() => ZeroAllCount, ref _ZeroAllCount, value);
             }
         }
+        public bool _ZeroUnreadCount;
+        public bool ZeroUnreadCount
+        {
+            get
+            {
+                return _ZeroUnreadCount;
+            }
+            set
+            {
+                Set(() => ZeroUnreadCount, ref _ZeroUnreadCount, value);
+            }
+        }
+        public bool _ZeroParticipatingCount;
+        public bool ZeroParticipatingCount
+        {
+            get
+            {
+                return _ZeroParticipatingCount;
+            }
+            set
+            {
+                Set(() => ZeroParticipatingCount, ref _ZeroParticipatingCount, value);
+            }
+        }
+
+        public bool _isloadingAll;
+        public bool IsLoadingAll
+        {
+            get
+            {
+                return _isloadingAll;
+            }
+            set
+            {
+                Set(() => IsLoadingAll, ref _isloadingAll, value);
+
+            }
+        }
+
+        public bool _isloadingUnread;
+        public bool IsLoadingUnread
+        {
+            get
+            {
+                return _isloadingUnread;
+            }
+            set
+            {
+                Set(() => IsLoadingUnread, ref _isloadingUnread, value);
+
+            }
+        }
+
+        public bool _isloadingParticipating;
+        public bool IsloadingParticipating
+        {
+            get
+            {
+                return _isloadingParticipating;
+            }
+            set
+            {
+                Set(() => IsloadingParticipating, ref _isloadingParticipating, value);
+
+            }
+        }
+
 
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
@@ -57,25 +148,24 @@ namespace CodeHub.ViewModels
                                               }
                                               else
                                               {
-                                                  if(Notifications == null)
-                                                  {   
-                                                      isLoading = true;
-                                                      await LoadAllNotifications();
-                                                      isLoading = false;
-                                                  }
-                                                  else
+                                                  if (AllNotifications == null)
                                                   {
-                                                      /*Silent loading */
-                                                      await LoadAllNotifications();
-                                                  }
+                                                      IsLoadingAll =
+                                                      IsLoadingUnread =
+                                                      IsloadingParticipating =
+                                                      true;
 
+                                                      await LoadAllNotifications();
+                                                      await LoadUnreadNotifications();
+                                                      await LoadParticipatingNotifications();
+                                                  }
 
                                               }
                                           }));
             }
         }
 
-        public async void Refresh()
+        public async void RefreshAll()
         {
 
             if (!GlobalHelper.IsInternet())
@@ -86,9 +176,41 @@ namespace CodeHub.ViewModels
             else
             {
 
-                isLoading = true;
+                IsLoadingAll = true;
                 await LoadAllNotifications();
-                isLoading = false;
+                IsLoadingAll = false;
+            }
+        }
+        public async void RefreshUnread()
+        {
+
+            if (!GlobalHelper.IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+            }
+            else
+            {
+
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
+                IsLoadingUnread = false;
+            }
+        }
+        public async void RefreshParticipating()
+        {
+
+            if (!GlobalHelper.IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+            }
+            else
+            {
+
+                IsloadingParticipating = true;
+                await LoadParticipatingNotifications();
+                IsloadingParticipating = false;
             }
         }
 
@@ -96,43 +218,45 @@ namespace CodeHub.ViewModels
         {
             isLoggedin = false;
             User = null;
-            Notifications = null;
+            AllNotifications = UnreadNotifications = ParticipatingNotifications = null;
         }
         public async void RecieveSignInMessage(User user)
         {
-
-            isLoading = true;
             if (user != null)
             {
                 isLoggedin = true;
                 User = user;
                 await LoadAllNotifications();
+                await LoadUnreadNotifications();
+                await LoadParticipatingNotifications();
             }
-            isLoading = false;
-
         }
+
         private async Task LoadAllNotifications()
         {
-            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser(true,false);
-            if (Notifications != null)
+            AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true,false);
+            IsLoadingAll = false;
+            if (AllNotifications != null)
             {
-                ZeroNotificationCount = (Notifications.Count == 0) ? true : false;
+                ZeroAllCount = (AllNotifications.Count == 0) ? true : false;
             }
         }
         private async Task LoadUnreadNotifications()
         {
-            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-            if (Notifications != null)
+            UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            IsLoadingUnread = false;
+            if (UnreadNotifications != null)
             {
-                ZeroNotificationCount = (Notifications.Count == 0) ? true : false;
+                ZeroUnreadCount = (UnreadNotifications.Count == 0) ? true : false;
             }
         }
         private async Task LoadParticipatingNotifications()
         {
-            Notifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, true);
-            if (Notifications != null)
+            ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, true);
+            IsloadingParticipating = false;
+            if (ParticipatingNotifications != null)
             {
-                ZeroNotificationCount = (Notifications.Count == 0) ? true : false;
+                ZeroParticipatingCount = (ParticipatingNotifications.Count == 0) ? true : false;
             }
         }
 

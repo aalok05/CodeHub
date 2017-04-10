@@ -57,32 +57,133 @@ namespace CodeHub.Views
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", (sender as HyperlinkButton).Content);
         }
 
-        public RelayCommand<Notification> _MarkasReadCommand;
-        public RelayCommand<Notification> MarkasReadCommand
+        public RelayCommand<Notification> _MarkasReadAllNotifCommand;
+        public RelayCommand<Notification> MarkasReadAllNotifCommand
         {
             get
             {
-                return _MarkasReadCommand
-                    ?? (_MarkasReadCommand = new RelayCommand<Notification>(
+                return _MarkasReadAllNotifCommand
+                    ?? (_MarkasReadAllNotifCommand = new RelayCommand<Notification>(
                                           async (Notification notification) =>
                                           {
-                                          await NotificationsService.MarkNotificationAsRead(notification.Id);
-                                          ViewModel.Notifications[ViewModel.Notifications.IndexOf(notification)] = await NotificationsService.GetNotificationById(notification.Id);
+                                              ViewModel.IsLoadingAll = true;
+                                              if(notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
+
+                                                  var index = ViewModel.AllNotifications.IndexOf(ViewModel.AllNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.AllNotifications[index] = await NotificationsService.GetNotificationById(notification.Id);
+                                              }
+                                              ViewModel.IsLoadingAll = false;
                                           }));
             }
         }
-        public RelayCommand<Notification> _UnsubscribeCommand;
-        public RelayCommand<Notification> UnsubscribeCommand
+        public RelayCommand<Notification> _MarkasReadUnreadNotifCommand;
+        public RelayCommand<Notification> MarkasReadUnreadNotifCommand
         {
             get
             {
-                return _UnsubscribeCommand
-                    ?? (_UnsubscribeCommand = new RelayCommand<Notification>(
+                return _MarkasReadUnreadNotifCommand
+                    ?? (_MarkasReadUnreadNotifCommand = new RelayCommand<Notification>(
                                           async (Notification notification) =>
                                           {
-                                              await NotificationsService.UnsubscribeFromThread(notification.Id);
+                                              ViewModel.IsLoadingUnread = true;
                                               await NotificationsService.MarkNotificationAsRead(notification.Id);
-                                              ViewModel.Notifications[ViewModel.Notifications.IndexOf(notification)] = await NotificationsService.GetNotificationById(notification.Id);
+
+                                              var index = ViewModel.UnreadNotifications.IndexOf(ViewModel.UnreadNotifications.Where(p => p.Id == notification.Id).First());
+                                              ViewModel.UnreadNotifications.RemoveAt(index);
+
+                                              ViewModel.IsLoadingUnread = false;
+                                          }));
+            }
+        }
+        public RelayCommand<Notification> _MarkasReadParticipatingNotifCommand;
+        public RelayCommand<Notification> MarkasReadParticipatingNotifCommand
+        {
+            get
+            {
+                return _MarkasReadParticipatingNotifCommand
+                    ?? (_MarkasReadParticipatingNotifCommand = new RelayCommand<Notification>(
+                                          async (Notification notification) =>
+                                          {
+                                              ViewModel.IsloadingParticipating = true;
+
+                                              if(notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
+
+                                                  var index = ViewModel.ParticipatingNotifications.IndexOf(ViewModel.ParticipatingNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.ParticipatingNotifications[index] = await NotificationsService.GetNotificationById(notification.Id);
+                                              }
+                                              ViewModel.IsloadingParticipating = false;
+                                          }));
+            }
+        }
+
+        public RelayCommand<Notification> _UnsubscribeAllNotifCommand;
+        public RelayCommand<Notification> UnsubscribeAllNotifCommand
+        {
+            get
+            {
+                return _UnsubscribeAllNotifCommand
+                    ?? (_UnsubscribeAllNotifCommand = new RelayCommand<Notification>(
+                                          async (Notification notification) =>
+                                          {
+                                              ViewModel.IsLoadingAll = true;
+                                              await NotificationsService.SetThreadSubscription(notification.Id,false,false);
+                                              if(notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
+
+                                                  var index = ViewModel.AllNotifications.IndexOf(ViewModel.AllNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.AllNotifications[index] = await NotificationsService.GetNotificationById(notification.Id);
+                                              }
+
+                                              ViewModel.IsLoadingAll = false;
+                                          }));
+            }
+        }
+        public RelayCommand<Notification> _UnsubscribeUnreadNotifCommand;
+        public RelayCommand<Notification> UnsubscribeUnreadNotifCommand
+        {
+            get
+            {
+                return _UnsubscribeUnreadNotifCommand
+                    ?? (_UnsubscribeUnreadNotifCommand = new RelayCommand<Notification>(
+                                          async (Notification notification) =>
+                                          {
+                                              ViewModel.IsLoadingUnread = true;
+                                              await NotificationsService.SetThreadSubscription(notification.Id, false, false);
+                                              if (notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
+
+                                                  var index = ViewModel.UnreadNotifications.IndexOf(ViewModel.UnreadNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.UnreadNotifications.RemoveAt(index);
+                                              }
+                                              ViewModel.IsLoadingUnread = false;
+                                          }));
+            }
+        }
+        public RelayCommand<Notification> _UnsubscribeParticipatingNotifCommand;
+        public RelayCommand<Notification> UnsubscribeParticipatingNotifCommand
+        {
+            get
+            {
+                return _UnsubscribeParticipatingNotifCommand
+                    ?? (_UnsubscribeParticipatingNotifCommand = new RelayCommand<Notification>(
+                                          async (Notification notification) =>
+                                          {
+                                              ViewModel.IsloadingParticipating = true;
+                                              await NotificationsService.SetThreadSubscription(notification.Id, false, false);
+                                              if (notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
+
+                                                  var index = ViewModel.ParticipatingNotifications.IndexOf(ViewModel.ParticipatingNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.ParticipatingNotifications[index] = await NotificationsService.GetNotificationById(notification.Id);
+                                              }
+                                              ViewModel.IsloadingParticipating = false;
                                           }));
             }
         }

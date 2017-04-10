@@ -17,7 +17,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 NotificationsRequest req = new NotificationsRequest{ All = all, Participating = participating};
-                ApiOptions options = new ApiOptions { PageSize = 100 };
+                ApiOptions options = new ApiOptions { PageSize = 100, PageCount = 1 };
                 return new ObservableCollection<Notification>(await client.Activity.Notifications.GetAllForCurrent(req,options));
             }
             catch
@@ -78,16 +78,31 @@ namespace CodeHub.Services
             }
         }
 
-        public static async Task UnsubscribeFromThread(string notificationId)
+        public static async Task SetThreadSubscription(string notificationId, bool subscribed,bool ignored)
         {
             var client = await UserUtility.GetAuthenticatedClient();
 
             if (int.TryParse(notificationId, out int id))
             {
-                await client.Activity.Notifications.DeleteThreadSubscription(id);
+                await client.Activity.Notifications.
+                    SetThreadSubscription(id, 
+                    new NewThreadSubscription
+                    { Subscribed = subscribed,
+                      Ignored = ignored
+                    });
             }
 
         }
 
+        public static async Task<ThreadSubscription> GetSubscribtionThread(string notificationId)
+        {
+            var client = await UserUtility.GetAuthenticatedClient();
+
+            if (int.TryParse(notificationId, out int id))
+            {
+               return await client.Activity.Notifications.GetThreadSubscription(id);
+            }
+            return null;
+        }
     }
 }
