@@ -130,7 +130,7 @@ namespace CodeHub.Views
                                           async (Notification notification) =>
                                           {
                                               ViewModel.IsLoadingAll = true;
-                                              await NotificationsService.SetThreadSubscription(notification.Id,false,false);
+                                              await NotificationsService.SetThreadSubscription(notification.Id,false,true);
                                               if(notification.Unread)
                                               {
                                                   await NotificationsService.MarkNotificationAsRead(notification.Id);
@@ -153,7 +153,7 @@ namespace CodeHub.Views
                                           async (Notification notification) =>
                                           {
                                               ViewModel.IsLoadingUnread = true;
-                                              await NotificationsService.SetThreadSubscription(notification.Id, false, false);
+                                              await NotificationsService.SetThreadSubscription(notification.Id, false, true);
                                               if (notification.Unread)
                                               {
                                                   await NotificationsService.MarkNotificationAsRead(notification.Id);
@@ -175,7 +175,7 @@ namespace CodeHub.Views
                                           async (Notification notification) =>
                                           {
                                               ViewModel.IsloadingParticipating = true;
-                                              await NotificationsService.SetThreadSubscription(notification.Id, false, false);
+                                              await NotificationsService.SetThreadSubscription(notification.Id, false, true);
                                               if (notification.Unread)
                                               {
                                                   await NotificationsService.MarkNotificationAsRead(notification.Id);

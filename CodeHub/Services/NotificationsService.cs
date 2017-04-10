@@ -84,11 +84,11 @@ namespace CodeHub.Services
 
             if (int.TryParse(notificationId, out int id))
             {
-                await client.Activity.Notifications.
-                    SetThreadSubscription(id, 
+                await client.Activity.Notifications.SetThreadSubscription(id, 
                     new NewThreadSubscription
-                    { Subscribed = subscribed,
-                      Ignored = ignored
+                    {
+                        Subscribed = subscribed,
+                        Ignored = ignored
                     });
             }
 

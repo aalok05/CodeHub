@@ -155,9 +155,10 @@ namespace CodeHub.ViewModels
                                                       IsloadingParticipating =
                                                       true;
 
-                                                      await LoadAllNotifications();
                                                       await LoadUnreadNotifications();
                                                       await LoadParticipatingNotifications();
+                                                      await LoadAllNotifications();
+                                                      
                                                   }
 
                                               }
@@ -214,6 +215,28 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public async void MarkAllNotificationsAsRead()
+        {
+            if (!GlobalHelper.IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+            }
+            else
+            {
+                IsLoadingAll =
+                IsLoadingUnread =
+                IsloadingParticipating =
+                true;
+
+                await NotificationsService.MarkAllNotificationsAsRead();
+                //LoadCommand.Execute(null);
+                IsLoadingAll =
+                IsLoadingUnread =
+                IsloadingParticipating =
+                false;
+            }
+        }
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
         {
             isLoggedin = false;
@@ -226,9 +249,9 @@ namespace CodeHub.ViewModels
             {
                 isLoggedin = true;
                 User = user;
-                await LoadAllNotifications();
                 await LoadUnreadNotifications();
                 await LoadParticipatingNotifications();
+                await LoadAllNotifications();
             }
         }
 
@@ -252,7 +275,7 @@ namespace CodeHub.ViewModels
         }
         private async Task LoadParticipatingNotifications()
         {
-            ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, true);
+            ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
             IsloadingParticipating = false;
             if (ParticipatingNotifications != null)
             {
