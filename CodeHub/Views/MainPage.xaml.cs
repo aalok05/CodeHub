@@ -38,8 +38,6 @@ namespace CodeHub.Views
             ViewModel = new MainViewmodel();
             this.DataContext = ViewModel;
 
-            SizeChanged += MainPage_SizeChanged;
-
             #region registering for messages
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
@@ -50,33 +48,14 @@ namespace CodeHub.Views
             { return new NavigationService(mainFrame); });
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
-
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
-
             ConfigureAdsVisibility();
         }
+
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            if(e.NewState != null)
-                ViewModel.CurrentState = e.NewState.Name;
-
             await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
             await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
-        }
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-
-            if (e.NewSize.Width < 720)
-            {   
-                if (ViewModel.isLoggedin)
-                {
-                    BottomAppBar.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    BottomAppBar.Visibility = Visibility.Collapsed;
-                }
-            }
         }
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
@@ -102,7 +81,7 @@ namespace CodeHub.Views
                 ViewModel.HamItemClicked(e.ClickedItem as HamItem);
 
                 //Don't close the Hamburger menu if visual state is DesktopEx
-                if (ViewModel.CurrentState != "DesktopEx")
+                if (!(HamSplitView.DisplayMode == SplitViewDisplayMode.Inline))
                     HamSplitView.IsPaneOpen = false;
             }
         }
@@ -113,7 +92,7 @@ namespace CodeHub.Views
                 ViewModel.NavigateToSettings();
 
                 //Don't close the Hamburger menu if visual state is DesktopEx
-                if (ViewModel.CurrentState != "DesktopEx")
+                if (!(HamSplitView.DisplayMode == SplitViewDisplayMode.Inline))
                     HamSplitView.IsPaneOpen = false;
             }
         }
@@ -135,19 +114,8 @@ namespace CodeHub.Views
             },
             LocalNotificationCollisionBehaviour.Replace);
         }
-        public void RecieveSignOutMessage(SignOutMessageType empty)
-        {
-            if (ViewModel.CurrentState == "Mobile")
-            {
-                BottomAppBar.Visibility = Visibility.Collapsed;
-            }
-        }
         public void RecieveSignInMessage(User user)
         {
-            if (ViewModel.CurrentState == "Mobile")
-            {
-                BottomAppBar.Visibility = Visibility.Visible;
-            }
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(HomeView))
             {
                 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
@@ -159,26 +127,13 @@ namespace CodeHub.Views
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
 
-            /* This has to be done because the visibilty of BottomAppBar is dependent on screen size as well as isLoggedin property
-             * If visibility is bound with isLoggedin, it will disregard VisualStateManager at first loading of Page.
-             */
             if (ViewModel.isLoggedin)
             {
                 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
-                if (Window.Current.Bounds.Width < 720)
-                {
-                    FindName("BottomAppBar");
-                    ViewModel.CurrentState = "Mobile";
-                }
-                else
-                    ViewModel.CurrentState = "Desktop";
             }
 
             //Listening for Sign In message
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
-
-            //listen for sign out message
-            Messenger.Default.Register<SignOutMessageType>(this, RecieveSignOutMessage);
 
             notifManager = new LocalNotificationManager(NotificationGrid);
         }
