@@ -40,7 +40,7 @@ namespace CodeHub.Converters
             }
             if (delta < 172800) // 48 * 60 * 60
             {
-                return "yesterday";
+                return "a day ago";
             }
             if (delta < 2592000) // 30 * 24 * 60 * 60
             {

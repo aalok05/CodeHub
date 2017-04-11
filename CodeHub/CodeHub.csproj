@@ -214,6 +214,7 @@
     <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
     <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
+    <Compile Include="Converters\NotifTypeToSymbolConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\IAsyncNavigationService.cs" />
+    <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\OrganizationsUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
@@ -249,6 +251,7 @@
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
+    <Compile Include="ViewModels\NotificationsViewmodel.cs" />
     <Compile Include="ViewModels\RepoListViewmodel.cs" />
     <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
@@ -310,6 +313,9 @@
     </Compile>
     <Compile Include="Views\MyReposView.xaml.cs">
       <DependentUpon>MyReposView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotificationsView.xaml.cs">
+      <DependentUpon>NotificationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
@@ -495,6 +501,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MyReposView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotificationsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

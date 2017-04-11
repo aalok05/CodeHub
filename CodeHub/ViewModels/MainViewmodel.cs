@@ -15,25 +15,13 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Ioc;
+using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
     public class MainViewmodel : AppViewmodel 
     {
         #region properties
-
-        public string _currentState;
-        public string CurrentState
-        {
-            get
-            {
-                return _currentState;
-            }
-            set
-            {
-                Set(() => CurrentState, ref _currentState, value);
-            }
-        }
 
         public string _headerText;
         public string HeaderText
@@ -240,25 +228,6 @@ namespace CodeHub.ViewModels
         #endregion
 
         #region events and methods
-        public void NavigateToSettings()
-        {
-            foreach (var i in HamItems)
-            {
-                i.IsSelected = false;
-            }
-            Navigate(typeof(SettingsView), "Settings");
-        }
-        public void NavigateToSearch()
-        {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(SearchView))
-            {
-                foreach (var i in HamItems)
-                {
-                    i.IsSelected = false;
-                }
-                Navigate(typeof(SearchView), "Search");
-            }
-        }
         public void HamItemClicked(HamItem item)
         {
             foreach(var i in HamItems)
@@ -282,6 +251,65 @@ namespace CodeHub.ViewModels
                 }
             }
         }
+
+        #region navigation click events
+        public void AppBarTrending_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[0].DestPage)
+                HamItemClicked(HamItems[0]);
+        }
+        public void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[1].DestPage)
+                HamItemClicked(HamItems[1]);
+        }
+        public void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[2].DestPage)
+                HamItemClicked(HamItems[2]);
+        }
+        public void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[3].DestPage)
+                HamItemClicked(HamItems[3]);
+        }
+        public void AppBarMyOrganizations_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[4].DestPage)
+                HamItemClicked(HamItems[4]);
+        }
+        public void NavigateToSettings()
+        {
+            foreach (var i in HamItems)
+            {
+                i.IsSelected = false;
+            }
+            Navigate(typeof(SettingsView), "Settings");
+        }
+        public void NavigateToSearch()
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(SearchView))
+            {
+                foreach (var i in HamItems)
+                {
+                    i.IsSelected = false;
+                }
+                Navigate(typeof(SearchView), "Search");
+            }
+        }
+        public void NavigateToNotifications()
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(NotificationsView))
+            {
+                foreach (var i in HamItems)
+                {
+                    i.IsSelected = false;
+                }
+                Navigate(typeof(NotificationsView), "Notifications");
+            }
+        }
+        #endregion
+
         #endregion
     }
 }
