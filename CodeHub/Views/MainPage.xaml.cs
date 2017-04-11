@@ -96,6 +96,11 @@ namespace CodeHub.Views
                     HamSplitView.IsPaneOpen = false;
             }
         }
+        private void SignOutFlyout_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            moreButton.Flyout.Hide();
+            ViewModel.SignOutCommand.Execute(null);
+        }
         #endregion
 
         #region Messaging
@@ -193,6 +198,5 @@ namespace CodeHub.Views
             }
         }
         #endregion
-
     }
 }

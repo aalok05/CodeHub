@@ -130,19 +130,21 @@
                            Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
                 <Ellipse x:Name="profileEllipse"
-                         Width="26"
-                         Height="26"
+                         Width="30"
+                         Height="30"
+                         StrokeThickness="1.6"
+                         Stroke="{StaticResource AppPrimaryColorBrush}"
                          Margin="12 0 0 0"
-                         RelativePanel.AlignVerticalCenterWithPanel="True"
+                         RelativePanel.AlignVerticalCenterWith="HamButton"
                          RelativePanel.RightOf="HamButton"
                          Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}">
                     <Ellipse.Fill>
                         <ImageBrush>
                             <ImageBrush.ImageSource>
                                 <BitmapImage UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" 
-                                             DecodePixelHeight="26"
+                                             DecodePixelHeight="30"
                                              DecodePixelType="Logical"
-                                             DecodePixelWidth="26"/>
+                                             DecodePixelWidth="30"/>
                             </ImageBrush.ImageSource>
                         </ImageBrush>
                         
@@ -182,11 +184,13 @@
                 </Button>
                 <Button x:Name="notifButton"
                         BorderThickness="0"
+                        Width="50"
+                        Height="48"
                         RelativePanel.LeftOf="moreButton"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource ActionButtonStyle}"
                         Tapped="{x:Bind ViewModel.NavigateToNotifications}"
-                        Margin="8 0 12 4">
+                        Padding="12 0 12 0">
                     <Path Data="M14 12v1H0v-1l.73-.58c.77-.77.81-2.55 1.19-4.42C2.69 3.23 6 2 6 2c0-.55.45-1 1-1s1 .45 1 1c0 0 3.39 1.23 4.16 5 .38 1.88.42 3.66 1.19 4.42l.66.58H14zm-7 4c1.11 0 2-.89 2-2H5c0 1.11.89 2 2 2z"
                           Fill="{ThemeResource ApplicationForegroundThemeBrush}">
                         <Path.RenderTransform>
@@ -196,41 +200,48 @@
                 </Button>
                 <Button x:Name="moreButton"
                         BorderThickness="0"
+                        Width="50"
+                        Height="48"
                         RelativePanel.AlignRightWithPanel="True"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource ActionButtonStyle}"
-                        Margin="8 0 12 4">
+                        Padding="12 0 12 0">
                     <Button.Flyout>
                         <Flyout>
-                            <RelativePanel>
-                                <Ellipse x:Name="avatar"
-                                         Width="27"
-                                         Height="27"
+                            <Button Style="{StaticResource ActionButtonStyle}"
+                                    BorderThickness="0"
+                                    Margin="-7"
+                                    Tapped="SignOutFlyout_Tapped">
+                                <RelativePanel>
+                                    <Ellipse x:Name="avatar"
+                                         Width="30"
+                                         Height="30"
                                          Margin="0 0 10 0"
                                          RelativePanel.AlignVerticalCenterWithPanel="True">
-                                    <Ellipse.Fill>
-                                        <ImageBrush>
-                                            <ImageBrush.ImageSource>
-                                                <BitmapImage UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" 
+                                        <Ellipse.Fill>
+                                            <ImageBrush>
+                                                <ImageBrush.ImageSource>
+                                                    <BitmapImage UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" 
                                                              DecodePixelHeight="26"
                                                              DecodePixelType="Logical"
                                                              DecodePixelWidth="26"/>
-                                            </ImageBrush.ImageSource>
-                                        </ImageBrush>
-                                    </Ellipse.Fill>
-                                </Ellipse>
+                                                </ImageBrush.ImageSource>
+                                            </ImageBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
 
-                                <TextBlock x:Name="email"
+                                    <TextBlock x:Name="email"
                                            FontSize="10"
                                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                            RelativePanel.RightOf="avatar"
                                            Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' '}" />
-                                <TextBlock x:Name="signout"
+                                    <TextBlock x:Name="signout"
                                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                            RelativePanel.AlignLeftWith="email"
                                            RelativePanel.Below="email"
                                            Text="Sign out" />
-                            </RelativePanel>
+                                </RelativePanel>
+                            </Button>
                         </Flyout>
                     </Button.Flyout>
                     <SymbolIcon Symbol="More" 
