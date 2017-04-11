@@ -37,8 +37,8 @@
                            Visibility="{x:Bind SelectedVisual, Mode=TwoWay}" />
 
                 <Viewbox Grid.Column="0"
-                         MaxWidth="20"
-                         MaxHeight="20">
+                         MaxWidth="18"
+                         MaxHeight="18">
                     <Path Data="{x:Bind Symbol}" StrokeThickness="0">
                         <i:Interaction.Behaviors>
                             <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
@@ -53,6 +53,7 @@
 
                 <TextBlock Grid.Column="1"
                            Margin="24,0,0,0"
+                           FontSize="13"
                            VerticalAlignment="Center"
                            Text="{x:Bind Label}">
                     <i:Interaction.Behaviors>
@@ -341,6 +342,7 @@
                                                    RelativePanel.RightOf="smallAvatarEllipse"
                                                    Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}" />
                                         <TextBlock x:Name="SignoutText"
+                                                   FontSize="13"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                    RelativePanel.AlignLeftWith="EmailText"
                                                    RelativePanel.Below="EmailText"
@@ -351,8 +353,13 @@
                                     <StackPanel HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Orientation="Horizontal">
-                                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Setting" />
+                                        <Viewbox MaxHeight="18"
+                                                 MaxWidth="18">
+                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                                    Symbol="Setting" />
+                                        </Viewbox>
                                         <TextBlock Margin="15 0 0 0"
+                                                   FontSize="13"
                                                    VerticalAlignment="Center"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                    Text="Settings" />
