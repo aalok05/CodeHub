@@ -76,32 +76,39 @@
 
         <ScrollViewer Grid.Row="1"
                       x:Name="Scroller"
-                      VerticalScrollMode="Enabled"
+                      HorizontalScrollBarVisibility="Auto"
                       HorizontalScrollMode="Enabled"
                       VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Auto"
-                      Visibility="{x:Bind ViewModel.IsSupportedFile,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
+                      VerticalScrollMode="Enabled">
             <Grid>
-
                 <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
                          NavigationCompleted="WebView_NavigationCompleted"
                          DefaultBackgroundColor="{x:Bind ViewModel.HTMLBackgroundColor, Mode=OneWay}"
                          Visibility="{x:Bind ViewModel.HTMLContent, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                          Margin="-8,-8,-12,-8"/>
-                <TextBlock Text="{x:Bind ViewModel.TextContent,Mode=OneWay}"
-                           Visibility="{x:Bind ViewModel.TextContent, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
-                           TextWrapping="Wrap"
-                           FontSize="12"
-                           Padding="12"/>
 
                 <control:ImageEx HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
                                  Source="{x:Bind ViewModel.ImageFile,Mode=OneWay}"
                                  Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
+                
             </Grid>
 
         </ScrollViewer>
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      HorizontalScrollMode="Disabled"
+                      VerticalScrollBarVisibility="Hidden"
+                      VerticalScrollMode="Enabled"
+                      Visibility="{x:Bind ViewModel.TextContent,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}">
 
+            <control:MarkdownTextBlock Text="{x:Bind ViewModel.TextContent,Mode=OneWay}"
+                                       Padding="8"
+                                       ImageStretch="Fill"
+                                       TextWrapping="Wrap"
+                                       FontSize="13"/>
+
+        </ScrollViewer>
         <TextBlock Grid.Row="1" Text="File type not supported"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
