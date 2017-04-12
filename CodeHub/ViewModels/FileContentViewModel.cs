@@ -197,8 +197,8 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    // TODO: loading the WHOLE files list is really necessary here?
-                    var uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.DownloadUrl;
+
+                    Uri uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.DownloadUrl;
                     ImageFile = new BitmapImage(uri);
                     isLoading = false;
                     return;
@@ -206,25 +206,17 @@ namespace CodeHub.ViewModels
                 if ((Path.ToLower()).EndsWith(".md"))
                 {
                     /*
-                     *  Files with .md extension will be shown with full markdown
+                     *  Files with .md extension
                      */
 
-                    MarkdownOptions options = new MarkdownOptions
-                    {
-                        AsteriskIntraWordEmphasis = true,
-                        AutoNewlines = true,
-                        StrictBoldItalic = true,
-                        AutoHyperlink = false,
-                        LinkEmails = true
-                    };
-                    Markdown markDown = new Markdown(options);
-
-                    HTMLBackgroundColor = Colors.White;
-                    var str = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
-                    HTMLContent = "<html><head><meta charset = \"utf-8\" /></head><body style=\"font-family: sans-serif\">" + markDown.Transform(str) + "</body></html>";
+                    TextContent = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
                     isLoading = false;
                     return;
                 }
+
+                    /*
+                    *  Code files
+                    */
 
                 String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.Content;
                 if (content == null)
@@ -239,9 +231,11 @@ namespace CodeHub.ViewModels
 
                 if (HTMLContent == null)
                 {
-                    //Getting HTML for syntax highlighting failed so trying to get plain text content of the file
+                    /*
+                    *  Plain text files (Getting HTML for syntax highlighting failed)
+                    */
 
-                    var result = await RepositoryUtility.GetRepositoryContentTextByPath(Repository, Path, SelectedBranch);
+                    RepositoryContent result = await RepositoryUtility.GetRepositoryContentTextByPath(Repository, Path, SelectedBranch);
                     TextContent = result.Content;
                 }
 
