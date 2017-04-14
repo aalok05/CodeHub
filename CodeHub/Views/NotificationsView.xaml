@@ -114,6 +114,8 @@
                                             <TextBlock x:Name="titleText"
                                                        Margin="12,0,0,0"
                                                        FontSize="13"
+                                                       TextWrapping="Wrap"
+                                                       RelativePanel.AlignRightWithPanel="True"
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
@@ -242,6 +244,8 @@
                                             <TextBlock x:Name="titleText"
                                                        Margin="12,0,0,0"
                                                        FontSize="13"
+                                                       TextWrapping="Wrap"
+                                                       RelativePanel.AlignRightWithPanel="True"
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
@@ -370,6 +374,8 @@
                                             <TextBlock x:Name="titleText"
                                                        Margin="12,0,0,0"
                                                        FontSize="13"
+                                                       TextWrapping="Wrap"
+                                                       RelativePanel.AlignRightWithPanel="True"
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
