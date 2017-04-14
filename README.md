@@ -1,10 +1,11 @@
 # CodeHub
 <span class="badge-patreon"><a href="https://www.patreon.com/aalok05" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
 <span class="badge-paypal"><a href="https://www.paypal.me/aalok05" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+[![Twitter URL](https://img.shields.io/badge/tweet-%40devaalok-blue.svg?style=social&style=flat-square)](https://twitter.com/devaalok)
 
 CodeHub is a Universal Windows GitHub client that helps you keep up with the open source world.
 
-Get it on the Windows store [here](https://www.microsoft.com/en-us/store/p/codehub-a-client-for-github/9nblggh52tbd#).
+<a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a>
 
 ![codehub-newsFeed-screenshot](http://imagizer.imageshack.us/a/img921/8086/bhBO7h.png)
 
