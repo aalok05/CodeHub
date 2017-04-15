@@ -22,7 +22,7 @@
         <Grid Height="48"
               VerticalAlignment="Top"
               Background="{ThemeResource SystemChromeLowColor}" />
-        <Pivot>
+        <Pivot SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -75,6 +75,13 @@
                     <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="You have no Repositories yet"
                                Visibility="{x:Bind ViewModel.ZeroRepo, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <ProgressRing Grid.Row="1"
+                                  Width="50"
+                                  Height="50"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
 
             </PivotItem>
@@ -130,19 +137,18 @@
                     <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Text="You have no starred Repositories yet"
                                Visibility="{x:Bind ViewModel.ZeroStarRepo, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <ProgressRing Grid.Row="1"
+                                  Width="50"
+                                  Height="50"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.IsStarredLoading, Mode=OneWay}" />
                 </Grid>
 
 
             </PivotItem>
         </Pivot>
-
-        <ProgressRing x:Name="RefreshProgressRing"
-                      Width="50"
-                      Height="50"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
-                      IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
 
     </Grid>
 </Page>

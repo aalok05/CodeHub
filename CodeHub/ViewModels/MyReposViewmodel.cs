@@ -49,6 +49,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsStarredLoading;
+        public bool IsStarredLoading
+        {
+            get
+            {
+                return _IsStarredLoading;
+            }
+            set
+            {
+                Set(() => IsStarredLoading, ref _IsStarredLoading, value);
+            }
+        }
+
         public string _MyReposQueryString;
         public string MyReposQueryString
         {
@@ -118,22 +131,21 @@ namespace CodeHub.ViewModels
                 {
                     isLoggedin = true;
                     isLoading = true;
-                    if (Repositories == null || StarredRepositories == null)
+                    if (Repositories == null)
                     {
                         Repositories = new ObservableCollection<Repository>();
-                        StarredRepositories = new ObservableCollection<Repository>();
 
                         await LoadRepos();
-                        await LoadStarRepos();
-                        GlobalHelper.NewStarActivity = false;
-                    }
-                    
-                    if (GlobalHelper.NewStarActivity)
-                    {
-                        await LoadStarRepos();
                         GlobalHelper.NewStarActivity = false;
                     }
                     isLoading = false;
+
+                    if (GlobalHelper.NewStarActivity)
+                    {
+                        IsStarredLoading = true;
+                        await LoadStarRepos();
+                        IsStarredLoading = GlobalHelper.NewStarActivity = false;
+                    }
                 }
                 else
                 {
@@ -170,14 +182,14 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                isLoading = true;
+                IsStarredLoading = true;
                 if (User != null)
                 {
                     await LoadStarRepos();
                     GlobalHelper.NewStarActivity = false;
                 }
             }
-            isLoading = false;
+            IsStarredLoading = false;
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
@@ -258,6 +270,18 @@ namespace CodeHub.ViewModels
             }
             else
                 StarredRepositories = StarredRepositoriesNotFiltered;
+        }
+
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+            if (StarredRepositories == null && p.SelectedIndex == 1)
+            {
+                IsStarredLoading = true;
+                await LoadStarRepos();
+                IsStarredLoading = false;
+
+            }
         }
     }
 }
