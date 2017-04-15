@@ -26,7 +26,8 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Pivot Grid.Row="1">
+        <Pivot Grid.Row="1"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock FontSize="15"
@@ -304,7 +305,7 @@
                                       Label="Refresh"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.RefreshAll}">
-                            
+
                         </AppBarButton>
                         <!--<AppBarButton Icon="Accept"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -418,7 +419,6 @@
                 </Grid>
 
             </PivotItem>
-
         </Pivot>
     </Grid>
 </Page>
