@@ -82,7 +82,6 @@
                       VerticalScrollMode="Enabled">
             <Grid>
                 <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
-                         NavigationCompleted="WebView_NavigationCompleted"
                          DefaultBackgroundColor="{x:Bind ViewModel.HTMLBackgroundColor, Mode=OneWay}"
                          Visibility="{x:Bind ViewModel.HTMLContent, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
                          Margin="-8,-8,-12,-8"/>
@@ -104,6 +103,7 @@
 
             <control:MarkdownTextBlock Text="{x:Bind ViewModel.TextContent,Mode=OneWay}"
                                        Padding="8"
+                                       LinkClicked="MarkdownTextBlock_LinkClicked"
                                        ImageStretch="Fill"
                                        TextWrapping="Wrap"
                                        FontSize="13"/>
