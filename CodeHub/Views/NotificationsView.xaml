@@ -26,7 +26,8 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Pivot Grid.Row="1">
+        <Pivot Grid.Row="1"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock FontSize="15"
@@ -114,6 +115,8 @@
                                             <TextBlock x:Name="titleText"
                                                        Margin="12,0,0,0"
                                                        FontSize="13"
+                                                       TextWrapping="Wrap"
+                                                       RelativePanel.AlignRightWithPanel="True"
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
@@ -242,6 +245,8 @@
                                             <TextBlock x:Name="titleText"
                                                        Margin="12,0,0,0"
                                                        FontSize="13"
+                                                       TextWrapping="Wrap"
+                                                       RelativePanel.AlignRightWithPanel="True"
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
@@ -300,7 +305,7 @@
                                       Label="Refresh"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.RefreshAll}">
-                            
+
                         </AppBarButton>
                         <!--<AppBarButton Icon="Accept"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -370,6 +375,8 @@
                                             <TextBlock x:Name="titleText"
                                                        Margin="12,0,0,0"
                                                        FontSize="13"
+                                                       TextWrapping="Wrap"
+                                                       RelativePanel.AlignRightWithPanel="True"
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
@@ -412,7 +419,6 @@
                 </Grid>
 
             </PivotItem>
-
         </Pivot>
     </Grid>
 </Page>

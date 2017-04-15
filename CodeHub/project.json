@@ -3,7 +3,6 @@
     "HtmlAgilityPack": "1.4.9.5",
     "JetBrains.Annotations": "10.4.0",
     "LumiaImagingSDK.UWP": "3.0.593",
-    "MarkdownSharp.UWP": "1.5.2",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
     "Microsoft.Services.Store.SDK": "10.1703.19001",
     "Microsoft.Toolkit.Uwp.UI.Controls": "1.4.0",

@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using CodeHub.Services;
 using System.Collections.ObjectModel;
 using Octokit;
+using Windows.UI.Xaml.Controls;
 
 namespace CodeHub.ViewModels
 {
     public class NotificationsViewmodel : AppViewmodel
     {
+        #region properties
         public ObservableCollection<Notification> _AllNotifications;
         public ObservableCollection<Notification> AllNotifications
         {
@@ -129,7 +131,7 @@ namespace CodeHub.ViewModels
 
             }
         }
-
+        #endregion
 
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
@@ -148,17 +150,10 @@ namespace CodeHub.ViewModels
                                               }
                                               else
                                               {
-                                                  if (AllNotifications == null)
+                                                  if (UnreadNotifications == null)
                                                   {
-                                                      IsLoadingAll =
-                                                      IsLoadingUnread =
-                                                      IsloadingParticipating =
-                                                      true;
-
+                                                      IsLoadingUnread = true;
                                                       await LoadUnreadNotifications();
-                                                      await LoadParticipatingNotifications();
-                                                      await LoadAllNotifications();
-                                                      
                                                   }
 
                                               }
@@ -224,17 +219,11 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                IsLoadingAll =
-                IsLoadingUnread =
-                IsloadingParticipating =
-                true;
+                IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
 
                 await NotificationsService.MarkAllNotificationsAsRead();
-                //LoadCommand.Execute(null);
-                IsLoadingAll =
-                IsLoadingUnread =
-                IsloadingParticipating =
-                false;
+                
+                IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
             }
         }
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
@@ -243,15 +232,13 @@ namespace CodeHub.ViewModels
             User = null;
             AllNotifications = UnreadNotifications = ParticipatingNotifications = null;
         }
-        public async void RecieveSignInMessage(User user)
+        public void RecieveSignInMessage(User user)
         {
             if (user != null)
             {
                 isLoggedin = true;
                 User = user;
-                await LoadUnreadNotifications();
-                await LoadParticipatingNotifications();
-                await LoadAllNotifications();
+                LoadCommand.Execute(null);
             }
         }
 
@@ -283,5 +270,21 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+            if(p.SelectedIndex == 1 && ParticipatingNotifications == null)
+            {
+                IsloadingParticipating = true;
+                await LoadParticipatingNotifications();
+                IsloadingParticipating = false;
+            }
+            else if(p.SelectedIndex == 2 && AllNotifications == null)
+            {
+                IsLoadingAll = true;
+                await LoadAllNotifications();
+                IsLoadingAll = false;
+            }
+        }
     }
 }

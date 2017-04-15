@@ -9,7 +9,6 @@ using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using CodeHub.Services.Hilite_me;
-using MarkdownSharp;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using CodeHub.Views;

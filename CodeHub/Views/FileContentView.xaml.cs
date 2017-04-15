@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
 using System.Collections.Generic;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -31,24 +32,9 @@ namespace CodeHub.Views
             await ViewModel.Load(tuple);
         }
 
-        private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
-            /*
-             * We are running a Javascript function that will make all links in the WebView open in an external browser
-             * instead of within the WebView itself
-             */
-            var webView = sender as WebView;
-            await webView.InvokeScriptAsync("eval", new[]
-            {
-                @"(function()
-                {
-                    var hyperlinks = document.getElementsByTagName('a');
-                    for(var i = 0; i < hyperlinks.length; i++)
-                    {
-                         hyperlinks[i].setAttribute('target', '_blank');
-                    }
-                })()"
-            });
+            await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
     }
 
