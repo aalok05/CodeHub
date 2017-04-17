@@ -162,70 +162,34 @@ namespace CodeHub.ViewModels
 
         }
 
-        public double _progressBarValue;
-        public double ProgressBarValue
-        {
-            get
-            {
-                return _progressBarValue;
-            }
-            set
-            {
-                Set(() => ProgressBarValue, ref _progressBarValue, value);
-
-            }
-        }
-
         #endregion
         public async Task Load(Repository repository)
         {
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
             }
             else
             {
-                
-                ProgressBarValue = 0;
-                isLoading = true; //For the progressBar at the top of the page
-                IsLoadingOpen = IsLoadingClosed = IsLoadingMine = true;
-
                 Repository = repository;
 
                 /*Clear off Issues of the previous repository*/
-                if (OpenIssues!=null)
-                   OpenIssues.Clear();
+                if (OpenIssues != null)
+                    OpenIssues.Clear();
                 if (ClosedIssues != null)
-                     ClosedIssues.Clear();
+                    ClosedIssues.Clear();
                 if (MyIssues != null)
-                     MyIssues.Clear(); 
+                    MyIssues.Clear();
 
+                IsLoadingOpen = true;
                 OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
                 {
                     State = ItemStateFilter.Open
                 });
                 IsLoadingOpen = false;
-                ProgressBarValue += 100/3;
 
                 ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
-
-                ClosedIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest {
-                    State = ItemStateFilter.Closed
-                });
-                IsLoadingClosed = false;
-                ProgressBarValue += 100/3;
-
-                ZeroClosedIssues = ClosedIssues.Count == 0 ? true : false;
-
-                MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(Repository.Id);
-                ProgressBarValue += 100 / 3;
-                IsLoadingMine = false;
-
-                ZeroMyIssues = MyIssues.Count == 0 ? true : false;
-
-                isLoading = false;
-             
             }
         }
 
@@ -233,6 +197,32 @@ namespace CodeHub.ViewModels
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
                             .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<string, string, Issue>(Repository.Owner.Login, Repository.Name, e.ClickedItem as Issue));
+        }
+
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+
+            if (p.SelectedIndex == 1 && ClosedIssues == null)
+            {
+                IsLoadingClosed = true;
+
+                ClosedIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
+                {
+                    State = ItemStateFilter.Closed
+                });
+                IsLoadingClosed = false;
+
+                ZeroClosedIssues = ClosedIssues.Count == 0 ? true : false;
+            }
+            else if (p.SelectedIndex == 2 && MyIssues == null)
+            {
+                IsLoadingMine = true;
+                MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(Repository.Id);
+                IsLoadingMine = false;
+
+                ZeroMyIssues = MyIssues.Count == 0 ? true : false;
+            }
         }
     }
 }

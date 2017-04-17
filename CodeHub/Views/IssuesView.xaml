@@ -13,21 +13,13 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <ProgressBar Grid.Row="0"
-                     IsIndeterminate="False"
-                     Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-                     Value="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}" />
-
+        
         <!--  Empty grid to provide grey background to pivot headers  -->
-        <Grid Grid.Row="1"
-              Height="48"
+        <Grid Height="48"
               VerticalAlignment="Top"
               Background="{ThemeResource SystemChromeLowColor}" />
-        <Pivot Grid.Row="1">
+        <Pivot Grid.Row="1"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock FontSize="15"
