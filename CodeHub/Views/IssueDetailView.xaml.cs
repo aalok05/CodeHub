@@ -29,7 +29,7 @@ namespace CodeHub.Views
            
             this.DataContext = ViewModel;
 
-            NavigationCacheMode = NavigationCacheMode.Required;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {

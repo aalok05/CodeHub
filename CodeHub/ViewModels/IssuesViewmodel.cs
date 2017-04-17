@@ -203,7 +203,10 @@ namespace CodeHub.ViewModels
         {
             Pivot p = sender as Pivot;
 
-            if (p.SelectedIndex == 1 && ClosedIssues == null)
+            if (p.SelectedIndex == 0)
+            return;
+            
+            if (p.SelectedIndex == 1)
             {
                 IsLoadingClosed = true;
 
@@ -215,7 +218,7 @@ namespace CodeHub.ViewModels
 
                 ZeroClosedIssues = ClosedIssues.Count == 0 ? true : false;
             }
-            else if (p.SelectedIndex == 2 && MyIssues == null)
+            else if (p.SelectedIndex == 2)
             {
                 IsLoadingMine = true;
                 MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(Repository.Id);

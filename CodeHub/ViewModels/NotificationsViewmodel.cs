@@ -150,12 +150,8 @@ namespace CodeHub.ViewModels
                                               }
                                               else
                                               {
-                                                  if (UnreadNotifications == null)
-                                                  {
-                                                      IsLoadingUnread = true;
-                                                      await LoadUnreadNotifications();
-                                                  }
-
+                                                  IsLoadingUnread = true;
+                                                  await LoadUnreadNotifications();
                                               }
                                           }));
             }
