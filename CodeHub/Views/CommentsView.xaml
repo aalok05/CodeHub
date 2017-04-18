@@ -51,6 +51,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="13"
                                             ImageStretch="Fill"
+                                            LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
                                             Text="{x:Bind ViewModel.Comment.Body, Mode=OneWay}"
                                             TextWrapping="Wrap" />
                 <TextBlock Margin="0,5,0,5"
