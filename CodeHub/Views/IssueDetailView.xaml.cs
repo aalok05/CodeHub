@@ -3,18 +3,6 @@ using CodeHub.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace CodeHub.Views
@@ -29,7 +17,7 @@ namespace CodeHub.Views
            
             this.DataContext = ViewModel;
 
-            NavigationCacheMode = NavigationCacheMode.Enabled;
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -41,6 +29,8 @@ namespace CodeHub.Views
 
             if (e.NavigationMode != NavigationMode.Back)
             {
+                //NavigationCacheMode = NavigationCacheMode.Disabled; //clearing the page cache
+
                 if (ViewModel.Comments != null)
                 {
                     ViewModel.Comments.Clear();

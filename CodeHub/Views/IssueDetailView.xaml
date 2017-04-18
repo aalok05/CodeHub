@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converters="using:CodeHub.Converters"
+      xmlns:usercontrol="using:CodeHub.Controls"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -77,22 +78,22 @@
         <RelativePanel x:Name="DetailGrid">
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
-                       FontSize="16"
+                       FontSize="20"
                        FontWeight="SemiLight"
                        Foreground="{StaticResource AppPrimaryColorBrush}"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
-                       Text="{x:Bind ViewModel.Issue.Title, Mode=OneWay}"
+                       Text="{x:Bind ViewModel.Issue.Title,Mode=OneWay}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
-                       FontSize="18"
+                       FontSize="20"
                        FontWeight="Light"
                        Foreground="Gray"
                        Text="#" />
             <TextBlock x:Name="NumberBlock"
                        Margin="0,8,0,4"
-                       FontSize="18"
+                       FontSize="20"
                        FontWeight="Light"
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
@@ -132,7 +133,7 @@
             </StackPanel>
 
             <StackPanel x:Name="statePanel"
-                        Margin="8,0,0,0"
+                        Margin="8,8,0,0"
                         Padding="6"
                         Orientation="Horizontal"
                         RelativePanel.AlignLeftWithPanel="True"
@@ -163,8 +164,9 @@
 
 
             <StackPanel x:Name="assigneePanel"
-                        Margin="8,0,0,0"
+                        Margin="8,0,4,0"
                         Orientation="Horizontal"
+                        RelativePanel.AlignVerticalCenterWith="UserBlock"
                         RelativePanel.Below="statePanel"
                         RelativePanel.RightOf="UserBlock">
                 <Viewbox MaxWidth="15"
@@ -179,47 +181,53 @@
                            TextAlignment="Left" />
             </StackPanel>
 
-            <ScrollViewer Margin="4,8,4,8"
-                          HorizontalScrollBarVisibility="Hidden"
+            <ScrollViewer Margin="8 16 4 8"
+                          HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
                           RelativePanel.AlignLeftWithPanel="True"
                           RelativePanel.AlignRightWithPanel="True"
-                          RelativePanel.Below="assigneePanel"
-                          VerticalScrollBarVisibility="Auto"
+                          RelativePanel.Below="UserBlock"
+                          VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Enabled">
-                <controls:MarkdownTextBlock FontSize="13"
+
+                <controls:MarkdownTextBlock Padding="8"
+                                            FontSize="13"
                                             ImageStretch="Fill"
+                                            LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
                                             Text="{x:Bind ViewModel.Issue.Body, Mode=OneWay}"
                                             TextWrapping="Wrap" />
+
             </ScrollViewer>
+
+
         </RelativePanel>
         <Grid x:Name="CommentsGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"
-                            Margin="10 5 0 5"
-                            Orientation="Horizontal">
+                        Margin="10 5 0 5"
+                        Orientation="Horizontal">
                 <TextBlock Margin="0 0 5 0"
-                               FontSize="17"
-                               FontWeight="SemiLight"
-                               Foreground="Gray"
-                               Text="Comments" />
+                           FontSize="17"
+                           FontWeight="SemiLight"
+                           Foreground="Gray"
+                           Text="Comments" />
                 <TextBlock FontSize="17"
-                               FontWeight="SemiLight"
-                               Foreground="{StaticResource AppPrimaryColorBrush}"
-                               Text="{x:Bind ViewModel.Issue.Comments, Mode=OneWay}" />
+                           FontWeight="SemiLight"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Text="{x:Bind ViewModel.Issue.Comments, Mode=OneWay}" />
             </StackPanel>
 
             <ListView x:Name="commentsListView"
-                          Grid.Row="1"
-                          IsItemClickEnabled="True"
-                          ItemClick="{x:Bind ViewModel.CommentTapped}"
-                          ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.VerticalScrollMode="Enabled">
+                      Grid.Row="1"
+                      IsItemClickEnabled="True"
+                      ItemClick="{x:Bind ViewModel.CommentTapped}"
+                      ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
+                      ScrollViewer.HorizontalScrollMode="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollMode="Enabled">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -228,54 +236,17 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="octo:IssueComment">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Margin="0 0 3 0" Orientation="Vertical">
-                                <Grid>
-                                    <Border Width="23"
-                                                Height="23"
-                                                Margin="0 0 10 0"
-                                                CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="/Assets/Images/placeholder.jpg" />
-                                        </Border.Background>
-                                    </Border>
-                                    <Border Width="23"
-                                                Height="23"
-                                                Margin="0 0 10 0"
-                                                CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind User.AvatarUrl, Mode=OneWay}" />
-                                        </Border.Background>
-                                    </Border>
-                                </Grid>
-
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="0 0 0 5"
-                                               FontSize="12"
-                                               Foreground="Gray"
-                                               Text="{x:Bind User.Login, Mode=OneWay}" />
-                                <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               MaxLines="3"
-                                               Text="{x:Bind Body, Mode=OneWay}"
-                                               TextTrimming="CharacterEllipsis" />
-                                <TextBlock Margin="0 5 0 5"
-                                               FontSize="12"
-                                               Foreground="Gray"
-                                               Text="{x:Bind UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
-                            </StackPanel>
-
-                        </StackPanel>
+                        <usercontrol:CommentListItem/>
                     </DataTemplate>
 
                 </ListView.ItemTemplate>
             </ListView>
             <ProgressRing Grid.Row="1"
-                              Width="20"
-                              Height="20"
-                              HorizontalAlignment="Center"
-                              IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
+                          Width="20"
+                          Height="20"
+                          HorizontalAlignment="Center"
+                          IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
         </Grid>
+
     </Grid>
 </Page>
