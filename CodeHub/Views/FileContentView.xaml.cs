@@ -31,11 +31,6 @@ namespace CodeHub.Views
 
             await ViewModel.Load(tuple);
         }
-
-        private async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
-        {
-            await Launcher.LaunchUriAsync(new Uri(e.Link));
-        }
     }
 
 }
