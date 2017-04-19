@@ -7,8 +7,6 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 <a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a>
 
-![codehub-newsFeed-screenshot](http://imagizer.imageshack.us/a/img921/8086/bhBO7h.png)
-
 ## Features
 * See Trending repositories
 * See your News Feed
@@ -17,6 +15,12 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 * Search repositories, users, issues and code
 * Star, Watch and Fork repositories
 * Follow users
+
+## Screenshots
+
+| Trending        			                               | Notifications           				  | News Feed  				          |
+| ----------------------------------------------------------------- |:----------------------------------------------------------------:| ---------------------------------------------------------------:|
+| ![screenshot](https://preview.ibb.co/jvsU35/mob1.png)      | ![screenshot](https://preview.ibb.co/ekXJwQ/mob4.png) | ![screenshot](https://preview.ibb.co/fEesO5/mob5.png) |
 
 ## Contributions
 Pull requests are welcome in the `dev` branch!
