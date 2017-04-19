@@ -19,6 +19,7 @@ namespace CodeHub.ViewModels
 {
     public class HomeViewmodel : AppViewmodel
     {
+        #region properties
         public enum TimeRange
         {
             TODAY, WEEKLY, MONTHLY
@@ -262,6 +263,7 @@ namespace CodeHub.ViewModels
 
             }
         }
+        #endregion
 
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
@@ -281,17 +283,7 @@ namespace CodeHub.ViewModels
                                               {
                                                   if (TrendingReposToday == null)
                                                   {
-                                                      IsLoadingToday = 
-                                                      IsLoadingWeek = 
-                                                      IsLoadingMonth = 
-                                                      CanLoadMoreToday =
-                                                      CanLoadMoreWeek =
-                                                      CanLoadMoreMonth =
-                                                      true;
-
                                                       await LoadTrendingRepos(TimeRange.TODAY);
-                                                      await LoadTrendingRepos(TimeRange.WEEKLY);
-                                                      await LoadTrendingRepos(TimeRange.MONTHLY);
                                                   }
 
                                               }
@@ -299,6 +291,7 @@ namespace CodeHub.ViewModels
                                           }));
             }
         }
+
         public async void RefreshTodayCommand(object sender, EventArgs e)
         {
             if (!GlobalHelper.IsInternet())
@@ -346,12 +339,15 @@ namespace CodeHub.ViewModels
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
         }
+
         private async Task LoadTrendingRepos(TimeRange range)
         {
             if (range == TimeRange.TODAY)
             {
+                IsLoadingToday = CanLoadMoreToday = true;
                 var repos = await RepositoryUtility.GetTrendingRepos(range, true);
                 IsLoadingToday = false;
+
                 if (repos != null)
                 {
                     ZeroTodayCount = false;
@@ -367,8 +363,10 @@ namespace CodeHub.ViewModels
             }
             else if (range == TimeRange.WEEKLY)
             {
+                IsLoadingWeek = CanLoadMoreWeek = true;
                 var repos = await RepositoryUtility.GetTrendingRepos(range, true);
                 IsLoadingWeek = false;
+
                 if (repos != null)
                 {
                     ZeroWeeklyCount = false;
@@ -383,8 +381,10 @@ namespace CodeHub.ViewModels
             }
             else
             {
+                IsLoadingMonth = CanLoadMoreMonth = true;
                 var repos = await RepositoryUtility.GetTrendingRepos(range, true);
                 IsLoadingMonth = false;
+
                 if (repos != null)
                 {
                     ZeroMonthlyCount = false;
@@ -448,5 +448,19 @@ namespace CodeHub.ViewModels
 
         }
 
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+
+            if(p.SelectedIndex == 1 && TrendingReposWeek == null)
+            {
+                await LoadTrendingRepos(TimeRange.WEEKLY);
+            }
+            else if (p.SelectedIndex == 2 && TrendingReposMonth == null)
+            {
+                await LoadTrendingRepos(TimeRange.MONTHLY);
+            }
+            
+        }
     }
 }
