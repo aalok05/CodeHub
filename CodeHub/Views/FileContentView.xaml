@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <controls:AutoHideGrid Background="#FF171717"
+        <controls:AutoHideGrid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                                Height="48"
                                x:Name="Header"
                                VerticalAlignment="Top">
@@ -103,7 +103,7 @@
 
             <control:MarkdownTextBlock Text="{x:Bind ViewModel.TextContent,Mode=OneWay}"
                                        Padding="8"
-                                       LinkClicked="MarkdownTextBlock_LinkClicked"
+                                       LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
                                        ImageStretch="Fill"
                                        TextWrapping="Wrap"
                                        FontSize="13"/>

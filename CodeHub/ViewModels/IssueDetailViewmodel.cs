@@ -6,12 +6,10 @@ using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace CodeHub.ViewModels
 {
@@ -57,16 +55,30 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _isPull;
-        public bool IsPull
+        public Geometry _StateSymbol;
+        public Geometry StateSymbol
         {
             get
             {
-                return _isPull;
+                return _StateSymbol;
             }
             set
             {
-                Set(() => IsPull, ref _isPull, value);
+                Set(() => StateSymbol, ref _StateSymbol, value);
+
+            }
+        }
+        
+        public string _StateColor;
+        public string StateColor
+        {
+            get
+            {
+                return _StateColor;
+            }
+            set
+            {
+                Set(() => StateColor, ref _StateColor, value);
 
             }
         }
@@ -84,6 +96,7 @@ namespace CodeHub.ViewModels
 
             }
         }
+
         public async Task Load(Tuple<string, string, Issue> tuple)
         {
             Issue = tuple.Item3;
@@ -97,8 +110,6 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                IsPull = Issue.PullRequest != null ? true : false;
-
                 isLoading = true;
                 Comments = await RepositoryUtility.GetAllCommentsForIssue(Login, RepoName, Issue.Number);
                 isLoading = false;

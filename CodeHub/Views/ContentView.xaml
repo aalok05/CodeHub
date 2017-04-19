@@ -24,7 +24,7 @@
         <controls:AutoHideGrid x:Name="Header"
                                Height="48"
                                VerticalAlignment="Top"
-                               Background="#FF171717">
+                               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
