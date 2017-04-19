@@ -137,11 +137,10 @@
                         Padding="6"
                         Orientation="Horizontal"
                         RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="TitleBlock"
-                        Background="{x:Bind ViewModel.StateColor}">
-                <Path Margin="0,0,4,0" 
-                      Fill="White"
-                      Data="{x:Bind ViewModel.StateSymbol}"/>
+                        RelativePanel.Below="TitleBlock">
+                <Path x:Name="stateSymbol"
+                      Margin="0,0,4,0" 
+                      Fill="White"/>
                 <TextBlock FontSize="12"
                            FontWeight="SemiBold"
                            Foreground="White"
