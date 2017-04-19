@@ -144,13 +144,12 @@
                                     RelativePanel.AlignLeftWithPanel="True"
                                     RelativePanel.AlignRightWithPanel="True"
                                     RelativePanel.Below="RepoText">
-                                <TextBlock Padding="12 8 0 8"
-                                           FontSize="13"
-                                           MaxLines="5"
-                                           Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
-                                           TextTrimming="CharacterEllipsis"
-                                           TextWrapping="Wrap"
-                                           Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
+                                <toolkitControl:MarkdownTextBlock Padding="12 8 0 8"
+                                                                  FontSize="13"                                                                  
+                                                                  Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
+                                                                  TextWrapping="Wrap"
+                                                                  ImageStretch="Fill"
+                                                                  Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
                             </Border>
                         </RelativePanel>
                     </UserControl>
