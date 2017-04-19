@@ -12,7 +12,6 @@
     </Page.Resources>
 
     <RelativePanel Margin="0,4,0,4">
-
         <HyperlinkButton x:Name="avatar"
                          Margin="16,4,0,0"
                          VerticalAlignment="Top"
@@ -30,11 +29,12 @@
         </HyperlinkButton>
 
         <StackPanel x:Name="detailsPanel"
-                    Padding="4"
-                    Margin="0 4 0 0"
+                    Padding="8"
+                    Margin="0 4 0 4"
                     Background="{ThemeResource SystemChromeLowColor}"
                     Orientation="Horizontal"
-                    RelativePanel.RightOf="avatar">
+                    RelativePanel.RightOf="avatar"
+                    RelativePanel.AlignRightWithPanel="True">
             <HyperlinkButton Margin="0,0,4,0"
                              Padding="0"
                              Command="{x:Bind ViewModel.UserTapped}"
@@ -53,8 +53,7 @@
                        FontSize="13"
                        Foreground="Gray"
                        Text="commented" />
-            <TextBlock Margin="0,0,0,0"
-                       FontSize="13"
+            <TextBlock FontSize="13"
                        Foreground="Gray"
                        Text="{x:Bind ViewModel.Comment.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
         </StackPanel>
@@ -73,9 +72,6 @@
                                         TextWrapping="Wrap" />
 
         </ScrollViewer>
-
-
-
     </RelativePanel>
 
 </Page>

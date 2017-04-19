@@ -27,7 +27,8 @@
                     Orientation="Horizontal"
                     Padding="4"
                     Background="{ThemeResource SystemChromeLowColor}"
-                    RelativePanel.RightOf="avatar">
+                    RelativePanel.RightOf="avatar"
+                    RelativePanel.AlignRightWithPanel="True">
             <TextBlock Margin="0,0,4,4"
                        FontSize="13"
                        Foreground="Gray"

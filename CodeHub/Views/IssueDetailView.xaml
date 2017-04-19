@@ -3,13 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converters="using:CodeHub.Converters"
-      xmlns:usercontrol="using:CodeHub.Controls"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:local="using:CodeHub.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
+      xmlns:usercontrol="using:CodeHub.Controls"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
@@ -83,7 +83,7 @@
                        Foreground="{StaticResource AppPrimaryColorBrush}"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
-                       Text="{x:Bind ViewModel.Issue.Title,Mode=OneWay}"
+                       Text="{x:Bind ViewModel.Issue.Title, Mode=OneWay}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
@@ -137,25 +137,11 @@
                         Padding="6"
                         Orientation="Horizontal"
                         RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="TitleBlock">
-                <i:Interaction.Behaviors>
-                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.Issue.State, Mode=OneWay, Converter={StaticResource ObjectToStringConverter}}" Value="Open">
-                        <core:ChangePropertyAction PropertyName="Background" Value="#2CBE4E" />
-                    </core:DataTriggerBehavior>
-                    <core:DataTriggerBehavior Binding="{x:Bind ViewModel.Issue.State, Mode=OneWay, Converter={StaticResource ObjectToStringConverter}}" Value="Closed">
-                        <core:ChangePropertyAction PropertyName="Background" Value="#CB2431" />
-                    </core:DataTriggerBehavior>
-                </i:Interaction.Behaviors>
-                <Path Margin="0,0,4,0" Fill="White">
-                    <i:Interaction.Behaviors>
-                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsPull, Mode=OneWay}" Value="True">
-                            <core:ChangePropertyAction PropertyName="Data" Value="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z" />
-                        </core:DataTriggerBehavior>
-                        <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsPull, Mode=OneWay}" Value="False">
-                            <core:ChangePropertyAction PropertyName="Data" Value="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z" />
-                        </core:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Path>
+                        RelativePanel.Below="TitleBlock"
+                        Background="{x:Bind ViewModel.StateColor}">
+                <Path Margin="0,0,4,0" 
+                      Fill="White"
+                      Data="{x:Bind ViewModel.StateSymbol}"/>
                 <TextBlock FontSize="12"
                            FontWeight="SemiBold"
                            Foreground="White"
@@ -203,8 +189,8 @@
         </RelativePanel>
         <Grid x:Name="CommentsGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"
                         Margin="10 5 0 5"
@@ -236,7 +222,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="octo:IssueComment">
-                        <usercontrol:CommentListItem/>
+                        <usercontrol:CommentListItem />
                     </DataTemplate>
 
                 </ListView.ItemTemplate>
