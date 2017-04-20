@@ -149,6 +149,7 @@
                                                                   Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
                                                                   TextWrapping="Wrap"
                                                                   ImageStretch="Fill"
+                                                                  LinkClicked="MarkdownTextBlock_LinkClicked"
                                                                   Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
                             </Border>
                         </RelativePanel>

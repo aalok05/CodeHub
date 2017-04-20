@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 
 namespace CodeHub.Helpers
@@ -37,7 +38,7 @@ namespace CodeHub.Helpers
         }
         public class SetHeaderTextMessageType
         {
-           public string PageName { get; set; }
+            public string PageName { get; set; }
         }
         public class FollowActivityMessageType
         {
@@ -97,7 +98,7 @@ namespace CodeHub.Helpers
             return (connectionProfile != null &&
                                         connectionProfile.GetNetworkConnectivityLevel() ==
                                         NetworkConnectivityLevel.InternetAccess);
-               
+
         }
 
         /// <summary>
@@ -106,15 +107,20 @@ namespace CodeHub.Helpers
         /// <param name="hex"></param>
         /// <returns></returns>
         public static SolidColorBrush GetSolidColorBrush(string hex)
-            {
-                byte r = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));
-                byte g = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
-                byte b = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
-                byte a = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
-                SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                return myBrush;
-            }
-        
+        {
+            byte r = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));
+            byte g = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
+            byte b = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
+            byte a = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
+            SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            return myBrush;
+        }
+
+        public static Geometry GetGeomtery(string path)
+        {
+            var sym = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">"+path+"</Geometry>";
+            return (Geometry)XamlReader.Load(sym);
+        }
     }
 
 }
