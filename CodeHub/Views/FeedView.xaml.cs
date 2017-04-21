@@ -6,6 +6,7 @@ using CodeHub.Helpers;
 using Octokit;
 using GalaSoft.MvvmLight.Ioc;
 using Windows.UI.Xaml.Controls;
+using System;
 
 namespace CodeHub.Views
 {
