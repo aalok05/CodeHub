@@ -73,7 +73,8 @@
                     </toolkitControl:PullToRefreshListView>
 
                     <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="You have no Repositories yet"
+                               Grid.Row="1"
+                               Text="No Repositories yet"
                                Visibility="{x:Bind ViewModel.ZeroRepo, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Grid.Row="1"
                                   Width="50"
@@ -135,7 +136,8 @@
                     </toolkitControl:PullToRefreshListView>
 
                     <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="You have no starred Repositories yet"
+                               Grid.Row="1"
+                               Text="No starred Repositories yet"
                                Visibility="{x:Bind ViewModel.ZeroStarRepo, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Grid.Row="1"
                                   Width="50"
