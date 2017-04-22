@@ -67,6 +67,7 @@
                       VerticalScrollMode="Enabled">
             <controls:MarkdownTextBlock FontSize="13"
                                         ImageStretch="Fill"
+                                        IsTextSelectionEnabled="False"
                                         LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
                                         Text="{x:Bind ViewModel.Comment.Body, Mode=OneWay}"
                                         TextWrapping="Wrap" />

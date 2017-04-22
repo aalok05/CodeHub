@@ -103,6 +103,7 @@
 
             <control:MarkdownTextBlock Text="{x:Bind ViewModel.TextContent,Mode=OneWay}"
                                        Padding="8"
+                                       IsTextSelectionEnabled="False"
                                        LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
                                        ImageStretch="Fill"
                                        TextWrapping="Wrap"
