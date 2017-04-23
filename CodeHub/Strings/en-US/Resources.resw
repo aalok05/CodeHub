@@ -222,6 +222,10 @@
   <data name="unsupportedFileType.Text" xml:space="preserve">
     <value>File type not supported</value>
   </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>all</value>
+    <comment>Context: all repositories</comment>
+  </data>
   <data name="closedIssue.Text" xml:space="preserve">
     <value>closed</value>
     <comment>Context: status of Issue #1 is closed</comment>
@@ -256,6 +260,12 @@
   <data name="noOrganizationTip.Text" xml:space="preserve">
     <value>No organizations yet. Disable third-party application restrictions for your organization</value>
   </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>No Repositories yet</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>No starred Repositories yet</value>
+  </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>opened by</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
@@ -269,6 +279,10 @@
   </data>
   <data name="signOut.Text" xml:space="preserve">
     <value>Sign out</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>starred</value>
+    <comment>Context: starred repositories</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
     <value>this month</value>
