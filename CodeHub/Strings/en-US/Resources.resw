@@ -222,6 +222,10 @@
   <data name="unsupportedFileType.Text" xml:space="preserve">
     <value>File type not supported</value>
   </data>
+  <data name="closedIssue.Text" xml:space="preserve">
+    <value>closed</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
   <data name="Comments.Text" xml:space="preserve">
     <value>Comments</value>
     <comment>Context: Your commit received 5 comments</comment>
@@ -230,9 +234,26 @@
     <value>Load more...</value>
     <comment>preserve ellipsis when translating</comment>
   </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>mine</value>
+    <comment>Context: Issues of mine</comment>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>No closed Issues</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>No Issues</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>No open Issues</value>
+  </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>opened by</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="openedIssue.Text" xml:space="preserve">
+    <value>open</value>
+    <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
     <value>this month</value>
