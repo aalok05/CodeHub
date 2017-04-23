@@ -177,6 +177,9 @@
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
     <value>Donate this magnificent sum if you are feeling generous and love CodeHub.</value>
   </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>You have no Events yet</value>
+  </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
     <value>Pick an option to support the developer</value>
   </data>
@@ -188,9 +191,6 @@
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
     <value>Give the developer a present.</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="thirdDonateTierAmount.Text" xml:space="preserve">
     <value>$4.99</value>

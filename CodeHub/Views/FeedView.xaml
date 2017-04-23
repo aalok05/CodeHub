@@ -173,8 +173,8 @@
                       VerticalAlignment="Center"
                       Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
-        <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
-                   Text="You have no Events yet"
+        <TextBlock x:Uid="noEvent" 
+                   Style="{StaticResource ZeroItemsTextBoxStyle}"
                    Visibility="{x:Bind ViewModel.ZeroEventCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 </Page>
