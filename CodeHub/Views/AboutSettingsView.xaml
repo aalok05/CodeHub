@@ -44,24 +44,27 @@
                    FontWeight="Light"
                    FontSize="18"
                    RelativePanel.Below="DisplayNameTextBlock">
-            <Run>Version</Run>
+            <!--TODO:discussion here-->
+            <Run x:Uid="version"></Run>
             <Run Text="{x:Bind ViewModel.Version}" />
         </TextBlock>
         <TextBlock x:Name="disclaimerText"
+                   x:Uid="disclaimer"
                    Margin="0,0,0,10"
                    FontSize="14"
                    FontWeight="SemiLight"
                    Foreground="Gray"
                    RelativePanel.Below="versionText"
-                   Text="This app is in no way affiliated with GitHub." />
+                    />
 
         <TextBlock x:Name="creditText"
+                   x:Uid="credit"
                    Margin="0,12,0,8"
                    FontSize="18"
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.Below="disclaimerText"
                    FontWeight="Light"
-                   Text="Credits" />
+                    />
         <TextBlock x:Name="contributorName1"
                    Margin="0,0,8,0"
                    FontSize="13"
@@ -180,8 +183,8 @@
             </HyperlinkButton.ContentTemplate>
         </HyperlinkButton>
         <HyperlinkButton x:Name="privacyLink"
+                         x:Uid="privacyLink"
                          Margin="0 12 0 0"
-                         Content="Privacy Policy"
                          FontSize="13"
                          Foreground="{StaticResource AppPrimaryColorBrush}"
                          NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
@@ -198,10 +201,10 @@
                                     Foreground="White"
                                     Symbol="OutlineStar" />
                     </Viewbox>
-                    <TextBlock VerticalAlignment="Center"
+                    <TextBlock x:Uid="rateButtonContent"
+                               VerticalAlignment="Center"
                                FontSize="12"
-                               Foreground="White"
-                               Text="Rate in the store" />
+                               Foreground="White" />
                 </StackPanel>
             </Button.Content>
 
