@@ -222,6 +222,10 @@
   <data name="unsupportedFileType.Text" xml:space="preserve">
     <value>File type not supported</value>
   </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>Load more...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
   <data name="thisMonth.Text" xml:space="preserve">
     <value>this month</value>
   </data>
