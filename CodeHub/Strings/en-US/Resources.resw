@@ -222,9 +222,17 @@
   <data name="unsupportedFileType.Text" xml:space="preserve">
     <value>File type not supported</value>
   </data>
+  <data name="Comments.Text" xml:space="preserve">
+    <value>Comments</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
   <data name="loadMoreButton.Content" xml:space="preserve">
     <value>Load more...</value>
     <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>opened by</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
     <value>this month</value>
