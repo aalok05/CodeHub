@@ -110,7 +110,8 @@
                                        FontSize="13"/>
 
         </ScrollViewer>
-        <TextBlock Grid.Row="1" Text="File type not supported"
+        <TextBlock x:Uid="unsupportedFileType"
+                   Grid.Row="1"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="Gray"

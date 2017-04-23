@@ -201,4 +201,7 @@
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>Unfollow</value>
   </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>File type not supported</value>
+  </data>
 </root>
