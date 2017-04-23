@@ -238,6 +238,12 @@
     <value>mine</value>
     <comment>Context: Issues of mine</comment>
   </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>My Repos</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>News Feed</value>
+  </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
     <value>No closed Issues</value>
   </data>
@@ -255,6 +261,12 @@
     <value>open</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
   <data name="thisMonth.Text" xml:space="preserve">
     <value>this month</value>
   </data>
@@ -266,5 +278,8 @@
   </data>
   <data name="treadingUpdatePlaceholder.Text" xml:space="preserve">
     <value>Trending Repositories are being updated by Github</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>Treading</value>
   </data>
 </root>
