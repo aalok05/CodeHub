@@ -222,4 +222,16 @@
   <data name="unsupportedFileType.Text" xml:space="preserve">
     <value>File type not supported</value>
   </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>this month</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>this week</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>today</value>
+  </data>
+  <data name="treadingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>Trending Repositories are being updated by Github</value>
+  </data>
 </root>
