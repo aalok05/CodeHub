@@ -129,6 +129,18 @@
   <data name="rateButtonContent.Text" xml:space="preserve">
     <value>Rate in the store</value>
   </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="themeTip.Text" xml:space="preserve">
+    <value>Theme changes require app restart</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
   <data name="version.Text" xml:space="preserve">
     <value>Version</value>
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
