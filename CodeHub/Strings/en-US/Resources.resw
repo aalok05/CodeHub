@@ -149,4 +149,19 @@
     <value>Version</value>
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>followers</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>following</value>
+  </data>
+  <data name="repostories.Text" xml:space="preserve">
+    <value>Repositories</value>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>Unfollow</value>
+  </data>
 </root>
