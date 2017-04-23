@@ -253,6 +253,9 @@
   <data name="noOpenIssue.Text" xml:space="preserve">
     <value>No open Issues</value>
   </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>No organizations yet. Disable third-party application restrictions for your organization</value>
+  </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>opened by</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
