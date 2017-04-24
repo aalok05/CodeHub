@@ -254,6 +254,9 @@
   <data name="noIssue.Text" xml:space="preserve">
     <value>No Issues</value>
   </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>No new notifications</value>
+  </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
     <value>No open Issues</value>
   </data>
@@ -277,8 +280,21 @@
   <data name="organizations.Text" xml:space="preserve">
     <value>Organizations</value>
   </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>participating</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="signOut.Text" xml:space="preserve">
     <value>Sign out</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>Unsubscribe from this thread</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>Mark as read</value>
   </data>
   <data name="starred.Text" xml:space="preserve">
     <value>starred</value>
@@ -298,5 +314,9 @@
   </data>
   <data name="trending.Text" xml:space="preserve">
     <value>Treading</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>unread</value>
+    <comment>Context: unread notifications</comment>
   </data>
 </root>
