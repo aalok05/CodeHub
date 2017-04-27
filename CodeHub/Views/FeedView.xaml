@@ -29,14 +29,14 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <toolkitControl:PullToRefreshListView x:Name="FeedListView"
                                               IsItemClickEnabled="False"
-                                              SelectionMode="None"
                                               IsPullToRefreshWithMouseEnabled="True"
                                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                                               OverscrollLimit="0.4"
                                               PullProgressChanged="Feed_PullProgressChanged"
                                               PullThreshold="100"
-                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
+                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
+                                              SelectionMode="None">
             <toolkitControl:PullToRefreshListView.ItemTemplate>
                 <DataTemplate x:DataType="octo:Activity">
                     <UserControl>
@@ -48,9 +48,12 @@
                                             <AdaptiveTrigger MinWindowWidth="320" />
                                         </VisualState.StateTriggers>
                                         <VisualState.Setters>
-                                            <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
-                                            <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
-                                            <Setter Target="RepoText.Margin" Value="4 0 0 0" />
+                                            <Setter Target="actionText.(RelativePanel.Below)" Value="userText" />
+                                            <Setter Target="actionText.Margin" Value="4 4 0 4" />
+                                            <Setter Target="actionText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                                            <Setter Target="RepoText.(RelativePanel.Below)" Value="actionText" />
+                                            <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="actionText" />
+                                            <Setter Target="commentText.(RelativePanel.Below)" Value="RepoText"/>
                                             <Setter Target="timeText.Margin" Value="4 12 0 0" />
                                             <Setter Target="userText.Margin" Value="4 0 8 0" />
                                             <Setter Target="notifSymbolScale.ScaleX" Value="1.6" />
@@ -64,7 +67,8 @@
                                         <VisualState.Setters>
                                             <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
                                             <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
-                                            <Setter Target="RepoText.Margin" Value="12 0 0 0" />
+                                            <Setter Target="RepoText.Margin" Value="4 0 0 4" />
+                                            <Setter Target="commentText.(RelativePanel.Below)" Value="RepoText"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState>
@@ -88,20 +92,32 @@
                                                         ScaleY="2" />
                                 </Path.RenderTransform>
                             </Path>
-
                             <TextBlock x:Name="timeText"
                                        Margin="12,12,0,0"
                                        FontSize="12"
                                        Foreground="Gray"
                                        RelativePanel.RightOf="notifSymbol"
                                        Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
-
+                            <toolkitControl:ImageEx x:Name="avatar"
+                                                    Margin="12,4,4,4"
+                                                    Width="27"
+                                                    Height="27"
+                                                    IsCacheEnabled="True"
+                                                    RelativePanel.Below="timeText"
+                                                    RelativePanel.RightOf="notifSymbol">
+                                <toolkitControl:ImageEx.Source>
+                                    <BitmapImage DecodePixelHeight="27"
+                                                 DecodePixelType="Logical"
+                                                 DecodePixelWidth="27"
+                                                 UriSource="{Binding Actor.AvatarUrl}"/>
+                                </toolkitControl:ImageEx.Source>
+                            </toolkitControl:ImageEx>
                             <HyperlinkButton x:Name="userText"
-                                             Margin="12,0,4,4"
+                                             Margin="4,0,4,4"
                                              Padding="0"
                                              Content="{Binding Actor.Login}"
                                              RelativePanel.Below="timeText"
-                                             RelativePanel.RightOf="notifSymbol"
+                                             RelativePanel.RightOf="avatar"
                                              Tapped="Actor_Click">
                                 <HyperlinkButton.ContentTemplate>
                                     <DataTemplate>
@@ -112,18 +128,15 @@
                                     </DataTemplate>
                                 </HyperlinkButton.ContentTemplate>
                             </HyperlinkButton>
-
                             <TextBlock x:Name="actionText"
-                                       Margin="0,0,4,4"
+                                       Margin="0,0,0,4"
                                        FontSize="13"
                                        FontWeight="SemiBold"
-                                       RelativePanel.AlignVerticalCenterWith="userText"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="userText"
                                        Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
-
                             <HyperlinkButton x:Name="RepoText"
-                                             Margin="0 0 0 4"
+                                             Margin="4 0 0 4"
                                              Padding="0"
                                              Content="{Binding Repo.Name}"
                                              FontSize="13"
@@ -139,18 +152,18 @@
                                     </DataTemplate>
                                 </HyperlinkButton.ContentTemplate>
                             </HyperlinkButton>
-
-                            <Border Margin="12 4 12 4"
+                            <Border x:Name="commentText"
+                                    Margin="12 4 12 4"
                                     Background="{ThemeResource SystemChromeLowColor}"
                                     RelativePanel.AlignLeftWithPanel="True"
                                     RelativePanel.AlignRightWithPanel="True"
-                                    RelativePanel.Below="RepoText">
+                                    RelativePanel.Below="avatar">
                                 <toolkitControl:MarkdownTextBlock Padding="12 8 0 8"
-                                                                  FontSize="13"                                                                  
-                                                                  Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
-                                                                  TextWrapping="Wrap"
+                                                                  FontSize="13"
                                                                   ImageStretch="Fill"
                                                                   LinkClicked="MarkdownTextBlock_LinkClicked"
+                                                                  Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
+                                                                  TextWrapping="Wrap"
                                                                   Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
                             </Border>
                         </RelativePanel>
