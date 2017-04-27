@@ -57,7 +57,7 @@ namespace CodeHub.Converters
                     return "forked";
 
                 case "WatchEvent":
-                    return "started watching";
+                    return "starred";
 
                 case "PublicEvent":
                     return "open sourced";
