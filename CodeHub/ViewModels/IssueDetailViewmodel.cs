@@ -55,34 +55,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public Geometry _StateSymbol;
-        public Geometry StateSymbol
-        {
-            get
-            {
-                return _StateSymbol;
-            }
-            set
-            {
-                Set(() => StateSymbol, ref _StateSymbol, value);
-
-            }
-        }
-        
-        public string _StateColor;
-        public string StateColor
-        {
-            get
-            {
-                return _StateColor;
-            }
-            set
-            {
-                Set(() => StateColor, ref _StateColor, value);
-
-            }
-        }
-
         public ObservableCollection<IssueComment> _comments;
         public ObservableCollection<IssueComment> Comments
         {

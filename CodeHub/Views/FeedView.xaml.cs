@@ -6,6 +6,7 @@ using CodeHub.Helpers;
 using Octokit;
 using GalaSoft.MvvmLight.Ioc;
 using Windows.UI.Xaml.Controls;
+using System;
 
 namespace CodeHub.Views
 {
@@ -50,6 +51,11 @@ namespace CodeHub.Views
         private void Repo_Click(object sender, RoutedEventArgs e)
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", (sender as HyperlinkButton).Content);
+        }
+
+        private async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
     }
 }
