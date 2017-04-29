@@ -143,10 +143,10 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0"
+                        <TextBlock x:Uid="followers"
+                                   Margin="0 0 10 0"
                                    FontSize="15"
-                                   FontWeight="SemiBold"
-                                   Text="followers" />
+                                   FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.User.Followers, Mode=OneWay}" />
                     </StackPanel>
 
@@ -191,10 +191,10 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0"
+                        <TextBlock x:Uid="following"
+                                   Margin="0 0 10 0"
                                    FontSize="15"
-                                   FontWeight="SemiBold"
-                                   Text="following" />
+                                   FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.User.Following, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
