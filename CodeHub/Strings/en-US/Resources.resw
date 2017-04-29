@@ -325,4 +325,7 @@
   <data name="issues.Text" xml:space="preserve">
     <value>Issues</value>
   </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>No Repositories</value>
+  </data>
 </root>
