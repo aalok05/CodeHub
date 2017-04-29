@@ -334,4 +334,13 @@
   <data name="searchAutoSuggestBox.Text" xml:space="preserve">
     <value>search away!</value>
   </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>Sign in to your GitHub account to continue</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>Welcome to CodeHub</value>
+  </data>
 </root>
