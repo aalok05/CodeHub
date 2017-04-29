@@ -328,4 +328,10 @@
   <data name="noRepositoriy.Text" xml:space="preserve">
     <value>No Repositories</value>
   </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>No Results</value>
+  </data>
+  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+    <value>search away!</value>
+  </data>
 </root>
