@@ -238,11 +238,11 @@
                                       Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                                       StrokeThickness="0" />
                             </Viewbox>
-                            <TextBlock x:Name="ViewCodeTextBlock"
+                            <TextBlock x:Uid="code"
+                                       x:Name="ViewCodeTextBlock"
                                        Margin="4 0 0 0"
                                        FontSize="12"
-                                       FontWeight="SemiLight"
-                                       Text="Code" />
+                                       FontWeight="SemiLight" />
 
                         </StackPanel>
                     </Button>
@@ -258,10 +258,10 @@
                                       Fill="{ThemeResource ApplicationForegroundThemeBrush}"
                                       StrokeThickness="0" />
                             </Viewbox>
-                            <TextBlock Margin="4 0 4 0"
+                            <TextBlock x:Uid="issues"
+                                       Margin="4 0 4 0"
                                        FontSize="12"
-                                       FontWeight="SemiLight"
-                                       Text="Issues" />
+                                       FontWeight="SemiLight" />
                             <TextBlock VerticalAlignment="Center"
                                        FontSize="12"
                                        Text="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}" />

@@ -319,4 +319,10 @@
     <value>unread</value>
     <comment>Context: unread notifications</comment>
   </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>Issues</value>
+  </data>
 </root>
