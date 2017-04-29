@@ -197,7 +197,7 @@
             <StackPanel Grid.Row="0"
                         Margin="10 5 0 5"
                         Orientation="Horizontal">
-                <TextBlock x:Uid="Comments"
+                <TextBlock x:Uid="comments"
                            Margin="0 0 5 0"
                            FontSize="17"
                            FontWeight="SemiLight"
