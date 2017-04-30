@@ -194,7 +194,7 @@
   <data name="preview.Text" xml:space="preserve">
     <value>Preview</value>
   </data>
-  <data name="repostories.Text" xml:space="preserve">
+  <data name="repositories.Text" xml:space="preserve">
     <value>Repositories</value>
   </data>
   <data name="secondDonateTierAmount.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Show line numbers</value>
   </data>
-  <data name="showReadMen.Text" xml:space="preserve">
+  <data name="showReadMe.Text" xml:space="preserve">
     <value>Show README in Repository page</value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
@@ -313,7 +313,7 @@
   <data name="today.Text" xml:space="preserve">
     <value>today</value>
   </data>
-  <data name="treadingUpdatePlaceholder.Text" xml:space="preserve">
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
     <value>Trending Repositories are being updated by Github</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
