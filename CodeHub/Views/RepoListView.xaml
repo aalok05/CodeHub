@@ -41,9 +41,8 @@
             </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
         </toolkitControl:PullToRefreshListView>
 
-        <TextBlock 
+        <TextBlock     x:Uid="noRepositoriy"
                        Style="{StaticResource ZeroItemsTextBoxStyle}"
-                       Text="No Repositories"
                        Visibility="{x:Bind ViewModel.ZeroRepoCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
         </TextBlock>
         <ProgressRing

@@ -49,7 +49,9 @@
                 </HyperlinkButton.ContentTemplate>
             </HyperlinkButton>
 
-            <TextBlock Margin="0,0,4,0"
+            <TextBlock 
+                       x:Uid="comment"
+                       Margin="0,0,4,0"
                        FontSize="13"
                        Foreground="Gray"
                        Text="commented" />

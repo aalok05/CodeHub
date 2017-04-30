@@ -43,8 +43,8 @@
             </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
         </toolkitControl:PullToRefreshListView>
 
-        <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
-                   Text="No organizations yet. Disable third-party application restrictions for your organization"
+        <TextBlock x:Uid="noOrganizationTip"
+                   Style="{StaticResource ZeroItemsTextBoxStyle}"
                    TextWrapping="Wrap"
                    Visibility="{x:Bind ViewModel.ZeroOrganizations, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
         <ProgressRing x:Name="RefreshProgressRing"

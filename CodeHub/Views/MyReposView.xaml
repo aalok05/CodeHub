@@ -26,10 +26,11 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="15"
+                        <TextBlock x:Uid="all"
+                                   FontSize="15"
                                    Margin="0 0 12 0"
                                    FontWeight="Normal"
-                                   Text="all" />
+                                   />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
@@ -72,9 +73,9 @@
                         </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
                     </toolkitControl:PullToRefreshListView>
 
-                    <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                    <TextBlock x:Uid="noRepositoryTip"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Grid.Row="1"
-                               Text="No Repositories yet"
                                Visibility="{x:Bind ViewModel.ZeroRepo, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Grid.Row="1"
                                   Width="50"
@@ -89,10 +90,10 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="15"
+                        <TextBlock x:Uid="starred.Text"
+                                   FontSize="15"
                                    Margin="0 0 12 0"
-                                   FontWeight="Normal"
-                                   Text="starred" />
+                                   FontWeight="Normal" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.StarredRepositories.Count, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
@@ -135,9 +136,9 @@
 
                     </toolkitControl:PullToRefreshListView>
 
-                    <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                    <TextBlock x:Uid="noStarredRepositoryTip"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Grid.Row="1"
-                               Text="No starred Repositories yet"
                                Visibility="{x:Bind ViewModel.ZeroStarRepo, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Grid.Row="1"
                                   Width="50"
