@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="comment.Text" xml:space="preserve">
+    <value>评论</value>
+    <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
+  </data>
+  <data name="credit.Text" xml:space="preserve">
+    <value>制作人员</value>
+  </data>
+  <data name="disclaimer.Text" xml:space="preserve">
+    <value>这个应用程序是在隶属于没办法 GitHub。</value>
+  </data>
+  <data name="privacyLink.Content" xml:space="preserve">
+    <value>保密策略</value>
+  </data>
+  <data name="rateButtonContent.Text" xml:space="preserve">
+    <value>在存储中率</value>
+  </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="themeTip.Text" xml:space="preserve">
+    <value>主题更改需要重新启动应用程序</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>黑暗的主题</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>光的主题</value>
+  </data>
+  <data name="version.Text" xml:space="preserve">
+    <value>版本</value>
+    <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
+  </data>
+  <data name="adSetting.Text" xml:space="preserve">
+    <value>支持发展，使广告</value>
+  </data>
+  <data name="busyScreen.BusyText" xml:space="preserve">
+    <value>请稍候。。。</value>
+    <comment>preserve ellipsis here</comment>
+  </data>
+  <data name="donate.Text" xml:space="preserve">
+    <value>捐赠以支持 CodeHub</value>
+  </data>
+  <data name="firstDonateTierAmount.Text" xml:space="preserve">
+    <value>0.99 美元</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="firstDonateTierDescription.Text" xml:space="preserve">
+    <value>开发商买一杯咖啡。</value>
+  </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>关注者</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
+    <value>9.99 美元</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
+    <value>如果你感到慷慨和爱 CodeHub，捐出这壮丽的总和。</value>
+  </data>
+  <data name="loadCommitMessage.Text" xml:space="preserve">
+    <value>加载文件的提交消息</value>
+  </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>你还没有任何事件</value>
+  </data>
+  <data name="pickDonateOption.Text" xml:space="preserve">
+    <value>选择一个选项来支持开发者</value>
+  </data>
+  <data name="preview.Text" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="repositories.Text" xml:space="preserve">
+    <value>存储库</value>
+  </data>
+  <data name="secondDonateTierAmount.Text" xml:space="preserve">
+    <value>2.99 美元</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="secondDonateTierDescription.Text" xml:space="preserve">
+    <value>开发商送一份礼物。</value>
+  </data>
+  <data name="showLineNumber.Text" xml:space="preserve">
+    <value>显示行号</value>
+  </data>
+  <data name="showReadMe.Text" xml:space="preserve">
+    <value>在存储库页中显示自述文件</value>
+  </data>
+  <data name="syntaxHightlignting.Text" xml:space="preserve">
+    <value>语法突出显示样式</value>
+  </data>
+  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
+    <value>$ 4.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
+    <value>积极支持 CodeHub 与这个令人敬畏的捐赠的发展。</value>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>取消关注</value>
+  </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>不支持的文件类型</value>
+  </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>全部</value>
+    <comment>Context: all repositories</comment>
+  </data>
+  <data name="closedIssue.Text" xml:space="preserve">
+    <value>已关闭</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
+  <data name="comments.Text" xml:space="preserve">
+    <value>注释</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>载入更多...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>我的</value>
+    <comment>Context: My Issues, i.e. issues opened by me</comment>
+  </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>我回购协议</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>新闻提要</value>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>没有关闭的问题</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>没有问题</value>
+  </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>没有新通知</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>没有打开的问题</value>
+  </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>然而没有组织。禁用第三方应用程序限制为您的组织</value>
+  </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>然而没有资料库</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>然而没有出演的资料库</value>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>打开的</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="openedIssue.Text" xml:space="preserve">
+    <value>开启</value>
+    <comment>Context: status of Issue #1 is open</comment>
+  </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>单位 2</value>
+  </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>参与</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>注销</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>退订此线程</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>标记为已读</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>带有星标</value>
+    <comment>Context: starred repositories</comment>
+  </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>通过 Github 正在更新趋势资料库</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>踩着</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>未读</value>
+    <comment>Context: unread notifications</comment>
+  </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>代码</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>问题</value>
+  </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>没有资料库</value>
+  </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>无结果</value>
+  </data>
+  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+    <value>搜索走了 ！</value>
+  </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>登录到您的 GitHub 帐户继续</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>欢迎来到 CodeHub</value>
+  </data>
+</root>
