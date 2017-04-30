@@ -54,8 +54,7 @@
             <Button Background="Transparent"
                     IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                     Tapped="first_tier_Tapped">
-                <!--TODO localization of currency.
-                    discussion here-->
+                <!--show USD for now-->
                 <Button.Content>
                     <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Center"

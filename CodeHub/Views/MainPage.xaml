@@ -527,8 +527,8 @@
         <control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
                             Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
-        
-        <!--TODO how do we handle fallback value ? Discussion needed-->
+
+        <!--No need for tranlating fallback value.-->
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"

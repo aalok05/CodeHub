@@ -160,8 +160,7 @@
                          Margin="0,0,3,0">
                     <SymbolIcon Foreground="Gray" Symbol="Contact" />
                 </Viewbox>
-                <!--TODO How do we handle fallback values ? 
-                         discussion needed-->
+                <!--No need for tranlating fallback value.-->
                 <TextBlock VerticalAlignment="Center"
                            FontSize="13"
                            Foreground="Gray"
