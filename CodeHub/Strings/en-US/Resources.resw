@@ -161,6 +161,7 @@
   </data>
   <data name="firstDonateTierAmount.Text" xml:space="preserve">
     <value>$0.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
     <value>Buy the developer a coffee.</value>
@@ -176,6 +177,7 @@
   </data>
   <data name="fourthDonateTierAmount.Text" xml:space="preserve">
     <value>$9.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
     <value>Donate this magnificent sum if you are feeling generous and love CodeHub.</value>
@@ -197,6 +199,7 @@
   </data>
   <data name="secondDonateTierAmount.Text" xml:space="preserve">
     <value>$2.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
     <value>Give the developer a present.</value>
@@ -212,6 +215,7 @@
   </data>
   <data name="thirdDonateTierAmount.Text" xml:space="preserve">
     <value>$4.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
     <value>Actively support the development of CodeHub with this awesome donation.</value>
