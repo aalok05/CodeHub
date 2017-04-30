@@ -177,6 +177,7 @@
     </Content>
     <None Include="CodeHub_TemporaryKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\de\Resources.resw" />
     <PRIResource Include="Strings\zh-Hans\Resources.resw" />
     <PRIResource Include="Strings\pt\Resources.resw" />
     <PRIResource Include="Strings\vi\Resources.resw" />
@@ -567,6 +568,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <XliffResource Include="MultilingualResources\CodeHub.de.xlf" />
     <XliffResource Include="MultilingualResources\CodeHub.pt.xlf" />
     <XliffResource Include="MultilingualResources\CodeHub.vi.xlf" />
     <XliffResource Include="MultilingualResources\CodeHub.zh-Hans.xlf" />
