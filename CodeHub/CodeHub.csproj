@@ -178,10 +178,10 @@
     <None Include="CodeHub_TemporaryKey.pfx" />
     <None Include="project.json" />
     <PRIResource Include="Strings\de\Resources.resw" />
-    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
     <PRIResource Include="Strings\pt\Resources.resw" />
     <PRIResource Include="Strings\vi\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -570,8 +570,6 @@
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CodeHub.de.xlf" />
     <XliffResource Include="MultilingualResources\CodeHub.pt.xlf" />
-    <XliffResource Include="MultilingualResources\CodeHub.vi.xlf" />
-    <XliffResource Include="MultilingualResources\CodeHub.zh-Hans.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
