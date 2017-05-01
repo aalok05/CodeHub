@@ -13,75 +13,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comment.Text" xml:space="preserve">
-    <value>nhận xét</value>
+    <value>đã nhận xét</value>
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
   <data name="credit.Text" xml:space="preserve">
-    <value>Ghi nợ</value>
+    <value>Tín dụng</value>
   </data>
   <data name="disclaimer.Text" xml:space="preserve">
-    <value>Ứng dụng này trong không có cách nào liên kết với GitHub.</value>
+    <value>Ứng dụng này không phải cách liên kết với GitHub.</value>
   </data>
   <data name="privacyLink.Content" xml:space="preserve">
     <value>Chính sách về Quyền riêng tư</value>
   </data>
   <data name="rateButtonContent.Text" xml:space="preserve">
-    <value>Tỷ lệ trong các cửa hàng</value>
+    <value>Xếp hạng trong cửa hàng</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
     <value>Chủ đề</value>
   </data>
   <data name="themeTip.Text" xml:space="preserve">
-    <value>Chủ đề thay đổi yêu cầu khởi động lại ứng dụng</value>
+    <value>Khởi động lại ứng dụng để thay đổi chủ đề</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
-    <value>Dark Theme</value>
+    <value>Chủ đề Tối</value>
   </data>
   <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
-    <value>Chủ đề ánh sáng</value>
+    <value>Chủ đề Sáng</value>
   </data>
   <data name="version.Text" xml:space="preserve">
     <value>Phiên bản</value>
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
   <data name="adSetting.Text" xml:space="preserve">
-    <value>Hỗ trợ phát triển, cho phép quảng cáo</value>
+    <value>Hỗ trợ phát triển, bật quảng cáo</value>
   </data>
   <data name="busyScreen.BusyText" xml:space="preserve">
     <value>Vui lòng chờ...</value>
     <comment>preserve ellipsis here</comment>
   </data>
   <data name="donate.Text" xml:space="preserve">
-    <value>Tặng để hỗ trợ CodeHub</value>
+    <value>Quyên góp để hỗ trợ CodeHub</value>
   </data>
   <data name="firstDonateTierAmount.Text" xml:space="preserve">
     <value>$0,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Mua nhà phát triển một cà phê.</value>
+    <value>Mời nhà phát triển một tách cà phê.</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
-    <value>Dõi theo</value>
+    <value>Theo dõi</value>
   </data>
   <data name="followers.Text" xml:space="preserve">
-    <value>người dõi theo</value>
+    <value>người theo dõi</value>
   </data>
   <data name="following.Text" xml:space="preserve">
-    <value>đang dõi theo</value>
+    <value>đang theo dõi</value>
   </data>
   <data name="fourthDonateTierAmount.Text" xml:space="preserve">
     <value>$9,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Tặng số tiền tuyệt vời này nếu bạn có cảm giác rộng rãi và yêu CodeHub.</value>
+    <value>Bạn rộng rãi và yêu CodeHub hãy tặng số tiền nầy</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
-    <value>Tải thư cam kết cho các tập tin</value>
+    <value>Tải cam kết cho các tập tin</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>Bạn đã không có sự kiện nào được nêu ra</value>
+    <value>Bạn không có sự kiện nào</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
     <value>Chọn một tùy chọn để hỗ trợ các nhà phát triển</value>
@@ -97,16 +97,16 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Cung cấp cho các nhà phát triển hiện nay.</value>
+    <value>Tặng nhà phát triển một món quà.</value>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
-    <value>Hiển thị số dòng</value>
+    <value>Hiện số dòng</value>
   </data>
   <data name="showReadMe.Text" xml:space="preserve">
-    <value>Hiển thị khách sạn README trong kho lưu trữ trang</value>
+    <value>Hiện README trong trang kho lưu trữ </value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
-    <value>Syntax Highlighting phong cách</value>
+    <value>Phong cách thể hiện mã</value>
   </data>
   <data name="thirdDonateTierAmount.Text" xml:space="preserve">
     <value>$4.99</value>
@@ -126,7 +126,7 @@
     <comment>Context: all repositories</comment>
   </data>
   <data name="closedIssue.Text" xml:space="preserve">
-    <value>bị đóng</value>
+    <value>đã đóng</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
   <data name="comments.Text" xml:space="preserve">
@@ -138,17 +138,17 @@
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>mỏ</value>
+    <value>của tôi</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
-    <value>Repos của tôi</value>
+    <value>Kho của tôi</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>Tin tức nguồn cấp dữ liệu</value>
+    <value>Tin mới</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>Không có vấn đề đóng cửa</value>
+    <value>Không có vấn đề được đóng</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
     <value>Không có vấn đề</value>
@@ -160,13 +160,13 @@
     <value>Không có vấn đề mở</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>Không có tổ chức nào được nêu ra. Vô hiệu hoá hạn chế ứng dụng bên thứ ba cho tổ chức của bạn</value>
+    <value>Không có tổ chức nào. Vô hiệu hoá hạn chế ứng dụng bên thứ ba cho tổ chức của bạn</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>Không có kho chưa</value>
+    <value>Không có kho nào</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>Không có kho gắn dấu sao nào được nêu ra</value>
+    <value>Không có kho được gắn dấu sao</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>mở bằng</value>
@@ -209,10 +209,10 @@
     <value>hôm nay</value>
   </data>
   <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
-    <value>Kho xu hướng đang được Cập Nhật bởi Github</value>
+    <value>Xu hướng đang được Cập Nhật bởi Github</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>Sự giâm lên</value>
+    <value>Xu hướng</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
     <value>chưa đọc</value>
@@ -222,16 +222,16 @@
     <value>Mã</value>
   </data>
   <data name="issues.Text" xml:space="preserve">
-    <value>Issues</value>
+    <value>Vấn đề</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>Không có kho phần mềm</value>
+    <value>Không có kho nào</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
     <value>Không có kết quả</value>
   </data>
   <data name="searchAutoSuggestBox.Text" xml:space="preserve">
-    <value>Tìm đi!</value>
+    <value>Từ cần tìm!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Đăng nhập</value>
@@ -240,6 +240,6 @@
     <value>Đăng nhập vào tài khoản GitHub để tiếp tục</value>
   </data>
   <data name="welcome.Text" xml:space="preserve">
-    <value>Chào mừng đến với CodeHub</value>
+    <value>CodeHub xin chào!</value>
   </data>
 </root>

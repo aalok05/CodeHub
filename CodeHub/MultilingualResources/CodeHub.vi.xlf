@@ -8,16 +8,16 @@
       <group id="CODEHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="comment.Text" translate="yes" xml:space="preserve">
           <source>commented</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">nhận xét</target>
+          <target state="translated">đã nhận xét</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Context: SomeRandomGuy commented your commit ffde02rd at 11:11</note>
         </trans-unit>
         <trans-unit id="credit.Text" translate="yes" xml:space="preserve">
           <source>Credits</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Ghi nợ</target>
+          <target state="translated">Tín dụng</target>
         </trans-unit>
         <trans-unit id="disclaimer.Text" translate="yes" xml:space="preserve">
           <source>This app is in no way affiliated with GitHub.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ứng dụng này trong không có cách nào liên kết với GitHub.</target>
+          <target state="translated">Ứng dụng này không phải cách liên kết với GitHub.</target>
         </trans-unit>
         <trans-unit id="privacyLink.Content" translate="yes" xml:space="preserve">
           <source>Privacy Policy</source>
@@ -25,7 +25,7 @@
         </trans-unit>
         <trans-unit id="rateButtonContent.Text" translate="yes" xml:space="preserve">
           <source>Rate in the store</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tỷ lệ trong các cửa hàng</target>
+          <target state="translated">Xếp hạng trong cửa hàng</target>
         </trans-unit>
         <trans-unit id="theme.Text" translate="yes" xml:space="preserve">
           <source>Theme</source>
@@ -33,15 +33,15 @@
         </trans-unit>
         <trans-unit id="themeTip.Text" translate="yes" xml:space="preserve">
           <source>Theme changes require app restart</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Chủ đề thay đổi yêu cầu khởi động lại ứng dụng</target>
+          <target state="translated">Khởi động lại ứng dụng để thay đổi chủ đề</target>
         </trans-unit>
         <trans-unit id="ThemeToggleSwitch.OffContent" translate="yes" xml:space="preserve">
           <source>Dark Theme</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Dark Theme</target>
+          <target state="translated">Chủ đề Tối</target>
         </trans-unit>
         <trans-unit id="ThemeToggleSwitch.OnContent" translate="yes" xml:space="preserve">
           <source>Light Theme</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Chủ đề ánh sáng</target>
+          <target state="translated">Chủ đề Sáng</target>
         </trans-unit>
         <trans-unit id="version.Text" translate="yes" xml:space="preserve">
           <source>Version</source>
@@ -50,7 +50,7 @@
         </trans-unit>
         <trans-unit id="adSetting.Text" translate="yes" xml:space="preserve">
           <source>Support Development, Enable Ads</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hỗ trợ phát triển, cho phép quảng cáo</target>
+          <target state="translated">Hỗ trợ phát triển, bật quảng cáo</target>
         </trans-unit>
         <trans-unit id="busyScreen.BusyText" translate="yes" xml:space="preserve">
           <source>Please wait...</source>
@@ -59,7 +59,7 @@
         </trans-unit>
         <trans-unit id="donate.Text" translate="yes" xml:space="preserve">
           <source>Donate to support CodeHub</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tặng để hỗ trợ CodeHub</target>
+          <target state="translated">Quyên góp để hỗ trợ CodeHub</target>
         </trans-unit>
         <trans-unit id="firstDonateTierAmount.Text" translate="yes" xml:space="preserve">
           <source>$0.99</source>
@@ -68,19 +68,19 @@
         </trans-unit>
         <trans-unit id="firstDonateTierDescription.Text" translate="yes" xml:space="preserve">
           <source>Buy the developer a coffee.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Mua nhà phát triển một cà phê.</target>
+          <target state="translated">Mời nhà phát triển một tách cà phê.</target>
         </trans-unit>
         <trans-unit id="followButton.Content" translate="yes" xml:space="preserve">
           <source>Follow</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Dõi theo</target>
+          <target state="translated">Theo dõi</target>
         </trans-unit>
         <trans-unit id="followers.Text" translate="yes" xml:space="preserve">
           <source>followers</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">người dõi theo</target>
+          <target state="translated">người theo dõi</target>
         </trans-unit>
         <trans-unit id="following.Text" translate="yes" xml:space="preserve">
           <source>following</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">đang dõi theo</target>
+          <target state="translated">đang theo dõi</target>
         </trans-unit>
         <trans-unit id="fourthDonateTierAmount.Text" translate="yes" xml:space="preserve">
           <source>$9.99</source>
@@ -89,15 +89,15 @@
         </trans-unit>
         <trans-unit id="fourthDonateTierDescription.Text" translate="yes" xml:space="preserve">
           <source>Donate this magnificent sum if you are feeling generous and love CodeHub.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tặng số tiền tuyệt vời này nếu bạn có cảm giác rộng rãi và yêu CodeHub.</target>
+          <target state="translated">Bạn rộng rãi và yêu CodeHub hãy tặng số tiền nầy</target>
         </trans-unit>
         <trans-unit id="loadCommitMessage.Text" translate="yes" xml:space="preserve">
           <source>Load commit messages for files</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tải thư cam kết cho các tập tin</target>
+          <target state="translated">Tải cam kết cho các tập tin</target>
         </trans-unit>
         <trans-unit id="noEvent.Text" translate="yes" xml:space="preserve">
           <source>You have no Events yet</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bạn đã không có sự kiện nào được nêu ra</target>
+          <target state="translated">Bạn không có sự kiện nào</target>
         </trans-unit>
         <trans-unit id="pickDonateOption.Text" translate="yes" xml:space="preserve">
           <source>Pick an option to support the developer</source>
@@ -118,19 +118,19 @@
         </trans-unit>
         <trans-unit id="secondDonateTierDescription.Text" translate="yes" xml:space="preserve">
           <source>Give the developer a present.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Cung cấp cho các nhà phát triển hiện nay.</target>
+          <target state="translated">Tặng nhà phát triển một món quà.</target>
         </trans-unit>
         <trans-unit id="showLineNumber.Text" translate="yes" xml:space="preserve">
           <source>Show line numbers</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hiển thị số dòng</target>
+          <target state="translated">Hiện số dòng</target>
         </trans-unit>
         <trans-unit id="showReadMe.Text" translate="yes" xml:space="preserve">
           <source>Show README in Repository page</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hiển thị khách sạn README trong kho lưu trữ trang</target>
+          <target state="translated">Hiện README trong trang kho lưu trữ </target>
         </trans-unit>
         <trans-unit id="syntaxHightlignting.Text" translate="yes" xml:space="preserve">
           <source>Syntax Highlighting style</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Syntax Highlighting phong cách</target>
+          <target state="translated">Phong cách thể hiện mã</target>
         </trans-unit>
         <trans-unit id="thirdDonateTierAmount.Text" translate="yes" xml:space="preserve">
           <source>$4.99</source>
@@ -147,7 +147,7 @@
         </trans-unit>
         <trans-unit id="unsupportedFileType.Text" translate="yes" xml:space="preserve">
           <source>File type not supported</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Loại tệp không được hỗ trợ</target>
+          <target state="translated">Loại tệp không được hỗ trợ</target>
         </trans-unit>
         <trans-unit id="all.Text" translate="yes" xml:space="preserve">
           <source>all</source>
@@ -156,7 +156,7 @@
         </trans-unit>
         <trans-unit id="closedIssue.Text" translate="yes" xml:space="preserve">
           <source>closed</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">bị đóng</target>
+          <target state="translated">đã đóng</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Context: status of Issue #1 is closed</note>
         </trans-unit>
         <trans-unit id="comments.Text" translate="yes" xml:space="preserve">
@@ -171,20 +171,20 @@
         </trans-unit>
         <trans-unit id="mineIssue.Text" translate="yes" xml:space="preserve">
           <source>mine</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">mỏ</target>
+          <target state="translated">của tôi</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Context: My Issues, i.e. issues opened by me</note>
         </trans-unit>
         <trans-unit id="myRepos.Text" translate="yes" xml:space="preserve">
           <source>My Repos</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Repos của tôi</target>
+          <target state="translated">Kho của tôi</target>
         </trans-unit>
         <trans-unit id="newsFeed.Text" translate="yes" xml:space="preserve">
           <source>News Feed</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tin tức nguồn cấp dữ liệu</target>
+          <target state="translated">Tin mới</target>
         </trans-unit>
         <trans-unit id="noClosedIssue.Text" translate="yes" xml:space="preserve">
           <source>No closed Issues</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Không có vấn đề đóng cửa</target>
+          <target state="translated">Không có vấn đề được đóng</target>
         </trans-unit>
         <trans-unit id="noIssue.Text" translate="yes" xml:space="preserve">
           <source>No Issues</source>
@@ -200,15 +200,15 @@
         </trans-unit>
         <trans-unit id="noOrganizationTip.Text" translate="yes" xml:space="preserve">
           <source>No organizations yet. Disable third-party application restrictions for your organization</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Không có tổ chức nào được nêu ra. Vô hiệu hoá hạn chế ứng dụng bên thứ ba cho tổ chức của bạn</target>
+          <target state="translated">Không có tổ chức nào. Vô hiệu hoá hạn chế ứng dụng bên thứ ba cho tổ chức của bạn</target>
         </trans-unit>
         <trans-unit id="noRepositoryTip.Text" translate="yes" xml:space="preserve">
           <source>No Repositories yet</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Không có kho chưa</target>
+          <target state="translated">Không có kho nào</target>
         </trans-unit>
         <trans-unit id="noStarredRepositoryTip.Text" translate="yes" xml:space="preserve">
           <source>No starred Repositories yet</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Không có kho gắn dấu sao nào được nêu ra</target>
+          <target state="translated">Không có kho được gắn dấu sao</target>
         </trans-unit>
         <trans-unit id="openedBy.Text" translate="yes" xml:space="preserve">
           <source>opened by</source>
@@ -264,11 +264,11 @@
         </trans-unit>
         <trans-unit id="trendingUpdatePlaceholder.Text" translate="yes" xml:space="preserve">
           <source>Trending Repositories are being updated by Github</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Kho xu hướng đang được Cập Nhật bởi Github</target>
+          <target state="translated">Xu hướng đang được Cập Nhật bởi Github</target>
         </trans-unit>
         <trans-unit id="trending.Text" translate="yes" xml:space="preserve">
           <source>Treading</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Sự giâm lên</target>
+          <target state="translated">Xu hướng</target>
         </trans-unit>
         <trans-unit id="unread.Text" translate="yes" xml:space="preserve">
           <source>unread</source>
@@ -281,11 +281,11 @@
         </trans-unit>
         <trans-unit id="issues.Text" translate="yes" xml:space="preserve">
           <source>Issues</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Issues</target>
+          <target state="translated">Vấn đề</target>
         </trans-unit>
         <trans-unit id="noRepositoriy.Text" translate="yes" xml:space="preserve">
           <source>No Repositories</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Không có kho phần mềm</target>
+          <target state="translated">Không có kho nào</target>
         </trans-unit>
         <trans-unit id="noResult.Text" translate="yes" xml:space="preserve">
           <source>No Results</source>
@@ -293,7 +293,7 @@
         </trans-unit>
         <trans-unit id="searchAutoSuggestBox.Text" translate="yes" xml:space="preserve">
           <source>search away!</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Tìm đi!</target>
+          <target state="translated">Từ cần tìm!</target>
         </trans-unit>
         <trans-unit id="signIn.Content" translate="yes" xml:space="preserve">
           <source>Sign in</source>
@@ -305,7 +305,7 @@
         </trans-unit>
         <trans-unit id="welcome.Text" translate="yes" xml:space="preserve">
           <source>Welcome to CodeHub</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Chào mừng đến với CodeHub</target>
+          <target state="translated">CodeHub xin chào!</target>
         </trans-unit>
       </group>
     </body>
