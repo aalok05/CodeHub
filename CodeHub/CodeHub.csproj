@@ -568,7 +568,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <XliffResource Include="MultilingualResources\CodeHub.de.xlf" />
     <XliffResource Include="MultilingualResources\CodeHub.pt.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
