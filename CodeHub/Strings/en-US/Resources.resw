@@ -347,4 +347,14 @@
   <data name="welcome.Text" xml:space="preserve">
     <value>Welcome to CodeHub</value>
   </data>
+  <data name="creator.Text" xml:space="preserve">
+    <value>Creator</value>
+    <comment>Maker of the app</comment>
+  </data>
+  <data name="translator.Text" xml:space="preserve">
+    <value>Translators</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
 </root>

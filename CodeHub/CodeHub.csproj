@@ -178,7 +178,6 @@
     <None Include="CodeHub_TemporaryKey.pfx" />
     <None Include="project.json" />
     <PRIResource Include="Strings\de\Resources.resw" />
-    <PRIResource Include="Strings\pt\Resources.resw" />
     <PRIResource Include="Strings\vi\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\zh-Hans\Resources.resw" />
@@ -566,6 +565,9 @@
     <Reference Include="UICompositionAnimations">
       <HintPath>Libs\UICompositionAnimations\UICompositionAnimations.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Strings\pt\" />
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CodeHub.de.xlf" />
