@@ -58,7 +58,7 @@
                        RelativePanel.Below="versionText" />
             <TextBlock x:Name="creatorText"
                        x:Uid="creator"
-                       Margin="0,12,0,8"
+                       Margin="0,12,0,4"
                        FontSize="18"
                        FontWeight="Light"
                        RelativePanel.AlignLeftWithPanel="True"
@@ -70,7 +70,7 @@
                        Text="{x:Bind ViewModel.Publisher}" />
             <TextBlock x:Name="contributorText"
                        x:Uid="contributor"
-                       Margin="0,12,0,8"
+                       Margin="0,12,0,4"
                        FontSize="18"
                        FontWeight="Light"
                        RelativePanel.AlignLeftWithPanel="True"
@@ -100,7 +100,7 @@
                        Text="Von Hohenheim" />
             <TextBlock x:Name="translatorsText"
                        x:Uid="translator"
-                       Margin="0,12,0,8"
+                       Margin="0,12,0,4"
                        FontSize="18"
                        FontWeight="Light"
                        RelativePanel.AlignLeftWithPanel="True"

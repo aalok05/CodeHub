@@ -566,12 +566,9 @@
       <HintPath>Libs\UICompositionAnimations\UICompositionAnimations.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Strings\pt\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CodeHub.de.xlf" />
-    <XliffResource Include="MultilingualResources\CodeHub.pt.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
