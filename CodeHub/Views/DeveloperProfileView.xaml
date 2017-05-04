@@ -133,16 +133,17 @@
                 <Grid x:Name="FollowButton" Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 
                     <!--  Follow button  -->
-                    <Button Width="90"
+                    <Button x:Uid="followButton"
+                            Width="90"
                             Height="30"
                             Margin="0 0 10 0"
                             Command="{x:Bind ViewModel.FollowCommand}"
-                            Content="Follow"
                             Style="{StaticResource ActionButtonStyle}"
                             Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
 
                     <!--  Unfollow button  -->
-                    <Button Width="90"
+                    <Button x:Uid="unfollowButton" 
+                            Width="90"
                             Height="30"
                             Margin="0 0 10 0"
                             Command="{x:Bind ViewModel.UnfollowCommand}"
@@ -164,10 +165,10 @@
                         Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0"
+                        <TextBlock x:Uid="repostories"
+                                   Margin="0 0 10 0"
                                    VerticalAlignment="Center"
                                    FontSize="12"
-                                   Text="Repositories"
                                    TextAlignment="Center" />
                         <TextBlock VerticalAlignment="Center"
                                    FontSize="12"
@@ -193,10 +194,10 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0"
+                        <TextBlock x:Uid="followers"
+                                   Margin="0 0 10 0"
                                    FontSize="15"
-                                   FontWeight="SemiBold"
-                                   Text="followers" />
+                                   FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Followers, Mode=OneWay}" />
                     </StackPanel>
 
@@ -246,10 +247,10 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0"
+                        <TextBlock x:Uid="following"
+                                   Margin="0 0 10 0"
                                    FontSize="15"
-                                   FontWeight="SemiBold"
-                                   Text="following" />
+                                   FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Following, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>

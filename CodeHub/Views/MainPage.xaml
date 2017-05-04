@@ -237,10 +237,10 @@
                                            RelativePanel.RightOf="avatar"
                                            Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' '}" />
                                     <TextBlock x:Name="signout"
+                                           x:Uid="signOut"
                                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                            RelativePanel.AlignLeftWith="email"
-                                           RelativePanel.Below="email"
-                                           Text="Sign out" />
+                                           RelativePanel.Below="email" />
                                 </RelativePanel>
                             </Button>
                         </Flyout>
@@ -342,11 +342,11 @@
                                                    RelativePanel.RightOf="smallAvatarEllipse"
                                                    Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}" />
                                         <TextBlock x:Name="SignoutText"
+                                                   x:Uid="signOut"
                                                    FontSize="13"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                                    RelativePanel.AlignLeftWith="EmailText"
-                                                   RelativePanel.Below="EmailText"
-                                                   Text="Sign out" />
+                                                   RelativePanel.Below="EmailText" />
                                     </RelativePanel>
                                 </ListViewItem>
                                 <ListViewItem Tapped="SettingsItem_ItemClick">
@@ -444,7 +444,7 @@
                                 <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                             </Path.RenderTransform>
                         </Path>
-                        <TextBlock Text="Organizations" 
+                        <TextBlock x:Uid="organizations"
                                    FontSize="11"
                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                    FontWeight="SemiLight"/>
@@ -467,7 +467,7 @@
                                 <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                             </Path.RenderTransform>
                         </Path>
-                        <TextBlock Text="Trending" 
+                        <TextBlock x:Uid="trending"
                                    FontSize="11"
                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                    FontWeight="SemiLight"/>
@@ -491,7 +491,7 @@
                                 <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                             </Path.RenderTransform>
                         </Path>
-                        <TextBlock Text="My Repos" 
+                        <TextBlock x:Uid="myRepos" 
                                    FontSize="11"
                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                    FontWeight="SemiLight"/>
@@ -515,7 +515,7 @@
                                 <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                             </Path.RenderTransform>
                         </Path>
-                        <TextBlock Text="News Feed" 
+                        <TextBlock x:Uid="newsFeed"
                                    FontSize="11"
                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                    FontWeight="SemiLight"/>
@@ -527,6 +527,8 @@
         <control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
                             Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+
+        <!--No need for tranlating fallback value.-->
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"

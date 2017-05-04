@@ -40,7 +40,7 @@
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock Text="today" FontSize="15" FontWeight="Normal"/>
+                    <TextBlock x:Uid="today" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <toolkitControl:PullToRefreshListView x:Name="todayListView"
@@ -87,9 +87,8 @@
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                                                Tapped="{x:Bind ViewModel.todayIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
-                    <TextBlock 
+                    <TextBlock x:Uid="trendingUpdatePlaceholder"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="Trending Repositories are being updated by Github"
                                Visibility="{x:Bind ViewModel.ZeroTodayCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
 
@@ -97,13 +96,13 @@
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   FontSize="40"
                                   Width="40"
-                                  Height="40"/>
+                                  Height="40" />
                 </Grid>
 
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock Text="this week" FontSize="15" FontWeight="Normal"/>
+                    <TextBlock x:Uid="thisWeek" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <toolkitControl:PullToRefreshListView x:Name="weekListView"  
@@ -151,9 +150,8 @@
                                                                Tapped="{x:Bind ViewModel.weekIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
 
-                    <TextBlock 
+                    <TextBlock x:Uid="trendingUpdatePlaceholder"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="Trending Repositories are being updated by Github"
                                Visibility="{x:Bind ViewModel.ZeroWeeklyCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingWeek,Mode=OneWay}"
@@ -165,7 +163,7 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock Text="this month" FontSize="15" FontWeight="Normal"/>
+                    <TextBlock x:Uid="thisMonth" FontSize="15" FontWeight="Normal"/>
                 </PivotItem.Header>
                 <Grid>
                     <toolkitControl:PullToRefreshListView x:Name="monthListView"
@@ -212,10 +210,9 @@
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                                                Tapped="{x:Bind ViewModel.monthIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
-                    
-                    <TextBlock 
+
+                    <TextBlock x:Uid="trendingUpdatePlaceholder"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="Trending Repositories are being updated by Github"
                                Visibility="{x:Bind ViewModel.ZeroMonthlyCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}">
                     </TextBlock>
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoadingMonth,Mode=OneWay}"

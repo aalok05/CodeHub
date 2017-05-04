@@ -22,9 +22,9 @@
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               FontWeight="Normal"
-                               Text="open" />
+                    <TextBlock x:Uid="openedIssue"
+                               FontSize="15"
+                               FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
                     <ListView x:Name="openIssueListView"
@@ -44,10 +44,10 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
-                    <TextBlock HorizontalAlignment="Center"
+                    <TextBlock x:Uid="noOpenIssue"
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="No open Issues"
                                Visibility="{x:Bind ViewModel.ZeroOpenIssues, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
@@ -57,7 +57,8 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
+                    <TextBlock x:Uid="closedIssue"
+                               FontSize="15"
                                FontWeight="Normal"
                                Text="closed" />
                 </PivotItem.Header>
@@ -79,10 +80,10 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
-                    <TextBlock HorizontalAlignment="Center"
+                    <TextBlock x:Uid="noClosedIssue" 
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="No closed Issues"
                                Visibility="{x:Bind ViewModel.ZeroClosedIssues, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
@@ -92,9 +93,9 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               FontWeight="Normal"
-                               Text="mine" />
+                    <TextBlock x:Uid="mineIssue"
+                               FontSize="15"
+                               FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
                     <ListView x:Name="mineIssueListView"
@@ -114,10 +115,10 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
-                    <TextBlock HorizontalAlignment="Center"
+                    <TextBlock x:Uid="noIssues"
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Text="No Issues"
                                Visibility="{x:Bind ViewModel.ZeroMyIssues, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"

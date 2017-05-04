@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="comment.Text" xml:space="preserve">
+    <value>đã nhận xét</value>
+    <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
+  </data>
+  <data name="credit.Text" xml:space="preserve">
+    <value>Tín dụng</value>
+  </data>
+  <data name="disclaimer.Text" xml:space="preserve">
+    <value>Ứng dụng này không phải cách liên kết với GitHub.</value>
+  </data>
+  <data name="privacyLink.Content" xml:space="preserve">
+    <value>Chính sách về Quyền riêng tư</value>
+  </data>
+  <data name="rateButtonContent.Text" xml:space="preserve">
+    <value>Xếp hạng trong cửa hàng</value>
+  </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="themeTip.Text" xml:space="preserve">
+    <value>Khởi động lại ứng dụng để thay đổi chủ đề</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>Chủ đề Tối</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>Chủ đề Sáng</value>
+  </data>
+  <data name="version.Text" xml:space="preserve">
+    <value>Phiên bản</value>
+    <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
+  </data>
+  <data name="adSetting.Text" xml:space="preserve">
+    <value>Hỗ trợ phát triển, bật quảng cáo</value>
+  </data>
+  <data name="busyScreen.BusyText" xml:space="preserve">
+    <value>Vui lòng chờ...</value>
+    <comment>preserve ellipsis here</comment>
+  </data>
+  <data name="donate.Text" xml:space="preserve">
+    <value>Quyên góp để hỗ trợ CodeHub</value>
+  </data>
+  <data name="firstDonateTierAmount.Text" xml:space="preserve">
+    <value>$0,99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="firstDonateTierDescription.Text" xml:space="preserve">
+    <value>Mời nhà phát triển một tách cà phê.</value>
+  </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>Theo dõi</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>người theo dõi</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>đang theo dõi</value>
+  </data>
+  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
+    <value>$9,99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
+    <value>Bạn rộng rãi và yêu CodeHub hãy tặng số tiền nầy</value>
+  </data>
+  <data name="loadCommitMessage.Text" xml:space="preserve">
+    <value>Tải cam kết cho các tập tin</value>
+  </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>Bạn không có sự kiện nào</value>
+  </data>
+  <data name="pickDonateOption.Text" xml:space="preserve">
+    <value>Chọn một tùy chọn để hỗ trợ các nhà phát triển</value>
+  </data>
+  <data name="preview.Text" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="repositories.Text" xml:space="preserve">
+    <value>Kho phần mềm</value>
+  </data>
+  <data name="secondDonateTierAmount.Text" xml:space="preserve">
+    <value>$2,99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="secondDonateTierDescription.Text" xml:space="preserve">
+    <value>Tặng nhà phát triển một món quà.</value>
+  </data>
+  <data name="showLineNumber.Text" xml:space="preserve">
+    <value>Hiện số dòng</value>
+  </data>
+  <data name="showReadMe.Text" xml:space="preserve">
+    <value>Hiện README trong trang kho lưu trữ </value>
+  </data>
+  <data name="syntaxHightlignting.Text" xml:space="preserve">
+    <value>Phong cách thể hiện mã</value>
+  </data>
+  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
+    <value>$4.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
+    <value>Tích cực hỗ trợ sự phát triển của CodeHub với tài trợ tuyệt vời này.</value>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>Hủy theo dõi</value>
+  </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>Loại tệp không được hỗ trợ</value>
+  </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>tất cả</value>
+    <comment>Context: all repositories</comment>
+  </data>
+  <data name="closedIssue.Text" xml:space="preserve">
+    <value>đã đóng</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
+  <data name="comments.Text" xml:space="preserve">
+    <value>Chú thích</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>Tải thêm...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>của tôi</value>
+    <comment>Context: My Issues, i.e. issues opened by me</comment>
+  </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>Kho của tôi</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>Tin mới</value>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>Không có vấn đề được đóng</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>Không có vấn đề</value>
+  </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>Không có thông báo mới</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>Không có vấn đề mở</value>
+  </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>Không có tổ chức nào. Vô hiệu hoá hạn chế ứng dụng bên thứ ba cho tổ chức của bạn</value>
+  </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>Không có kho nào</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>Không có kho được gắn dấu sao</value>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>mở bằng</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="openedIssue.Text" xml:space="preserve">
+    <value>mở</value>
+    <comment>Context: status of Issue #1 is open</comment>
+  </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>tham gia</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>Hủy đăng ký chủ đề này</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>Đánh dấu Đã đọc</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>được đánh dấu sao</value>
+    <comment>Context: starred repositories</comment>
+  </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>tháng này</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>tuần này</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>hôm nay</value>
+  </data>
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>Xu hướng đang được Cập Nhật bởi Github</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>Xu hướng</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>chưa đọc</value>
+    <comment>Context: unread notifications</comment>
+  </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>Vấn đề</value>
+  </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>Không có kho nào</value>
+  </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>Không có kết quả</value>
+  </data>
+  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+    <value>Từ cần tìm!</value>
+  </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>Đăng nhập vào tài khoản GitHub để tiếp tục</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>CodeHub xin chào!</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Cộng tác viên</value>
+  </data>
+  <data name="creator.Text" xml:space="preserve">
+    <value>Người sáng tạo</value>
+    <comment>Maker of the app</comment>
+  </data>
+  <data name="translator.Text" xml:space="preserve">
+    <value>Người dịch</value>
+  </data>
+</root>

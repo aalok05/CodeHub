@@ -50,12 +50,12 @@
 
 
         </Image>
-        <TextBlock Grid.Row="1"
+        <TextBlock x:Uid="welcome"
+                   Grid.Row="1"
                    Margin="0,0,0,20"
                    FontSize="19"
                    FontWeight="SemiBold"
                    Foreground="White"
-                   Text="Welcome to CodeHub"
                    TextAlignment="Center">
             <interactivity:Interaction.Behaviors>
                 <behaviors:Offset AutomaticallyStart="True"
@@ -65,11 +65,11 @@
                                   Duration="1000" />
             </interactivity:Interaction.Behaviors>
         </TextBlock>
-        <TextBlock Grid.Row="2"
+        <TextBlock x:Uid="signInTips"
+                   Grid.Row="2"
                    Margin="0,0,0,20"
                    FontSize="14"
                    Foreground="White"
-                   Text="Sign in to your GitHub account to continue"
                    TextAlignment="Center">
             <interactivity:Interaction.Behaviors>
                 <behaviors:Offset AutomaticallyStart="True"
@@ -80,11 +80,11 @@
             </interactivity:Interaction.Behaviors>
         </TextBlock>
 
-        <Button Grid.Row="3"
+        <Button x:Uid="signIn"
+                Grid.Row="3"
                 Width="100"
                 HorizontalAlignment="Center"
                 Command="{Binding SignInCommand}"
-                Content="Sign In"
                 FontSize="12"
                 FontWeight="SemiBold"
                 Style="{StaticResource SignInButtonStyle}">

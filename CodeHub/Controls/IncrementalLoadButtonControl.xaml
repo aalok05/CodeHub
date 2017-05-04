@@ -8,10 +8,10 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
 
-    <Button Height="28"
+    <Button x:Uid="loadMoreButton"
+            Height="28"
             Width="140"
             HorizontalAlignment="Center"
-            Content="Load more..."
             Background="{ThemeResource SystemControlHighlightBaseMediumLowBrush}"
             Style="{StaticResource ActionButtonStyle}">
 

@@ -30,9 +30,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <AutoSuggestBox  Name="MainSearchBox"
+        <AutoSuggestBox  x:Uid="searchAutoSuggestBox"
+                         Name="MainSearchBox"
                          Grid.Row="0"
-                         PlaceholderText="search away!"
                          QuerySubmitted="{x:Bind ViewModel.QuerySubmitted}"
                          QueryIcon="Find"
                          Text="{x:Bind ViewModel.QueryString,Mode=TwoWay}"
@@ -118,9 +118,9 @@
             </ListView>
         </Grid>
 
-        <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+        <TextBlock x:Uid="noResult"
+                   Style="{StaticResource ZeroItemsTextBoxStyle}"
                    Grid.Row="2"
-                   Text="No Results"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>

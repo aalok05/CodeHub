@@ -30,9 +30,9 @@
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               FontWeight="Normal"
-                               Text="unread" />
+                    <TextBlock x:Uid="unread"
+                               FontSize="15"
+                               FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -41,8 +41,8 @@
                     </Grid.RowDefinitions>
                     <CommandBar Grid.Row="0"
                                 DefaultLabelPosition="Right">
-                        <AppBarButton Icon="Refresh"
-                                      Label="Refresh"
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.RefreshUnread}">
 
@@ -63,7 +63,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
                                 <UserControl>
-                                    <toolkitControl:SlidableListItem HorizontalAlignment="Stretch"
+                                    <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
+                                                                     HorizontalAlignment="Stretch"
                                                                      ActivationWidth="100"
                                                                      IsLeftCommandEnabled="True"
                                                                      IsOffsetLimited="True"
@@ -74,8 +75,6 @@
                                                                      LeftCommandParameter="{Binding}"
                                                                      LeftForeground="White"
                                                                      LeftIcon="Mute"
-                                                                     LeftLabel="Unsubscribe from this thread"
-                                                                     RightLabel="Mark as read"
                                                                      MouseSlidingEnabled="True"
                                                                      RightBackground="#60B53B"
                                                                      RightCommand="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
@@ -152,15 +151,16 @@
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingUnread, Mode=OneWay}" />
-                    <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                    <TextBlock x:Uid="noNewNotification"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Grid.Row="1"
-                               Text="No new notifications"
                                Visibility="{x:Bind ViewModel.ZeroUnreadCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
+                    <TextBlock x:Uid="participating"
+                               FontSize="15"
                                FontWeight="Normal"
                                Text="participating" />
                 </PivotItem.Header>
@@ -171,8 +171,8 @@
                     </Grid.RowDefinitions>
                     <CommandBar Grid.Row="0"
                                 DefaultLabelPosition="Right">
-                        <AppBarButton Icon="Refresh"
-                                      Label="Refresh"
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.RefreshParticipating}">
 
@@ -193,7 +193,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
                                 <UserControl>
-                                    <toolkitControl:SlidableListItem HorizontalAlignment="Stretch"
+                                    <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
+                                                                     HorizontalAlignment="Stretch"
                                                                      ActivationWidth="100"
                                                                      IsLeftCommandEnabled="True"
                                                                      IsOffsetLimited="True"
@@ -204,8 +205,6 @@
                                                                      LeftCommandParameter="{Binding}"
                                                                      LeftForeground="White"
                                                                      LeftIcon="Mute"
-                                                                     LeftLabel="Unsubscribe from this thread"
-                                                                     RightLabel="Mark as read"
                                                                      MouseSlidingEnabled="True"
                                                                      RightBackground="#60B53B"
                                                                      RightCommand="{Binding MarkasReadParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
@@ -282,17 +281,17 @@
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsloadingParticipating, Mode=OneWay}" />
-                    <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                    <TextBlock x:Uid="noNewNotification"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Grid.Row="1"
-                               Text="No new notifications"
                                Visibility="{x:Bind ViewModel.ZeroParticipatingCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               FontWeight="Normal"
-                               Text="all" />
+                    <TextBlock x:Uid="all" 
+                               FontSize="15"
+                               FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -301,8 +300,8 @@
                     </Grid.RowDefinitions>
                     <CommandBar Grid.Row="0"
                                 DefaultLabelPosition="Right">
-                        <AppBarButton Icon="Refresh"
-                                      Label="Refresh"
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.RefreshAll}">
 
@@ -323,7 +322,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
                                 <UserControl>
-                                    <toolkitControl:SlidableListItem HorizontalAlignment="Stretch"
+                                    <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
+                                                                     HorizontalAlignment="Stretch"
                                                                      ActivationWidth="100"
                                                                      IsLeftCommandEnabled="True"
                                                                      IsOffsetLimited="True"
@@ -334,8 +334,6 @@
                                                                      LeftCommandParameter="{Binding}"
                                                                      LeftForeground="White"
                                                                      LeftIcon="Mute"
-                                                                     LeftLabel="Unsubscribe from this thread"
-                                                                     RightLabel="Mark as read"
                                                                      MouseSlidingEnabled="True"
                                                                      RightBackground="#60B53B"
                                                                      RightCommand="{Binding MarkasReadAllNotifCommand, ElementName=Page, Mode=OneWay}"
@@ -412,9 +410,9 @@
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingAll, Mode=OneWay}" />
-                    <TextBlock Style="{StaticResource ZeroItemsTextBoxStyle}"
+                    <TextBlock x:Uid="noNewNotification"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Grid.Row="1"
-                               Text="No new notifications"
                                Visibility="{x:Bind ViewModel.ZeroAllCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                 </Grid>
 
