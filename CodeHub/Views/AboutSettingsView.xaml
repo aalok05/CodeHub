@@ -123,11 +123,17 @@
                        FontSize="13"
                        RelativePanel.Below="translatorName2"
                        Text="Jakob Hermann Preusker - German" />
+            <TextBlock x:Name="translatorName4"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       RelativePanel.Below="translatorName3"
+                       Text="JN Marcos - Portuguese" />
             <HyperlinkButton x:Name="TwitterButton"
-                             Margin="0 28 0 0"
+                             Margin="0 20 0 0"
                              Content="@devaalok"
                              NavigateUri="https://twitter.com/devaalok"
-                             RelativePanel.Below="translatorName2">
+                             RelativePanel.Below="translatorName4">
                 <HyperlinkButton.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
