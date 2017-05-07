@@ -47,6 +47,7 @@
                                       Tapped="{x:Bind ViewModel.RefreshUnread}">
 
                         </AppBarButton>
+                        <!--TODO: Implement this when octokit fixes the bug related to MarkAllNotificationsAsRead-->
                         <!--<AppBarButton Icon="Accept"
                                       Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -177,6 +178,7 @@
                                       Tapped="{x:Bind ViewModel.RefreshParticipating}">
 
                         </AppBarButton>
+                        <!--TODO: Implement this when octokit fixes the bug related to MarkAllNotificationsAsRead-->
                         <!--<AppBarButton Icon="Accept"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
@@ -306,6 +308,7 @@
                                       Tapped="{x:Bind ViewModel.RefreshAll}">
 
                         </AppBarButton>
+                        <!--TODO: Implement this when octokit fixes the bug related to MarkAllNotificationsAsRead-->
                         <!--<AppBarButton Icon="Accept"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
