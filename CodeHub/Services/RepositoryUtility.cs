@@ -697,6 +697,24 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new Issue for a repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="newIssue"></param>
+        /// <returns></returns>
+        public static async Task<Issue> CreateIssue(long repoId, NewIssue newIssue)
+        {
+            try
+            { 
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Issue.Create(repoId, newIssue);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
 

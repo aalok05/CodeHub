@@ -123,7 +123,7 @@
                     </HyperlinkButton.Content>
                 </HyperlinkButton>
 
-                <Button x:Name="Clonetton"
+                <Button x:Name="CloneButton"
                         Margin="0,16,8,0"
                         Background="Transparent"
                         Command="{x:Bind ViewModel.CloneCommand}"
@@ -131,19 +131,7 @@
                         RelativePanel.LeftOf="StarButton"
                         Style="{StaticResource EmptyButtonStyle}">
                     <Viewbox MaxWidth="18" MaxHeight="18">
-                        <SymbolIcon Symbol="Copy">
-                            <i:Interaction.Behaviors>
-                                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="True">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
-                                </core:DataTriggerBehavior>
-                                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="False">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                </core:DataTriggerBehavior>
-                                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStarLoading, Mode=OneWay}" Value="True">
-                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource SystemChromeLowColor}" />
-                                </core:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </SymbolIcon>
+                        <SymbolIcon Symbol="Copy"/>
                     </Viewbox>
                 </Button>
                 <TextBlock x:Name="CloneText"
@@ -151,8 +139,8 @@
                            Margin="0,8,8,0"
                            FontSize="13"
                            FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWith="Clonetton"
-                           RelativePanel.Below="Clonetton"/>
+                           RelativePanel.AlignHorizontalCenterWith="CloneButton"
+                           RelativePanel.Below="CloneButton"/>
                 
                 <Button x:Name="StarButton"
                         Margin="20,16,8,0"
@@ -237,6 +225,12 @@
                         </i:Interaction.Behaviors>
                     </Path>
                 </Button>
+                <TextBlock Margin="20,10,0,0"
+                           FontSize="14"
+                           FontWeight="SemiLight"
+                           RelativePanel.AlignHorizontalCenterWith="ForkButton"
+                           RelativePanel.Below="ForkButton"
+                           Text="{x:Bind ViewModel.Repository.ForksCount, Mode=OneWay}" />
                 <Button x:Name="ShareButton"
                         Margin="24,16,0,0"
                         Background="Transparent"
@@ -246,9 +240,8 @@
                         Tapped="ShareButton_Tapped"
                         RelativePanel.Below="OwnerName"
                         RelativePanel.RightOf="ForkButton"
-                        Style="{StaticResource EmptyButtonStyle}">
+                        Style="{StaticResource EmptyButtonStyle}"/>
 
-                </Button>
                 <TextBlock x:Name="ShareText"
                            x:Uid="share"
                            Margin="24,8,8,0"
@@ -256,12 +249,6 @@
                            FontWeight="SemiLight"
                            RelativePanel.AlignHorizontalCenterWith="ShareButton"
                            RelativePanel.Below="ShareButton"/>
-                <TextBlock Margin="20,10,0,0"
-                           FontSize="14"
-                           FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWith="ForkButton"
-                           RelativePanel.Below="ForkButton"
-                           Text="{x:Bind ViewModel.Repository.ForksCount, Mode=OneWay}" />
 
                 <TextBlock x:Name="LanguageText"
                            Padding="0,12,0,8"
