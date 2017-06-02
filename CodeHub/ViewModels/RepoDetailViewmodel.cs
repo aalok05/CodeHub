@@ -6,6 +6,7 @@ using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace CodeHub.ViewModels
 {
@@ -258,6 +259,24 @@ namespace CodeHub.ViewModels
                                                   });
                                               }
 
+                                          }));
+            }
+        }
+
+        private RelayCommand _CloneCommand;
+        public RelayCommand CloneCommand
+        {
+            get
+            {
+                return _CloneCommand
+                    ?? (_CloneCommand = new RelayCommand(
+                                          () =>
+                                          {
+                                              DataPackage dataPackage = new DataPackage();
+                                              dataPackage.RequestedOperation = DataPackageOperation.Copy;
+                                              dataPackage.SetText(Repository.CloneUrl);
+                                              Clipboard.SetContent(dataPackage);
+                                              Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = Repository.CloneUrl+" copied to clipboard", Glyph = "\uE16F" });
                                           }));
             }
         }

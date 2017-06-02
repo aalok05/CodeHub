@@ -10,6 +10,7 @@ using Windows.Web.Http;
 using CodeHub.Services;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace CodeHub.Views
 {
@@ -23,6 +24,9 @@ namespace CodeHub.Views
             this.InitializeComponent();
             ViewModel = new RepoDetailViewmodel();
             this.DataContext = ViewModel;
+
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -98,6 +102,28 @@ namespace CodeHub.Views
         private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
         {
             MainScrollViewer.ChangeView(null, 0, null, false);
+        }
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            if(DataTransferManager.IsSupported())
+            {
+                if (!string.IsNullOrEmpty(ViewModel.Repository.HtmlUrl))
+                {
+                    args.Request.Data.SetText(ViewModel.Repository.HtmlUrl);
+                    args.Request.Data.Properties.Title = Windows.ApplicationModel.Package.Current.DisplayName;
+                }
+                else
+                {
+                    args.Request.FailWithDisplayText("Nothing to share");
+                }
+            }
+
+        }
+
+        private void ShareButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
         }
     }
 }
