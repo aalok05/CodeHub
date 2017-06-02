@@ -28,7 +28,8 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RepoName.FontSize" Value="19" />
-                        <Setter Target="OwnerName.FontSize" Value="15" />
+                        <Setter Target="OwnerName.FontSize" Value="13" />
+                        <Setter Target="DescriptionText.FontSize" Value="14"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -39,6 +40,7 @@
                         <Setter Target="OwnerPic.Width" Value="120" />
                         <Setter Target="OwnerPic.Height" Value="120" />
                         <Setter Target="RepoName.FontSize" Value="25" />
+                        <Setter Target="DescriptionText.FontSize" Value="15"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -49,6 +51,7 @@
                         <Setter Target="OwnerPic.Width" Value="130" />
                         <Setter Target="OwnerPic.Height" Value="130" />
                         <Setter Target="RepoName.FontSize" Value="30" />
+                        <Setter Target="DescriptionText.FontSize" Value="16"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
