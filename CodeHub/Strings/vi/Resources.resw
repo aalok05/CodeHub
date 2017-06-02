@@ -357,4 +357,10 @@
   <data name="translator.Text" xml:space="preserve">
     <value>Người dịch</value>
   </data>
+  <data name="clone.Text" xml:space="preserve">
+    <value>Clone</value>
+  </data>
+  <data name="share.Text" xml:space="preserve">
+    <value>Share</value>
+  </data>
 </root>

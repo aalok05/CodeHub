@@ -120,8 +120,39 @@
                     </HyperlinkButton.Content>
                 </HyperlinkButton>
 
+                <Button x:Name="Clonetton"
+                        Margin="0,16,8,0"
+                        Background="Transparent"
+                        Command="{x:Bind ViewModel.CloneCommand}"
+                        RelativePanel.Below="OwnerName"
+                        RelativePanel.LeftOf="StarButton"
+                        Style="{StaticResource EmptyButtonStyle}">
+                    <Viewbox MaxWidth="18" MaxHeight="18">
+                        <SymbolIcon Symbol="Copy">
+                            <i:Interaction.Behaviors>
+                                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="True">
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="False">
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStarLoading, Mode=OneWay}" Value="True">
+                                    <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource SystemChromeLowColor}" />
+                                </core:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </SymbolIcon>
+                    </Viewbox>
+                </Button>
+                <TextBlock x:Name="CloneText"
+                           x:Uid="clone"
+                           Margin="0,8,8,0"
+                           FontSize="13"
+                           FontWeight="SemiLight"
+                           RelativePanel.AlignHorizontalCenterWith="Clonetton"
+                           RelativePanel.Below="Clonetton"/>
+                
                 <Button x:Name="StarButton"
-                        Margin="24,16,12,0"
+                        Margin="20,16,8,0"
                         Background="Transparent"
                         Command="{x:Bind ViewModel.StarCommand}"
                         RelativePanel.Below="OwnerName"
@@ -145,14 +176,14 @@
 
                 </Button>
                 <TextBlock x:Name="StarCountText"
-                           Margin="24,8,12,0"
+                           Margin="24,8,8,0"
                            FontSize="14"
                            FontWeight="SemiLight"
                            RelativePanel.AlignHorizontalCenterWith="StarButton"
                            RelativePanel.Below="StarButton"
                            Text="{x:Bind ViewModel.Repository.StargazersCount, Mode=OneWay}" />
                 <Button x:Name="WatchButton"
-                        Margin="20,16,12,0"
+                        Margin="20,16,8,0"
                         Background="Transparent"
                         Command="{x:Bind ViewModel.WatchCommand}"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -176,14 +207,14 @@
                     </Path>
                 </Button>
                 <TextBlock x:Name="WatchCountText"
-                           Margin="24,12,12,0"
+                           Margin="24,12,8,0"
                            FontSize="14"
                            FontWeight="SemiLight"
                            RelativePanel.AlignHorizontalCenterWith="WatchButton"
                            RelativePanel.Below="WatchButton"
                            Text="{x:Bind ViewModel.Repository.SubscribersCount, Mode=OneWay}" />
                 <Button x:Name="ForkButton"
-                        Margin="24,16,0,0"
+                        Margin="24,16,12,0"
                         Background="Transparent"
                         Command="{x:Bind ViewModel.ForkCommand}"
                         RelativePanel.Below="OwnerName"
@@ -203,6 +234,25 @@
                         </i:Interaction.Behaviors>
                     </Path>
                 </Button>
+                <Button x:Name="ShareButton"
+                        Margin="24,16,0,0"
+                        Background="Transparent"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE72D;"
+                        FontSize="18"
+                        Tapped="ShareButton_Tapped"
+                        RelativePanel.Below="OwnerName"
+                        RelativePanel.RightOf="ForkButton"
+                        Style="{StaticResource EmptyButtonStyle}">
+
+                </Button>
+                <TextBlock x:Name="ShareText"
+                           x:Uid="share"
+                           Margin="24,8,8,0"
+                           FontSize="13"
+                           FontWeight="SemiLight"
+                           RelativePanel.AlignHorizontalCenterWith="ShareButton"
+                           RelativePanel.Below="ShareButton"/>
                 <TextBlock Margin="20,10,0,0"
                            FontSize="14"
                            FontWeight="SemiLight"
