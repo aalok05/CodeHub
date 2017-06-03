@@ -28,7 +28,7 @@ namespace CodeHub.Views
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issues" });
 
             commentsListView.SelectedIndex = -1;
-
+            ViewModel.CommentText = string.Empty;
 
             if (e.NavigationMode != NavigationMode.Back)
             {
@@ -37,9 +37,8 @@ namespace CodeHub.Views
                     ViewModel.Comments.Clear();
                 }
 
-                ConfigureStateSymbol((e.Parameter as Tuple<string, string, Issue>).Item3);
-                await ViewModel.Load((e.Parameter as Tuple<string, string, Issue>));
-
+                ConfigureStateSymbol((e.Parameter as Tuple<Repository, Issue>).Item2);
+                await ViewModel.Load((e.Parameter as Tuple<Repository, Issue>));
             }
         }
 

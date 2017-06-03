@@ -28,22 +28,12 @@ namespace CodeHub.Views
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
 
             await ViewModel.Load(e.Parameter);
-
-            FindName("LanguageText");
-            FindName("DescriptionText");
-            FindName("calendarSymbol");
-            FindName("createdDateText");
-            FindName("editSymbol");
-            FindName("updatedDateText");
-            FindName("sizeSymbol");
-            FindName("sizeCount");
-            FindName("sizeUnitText");
-
 
             ReadmeWebView.Visibility = Visibility.Collapsed;
             if (SettingsService.Get<bool>(SettingsKeys.ShowReadme))
@@ -60,6 +50,7 @@ namespace CodeHub.Views
                 ReadmeLoadingRing.IsActive = false;
             }
         }
+
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             /*  We are getting the readme div and setting it as the root of the webview.
@@ -98,7 +89,6 @@ namespace CodeHub.Views
             ReadmeLoadingRing.IsActive = false;
         }
 
-        // Scrolls the page content back to the top
         private void TopScroller_OnTopScrollingRequested(object sender, EventArgs e)
         {
             MainScrollViewer.ChangeView(null, 0, null, false);
