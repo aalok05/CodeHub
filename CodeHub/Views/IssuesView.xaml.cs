@@ -42,6 +42,7 @@ namespace CodeHub.Views
             openIssueListView.SelectedIndex = closedIssueListView.SelectedIndex = mineIssueListView.SelectedIndex = -1;
             ToggleNewIssuePanelVisibility(false);
 
+
             if (e.NavigationMode != NavigationMode.Back)
             {
                 await ViewModel.Load((Repository)e.Parameter);
@@ -58,15 +59,24 @@ namespace CodeHub.Views
             ToggleNewIssuePanelVisibility(true);
         }
 
+        private void Background_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleNewIssuePanelVisibility(false);
+        }
+
         private async void ToggleNewIssuePanelVisibility(bool visible)
         {
             if (visible)
             {
+                createIssuePanel.Visibility = Visibility.Visible;
                 await createIssuePanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             }
             else
             {
                 await createIssuePanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                createIssuePanel.Visibility = Visibility.Collapsed;
+                //clearing the text in TextBoxes
+                ViewModel.NewIssueTitleText = ViewModel.NewIssueBodyText = string.Empty;
             }
         }
     }

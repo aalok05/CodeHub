@@ -38,8 +38,7 @@
               Background="{ThemeResource SystemChromeLowColor}" />
 
         <Pivot Grid.Row="1" 
-               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}"
-               Canvas.ZIndex="0">
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Uid="openedIssue"
@@ -149,16 +148,26 @@
         </Pivot>
 
         <RelativePanel x:Name="createIssuePanel"
-                       Grid.Row="2"
-                       Canvas.ZIndex="1">
-            <Grid RelativePanel.AlignLeftWithPanel="True"
-                  RelativePanel.AlignRightWithPanel="True"
-                  RelativePanel.AlignTopWithPanel="True"
-                  RelativePanel.AlignBottomWithPanel="True">
+                       Grid.Row="2">
+            <Canvas Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+                    Opacity="0.1" 
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignTopWithPanel="True"
+                    RelativePanel.AlignBottomWithPanel="True"
+                    Tapped="Background_Tapped"/>
+            <Canvas RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignTopWithPanel="True"
+                    RelativePanel.AlignBottomWithPanel="True">
                 <i:Interaction.Behaviors>
-                    <behaviors:Blur Value="50" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                    <behaviors:Blur AutomaticallyStart="True"
+                                    Delay="0"
+                                    Value="10"
+                                    Duration="0" />
                 </i:Interaction.Behaviors>
-            </Grid>
+            </Canvas>
+
             <TextBox x:Name="issueTitle"
                      Margin="8,0,8,8"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
@@ -189,6 +198,7 @@
                         Command="{x:Bind ViewModel.CreateIssue}"
                         Width="148"
                         Margin="0,0,4,0"
+                        IsEnabled="{Binding ElementName=issueTitle,Path=Text.Length}"
                         Background="{StaticResource AppPrimaryColorBrush}"
                         Content="Create" />
                 <!--TODO: Translation of Content-->

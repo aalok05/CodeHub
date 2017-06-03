@@ -245,6 +245,7 @@
                         Height="40"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
+                        BorderThickness="0"
                         Background="{StaticResource AppPrimaryColorBrush}"
                         Command="{x:Bind ViewModel.CommentCommand}"
                         Style="{StaticResource ActionButtonStyle}">

@@ -189,6 +189,7 @@ namespace CodeHub.ViewModels
         }
 
         #endregion
+
         public async Task Load(Repository repository)
         {
             if (!GlobalHelper.IsInternet())
@@ -216,6 +217,7 @@ namespace CodeHub.ViewModels
                 IsLoadingOpen = false;
 
                 ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
+
             }
         }
 
@@ -230,9 +232,17 @@ namespace CodeHub.ViewModels
             Pivot p = sender as Pivot;
 
             if (p.SelectedIndex == 0)
-            return;
-            
-            if (p.SelectedIndex == 1)
+            {
+                IsLoadingOpen = true;
+                OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
+                {
+                    State = ItemStateFilter.Open
+                });
+                IsLoadingOpen = false;
+
+                ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
+            }
+            else if (p.SelectedIndex == 1)
             {
                 IsLoadingClosed = true;
 
