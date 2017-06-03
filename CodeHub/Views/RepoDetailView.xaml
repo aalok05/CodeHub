@@ -134,6 +134,7 @@
                         <SymbolIcon Symbol="Copy"/>
                     </Viewbox>
                 </Button>
+                <!--TODO: Translation of Text-->
                 <TextBlock x:Name="CloneText"
                            x:Uid="clone"
                            Margin="0,8,8,0"
@@ -241,7 +242,9 @@
                         RelativePanel.Below="OwnerName"
                         RelativePanel.RightOf="ForkButton"
                         Style="{StaticResource EmptyButtonStyle}"/>
-
+                
+                
+                <!--TODO: Translation of Text-->
                 <TextBlock x:Name="ShareText"
                            x:Uid="share"
                            Margin="24,8,8,0"
@@ -312,7 +315,6 @@
 
                 <TextBlock x:Name="DescriptionText"
                            Margin="8,8,8,12"
-                           x:DeferLoadStrategy="Lazy"
                            FontSize="15"
                            FontWeight="SemiLight"
                            RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -330,13 +332,11 @@
                              MaxWidth="15"
                              MaxHeight="15"
                              Margin="0,0,8,0"
-                             x:DeferLoadStrategy="Lazy"
                              RelativePanel.LeftOf="createdDateText">
                         <SymbolIcon Foreground="#525252" Symbol="Calendar" />
                     </Viewbox>
                     <TextBlock x:Name="createdDateText"
                                Margin="0 0 12 0"
-                               x:DeferLoadStrategy="Lazy"
                                FontSize="12"
                                RelativePanel.LeftOf="sizeSymbol"
                                Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepositoryCreationTimeConverter}, Mode=OneWay}" />
@@ -345,20 +345,17 @@
                              MaxWidth="15"
                              MaxHeight="15"
                              Margin="0,0,8,0"
-                             x:DeferLoadStrategy="Lazy"
                              RelativePanel.LeftOf="sizeCount">
                         <SymbolIcon Foreground="#525252" Symbol="Shop" />
                     </Viewbox>
 
                     <TextBlock x:Name="sizeCount"
                                Margin="0,0,4,0"
-                               x:DeferLoadStrategy="Lazy"
                                FontSize="12"
                                RelativePanel.AlignHorizontalCenterWithPanel="True"
                                Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
                     <TextBlock x:Name="sizeUnitText"
                                Margin="0 0 12 0"
-                               x:DeferLoadStrategy="Lazy"
                                FontSize="12"
                                RelativePanel.AlignVerticalCenterWith="sizeCount"
                                RelativePanel.RightOf="sizeCount"
@@ -368,12 +365,10 @@
                              MaxWidth="15"
                              MaxHeight="15"
                              Margin="0,0,8,0"
-                             x:DeferLoadStrategy="Lazy"
                              RelativePanel.RightOf="sizeUnitText">
                         <SymbolIcon Foreground="#525252" Symbol="Edit" />
                     </Viewbox>
                     <TextBlock x:Name="updatedDateText"
-                               x:DeferLoadStrategy="Lazy"
                                FontSize="12"
                                RelativePanel.RightOf="editSymbol"
                                Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />

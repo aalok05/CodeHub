@@ -15,6 +15,20 @@ namespace CodeHub.ViewModels
 {
     public class IssueDetailViewmodel : AppViewmodel
     {
+        public Repository _repository;
+        public Repository Repository
+        {
+            get
+            {
+                return _repository;
+            }
+            set
+            {
+                Set(() => Repository, ref _repository, value);
+
+            }
+        }
+
         public Issue _issue;
         public Issue Issue
         {
@@ -26,32 +40,6 @@ namespace CodeHub.ViewModels
             {
                 Set(() => Issue, ref _issue, value);
 
-            }
-        }
-
-        public string _login;
-        public string Login
-        {
-            get
-            {
-                return _login;
-            }
-            set
-            {
-                Set(() => Login, ref _login, value);
-            }
-        }
-
-        public string _repoName;
-        public string RepoName
-        {
-            get
-            {
-                return _repoName;
-            }
-            set
-            {
-                Set(() => RepoName, ref _repoName, value);
             }
         }
 
@@ -69,11 +57,23 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(Tuple<string, string, Issue> tuple)
+        public string _CommentText;
+        public string CommentText
         {
-            Issue = tuple.Item3;
-            Login = tuple.Item1;
-            RepoName = tuple.Item2;
+            get
+            {
+                return _CommentText;
+            }
+            set
+            {
+                Set(() => CommentText, ref _CommentText, value);
+            }
+        }
+
+        public async Task Load(Tuple<Repository, Issue> tuple)
+        {
+            Issue = tuple.Item2;
+            Repository = tuple.Item1;
 
             if (!GlobalHelper.IsInternet())
             {
@@ -83,7 +83,7 @@ namespace CodeHub.ViewModels
             else
             {
                 isLoading = true;
-                Comments = await RepositoryUtility.GetAllCommentsForIssue(Login, RepoName, Issue.Number);
+                Comments = await RepositoryUtility.GetAllCommentsForIssue(Repository.Owner.Login, Repository.Name, Issue.Number);
                 isLoading = false;
 
             }
@@ -103,6 +103,31 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", Issue.User.Login);
+                                          }));
+            }
+        }
+
+        private RelayCommand _CommentCommand;
+        public RelayCommand CommentCommand
+        {
+            get
+            {
+                return _CommentCommand
+                    ?? (_CommentCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if(!string.IsNullOrWhiteSpace(CommentText))
+                                              {
+                                                   isLoading = true;
+                                                   IssueComment newComment = await RepositoryUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                                   isLoading = false;
+                                                   if(newComment != null)
+                                                   {
+                                                      Comments.Add(newComment);
+                                                      CommentText = string.Empty;
+                                                   }
+
+                                              }
                                           }));
             }
         }

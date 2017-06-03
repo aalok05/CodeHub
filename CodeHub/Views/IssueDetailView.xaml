@@ -104,8 +104,7 @@
                         Orientation="Horizontal"
                         RelativePanel.AlignLeftWithPanel="True"
                         RelativePanel.Below="statePanel">
-                <TextBlock 
-                           x:Uid="openedBy"
+                <TextBlock x:Uid="openedBy"
                            Margin="8,0,3,0"
                            VerticalAlignment="Center"
                            FontSize="13"
@@ -140,8 +139,8 @@
                         RelativePanel.AlignLeftWithPanel="True"
                         RelativePanel.Below="TitleBlock">
                 <Path x:Name="stateSymbol"
-                      Margin="0,0,4,0" 
-                      Fill="White"/>
+                      Margin="0,0,4,0"
+                      Fill="White" />
                 <TextBlock FontSize="12"
                            FontWeight="SemiBold"
                            Foreground="White"
@@ -160,7 +159,7 @@
                          Margin="0,0,3,0">
                     <SymbolIcon Foreground="Gray" Symbol="Contact" />
                 </Viewbox>
-                <!--No need for tranlating fallback value.-->
+                <!--  No need for tranlating fallback value.  -->
                 <TextBlock VerticalAlignment="Center"
                            FontSize="13"
                            Foreground="Gray"
@@ -192,6 +191,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"
                         Margin="10 5 0 5"
@@ -200,8 +200,7 @@
                            Margin="0 0 5 0"
                            FontSize="17"
                            FontWeight="SemiLight"
-                           Foreground="Gray"
-                            />
+                           Foreground="Gray" />
                 <TextBlock FontSize="17"
                            FontWeight="SemiLight"
                            Foreground="{StaticResource AppPrimaryColorBrush}"
@@ -229,12 +228,35 @@
 
                 </ListView.ItemTemplate>
             </ListView>
+
+            <!--  TODO:Translation for placeholder  -->
+            <Grid Grid.Row="3" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         AcceptsReturn="True"
+                         PlaceholderText="Comment"
+                         Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
+                         Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
+                <Button Grid.Column="1"
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Background="{StaticResource AppPrimaryColorBrush}"
+                        Command="{x:Bind ViewModel.CommentCommand}"
+                        Style="{StaticResource ActionButtonStyle}">
+                    <SymbolIcon Symbol="Send" />
+                </Button>
+            </Grid>
+
             <ProgressRing Grid.Row="1"
                           Width="20"
                           Height="20"
                           HorizontalAlignment="Center"
                           IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
         </Grid>
-
     </Grid>
 </Page>

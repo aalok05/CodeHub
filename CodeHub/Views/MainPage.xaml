@@ -501,7 +501,6 @@
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
                             Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
 
-        <!--No need for tranlating fallback value.-->
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"

@@ -715,6 +715,26 @@ namespace CodeHub.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Creates a new comment on a specified issue
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="number"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        public static async Task<IssueComment> CommentOnIssue(long repoId, int number, string comment)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Issue.Comment.Create(repoId, number, comment);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
 

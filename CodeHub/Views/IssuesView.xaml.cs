@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Octokit;
+using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Views
 {
@@ -26,7 +28,7 @@ namespace CodeHub.Views
         {
             this.InitializeComponent();
             ViewModel = new IssuesViewmodel();
-           
+
             this.DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
@@ -38,12 +40,34 @@ namespace CodeHub.Views
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issues" });
 
             openIssueListView.SelectedIndex = closedIssueListView.SelectedIndex = mineIssueListView.SelectedIndex = -1;
+            ToggleNewIssuePanelVisibility(false);
 
             if (e.NavigationMode != NavigationMode.Back)
             {
                 await ViewModel.Load((Repository)e.Parameter);
             }
         }
-     
+
+        private void cancelNewIssueButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleNewIssuePanelVisibility(false);
+        }
+
+        private void AppBarButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ToggleNewIssuePanelVisibility(true);
+        }
+
+        private async void ToggleNewIssuePanelVisibility(bool visible)
+        {
+            if (visible)
+            {
+                await createIssuePanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+            else
+            {
+                await createIssuePanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+        }
     }
 }

@@ -31,6 +31,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public string _NewIssueTitleText;
+        public string NewIssueTitleText
+        {
+            get
+            {
+                return _NewIssueTitleText;
+            }
+            set
+            {
+                Set(() => NewIssueTitleText, ref _NewIssueTitleText, value);
+            }
+        }
+
+        public string _NewIssueBodyText;
+        public string NewIssueBodyText
+        {
+            get
+            {
+                return _NewIssueBodyText;
+            }
+            set
+            {
+                Set(() => NewIssueBodyText, ref _NewIssueBodyText, value);
+            }
+        }
+
         public bool _zeroOpenIssues;
         /// <summary>
         /// 'No Issues' TextBlock will display if this is true
@@ -196,7 +222,7 @@ namespace CodeHub.ViewModels
         public void IssueTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                            .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<string, string, Issue>(Repository.Owner.Login, Repository.Name, e.ClickedItem as Issue));
+                            .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<Repository, Issue>(Repository, e.ClickedItem as Issue));
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -225,6 +251,30 @@ namespace CodeHub.ViewModels
                 IsLoadingMine = false;
 
                 ZeroMyIssues = MyIssues.Count == 0 ? true : false;
+            }
+        }
+
+        private RelayCommand _CreateIssue;
+        public RelayCommand CreateIssue
+        {
+            get
+            {
+                return _CreateIssue
+                    ?? (_CreateIssue = new RelayCommand(
+                                          async () =>
+                                          {
+                                              NewIssue newIssue = new NewIssue(NewIssueTitleText);
+                                              newIssue.Body = NewIssueBodyText;
+                                              isLoading = true;
+                                              Issue issue = await RepositoryUtility.CreateIssue(Repository.Id, newIssue);
+                                              isLoading = false;
+                                              if(issue != null)
+                                              {
+                                                  SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
+                                                    .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<Repository, Issue>(Repository, issue));
+                                              }
+                                             
+                                          }));
             }
         }
     }
