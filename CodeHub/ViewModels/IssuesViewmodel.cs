@@ -273,15 +273,18 @@ namespace CodeHub.ViewModels
                     ?? (_CreateIssue = new RelayCommand(
                                           async () =>
                                           {
-                                              NewIssue newIssue = new NewIssue(NewIssueTitleText);
-                                              newIssue.Body = NewIssueBodyText;
-                                              isLoading = true;
-                                              Issue issue = await RepositoryUtility.CreateIssue(Repository.Id, newIssue);
-                                              isLoading = false;
-                                              if(issue != null)
+                                              if(!string.IsNullOrWhiteSpace(NewIssueTitleText))
                                               {
-                                                  SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                                                    .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<Repository, Issue>(Repository, issue));
+                                                  NewIssue newIssue = new NewIssue(NewIssueTitleText);
+                                                  newIssue.Body = NewIssueBodyText;
+                                                  isLoading = true;
+                                                  Issue issue = await RepositoryUtility.CreateIssue(Repository.Id, newIssue);
+                                                  isLoading = false;
+                                                  if (issue != null)
+                                                  {
+                                                      SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
+                                                        .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<Repository, Issue>(Repository, issue));
+                                                  }
                                               }
                                              
                                           }));

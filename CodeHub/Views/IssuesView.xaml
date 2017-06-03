@@ -198,7 +198,6 @@
                         Command="{x:Bind ViewModel.CreateIssue}"
                         Width="148"
                         Margin="0,0,4,0"
-                        IsEnabled="{Binding ElementName=issueTitle,Path=Text.Length}"
                         Background="{StaticResource AppPrimaryColorBrush}"
                         Content="Create" />
                 <!--TODO: Translation of Content-->
