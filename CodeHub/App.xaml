@@ -13,9 +13,6 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--Resources-->
-            <x:Double x:Key="NarrowMinWidth">0</x:Double>
-            <x:Double x:Key="NormalMinWidth">580</x:Double>
-            <x:Double x:Key="WideMinWidth">1200</x:Double>
             <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
 

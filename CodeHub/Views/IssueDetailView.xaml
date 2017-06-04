@@ -21,7 +21,7 @@
             <VisualStateGroup>
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="320" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailGrid.(Grid.Row)" Value="0" />
@@ -37,7 +37,7 @@
                 </VisualState>
                 <VisualState x:Name="Normal">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailGrid.(Grid.Row)" Value="0" />
@@ -52,7 +52,7 @@
                 </VisualState>
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailGrid.(Grid.Row)" Value="0" />
