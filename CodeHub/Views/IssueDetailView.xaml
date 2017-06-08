@@ -28,10 +28,10 @@
                         <Setter Target="DetailGrid.(Grid.Column)" Value="0" />
                         <Setter Target="DetailGrid.(Grid.RowSpan)" Value="1" />
                         <Setter Target="DetailGrid.(Grid.ColumnSpan)" Value="2" />
-                        <Setter Target="CommentsGrid.(Grid.Row)" Value="1" />
-                        <Setter Target="CommentsGrid.(Grid.Column)" Value="0" />
-                        <Setter Target="CommentsGrid.(Grid.ColumnSpan)" Value="2" />
-                        <Setter Target="CommentsGrid.(Grid.RowSpan)" Value="1" />
+                        <Setter Target="CommentsPivot.(Grid.Row)" Value="1" />
+                        <Setter Target="CommentsPivot.(Grid.Column)" Value="0" />
+                        <Setter Target="CommentsPivot.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="1" />
 
                     </VisualState.Setters>
                 </VisualState>
@@ -43,9 +43,9 @@
                         <Setter Target="DetailGrid.(Grid.Row)" Value="0" />
                         <Setter Target="DetailGrid.(Grid.Column)" Value="0" />
                         <Setter Target="DetailGrid.(Grid.RowSpan)" Value="2" />
-                        <Setter Target="CommentsGrid.(Grid.Row)" Value="0" />
-                        <Setter Target="CommentsGrid.(Grid.Column)" Value="1" />
-                        <Setter Target="CommentsGrid.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="CommentsPivot.(Grid.Row)" Value="0" />
+                        <Setter Target="CommentsPivot.(Grid.Column)" Value="1" />
+                        <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
 
                     </VisualState.Setters>
 
@@ -58,9 +58,9 @@
                         <Setter Target="DetailGrid.(Grid.Row)" Value="0" />
                         <Setter Target="DetailGrid.(Grid.Column)" Value="0" />
                         <Setter Target="DetailGrid.(Grid.RowSpan)" Value="2" />
-                        <Setter Target="CommentsGrid.(Grid.Row)" Value="0" />
-                        <Setter Target="CommentsGrid.(Grid.Column)" Value="1" />
-                        <Setter Target="CommentsGrid.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="CommentsPivot.(Grid.Row)" Value="0" />
+                        <Setter Target="CommentsPivot.(Grid.Column)" Value="1" />
+                        <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
 
                     </VisualState.Setters>
                 </VisualState>
@@ -184,80 +184,108 @@
                                             TextWrapping="Wrap" />
 
             </ScrollViewer>
-
-
         </RelativePanel>
-        <Grid x:Name="CommentsGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0"
-                        Margin="10 5 0 5"
-                        Orientation="Horizontal">
-                <TextBlock x:Uid="comments"
-                           Margin="0 0 5 0"
-                           FontSize="17"
-                           FontWeight="SemiLight"
-                           Foreground="Gray" />
-                <TextBlock FontSize="17"
-                           FontWeight="SemiLight"
-                           Foreground="{StaticResource AppPrimaryColorBrush}"
-                           Text="{x:Bind ViewModel.Issue.Comments, Mode=OneWay}" />
-            </StackPanel>
+        <Pivot x:Name="CommentsPivot">
+            <PivotItem>
+                <PivotItem.Header>
+                    <StackPanel Margin="0 4 0 4" Orientation="Horizontal">
+                        <TextBlock x:Uid="comments"
+                                   Margin="0 0 4 0"
+                                   FontSize="17"
+                                   FontWeight="SemiLight"
+                                   Foreground="Gray" />
+                        <TextBlock FontSize="17"
+                                   FontWeight="SemiLight"
+                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Text="{x:Bind ViewModel.Issue.Comments, Mode=OneWay}" />
+                    </StackPanel>
+                </PivotItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="commentsListView"
+                              Grid.Row="0"
+                              IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.CommentTapped}"
+                              ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollMode="Enabled">
 
-            <ListView x:Name="commentsListView"
-                      Grid.Row="1"
-                      IsItemClickEnabled="True"
-                      ItemClick="{x:Bind ViewModel.CommentTapped}"
-                      ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
-                      ScrollViewer.HorizontalScrollMode="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.VerticalScrollMode="Enabled">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:IssueComment">
+                                <usercontrol:CommentListItem />
+                            </DataTemplate>
 
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="octo:IssueComment">
-                        <usercontrol:CommentListItem />
-                    </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <!--  TODO:Translation for 'Comment'  -->
+                    <Grid Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 AcceptsReturn="True"
+                                 PlaceholderText="Comment"
+                                 Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
+                                 Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
+                        <Button Grid.Column="1"
+                                Width="40"
+                                Height="40"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Background="{StaticResource AppPrimaryColorBrush}"
+                                BorderThickness="0"
+                                Command="{x:Bind ViewModel.CommentCommand}"
+                                Style="{StaticResource ActionButtonStyle}">
+                            <SymbolIcon Symbol="Send" />
+                        </Button>
+                    </Grid>
 
-                </ListView.ItemTemplate>
-            </ListView>
+                    <ProgressRing Grid.Row="0"
+                                  Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Center"
+                                  IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
+                </Grid>
 
-            <!--  TODO:Translation for placeholder  -->
-            <Grid Grid.Row="3" VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0"
-                         AcceptsReturn="True"
-                         PlaceholderText="Comment"
-                         Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                         Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
-                <Button Grid.Column="1"
-                        Width="40"
-                        Height="40"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        BorderThickness="0"
-                        Background="{StaticResource AppPrimaryColorBrush}"
-                        Command="{x:Bind ViewModel.CommentCommand}"
-                        Style="{StaticResource ActionButtonStyle}">
-                    <SymbolIcon Symbol="Send" />
-                </Button>
-            </Grid>
-
-            <ProgressRing Grid.Row="1"
-                          Width="20"
-                          Height="20"
-                          HorizontalAlignment="Center"
-                          IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
-        </Grid>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <StackPanel Margin="0 4 0 4" Orientation="Horizontal">
+                        <TextBlock x:Uid="labels"
+                                   Margin="0 0 4 0"
+                                   FontSize="17"
+                                   FontWeight="SemiLight"
+                                   Foreground="Gray" />
+                        <TextBlock FontSize="17"
+                                   FontWeight="SemiLight"
+                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Text="{x:Bind ViewModel.Issue.Labels.Count, Mode=OneWay}" />
+                    </StackPanel>
+                </PivotItem.Header>
+                <ListView IsItemClickEnabled="True"
+                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.Issue.Labels, Mode=OneWay}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:Label">
+                            <usercontrol:LabelListItem />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+        
     </Grid>
 </Page>
