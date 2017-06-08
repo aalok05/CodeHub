@@ -286,6 +286,5 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        
     </Grid>
 </Page>

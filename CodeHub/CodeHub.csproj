@@ -232,6 +232,7 @@
     <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
     <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
+    <Compile Include="Converters\ForegroundFromBackgroundConverter.cs" />
     <Compile Include="Converters\NotifTypeToSymbolConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />

@@ -11,10 +11,11 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <converter:ColorStringToColorBrushConverter x:Key="ColorStringToColorBrushConverter" x:Name="ColorStringToColorBrushConverter"/>
+        <converter:ForegroundFromBackgroundConverter x:Key="ForegroundFromBackgroundConverter" x:Name="ForegroundFromBackgroundConverter"/>
     </UserControl.Resources>
     <Grid Background="{Binding Color, Converter={StaticResource ColorStringToColorBrushConverter},Mode=OneWay}">
         <TextBlock Text="{Binding Name,Mode=OneWay}"
-                   Foreground="White"
+                   Foreground="{Binding Color, Converter={StaticResource ForegroundFromBackgroundConverter},Mode=OneWay}"
                    FontSize="15"
                    TextAlignment="Center"
                    VerticalAlignment="Center"
