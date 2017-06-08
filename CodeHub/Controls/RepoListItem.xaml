@@ -10,6 +10,7 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" x:Name="BoolToVisibilityConverter"/>
     </UserControl.Resources>
     <RelativePanel Margin="8,0,0,0">
         <Ellipse x:Name="OwnerAvatarEllipse"
@@ -29,7 +30,7 @@
 
         <TextBlock x:Name="RepoNameTextBlock"
                    Grid.Row="0"
-                   Margin="5,10,0,5"
+                   Margin="4,8,0,4"
                    FontSize="20"
                    MaxLines="1"
                    RelativePanel.RightOf="OwnerAvatarEllipse"
@@ -37,6 +38,22 @@
                    Text="{Binding Name}"
                    TextTrimming="CharacterEllipsis"
                    TextWrapping="Wrap" />
+        <StackPanel Orientation="Vertical"
+                    Margin="8 8 0 0"
+                    RelativePanel.AlignVerticalCenterWith="RepoNameTextBlock"
+                    RelativePanel.RightOf="RepoNameTextBlock"
+                    Visibility="{Binding Private,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       Foreground="Brown"
+                       Text="&#xE72E;"/>
+            <TextBlock FontSize="10"
+                       Foreground="Brown"
+                       Text="Private"/>
+        </StackPanel>
+        
+        
         <TextBlock x:Name="OwnernameTextBlock"
                    Margin="5,0,0,5"
                    FontSize="12"
@@ -65,8 +82,7 @@
                    RelativePanel.AlignVerticalCenterWith="StarSymbol"
                    RelativePanel.RightOf="StarSymbol"
                    Text="{Binding StargazersCount}" />
-
-
+        
         <Viewbox x:Name="ForkSymbol"
                  MaxWidth="13"
                  MaxHeight="13"
