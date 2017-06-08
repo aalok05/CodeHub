@@ -363,4 +363,7 @@
   <data name="share.Text" xml:space="preserve">
     <value>Share</value>
   </data>
+  <data name="labels.Text" xml:space="preserve">
+    <value>Labels</value>
+  </data>
 </root>

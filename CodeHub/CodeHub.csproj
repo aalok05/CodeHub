@@ -210,6 +210,9 @@
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LabelListItem.xaml.cs">
+      <DependentUpon>LabelListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OrganizationListItem.xaml.cs">
       <DependentUpon>OrganizationListItem.xaml</DependentUpon>
     </Compile>
@@ -225,9 +228,11 @@
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ColorStringToColorBrushConverter.cs" />
     <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
     <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
+    <Compile Include="Converters\ForegroundFromBackgroundConverter.cs" />
     <Compile Include="Converters\NotifTypeToSymbolConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
@@ -420,6 +425,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\IssueListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LabelListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

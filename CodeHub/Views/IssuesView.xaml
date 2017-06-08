@@ -24,7 +24,7 @@
 
         <CommandBar Grid.Row="0" 
                     DefaultLabelPosition="Right">
-            <!--TODO: Translation of label-->
+            <!--TODO: Translation of 'New Issue'-->
             <AppBarButton Tapped="AppBarButton_Tapped"
                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                           Icon="Add"
@@ -168,6 +168,7 @@
                 </i:Interaction.Behaviors>
             </Canvas>
 
+            <!--TODO: Translation for 'Title'-->
             <TextBox x:Name="issueTitle"
                      Margin="8,0,8,8"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
@@ -176,6 +177,7 @@
                      RelativePanel.Above="issueBody"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignRightWithPanel="True"/>
+            <!--TODO: Translation for 'Body'-->
             <TextBox x:Name="issueBody"
                      Height="200"
                      Margin="8,0,8,0"
@@ -193,14 +195,14 @@
                         RelativePanel.Below="issueBody"
                         RelativePanel.AlignLeftWithPanel="True"
                         RelativePanel.AlignRightWithPanel="True">
-                <!--TODO: Translation of Content-->
+                <!--TODO: Translation of 'Create'-->
                 <Button x:Name="createIssueButton"
                         Command="{x:Bind ViewModel.CreateIssue}"
                         Width="148"
                         Margin="0,0,4,0"
                         Background="{StaticResource AppPrimaryColorBrush}"
                         Content="Create" />
-                <!--TODO: Translation of Content-->
+                <!--TODO: Translation of 'Cancel'-->
                 <Button x:Name="cancelNewIssueButton"
                         Tapped="cancelNewIssueButton_Tapped"
                         Width="148"
