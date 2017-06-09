@@ -226,15 +226,15 @@
 
                         </ListView.ItemTemplate>
                     </ListView>
-                    <!--  TODO:Translation for 'Comment'  -->
                     <Grid Grid.Row="2" VerticalAlignment="Bottom">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0"
+                        <!--  TODO:Translation for 'Comment'  -->
+                        <TextBox x:Uid="comment"
+                                 Grid.Column="0"
                                  AcceptsReturn="True"
-                                 PlaceholderText="Comment"
                                  Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                                  Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
                         <Button Grid.Column="1"

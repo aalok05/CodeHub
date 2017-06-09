@@ -25,10 +25,10 @@
         <CommandBar Grid.Row="0" 
                     DefaultLabelPosition="Right">
             <!--TODO: Translation of 'New Issue'-->
-            <AppBarButton Tapped="AppBarButton_Tapped"
+            <AppBarButton x:Uid="newIssue"
+                          Tapped="AppBarButton_Tapped"
                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                          Icon="Add"
-                          Label="New Issue" />
+                          Icon="Add" />
         </CommandBar>
 
         <!--  Empty grid to provide grey background to pivot headers  -->
@@ -170,21 +170,21 @@
 
             <!--TODO: Translation for 'Title'-->
             <TextBox x:Name="issueTitle"
+                     x:Uid="title"
                      Margin="8,0,8,8"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                     PlaceholderText="Title"
                      Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}"
                      RelativePanel.Above="issueBody"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignRightWithPanel="True"/>
             <!--TODO: Translation for 'Body'-->
             <TextBox x:Name="issueBody"
+                     x:Uid="body"
                      Height="200"
                      Margin="8,0,8,0"
                      Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      AcceptsReturn="True"
-                     PlaceholderText="Body"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignRightWithPanel="True"
                      RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -197,17 +197,17 @@
                         RelativePanel.AlignRightWithPanel="True">
                 <!--TODO: Translation of 'Create'-->
                 <Button x:Name="createIssueButton"
+                        x:Uid="create"
                         Command="{x:Bind ViewModel.CreateIssue}"
                         Width="148"
                         Margin="0,0,4,0"
-                        Background="{StaticResource AppPrimaryColorBrush}"
-                        Content="Create" />
+                        Background="{StaticResource AppPrimaryColorBrush}"/>
                 <!--TODO: Translation of 'Cancel'-->
                 <Button x:Name="cancelNewIssueButton"
+                        x:Uid="cancel"
                         Tapped="cancelNewIssueButton_Tapped"
                         Width="148"
-                        Margin="4,0,0,0"
-                        Content="Cancel" />
+                        Margin="4,0,0,0"/>
             </StackPanel>
 
             <control:BusyScreen x:Name="busyScreen"
