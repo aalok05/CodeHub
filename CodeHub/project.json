@@ -5,13 +5,14 @@
     "LumiaImagingSDK.UWP": "3.0.593",
     "Microsoft.Advertising.XAML": "10.1705.16001",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
-    "Microsoft.Services.Store.SDK": "10.1703.19001",
-    "Microsoft.Toolkit.Uwp.UI.Controls": "1.4.0",
+    "Microsoft.Services.Store.SDK": "10.1705.16001",
+    "Microsoft.Toolkit.Uwp.UI.Controls": "1.4.1",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "MvvmLightLibs": "5.3.0",
     "Octokit": "0.24.0",
     "RavinduL.LocalNotifications": "2.0.0",
     "System.Numerics.Vectors": "4.3.0",
+    "UICompositionAnimations": "2.1.1",
     "Win2D.uwp": "1.20.0"
   },
   "frameworks": {

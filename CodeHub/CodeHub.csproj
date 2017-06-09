@@ -572,11 +572,6 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UICompositionAnimations">
-      <HintPath>Libs\UICompositionAnimations\UICompositionAnimations.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="MultilingualResources\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
