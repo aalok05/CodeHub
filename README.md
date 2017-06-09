@@ -8,9 +8,11 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 <a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a>
 
 ## Features
-* See Trending repositories
-* See your News Feed
+* Trending repositories
+* News Feed
 * View code (with syntax highlighting), issues and comments. 
+* Create Issues
+* Comment on Issues
 * Choose from 9 different syntax highlighting styles
 * Search repositories, users, issues and code
 * Star, Watch and Fork repositories
@@ -27,7 +29,6 @@ Pull requests are welcome in the `dev` branch!
 
 ## Setting up the project 
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
-* Don't forget to add a reference to [UICompositionAnimations](https://github.com/Sergio0694/UICompositionAnimations)
 
 ## Things to be done
 CodeHub aims to do all those things that the GitHub Desktop app doesn't do. Our goal is to make an app for UWP which lets you keep up with the open source world on the go.
