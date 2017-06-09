@@ -186,7 +186,7 @@
             </ScrollViewer>
         </RelativePanel>
         <Pivot x:Name="CommentsPivot">
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Margin="0 4 0 4" Orientation="Horizontal">
                         <TextBlock x:Uid="comments"
@@ -258,7 +258,7 @@
                 </Grid>
 
             </PivotItem>
-            <PivotItem>
+            <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Margin="0 4 0 4" Orientation="Horizontal">
                         <TextBlock x:Uid="labels"
