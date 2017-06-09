@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Octokit;
 using System.Numerics;
+using Windows.System.Profile;
 
 namespace CodeHub.Views
 {
@@ -37,6 +38,14 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
             todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
+
+            //Enabling IsPullToRefreshWithMouseEnabled in mobile was causing problem in sliding Pivot horizontally
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+            {
+                todayListView.IsPullToRefreshWithMouseEnabled =
+                weekListView.IsPullToRefreshWithMouseEnabled =
+                monthListView.IsPullToRefreshWithMouseEnabled = true;
+            }
         }
 
         private void Today_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
