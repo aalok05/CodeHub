@@ -157,6 +157,24 @@ namespace CodeHub.Services
         }
 
         /// <summary>
+        /// Gets all gists of current user
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<Gist>> GetUserGists()
+        {
+            try
+            {
+                var client = await GetAuthenticatedClient();
+                var gists = await client.Gist.GetAll();
+                return new ObservableCollection<Gist>(new List<Gist>(gists));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Gets all repositories starred by current user
         /// </summary>
         /// <returns></returns>

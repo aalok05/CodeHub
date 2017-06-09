@@ -250,10 +250,12 @@
     <Compile Include="Models\WrappedWebResult.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
+    <Compile Include="Services\GistUtility.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\IAsyncNavigationService.cs" />
+    <Compile Include="Services\IssueUtility.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\OrganizationsUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />

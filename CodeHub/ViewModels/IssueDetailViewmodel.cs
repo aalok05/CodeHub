@@ -119,7 +119,7 @@ namespace CodeHub.ViewModels
                                               if(!string.IsNullOrWhiteSpace(CommentText))
                                               {
                                                    isLoading = true;
-                                                   IssueComment newComment = await RepositoryUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                                   IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
                                                    isLoading = false;
                                                    if(newComment != null)
                                                    {

@@ -278,7 +278,7 @@ namespace CodeHub.ViewModels
                                                   NewIssue newIssue = new NewIssue(NewIssueTitleText);
                                                   newIssue.Body = NewIssueBodyText;
                                                   isLoading = true;
-                                                  Issue issue = await RepositoryUtility.CreateIssue(Repository.Id, newIssue);
+                                                  Issue issue = await IssueUtility.CreateIssue(Repository.Id, newIssue);
                                                   isLoading = false;
                                                   if (issue != null)
                                                   {
