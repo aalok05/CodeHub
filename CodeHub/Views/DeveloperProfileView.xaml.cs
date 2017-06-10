@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace CodeHub.Views
 {
@@ -43,6 +44,15 @@ namespace CodeHub.Views
                 Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
             else
                 Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
+        }
+
+        private void Actor_Click(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (sender as HyperlinkButton).Content);
+        }
+        private void Repo_Click(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", (sender as HyperlinkButton).Content);
         }
     }
 }

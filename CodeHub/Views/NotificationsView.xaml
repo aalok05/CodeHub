@@ -63,85 +63,83 @@
                               SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
-                                <UserControl>
-                                    <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
-                                                                     HorizontalAlignment="Stretch"
-                                                                     ActivationWidth="100"
-                                                                     IsLeftCommandEnabled="True"
-                                                                     IsOffsetLimited="True"
-                                                                     IsPointerReleasedOnSwipingHandled="False"
-                                                                     IsRightCommandEnabled="True"
-                                                                     LeftBackground="OrangeRed"
-                                                                     LeftCommand="{Binding UnsubscribeUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                     LeftCommandParameter="{Binding}"
-                                                                     LeftForeground="White"
-                                                                     LeftIcon="Mute"
-                                                                     MouseSlidingEnabled="True"
-                                                                     RightBackground="#60B53B"
-                                                                     RightCommand="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                     RightCommandParameter="{Binding}"
-                                                                     RightForeground="White"
-                                                                     RightIcon="Accept">
-                                        <i:Interaction.Behaviors>
-                                            <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
-                                                <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
-                                            </core:DataTriggerBehavior>
-                                            <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="False">
-                                                <core:ChangePropertyAction PropertyName="Background" Value="Transparent" />
-                                            </core:DataTriggerBehavior>
-                                        </i:Interaction.Behaviors>
+                                <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
+                                                                 HorizontalAlignment="Stretch"
+                                                                 ActivationWidth="100"
+                                                                 IsLeftCommandEnabled="True"
+                                                                 IsOffsetLimited="True"
+                                                                 IsPointerReleasedOnSwipingHandled="False"
+                                                                 IsRightCommandEnabled="True"
+                                                                 LeftBackground="OrangeRed"
+                                                                 LeftCommand="{Binding UnsubscribeUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                                 LeftCommandParameter="{Binding}"
+                                                                 LeftForeground="White"
+                                                                 LeftIcon="Mute"
+                                                                 MouseSlidingEnabled="True"
+                                                                 RightBackground="#60B53B"
+                                                                 RightCommand="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                                 RightCommandParameter="{Binding}"
+                                                                 RightForeground="White"
+                                                                 RightIcon="Accept">
+                                    <i:Interaction.Behaviors>
+                                        <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
+                                            <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
+                                        </core:DataTriggerBehavior>
+                                        <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="False">
+                                            <core:ChangePropertyAction PropertyName="Background" Value="Transparent" />
+                                        </core:DataTriggerBehavior>
+                                    </i:Interaction.Behaviors>
 
-                                        <RelativePanel>
-                                            <Path x:Name="notifSymbol"
-                                                  Margin="12,12,12,4"
-                                                  Data="{Binding Subject.Type, Converter={StaticResource NotifTypeToSymbolConverter}}"
-                                                  Fill="Gray"
-                                                  RelativePanel.AlignLeftWithPanel="True"
-                                                  RelativePanel.AlignTopWithPanel="True"
-                                                  StrokeThickness="0">
-                                                <Path.RenderTransform>
-                                                    <CompositeTransform x:Name="notifSymbolScale"
-                                                                        ScaleX="2"
-                                                                        ScaleY="2" />
-                                                </Path.RenderTransform>
-                                            </Path>
-                                            <TextBlock x:Name="timeText"
-                                                       Margin="12,12,0,0"
-                                                       FontSize="12"
-                                                       Foreground="Gray"
-                                                       RelativePanel.AlignTopWith="notifSymbol"
-                                                       RelativePanel.RightOf="notifSymbol"
-                                                       Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
-                                            <TextBlock x:Name="titleText"
-                                                       Margin="12,0,0,0"
-                                                       FontSize="13"
-                                                       TextWrapping="Wrap"
-                                                       RelativePanel.AlignRightWithPanel="True"
-                                                       RelativePanel.Below="timeText"
-                                                       RelativePanel.RightOf="notifSymbol"
-                                                       Text="{x:Bind Subject.Title, Mode=OneWay}" />
+                                    <RelativePanel>
+                                        <Path x:Name="notifSymbol"
+                                              Margin="12,12,12,4"
+                                              Data="{Binding Subject.Type, Converter={StaticResource NotifTypeToSymbolConverter}}"
+                                              Fill="Gray"
+                                              RelativePanel.AlignLeftWithPanel="True"
+                                              RelativePanel.AlignTopWithPanel="True"
+                                              StrokeThickness="0">
+                                            <Path.RenderTransform>
+                                                <CompositeTransform x:Name="notifSymbolScale"
+                                                                    ScaleX="2"
+                                                                    ScaleY="2" />
+                                            </Path.RenderTransform>
+                                        </Path>
+                                        <TextBlock x:Name="timeText"
+                                                   Margin="12,12,0,0"
+                                                   FontSize="12"
+                                                   Foreground="Gray"
+                                                   RelativePanel.AlignTopWith="notifSymbol"
+                                                   RelativePanel.RightOf="notifSymbol"
+                                                   Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
+                                        <TextBlock x:Name="titleText"
+                                                   Margin="12,0,0,0"
+                                                   FontSize="13"
+                                                   TextWrapping="Wrap"
+                                                   RelativePanel.AlignRightWithPanel="True"
+                                                   RelativePanel.Below="timeText"
+                                                   RelativePanel.RightOf="notifSymbol"
+                                                   Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
-                                            <HyperlinkButton x:Name="RepoText"
-                                                             Margin="12,0,0,4"
-                                                             Padding="0"
-                                                             Content="{Binding Repository.FullName}"
-                                                             FontSize="13"
-                                                             RelativePanel.Below="titleText"
-                                                             RelativePanel.RightOf="notifSymbol"
-                                                             Tapped="Repo_Click">
-                                                <HyperlinkButton.ContentTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock VerticalAlignment="Center"
-                                                                   FontSize="13.5"
-                                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                                   Text="{Binding}" />
-                                                    </DataTemplate>
-                                                </HyperlinkButton.ContentTemplate>
-                                            </HyperlinkButton>
-                                        </RelativePanel>
+                                        <HyperlinkButton x:Name="RepoText"
+                                                         Margin="12,0,0,4"
+                                                         Padding="0"
+                                                         Content="{Binding Repository.FullName}"
+                                                         FontSize="13"
+                                                         RelativePanel.Below="titleText"
+                                                         RelativePanel.RightOf="notifSymbol"
+                                                         Tapped="Repo_Click">
+                                            <HyperlinkButton.ContentTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock VerticalAlignment="Center"
+                                                               FontSize="13.5"
+                                                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                               Text="{Binding}" />
+                                                </DataTemplate>
+                                            </HyperlinkButton.ContentTemplate>
+                                        </HyperlinkButton>
+                                    </RelativePanel>
 
-                                    </toolkitControl:SlidableListItem>
-                                </UserControl>
+                                </toolkitControl:SlidableListItem>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

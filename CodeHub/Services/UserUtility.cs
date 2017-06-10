@@ -148,7 +148,7 @@ namespace CodeHub.Services
             {
                 var client = await GetAuthenticatedClient();
                 var repos = await client.Repository.GetAllForCurrent();
-                return new ObservableCollection<Repository>(new List<Repository>(repos));
+                return new ObservableCollection<Repository>(repos);
             }
             catch
             {
@@ -166,7 +166,32 @@ namespace CodeHub.Services
             {
                 var client = await GetAuthenticatedClient();
                 var gists = await client.Gist.GetAll();
-                return new ObservableCollection<Gist>(new List<Gist>(gists));
+                return new ObservableCollection<Gist>(gists);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets all public events of current user
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<Activity>> GetUserActivity()
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+
+                var options = new ApiOptions
+                {
+                    PageSize = 50,
+                    PageCount = 1
+                };
+                var result = await client.Activity.Events.GetAllUserReceivedPublic(GlobalHelper.UserLogin, options);
+
+                return new ObservableCollection<Activity>(result);
             }
             catch
             {
@@ -184,7 +209,7 @@ namespace CodeHub.Services
             {
                 var client = await GetAuthenticatedClient();
                 var repos = await client.Activity.Starring.GetAllForCurrent();
-                return new ObservableCollection<Repository>(new List<Repository>(repos));
+                return new ObservableCollection<Repository>(repos);
             }
             catch
             {
@@ -201,23 +226,17 @@ namespace CodeHub.Services
         {
             try
             {
-                ObservableCollection<User> followers = new ObservableCollection<User>();
                 var client = await GetAuthenticatedClient();
 
-                // return first 100 items
-                var firstOneHundred = new ApiOptions
+                ApiOptions firstOneHundred = new ApiOptions
                 {
                     PageSize = 100,
                     PageCount = 1
                 };
+
                 var result = await client.User.Followers.GetAll(login, firstOneHundred);
-                foreach (User r in result)
-                {
-                    followers.Add(r);
-                    if (followers.Count > 99)
-                        break;
-                }
-                return followers;
+
+                return new ObservableCollection<User>(result);
             }
             catch
             {
@@ -234,21 +253,16 @@ namespace CodeHub.Services
         {
             try
             {
-                ObservableCollection<User> following = new ObservableCollection<User>();
                 var client = await GetAuthenticatedClient();
 
-                // return first 100 items
-                var firstOneHundred = new ApiOptions
+                ApiOptions firstOneHundred = new ApiOptions
                 {
                     PageSize = 100,
                     PageCount = 1
                 };
                 var result = await client.User.Followers.GetAllFollowing(login, firstOneHundred);
-                foreach (User r in result)
-                {
-                    following.Add(r);
-                }
-                return following;
+
+                return new ObservableCollection<User>(result);
             }
             catch
             {
@@ -267,7 +281,7 @@ namespace CodeHub.Services
 
                 var list = await client.Organization.GetAllForCurrent();
 
-                return new ObservableCollection<Organization>(new List<Organization>(list));
+                return new ObservableCollection<Organization>(list);
             }
             catch
             {
