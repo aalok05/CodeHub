@@ -384,4 +384,19 @@
   <data name="cancel.Content" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="activity.Text" xml:space="preserve">
+    <value>activity</value>
+  </data>
+  <data name="pullRequests.Text" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="readme.Text" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="contributors.Text" xml:space="preserve">
+    <value>CONTRIBUTORS</value>
+  </data>
+  <data name="releases.Text" xml:space="preserve">
+    <value>RELEASES</value>
+  </data>
 </root>
