@@ -9,6 +9,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:local="using:CodeHub.Views"
+      xmlns:userControl="using:CodeHub.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
       mc:Ignorable="d">
@@ -166,20 +167,7 @@
                               ScrollViewer.VerticalScrollMode="Enabled">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="octo:User">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="23"
-                                            Height="23"
-                                            Margin="0 0 10 0"
-                                            CornerRadius="8,8,8,8">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                    </Border.Background>
-                                </Border>
-
-                                <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login, Mode=OneWay}" />
-                            </StackPanel>
+                            <userControl:UserListItem/>
                         </DataTemplate>
 
                     </ListView.ItemTemplate>
@@ -204,20 +192,7 @@
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                            Height="23"
-                                            Margin="0 0 10 0"
-                                            CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                        </Border.Background>
-                                    </Border>
-
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login}" />
-                                </StackPanel>
+                                <userControl:UserListItem/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
