@@ -252,20 +252,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private RelayCommand _reposNavigate;
-        public RelayCommand NavigateToRepositories
-        {
-            get
-            {
-                return _reposNavigate
-                    ?? (_reposNavigate = new RelayCommand(
-                                          () =>
-                                          {
-                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoListView), "Repositories", Developer.Login);
-                                          }));
-            }
-        }
-
         public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
         {
             Developer = await UserUtility.GetUserInfo(Developer.Login);
@@ -307,7 +293,7 @@ namespace CodeHub.ViewModels
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
         }
 
-        public void ProfileTapped(object sender, ItemClickEventArgs e)
+        public void UserTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }

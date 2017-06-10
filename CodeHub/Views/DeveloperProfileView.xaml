@@ -5,7 +5,6 @@
       xmlns:converters="using:CodeHub.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:usercontrol="using:CodeHub.Controls"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -68,7 +67,7 @@
                 <RowDefinition Height="0.6*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <controls:ImageEx Grid.Row="0"
+            <toolkitControl:ImageEx Grid.Row="0"
                               IsCacheEnabled="True"
                               Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
                               Stretch="UniformToFill">
@@ -78,7 +77,7 @@
                                     Value="100"
                                     Duration="0" />
                 </i:Interaction.Behaviors>
-            </controls:ImageEx>
+            </toolkitControl:ImageEx>
             <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
         </Grid>
         <ScrollViewer Grid.Row="0"
@@ -182,8 +181,8 @@
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock FontSize="15"
-                               Text="activity"
+                    <TextBlock x:Uid="activity"
+                               FontSize="15"
                                FontWeight="SemiBold" />
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
@@ -269,9 +268,9 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 8 0"
+                        <TextBlock x:Uid="repositories"
+                                   Margin="0 0 8 0"
                                    FontSize="15"
-                                   Text="repositories"
                                    FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" 
                                    Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay}" />
@@ -310,7 +309,7 @@
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.ProfileTapped}"
+                              ItemClick="{x:Bind ViewModel.UserTapped}"
                               ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
@@ -318,19 +317,7 @@
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                            Height="23"
-                                            Margin="8 0 8 0"
-                                            CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                        </Border.Background>
-                                    </Border>
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login, Mode=OneWay}" />
-                                </StackPanel>
+                                <usercontrol:UserListItem/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -353,7 +340,7 @@
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.ProfileTapped}"
+                              ItemClick="{x:Bind ViewModel.UserTapped}"
                               ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
@@ -361,19 +348,7 @@
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                                Height="23"
-                                                Margin="8 0 8 0"
-                                                CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                        </Border.Background>
-                                    </Border>
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login}" />
-                                </StackPanel>
+                                <usercontrol:UserListItem/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
