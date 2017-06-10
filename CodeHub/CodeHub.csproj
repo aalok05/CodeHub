@@ -103,6 +103,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\css\github-markdown.css" />
     <Content Include="Assets\flame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -216,6 +217,9 @@
     <Compile Include="Controls\OrganizationListItem.xaml.cs">
       <DependentUpon>OrganizationListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ReleaseListItem.xaml.cs">
+      <DependentUpon>ReleaseListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
     </Compile>
@@ -258,6 +262,7 @@
     <Compile Include="Services\IssueUtility.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\OrganizationsUtility.cs" />
+    <Compile Include="Services\PullRequestService.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
@@ -273,7 +278,6 @@
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\NotificationsViewmodel.cs" />
-    <Compile Include="ViewModels\RepoListViewmodel.cs" />
     <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
     <Compile Include="Views\AboutSettingsView.xaml.cs">
@@ -343,9 +347,6 @@
     </Compile>
     <Compile Include="Views\RepoDetailView.xaml.cs">
       <DependentUpon>RepoDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RepoListView.xaml.cs">
-      <DependentUpon>RepoListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
@@ -437,6 +438,10 @@
     <Page Include="Controls\OrganizationListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ReleaseListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RepoListItem.xaml">
       <SubType>Designer</SubType>
@@ -542,10 +547,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RepoDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\RepoListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
