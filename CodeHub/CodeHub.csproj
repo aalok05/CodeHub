@@ -103,6 +103,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\css\github-markdown.css" />
     <Content Include="Assets\flame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -216,6 +217,12 @@
     <Compile Include="Controls\OrganizationListItem.xaml.cs">
       <DependentUpon>OrganizationListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PullRequestListItem.xaml.cs">
+      <DependentUpon>PullRequestListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReleaseListItem.xaml.cs">
+      <DependentUpon>ReleaseListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RepoListItem.xaml.cs">
       <DependentUpon>RepoListItem.xaml</DependentUpon>
     </Compile>
@@ -250,12 +257,15 @@
     <Compile Include="Models\WrappedWebResult.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
+    <Compile Include="Services\GistUtility.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\IAsyncNavigationService.cs" />
+    <Compile Include="Services\IssueUtility.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\OrganizationsUtility.cs" />
+    <Compile Include="Services\PullRequestUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
@@ -271,8 +281,9 @@
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\NotificationsViewmodel.cs" />
-    <Compile Include="ViewModels\RepoListViewmodel.cs" />
     <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
+    <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
+    <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
     <Compile Include="Views\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
@@ -339,11 +350,14 @@
     <Compile Include="Views\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PullRequestDetailView.xaml.cs">
+      <DependentUpon>PullRequestDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PullRequestsView.xaml.cs">
+      <DependentUpon>PullRequestsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RepoDetailView.xaml.cs">
       <DependentUpon>RepoDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RepoListView.xaml.cs">
-      <DependentUpon>RepoListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
@@ -435,6 +449,14 @@
     <Page Include="Controls\OrganizationListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PullRequestListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ReleaseListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RepoListItem.xaml">
       <SubType>Designer</SubType>
@@ -539,11 +561,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoDetailView.xaml">
+    <Page Include="Views\PullRequestDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoListView.xaml">
+    <Page Include="Views\PullRequestsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RepoDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -570,11 +596,6 @@
     <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="UICompositionAnimations">
-      <HintPath>Libs\UICompositionAnimations\UICompositionAnimations.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MultilingualResources\" />

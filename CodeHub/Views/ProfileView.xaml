@@ -9,6 +9,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:local="using:CodeHub.Views"
+      xmlns:userControl="using:CodeHub.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
       mc:Ignorable="d">
@@ -34,7 +35,8 @@
                         <Setter Target="UserPic.Height" Value="150" />
                         <Setter Target="UserNameText.FontSize" Value="25" />
                         <Setter Target="LoginText.FontSize" Value="16" />
-
+                        <Setter Target="BioText.FontSize" Value="13" />
+                        <Setter Target="TopRow.Height" Value="310"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -42,17 +44,19 @@
                         <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="UserPic.Width" Value="190" />
-                        <Setter Target="UserPic.Height" Value="190" />
-                        <Setter Target="UserNameText.FontSize" Value="30" />
-                        <Setter Target="LoginText.FontSize" Value="18" />
+                        <Setter Target="UserPic.Width" Value="170" />
+                        <Setter Target="UserPic.Height" Value="170" />
+                        <Setter Target="UserNameText.FontSize" Value="28" />
+                        <Setter Target="LoginText.FontSize" Value="16" />
+                        <Setter Target="TopRow.Height" Value="340"/>
+                        <Setter Target="BioText.FontSize" Value="14" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="1.4*" />
+            <RowDefinition x:Name="TopRow" Height="290" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
@@ -73,35 +77,37 @@
             <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
         </Grid>
 
-        <RelativePanel Grid.Row="0"
-                       Margin="10"
-                       Background="Transparent">
-
-            <Ellipse x:Name="UserPic"
+        <ScrollViewer Grid.Row="0"
+                      HorizontalScrollBarVisibility="Disabled"
+                      HorizontalScrollMode="Disabled"
+                      VerticalScrollBarVisibility="Hidden"
+                      VerticalScrollMode="Enabled">
+            <RelativePanel Background="Transparent">
+                <Ellipse x:Name="UserPic"
                      Width="125"
                      Height="125"
                      Margin="0 10 0 0"
                      RelativePanel.AlignHorizontalCenterWithPanel="True">
-                <Ellipse.Fill>
-                    <ImageBrush>
-                        <ImageBrush.ImageSource>
-                            <BitmapImage DecodePixelHeight="125"
+                    <Ellipse.Fill>
+                        <ImageBrush>
+                            <ImageBrush.ImageSource>
+                                <BitmapImage DecodePixelHeight="125"
                                          DecodePixelType="Logical"
                                          DecodePixelWidth="125"
                                          UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
 
-                </Ellipse.Fill>
-            </Ellipse>
-            <TextBlock x:Name="UserNameText"
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock x:Name="UserNameText"
                        FontSize="22"
                        FontWeight="SemiBold"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.Below="UserPic"
                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
                        TextWrapping="Wrap" />
-            <TextBlock x:Name="LoginText"
+                <TextBlock x:Name="LoginText"
                        Grid.Row="2"
                        FontSize="13"
                        FontWeight="SemiBold"
@@ -110,35 +116,36 @@
                        RelativePanel.Below="UserNameText"
                        Text="{x:Bind ViewModel.User.Login, Mode=OneWay}"
                        TextWrapping="Wrap" />
-            <StackPanel x:Name="UserInfoPanel"
-                        Margin="0 0 10 0"
+                <StackPanel x:Name="UserInfoPanel"
+                        Margin="0 8 10 0"
                         Orientation="Horizontal"
                         RelativePanel.AlignHorizontalCenterWithPanel="True"
                         RelativePanel.Below="LoginText">
-                <TextBlock Margin="0 0 10 0"
+                    <TextBlock Margin="0 0 10 0"
                            FontSize="12"
-                           FontWeight="SemiLight"
+                           Foreground="Gray"
                            Text="{x:Bind ViewModel.User.Location, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.User.Location, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-                <TextBlock FontSize="12"
-                           FontWeight="SemiLight"
+                    <TextBlock FontSize="12"
+                           Foreground="Gray"
                            Text="{x:Bind ViewModel.User.Email, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.User.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-            </StackPanel>
+                </StackPanel>
 
-            <TextBlock x:Name="BioText"
-                       Margin="5 10 5 5"
+                <TextBlock x:Name="BioText"
+                       Margin="4 8 4 4"
                        FontSize="12"
-                       FontWeight="SemiLight"
-                       Foreground="#6E6E6E"
-                       MaxLines="2"
+                       TextAlignment="Center"
+                       Foreground="Gray"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.Below="UserInfoPanel"
                        Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}"
                        TextTrimming="CharacterEllipsis"
                        TextWrapping="Wrap" />
 
-        </RelativePanel>
+            </RelativePanel>
+        </ScrollViewer>
+        
         <Pivot Grid.Row="1">
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -151,42 +158,20 @@
                     </StackPanel>
 
                 </PivotItem.Header>
-
-                <Grid ManipulationMode="System">
-                    <ListView IsItemClickEnabled="True"
+                <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.ProfileTapped}"
                               ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:User">
+                            <userControl:UserListItem/>
+                        </DataTemplate>
 
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                            Height="23"
-                                            Margin="0 0 10 0"
-                                            CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                        </Border.Background>
-                                    </Border>
-
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login, Mode=OneWay}" />
-                                </StackPanel>
-                            </DataTemplate>
-
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-
+                    </ListView.ItemTemplate>
+                </ListView>
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -198,38 +183,19 @@
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.User.Following, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
-                <Grid ManipulationMode="System">
-                    <ListView IsItemClickEnabled="True"
+                <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.ProfileTapped}"
                               ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                            Height="23"
-                                            Margin="0 0 10 0"
-                                            CornerRadius="8,8,8,8">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                        </Border.Background>
-                                    </Border>
-
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login}" />
-                                </StackPanel>
+                                <userControl:UserListItem/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                </Grid>
             </PivotItem>
 
         </Pivot>

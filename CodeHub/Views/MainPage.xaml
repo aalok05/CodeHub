@@ -258,15 +258,15 @@
                        PaneBackground="Transparent">
                 <SplitView.Pane>
                     <Grid>
-                        <Canvas Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
-                        <Canvas>
+                        <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
+                        <Border>
                             <i:Interaction.Behaviors>
                                 <behaviors:Blur AutomaticallyStart="True"
                                                 Delay="0"
                                                 Value="100"
                                                 Duration="0" />
                             </i:Interaction.Behaviors>
-                        </Canvas>
+                        </Border>
                         <RelativePanel Name="HamRelative"
                                        Padding="0 10 0 0"
                                        Background="Transparent">

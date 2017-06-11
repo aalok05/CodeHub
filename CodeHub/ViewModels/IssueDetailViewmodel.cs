@@ -83,7 +83,7 @@ namespace CodeHub.ViewModels
             else
             {
                 isLoading = true;
-                Comments = await RepositoryUtility.GetAllCommentsForIssue(Repository.Owner.Login, Repository.Name, Issue.Number);
+                Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
                 isLoading = false;
 
             }
@@ -119,7 +119,7 @@ namespace CodeHub.ViewModels
                                               if(!string.IsNullOrWhiteSpace(CommentText))
                                               {
                                                    isLoading = true;
-                                                   IssueComment newComment = await RepositoryUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                                   IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
                                                    isLoading = false;
                                                    if(newComment != null)
                                                    {

@@ -13,17 +13,32 @@ namespace CodeHub.ViewModels
 {
     public class DeveloperProfileViewmodel : AppViewmodel
     {
-        public User _developer;
-        public User Developer
+        #region properties
+        public ObservableCollection<Activity> _events;
+        public ObservableCollection<Activity> Events
         {
             get
             {
-                return _developer;
+                return _events;
             }
             set
             {
-                Set(() => Developer, ref _developer, value);
+                Set(() => Events, ref _events, value);
             }
+        }
+
+        public ObservableCollection<Repository> _repositories;
+        public ObservableCollection<Repository> Repositories
+        {
+            get
+            {
+                return _repositories;
+            }
+            set
+            {
+                Set(() => Repositories, ref _repositories, value);
+            }
+
         }
 
         public ObservableCollection<User> _followers;
@@ -52,6 +67,45 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsFollowersLoading;
+        public bool IsFollowersLoading
+        {
+            get
+            {
+                return _IsFollowersLoading;
+            }
+            set
+            {
+                Set(() => IsFollowersLoading, ref _IsFollowersLoading, value);
+            }
+        }
+
+        public bool _IsFollowingLoading;
+        public bool IsFollowingLoading
+        {
+            get
+            {
+                return _IsFollowingLoading;
+            }
+            set
+            {
+                Set(() => IsFollowingLoading, ref _IsFollowingLoading, value);
+            }
+        }
+
+        public User _developer;
+        public User Developer
+        {
+            get
+            {
+                return _developer;
+            }
+            set
+            {
+                Set(() => Developer, ref _developer, value);
+            }
+        }
+
         public bool _isFollowing;
         public bool IsFollowing
         {
@@ -62,6 +116,32 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => IsFollowing, ref _isFollowing, value);
+            }
+        }
+
+        public bool _IsEventsLoading;
+        public bool IsEventsLoading
+        {
+            get
+            {
+                return _IsEventsLoading;
+            }
+            set
+            {
+                Set(() => IsEventsLoading, ref _IsEventsLoading, value);
+            }
+        }
+
+        public bool _IsReposLoading;
+        public bool IsReposLoading
+        {
+            get
+            {
+                return _IsReposLoading;
+            }
+            set
+            {
+                Set(() => IsReposLoading, ref _IsReposLoading, value);
             }
         }
 
@@ -78,32 +158,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _followersLoading;
-        public bool FollowersLoading
-        {
-            get
-            {
-                return _followersLoading;
-            }
-            set
-            {
-                Set(() => FollowersLoading, ref _followersLoading, value);
-            }
-        }
-
-        public bool _followingLoading;
-        public bool FollowingLoading
-        {
-            get
-            {
-                return _followingLoading;
-            }
-            set
-            {
-                Set(() => FollowingLoading, ref _followingLoading, value);
-            }
-        }
-
         public bool _followProgress;
         public bool FollowProgress
         {
@@ -116,12 +170,14 @@ namespace CodeHub.ViewModels
                 Set(() => FollowProgress, ref _followProgress, value);
             }
         }
+        #endregion
+
         public async Task Load(string login)
         {
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
             }
             else
             {
@@ -144,21 +200,13 @@ namespace CodeHub.ViewModels
                         }
                         FollowProgress = false;
 
-                        FollowersLoading = true;
-                        Followers = await UserUtility.GetAllFollowers(Developer.Login);
-                        FollowersLoading = false;
-
-                        FollowingLoading = true;
-                        Following = await UserUtility.GetAllFollowing(Developer.Login);
-                        FollowingLoading = false;
+                        IsEventsLoading = true;
+                        Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                        IsEventsLoading = false;
                     }
                 }
 
             }
-        }
-        public void ProfileTapped(object sender, ItemClickEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }
 
         private RelayCommand _followCommand;
@@ -177,7 +225,7 @@ namespace CodeHub.ViewModels
 
                                                   Messenger.Default.Send(new GlobalHelper.FollowActivityMessageType());
                                                   GlobalHelper.NewFollowActivity = true;
-                                                  
+
                                               }
                                               FollowProgress = false;
                                           }));
@@ -204,25 +252,50 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private RelayCommand _reposNavigate;
-        public RelayCommand NavigateToRepositories
-        {
-            get
-            {
-                return _reposNavigate
-                    ?? (_reposNavigate = new RelayCommand(
-                                          () =>
-                                          {
-                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoListView), "Repositories", Developer.Login);
-                                          }));
-            }
-        }
         public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
         {
             Developer = await UserUtility.GetUserInfo(Developer.Login);
-            FollowersLoading = true;
-            Followers = await UserUtility.GetAllFollowers(Developer.Login);
-            FollowersLoading = false;
+        }
+
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+
+            if (p.SelectedIndex == 0)
+            {
+                IsEventsLoading = true;
+                Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                IsEventsLoading = false;
+
+            }
+            else if (p.SelectedIndex == 1)
+            {
+                IsReposLoading = true;
+                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login);
+                IsReposLoading = false;
+            }
+            else if (p.SelectedIndex == 2)
+            {
+                IsFollowersLoading = true;
+                Followers = await UserUtility.GetAllFollowers(Developer.Login);
+                IsFollowersLoading = false;
+            }
+            else if (p.SelectedIndex == 3)
+            {
+                IsFollowingLoading = true;
+                Following = await UserUtility.GetAllFollowing(Developer.Login);
+                IsFollowingLoading = false;
+            }
+        }
+
+        public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
+        }
+
+        public void UserTapped(object sender, ItemClickEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }
     }
 }

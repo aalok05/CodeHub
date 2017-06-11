@@ -1,16 +1,16 @@
-﻿<Page x:Class="CodeHub.Views.IssueDetailView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-      xmlns:converters="using:CodeHub.Converters"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:local="using:CodeHub.Views"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:octo="using:Octokit"
-      xmlns:usercontrol="using:CodeHub.Controls"
-      mc:Ignorable="d">
+﻿<Page
+    x:Class="CodeHub.Views.PullRequestDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:CodeHub.Converters"
+    xmlns:octo="using:Octokit"
+    xmlns:usercontrol="using:CodeHub.Controls"
+    mc:Ignorable="d">
+
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -83,7 +83,7 @@
                        Foreground="{StaticResource AppPrimaryColorBrush}"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
-                       Text="{x:Bind ViewModel.Issue.Title, Mode=OneWay}"
+                       Text="{x:Bind ViewModel.PullRequest.Title, Mode=OneWay}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
@@ -98,7 +98,7 @@
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="numbersymbol"
-                       Text="{x:Bind ViewModel.Issue.Number, Mode=OneWay}" />
+                       Text="{x:Bind ViewModel.PullRequest.Number, Mode=OneWay}" />
 
             <StackPanel x:Name="UserBlock"
                         Orientation="Horizontal"
@@ -113,7 +113,7 @@
 
                 <HyperlinkButton Margin="0,0,3,0"
                                  Command="{x:Bind ViewModel.UserTapped}"
-                                 Content="{x:Bind ViewModel.Issue.User.Login, Mode=OneWay}">
+                                 Content="{x:Bind ViewModel.PullRequest.User.Login, Mode=OneWay}">
                     <HyperlinkButton.ContentTemplate>
                         <DataTemplate>
                             <TextBlock FontSize="13"
@@ -129,7 +129,7 @@
                            FontSize="13"
                            FontWeight="SemiLight"
                            Foreground="Gray"
-                           Text="{x:Bind ViewModel.Issue.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
+                           Text="{x:Bind ViewModel.PullRequest.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </StackPanel>
 
             <StackPanel x:Name="statePanel"
@@ -144,7 +144,7 @@
                 <TextBlock FontSize="12"
                            FontWeight="SemiBold"
                            Foreground="White"
-                           Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
+                           Text="{x:Bind ViewModel.PullRequest.State, Mode=OneWay}" />
             </StackPanel>
 
             <ScrollViewer Margin="8 16 4 8"
@@ -160,7 +160,7 @@
                                             FontSize="13"
                                             ImageStretch="Fill"
                                             LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
-                                            Text="{x:Bind ViewModel.Issue.Body, Mode=OneWay}"
+                                            Text="{x:Bind ViewModel.PullRequest.Body, Mode=OneWay}"
                                             TextWrapping="Wrap" />
 
             </ScrollViewer>
@@ -177,7 +177,7 @@
                         <TextBlock FontSize="17"
                                    FontWeight="SemiLight"
                                    Foreground="{StaticResource AppPrimaryColorBrush}"
-                                   Text="{x:Bind ViewModel.Issue.Comments, Mode=OneWay}" />
+                                   Text="{x:Bind ViewModel.PullRequest.Comments, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
                 <Grid>
@@ -185,25 +185,18 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <ListView x:Name="commentsListView"
-                              Grid.Row="0"
-                              IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.CommentTapped}"
-                              ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
-                              ScrollViewer.HorizontalScrollMode="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollMode="Enabled">
-
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
+                    <!--<ListView Grid.Row="0"
+                                  IsItemClickEnabled="True"
+                                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                  ItemClick="{x:Bind ViewModel.CommentTapped}"
+                                  ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
+                                  ScrollViewer.HorizontalScrollMode="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:IssueComment">
                                 <usercontrol:CommentListItem />
                             </DataTemplate>
-
                         </ListView.ItemTemplate>
                     </ListView>
                     <Grid Grid.Row="2" VerticalAlignment="Bottom">
@@ -211,7 +204,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <!--  TODO:Translation for 'Comment'  -->
+                          --><!--TODO:Translation for 'Comment'--><!--  
                         <TextBox x:Uid="comment"
                                  Grid.Column="0"
                                  AcceptsReturn="True"
@@ -228,7 +221,7 @@
                                 Style="{StaticResource ActionButtonStyle}">
                             <SymbolIcon Symbol="Send" />
                         </Button>
-                    </Grid>
+                    </Grid>-->
 
                     <ProgressRing Grid.Row="0"
                                   Width="20"
@@ -236,34 +229,6 @@
                                   HorizontalAlignment="Center"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
-
-            </PivotItem>
-            <PivotItem Margin="0">
-                <PivotItem.Header>
-                    <StackPanel Margin="0 4 0 4" Orientation="Horizontal">
-                        <TextBlock x:Uid="labels"
-                                   Margin="0 0 4 0"
-                                   FontSize="17"
-                                   FontWeight="SemiLight"
-                                   Foreground="Gray" />
-                        <TextBlock FontSize="17"
-                                   FontWeight="SemiLight"
-                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                   Text="{x:Bind ViewModel.Issue.Labels.Count, Mode=OneWay}" />
-                    </StackPanel>
-                </PivotItem.Header>
-                <ListView IsItemClickEnabled="True"
-                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                          ItemsSource="{x:Bind ViewModel.Issue.Labels, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.VerticalScrollMode="Enabled">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="octo:Label">
-                            <usercontrol:LabelListItem />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
             </PivotItem>
         </Pivot>
     </Grid>

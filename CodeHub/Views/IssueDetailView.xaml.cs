@@ -54,8 +54,6 @@ namespace CodeHub.Views
 
         public void ConfigureStateSymbol(Issue issue)
         {
-            //NavigationCacheMode = NavigationCacheMode.Disabled;
-
             if (issue.State == ItemState.Open)
             {
                 statePanel.Background = GlobalHelper.GetSolidColorBrush("2CBE4EFF");

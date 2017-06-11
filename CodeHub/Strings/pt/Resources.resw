@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="comment.Text" xml:space="preserve">
+  <data name="commented.Text" xml:space="preserve">
     <value>comentou</value>
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
@@ -195,7 +195,7 @@
     <value>Visualização</value>
   </data>
   <data name="repositories.Text" xml:space="preserve">
-    <value>Repositórios</value>
+    <value>repositórios</value>
   </data>
   <data name="secondDonateTierAmount.Text" xml:space="preserve">
     <value>US $2,99</value>
@@ -230,7 +230,7 @@
     <value>tudo</value>
     <comment>Context: all repositories</comment>
   </data>
-  <data name="closedIssue.Text" xml:space="preserve">
+  <data name="closed.Text" xml:space="preserve">
     <value>resolvidos</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
@@ -277,7 +277,7 @@
     <value>aberto por</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
-  <data name="openedIssue.Text" xml:space="preserve">
+  <data name="open.Text" xml:space="preserve">
     <value>abrir</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
@@ -365,5 +365,44 @@
   </data>
   <data name="labels.Text" xml:space="preserve">
     <value>Labels</value>
+  </data>
+  <data name="comment.PlaceholderText" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="newIssue.Label" xml:space="preserve">
+    <value>New Issue</value>
+  </data>
+  <data name="title.PlaceholderText" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="body.PlaceholderText" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="create.Content" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="cancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="activity.Text" xml:space="preserve">
+    <value>activity</value>
+  </data>
+  <data name="pullRequests.Text" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="readme.Text" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="contributors.Text" xml:space="preserve">
+    <value>CONTRIBUTORS</value>
+  </data>
+  <data name="releases.Text" xml:space="preserve">
+    <value>RELEASES</value>
+  </data>
+  <data name="noClosedPullRequests.Text" xml:space="preserve">
+    <value>No closed Pull Requests</value>
+  </data>
+  <data name="noOpenPullRequests.Text" xml:space="preserve">
+    <value>No open Pull Requests</value>
   </data>
 </root>

@@ -33,7 +33,7 @@
                        FontSize="13"
                        Foreground="Gray"
                        Text="{Binding User.Login, Mode=OneWay}" />
-            <TextBlock x:Uid="comment"
+            <TextBlock x:Uid="commented"
                        Margin="0,0,4,4"
                        FontSize="13"
                        Foreground="Gray" />

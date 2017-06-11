@@ -224,7 +224,7 @@ namespace CodeHub.ViewModels
         public void IssueTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                            .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<Repository, Issue>(Repository, e.ClickedItem as Issue));
+                            .NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(Repository, e.ClickedItem as Issue));
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -257,7 +257,7 @@ namespace CodeHub.ViewModels
             else if (p.SelectedIndex == 2)
             {
                 IsLoadingMine = true;
-                MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(Repository.Id);
+                MyIssues = await UserUtility.GetAllIssuesForRepoByUser(Repository.Id);
                 IsLoadingMine = false;
 
                 ZeroMyIssues = MyIssues.Count == 0 ? true : false;
@@ -278,7 +278,7 @@ namespace CodeHub.ViewModels
                                                   NewIssue newIssue = new NewIssue(NewIssueTitleText);
                                                   newIssue.Body = NewIssueBodyText;
                                                   isLoading = true;
-                                                  Issue issue = await RepositoryUtility.CreateIssue(Repository.Id, newIssue);
+                                                  Issue issue = await IssueUtility.CreateIssue(Repository.Id, newIssue);
                                                   isLoading = false;
                                                   if (issue != null)
                                                   {

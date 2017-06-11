@@ -7,6 +7,8 @@ using CodeHub.Views;
 using Octokit;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Xaml.Controls;
+using System.Collections.ObjectModel;
 
 namespace CodeHub.ViewModels
 {
@@ -91,6 +93,58 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsContributorsLoading;
+        public bool IsContributorsLoading
+        {
+            get
+            {
+                return _IsContributorsLoading;
+            }
+            set
+            {
+                Set(() => IsContributorsLoading, ref _IsContributorsLoading, value);
+            }
+        }
+
+        public bool _IsReleasesLoading;
+        public bool IsReleasesLoading
+        {
+            get
+            {
+                return _IsReleasesLoading;
+            }
+            set
+            {
+                Set(() => IsReleasesLoading, ref _IsReleasesLoading, value);
+            }
+        }
+
+        public ObservableCollection<RepositoryContributor> _Contributors;
+        public ObservableCollection<RepositoryContributor> Contributors
+        {
+            get
+            {
+                return _Contributors;
+            }
+            set
+            {
+                Set(() => Contributors, ref _Contributors, value);
+            }
+        }
+
+        public ObservableCollection<Release> _Releases;
+        public ObservableCollection<Release> Releases
+        {
+            get
+            {
+                return _Releases;
+            }
+            set
+            {
+                Set(() => Releases, ref _Releases, value);
+            }
+        }
+
         public async Task Load(object repo)
         {
             if (!GlobalHelper.IsInternet())
@@ -160,6 +214,20 @@ namespace CodeHub.ViewModels
                                           () =>
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(IssuesView), "Issues", Repository);
+                                          }));
+            }
+        }
+
+        private RelayCommand _PullRequestsTapped;
+        public RelayCommand PullRequestsTapped
+        {
+            get
+            {
+                return _PullRequestsTapped
+                    ?? (_PullRequestsTapped = new RelayCommand(
+                                          () =>
+                                          {
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(PullRequestsView), "Pull Requests", Repository);
                                           }));
             }
         }
@@ -278,6 +346,29 @@ namespace CodeHub.ViewModels
                                               Clipboard.SetContent(dataPackage);
                                               Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = Repository.CloneUrl+" copied to clipboard", Glyph = "\uE16F" });
                                           }));
+            }
+        }
+
+        public void UserTapped(object sender, ItemClickEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((RepositoryContributor)e.ClickedItem).Login);
+        }
+
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+
+            if (p.SelectedIndex == 1)
+            {
+                IsContributorsLoading = true;
+                Contributors = await RepositoryUtility.GetContributorsForRepository(Repository.Id);
+                IsContributorsLoading = false;
+            }
+            else if (p.SelectedIndex == 2)
+            {
+                IsReleasesLoading = true;
+                Releases = await RepositoryUtility.GetReleasesForRepository(Repository.Id);
+                IsReleasesLoading = false;
             }
         }
     }

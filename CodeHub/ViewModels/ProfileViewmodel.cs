@@ -76,15 +76,8 @@ namespace CodeHub.ViewModels
                     }
                     else
                     {
-                        if (User.Followers < 300 && User.Followers > 0)
-                        {
-                            Followers = await UserUtility.GetAllFollowers(User.Login);
-                        }
-
-                        if (User.Following < 300 && User.Following > 0)
-                        {
-                            Following = await UserUtility.GetAllFollowing(User.Login);
-                        }
+                        Followers = await UserUtility.GetAllFollowers(User.Login);
+                        Following = await UserUtility.GetAllFollowing(User.Login);
                     }
                 }
                 else

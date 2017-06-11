@@ -1,22 +1,26 @@
 ﻿<Page x:Class="CodeHub.Views.DeveloperProfileView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
       xmlns:converters="using:CodeHub.Converters"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:usercontrol="using:CodeHub.Controls"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:local="using:CodeHub.Views"
+      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
+      xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
 
     <Page.Resources>
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
+
+        <converters:EventTypeToSymbolConverter x:Key="EventTypeToSymbolConverter" x:Name="EventTypeToSymbolConverter" />
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
+        <converters:EventTypeToActionStringConverter x:Key="EventTypeToActionStringConverter" x:Name="EventTypeToActionStringConverter" />
+        <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -35,7 +39,8 @@
                         <Setter Target="UserPic.Height" Value="150" />
                         <Setter Target="UserNameText.FontSize" Value="25" />
                         <Setter Target="LoginText.FontSize" Value="16" />
-
+                        <Setter Target="BioText.FontSize" Value="13" />
+                        <Setter Target="TopRow.Height" Value="310"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -43,26 +48,26 @@
                         <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="UserPic.Width" Value="190" />
-                        <Setter Target="UserPic.Height" Value="190" />
-                        <Setter Target="UserNameText.FontSize" Value="30" />
-                        <Setter Target="LoginText.FontSize" Value="18" />
+                        <Setter Target="UserPic.Width" Value="170" />
+                        <Setter Target="UserPic.Height" Value="170" />
+                        <Setter Target="UserNameText.FontSize" Value="28" />
+                        <Setter Target="LoginText.FontSize" Value="16" />
+                        <Setter Target="TopRow.Height" Value="340"/>
+                        <Setter Target="BioText.FontSize" Value="14" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="1.2*" />
+            <RowDefinition x:Name="TopRow" Height="290" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.6*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-
-            <controls:ImageEx Grid.Row="0"
+            <toolkitControl:ImageEx Grid.Row="0"
                               IsCacheEnabled="True"
                               Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
                               Stretch="UniformToFill">
@@ -72,124 +77,226 @@
                                     Value="100"
                                     Duration="0" />
                 </i:Interaction.Behaviors>
-            </controls:ImageEx>
+            </toolkitControl:ImageEx>
             <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
         </Grid>
-        <RelativePanel Grid.Row="0"
-                       Margin="10"
-                       Background="Transparent">
+        <ScrollViewer Grid.Row="0"
+                      HorizontalScrollBarVisibility="Disabled"
+                      HorizontalScrollMode="Disabled"
+                      VerticalScrollBarVisibility="Hidden"
+                      VerticalScrollMode="Enabled">
+            <RelativePanel Background="Transparent">
+                <Ellipse x:Name="UserPic"
+                         Width="125"
+                         Height="125"
+                         Margin="0 10 0 0"
+                         RelativePanel.AlignHorizontalCenterWithPanel="True">
+                    <Ellipse.Fill>
+                        <ImageBrush>
+                            <ImageBrush.ImageSource>
+                                <BitmapImage DecodePixelHeight="125"
+                                             DecodePixelType="Logical"
+                                             DecodePixelWidth="125"
+                                             UriSource="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}" />
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock x:Name="UserNameText"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           RelativePanel.AlignHorizontalCenterWithPanel="True"
+                           RelativePanel.Below="UserPic"
+                           Text="{x:Bind ViewModel.Developer.Name, Mode=OneWay}"
+                           TextWrapping="Wrap" />
+                <TextBlock x:Name="LoginText"
+                           Grid.Row="2"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="Gray"
+                           RelativePanel.AlignHorizontalCenterWithPanel="True"
+                           RelativePanel.Below="UserNameText"
+                           Text="{x:Bind ViewModel.Developer.Login, Mode=OneWay}"
+                           TextWrapping="Wrap" />
+                <StackPanel x:Name="UserInfoPanel"
+                            Margin="0 8 0 10"
+                            Orientation="Horizontal"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True"
+                            RelativePanel.Below="LoginText">
+                    <TextBlock Margin="0 0 10 0"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Text="{x:Bind ViewModel.Developer.Location, Mode=OneWay}"
+                               Visibility="{x:Bind ViewModel.Developer.Location, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                    <TextBlock FontSize="12"
+                               Foreground="Gray"
+                               Text="{x:Bind ViewModel.Developer.Email, Mode=OneWay}"
+                               Visibility="{x:Bind ViewModel.Developer.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                </StackPanel>
+                <StackPanel x:Name="ButtonGrid"
+                            Orientation="Horizontal"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True"
+                            RelativePanel.Below="UserInfoPanel">
+                    <Grid x:Name="FollowButton" Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 
-            <Ellipse x:Name="UserPic"
-                     Width="125"
-                     Height="125"
-                     Margin="0 10 0 0"
-                     RelativePanel.AlignHorizontalCenterWithPanel="True">
-                <Ellipse.Fill>
-                    <ImageBrush>
-                        <ImageBrush.ImageSource>
-                            <BitmapImage DecodePixelHeight="125"
-                                         DecodePixelType="Logical"
-                                         DecodePixelWidth="125"
-                                         UriSource="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}" />
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-            <TextBlock x:Name="UserNameText"
-                       FontSize="22"
-                       FontWeight="SemiBold"
-                       RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       RelativePanel.Below="UserPic"
-                       Text="{x:Bind ViewModel.Developer.Name, Mode=OneWay}"
-                       TextWrapping="Wrap" />
-            <TextBlock x:Name="LoginText"
-                       Grid.Row="2"
-                       FontSize="13"
-                       FontWeight="SemiBold"
-                       Foreground="Gray"
-                       RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       RelativePanel.Below="UserNameText"
-                       Text="{x:Bind ViewModel.Developer.Login, Mode=OneWay}"
-                       TextWrapping="Wrap" />
-            <StackPanel x:Name="UserInfoPanel"
-                        Margin="0 10 0 10"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignHorizontalCenterWithPanel="True"
-                        RelativePanel.Below="LoginText">
-                <TextBlock Margin="0 0 10 0"
+                        <!--  Follow button  -->
+                        <Button x:Uid="followButton"
+                                Width="90"
+                                Height="30"
+                                Command="{x:Bind ViewModel.FollowCommand}"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+
+                        <!--  Unfollow button  -->
+                        <Button x:Uid="unfollowButton"
+                                Width="90"
+                                Height="30"
+                                Command="{x:Bind ViewModel.UnfollowCommand}"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                        <ProgressRing Width="15"
+                                      Height="15"
+                                      Margin="0 10 0 0"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                                      IsActive="{x:Bind ViewModel.FollowProgress, Mode=OneWay}" />
+
+                    </Grid>
+                </StackPanel>
+                <TextBlock x:Name="BioText"
+                           Margin="4 10 4 4"
                            FontSize="12"
-                           FontWeight="SemiLight"
-                           Text="{x:Bind ViewModel.Developer.Location, Mode=OneWay}"
-                           Visibility="{x:Bind ViewModel.Developer.Location, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-                <TextBlock FontSize="12"
-                           FontWeight="SemiLight"
-                           Text="{x:Bind ViewModel.Developer.Email, Mode=OneWay}"
-                           Visibility="{x:Bind ViewModel.Developer.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-            </StackPanel>
-            <StackPanel x:Name="ButtonGrid"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignHorizontalCenterWithPanel="True"
-                        RelativePanel.Below="UserInfoPanel">
-                <Grid x:Name="FollowButton" Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-
-                    <!--  Follow button  -->
-                    <Button x:Uid="followButton"
-                            Width="90"
-                            Height="30"
-                            Margin="0 0 10 0"
-                            Command="{x:Bind ViewModel.FollowCommand}"
-                            Style="{StaticResource ActionButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
-
-                    <!--  Unfollow button  -->
-                    <Button x:Uid="unfollowButton" 
-                            Width="90"
-                            Height="30"
-                            Margin="0 0 10 0"
-                            Command="{x:Bind ViewModel.UnfollowCommand}"
-                            Style="{StaticResource ActionButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-                    <ProgressRing Width="15"
-                                  Height="15"
-                                  Margin="0 10 0 0"
+                           Foreground="Gray"
+                           TextAlignment="Center"
+                           RelativePanel.AlignHorizontalCenterWithPanel="True"
+                           RelativePanel.Below="ButtonGrid"
+                           Text="{x:Bind ViewModel.Developer.Bio, Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap" />
+            </RelativePanel>
+        </ScrollViewer>
+        <Pivot Grid.Row="1" 
+               Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+            <PivotItem Margin="0">
+                <PivotItem.Header>
+                    <TextBlock x:Uid="activity"
+                               FontSize="15"
+                               FontWeight="SemiBold" />
+                </PivotItem.Header>
+                <Grid ManipulationMode="System">
+                    <ListView IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollMode="Enabled">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:Activity">
+                                <RelativePanel>
+                                    <Path x:Name="notifSymbol"
+                                          Margin="8,12,8,4"
+                                          Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
+                                          Fill="Gray"
+                                          RelativePanel.AlignLeftWithPanel="True"
+                                          RelativePanel.AlignTopWithPanel="True"
+                                          StrokeThickness="0">
+                                        <Path.RenderTransform>
+                                            <CompositeTransform x:Name="notifSymbolScale"
+                                                                ScaleX="1.3"
+                                                                ScaleY="1.3" />
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <TextBlock x:Name="timeText"
+                                               Margin="8,12,0,0"
+                                               FontSize="12"
+                                               Foreground="Gray"
+                                               RelativePanel.RightOf="notifSymbol"
+                                               Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
+                                    <HyperlinkButton x:Name="userText"
+                                                     Margin="4,0,4,4"
+                                                     Padding="0"
+                                                     Content="{Binding Actor.Login}"
+                                                     RelativePanel.Below="timeText"
+                                                     RelativePanel.RightOf="notifSymbol"
+                                                     Tapped="Actor_Click">
+                                        <HyperlinkButton.ContentTemplate>
+                                            <DataTemplate>
+                                                <TextBlock VerticalAlignment="Center"
+                                                           FontSize="13.5"
+                                                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                           Text="{Binding}" />
+                                            </DataTemplate>
+                                        </HyperlinkButton.ContentTemplate>
+                                    </HyperlinkButton>
+                                    <TextBlock x:Name="actionText"
+                                               Margin="0,0,0,4"
+                                               FontSize="13"
+                                               FontWeight="SemiBold"
+                                               RelativePanel.Below="timeText"
+                                               RelativePanel.RightOf="userText"
+                                               Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
+                                    <HyperlinkButton x:Name="RepoText"
+                                                     Margin="4 0 0 4"
+                                                     Padding="0"
+                                                     Content="{Binding Repo.Name}"
+                                                     FontSize="13"
+                                                     RelativePanel.Below="timeText"
+                                                     RelativePanel.RightOf="actionText"
+                                                     Tapped="Repo_Click">
+                                        <HyperlinkButton.ContentTemplate>
+                                            <DataTemplate>
+                                                <TextBlock VerticalAlignment="Center"
+                                               FontSize="13.5"
+                                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                                               Text="{Binding}" />
+                                            </DataTemplate>
+                                        </HyperlinkButton.ContentTemplate>
+                                    </HyperlinkButton>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ProgressRing Width="20"
+                                  Height="20"
                                   HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.FollowProgress, Mode=OneWay}" />
-
+                                  IsActive="{x:Bind ViewModel.IsEventsLoading, Mode=OneWay}" />
                 </Grid>
-                <Button Height="30"
-                        Command="{x:Bind ViewModel.NavigateToRepositories}"
-                        Style="{StaticResource ActionButtonStyle}"
-                        Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-
+            </PivotItem>
+            <PivotItem Margin="0">
+                <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Uid="repositories"
-                                   Margin="0 0 10 0"
-                                   VerticalAlignment="Center"
-                                   FontSize="12"
-                                   TextAlignment="Center" />
-                        <TextBlock VerticalAlignment="Center"
-                                   FontSize="12"
-                                   Style="{StaticResource FollowerCountStyle}"
-                                   Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay, FallbackValue='0'}" />
+                                   Margin="0 0 8 0"
+                                   FontSize="15"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Style="{StaticResource FollowerCountStyle}" 
+                                   Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay}" />
                     </StackPanel>
-                </Button>
-            </StackPanel>
-            <TextBlock x:Name="BioText"
-                       Margin="5 10 5 5"
-                       FontSize="12"
-                       FontWeight="SemiLight"
-                       Foreground="#6E6E6E"
-                       MaxLines="2"
-                       RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       RelativePanel.Below="ButtonGrid"
-                       Text="{x:Bind ViewModel.Developer.Bio, Mode=OneWay}"
-                       TextTrimming="CharacterEllipsis"
-                       TextWrapping="Wrap" />
-
-        </RelativePanel>
-        <Pivot Grid.Row="1" Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                </PivotItem.Header>
+                <Grid ManipulationMode="System">
+                    <ListView IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                              ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollMode="Enabled">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:Repository">
+                                <usercontrol:RepoListItem/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ProgressRing Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Center"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
+                </Grid>
+            </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -199,55 +306,33 @@
                                    FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Followers, Mode=OneWay}" />
                     </StackPanel>
-
                 </PivotItem.Header>
-
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.ProfileTapped}"
+                              ItemClick="{x:Bind ViewModel.UserTapped}"
                               ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
-
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                                Height="23"
-                                                Margin="0 0 10 0"
-                                                CornerRadius="8,8,8,8">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{x:Bind AvatarUrl,FallbackValue='/Assets/Images/placeholder.jpg', Mode=OneWay}" />
-                                            </Border.Background>
-                                    </Border>
-
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login, Mode=OneWay}" />
-                                </StackPanel>
+                                <usercontrol:UserListItem/>
                             </DataTemplate>
-
                         </ListView.ItemTemplate>
                     </ListView>
                     <ProgressRing Width="20"
                                   Height="20"
                                   HorizontalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.FollowersLoading, Mode=OneWay}" />
+                                  IsActive="{x:Bind ViewModel.IsFollowersLoading, Mode=OneWay}" />
                 </Grid>
-
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Uid="following"
-                                   Margin="0 0 10 0"
+                                   Margin="0 0 8 0"
                                    FontSize="15"
                                    FontWeight="SemiBold" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Following, Mode=OneWay}" />
@@ -255,32 +340,15 @@
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.ProfileTapped}"
+                              ItemClick="{x:Bind ViewModel.UserTapped}"
                               ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="23"
-                                                Height="23"
-                                                Margin="0 0 10 0"
-                                                CornerRadius="8,8,8,8">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{x:Bind AvatarUrl,FallbackValue='/Assets/Images/placeholder.jpg', Mode=OneWay}" />
-                                            </Border.Background>
-                                    </Border>
-
-                                        <TextBlock VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Text="{x:Bind Login}" />
-                                </StackPanel>
+                                <usercontrol:UserListItem/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -288,9 +356,10 @@
                                   Height="20"
                                   HorizontalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.FollowingLoading, Mode=OneWay}" />
+                                  IsActive="{x:Bind ViewModel.IsFollowingLoading, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
         </Pivot>
+        
     </Grid>
 </Page>

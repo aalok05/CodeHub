@@ -1,22 +1,21 @@
-﻿<UserControl
-    x:Class="CodeHub.Controls.IssueListItem"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CodeHub.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    xmlns:converters="using:CodeHub.Converters"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+﻿<UserControl x:Class="CodeHub.Controls.PullRequestListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:CodeHub.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:CodeHub.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter"/>
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
     </UserControl.Resources>
-    <RelativePanel Margin="4 0 0 4">
+    <RelativePanel Margin="4,0,0,4">
         <StackPanel x:Name="NumberBlock"
                     Orientation="Horizontal"
-                    RelativePanel.AlignTopWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True">
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignTopWithPanel="True">
             <TextBlock Margin="4,8,4,4"
                        VerticalAlignment="Center"
                        FontSize="16"
@@ -46,12 +45,11 @@
                      Margin="0,0,4,0">
                 <SymbolIcon Foreground="Gray" Symbol="Setting" />
             </Viewbox>
-            
-            <TextBlock 
-                FontSize="12"
-                TextAlignment="Left"
-                Foreground="Gray"
-                Text="{Binding State}"/>
+
+            <TextBlock FontSize="12"
+                       Foreground="Gray"
+                       Text="{Binding State}"
+                       TextAlignment="Left" />
         </StackPanel>
 
         <StackPanel x:Name="CommentsBlock"

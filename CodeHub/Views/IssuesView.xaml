@@ -25,10 +25,10 @@
         <CommandBar Grid.Row="0" 
                     DefaultLabelPosition="Right">
             <!--TODO: Translation of 'New Issue'-->
-            <AppBarButton Tapped="AppBarButton_Tapped"
+            <AppBarButton x:Uid="newIssue"
+                          Tapped="AppBarButton_Tapped"
                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                          Icon="Add"
-                          Label="New Issue" />
+                          Icon="Add" />
         </CommandBar>
 
         <!--  Empty grid to provide grey background to pivot headers  -->
@@ -41,21 +41,17 @@
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="openedIssue"
+                    <TextBlock x:Uid="open"
                                FontSize="15"
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
                     <ListView x:Name="openIssueListView"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.OpenIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Issue">
                                 <userControls:IssueListItem ManipulationMode="System" />
@@ -76,7 +72,7 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="closedIssue"
+                    <TextBlock x:Uid="closed"
                                FontSize="15"
                                FontWeight="Normal"
                                Text="closed" />
@@ -84,14 +80,10 @@
                 <Grid>
                     <ListView x:Name="closedIssueListView"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.ClosedIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Issue">
                                 <userControls:IssueListItem ManipulationMode="System" />
@@ -119,14 +111,10 @@
                 <Grid>
                     <ListView x:Name="mineIssueListView"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.MyIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Issue">
                                 <userControls:IssueListItem ManipulationMode="System" />
@@ -149,14 +137,14 @@
 
         <RelativePanel x:Name="createIssuePanel"
                        Grid.Row="2">
-            <Canvas Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
-                    Opacity="0.1" 
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True"
-                    RelativePanel.AlignBottomWithPanel="True"
-                    Tapped="Background_Tapped"/>
-            <Canvas RelativePanel.AlignLeftWithPanel="True"
+            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+                        Opacity="0.1" 
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignTopWithPanel="True"
+                        RelativePanel.AlignBottomWithPanel="True"
+                        Tapped="Background_Tapped"/>
+            <Border RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignTopWithPanel="True"
                     RelativePanel.AlignBottomWithPanel="True">
@@ -166,25 +154,25 @@
                                     Value="10"
                                     Duration="0" />
                 </i:Interaction.Behaviors>
-            </Canvas>
+            </Border>
 
             <!--TODO: Translation for 'Title'-->
             <TextBox x:Name="issueTitle"
+                     x:Uid="title"
                      Margin="8,0,8,8"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                     PlaceholderText="Title"
                      Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}"
                      RelativePanel.Above="issueBody"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignRightWithPanel="True"/>
             <!--TODO: Translation for 'Body'-->
             <TextBox x:Name="issueBody"
+                     x:Uid="body"
                      Height="200"
                      Margin="8,0,8,0"
                      Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      AcceptsReturn="True"
-                     PlaceholderText="Body"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignRightWithPanel="True"
                      RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -197,17 +185,17 @@
                         RelativePanel.AlignRightWithPanel="True">
                 <!--TODO: Translation of 'Create'-->
                 <Button x:Name="createIssueButton"
+                        x:Uid="create"
                         Command="{x:Bind ViewModel.CreateIssue}"
                         Width="148"
                         Margin="0,0,4,0"
-                        Background="{StaticResource AppPrimaryColorBrush}"
-                        Content="Create" />
+                        Background="{StaticResource AppPrimaryColorBrush}"/>
                 <!--TODO: Translation of 'Cancel'-->
                 <Button x:Name="cancelNewIssueButton"
-                        Tapped="cancelNewIssueButton_Tapped"
+                        x:Uid="cancel"
+                        Tapped="CancelNewIssueButton_Tapped"
                         Width="148"
-                        Margin="4,0,0,0"
-                        Content="Cancel" />
+                        Margin="4,0,0,0"/>
             </StackPanel>
 
             <control:BusyScreen x:Name="busyScreen"

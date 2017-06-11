@@ -49,12 +49,10 @@
                 </HyperlinkButton.ContentTemplate>
             </HyperlinkButton>
 
-            <TextBlock 
-                       x:Uid="comment"
+            <TextBlock x:Uid="commented"
                        Margin="0,0,4,0"
                        FontSize="13"
-                       Foreground="Gray"
-                       Text="commented" />
+                       Foreground="Gray"/>
             <TextBlock FontSize="13"
                        Foreground="Gray"
                        Text="{x:Bind ViewModel.Comment.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
