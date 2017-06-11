@@ -41,21 +41,17 @@
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="openedIssue"
+                    <TextBlock x:Uid="open"
                                FontSize="15"
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
                     <ListView x:Name="openIssueListView"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.OpenIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Issue">
                                 <userControls:IssueListItem ManipulationMode="System" />
@@ -76,7 +72,7 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="closedIssue"
+                    <TextBlock x:Uid="closed"
                                FontSize="15"
                                FontWeight="Normal"
                                Text="closed" />
@@ -84,14 +80,10 @@
                 <Grid>
                     <ListView x:Name="closedIssueListView"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.ClosedIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Issue">
                                 <userControls:IssueListItem ManipulationMode="System" />
@@ -119,14 +111,10 @@
                 <Grid>
                     <ListView x:Name="mineIssueListView"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemsSource="{x:Bind ViewModel.MyIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Issue">
                                 <userControls:IssueListItem ManipulationMode="System" />

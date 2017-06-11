@@ -27,10 +27,7 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
 
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issues" });
-
-            openIssueListView.SelectedIndex = closedIssueListView.SelectedIndex = mineIssueListView.SelectedIndex = -1;
             createIssuePanel.Visibility = Visibility.Collapsed;
-
 
             if (e.NavigationMode != NavigationMode.Back)
             {
