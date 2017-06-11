@@ -288,5 +288,30 @@ namespace CodeHub.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Gets all issues started by the current user for a given repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepoByUser(long repoId)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                var issues = await client.Issue.GetAllForRepository(repoId, new RepositoryIssueRequest
+                {
+                    State = ItemStateFilter.All,
+                    Creator = GlobalHelper.UserLogin
+
+                });
+
+                return new ObservableCollection<Issue>(issues);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

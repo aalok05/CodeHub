@@ -1,6 +1,7 @@
 ﻿using Octokit;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,28 @@ namespace CodeHub.Services
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Gets all comments for a given issue
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="name"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(string owner, string name, int number)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
+                return new ObservableCollection<IssueComment>(new List<IssueComment>(comments));
+            }
+            catch
+            {
+                return null;
+            }
+
         }
     }
 }

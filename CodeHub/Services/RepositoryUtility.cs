@@ -423,52 +423,6 @@ namespace CodeHub.Services
             }
 
         }
-        /// <summary>
-        /// Gets all comments for a given issue
-        /// </summary>
-        /// <param name="owner"></param>
-        /// <param name="name"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(string owner, string name, int number)
-        {
-            try
-            {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
-                return new ObservableCollection<IssueComment>(new List<IssueComment>(comments));
-            }
-            catch
-            {
-                return null;
-            }
-
-        }
-        /// <summary>
-        /// Gets all issues started by the current user for a given repository
-        /// </summary>
-        /// <param name="repoId"></param>
-        /// <returns></returns>
-        public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepoByUser(long repoId)
-        {
-            try
-            {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var issues = await client.Issue.GetAllForRepository(repoId, new RepositoryIssueRequest
-                {
-                    State = ItemStateFilter.All,
-                    Creator = GlobalHelper.UserLogin
-
-                });
-
-                return new ObservableCollection<Issue>(issues);
-            }
-            catch
-            {
-                return null;
-            }
-
-        }
         #endregion
 
         #region PR
