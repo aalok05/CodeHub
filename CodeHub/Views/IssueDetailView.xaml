@@ -147,26 +147,6 @@
                            Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
             </StackPanel>
 
-
-            <StackPanel x:Name="assigneePanel"
-                        Margin="8,0,4,0"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignVerticalCenterWith="UserBlock"
-                        RelativePanel.Below="statePanel"
-                        RelativePanel.RightOf="UserBlock">
-                <Viewbox MaxWidth="15"
-                         MaxHeight="15"
-                         Margin="0,0,3,0">
-                    <SymbolIcon Foreground="Gray" Symbol="Contact" />
-                </Viewbox>
-                <!--  No need for tranlating fallback value.  -->
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="13"
-                           Foreground="Gray"
-                           Text="{x:Bind ViewModel.Issue.Assignee.Login, TargetNullValue='unassigned', FallbackValue='unassigned', Mode=OneWay}"
-                           TextAlignment="Left" />
-            </StackPanel>
-
             <ScrollViewer Margin="8 16 4 8"
                           HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
