@@ -230,7 +230,7 @@
     <value>tudo</value>
     <comment>Context: all repositories</comment>
   </data>
-  <data name="closedIssue.Text" xml:space="preserve">
+  <data name="closed.Text" xml:space="preserve">
     <value>resolvidos</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
@@ -277,7 +277,7 @@
     <value>aberto por</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
-  <data name="openedIssue.Text" xml:space="preserve">
+  <data name="open.Text" xml:space="preserve">
     <value>abrir</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
@@ -398,5 +398,11 @@
   </data>
   <data name="releases.Text" xml:space="preserve">
     <value>RELEASES</value>
+  </data>
+  <data name="noClosedPullRequests.Text" xml:space="preserve">
+    <value>No closed Pull Requests</value>
+  </data>
+  <data name="noOpenPullRequests.Text" xml:space="preserve">
+    <value>No open Pull Requests</value>
   </data>
 </root>
