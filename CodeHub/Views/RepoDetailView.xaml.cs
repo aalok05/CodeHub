@@ -7,6 +7,11 @@ using Windows.UI.Xaml.Controls;
 using CodeHub.Services;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics.Display;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml;
+using Octokit;
+using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Views
 {
@@ -28,6 +33,7 @@ namespace CodeHub.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
+            ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
 
             await ViewModel.Load(e.Parameter);
 
@@ -77,9 +83,22 @@ namespace CodeHub.Views
 
         }
 
-        private void ShareButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void ShareButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             DataTransferManager.ShowShareUI();
+        }
+
+        private async void ReleasesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ReleaseBodyText.Text = (e.ClickedItem as Release).Body;
+            ReleaseBodyTextPanel.Visibility = Visibility.Visible;
+            await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+        }
+
+        private async void CloseReleaseTextPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
         }
     }
 }
