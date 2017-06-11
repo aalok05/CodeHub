@@ -149,14 +149,14 @@
 
         <RelativePanel x:Name="createIssuePanel"
                        Grid.Row="2">
-            <Canvas Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
-                    Opacity="0.1" 
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True"
-                    RelativePanel.AlignBottomWithPanel="True"
-                    Tapped="Background_Tapped"/>
-            <Canvas RelativePanel.AlignLeftWithPanel="True"
+            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+                        Opacity="0.1" 
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignTopWithPanel="True"
+                        RelativePanel.AlignBottomWithPanel="True"
+                        Tapped="Background_Tapped"/>
+            <Border RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignTopWithPanel="True"
                     RelativePanel.AlignBottomWithPanel="True">
@@ -166,7 +166,7 @@
                                     Value="10"
                                     Duration="0" />
                 </i:Interaction.Behaviors>
-            </Canvas>
+            </Border>
 
             <!--TODO: Translation for 'Title'-->
             <TextBox x:Name="issueTitle"
@@ -205,7 +205,7 @@
                 <!--TODO: Translation of 'Cancel'-->
                 <Button x:Name="cancelNewIssueButton"
                         x:Uid="cancel"
-                        Tapped="cancelNewIssueButton_Tapped"
+                        Tapped="CancelNewIssueButton_Tapped"
                         Width="148"
                         Margin="4,0,0,0"/>
             </StackPanel>

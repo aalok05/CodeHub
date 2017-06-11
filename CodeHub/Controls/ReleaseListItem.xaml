@@ -13,7 +13,7 @@
         <converter:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter"/>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical"
-                Margin="8 8 0 0">
+                Margin="8 8 0 4">
         <TextBlock Text="{Binding Name,Mode=OneWay}"
                    FontSize="18"
                    FontWeight="SemiBold"/>
