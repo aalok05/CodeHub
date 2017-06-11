@@ -52,17 +52,16 @@ namespace CodeHub.Services
         /// <summary>
         /// Gets all comments for a given issue
         /// </summary>
-        /// <param name="owner"></param>
-        /// <param name="name"></param>
+        /// <param name="repoId"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(string owner, string name, int number)
+        public static async Task<ObservableCollection<IssueComment>> GetAllCommentsForIssue(long repoId, int number)
         {
             try
             {
                 var client = await UserUtility.GetAuthenticatedClient();
-                var comments = await client.Issue.Comment.GetAllForIssue(owner, name, number);
-                return new ObservableCollection<IssueComment>(new List<IssueComment>(comments));
+                var comments = await client.Issue.Comment.GetAllForIssue(repoId, number);
+                return new ObservableCollection<IssueComment>(comments);
             }
             catch
             {

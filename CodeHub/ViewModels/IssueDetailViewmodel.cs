@@ -83,7 +83,7 @@ namespace CodeHub.ViewModels
             else
             {
                 isLoading = true;
-                Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Owner.Login, Repository.Name, Issue.Number);
+                Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
                 isLoading = false;
 
             }
