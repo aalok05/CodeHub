@@ -265,7 +265,7 @@
     <Compile Include="Services\IssueUtility.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\OrganizationsUtility.cs" />
-    <Compile Include="Services\PullRequestService.cs" />
+    <Compile Include="Services\PullRequestUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserUtility.cs" />
@@ -282,6 +282,7 @@
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\NotificationsViewmodel.cs" />
     <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
+    <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
     <Compile Include="Views\AboutSettingsView.xaml.cs">
@@ -348,6 +349,9 @@
     </Compile>
     <Compile Include="Views\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PullRequestDetailView.xaml.cs">
+      <DependentUpon>PullRequestDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PullRequestsView.xaml.cs">
       <DependentUpon>PullRequestsView.xaml</DependentUpon>
@@ -554,6 +558,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PullRequestDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
