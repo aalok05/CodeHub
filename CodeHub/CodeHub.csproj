@@ -217,6 +217,9 @@
     <Compile Include="Controls\OrganizationListItem.xaml.cs">
       <DependentUpon>OrganizationListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PullRequestListItem.xaml.cs">
+      <DependentUpon>PullRequestListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ReleaseListItem.xaml.cs">
       <DependentUpon>ReleaseListItem.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,7 @@
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\NotificationsViewmodel.cs" />
     <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
+    <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
     <Compile Include="Views\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
@@ -344,6 +348,9 @@
     </Compile>
     <Compile Include="Views\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PullRequestsView.xaml.cs">
+      <DependentUpon>PullRequestsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RepoDetailView.xaml.cs">
       <DependentUpon>RepoDetailView.xaml</DependentUpon>
@@ -438,6 +445,10 @@
     <Page Include="Controls\OrganizationListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PullRequestListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ReleaseListItem.xaml">
       <SubType>Designer</SubType>
@@ -543,6 +554,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PullRequestsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

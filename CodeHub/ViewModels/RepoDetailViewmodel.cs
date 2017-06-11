@@ -218,6 +218,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        private RelayCommand _PullRequestsTapped;
+        public RelayCommand PullRequestsTapped
+        {
+            get
+            {
+                return _PullRequestsTapped
+                    ?? (_PullRequestsTapped = new RelayCommand(
+                                          () =>
+                                          {
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(PullRequestsView), "Pull Requests", Repository);
+                                          }));
+            }
+        }
+
         private RelayCommand _StarCommand;
         public RelayCommand StarCommand
         {

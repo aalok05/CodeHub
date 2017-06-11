@@ -1,0 +1,90 @@
+﻿<Page
+    x:Class="CodeHub.Views.PullRequestsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:octo="using:Octokit"
+    xmlns:userControls="using:CodeHub.Controls"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:converters="using:CodeHub.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!--  Empty grid to provide grey background to pivot headers  -->
+        <Grid Grid.Row="1"
+              Height="48"
+              VerticalAlignment="Top"
+              Background="{ThemeResource SystemChromeLowColor}" />
+
+        <Pivot Grid.Row="1" 
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+            <PivotItem Margin="0">
+                <PivotItem.Header>
+                    <TextBlock x:Uid="open"
+                               FontSize="15"
+                               FontWeight="Normal" />
+                </PivotItem.Header>
+                <Grid>
+                    <ListView x:Name="openPRListView"
+                              IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemClick="{x:Bind ViewModel.PullRequestTapped}"
+                              ItemsSource="{x:Bind ViewModel.OpenPullRequests, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:PullRequest">
+                                <userControls:PullRequestListItem/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                    <TextBlock x:Uid="noOpenPullRequests"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
+                               Visibility="{x:Bind ViewModel.ZeroOpenPullRequests, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <ProgressRing Width="40"
+                                  Height="40"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.IsLoadingOpen, Mode=OneWay}" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Margin="0">
+                <PivotItem.Header>
+                    <TextBlock x:Uid="closed"
+                               FontSize="15"
+                               FontWeight="Normal"
+                               Text="closed" />
+                </PivotItem.Header>
+                <Grid>
+                    <ListView x:Name="closedIssueListView"
+                              IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemClick="{x:Bind ViewModel.PullRequestTapped}"
+                              ItemsSource="{x:Bind ViewModel.ClosedPullRequests, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:PullRequest">
+                                <userControls:PullRequestListItem/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                    <TextBlock x:Uid="noClosedPullRequests"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource ZeroItemsTextBoxStyle}"
+                               Visibility="{x:Bind ViewModel.ZeroClosedPullRequests, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <ProgressRing Width="40"
+                                  Height="40"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.IsLoadingClosed, Mode=OneWay}" />
+                </Grid>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

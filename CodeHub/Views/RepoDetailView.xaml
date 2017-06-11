@@ -325,6 +325,7 @@
                         MinWidth="110"
                         HorizontalAlignment="Center"
                         BorderThickness="0"
+                        Command="{x:Bind ViewModel.PullRequestsTapped}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Viewbox MaxWidth="14" MaxHeight="14">
