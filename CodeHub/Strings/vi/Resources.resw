@@ -405,4 +405,10 @@
   <data name="noOpenPullRequests.Text" xml:space="preserve">
     <value>No open Pull Requests</value>
   </data>
+  <data name="commited.Text" xml:space="preserve">
+    <value>commited</value>
+  </data>
+  <data name="commits.Text" xml:space="preserve">
+    <value>Commits</value>
+  </data>
 </root>
