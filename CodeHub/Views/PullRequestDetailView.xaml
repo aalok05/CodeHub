@@ -258,7 +258,7 @@
                 <PivotItem.Header>
                     <StackPanel Margin="0,4,0,4" Orientation="Horizontal">
                         <TextBlock Margin="0,0,4,0"
-                                   Text="Commits"
+                                   x:Uid="commits"
                                    FontSize="17"
                                    FontWeight="SemiLight"
                                    Foreground="Gray" />
