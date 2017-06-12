@@ -367,22 +367,22 @@
     <value>Labels</value>
   </data>
   <data name="comment.PlaceholderText" xml:space="preserve">
-    <value>Comment</value>
+    <value>Kommentieren</value>
   </data>
   <data name="newIssue.Label" xml:space="preserve">
-    <value>New Issue</value>
+    <value>Neues Problem</value>
   </data>
   <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Body</value>
+    <value>Rumpf</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Create</value>
+    <value>Erstelle</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Abbrechen</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
     <value>activity</value>
