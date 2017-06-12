@@ -37,7 +37,8 @@
               VerticalAlignment="Top"
               Background="{ThemeResource SystemChromeLowColor}" />
 
-        <Pivot Grid.Row="1" 
+        <Pivot x:Name="IssuesPivot"
+               Grid.Row="1" 
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>

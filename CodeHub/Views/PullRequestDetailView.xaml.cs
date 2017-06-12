@@ -38,6 +38,7 @@ namespace CodeHub.Views
 
                 ConfigureStateSymbol((e.Parameter as Tuple<Repository, PullRequest>).Item2);
                 await ViewModel.Load((e.Parameter as Tuple<Repository, PullRequest>));
+                CommentsPivot.SelectedItem = CommentsPivot.Items[0];
             }
         }
 
