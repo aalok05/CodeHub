@@ -35,7 +35,7 @@
                    Style="{StaticResource RepoNameTextBlockStyle}"
                    Text="{Binding Title}" />
         <StackPanel x:Name="StateBlock"
-                    Margin="8,4,0,0"
+                    Margin="8,4,4,0"
                     Orientation="Horizontal"
                     RelativePanel.AlignLeftWith="NumberBlock"
                     RelativePanel.Below="TitleBlock">
@@ -52,26 +52,11 @@
                        TextAlignment="Left" />
         </StackPanel>
 
-        <StackPanel x:Name="CommentsBlock"
-                    Margin="12,4,0,0"
+        <StackPanel x:Name="UserBlock"
+                    Margin="8,4,4,0"
                     Orientation="Horizontal"
                     RelativePanel.Below="TitleBlock"
                     RelativePanel.RightOf="StateBlock">
-            <Viewbox MaxWidth="15"
-                     MaxHeight="15"
-                     Margin="0,0,4,0">
-                <SymbolIcon Foreground="Gray" Symbol="Message" />
-            </Viewbox>
-            <TextBlock FontSize="12"
-                       Foreground="Gray"
-                       Text="{Binding Comments}"
-                       TextAlignment="Left" />
-        </StackPanel>
-        <StackPanel x:Name="UserBlock"
-                    Margin="8,4,0,0"
-                    Orientation="Horizontal"
-                    RelativePanel.AlignLeftWith="StateBlock"
-                    RelativePanel.Below="StateBlock">
 
             <Viewbox MaxWidth="15"
                      MaxHeight="15"
@@ -87,7 +72,7 @@
         <StackPanel x:Name="UpdatedBlock"
                     Margin="12,4,0,0"
                     Orientation="Horizontal"
-                    RelativePanel.Below="CommentsBlock"
+                    RelativePanel.Below="TitleBlock"
                     RelativePanel.RightOf="UserBlock">
 
             <Viewbox MaxWidth="15"

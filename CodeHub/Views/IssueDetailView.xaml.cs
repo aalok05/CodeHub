@@ -25,7 +25,7 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issues" });
+            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issue" });
 
             commentsListView.SelectedIndex = -1;
             ViewModel.CommentText = string.Empty;
