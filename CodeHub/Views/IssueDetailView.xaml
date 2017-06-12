@@ -147,7 +147,7 @@
                            Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
             </StackPanel>
 
-            <ScrollViewer Margin="8 16 4 8"
+            <ScrollViewer Margin="8 8 4 8"
                           HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
                           RelativePanel.AlignLeftWithPanel="True"
@@ -188,22 +188,16 @@
                     <ListView x:Name="commentsListView"
                               Grid.Row="0"
                               IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.CommentTapped}"
                               ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
-
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:IssueComment">
                                 <usercontrol:CommentListItem />
                             </DataTemplate>
-
                         </ListView.ItemTemplate>
                     </ListView>
                     <Grid Grid.Row="2" VerticalAlignment="Bottom">

@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
     </UserControl.Resources>
-    <RelativePanel Margin="0,4,0,4">
+    <RelativePanel Margin="8,4,0,4">
         <Border x:Name="avatar"
                 Width="27"
                 Height="27"

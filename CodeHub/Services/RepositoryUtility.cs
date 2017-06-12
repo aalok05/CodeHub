@@ -458,7 +458,7 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 var result = await client.Repository.GetAllForUser(login);
-                return new ObservableCollection<Repository>(new List<Repository>(result));
+                return new ObservableCollection<Repository>(result);
             }
             catch
             {
@@ -664,8 +664,7 @@ namespace CodeHub.Services
                 CommitRequest request = new CommitRequest { Path = path };
 
                 var list = await client.Repository.Commit.GetAll(repoId, request);
-
-                return new ObservableCollection<GitHubCommit>(new List<GitHubCommit>(list));
+                return new ObservableCollection<GitHubCommit>(list);
             }
             catch
             {
