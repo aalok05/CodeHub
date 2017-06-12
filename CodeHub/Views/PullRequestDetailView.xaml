@@ -1,15 +1,14 @@
-﻿<Page
-    x:Class="CodeHub.Views.PullRequestDetailView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CodeHub.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:CodeHub.Converters"
-    xmlns:octo="using:Octokit"
-    xmlns:usercontrol="using:CodeHub.Controls"
-    mc:Ignorable="d">
+﻿<Page x:Class="CodeHub.Views.PullRequestDetailView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:CodeHub.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:octo="using:Octokit"
+      xmlns:usercontrol="using:CodeHub.Controls"
+      mc:Ignorable="d">
 
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
@@ -67,14 +66,13 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1.1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-
         <RelativePanel x:Name="DetailGrid">
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
@@ -100,12 +98,27 @@
                        RelativePanel.RightOf="numbersymbol"
                        Text="{x:Bind ViewModel.PullRequest.Number, Mode=OneWay}" />
 
-            <StackPanel x:Name="UserBlock"
+            <StackPanel x:Name="statePanel"
+                        Margin="8,8,0,0"
+                        Padding="6"
                         Orientation="Horizontal"
                         RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="statePanel">
+                        RelativePanel.Below="TitleBlock">
+                <Path x:Name="stateSymbol"
+                      Margin="0,0,4,0"
+                      Fill="White" />
+                <TextBlock FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="White"
+                           Text="{x:Bind ViewModel.PullRequest.State, Mode=OneWay}" />
+            </StackPanel>
+
+            <StackPanel x:Name="UserBlock"
+                        Margin="8,8,4,0"
+                        Orientation="Horizontal"
+                        RelativePanel.AlignVerticalCenterWith="statePanel"
+                        RelativePanel.RightOf="statePanel">
                 <TextBlock x:Uid="openedBy"
-                           Margin="8,0,3,0"
                            VerticalAlignment="Center"
                            FontSize="13"
                            FontWeight="SemiLight"
@@ -132,27 +145,33 @@
                            Text="{x:Bind ViewModel.PullRequest.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </StackPanel>
 
-            <StackPanel x:Name="statePanel"
+            <StackPanel x:Name="AdditionsPanel"
                         Margin="8,8,0,0"
-                        Padding="6"
                         Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="TitleBlock">
-                <Path x:Name="stateSymbol"
-                      Margin="0,0,4,0"
-                      Fill="White" />
-                <TextBlock FontSize="12"
-                           FontWeight="SemiBold"
-                           Foreground="White"
-                           Text="{x:Bind ViewModel.PullRequest.State, Mode=OneWay}" />
+                        RelativePanel.Below="statePanel">
+                <TextBlock FontSize="22"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Text="+" />
+                <TextBlock Margin="0,0,4,0"
+                           FontSize="22"
+                           FontWeight="SemiLight"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Text="{x:Bind ViewModel.PullRequest.Additions, Mode=OneWay}" />
+                <TextBlock FontSize="22"
+                           Foreground="Brown"
+                           Text="-" />
+                <TextBlock FontSize="22"
+                           FontWeight="SemiLight"
+                           Foreground="Brown"
+                           Text="{x:Bind ViewModel.PullRequest.Deletions, Mode=OneWay}" />
             </StackPanel>
 
-            <ScrollViewer Margin="8 16 4 8"
+            <ScrollViewer Margin="4,8,4,8"
                           HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
                           RelativePanel.AlignLeftWithPanel="True"
                           RelativePanel.AlignRightWithPanel="True"
-                          RelativePanel.Below="UserBlock"
+                          RelativePanel.Below="AdditionsPanel"
                           VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Enabled">
 
@@ -164,13 +183,15 @@
                                             TextWrapping="Wrap" />
 
             </ScrollViewer>
+
         </RelativePanel>
-        <Pivot x:Name="CommentsPivot">
+        <Pivot x:Name="CommentsPivot"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <StackPanel Margin="0 4 0 4" Orientation="Horizontal">
+                    <StackPanel Margin="0,4,0,4" Orientation="Horizontal">
                         <TextBlock x:Uid="comments"
-                                   Margin="0 0 4 0"
+                                   Margin="0,0,4,0"
                                    FontSize="17"
                                    FontWeight="SemiLight"
                                    Foreground="Gray" />
@@ -185,14 +206,15 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <!--<ListView Grid.Row="0"
-                                  IsItemClickEnabled="True"
-                                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                                  ItemClick="{x:Bind ViewModel.CommentTapped}"
-                                  ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
-                                  ScrollViewer.HorizontalScrollMode="Disabled"
-                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                  ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView x:Name="commentsListView"
+                              Grid.Row="0"
+                              IsItemClickEnabled="True"
+                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemClick="{x:Bind ViewModel.CommentTapped}"
+                              ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:IssueComment">
                                 <usercontrol:CommentListItem />
@@ -204,7 +226,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                          --><!--TODO:Translation for 'Comment'--><!--  
+                          <!--TODO:Translation for 'Comment'-->  
                         <TextBox x:Uid="comment"
                                  Grid.Column="0"
                                  AcceptsReturn="True"
@@ -221,14 +243,51 @@
                                 Style="{StaticResource ActionButtonStyle}">
                             <SymbolIcon Symbol="Send" />
                         </Button>
-                    </Grid>-->
+                    </Grid>
 
                     <ProgressRing Grid.Row="0"
                                   Width="20"
                                   Height="20"
                                   HorizontalAlignment="Center"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
+
+            </PivotItem>
+            <PivotItem Margin="0">
+                <PivotItem.Header>
+                    <StackPanel Margin="0,4,0,4" Orientation="Horizontal">
+                        <TextBlock Margin="0,0,4,0"
+                                   Text="Commits"
+                                   FontSize="17"
+                                   FontWeight="SemiLight"
+                                   Foreground="Gray" />
+                        <TextBlock FontSize="17"
+                                   FontWeight="SemiLight"
+                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Text="{x:Bind ViewModel.PullRequest.Commits, Mode=OneWay}" />
+                    </StackPanel>
+                </PivotItem.Header>
+                <Grid>
+                    <ListView IsItemClickEnabled="True"
+                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="octo:PullRequestCommit">
+                                <usercontrol:CommitListItem />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ProgressRing Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Center"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  IsActive="{x:Bind ViewModel.IsLoadingCommits, Mode=OneWay}" />
+                </Grid>
+
             </PivotItem>
         </Pivot>
     </Grid>
