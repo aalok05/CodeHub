@@ -11,18 +11,17 @@ namespace CodeHub.Services
     class PullRequestUtility
     {
         /// <summary>
-        /// Creates a new comment on a specified Pull Request
+        /// Gets a Pull Request by number
         /// </summary>
         /// <param name="repoId"></param>
         /// <param name="number"></param>
-        /// <param name="comment"></param>
         /// <returns></returns>
-        public static async Task<PullRequestReviewComment> CommentOnPullRequest(long repoId, int number, PullRequestReviewCommentCreate comment)
+        public static async Task<PullRequest> GetPullRequest(long repoId, int number)
         {
             try
             {
                 var client = await UserUtility.GetAuthenticatedClient();
-                return await client.PullRequest.ReviewComment.Create(repoId, number, comment);
+                return await client.PullRequest.Get(repoId, number);
             }
             catch
             {
@@ -31,25 +30,23 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets all comments for a given PR
+        /// Gets all commits for a specified pull request
         /// </summary>
-        /// <param name="owner"></param>
-        /// <param name="name"></param>
+        /// <param name="repoId"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<PullRequestReviewComment>> GetAllCommentsForPullRequest(long repoId, int number)
+        public static async Task<ObservableCollection<PullRequestCommit>> GetAllCommitsForPullRequest(long repoId, int number)
         {
             try
             {
                 var client = await UserUtility.GetAuthenticatedClient();
-                var comments = await client.PullRequest.ReviewComment.GetAll(repoId, number);
-                return new ObservableCollection<PullRequestReviewComment>(comments);
+                var commits = await client.PullRequest.Commits(repoId, number);
+                return new ObservableCollection<PullRequestCommit>(commits);
             }
             catch
             {
                 return null;
             }
-
         }
     }
 }
