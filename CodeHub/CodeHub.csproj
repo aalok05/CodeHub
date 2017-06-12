@@ -200,6 +200,9 @@
     <Compile Include="Controls\CommentListItem.xaml.cs">
       <DependentUpon>CommentListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CommitListItem.xaml.cs">
+      <DependentUpon>CommitListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CustomFrame.cs" />
     <Compile Include="Controls\Hilite_meHighlightStylePreviewControl.xaml.cs">
       <DependentUpon>Hilite_meHighlightStylePreviewControl.xaml</DependentUpon>
@@ -427,6 +430,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CommentListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CommitListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
