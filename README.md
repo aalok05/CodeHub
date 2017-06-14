@@ -20,7 +20,7 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 ## Screenshots
 
-| Trending        			                               | Notifications           				  | News Feed  				          |
+| Notifications        			                               | Trending           				  | News Feed  				          |
 | ----------------------------------------------------------------- |:----------------------------------------------------------------:| ---------------------------------------------------------------:|
 | ![screenshot](https://preview.ibb.co/jvsU35/mob1.png)      | ![screenshot](https://preview.ibb.co/ekXJwQ/mob4.png) | ![screenshot](https://preview.ibb.co/fEesO5/mob5.png) |
 
@@ -30,14 +30,12 @@ Pull requests are welcome in the `dev` branch!
 ## Setting up the project 
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
 
-## Things to be done
-CodeHub aims to do all those things that the GitHub Desktop app doesn't do. Our goal is to make an app for UWP which lets you keep up with the open source world on the go.
-I think these features are needed in CodeHub:
-* Receive notifications on new issues on your repos
-* Fork repos (Implemented)
-* Trending developers
-* Syntax highlighting for code (Implemented)
-* Search code, issues (Implemented)
+
+## Troubleshooting
+
+### I Can't Find My Organization
+
+CodeHub can see all organizations *if they are granted access*. GitHub, by default, disables [third-party access](https://help.github.com/articles/about-third-party-application-restrictions/) for new organizations. Because of this, CodeHub has no knowledge that those organizations even exist. GitHub keeps that information from the app. There are several ways to correct this. If you own the organization follow [these instructions](https://help.github.com/articles/enabling-third-party-application-restrictions-for-your-organization/). If you do not own the organization you can request access for CodeHub by following [these instructions](https://help.github.com/articles/requesting-organization-approval-for-third-party-applications/).
 
 ## Dependencies
 I thank the makers of these libraries
