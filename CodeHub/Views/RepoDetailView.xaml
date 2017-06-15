@@ -76,6 +76,8 @@
                 </Ellipse.Fill>
             </Ellipse>
             <HyperlinkButton x:Name="OwnerName"
+                             Padding="0"
+                             Margin="0 4 0 0"
                              Command="{x:Bind ViewModel.ProfileTapped}"
                              RelativePanel.RightOf="OwnerPic">
                 <HyperlinkButton.Content>
@@ -87,31 +89,34 @@
                 </HyperlinkButton.Content>
             </HyperlinkButton>
             <TextBlock x:Name="slash"
-                       Margin="4,0,4,0"
+                       Margin="4,4,4,0"
                        RelativePanel.AlignVerticalCenterWith="OwnerName"
                        RelativePanel.RightOf="OwnerName"
                        Text="/" />
             <TextBlock x:Name="RepoName"
                        FontWeight="Light"
+                       Margin="0 0 0 0"
                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                       RelativePanel.AlignVerticalCenterWith="OwnerName"
-                       RelativePanel.RightOf="slash"
                        Style="{StaticResource RepoNameTextBlockStyle}"
+                       RelativePanel.RightOf="slash"
+                       RelativePanel.AlignRightWithPanel="True"
+                       TextWrapping="Wrap"
                        Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
 
             <TextBlock x:Name="updatedDateText"
                        FontSize="12"
-                       RelativePanel.Below="OwnerName"
-                       RelativePanel.RightOf="OwnerPic"
+                       Margin="0 2 0 0"
+                       RelativePanel.Below="RepoName"
+                       RelativePanel.AlignLeftWith="OwnerName"
                        Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             <TextBlock x:Name="sizeCount"
-                       Margin="8,0,0,0"
+                       Margin="8,2,0,0"
                        FontSize="12"
-                       RelativePanel.Below="OwnerName"
+                       RelativePanel.Below="RepoName"
                        RelativePanel.RightOf="updatedDateText"
                        Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
             <TextBlock x:Name="sizeUnitText"
-                       Margin="0,0,12,0"
+                       Margin="2,2,12,0"
                        FontSize="12"
                        RelativePanel.AlignVerticalCenterWith="sizeCount"
                        RelativePanel.RightOf="sizeCount"
