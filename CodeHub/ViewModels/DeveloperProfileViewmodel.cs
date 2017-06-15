@@ -186,26 +186,28 @@ namespace CodeHub.ViewModels
                     isLoading = true;
                     Developer = await UserUtility.GetUserInfo(login);
                     isLoading = false;
-                    if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
+                    if (Developer != null)
                     {
-                        CanFollow = false;
-                    }
-                    else
-                    {
-                        CanFollow = true;
-                        FollowProgress = true;
-                        if (await UserUtility.CheckFollow(Developer.Login))
-                        {
-                            IsFollowing = true;
-                        }
-                        FollowProgress = false;
+                         if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
+                         {
+                             CanFollow = false;
+                         }
+                         else
+                         {
+                             CanFollow = true;
+                             FollowProgress = true;
+                             if (await UserUtility.CheckFollow(Developer.Login))
+                             {
+                                 IsFollowing = true;
+                             }
+                             FollowProgress = false;
 
-                        IsEventsLoading = true;
-                        Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
-                        IsEventsLoading = false;
+                             IsEventsLoading = true;
+                             Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                             IsEventsLoading = false;
+                         }
                     }
                 }
-
             }
         }
 

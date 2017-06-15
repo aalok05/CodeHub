@@ -40,10 +40,14 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
             await ViewModel.Load(e.Parameter as string);
 
-            if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
-            else
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
+            if(ViewModel.Developer!= null)
+            {
+                if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
+                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
+                else
+                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
+            }
+           
         }
 
         private void Actor_Click(object sender, RoutedEventArgs e)
