@@ -21,6 +21,7 @@
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:EventTypeToActionStringConverter x:Key="EventTypeToActionStringConverter" x:Name="EventTypeToActionStringConverter" />
         <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -143,6 +144,7 @@
                         <Button x:Uid="followButton"
                                 Width="90"
                                 Height="30"
+                                IsEnabled="{x:Bind ViewModel.FollowProgress,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                                 Command="{x:Bind ViewModel.FollowCommand}"
                                 Style="{StaticResource ActionButtonStyle}"
                                 Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
@@ -151,17 +153,10 @@
                         <Button x:Uid="unfollowButton"
                                 Width="90"
                                 Height="30"
+                                IsEnabled="{x:Bind ViewModel.FollowProgress,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                                 Command="{x:Bind ViewModel.UnfollowCommand}"
                                 Style="{StaticResource ActionButtonStyle}"
                                 Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-                        <ProgressRing Width="15"
-                                      Height="15"
-                                      Margin="0 10 0 0"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Foreground="{StaticResource AppPrimaryColorBrush}"
-                                      IsActive="{x:Bind ViewModel.FollowProgress, Mode=OneWay}" />
-
                     </Grid>
                 </StackPanel>
                 <TextBlock x:Name="BioText"
