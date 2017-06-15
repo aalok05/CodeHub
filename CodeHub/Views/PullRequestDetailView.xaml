@@ -238,7 +238,6 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 Background="{StaticResource AppPrimaryColorBrush}"
-                                BorderThickness="0"
                                 Command="{x:Bind ViewModel.CommentCommand}"
                                 Style="{StaticResource ActionButtonStyle}">
                             <SymbolIcon Symbol="Send" />

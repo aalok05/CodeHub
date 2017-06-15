@@ -130,7 +130,6 @@
             <Button x:Name="CloneButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
-                    BorderThickness="0"
                     Command="{x:Bind ViewModel.CloneCommand}"
                     RelativePanel.Below="OwnerPic"
                     RelativePanel.LeftOf="StarButton"
@@ -153,7 +152,6 @@
             <Button x:Name="StarButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
-                    BorderThickness="0"
                     Command="{x:Bind ViewModel.StarCommand}"
                     RelativePanel.Below="OwnerPic"
                     RelativePanel.LeftOf="WatchButton"
@@ -187,7 +185,6 @@
             <Button x:Name="WatchButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
-                    BorderThickness="0"
                     Command="{x:Bind ViewModel.WatchCommand}"
                     RelativePanel.AlignHorizontalCenterWithPanel="True"
                     RelativePanel.Below="OwnerPic"
@@ -222,7 +219,6 @@
             <Button x:Name="ForkButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
-                    BorderThickness="0"
                     Command="{x:Bind ViewModel.ForkCommand}"
                     RelativePanel.Below="OwnerPic"
                     RelativePanel.RightOf="WatchButton"
@@ -255,7 +251,6 @@
             <Button x:Name="ShareButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
-                    BorderThickness="0"
                     RelativePanel.Below="OwnerPic"
                     RelativePanel.RightOf="ForkButton"
                     Style="{StaticResource ActionButtonStyle}"
@@ -282,7 +277,6 @@
                 <Button x:Name="ViewCodeButton"
                         Width="110"
                         Height="35"
-                        BorderThickness="0"
                         Command="{x:Bind ViewModel.SourceCodeNavigate}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -303,7 +297,6 @@
                         Height="35"
                         MinWidth="110"
                         HorizontalAlignment="Center"
-                        BorderThickness="0"
                         Command="{x:Bind ViewModel.IssuesTapped}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -324,7 +317,6 @@
                 <Button Height="35"
                         MinWidth="110"
                         HorizontalAlignment="Center"
-                        BorderThickness="0"
                         Command="{x:Bind ViewModel.PullRequestsTapped}"
                         Style="{StaticResource ActionButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -481,7 +473,6 @@
                         Padding="12"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        BorderThickness="0"
                         Style="{StaticResource ActionButtonStyle}"
                         Tapped="CloseReleaseTextPanel_Tapped">
                     <SymbolIcon Symbol="Clear" />
