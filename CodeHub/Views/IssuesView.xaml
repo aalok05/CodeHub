@@ -14,6 +14,7 @@
       mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -161,6 +162,7 @@
             <TextBox x:Name="issueTitle"
                      x:Uid="title"
                      Margin="8,0,8,8"
+                     IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}"
                      RelativePanel.Above="issueBody"
@@ -171,6 +173,7 @@
                      x:Uid="body"
                      Height="200"
                      Margin="8,0,8,0"
+                     IsEnabled="{x:Bind ViewModel.isLoading,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
                      Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      AcceptsReturn="True"
