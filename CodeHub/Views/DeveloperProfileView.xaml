@@ -1,15 +1,15 @@
 ﻿<Page x:Class="CodeHub.Views.DeveloperProfileView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
       xmlns:converters="using:CodeHub.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:usercontrol="using:CodeHub.Controls"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:usercontrol="using:CodeHub.Controls"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -21,7 +21,7 @@
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:EventTypeToActionStringConverter x:Key="EventTypeToActionStringConverter" x:Name="EventTypeToActionStringConverter" />
         <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -41,7 +41,7 @@
                         <Setter Target="UserNameText.FontSize" Value="25" />
                         <Setter Target="LoginText.FontSize" Value="16" />
                         <Setter Target="BioText.FontSize" Value="13" />
-                        <Setter Target="TopRow.Height" Value="310"/>
+                        <Setter Target="TopRow.Height" Value="310" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -53,7 +53,7 @@
                         <Setter Target="UserPic.Height" Value="170" />
                         <Setter Target="UserNameText.FontSize" Value="28" />
                         <Setter Target="LoginText.FontSize" Value="16" />
-                        <Setter Target="TopRow.Height" Value="340"/>
+                        <Setter Target="TopRow.Height" Value="340" />
                         <Setter Target="BioText.FontSize" Value="14" />
                     </VisualState.Setters>
                 </VisualState>
@@ -69,9 +69,9 @@
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <toolkitControl:ImageEx Grid.Row="0"
-                              IsCacheEnabled="True"
-                              Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
-                              Stretch="UniformToFill">
+                                    IsCacheEnabled="True"
+                                    Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
+                                    Stretch="UniformToFill">
                 <i:Interaction.Behaviors>
                     <behaviors:Blur AutomaticallyStart="True"
                                     Delay="0"
@@ -134,51 +134,52 @@
                                Text="{x:Bind ViewModel.Developer.Email, Mode=OneWay}"
                                Visibility="{x:Bind ViewModel.Developer.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
                 </StackPanel>
-                <StackPanel x:Name="ButtonGrid"
-                            Orientation="Horizontal"
-                            RelativePanel.AlignHorizontalCenterWithPanel="True"
-                            RelativePanel.Below="UserInfoPanel">
-                    <Grid x:Name="FollowButton" Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 
-                        <!--  Follow button  -->
-                        <Button x:Uid="followButton"
-                                Width="90"
-                                Height="30"
-                                IsEnabled="{x:Bind ViewModel.FollowProgress,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
-                                Command="{x:Bind ViewModel.FollowCommand}"
-                                Style="{StaticResource ActionButtonStyle}"
-                                Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+                <Grid x:Name="ButtonGrid"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"
+                      RelativePanel.Below="UserInfoPanel"
+                      Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 
-                        <!--  Unfollow button  -->
-                        <Button x:Uid="unfollowButton"
-                                Width="90"
-                                Height="30"
-                                IsEnabled="{x:Bind ViewModel.FollowProgress,Converter={StaticResource InverseBooleanConverter},Mode=OneWay}"
-                                Command="{x:Bind ViewModel.UnfollowCommand}"
-                                Style="{StaticResource ActionButtonStyle}"
-                                Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-                    </Grid>
-                </StackPanel>
+                    <!--  Follow button  -->
+                    <Button x:Uid="followButton"
+                            Width="90"
+                            Height="30"
+                            Background="{ThemeResource SystemChromeLowColor}"
+                            Command="{x:Bind ViewModel.FollowCommand}"
+                            IsEnabled="{x:Bind ViewModel.FollowProgress, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+
+                    <!--  Unfollow button  -->
+                    <Button x:Uid="unfollowButton"
+                            Width="90"
+                            Height="30"
+                            Background="{ThemeResource SystemChromeLowColor}"
+                            Command="{x:Bind ViewModel.UnfollowCommand}"
+                            IsEnabled="{x:Bind ViewModel.FollowProgress, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                </Grid>
                 <TextBlock x:Name="BioText"
                            Margin="4 10 4 4"
                            FontSize="12"
                            Foreground="Gray"
-                           TextAlignment="Center"
                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                            RelativePanel.Below="ButtonGrid"
                            Text="{x:Bind ViewModel.Developer.Bio, Mode=OneWay}"
+                           TextAlignment="Center"
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="Wrap" />
             </RelativePanel>
         </ScrollViewer>
-        <Pivot Grid.Row="1" 
-               Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+
+        <Pivot Grid.Row="1"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}"
+               Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Uid="activity"
-                               FontSize="15"
-                               FontWeight="SemiBold" />
+                               FontSize="15" />
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
@@ -243,9 +244,9 @@
                                         <HyperlinkButton.ContentTemplate>
                                             <DataTemplate>
                                                 <TextBlock VerticalAlignment="Center"
-                                               FontSize="13.5"
-                                               Foreground="{StaticResource AppPrimaryColorBrush}"
-                                               Text="{Binding}" />
+                                                           FontSize="13.5"
+                                                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                                                           Text="{Binding}" />
                                             </DataTemplate>
                                         </HyperlinkButton.ContentTemplate>
                                     </HyperlinkButton>
@@ -265,23 +266,21 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Uid="repositories"
                                    Margin="0 0 8 0"
-                                   FontSize="15"
-                                   FontWeight="SemiBold" />
-                        <TextBlock Style="{StaticResource FollowerCountStyle}" 
-                                   Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay}" />
+                                   FontSize="15" />
+                        <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                              ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Repository">
-                                <usercontrol:RepoListItem/>
+                                <usercontrol:RepoListItem />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -297,22 +296,21 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Uid="followers"
                                    Margin="0 0 10 0"
-                                   FontSize="15"
-                                   FontWeight="SemiBold" />
+                                   FontSize="15"/>
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Followers, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.UserTapped}"
-                              ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <usercontrol:UserListItem/>
+                                <usercontrol:UserListItem />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -328,22 +326,21 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Uid="following"
                                    Margin="0 0 8 0"
-                                   FontSize="15"
-                                   FontWeight="SemiBold" />
+                                   FontSize="15"/>
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Following, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.UserTapped}"
-                              ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:User">
-                                <usercontrol:UserListItem/>
+                                <usercontrol:UserListItem />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -355,6 +352,5 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        
     </Grid>
 </Page>
