@@ -20,7 +20,7 @@ namespace CodeHub.Services
 
                 ApiOptions options = new ApiOptions
                 {
-                    PageSize = 10,
+                    PageSize = 30,
                     PageCount = 1
                 };
                 var result = await client.Activity.Events.GetAllUserPerformedPublic(login, options);
