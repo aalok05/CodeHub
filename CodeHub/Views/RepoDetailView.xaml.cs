@@ -38,8 +38,12 @@ namespace CodeHub.Views
             await ViewModel.Load(e.Parameter);
 
             MainPivot.SelectedItem = MainPivot.Items[0];
-            ReadmeLoadingRing.IsActive = true;               
-            ReadmeWebView.NavigateToString("<html><head> <link rel =\"stylesheet\" href =\"ms-appx-web:///Assets/css/github-markdown.css\" type =\"text/css\" media =\"screen\" /> </head> <body> " + await RepositoryUtility.GetReadmeHTMLForRepository(ViewModel.Repository.Id) + " </body></html> ");
+            ReadmeLoadingRing.IsActive = true;
+            if (ViewModel.Repository != null)
+            {
+                ReadmeWebView.NavigateToString("<html><head> <link rel =\"stylesheet\" href =\"ms-appx-web:///Assets/css/github-markdown.css\" type =\"text/css\" media =\"screen\" /> </head> <body> " + 
+                    await RepositoryUtility.GetReadmeHTMLForRepository(ViewModel.Repository.Id) + " </body></html> ");
+            }
         }
 
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
