@@ -57,14 +57,14 @@
                        Foreground="Gray"
                        RelativePanel.Below="versionText" />
             <toolkitControls:Expander x:Name="CreditsExpander"
+                                      x:Uid="credits"
                                       Margin="8,8,8,12"
-                                      Header="Credits"
                                       HorizontalContentAlignment="Left"
                                       IsExpanded="False"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.AlignRightWithPanel="True"
-                                      RelativePanel.Below="disclaimerText">
-
+                                      RelativePanel.Below="disclaimerText"
+                                      Style="{StaticResource ExpanderStyle}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock x:Uid="creator"
                                Margin="0,12,0,4"
@@ -78,7 +78,7 @@
                                x:Uid="contributor"
                                Margin="0,12,0,4"
                                FontSize="18"
-                               FontWeight="Light"/>
+                               FontWeight="Light" />
                     <TextBlock x:Name="contributorName2"
                                Margin="0,4,8,0"
                                FontSize="13"
@@ -128,16 +128,16 @@
             </toolkitControls:Expander>
 
             <TextBlock x:Name="contacts"
+                       x:Uid="contacts"
                        Margin="8,12,0,4"
                        FontSize="18"
                        FontWeight="Light"
                        RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.Below="CreditsExpander"
-                       Text="Contacts" />
+                       RelativePanel.Below="CreditsExpander"/>
 
             <Button x:Name="TwitterButton"
-                    Margin="8 16 8 0"
                     MinWidth="60"
+                    Margin="8 16 8 0"
                     RelativePanel.Below="contacts"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="TwitterButton_Tapped">
@@ -157,8 +157,8 @@
             </Button>
 
             <Button x:Name="RateButton"
-                    Margin="0 16 8 0"
                     MinHeight="56"
+                    Margin="0 16 8 0"
                     RelativePanel.Below="contacts"
                     RelativePanel.RightOf="TwitterButton"
                     Style="{StaticResource ActionButtonStyle}"
@@ -176,8 +176,8 @@
                 </StackPanel>
             </Button>
             <Button x:Name="GithubButton"
-                    Margin="0 16 0 0"
                     MinHeight="56"
+                    Margin="0 16 0 0"
                     RelativePanel.Below="contacts"
                     RelativePanel.RightOf="RateButton"
                     Style="{StaticResource ActionButtonStyle}"
@@ -197,8 +197,8 @@
                 </StackPanel>
             </Button>
             <Button x:Name="EmailButton"
-                    Margin="0 16 8 0"
                     MinWidth="60"
+                    Margin="0 16 8 0"
                     RelativePanel.Below="contacts"
                     RelativePanel.RightOf="GithubButton"
                     Style="{StaticResource ActionButtonStyle}"
