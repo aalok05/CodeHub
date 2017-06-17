@@ -52,11 +52,6 @@ namespace CodeHub.Views
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Notifications" });
         }
 
-        private void Repo_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", (sender as HyperlinkButton).Content);
-        }
-
         public RelayCommand<Notification> _MarkasReadAllNotifCommand;
         public RelayCommand<Notification> MarkasReadAllNotifCommand
         {
@@ -88,11 +83,13 @@ namespace CodeHub.Views
                                           async (Notification notification) =>
                                           {
                                               ViewModel.IsLoadingUnread = true;
-                                              await NotificationsService.MarkNotificationAsRead(notification.Id);
+                                              if (notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
 
-                                              var index = ViewModel.UnreadNotifications.IndexOf(ViewModel.UnreadNotifications.Where(p => p.Id == notification.Id).First());
-                                              ViewModel.UnreadNotifications.RemoveAt(index);
-
+                                                  var index = ViewModel.UnreadNotifications.IndexOf(ViewModel.UnreadNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.UnreadNotifications.RemoveAt(index);
+                                              }
                                               ViewModel.IsLoadingUnread = false;
                                           }));
             }

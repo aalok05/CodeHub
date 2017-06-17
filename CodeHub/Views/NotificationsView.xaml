@@ -57,7 +57,8 @@
                     </CommandBar>
                     <ListView x:Name="UnreadFeedListView"
                               Grid.Row="1"
-                              IsItemClickEnabled="False"
+                              IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.UnreadNotifications, Mode=OneWay}"
                               SelectionMode="None">
@@ -120,23 +121,14 @@
                                                    RelativePanel.RightOf="notifSymbol"
                                                    Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
-                                        <HyperlinkButton x:Name="RepoText"
-                                                         Margin="12,0,0,4"
-                                                         Padding="0"
-                                                         Content="{Binding Repository.FullName}"
-                                                         FontSize="13"
-                                                         RelativePanel.Below="titleText"
-                                                         RelativePanel.RightOf="notifSymbol"
-                                                         Tapped="Repo_Click">
-                                            <HyperlinkButton.ContentTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock VerticalAlignment="Center"
-                                                               FontSize="13.5"
-                                                               Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                               Text="{Binding}" />
-                                                </DataTemplate>
-                                            </HyperlinkButton.ContentTemplate>
-                                        </HyperlinkButton>
+                                        <TextBlock x:Name="RepoText"
+                                                   Margin="12 4 0 4"
+                                                   Text="{Binding Repository.FullName}"
+                                                   FontSize="13.5"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   FontWeight="SemiBold"
+                                                   RelativePanel.Below="titleText"
+                                                   RelativePanel.RightOf="notifSymbol"/>
                                     </RelativePanel>
 
                                 </toolkitControl:SlidableListItem>
@@ -186,7 +178,8 @@
                     </CommandBar>
                     <ListView x:Name="ParticipatingFeedListView"
                               Grid.Row="1"
-                              IsItemClickEnabled="False"
+                              IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.ParticipatingNotifications, Mode=OneWay}"
                               SelectionMode="None">
@@ -250,23 +243,14 @@
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
-                                            <HyperlinkButton x:Name="RepoText"
-                                                             Margin="12,0,0,4"
-                                                             Padding="0"
-                                                             Content="{Binding Repository.FullName}"
-                                                             FontSize="13"
-                                                             RelativePanel.Below="titleText"
-                                                             RelativePanel.RightOf="notifSymbol"
-                                                             Tapped="Repo_Click">
-                                                <HyperlinkButton.ContentTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock VerticalAlignment="Center"
-                                                                   FontSize="13.5"
-                                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                                   Text="{Binding}" />
-                                                    </DataTemplate>
-                                                </HyperlinkButton.ContentTemplate>
-                                            </HyperlinkButton>
+                                            <TextBlock x:Name="RepoText"
+                                                       Margin="12 4 0 4"
+                                                       Text="{Binding Repository.FullName}"
+                                                       FontSize="13.5"
+                                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                       FontWeight="SemiBold"
+                                                       RelativePanel.Below="titleText"
+                                                       RelativePanel.RightOf="notifSymbol"/>
                                         </RelativePanel>
 
                                     </toolkitControl:SlidableListItem>
@@ -316,7 +300,8 @@
                     </CommandBar>
                     <ListView x:Name="AllFeedListView"
                               Grid.Row="1"
-                              IsItemClickEnabled="False"
+                              IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.AllNotifications, Mode=OneWay}"
                               SelectionMode="None">
@@ -380,23 +365,14 @@
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
-                                            <HyperlinkButton x:Name="RepoText"
-                                                             Margin="12,0,0,4"
-                                                             Padding="0"
-                                                             Content="{Binding Repository.FullName}"
-                                                             FontSize="13"
-                                                             RelativePanel.Below="titleText"
-                                                             RelativePanel.RightOf="notifSymbol"
-                                                             Tapped="Repo_Click">
-                                                <HyperlinkButton.ContentTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock VerticalAlignment="Center"
-                                                                   FontSize="13.5"
-                                                                   Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                                   Text="{Binding}" />
-                                                    </DataTemplate>
-                                                </HyperlinkButton.ContentTemplate>
-                                            </HyperlinkButton>
+                                            <TextBlock x:Name="RepoText"
+                                                       Margin="12 4 0 4"
+                                                       Text="{Binding Repository.FullName}"
+                                                       FontSize="13.5"
+                                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                       FontWeight="SemiBold"
+                                                       RelativePanel.Below="titleText"
+                                                       RelativePanel.RightOf="notifSymbol"/>
                                         </RelativePanel>
 
                                     </toolkitControl:SlidableListItem>
