@@ -183,74 +183,84 @@
                 </PivotItem.Header>
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollMode="Enabled">
+                              ScrollViewer.VerticalScrollMode="Enabled"
+                              SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Activity">
-                                <RelativePanel>
-                                    <Path x:Name="notifSymbol"
-                                          Margin="8,12,8,4"
-                                          Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
-                                          Fill="Gray"
-                                          RelativePanel.AlignLeftWithPanel="True"
-                                          RelativePanel.AlignTopWithPanel="True"
-                                          StrokeThickness="0">
-                                        <Path.RenderTransform>
-                                            <CompositeTransform x:Name="notifSymbolScale"
-                                                                ScaleX="1.3"
-                                                                ScaleY="1.3" />
-                                        </Path.RenderTransform>
-                                    </Path>
-                                    <TextBlock x:Name="timeText"
-                                               Margin="8,12,0,0"
-                                               FontSize="12"
-                                               Foreground="Gray"
-                                               RelativePanel.RightOf="notifSymbol"
-                                               Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
-                                    <HyperlinkButton x:Name="userText"
-                                                     Margin="4,0,4,4"
-                                                     Padding="0"
-                                                     Content="{Binding Actor.Login}"
-                                                     RelativePanel.Below="timeText"
-                                                     RelativePanel.RightOf="notifSymbol"
-                                                     Tapped="Actor_Click">
-                                        <HyperlinkButton.ContentTemplate>
-                                            <DataTemplate>
-                                                <TextBlock VerticalAlignment="Center"
-                                                           FontSize="13.5"
-                                                           Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                           Text="{Binding}" />
-                                            </DataTemplate>
-                                        </HyperlinkButton.ContentTemplate>
-                                    </HyperlinkButton>
-                                    <TextBlock x:Name="actionText"
-                                               Margin="0,0,0,4"
-                                               FontSize="13"
-                                               FontWeight="SemiBold"
-                                               RelativePanel.Below="timeText"
-                                               RelativePanel.RightOf="userText"
-                                               Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
-                                    <HyperlinkButton x:Name="RepoText"
-                                                     Margin="4 0 0 4"
-                                                     Padding="0"
-                                                     Content="{Binding Repo.Name}"
-                                                     FontSize="13"
-                                                     RelativePanel.Below="timeText"
-                                                     RelativePanel.RightOf="actionText"
-                                                     Tapped="Repo_Click">
-                                        <HyperlinkButton.ContentTemplate>
-                                            <DataTemplate>
-                                                <TextBlock VerticalAlignment="Center"
-                                                           FontSize="13.5"
-                                                           Foreground="{StaticResource AppPrimaryColorBrush}"
-                                                           Text="{Binding}" />
-                                            </DataTemplate>
-                                        </HyperlinkButton.ContentTemplate>
-                                    </HyperlinkButton>
-                                </RelativePanel>
+                                <UserControl>
+                                    <RelativePanel>
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup>
+                                                <VisualState>
+                                                    <VisualState.StateTriggers>
+                                                        <AdaptiveTrigger MinWindowWidth="320" />
+                                                    </VisualState.StateTriggers>
+                                                    <VisualState.Setters>
+                                                        <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
+                                                        <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                                <VisualState>
+                                                    <VisualState.StateTriggers>
+                                                        <AdaptiveTrigger MinWindowWidth="720" />
+                                                    </VisualState.StateTriggers>
+                                                    <VisualState.Setters>
+                                                        <Setter Target="RepoText.(RelativePanel.Below)" Value="timeText" />
+                                                        <Setter Target="RepoText.(RelativePanel.RightOf)" Value="actionText" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Path x:Name="notifSymbol"
+                                              Margin="8,12,8,4"
+                                              Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
+                                              Fill="Gray"
+                                              RelativePanel.AlignLeftWithPanel="True"
+                                              RelativePanel.AlignTopWithPanel="True"
+                                              StrokeThickness="0">
+                                            <Path.RenderTransform>
+                                                <CompositeTransform x:Name="notifSymbolScale"
+                                                                    ScaleX="1.3"
+                                                                    ScaleY="1.3" />
+                                            </Path.RenderTransform>
+                                        </Path>
+                                        <TextBlock x:Name="timeText"
+                                                   Margin="8,12,0,0"
+                                                   FontSize="12"
+                                                   Foreground="Gray"
+                                                   RelativePanel.RightOf="notifSymbol"
+                                                   Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
+
+                                        <TextBlock x:Name="userText"
+                                                   Margin="4,0,4,4"
+                                                   FontSize="13.5"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   RelativePanel.Below="timeText"
+                                                   RelativePanel.RightOf="notifSymbol"
+                                                   Text="{Binding Actor.Login}" />
+
+                                        <TextBlock x:Name="actionText"
+                                                   Margin="0,0,0,4"
+                                                   FontSize="13"
+                                                   RelativePanel.Below="timeText"
+                                                   RelativePanel.RightOf="userText"
+                                                   Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
+
+                                        <TextBlock x:Name="RepoText"
+                                                   Margin="4 0 0 4"
+                                                   FontSize="13.5"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                   Text="{Binding Repo.Name}"/>
+
+                                    </RelativePanel>
+                                </UserControl>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

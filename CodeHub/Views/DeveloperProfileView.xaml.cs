@@ -49,14 +49,5 @@ namespace CodeHub.Views
             }
            
         }
-
-        private void Actor_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (sender as HyperlinkButton).Content);
-        }
-        private void Repo_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", (sender as HyperlinkButton).Content);
-        }
     }
 }

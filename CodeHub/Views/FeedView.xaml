@@ -41,7 +41,7 @@
             <toolkitControl:PullToRefreshListView.ItemTemplate>
                 <DataTemplate x:DataType="octo:Activity">
                     <UserControl>
-                        <RelativePanel>
+                        <RelativePanel x:Name="MainPanel">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
                                     <VisualState>
@@ -76,7 +76,9 @@
                                         <VisualState.StateTriggers>
                                             <AdaptiveTrigger MinWindowWidth="720" />
                                         </VisualState.StateTriggers>
-
+                                        <VisualState.Setters>
+                                            <Setter Target="MainPanel.MaxWidth" Value="600" />
+                                        </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
@@ -118,12 +120,9 @@
                                        Margin="4,0,4,4"
                                        FontSize="13.5"
                                        FontWeight="SemiBold"
-                                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                                       PointerEntered="TextBlock_PointerEntered"
-                                       PointerExited="TextBlock_PointerExited"
+                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="avatar"
-                                       Tapped="Actor_Click"
                                        Text="{Binding Actor.Login}" />
 
                             <TextBlock x:Name="actionText"
@@ -137,13 +136,10 @@
                                        Margin="4 0 4 4"
                                        FontSize="13.5"
                                        FontWeight="SemiBold"
-                                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                                       PointerEntered="TextBlock_PointerEntered"
-                                       PointerExited="TextBlock_PointerExited"
+                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="actionText"
-                                       Text="{Binding Repo.Name}"
-                                       Tapped="Repo_Click"/>
+                                       Text="{Binding Repo.Name}" />
 
                             <Border x:Name="commentText"
                                     Margin="12 4 12 4"
@@ -152,17 +148,15 @@
                                     RelativePanel.Below="avatar">
                                 <toolkitControl:MarkdownTextBlock Padding="12 8 0 8"
                                                                   FontSize="13"
-                                                                  ImageStretch="FIll"
                                                                   Foreground="Gray"
+                                                                  ImageStretch="FIll"
                                                                   LinkClicked="MarkdownTextBlock_LinkClicked"
                                                                   Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
                                                                   TextWrapping="Wrap"
                                                                   Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
                             </Border>
-                            
                         </RelativePanel>
                     </UserControl>
-
                 </DataTemplate>
             </toolkitControl:PullToRefreshListView.ItemTemplate>
             <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
