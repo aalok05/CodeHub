@@ -32,6 +32,7 @@ namespace CodeHub.Views
             if (e.NavigationMode != NavigationMode.Back)
             {
                 await ViewModel.Load((Repository)e.Parameter);
+                IssuesPivot.SelectedItem = IssuesPivot.Items[0];
             }
         }
 

@@ -40,19 +40,14 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
             await ViewModel.Load(e.Parameter as string);
 
-            if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
-            else
-                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
-        }
-
-        private void Actor_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (sender as HyperlinkButton).Content);
-        }
-        private void Repo_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", (sender as HyperlinkButton).Content);
+            if(ViewModel.Developer!= null)
+            {
+                if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
+                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
+                else
+                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
+            }
+           
         }
     }
 }

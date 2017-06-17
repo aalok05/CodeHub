@@ -124,7 +124,7 @@
                            FontWeight="SemiLight"
                            Foreground="Gray" />
 
-                <HyperlinkButton Margin="0,0,3,0"
+                <HyperlinkButton Margin="4,0,4,0"
                                  Command="{x:Bind ViewModel.UserTapped}"
                                  Content="{x:Bind ViewModel.PullRequest.User.Login, Mode=OneWay}">
                     <HyperlinkButton.ContentTemplate>
@@ -137,7 +137,7 @@
                     </HyperlinkButton.ContentTemplate>
                 </HyperlinkButton>
 
-                <TextBlock Margin="0,0,3,0"
+                <TextBlock Margin="0,0,4,0"
                            VerticalAlignment="Center"
                            FontSize="13"
                            FontWeight="SemiLight"
@@ -238,7 +238,6 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 Background="{StaticResource AppPrimaryColorBrush}"
-                                BorderThickness="0"
                                 Command="{x:Bind ViewModel.CommentCommand}"
                                 Style="{StaticResource ActionButtonStyle}">
                             <SymbolIcon Symbol="Send" />

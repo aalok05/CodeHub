@@ -4,12 +4,12 @@
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                               xmlns:local="using:CodeHub.Views"
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                              xmlns:vm="using:CodeHub.ViewModels"
+                              xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
                               mc:Ignorable="d">
-    <ScrollViewer HorizontalScrollMode="Disabled"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollMode="Auto"
-                  VerticalScrollBarVisibility="Auto">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  VerticalScrollMode="Auto">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -24,7 +24,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <RelativePanel Padding="20,10,0,0">
+        <RelativePanel Padding="0,12,0,0">
             <Image x:Name="LogoImage"
                    Width="90"
                    Height="90"
@@ -33,7 +33,7 @@
                    RelativePanel.AlignTopWithPanel="True"
                    Source="{x:Bind ViewModel.Logo}" />
             <TextBlock x:Name="DisplayNameTextBlock"
-                       Margin="0,0,0,12"
+                       Margin="8,0,0,12"
                        FontSize="24"
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignRightWith="LogoImage"
@@ -41,7 +41,7 @@
                        Text="{x:Bind ViewModel.DisplayName}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="versionText"
-                       Margin="0,8,0,10"
+                       Margin="8,8,0,10"
                        FontSize="18"
                        FontWeight="Light"
                        RelativePanel.Below="DisplayNameTextBlock">
@@ -51,158 +51,179 @@
             </TextBlock>
             <TextBlock x:Name="disclaimerText"
                        x:Uid="disclaimer"
-                       Margin="0,0,0,10"
+                       Margin="8,0,0,10"
                        FontSize="14"
                        FontWeight="SemiLight"
                        Foreground="Gray"
                        RelativePanel.Below="versionText" />
-            <TextBlock x:Name="creatorText"
-                       x:Uid="creator"
-                       Margin="0,12,0,4"
+            <toolkitControls:Expander x:Name="CreditsExpander"
+                                      x:Uid="credits"
+                                      Margin="8,8,8,12"
+                                      HorizontalContentAlignment="Left"
+                                      IsExpanded="False"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.AlignRightWithPanel="True"
+                                      RelativePanel.Below="disclaimerText"
+                                      Style="{StaticResource ExpanderStyle}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Uid="creator"
+                               Margin="0,12,0,4"
+                               FontSize="18"
+                               FontWeight="Light" />
+                    <TextBlock x:Name="contributorName1"
+                               Margin="0,0,8,0"
+                               FontSize="13"
+                               Text="{x:Bind ViewModel.Publisher}" />
+                    <TextBlock x:Name="contributorText"
+                               x:Uid="contributor"
+                               Margin="0,12,0,4"
+                               FontSize="18"
+                               FontWeight="Light" />
+                    <TextBlock x:Name="contributorName2"
+                               Margin="0,4,8,0"
+                               FontSize="13"
+                               Text="Sergio Pedri" />
+                    <TextBlock x:Name="contributorName3"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Glenn Versweyveld" />
+                    <TextBlock x:Name="contributorName4"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Giacomo Lawrance" />
+                    <TextBlock x:Name="contributorName5"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Von Hohenheim" />
+                    <TextBlock x:Name="translatorsText"
+                               x:Uid="translator"
+                               Margin="0,12,0,4"
+                               FontSize="18"
+                               FontWeight="Light"
+                               RelativePanel.AlignLeftWithPanel="True" />
+                    <TextBlock x:Name="translatorName1"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Von Hohenheim - Chinese" />
+                    <TextBlock x:Name="translatorName2"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Liêm Nguyễn - Vietnamese" />
+                    <TextBlock x:Name="translatorName3"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Jakob Hermann Preusker - German" />
+                    <TextBlock x:Name="translatorName4"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="JN Marcos - Portuguese" />
+                </StackPanel>
+            </toolkitControls:Expander>
+
+            <TextBlock x:Name="contacts"
+                       x:Uid="contacts"
+                       Margin="8,12,0,4"
                        FontSize="18"
                        FontWeight="Light"
                        RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.Below="disclaimerText"/>
-            <TextBlock x:Name="contributorName1"
-                       Margin="0,0,8,0"
-                       FontSize="13"
-                       RelativePanel.Below="creatorText"
-                       Text="{x:Bind ViewModel.Publisher}" />
-            <TextBlock x:Name="contributorText"
-                       x:Uid="contributor"
-                       Margin="0,12,0,4"
-                       FontSize="18"
-                       FontWeight="Light"
-                       RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.Below="contributorName1"/>
-            <TextBlock x:Name="contributorName2"
-                       Margin="0,4,8,0"
-                       FontSize="13"
-                       RelativePanel.Below="contributorText"
-                       Text="Sergio Pedri" />
-            <TextBlock x:Name="contributorName3"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="contributorName2"
-                       Text="Glenn Versweyveld" />
-            <TextBlock x:Name="contributorName4"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="contributorName3"
-                       Text="Giacomo Lawrance" />
-            <TextBlock x:Name="contributorName5"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="contributorName4"
-                       Text="Von Hohenheim" />
-            <TextBlock x:Name="translatorsText"
-                       x:Uid="translator"
-                       Margin="0,12,0,4"
-                       FontSize="18"
-                       FontWeight="Light"
-                       RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.Below="contributorName5"/>
-            <TextBlock x:Name="translatorName1"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="translatorsText"
-                       Text="Von Hohenheim - Chinese" />
-            <TextBlock x:Name="translatorName2"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="translatorName1"
-                       Text="Liêm Nguyễn - Vietnamese" />
-            <TextBlock x:Name="translatorName3"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="translatorName2"
-                       Text="Jakob Hermann Preusker - German" />
-            <TextBlock x:Name="translatorName4"
-                       Margin="0,4,8,0"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       RelativePanel.Below="translatorName3"
-                       Text="JN Marcos - Portuguese" />
-            <HyperlinkButton x:Name="TwitterButton"
-                             Margin="0 20 0 0"
-                             Content="@devaalok"
-                             NavigateUri="https://twitter.com/devaalok"
-                             RelativePanel.Below="translatorName4">
-                <HyperlinkButton.ContentTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Viewbox MaxWidth="20"
-                                     MaxHeight="20"
-                                     Margin="0,0,8,0">
-                                <Path Data="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
-                                      Fill="{StaticResource AppPrimaryColorBrush}"
-                                      StrokeThickness="0.0" />
-                            </Viewbox>
-                            <TextBlock VerticalAlignment="Center"
-                                       FontSize="15"
-                                       FontWeight="Medium"
-                                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                                       Text="{Binding}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </HyperlinkButton.ContentTemplate>
-            </HyperlinkButton>
-            <HyperlinkButton x:Name="EmailButton"
-                             Content="contact@devnextdoor.com"
-                             NavigateUri="mailto:contact@devnextdoor.com"
-                             RelativePanel.Below="TwitterButton">
-                <HyperlinkButton.ContentTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Viewbox MaxWidth="20"
-                                     MaxHeight="20"
-                                     Margin="0,0,8,0">
-                                <Path Data="M0 4v8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1zm13 0L7 9 1 4h12zM1 5.5l4 3-4 3v-6zM2 12l3.5-3L7 10.5 8.5 9l3.5 3H2zm11-.5l-4-3 4-3v6z"
-                                      Fill="{StaticResource AppPrimaryColorBrush}"
-                                      StrokeThickness="0.0" />
-                            </Viewbox>
-                            <TextBlock VerticalAlignment="Center"
-                                       FontSize="15"
-                                       FontWeight="Medium"
-                                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                                       Text="{Binding}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </HyperlinkButton.ContentTemplate>
-            </HyperlinkButton>
+                       RelativePanel.Below="CreditsExpander"/>
+
+            <Button x:Name="TwitterButton"
+                    MinWidth="60"
+                    Margin="8 16 8 0"
+                    RelativePanel.Below="contacts"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Tapped="TwitterButton_Tapped">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxWidth="30"
+                             MaxHeight="30"
+                             Margin="0 0 0 4">
+                        <Path Data="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
+                              Fill="{StaticResource AppPrimaryColorBrush}"
+                              StrokeThickness="0.0" />
+                    </Viewbox>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="12"
+                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                               Text="Twitter" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="RateButton"
+                    MinHeight="56"
+                    Margin="0 16 8 0"
+                    RelativePanel.Below="contacts"
+                    RelativePanel.RightOf="TwitterButton"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Tapped="RateButton_Tapped">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxWidth="20"
+                             MaxHeight="20"
+                             Margin="0 4 0 4">
+                        <SymbolIcon Foreground="{StaticResource AppPrimaryColorBrush}" Symbol="OutlineStar" />
+                    </Viewbox>
+                    <TextBlock x:Uid="rateButtonContent"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Foreground="{StaticResource AppPrimaryColorBrush}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="GithubButton"
+                    MinHeight="56"
+                    Margin="0 16 0 0"
+                    RelativePanel.Below="contacts"
+                    RelativePanel.RightOf="RateButton"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Tapped="GithubButton_Tapped">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxWidth="20"
+                             MaxHeight="20"
+                             Margin="0 4 0 4">
+                        <Path Data="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                              Fill="{StaticResource AppPrimaryColorBrush}"
+                              StrokeThickness="0.0" />
+                    </Viewbox>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="12"
+                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                               Text="Star on GitHub" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="EmailButton"
+                    MinWidth="60"
+                    Margin="0 16 8 0"
+                    RelativePanel.Below="contacts"
+                    RelativePanel.RightOf="GithubButton"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Tapped="EmailButton_Tapped">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxWidth="25"
+                             MaxHeight="25"
+                             Margin="0 4 0 4">
+                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Glyph="&#xE119;" />
+                    </Viewbox>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="12"
+                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                               Text="Email" />
+                </StackPanel>
+            </Button>
             <HyperlinkButton x:Name="privacyLink"
                              x:Uid="privacyLink"
-                             Margin="0 12 0 0"
-                             FontSize="13"
+                             Margin="8 12 0 0"
+                             FontSize="14"
                              Foreground="{StaticResource AppPrimaryColorBrush}"
                              NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
-                             RelativePanel.Below="EmailButton" />
-            <Button x:Name="rateButton"
-                    Margin="0,5,0,0"
-                    Background="{StaticResource AppPrimaryColorBrush}"
-                    RelativePanel.Below="privacyLink"
-                    Tapped="RateButton_Tapped">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Viewbox MaxWidth="18" MaxHeight="18">
-                            <SymbolIcon Margin="0,0,10,0"
-                                        Foreground="White"
-                                        Symbol="OutlineStar" />
-                        </Viewbox>
-                        <TextBlock x:Uid="rateButtonContent"
-                                   VerticalAlignment="Center"
-                                   FontSize="12"
-                                   Foreground="White" />
-                    </StackPanel>
-                </Button.Content>
-
-            </Button>
+                             RelativePanel.Below="TwitterButton" />
         </RelativePanel>
     </ScrollViewer>
 

@@ -46,7 +46,7 @@
                     <toolkitControl:PullToRefreshListView x:Name="todayListView"
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
-                                                          Loaded="todayListView_Loaded"
+                                                          Loaded="TodayListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposToday,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -84,7 +84,7 @@
                     
                     <userControls:IncrementalLoadButtonControl x:Name="todayIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                                               Tapped="{x:Bind ViewModel.todayIncrementalLoad}"
+                                                               Tapped="{x:Bind ViewModel.TodayIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Uid="trendingUpdatePlaceholder"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -107,7 +107,7 @@
                     <toolkitControl:PullToRefreshListView x:Name="weekListView"  
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
-                                                          Loaded="weekListView_Loaded"
+                                                          Loaded="WeekListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposWeek,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -145,7 +145,7 @@
 
                     <userControls:IncrementalLoadButtonControl x:Name="weekIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                                               Tapped="{x:Bind ViewModel.weekIncrementalLoad}"
+                                                               Tapped="{x:Bind ViewModel.WeekIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
 
                     <TextBlock x:Uid="trendingUpdatePlaceholder"
@@ -167,7 +167,7 @@
                     <toolkitControl:PullToRefreshListView x:Name="monthListView"
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
-                                                          Loaded="monthListView_Loaded"
+                                                          Loaded="MonthListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposMonth,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -205,7 +205,7 @@
 
                     <userControls:IncrementalLoadButtonControl x:Name="monthIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                                               Tapped="{x:Bind ViewModel.monthIncrementalLoad}"
+                                                               Tapped="{x:Bind ViewModel.MonthIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
 
                     <TextBlock x:Uid="trendingUpdatePlaceholder"

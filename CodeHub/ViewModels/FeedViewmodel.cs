@@ -123,5 +123,34 @@ namespace CodeHub.ViewModels
                 ZeroEventCount = (Events.Count == 0) ? true : false;
             }
         }
+        public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Activity activity = e.ClickedItem as Activity;
+
+            switch (activity.Type)
+            {
+                case "IssueCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
+                    break;
+
+                case "IssuesEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
+                    break;
+
+                case "PullRequestReviewCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
+                    break;
+
+                case "PullRequestEvent":
+                case "PullRequestReviewEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+                    break;
+
+                default:
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", activity.Repo.Name);
+                    break;
+            }
+            
+        }
     }
 }

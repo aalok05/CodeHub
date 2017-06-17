@@ -121,7 +121,7 @@
     <value>đã nhận xét</value>
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
-  <data name="credit.Text" xml:space="preserve">
+  <data name="credits.Header" xml:space="preserve">
     <value>Tín dụng</value>
   </data>
   <data name="disclaimer.Text" xml:space="preserve">
@@ -410,5 +410,8 @@
   </data>
   <data name="commits.Text" xml:space="preserve">
     <value>Commits</value>
+  </data>
+  <data name="contacts.Text" xml:space="preserve">
+    <value>Liên hệ</value>
   </data>
 </root>

@@ -43,6 +43,7 @@ namespace CodeHub.Views
             if (e.NavigationMode != NavigationMode.Back)
             {
                 await ViewModel.Load((Repository)e.Parameter);
+                PullRequestPivot.SelectedItem = PullRequestPivot.Items[0];
             }
         }
     }

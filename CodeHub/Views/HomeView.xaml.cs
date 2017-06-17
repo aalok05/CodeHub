@@ -65,17 +65,17 @@ namespace CodeHub.Views
             refreshindicator3.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
         }
 
-        private void todayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void TodayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             todayIncrementalLoadButton.InitializeScrollViewer(todayListView);
         }
 
-        private void weekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void WeekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             weekIncrementalLoadButton.InitializeScrollViewer(weekListView);
         }
 
-        private void monthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void MonthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             monthIncrementalLoadButton.InitializeScrollViewer(monthListView);
         }
