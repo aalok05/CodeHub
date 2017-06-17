@@ -28,7 +28,17 @@
                         <AdaptiveTrigger MinWindowWidth="200" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RepoName.FontSize" Value="19" />
+                        <Setter Target="RepoName.FontSize" Value="18" />
+                        <Setter Target="OwnerName.FontSize" Value="13" />
+                        <Setter Target="DescriptionText.FontSize" Value="13" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MobileWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepoName.FontSize" Value="21" />
                         <Setter Target="OwnerName.FontSize" Value="15" />
                         <Setter Target="DescriptionText.FontSize" Value="14" />
                     </VisualState.Setters>
@@ -40,7 +50,7 @@
                     <VisualState.Setters>
                         <Setter Target="OwnerPic.Width" Value="100" />
                         <Setter Target="OwnerPic.Height" Value="100" />
-                        <Setter Target="RepoName.FontSize" Value="25" />
+                        <Setter Target="RepoName.FontSize" Value="27" />
                         <Setter Target="OwnerName.FontSize" Value="20" />
                         <Setter Target="DescriptionText.FontSize" Value="15" />
                     </VisualState.Setters>
