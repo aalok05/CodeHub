@@ -142,17 +142,18 @@
                                        PointerExited="TextBlock_PointerExited"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="actionText"
-                                       Text="{Binding Repo.Name}" />
+                                       Text="{Binding Repo.Name}"
+                                       Tapped="Repo_Click"/>
 
                             <Border x:Name="commentText"
                                     Margin="12 4 12 4"
-                                    Background="{ThemeResource SystemChromeLowColor}"
                                     RelativePanel.AlignLeftWithPanel="True"
                                     RelativePanel.AlignRightWithPanel="True"
                                     RelativePanel.Below="avatar">
                                 <toolkitControl:MarkdownTextBlock Padding="12 8 0 8"
                                                                   FontSize="13"
-                                                                  ImageStretch="Fill"
+                                                                  ImageStretch="FIll"
+                                                                  Foreground="Gray"
                                                                   LinkClicked="MarkdownTextBlock_LinkClicked"
                                                                   Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
                                                                   TextWrapping="Wrap"
