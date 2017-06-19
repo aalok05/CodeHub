@@ -21,6 +21,9 @@ using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
 using Windows.System.Profile;
+using UICompositionAnimations.Behaviours.Effects.Base;
+using UICompositionAnimations.Behaviours;
+using Windows.UI;
 
 namespace CodeHub.Views
 {
@@ -128,7 +131,7 @@ namespace CodeHub.Views
         }
         #endregion
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
 
@@ -141,6 +144,24 @@ namespace CodeHub.Views
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
 
             notifManager = new LocalNotificationManager(NotificationGrid);
+
+            if(GetOSBuild() >= 10563 && AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
+            {
+                AttachedStaticCompositionEffect<Border> attachedEffect = await BlurBorder.GetAttachedSemiAcrylicEffectAsync(
+                                                                   Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
+                                                                   0.8f,
+                                                                   Win2DCanvas,
+                                                                   new Uri("ms-appx:///Assets/Noise.png"));
+                BlurBorder.SizeChanged += (s, er) => attachedEffect.AdjustSize();
+
+                AttachedStaticCompositionEffect<Border> attachedEffectForHamMenu = await BlurBorderHamburger.GetAttachedSemiAcrylicEffectAsync(
+                                                                  Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
+                                                                  0.8f,
+                                                                  Win2DCanvas,
+                                                                  new Uri("ms-appx:///Assets/Noise.png"));
+                BlurBorderHamburger.SizeChanged += (s, er) => attachedEffectForHamMenu.AdjustSize();
+            }
+            
         }
 
         #region other methods

@@ -14,14 +14,14 @@
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter"/>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <controls:AutoHideGrid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        <controls:AutoHideGrid Background="Transparent"
                                Height="48"
                                x:Name="Header"
                                VerticalAlignment="Top">

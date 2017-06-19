@@ -24,8 +24,12 @@
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
         <converters:NotifTypeToSymbolConverter x:Key="NotifTypeToSymbolConverter" x:Name="NotifTypeToSymbolConverter" />
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
 
+        <!--  Empty grid to provide grey background to pivot headers  -->
+        <Grid Height="48"
+              VerticalAlignment="Top"
+              Background="{ThemeResource SystemChromeLowColor}" />
         <Pivot Grid.Row="1"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
