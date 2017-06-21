@@ -145,23 +145,25 @@ namespace CodeHub.Views
 
             notifManager = new LocalNotificationManager(NotificationGrid);
 
-            if(GetOSBuild() >= 10563 && AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
+            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled))
             {
-                AttachedStaticCompositionEffect<Border> attachedEffect = await BlurBorder.GetAttachedSemiAcrylicEffectAsync(
-                                                                   Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
-                                                                   0.8f,
-                                                                   Win2DCanvas,
-                                                                   new Uri("ms-appx:///Assets/Noise.png"));
-                BlurBorder.SizeChanged += (s, er) => attachedEffect.AdjustSize();
+                if (GetOSBuild() >= 10563 && AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
+                {
+                    AttachedStaticCompositionEffect<Border> attachedEffect = await BlurBorder.GetAttachedSemiAcrylicEffectAsync(
+                                                                       Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
+                                                                       0.8f,
+                                                                       Win2DCanvas,
+                                                                       new Uri("ms-appx:///Assets/Noise.png"));
+                    BlurBorder.SizeChanged += (s, er) => attachedEffect.AdjustSize();
 
-                AttachedStaticCompositionEffect<Border> attachedEffectForHamMenu = await BlurBorderHamburger.GetAttachedSemiAcrylicEffectAsync(
-                                                                  Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
-                                                                  0.8f,
-                                                                  Win2DCanvas,
-                                                                  new Uri("ms-appx:///Assets/Noise.png"));
-                BlurBorderHamburger.SizeChanged += (s, er) => attachedEffectForHamMenu.AdjustSize();
+                    AttachedStaticCompositionEffect<Border> attachedEffectForHamMenu = await BlurBorderHamburger.GetAttachedSemiAcrylicEffectAsync(
+                                                                      Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
+                                                                      0.8f,
+                                                                      Win2DCanvas,
+                                                                      new Uri("ms-appx:///Assets/Noise.png"));
+                    BlurBorderHamburger.SizeChanged += (s, er) => attachedEffectForHamMenu.AdjustSize();
+                }
             }
-            
         }
 
         #region other methods

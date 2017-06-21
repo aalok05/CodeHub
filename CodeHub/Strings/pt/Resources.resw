@@ -414,4 +414,7 @@
   <data name="contacts.Text" xml:space="preserve">
     <value>Contatos</value>
   </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Blur content behind window</value>
+  </data>
 </root>
