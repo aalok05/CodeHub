@@ -50,7 +50,7 @@
         <Ellipse x:Name="OwnerAvatarEllipse"
                  Width="60"
                  Height="60"
-                 Margin="8,8,8,8"
+                 Margin="8,12,8,8"
                  RelativePanel.AlignLeftWithPanel="True"
                  RelativePanel.AlignTopWithPanel="True">
             <Ellipse.Fill>
@@ -65,7 +65,7 @@
             </Ellipse.Fill>
         </Ellipse>
         <StackPanel x:Name="RepoNamePanel"
-                    Margin="4,8,0,4"
+                    Margin="4,12,0,4"
                     Orientation="Horizontal"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.RightOf="OwnerAvatarEllipse">
@@ -162,7 +162,7 @@
                    Text="{Binding Language}"
                    TextWrapping="Wrap" />
 
-        <TextBlock Margin="8,12,4,4"
+        <TextBlock Margin="8,12,4,12"
                    FontSize="12"
                    Foreground="Gray"
                    MaxLines="2"
