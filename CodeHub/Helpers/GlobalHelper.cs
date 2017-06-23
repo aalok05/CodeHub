@@ -21,7 +21,6 @@ namespace CodeHub.Helpers
 
         public class AdsEnabledMessageType
         {
-            public bool isEnabled { get; set; }
         }
         public class SignOutMessageType
         {
@@ -45,18 +44,9 @@ namespace CodeHub.Helpers
         {
 
         }
-
-        /// <summary>
-        /// A class used to signal the UI to refresh when loading the blurred avatar image in the repo detail view
-        /// </summary>
-        public class SetBlurredAvatarUIBrightnessMessageType
+        public class HostWindowBlurMessageType
         {
-            /// <summary>
-            /// Gets or sets the calculated average brightness for the current user avatar
-            /// </summary>
-            public byte Brightness { get; set; }
         }
-
         #endregion
 
         /// <summary>
@@ -105,7 +95,7 @@ namespace CodeHub.Helpers
         /// <summary>
         /// Converts a Hex string to corressponding SolidColorBrush
         /// </summary>
-        /// <param name="hex"></param>
+        /// <param name="hex">rrggbbaa</param>
         /// <returns></returns>
         public static SolidColorBrush GetSolidColorBrush(string hex)
         {
@@ -123,14 +113,18 @@ namespace CodeHub.Helpers
             return (Geometry)XamlReader.Load(sym);
         }
 
+        /// <summary>
+        /// Gets the OS build
+        /// </summary>
+        /// <returns></returns>
         public static ulong GetOSBuild()
         {
             string deviceFamilyVersion = AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
             ulong version = ulong.Parse(deviceFamilyVersion);
-            ulong major = (version & 0xFFFF000000000000L) >> 48;
-            ulong minor = (version & 0x0000FFFF00000000L) >> 32;
+            //ulong major = (version & 0xFFFF000000000000L) >> 48;
+            //ulong minor = (version & 0x0000FFFF00000000L) >> 32;
             ulong build = (version & 0x00000000FFFF0000L) >> 16;
-            ulong revision = (version & 0x000000000000FFFFL);
+            //ulong revision = (version & 0x000000000000FFFFL);
             //var osVersion = $"{major}.{minor}.{build}.{revision}";
             return build;
         }

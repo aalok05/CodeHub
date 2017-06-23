@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeHub.Helpers;
 using CodeHub.Services;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CodeHub.ViewModels
 {
@@ -44,6 +45,7 @@ namespace CodeHub.ViewModels
                 {
                     _IsAcrylicBlurEnabled = value;
                     SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, value);
+                    Messenger.Default.Send(new GlobalHelper.HostWindowBlurMessageType());
                     RaisePropertyChanged();
                 }
             }
