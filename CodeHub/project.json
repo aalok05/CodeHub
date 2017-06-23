@@ -12,7 +12,7 @@
     "Octokit": "0.24.0",
     "RavinduL.LocalNotifications": "2.0.0",
     "System.Numerics.Vectors": "4.3.0",
-    "UICompositionAnimations": "2.1.1",
+    "UICompositionAnimations": "2.4.1",
     "Win2D.uwp": "1.20.0"
   },
   "frameworks": {
