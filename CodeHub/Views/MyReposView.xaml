@@ -16,7 +16,7 @@
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
 
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
 
         <!--  Empty grid to provide grey background to pivot headers  -->
         <Grid Height="48"

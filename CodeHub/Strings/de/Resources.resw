@@ -159,8 +159,8 @@
   <data name="donate.Text" xml:space="preserve">
     <value>CodeHub durch eine Spende unterstützen</value>
   </data>
-  <data name="firstDonateTierAmount.Text" xml:space="preserve">
-    <value>$0,99</value>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>Spenden $0,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
@@ -175,8 +175,8 @@
   <data name="following.Text" xml:space="preserve">
     <value>folgen</value>
   </data>
-  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
-    <value>$9,99</value>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>Spenden $9,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
@@ -197,8 +197,8 @@
   <data name="repositories.Text" xml:space="preserve">
     <value>repositories</value>
   </data>
-  <data name="secondDonateTierAmount.Text" xml:space="preserve">
-    <value>$2,99</value>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>Spenden $2,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
@@ -213,8 +213,8 @@
   <data name="syntaxHightlignting.Text" xml:space="preserve">
     <value>Syntax-Highlighting-Stil</value>
   </data>
-  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
-    <value>$4,99</value>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>Spenden $4,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
@@ -358,10 +358,10 @@
     <value>Übersetzer</value>
   </data>
   <data name="clone.Text" xml:space="preserve">
-    <value>Clone</value>
+    <value>Klonen</value>
   </data>
   <data name="share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>Teilen</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
     <value>Labels</value>
@@ -385,7 +385,7 @@
     <value>Abbrechen</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>aktivität</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -394,16 +394,16 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>MITARBEITER</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>VERÖFFENTLICHUNGEN</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>Keine angenommenen Aufnahmeanträge</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>Keine offenen Aufnahmeanträge</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -413,5 +413,14 @@
   </data>
   <data name="contacts.Text" xml:space="preserve">
     <value>Kontakte</value>
+  </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Inhalt hinterm Fenster mit Blur-Effekt anzeigen</value>
+  </data>
+  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+    <value>Spenden $14,99</value>
+  </data>
+  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+    <value>Spenden $19,99</value>
   </data>
 </root>

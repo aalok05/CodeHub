@@ -18,7 +18,7 @@
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">

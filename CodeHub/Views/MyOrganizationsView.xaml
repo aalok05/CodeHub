@@ -14,7 +14,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <toolkitControl:PullToRefreshListView x:Name="OrganizationsListView"
                                               IsItemClickEnabled="True"
                                               ItemClick="{x:Bind ViewModel.OrganizationDetailNavigateCommand}"

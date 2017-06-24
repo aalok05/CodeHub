@@ -159,8 +159,8 @@
   <data name="donate.Text" xml:space="preserve">
     <value>捐赠以支持 CodeHub</value>
   </data>
-  <data name="firstDonateTierAmount.Text" xml:space="preserve">
-    <value>0.99 美元</value>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>捐赠0.99美元</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
@@ -175,8 +175,8 @@
   <data name="following.Text" xml:space="preserve">
     <value>我关注的</value>
   </data>
-  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
-    <value>9.99 美元</value>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>捐赠9.99美元</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
@@ -197,8 +197,8 @@
   <data name="repositories.Text" xml:space="preserve">
     <value>仓库</value>
   </data>
-  <data name="secondDonateTierAmount.Text" xml:space="preserve">
-    <value>2.99 美元</value>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>捐赠2.99美元</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
@@ -213,8 +213,8 @@
   <data name="syntaxHightlignting.Text" xml:space="preserve">
     <value>语法高亮样式</value>
   </data>
-  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
-    <value>4.99美元</value>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>捐赠4.99美元</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
@@ -413,5 +413,14 @@
   </data>
   <data name="contacts.Text" xml:space="preserve">
     <value>往来</value>
+  </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Blur content behind window</value>
+  </data>
+  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+    <value>捐赠14.99美元</value>
+  </data>
+  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+    <value>捐赠19.99美元</value>
   </data>
 </root>

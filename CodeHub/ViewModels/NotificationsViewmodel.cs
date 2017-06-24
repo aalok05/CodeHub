@@ -10,6 +10,8 @@ using CodeHub.Services;
 using System.Collections.ObjectModel;
 using Octokit;
 using Windows.UI.Xaml.Controls;
+using GalaSoft.MvvmLight.Ioc;
+using CodeHub.Views;
 
 namespace CodeHub.ViewModels
 {
@@ -280,6 +282,16 @@ namespace CodeHub.ViewModels
                 IsLoadingAll = true;
                 await LoadAllNotifications();
                 IsLoadingAll = false;
+            }
+        }
+
+        public async void NotificationsListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Notification notif = e.ClickedItem as Notification;
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", notif.Repository.FullName);
+            if (notif.Unread)
+            {
+                await NotificationsService.MarkNotificationAsRead(notif.Id);
             }
         }
     }

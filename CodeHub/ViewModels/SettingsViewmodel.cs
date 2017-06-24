@@ -138,7 +138,7 @@ namespace CodeHub.ViewModels
                 {
                     _IsAdsEnabled = value;
                     SettingsService.Save(SettingsKeys.IsAdsEnabled, value);
-                    Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType { isEnabled = value });
+                    Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType());
                     RaisePropertyChanged();
                 }
             }
