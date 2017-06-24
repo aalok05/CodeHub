@@ -358,10 +358,10 @@
     <value>Übersetzer</value>
   </data>
   <data name="clone.Text" xml:space="preserve">
-    <value>Clone</value>
+    <value>Klonen</value>
   </data>
   <data name="share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>Teilen</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
     <value>Labels</value>
@@ -385,7 +385,7 @@
     <value>Abbrechen</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>aktivität</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -394,16 +394,16 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>MITARBEITER</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>VERÖFFENTLICHUNGEN</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>Keine angenommenen Aufnahmeanträge</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>Keine offenen Aufnahmeanträge</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
