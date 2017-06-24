@@ -415,7 +415,7 @@
     <value>Kontakte</value>
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Blur content behind window</value>
+    <value>Inhalt hinterm Fenster mit Blur-Effekt anzeigen</value>
   </data>
   <data name="fifthDonateTierDescription.Content" xml:space="preserve">
     <value>Spenden $14,99</value>
