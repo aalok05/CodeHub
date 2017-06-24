@@ -151,7 +151,7 @@ namespace CodeHub.Views
 
             await ConfigureWindowBlur();
 
-            await BlurBorderHamburger.GetAttachedInAppSemiAcrylicEffectAsync(BlurBorderHamburger,8,100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.8f,Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
+            await BlurBorderHamburger.GetAttachedInAppSemiAcrylicEffectAsync(BlurBorderHamburger,8,100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f,Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
         }
 
         #region other methods
@@ -207,10 +207,10 @@ namespace CodeHub.Views
                 if (GetOSBuild() >= 10563 || AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
                 {
                    HostWindowBlurEffect = await BlurBorder.GetAttachedSemiAcrylicEffectAsync(
-                                          Color.FromArgb(byte.MaxValue, 0x1B, 0x1B, 0x1B),
+                                          ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color,
                                           0.8f,
                                           Win2DCanvas,
-                                          new Uri("ms-appx:///Assets/Noise.png"));
+                                          new Uri("ms-appx:///Assets/transparent.png"));
                     BlurBorder.SizeChanged += (s, er) => HostWindowBlurEffect.AdjustSize();
                 }
             }
