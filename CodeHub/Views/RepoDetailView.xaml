@@ -69,7 +69,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <RelativePanel Background="Transparent">
             <Ellipse x:Name="OwnerPic"
                      Width="80"
                      Height="80"

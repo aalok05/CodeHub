@@ -23,7 +23,7 @@
         <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
     </Page.Resources>
-    <Grid>
+    <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">

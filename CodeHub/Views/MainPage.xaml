@@ -14,6 +14,7 @@
       xmlns:media="using:Microsoft.Xaml.Interactions.Media"
       xmlns:model="using:CodeHub.Models"
       xmlns:vm="using:CodeHub.ViewModels"
+      xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -116,12 +117,13 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <canvas:CanvasControl x:Name="Win2DCanvas" Opacity="0"/>
         <Grid x:Name="MainGrid"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              Background="Transparent"
               Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -148,7 +150,7 @@
                                              DecodePixelWidth="30"/>
                             </ImageBrush.ImageSource>
                         </ImageBrush>
-                        
+
                     </Ellipse.Fill>
                 </Ellipse>
                 <Button Name="HamButton"
@@ -254,15 +256,7 @@
                        PaneBackground="Transparent">
                 <SplitView.Pane>
                     <Grid>
-                        <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
-                        <Border>
-                            <i:Interaction.Behaviors>
-                                <behaviors:Blur AutomaticallyStart="True"
-                                                Delay="0"
-                                                Value="100"
-                                                Duration="0" />
-                            </i:Interaction.Behaviors>
-                        </Border>
+                        <Border x:Name="BlurBorderHamburger"/>
                         <RelativePanel Name="HamRelative"
                                        Padding="0 10 0 0"
                                        Background="Transparent">
@@ -372,6 +366,7 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+                        <Border x:Name="BlurBorder" Grid.RowSpan="2"/>
                         <control:CustomFrame x:Name="mainFrame"
                                              Grid.Row="0"
                                              Navigated="{x:Bind ViewModel.mainFrame_Navigated}" />
@@ -488,6 +483,7 @@
                 </Button>
             </Grid>
         </Grid>
+
         <control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
                             Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
@@ -498,6 +494,7 @@
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
         <Grid x:Name="NotificationGrid" />
+
     </Grid>
 
 </Page>

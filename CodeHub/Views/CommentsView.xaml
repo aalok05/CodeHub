@@ -11,7 +11,8 @@
         <convertes:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
     </Page.Resources>
 
-    <RelativePanel Margin="0,4,0,4">
+    <RelativePanel Margin="0,4,0,4"
+                   Background="Transparent">
         <HyperlinkButton x:Name="avatar"
                          Margin="16,4,0,0"
                          VerticalAlignment="Top"

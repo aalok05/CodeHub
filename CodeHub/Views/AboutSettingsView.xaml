@@ -9,7 +9,8 @@
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   HorizontalScrollMode="Disabled"
                   VerticalScrollBarVisibility="Auto"
-                  VerticalScrollMode="Auto">
+                  VerticalScrollMode="Auto"
+                  Background="Transparent">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">

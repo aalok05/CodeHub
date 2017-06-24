@@ -414,6 +414,9 @@
   <data name="contacts.Text" xml:space="preserve">
     <value>Contacts</value>
   </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Blur content behind window</value>
+  </data>
   <data name="fifthDonateTierDescription.Content" xml:space="preserve">
     <value>Donate $14.99</value>
   </data>

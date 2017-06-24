@@ -112,6 +112,7 @@
     <Content Include="Assets\NewStoreLogo.scale-150.png" />
     <Content Include="Assets\NewStoreLogo.scale-200.png" />
     <Content Include="Assets\NewStoreLogo.scale-400.png" />
+    <Content Include="Assets\Noise.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-16_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
@@ -122,6 +123,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
+    <Content Include="Assets\transparent.png" />
     <Content Include="Services\Hilite-me\Samples\Borland.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -377,7 +379,6 @@
     <Content Include="Assets\Images\appLogoPurple.png" />
     <Content Include="Assets\Images\codeBack.jpg" />
     <Content Include="Assets\Images\placeholder.jpg" />
-    <Content Include="Assets\Noise.jpg" />
     <Content Include="Assets\profile-placeholder.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
