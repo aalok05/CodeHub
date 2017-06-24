@@ -159,8 +159,8 @@
   <data name="donate.Text" xml:space="preserve">
     <value>Quyên góp để hỗ trợ CodeHub</value>
   </data>
-  <data name="firstDonateTierAmount.Text" xml:space="preserve">
-    <value>$0,99</value>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>Quyên góp $0,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
@@ -175,8 +175,8 @@
   <data name="following.Text" xml:space="preserve">
     <value>đang theo dõi</value>
   </data>
-  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
-    <value>$9,99</value>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>Quyên góp $9,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
@@ -197,8 +197,8 @@
   <data name="repositories.Text" xml:space="preserve">
     <value>kho phần mềm</value>
   </data>
-  <data name="secondDonateTierAmount.Text" xml:space="preserve">
-    <value>$2,99</value>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>Quyên góp $2,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
@@ -213,8 +213,8 @@
   <data name="syntaxHightlignting.Text" xml:space="preserve">
     <value>Phong cách thể hiện mã</value>
   </data>
-  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
-    <value>$4.99</value>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>Quyên góp $4.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
@@ -416,5 +416,11 @@
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
     <value>Blur content behind window</value>
+  </data>
+  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+    <value>Quyên góp $14.99</value>
+  </data>
+  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+    <value>Quyên góp $19.99</value>
   </data>
 </root>
