@@ -2,7 +2,6 @@
 using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.ViewModels;
@@ -16,23 +15,21 @@ using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
-using Windows.UI.ViewManagement;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
 using Windows.System.Profile;
-using UICompositionAnimations.Behaviours.Effects.Base;
 using UICompositionAnimations.Behaviours;
-using Windows.UI;
 using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
+using UICompositionAnimations.Behaviours.Effects;
 
 namespace CodeHub.Views
 {
     public sealed partial class MainPage : Windows.UI.Xaml.Controls.Page
     {
         public MainViewmodel ViewModel { get; set; }
-        public CustomFrame AppFrame { get { return this.mainFrame; } }
+        public CustomFrame AppFrame { get { return mainFrame; } }
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
         AttachedStaticCompositionEffect<Border> HostWindowBlurEffect;
@@ -151,11 +148,10 @@ namespace CodeHub.Views
 
             await ConfigureWindowBlur();
 
-            await BlurBorderHamburger.GetAttachedInAppSemiAcrylicEffectAsync(BlurBorderHamburger,8,100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f,Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
+            await ConfigureHamburgerMenuBlur();
         }
 
         #region other methods
-
         /// <summary>
         /// Sets the Header Text to pageName
         /// </summary>
@@ -197,7 +193,7 @@ namespace CodeHub.Views
         }
 
         /// <summary>
-        /// Sets Acrylic blur effect for host window and hamburger menu pane
+        /// Sets Acrylic blur effect for host window
         /// </summary>
         /// <returns></returns>
         public async Task ConfigureWindowBlur()
@@ -206,12 +202,7 @@ namespace CodeHub.Views
             {
                 if (GetOSBuild() >= 10563 || AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
                 {
-                   HostWindowBlurEffect = await BlurBorder.GetAttachedSemiAcrylicEffectAsync(
-                                          ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color,
-                                          0.8f,
-                                          Win2DCanvas,
-                                          new Uri("ms-appx:///Assets/transparent.png"));
-                    BlurBorder.SizeChanged += (s, er) => HostWindowBlurEffect.AdjustSize();
+                   HostWindowBlurEffect = await BlurBorder.AttachCompositionCustomAcrylicEffectAsync( ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.8f, Win2DCanvas, new Uri("ms-appx:///Assets/transparent.png"));
                 }
             }
             else
@@ -224,6 +215,21 @@ namespace CodeHub.Views
             }
         }
 
+        /// <summary>
+        ///  Sets blur effect for hamburger menu pane
+        /// </summary>
+        /// <returns></returns>
+        public async Task ConfigureHamburgerMenuBlur()
+        {
+            if (GetOSBuild() >= 10563)
+            {
+                await BlurBorderHamburger.AttachCompositionInAppCustomAcrylicEffectAsync(BlurBorderHamburger, 8, 100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f, null, Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
+            }
+            else
+            {
+                BlurBorderHamburger.AttachCompositionBlurEffect(8, 100, true);
+            }
+        }
         #endregion
     }
 }
