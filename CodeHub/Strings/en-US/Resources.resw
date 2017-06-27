@@ -423,4 +423,7 @@
   <data name="sixthDonateTierDescription.Content" xml:space="preserve">
     <value>Donate $19.99</value>
   </data>
+  <data name="owned.Text" xml:space="preserve">
+    <value>owned</value>
+  </data>
 </root>
