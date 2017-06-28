@@ -156,7 +156,6 @@
                 </i:Interaction.Behaviors>
             </Border>
 
-            <!--  TODO: Translation for 'Title'  -->
             <TextBox x:Name="issueTitle"
                      x:Uid="title"
                      Margin="8,0,8,8"
@@ -166,7 +165,6 @@
                      RelativePanel.AlignRightWithPanel="True"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
-            <!--  TODO: Translation for 'Body'  -->
             <TextBox x:Name="issueBody"
                      x:Uid="body"
                      Height="200"
