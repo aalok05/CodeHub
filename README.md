@@ -21,7 +21,7 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 ## Screenshots
 
 | Notifications        			                               | Trending           				  | News Feed  				          |
-| ----------------------------------------------------------------- |:----------------------------------------------------------------:| ---------------------------------------------------------------:|
+| ----------------------------------------------------------------- |:----------------------------------------------------------------:| :---------------------------------------------------------------:|
 | ![screenshot](https://preview.ibb.co/jvsU35/mob1.png)      | ![screenshot](https://preview.ibb.co/ekXJwQ/mob4.png) | ![screenshot](https://preview.ibb.co/fEesO5/mob5.png) |
 
 ## Contributions
