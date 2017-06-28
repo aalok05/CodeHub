@@ -54,6 +54,12 @@ namespace CodeHub.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
             ConfigureAdsVisibility();
+
+            Unloaded += (s,e) => 
+            {
+                Win2DCanvas.RemoveFromVisualTree();
+                Win2DCanvas = null;
+            };
         }
 
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
