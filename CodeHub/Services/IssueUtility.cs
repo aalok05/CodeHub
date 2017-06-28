@@ -69,5 +69,43 @@ namespace CodeHub.Services
             }
 
         }
+
+        /// <summary>
+        /// Creates a new Label
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="newLabel"></param>
+        /// <returns></returns>
+        public static async Task<Label> CreateLabel(long repoId, NewLabel newLabel)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Issue.Labels.Create(repoId, newLabel);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets all labels in a repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<Label>> GetAllLabelsForRepository(long repoId)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                var labels = await client.Issue.Labels.GetAllForRepository(repoId);
+                return new ObservableCollection<Label>(labels);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
