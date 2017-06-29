@@ -146,19 +146,18 @@
         </Viewbox>
 
         <TextBlock x:Name="ForkCount"
-                   Margin="0 8 0 0"
+                   Margin="0 8 12 0"
                    FontSize="14"
                    Foreground="Gray"
                    RelativePanel.AlignVerticalCenterWith="ForkSymbol"
                    RelativePanel.RightOf="ForkSymbol"
                    Text="{Binding ForksCount}" />
 
-        <TextBlock Margin="0,0,20,0"
-                   FontSize="25"
+        <TextBlock Margin="0,8,0,0"
+                   FontSize="15"
                    Foreground="Gray"
-                   Opacity="0.3"
-                   RelativePanel.AlignRightWithPanel="True"
-                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                   RelativePanel.RightOf="ForkCount"
+                   RelativePanel.AlignVerticalCenterWith="ForkCount"
                    Text="{Binding Language}"
                    TextWrapping="Wrap" />
 
