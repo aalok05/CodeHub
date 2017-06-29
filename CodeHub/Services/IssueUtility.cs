@@ -107,5 +107,18 @@ namespace CodeHub.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Removes a label from issue
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="number"></param>
+        /// <param name="labelName"></param>
+        /// <returns></returns>
+        public static async Task RemoveLabelFromIssue(long repoId, int number, string labelName)
+        {
+            var client = await UserUtility.GetAuthenticatedClient();
+            await client.Issue.Labels.RemoveFromIssue(repoId, number, labelName);
+        }
     }
 }
