@@ -26,9 +26,9 @@
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Uid="all"
+                        <TextBlock x:Uid="owned"
                                    FontSize="15"
-                                   Margin="0 0 12 0"
+                                   Margin="0 0 8 0"
                                    FontWeight="Normal"
                                    />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}" />
@@ -91,7 +91,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Uid="starred"
                                    FontSize="15"
-                                   Margin="0 0 12 0"
+                                   Margin="0 0 8 0"
                                    FontWeight="Normal" />
                         <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.StarredRepositories.Count, Mode=OneWay}" />
                     </StackPanel>

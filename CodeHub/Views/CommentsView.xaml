@@ -31,7 +31,7 @@
 
         <StackPanel x:Name="detailsPanel"
                     Padding="8"
-                    Margin="0 4 0 4"
+                    Margin="0 4 0 8"
                     Background="{ThemeResource SystemChromeLowColor}"
                     Orientation="Horizontal"
                     RelativePanel.RightOf="avatar"

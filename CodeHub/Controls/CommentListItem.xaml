@@ -24,34 +24,33 @@
             </Border.Background>
         </Border>
         <StackPanel x:Name="detailsPanel"
-                    Orientation="Horizontal"
+                    Margin="0,0,0,12"
                     Padding="4"
                     Background="{ThemeResource SystemChromeLowColor}"
-                    RelativePanel.RightOf="avatar"
-                    RelativePanel.AlignRightWithPanel="True">
-            <TextBlock Margin="0,0,4,4"
-                       FontSize="13"
+                    Orientation="Horizontal"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.RightOf="avatar">
+            <TextBlock FontSize="13"
                        Foreground="Gray"
                        Text="{Binding User.Login, Mode=OneWay}" />
             <TextBlock x:Uid="commented"
-                       Margin="0,0,4,4"
                        FontSize="13"
                        Foreground="Gray" />
-            <TextBlock Margin="0,0,0,4"
-                       FontSize="13"
+            <TextBlock FontSize="13"
                        Foreground="Gray"
                        Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
         </StackPanel>
 
-        <TextBlock VerticalAlignment="Center"
+        <TextBlock Margin="0,0,0,8"
+                   VerticalAlignment="Center"
                    FontSize="13"
                    MaxLines="3"
                    RelativePanel.AlignLeftWith="detailsPanel"
                    RelativePanel.AlignRightWithPanel="True"
                    RelativePanel.Below="detailsPanel"
                    Text="{Binding Body, Mode=OneWay}"
-                   TextWrapping="Wrap"
-                   TextTrimming="CharacterEllipsis" />
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="Wrap" />
 
 
     </RelativePanel>
