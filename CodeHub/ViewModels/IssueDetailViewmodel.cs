@@ -43,6 +43,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _CanEditIssue;
+        public bool CanEditIssue
+        {
+            get
+            {
+                return _CanEditIssue; 
+            }
+            set
+            {
+                Set(() => CanEditIssue, ref _CanEditIssue, value);
+            }
+        }
+
+        public bool _IsMyRepo;
+        public bool IsMyRepo
+        {
+            get
+            {
+                return _IsMyRepo;
+            }
+            set
+            {
+                Set(() => IsMyRepo, ref _IsMyRepo, value);
+            }
+        }
+
         public ObservableCollection<IssueComment> _comments;
         public ObservableCollection<IssueComment> Comments
         {
@@ -70,6 +96,49 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public string _NewIssueTitleText;
+        public string NewIssueTitleText
+        {
+            get
+            {
+                return _NewIssueTitleText;
+            }
+            set
+            {
+                Set(() => NewIssueTitleText, ref _NewIssueTitleText, value);
+            }
+        }
+
+        public string _NewIssueBodyText;
+        public string NewIssueBodyText
+        {
+            get
+            {
+                return _NewIssueBodyText;
+            }
+            set
+            {
+                Set(() => NewIssueBodyText, ref _NewIssueBodyText, value);
+            }
+        }
+
+        public ObservableCollection<Label> _AllLabels;
+        /// <summary>
+        /// All available labels in the repository
+        /// </summary>
+        public ObservableCollection<Label> AllLabels
+        {
+            get
+            {
+                return _AllLabels;
+            }
+            set
+            {
+                Set(() => AllLabels, ref _AllLabels, value);
+
+            }
+        }
+
         public async Task Load(Tuple<Repository, Issue> tuple)
         {
             Issue = tuple.Item2;
@@ -86,6 +155,13 @@ namespace CodeHub.ViewModels
                 Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
                 isLoading = false;
 
+                if(Repository.Owner == null) 
+                    Repository = await RepositoryUtility.GetRepository(Repository.Id);
+
+                if (Repository.Owner.Login == GlobalHelper.UserLogin || Issue.User.Login == GlobalHelper.UserLogin)
+                    CanEditIssue = true;
+                if (Repository.Owner.Login == GlobalHelper.UserLogin)
+                    IsMyRepo = true;
             }
         }
 
@@ -128,6 +204,34 @@ namespace CodeHub.ViewModels
                                                    }
 
                                               }
+                                          }));
+            }
+        }
+
+        private RelayCommand _EditIssue;
+        public RelayCommand EditIssue
+        {
+            get
+            {
+                return _EditIssue
+                    ?? (_EditIssue = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if (NewIssueTitleText != Issue.Title || NewIssueBodyText != Issue.Body)
+                                              {
+                                                  IssueUpdate updatedIssue = new IssueUpdate();
+                                                  updatedIssue.Title = NewIssueTitleText;
+                                                  updatedIssue.Body = NewIssueBodyText;
+                                                  isLoading = true;
+                                                  Issue issue = await IssueUtility.EditIssue(Repository.Id, Issue.Number, updatedIssue);
+                                                  isLoading = false;
+                                                  if (issue != null)
+                                                  {
+                                                     await SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
+                                                        .NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(Repository, issue));
+                                                  }
+                                              }
+
                                           }));
             }
         }

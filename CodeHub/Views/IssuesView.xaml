@@ -2,7 +2,6 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
-      xmlns:control="using:CodeHub.Controls"
       xmlns:converters="using:CodeHub.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -24,7 +23,6 @@
               Background="{ThemeResource SystemChromeLowColor}" />
 
         <Pivot x:Name="IssuesPivot"
-               Grid.Row="1"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -121,12 +119,10 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        <Button Grid.Row="1"
-                Margin="0,0,16,16"
+        <Button Margin="0,0,16,16"
                 Padding="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Background="Transparent"
                 Style="{StaticResource ActionButtonStyle}"
                 Tapped="AppBarButton_Tapped">
             <Grid>
@@ -136,14 +132,13 @@
                 <SymbolIcon Symbol="Add" />
             </Grid>
         </Button>
-        <RelativePanel x:Name="createIssuePanel" Grid.Row="2">
+        <RelativePanel x:Name="createIssuePanel">
             <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     Opacity="0.1"
                     RelativePanel.AlignBottomWithPanel="True"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True"
-                    Tapped="Background_Tapped" />
+                    RelativePanel.AlignTopWithPanel="True"/>
             <Border RelativePanel.AlignBottomWithPanel="True"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
@@ -151,13 +146,14 @@
                 <i:Interaction.Behaviors>
                     <behaviors:Blur AutomaticallyStart="True"
                                     Delay="0"
-                                    Value="10"
+                                    Value="30"
                                     Duration="0" />
                 </i:Interaction.Behaviors>
             </Border>
 
             <TextBox x:Name="issueTitle"
                      x:Uid="title"
+                     MaxWidth="600"
                      Margin="8,0,8,8"
                      IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                      RelativePanel.Above="issueBody"
@@ -168,6 +164,7 @@
             <TextBox x:Name="issueBody"
                      x:Uid="body"
                      Height="200"
+                     MaxWidth="600"
                      Margin="8,0,8,0"
                      AcceptsReturn="True"
                      IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
@@ -178,18 +175,14 @@
                      Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
             <StackPanel Margin="8,16,8,0"
                         Orientation="Horizontal"
-                        RelativePanel.AlignHorizontalCenterWithPanel="True"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignLeftWith="issueBody"
                         RelativePanel.Below="issueBody">
-                <!--  TODO: Translation of 'Create'  -->
                 <Button x:Name="createIssueButton"
                         x:Uid="create"
                         Width="148"
                         Margin="0,0,4,0"
                         Background="{StaticResource AppPrimaryColorBrush}"
                         Command="{x:Bind ViewModel.CreateIssue}" />
-                <!--  TODO: Translation of 'Cancel'  -->
                 <Button x:Name="cancelNewIssueButton"
                         x:Uid="cancel"
                         Width="148"

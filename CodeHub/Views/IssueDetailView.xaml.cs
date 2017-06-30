@@ -3,9 +3,13 @@ using CodeHub.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
+using UICompositionAnimations;
+using UICompositionAnimations.Enums;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace CodeHub.Views
 {
@@ -29,6 +33,7 @@ namespace CodeHub.Views
 
             commentsListView.SelectedIndex = -1;
             ViewModel.CommentText = string.Empty;
+            EditLabelsPanel.Visibility = Visibility.Collapsed;
 
             if (e.NavigationMode != NavigationMode.Back)
             {
@@ -49,7 +54,6 @@ namespace CodeHub.Views
             {
                 NavigationCacheMode = NavigationCacheMode.Disabled;
             }
-
             base.OnNavigatedTo(e);
         }
 
@@ -87,5 +91,20 @@ namespace CodeHub.Views
                 }
             }
         }
+
+        private async void EditIssue_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel.NewIssueBodyText = ViewModel.Issue.Body;
+            ViewModel.NewIssueTitleText = ViewModel.Issue.Title;
+            EditLabelsPanel.Visibility = Visibility.Visible;
+            await EditLabelsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+        }
+
+        private async void CancelEditIssue_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await EditLabelsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            EditLabelsPanel.Visibility = Visibility.Collapsed;
+        }
+
     }
 }
