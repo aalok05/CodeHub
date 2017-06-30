@@ -426,4 +426,7 @@
   <data name="owned.Text" xml:space="preserve">
     <value>owned</value>
   </data>
+  <data name="save.Content" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>
