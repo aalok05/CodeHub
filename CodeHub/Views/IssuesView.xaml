@@ -153,7 +153,6 @@
 
             <TextBox x:Name="issueTitle"
                      x:Uid="title"
-                     MaxWidth="600"
                      Margin="8,0,8,8"
                      IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                      RelativePanel.Above="issueBody"
@@ -164,7 +163,6 @@
             <TextBox x:Name="issueBody"
                      x:Uid="body"
                      Height="200"
-                     MaxWidth="600"
                      Margin="8,0,8,0"
                      AcceptsReturn="True"
                      IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
@@ -173,9 +171,11 @@
                      RelativePanel.AlignVerticalCenterWithPanel="True"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
+
             <StackPanel Margin="8,16,8,0"
                         Orientation="Horizontal"
-                        RelativePanel.AlignLeftWith="issueBody"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
                         RelativePanel.Below="issueBody">
                 <Button x:Name="createIssueButton"
                         x:Uid="create"

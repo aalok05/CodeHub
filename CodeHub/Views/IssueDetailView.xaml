@@ -299,10 +299,10 @@
                                     Duration="0" />
                 </i:Interaction.Behaviors>
             </Border>
+            
             <TextBox x:Name="issueTitle"
                      x:Uid="title"
                      Margin="8,16,8,8"
-                     MaxWidth="600"
                      RelativePanel.Above="issueBody"
                      RelativePanel.AlignLeftWithPanel="True"
                      RelativePanel.AlignRightWithPanel="True"
@@ -312,7 +312,6 @@
             <TextBox x:Name="issueBody"
                      x:Uid="body"
                      Height="200"
-                     MaxWidth="600"
                      Margin="8,0,8,0"
                      AcceptsReturn="True"
                      RelativePanel.AlignLeftWithPanel="True"
@@ -321,9 +320,10 @@
                      IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                      Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                      Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
-            <StackPanel Orientation="Horizontal"
-                        Margin="8,16,8,0"
-                        RelativePanel.AlignLeftWith="issueBody"
+            <StackPanel Margin="8,16,8,0"
+                        Orientation="Horizontal"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
                         RelativePanel.Below="issueBody">
                 <Button x:Uid="save"
                         Width="148"
@@ -335,6 +335,7 @@
                         Tapped="CancelEditIssue_Tapped"
                         Margin="4,0,0,0" />
             </StackPanel>
+
             <usercontrol:BusyScreen BusyText="Loading..."
                                     IsBusy="True"
                                     RelativePanel.AlignHorizontalCenterWithPanel="True"
