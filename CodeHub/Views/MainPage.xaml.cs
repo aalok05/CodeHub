@@ -229,7 +229,7 @@ namespace CodeHub.Views
         {
             if (GetOSBuild() >= 10563)
             {
-                await BlurBorderHamburger.AttachCompositionInAppCustomAcrylicEffectAsync(BlurBorderHamburger, 8, 100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f, null, Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"), 1000, false, false, true);
+                await BlurBorderHamburger.AttachCompositionInAppCustomAcrylicEffectAsync(BlurBorderHamburger, 8, 100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f, null, Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
             }
             else
             {
