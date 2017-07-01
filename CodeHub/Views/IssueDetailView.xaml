@@ -224,7 +224,6 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <!--  TODO:Translation for 'Comment'  -->
                         <TextBox x:Uid="comment"
                                  Grid.Column="0"
                                  AcceptsReturn="True"

@@ -206,7 +206,7 @@ namespace CodeHub.Views
         {
             if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled))
             {
-                if (GetOSBuild() >= 10563 || AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
+                if (GetOSBuild() >= 15063 || AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
                 {
                    HostWindowBlurEffect = await BlurBorder.AttachCompositionCustomAcrylicEffectAsync( ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.8f, Win2DCanvas, new Uri("ms-appx:///Assets/transparent.png"));
                 }
@@ -227,13 +227,13 @@ namespace CodeHub.Views
         /// <returns></returns>
         public async Task ConfigureHamburgerMenuBlur()
         {
-            if (GetOSBuild() >= 10563)
+            if (GetOSBuild() >= 15063)
             {
                 await BlurBorderHamburger.AttachCompositionInAppCustomAcrylicEffectAsync(BlurBorderHamburger, 8, 100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f, null, Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
             }
             else
             {
-                BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
+                await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
             }
         }
         #endregion

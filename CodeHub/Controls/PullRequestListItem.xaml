@@ -10,82 +10,24 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
+        <converters:PullRequestDetailStringConverter x:Key="PullRequestDetailStringConverter" x:Name="PullRequestDetailStringConverter"/>
     </UserControl.Resources>
-    <RelativePanel Margin="4,0,0,4">
-        <StackPanel x:Name="NumberBlock"
-                    Orientation="Horizontal"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True">
-            <TextBlock Margin="4,8,4,4"
-                       VerticalAlignment="Center"
-                       FontSize="16"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                       Text="#" />
-            <TextBlock Margin="0,10,0,5"
-                       VerticalAlignment="Center"
-                       FontSize="16"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
-                       Text="{Binding Number}" />
-        </StackPanel>
+    <RelativePanel Margin="8">
         <TextBlock x:Name="TitleBlock"
-                   Margin="4,8,0,4"
+                   Margin="4 0 0 4"
                    FontSize="16"
-                   RelativePanel.AlignVerticalCenterWith="NumberBlock"
-                   RelativePanel.RightOf="NumberBlock"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
                    Style="{StaticResource RepoNameTextBlockStyle}"
-                   Text="{Binding Title}" />
-        <StackPanel x:Name="StateBlock"
-                    Margin="8,4,4,0"
-                    Orientation="Horizontal"
-                    RelativePanel.AlignLeftWith="NumberBlock"
-                    RelativePanel.Below="TitleBlock">
-
-            <Viewbox MaxWidth="15"
-                     MaxHeight="15"
-                     Margin="0,0,4,0">
-                <SymbolIcon Foreground="Gray" Symbol="Setting" />
-            </Viewbox>
-
-            <TextBlock FontSize="12"
-                       Foreground="Gray"
-                       Text="{Binding State}"
-                       TextAlignment="Left" />
-        </StackPanel>
-
-        <StackPanel x:Name="UserBlock"
-                    Margin="8,4,4,0"
-                    Orientation="Horizontal"
-                    RelativePanel.Below="TitleBlock"
-                    RelativePanel.RightOf="StateBlock">
-
-            <Viewbox MaxWidth="15"
-                     MaxHeight="15"
-                     Margin="0,0,4,0">
-                <SymbolIcon Foreground="Gray" Symbol="Contact" />
-            </Viewbox>
-
-            <TextBlock FontSize="12"
-                       Foreground="Gray"
-                       Text="{Binding User.Login}"
-                       TextAlignment="Left" />
-        </StackPanel>
-        <StackPanel x:Name="UpdatedBlock"
-                    Margin="12,4,0,0"
-                    Orientation="Horizontal"
-                    RelativePanel.Below="TitleBlock"
-                    RelativePanel.RightOf="UserBlock">
-
-            <Viewbox MaxWidth="15"
-                     MaxHeight="15"
-                     Margin="0,0,4,0">
-                <SymbolIcon Foreground="Gray" Symbol="Edit" />
-            </Viewbox>
-
-            <TextBlock FontSize="12"
-                       Foreground="Gray"
-                       Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}"
-                       TextAlignment="Left" />
-        </StackPanel>
+                   Text="{Binding Title}" 
+                   TextWrapping="Wrap"/>
+        
+        <TextBlock Margin="4 4 0 0"
+                   FontSize="13"
+                   Foreground="Gray"
+                   RelativePanel.Below="TitleBlock"
+                   RelativePanel.AlignLeftWith="TitleBlock"
+                   Text="{Binding Converter={StaticResource PullRequestDetailStringConverter}, Mode=OneWay}"/>
 
     </RelativePanel>
 </UserControl>
