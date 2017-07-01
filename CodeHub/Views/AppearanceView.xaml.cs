@@ -24,7 +24,7 @@ namespace CodeHub.Views
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (GlobalHelper.GetOSBuild() < 10563 || AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            if (GlobalHelper.GetOSBuild() < 15063 || AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
             {
                 AcrylicBlurToggleSwitch.IsEnabled = false; 
             }
