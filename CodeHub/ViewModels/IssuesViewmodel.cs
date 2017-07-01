@@ -282,8 +282,8 @@ namespace CodeHub.ViewModels
                                                   isLoading = false;
                                                   if (issue != null)
                                                   {
-                                                      SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                                                        .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<Repository, Issue>(Repository, issue));
+                                                      await SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
+                                                        .NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(Repository, issue));
                                                   }
                                               }
                                              

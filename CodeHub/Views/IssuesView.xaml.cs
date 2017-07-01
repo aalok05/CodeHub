@@ -46,11 +46,6 @@ namespace CodeHub.Views
             ToggleNewIssuePanelVisibility(true);
         }
 
-        private void Background_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ToggleNewIssuePanelVisibility(false);
-        }
-
         private async void ToggleNewIssuePanelVisibility(bool visible)
         {
             if (visible)

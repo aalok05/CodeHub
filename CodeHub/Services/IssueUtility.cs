@@ -120,5 +120,25 @@ namespace CodeHub.Services
             var client = await UserUtility.GetAuthenticatedClient();
             await client.Issue.Labels.RemoveFromIssue(repoId, number, labelName);
         }
+
+        /// <summary>
+        /// Updates an issue
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="number"></param>
+        /// <param name="issueUpdate"></param>
+        /// <returns></returns>
+        public static async Task<Issue> EditIssue(long repoId, int number, IssueUpdate issueUpdate)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Issue.Update(repoId, number, issueUpdate);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

@@ -108,7 +108,7 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets the Repository from repository name and owner name
+        /// Gets a specified Repository
         /// </summary>
         /// <param name="repoName"></param>
         /// <param name="ownerName"></param>
@@ -119,6 +119,24 @@ namespace CodeHub.Services
             {
                 var client = await UserUtility.GetAuthenticatedClient();
                 return await client.Repository.Get(repoName, ownerName);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets a specified Repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <returns></returns>
+        public static async Task<Repository> GetRepository(long repoId)
+        {
+            try
+            {
+                var client = await UserUtility.GetAuthenticatedClient();
+                return await client.Repository.Get(repoId);
             }
             catch
             {

@@ -14,23 +14,23 @@
         <converter:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter"/>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical"
-                Margin="8 8 0 4">
+                Margin="8 8 0 8">
         <TextBlock Text="{Binding Commit.Message,Mode=OneWay}"
                    TextWrapping="Wrap"
                    FontSize="14"/>
         <StackPanel Orientation="Horizontal"
                     Margin="0 4 0 0"
-                    Padding="12"
+                    Padding="8"
                     Background="{ThemeResource SystemChromeLowColor}">
-            <TextBlock FontSize="13"
+            <TextBlock FontSize="12"
                        Margin="0 0 4 0"
                        Text="{Binding Commit.Author.Name,Mode=OneWay}" />
             <!--  TODO: Translation of 'commited'  -->
             <TextBlock x:Uid="commited"
-                       FontSize="13"
+                       FontSize="12"
                        FontWeight="SemiLight"
                        Margin="0 0 4 0"/>
-            <TextBlock FontSize="13"
+            <TextBlock FontSize="12"
                        Text="{Binding Commit.Author.Date,Converter={StaticResource TimeAgoConverter},Mode=OneWay}" />
 
         </StackPanel>
