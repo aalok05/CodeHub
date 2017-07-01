@@ -106,5 +106,13 @@ namespace CodeHub.Views
             EditLabelsPanel.Visibility = Visibility.Collapsed;
         }
 
+        private async void EditIssueSaved_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (ViewModel.NewIssueTitleText != ViewModel.Issue.Title || ViewModel.NewIssueBodyText != ViewModel.Issue.Body)
+            {
+                await ViewModel.EditIssue();
+                EditLabelsPanel.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

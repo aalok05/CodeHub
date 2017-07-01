@@ -328,7 +328,7 @@
                 <Button x:Uid="save"
                         Width="148"
                         Margin="0,0,4,0"
-                        Command="{x:Bind ViewModel.EditIssue}" 
+                        Tapped="EditIssueSaved_Tapped"
                         Background="{StaticResource AppPrimaryColorBrush}" />
                 <Button x:Uid="cancel"
                         Width="148"

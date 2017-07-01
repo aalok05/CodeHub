@@ -208,31 +208,17 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private RelayCommand _EditIssue;
-        public RelayCommand EditIssue
+        public async Task EditIssue()
         {
-            get
+            IssueUpdate updatedIssue = new IssueUpdate();
+            updatedIssue.Title = NewIssueTitleText;
+            updatedIssue.Body = NewIssueBodyText;
+            isLoading = true;
+            Issue issue = await IssueUtility.EditIssue(Repository.Id, Issue.Number, updatedIssue);
+            isLoading = false;
+            if (issue != null)
             {
-                return _EditIssue
-                    ?? (_EditIssue = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if (NewIssueTitleText != Issue.Title || NewIssueBodyText != Issue.Body)
-                                              {
-                                                  IssueUpdate updatedIssue = new IssueUpdate();
-                                                  updatedIssue.Title = NewIssueTitleText;
-                                                  updatedIssue.Body = NewIssueBodyText;
-                                                  isLoading = true;
-                                                  Issue issue = await IssueUtility.EditIssue(Repository.Id, Issue.Number, updatedIssue);
-                                                  isLoading = false;
-                                                  if (issue != null)
-                                                  {
-                                                     await SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                                                        .NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(Repository, issue));
-                                                  }
-                                              }
-
-                                          }));
+                Issue = issue;
             }
         }
     }
