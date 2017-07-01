@@ -233,7 +233,7 @@ namespace CodeHub.Views
             }
             else
             {
-                BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
+                await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
             }
         }
         #endregion
