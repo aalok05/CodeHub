@@ -17,9 +17,10 @@
                    Margin="4 0 0 4"
                    FontSize="16"
                    RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.AlignTopWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
                    Style="{StaticResource RepoNameTextBlockStyle}"
-                   Text="{Binding Title}" />
+                   Text="{Binding Title}" 
+                   TextWrapping="Wrap"/>
         
         <TextBlock Margin="4 4 0 0"
                    FontSize="13"
