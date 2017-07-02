@@ -424,9 +424,9 @@
     <value>Spenden $19,99</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>eigene</value>
   </data>
   <data name="save.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Speichern</value>
   </data>
 </root>
