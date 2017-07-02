@@ -46,6 +46,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsNotificationsUnread;
+        public bool IsNotificationsUnread
+        {
+            get
+            {
+                return _IsNotificationsUnread;
+            }
+            set
+            {
+                Set(() => IsNotificationsUnread, ref _IsNotificationsUnread, value);
+            }
+        }
+
         public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
