@@ -33,7 +33,7 @@ namespace CodeHub.Views
             monthIncrementalLoadButton.Dispose();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
@@ -46,6 +46,7 @@ namespace CodeHub.Views
                 weekListView.IsPullToRefreshWithMouseEnabled =
                 monthListView.IsPullToRefreshWithMouseEnabled = true;
             }
+            await ViewModel.CheckForUnreadNotifications();
         }
 
         private void Today_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)

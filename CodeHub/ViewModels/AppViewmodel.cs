@@ -1,7 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CodeHub.Services;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Octokit;
 using System;
+using System.Threading.Tasks;
 
 namespace CodeHub.ViewModels
 {
@@ -72,5 +74,14 @@ namespace CodeHub.ViewModels
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
         }
+
+        public async Task CheckForUnreadNotifications()
+        {
+           var unread = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+           if(unread != null)
+           {
+                IsNotificationsUnread = unread.Count > 0 ? true : false;
+           }
+        } 
     }
 }

@@ -180,7 +180,7 @@
                     </Viewbox>
                 </Button>
 
-                <Ellipse x:Name="UnreadNotifEllipse"
+                <Ellipse x:Name="UnreadNotifIndicator"
                          RelativePanel.LeftOf="moreButton"
                          RelativePanel.AlignTopWith="notifButton"
                          Width="10"
