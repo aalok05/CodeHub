@@ -429,4 +429,7 @@
   <data name="save.Content" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>Mark all as read</value>
+  </data>
 </root>
