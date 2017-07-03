@@ -84,6 +84,7 @@
                         <Setter Target="HeaderText.MaxWidth" Value="195" />
                         <Setter Target="profileEllipse.Visibility" Value="Visible" />
                         <Setter Target="moreButton.Visibility" Value="Visible"/>
+                        <Setter Target="UnreadNotifIndicator.Margin" Value="0 8 12 0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -96,6 +97,7 @@
                         <Setter Target="HamSplitView.DisplayMode" Value="Overlay" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
                         <Setter Target="moreButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="UnreadNotifIndicator.Margin" Value="0 12 12 0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -108,6 +110,7 @@
                         <Setter Target="HamSplitView.DisplayMode" Value="Inline" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
                         <Setter Target="moreButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="UnreadNotifIndicator.Margin" Value="0 12 12 0"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -185,7 +188,6 @@
                          RelativePanel.AlignTopWith="notifButton"
                          Width="10"
                          Height="10"
-                         Margin="0 8 12 0"
                          Fill="{StaticResource AppPrimaryColorBrush}"
                          Visibility="{x:Bind ViewModel.IsNotificationsUnread,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
 
@@ -488,9 +490,9 @@
             </Grid>
         </Grid>
 
-        <control:SignInPage x:Name="SignInPage"
+        <!--<control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
-                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />-->
 
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
