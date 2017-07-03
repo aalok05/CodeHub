@@ -30,7 +30,8 @@
         <Grid Height="48"
               VerticalAlignment="Top"
               Background="{ThemeResource SystemChromeLowColor}" />
-        <Pivot Grid.Row="1"
+        <Pivot x:Name="NotifPivot"
+               Grid.Row="1"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -171,12 +172,6 @@
                                       Tapped="{x:Bind ViewModel.RefreshParticipating}">
 
                         </AppBarButton>
-                        <AppBarButton x:Uid="markAllAsRead"
-                                      Icon="Accept"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}">
-
-                        </AppBarButton>
                     </CommandBar>
                     <ListView x:Name="ParticipatingFeedListView"
                               Grid.Row="1"
@@ -291,12 +286,6 @@
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                       Tapped="{x:Bind ViewModel.RefreshAll}">
 
-                        </AppBarButton>
-                        <AppBarButton x:Uid="markAllAsRead"
-                                      Icon="Accept"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}">
-                            
                         </AppBarButton>
                     </CommandBar>
                     <ListView x:Name="AllFeedListView"
