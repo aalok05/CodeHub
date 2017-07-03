@@ -432,4 +432,7 @@
   <data name="markAllAsRead.Label" xml:space="preserve">
     <value>Mark all as read</value>
   </data>
+  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
+    <value>Check for Notifications frequently</value>
+  </data>
 </root>
