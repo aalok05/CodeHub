@@ -84,7 +84,7 @@ namespace CodeHub.Services
         public static async Task MarkAllNotificationsAsRead()
         {
             var client = await UserUtility.GetAuthenticatedClient();
-            await client.Activity.Notifications.MarkAsRead();
+            await client.Activity.Notifications.MarkAsRead(new MarkAsReadRequest());
         }
 
         /// <summary>
