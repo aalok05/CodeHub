@@ -35,6 +35,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
             SettingsService.Save(SettingsKeys.IsAdsEnabled, false, false);
             SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, false, false);
+            SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
         }
 
         /// <summary>

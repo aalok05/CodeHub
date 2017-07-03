@@ -54,5 +54,6 @@ namespace CodeHub.Services
         public const String LoadCommitsInfo = nameof(LoadCommitsInfo);
         public const String IsAdsEnabled = nameof(IsAdsEnabled);
         public const String IsAcrylicBlurEnabled = nameof(IsAcrylicBlurEnabled);
+        public const String IsNotificationCheckEnabled = nameof(IsNotificationCheckEnabled);
     }
 }

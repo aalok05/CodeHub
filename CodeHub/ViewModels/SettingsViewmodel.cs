@@ -144,6 +144,25 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsNotificationCheckEnabled = SettingsService.Get<bool>(SettingsKeys.IsNotificationCheckEnabled);
+
+        /// <summary>
+        /// Gets or sets whether API calls for unread notifications will be frequently made
+        /// </summary>
+        public bool IsNotificationCheckEnabled
+        {
+            get { return _IsNotificationCheckEnabled; }
+            set
+            {
+                if (_IsNotificationCheckEnabled != value)
+                {
+                    _IsNotificationCheckEnabled = value;
+                    SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>
