@@ -218,10 +218,11 @@ namespace CodeHub.ViewModels
             else
             {
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
-
-                await NotificationsService.MarkAllNotificationsAsRead();
-                
+                await NotificationsService.MarkAllNotificationsAsRead();                
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
+                await LoadUnreadNotifications();
+
+                Messenger.Default.Send(new GlobalHelper.CheckNotificationMessageType());
             }
         }
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
@@ -271,13 +272,19 @@ namespace CodeHub.ViewModels
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Pivot p = sender as Pivot;
-            if(p.SelectedIndex == 1 && ParticipatingNotifications == null)
+            if (p.SelectedIndex == 0)
+            {
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
+                IsLoadingUnread = false;
+            }
+            else if (p.SelectedIndex == 1)
             {
                 IsloadingParticipating = true;
                 await LoadParticipatingNotifications();
                 IsloadingParticipating = false;
             }
-            else if(p.SelectedIndex == 2 && AllNotifications == null)
+            else if(p.SelectedIndex == 2)
             {
                 IsLoadingAll = true;
                 await LoadAllNotifications();
