@@ -77,11 +77,14 @@ namespace CodeHub.ViewModels
 
         public async Task CheckForUnreadNotifications()
         {
-           var unread = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-           if(unread != null)
-           {
-                IsNotificationsUnread = unread.Count > 0 ? true : false;
-           }
+            if (!IsNotificationsUnread)
+            {
+                var unread = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                if (unread != null)
+                {
+                    IsNotificationsUnread = unread.Count > 0 ? true : false;
+                }
+            }
         } 
     }
 }
