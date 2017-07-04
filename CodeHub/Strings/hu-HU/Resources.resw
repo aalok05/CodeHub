@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="commented.Text" xml:space="preserve">
+    <value>commented</value>
+    <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
+  </data>
+  <data name="credits.Header" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="disclaimer.Text" xml:space="preserve">
+    <value>This app is in no way affiliated with GitHub.</value>
+  </data>
+  <data name="privacyLink.Content" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="rateButtonContent.Text" xml:space="preserve">
+    <value>Alkalmazás értékelése</value>
+  </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="themeTip.Text" xml:space="preserve">
+    <value>Kinézetváltás életbelépéséhez az alkalmazás újraindítása szükséges</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>Sötét</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>Világos</value>
+  </data>
+  <data name="version.Text" xml:space="preserve">
+    <value>Verzió</value>
+    <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
+  </data>
+  <data name="adSetting.Text" xml:space="preserve">
+    <value>Support Development, Enable Ads</value>
+  </data>
+  <data name="busyScreen.BusyText" xml:space="preserve">
+    <value>Kérlek várj...</value>
+    <comment>preserve ellipsis here</comment>
+  </data>
+  <data name="donate.Text" xml:space="preserve">
+    <value>Donate to support CodeHub</value>
+  </data>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>Donate $0.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="firstDonateTierDescription.Text" xml:space="preserve">
+    <value>Buy the developer a coffee.</value>
+  </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>followers</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>following</value>
+  </data>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>Donate $9.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
+    <value>Donate this magnificent sum if you are feeling generous and love CodeHub.</value>
+  </data>
+  <data name="loadCommitMessage.Text" xml:space="preserve">
+    <value>Load commit messages for files</value>
+  </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>You have no Events yet</value>
+  </data>
+  <data name="pickDonateOption.Text" xml:space="preserve">
+    <value>Pick an option to support the developer</value>
+  </data>
+  <data name="preview.Text" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="repositories.Text" xml:space="preserve">
+    <value>repositories</value>
+  </data>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>Donate $2.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="secondDonateTierDescription.Text" xml:space="preserve">
+    <value>Give the developer a present.</value>
+  </data>
+  <data name="showLineNumber.Text" xml:space="preserve">
+    <value>Show line numbers</value>
+  </data>
+  <data name="showReadMe.Text" xml:space="preserve">
+    <value>Show README in Repository page</value>
+  </data>
+  <data name="syntaxHightlignting.Text" xml:space="preserve">
+    <value>Syntax Highlighting style</value>
+  </data>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>Donate $4.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
+    <value>Actively support the development of CodeHub with this awesome donation.</value>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>Leiratkozás</value>
+  </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>Fájlkiterjesztés nem engedélyezett</value>
+  </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>minden</value>
+    <comment>Context: all repositories</comment>
+  </data>
+  <data name="closed.Text" xml:space="preserve">
+    <value>closed</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
+  <data name="comments.Text" xml:space="preserve">
+    <value>Hozzászólások</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>Load more...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>mine</value>
+    <comment>Context: My Issues, i.e. issues opened by me</comment>
+  </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>My Repos</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>News Feed</value>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>No closed Issues</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>No Issues</value>
+  </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>No new notifications</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>No open Issues</value>
+  </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>No organizations yet. Disable third-party application restrictions for your organization</value>
+  </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>No Repositories yet</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>No starred Repositories yet</value>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>opened by</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="open.Text" xml:space="preserve">
+    <value>open</value>
+    <comment>Context: status of Issue #1 is open</comment>
+  </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>participating</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>Kijelentkezés</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>Unsubscribe from this thread</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>Mark as read</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>starred</value>
+    <comment>Context: starred repositories</comment>
+  </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>this month</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>this week</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>ma</value>
+  </data>
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>Trending Repositories are being updated by Github</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>Treading</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>unread</value>
+    <comment>Context: unread notifications</comment>
+  </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>Kód</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>No Repositories</value>
+  </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>No Results</value>
+  </data>
+  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+    <value>search away!</value>
+  </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>Bejelentkezés</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>Jelentkezz be a GitHub felhasználódba a folytatáshoz</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>Üdvözöl a CodeHub</value>
+  </data>
+  <data name="creator.Text" xml:space="preserve">
+    <value>Creator</value>
+    <comment>Maker of the app</comment>
+  </data>
+  <data name="translator.Text" xml:space="preserve">
+    <value>Fordítók</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
+  <data name="clone.Text" xml:space="preserve">
+    <value>Klón</value>
+  </data>
+  <data name="share.Text" xml:space="preserve">
+    <value>Megoszt</value>
+  </data>
+  <data name="labels.Text" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="comment.PlaceholderText" xml:space="preserve">
+    <value>Komment</value>
+  </data>
+  <data name="newIssue.Label" xml:space="preserve">
+    <value>New Issue</value>
+  </data>
+  <data name="title.PlaceholderText" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="body.PlaceholderText" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="create.Content" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="cancel.Content" xml:space="preserve">
+    <value>Bezár</value>
+  </data>
+  <data name="activity.Text" xml:space="preserve">
+    <value>activity</value>
+  </data>
+  <data name="pullRequests.Text" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="readme.Text" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="contributors.Text" xml:space="preserve">
+    <value>CONTRIBUTORS</value>
+  </data>
+  <data name="releases.Text" xml:space="preserve">
+    <value>RELEASES</value>
+  </data>
+  <data name="noClosedPullRequests.Text" xml:space="preserve">
+    <value>No closed Pull Requests</value>
+  </data>
+  <data name="noOpenPullRequests.Text" xml:space="preserve">
+    <value>No open Pull Requests</value>
+  </data>
+  <data name="commited.Text" xml:space="preserve">
+    <value>commited</value>
+  </data>
+  <data name="commits.Text" xml:space="preserve">
+    <value>Commits</value>
+  </data>
+  <data name="contacts.Text" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Blur content behind window</value>
+  </data>
+  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+    <value>Donate $14.99</value>
+  </data>
+  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+    <value>Donate $19.99</value>
+  </data>
+  <data name="owned.Text" xml:space="preserve">
+    <value>owned</value>
+  </data>
+  <data name="save.Content" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+</root>
