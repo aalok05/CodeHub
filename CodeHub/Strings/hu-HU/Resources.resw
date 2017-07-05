@@ -128,13 +128,13 @@
     <value>This app is in no way affiliated with GitHub.</value>
   </data>
   <data name="privacyLink.Content" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>Adatvédelmi Irányelvek</value>
   </data>
   <data name="rateButtonContent.Text" xml:space="preserve">
     <value>Alkalmazás értékelése</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
-    <value>Theme</value>
+    <value>Kinézet</value>
   </data>
   <data name="themeTip.Text" xml:space="preserve">
     <value>Kinézetváltás életbelépéséhez az alkalmazás újraindítása szükséges</value>
@@ -150,33 +150,33 @@
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
   <data name="adSetting.Text" xml:space="preserve">
-    <value>Support Development, Enable Ads</value>
+    <value>Fejlesztés tmogatása, reklámok megjelenítése</value>
   </data>
   <data name="busyScreen.BusyText" xml:space="preserve">
     <value>Kérlek várj...</value>
     <comment>preserve ellipsis here</comment>
   </data>
   <data name="donate.Text" xml:space="preserve">
-    <value>Donate to support CodeHub</value>
+    <value>Adományozz a CodeHub fentartása érdekében</value>
   </data>
   <data name="firstDonateTierAmount.Content" xml:space="preserve">
-    <value>Donate $0.99</value>
+    <value>Adományozz $0.99-t</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
     <value>Buy the developer a coffee.</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
-    <value>Follow</value>
+    <value>Követés</value>
   </data>
   <data name="followers.Text" xml:space="preserve">
-    <value>followers</value>
+    <value>követők</value>
   </data>
   <data name="following.Text" xml:space="preserve">
-    <value>following</value>
+    <value>követi őket</value>
   </data>
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
-    <value>Donate $9.99</value>
+    <value>Adományozz $9.99-t</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
@@ -186,10 +186,10 @@
     <value>Load commit messages for files</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>You have no Events yet</value>
+    <value>Nincsenek hírek</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
-    <value>Pick an option to support the developer</value>
+    <value>Válassz egy lehetőséget a fejlesztő támogatásához</value>
   </data>
   <data name="preview.Text" xml:space="preserve">
     <value>Preview</value>
@@ -198,23 +198,23 @@
     <value>repositories</value>
   </data>
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
-    <value>Donate $2.99</value>
+    <value>Adományozz $2.99-t</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
     <value>Give the developer a present.</value>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
-    <value>Show line numbers</value>
+    <value>Sorszámozás bekapcsolása</value>
   </data>
   <data name="showReadMe.Text" xml:space="preserve">
     <value>Show README in Repository page</value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
-    <value>Syntax Highlighting style</value>
+    <value>Kódszínezés típusa</value>
   </data>
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
-    <value>Donate $4.99</value>
+    <value>Adományozz $4.99-t</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>Context: all repositories</comment>
   </data>
   <data name="closed.Text" xml:space="preserve">
-    <value>closed</value>
+    <value>lezárt</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
   <data name="comments.Text" xml:space="preserve">
@@ -239,30 +239,30 @@
     <comment>Context: Your commit received 5 comments</comment>
   </data>
   <data name="loadMoreButton.Content" xml:space="preserve">
-    <value>Load more...</value>
+    <value>Továbbiak betöltése...</value>
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>mine</value>
+    <value>saját</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
     <value>My Repos</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>News Feed</value>
+    <value>Hírek</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>No closed Issues</value>
+    <value>Nincs lezárt probléma</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
     <value>No Issues</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
-    <value>No new notifications</value>
+    <value>Nincs új értesítés</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>No open Issues</value>
+    <value>Nincs probléma</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
     <value>No organizations yet. Disable third-party application restrictions for your organization</value>
@@ -274,11 +274,11 @@
     <value>No starred Repositories yet</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
-    <value>opened by</value>
+    <value>elindította</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
   <data name="open.Text" xml:space="preserve">
-    <value>open</value>
+    <value>nyitva</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="organizations.Text" xml:space="preserve">
@@ -289,7 +289,7 @@
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Újratölt</value>
   </data>
   <data name="signOut.Text" xml:space="preserve">
     <value>Kijelentkezés</value>
@@ -305,10 +305,10 @@
     <comment>Context: starred repositories</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
-    <value>this month</value>
+    <value>a hónapban</value>
   </data>
   <data name="thisWeek.Text" xml:space="preserve">
-    <value>this week</value>
+    <value>a héten</value>
   </data>
   <data name="today.Text" xml:space="preserve">
     <value>ma</value>
@@ -317,23 +317,23 @@
     <value>Trending Repositories are being updated by Github</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>Treading</value>
+    <value>Felkapottak</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
-    <value>unread</value>
+    <value>olvasatlan</value>
     <comment>Context: unread notifications</comment>
   </data>
   <data name="code.Text" xml:space="preserve">
     <value>Kód</value>
   </data>
   <data name="issues.Text" xml:space="preserve">
-    <value>Issues</value>
+    <value>Problémák</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
     <value>No Repositories</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>No Results</value>
+    <value>Nincs találat</value>
   </data>
   <data name="searchAutoSuggestBox.Text" xml:space="preserve">
     <value>search away!</value>
@@ -348,14 +348,14 @@
     <value>Üdvözöl a CodeHub</value>
   </data>
   <data name="creator.Text" xml:space="preserve">
-    <value>Creator</value>
+    <value>Fejlesztő</value>
     <comment>Maker of the app</comment>
   </data>
   <data name="translator.Text" xml:space="preserve">
     <value>Fordítók</value>
   </data>
   <data name="contributor.Text" xml:space="preserve">
-    <value>Contributors</value>
+    <value>Közreműködők</value>
   </data>
   <data name="clone.Text" xml:space="preserve">
     <value>Klón</value>
@@ -364,7 +364,7 @@
     <value>Megoszt</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
-    <value>Labels</value>
+    <value>Címkék</value>
   </data>
   <data name="comment.PlaceholderText" xml:space="preserve">
     <value>Komment</value>
@@ -373,19 +373,20 @@
     <value>New Issue</value>
   </data>
   <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Title</value>
+    <value>Cím</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
     <value>Body</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Create</value>
+    <value>Létrehoz</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
     <value>Bezár</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>előzményei</value>
+    <comment>ez nem a legjobb fordítás</comment>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -394,7 +395,7 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>KÖZREMŰKÖDŐK</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
     <value>RELEASES</value>
@@ -412,19 +413,19 @@
     <value>Commits</value>
   </data>
   <data name="contacts.Text" xml:space="preserve">
-    <value>Contacts</value>
+    <value>Kapcsolat</value>
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Blur content behind window</value>
+    <value>Áttetsző ablak</value>
   </data>
   <data name="fifthDonateTierDescription.Content" xml:space="preserve">
-    <value>Donate $14.99</value>
+    <value>Adományozz $14.99-t</value>
   </data>
   <data name="sixthDonateTierDescription.Content" xml:space="preserve">
-    <value>Donate $19.99</value>
+    <value>Adományozz $19.99-t</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>saját</value>
   </data>
   <data name="save.Content" xml:space="preserve">
     <value>Mentés</value>
