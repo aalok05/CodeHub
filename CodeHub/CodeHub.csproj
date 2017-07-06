@@ -180,6 +180,7 @@
     </Content>
     <None Include="CodeHub_TemporaryKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\hu-HU\Resources.resw" />
     <PRIResource Include="Strings\de\Resources.resw" />
     <PRIResource Include="Strings\pt\Resources.resw" />
     <PRIResource Include="Strings\vi\Resources.resw" />
