@@ -172,6 +172,7 @@
                     </Viewbox>
                     <TextBlock x:Uid="rateButtonContent"
                                VerticalAlignment="Center"
+                               Margin="0 4 0 0"
                                FontSize="12"
                                Foreground="{StaticResource AppPrimaryColorBrush}" />
                 </StackPanel>
@@ -193,6 +194,7 @@
                     </Viewbox>
                     <TextBlock VerticalAlignment="Center"
                                FontSize="12"
+                               Margin="0 4 0 0"
                                Foreground="{StaticResource AppPrimaryColorBrush}"
                                Text="Star on GitHub" />
                 </StackPanel>
