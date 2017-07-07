@@ -99,6 +99,11 @@
                                VerticalAlignment="Center"
                                FontSize="13"
                                Text="Von Hohenheim" />
+                    <TextBlock x:Name="contributorName6"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="PoLáKoSz Tom" />
                     <TextBlock x:Name="translatorsText"
                                x:Uid="translator"
                                Margin="0,12,0,4"
@@ -125,6 +130,11 @@
                                VerticalAlignment="Center"
                                FontSize="13"
                                Text="JN Marcos - Portuguese" />
+                    <TextBlock x:Name="translatorName5"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="PoLáKoSz Tom" />
                 </StackPanel>
             </toolkitControls:Expander>
 
