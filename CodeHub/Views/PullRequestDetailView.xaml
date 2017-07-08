@@ -13,7 +13,6 @@
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
-        <converters:ObjectToStringConverter x:Key="ObjectToStringConverter" x:Name="ObjectToStringConverter" />
     </Page.Resources>
     <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
@@ -226,7 +225,6 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                          <!--TODO:Translation for 'Comment'-->  
                         <TextBox x:Uid="comment"
                                  Grid.Column="0"
                                  AcceptsReturn="True"
