@@ -10,6 +10,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:CodeHub.Models"
       xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+      xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -127,27 +128,22 @@
                            Height="48"
                            Background="{ThemeResource SystemChromeLowColor}"
                            Canvas.ZIndex="1">
-                <Ellipse x:Name="profileEllipse"
-                         Width="30"
-                         Height="30"
-                         StrokeThickness="1.6"
-                         Stroke="{StaticResource AppPrimaryColorBrush}"
-                         Margin="12 0 0 0"
-                         RelativePanel.AlignVerticalCenterWith="HamButton"
-                         RelativePanel.RightOf="HamButton"
-                         Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}">
-                    <Ellipse.Fill>
-                        <ImageBrush>
-                            <ImageBrush.ImageSource>
-                                <BitmapImage UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" 
+                <toolkitControl:RoundImageEx x:Name="profileEllipse"
+                                             Width="30"
+                                             Height="30"
+                                             Margin="12 4 0 4"
+                                             BorderBrush="{StaticResource AppPrimaryColorBrush}"
+                                             BorderThickness="1"
+                                             RelativePanel.AlignVerticalCenterWith="HamButton"
+                                             RelativePanel.RightOf="HamButton"
+                                             CornerRadius="999"
                                              DecodePixelHeight="30"
                                              DecodePixelType="Logical"
-                                             DecodePixelWidth="30"/>
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-
-                    </Ellipse.Fill>
-                </Ellipse>
+                                             DecodePixelWidth="30"
+                                             IsCacheEnabled="True"
+                                             Stretch="UniformToFill"
+                                             Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                                             Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
                 <Button Name="HamButton"
                         Click="HamButton_Click"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -255,23 +251,20 @@
                         <RelativePanel Name="HamRelative"
                                        Padding="0 10 0 0"
                                        Background="Transparent">
-                            <Ellipse x:Name="avatarEllipse"
-                                     Width="85"
-                                     Height="85"
-                                     Margin="15 10 10 10"
-                                     RelativePanel.AlignLeftWithPanel="True"
-                                     RelativePanel.AlignTopWithPanel="True"
-                                     Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <ProgressRing x:Name="ProfilePicProgressRing"
-                                          Width="25"
-                                          Height="25"
-                                          Margin="36 10 10 10"
-                                          IsActive="{x:Bind ViewModel.isStartLoading, Mode=OneWay}"
-                                          RelativePanel.AlignVerticalCenterWith="avatarEllipse" />
+                            <toolkitControl:RoundImageEx x:Name="avatarEllipse"
+                                                         Margin="16 12 12 12"
+                                                         CornerRadius="999"
+                                                         Width="85"
+                                                         Height="85"
+                                                         DecodePixelHeight="85"
+                                                         DecodePixelType="Logical"
+                                                         DecodePixelWidth="85"
+                                                         IsCacheEnabled="True"
+                                                         Stretch="UniformToFill"
+                                                         Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                                                         Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"
+                                                         Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
+
                             <StackPanel Orientation="Vertical"
                                         RelativePanel.AlignVerticalCenterWith="avatarEllipse"
                                         RelativePanel.RightOf="avatarEllipse"
