@@ -70,21 +70,19 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <RelativePanel Background="Transparent">
-            <Ellipse x:Name="OwnerPic"
-                     Width="80"
-                     Height="80"
-                     Margin="8,8,8,0">
-                <Ellipse.Fill>
-                    <ImageBrush>
-                        <ImageBrush.ImageSource>
-                            <BitmapImage DecodePixelHeight="130"
-                                         DecodePixelType="Logical"
-                                         DecodePixelWidth="130"
-                                         UriSource="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
-                </Ellipse.Fill>
-            </Ellipse>
+            <toolkitControls:RoundImageEx x:Name="OwnerPic"
+                                          Width="80"
+                                          Height="80"
+                                          Margin="8,8,8,0"
+                                          CornerRadius="999"
+                                          Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
+                                          DecodePixelHeight="80"
+                                          DecodePixelWidth="80"
+                                          DecodePixelType="Logical"
+                                          IsCacheEnabled="True"
+                                          Stretch="UniformToFill">
+
+            </toolkitControls:RoundImageEx>
             <HyperlinkButton x:Name="OwnerName"
                              Padding="0"
                              Margin="0 4 0 0"
