@@ -135,6 +135,11 @@
                                VerticalAlignment="Center"
                                FontSize="13"
                                Text="PoLáKoSz Tom - Hungarian" />
+                    <TextBlock x:Name="translatorName6"
+                               Margin="0,4,8,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Text="Angel Careaga - Spanish" />
                 </StackPanel>
             </toolkitControls:Expander>
 
