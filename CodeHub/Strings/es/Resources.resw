@@ -317,7 +317,7 @@
     <value>Los repositorios en tendencias están siendo actualizados por Github</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>Trending</value>
+    <value>Tendencias</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
     <value>No leído</value>
@@ -336,7 +336,7 @@
     <value>No hay Resultados</value>
   </data>
   <data name="searchAutoSuggestBox.Text" xml:space="preserve">
-    <value>search away!</value>
+    <value>Buscar</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Inicia sesión</value>
