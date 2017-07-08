@@ -28,6 +28,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        private int _repositoryWatchersCount;
+        public int RepositoryWatchersCount
+        {
+            get
+            {
+                return _repositoryWatchersCount;
+            }
+            set
+            {
+                Set(() => RepositoryWatchersCount, ref _repositoryWatchersCount, value);
+            }
+        }
+
+
         public bool _isStar;
         public bool IsStar
         {
@@ -167,6 +181,8 @@ namespace CodeHub.ViewModels
                 {
                     Repository = repo as Repository;
                 }
+
+                RepositoryWatchersCount = await RepositoryUtility.GetWatcherCount(Repository);
 
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 IsWatching = await RepositoryUtility.CheckWatched(Repository);
