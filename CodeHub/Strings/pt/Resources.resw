@@ -335,7 +335,7 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>Nenhum Resultado</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>pesquise!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">

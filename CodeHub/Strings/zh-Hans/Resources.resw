@@ -335,7 +335,7 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>没有找到结果</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>开始搜索!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">

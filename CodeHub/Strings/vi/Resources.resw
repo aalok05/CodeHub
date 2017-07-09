@@ -335,7 +335,7 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>Không có kết quả</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>Từ cần tìm!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
