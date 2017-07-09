@@ -47,7 +47,7 @@ namespace CodeHub.Views
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
             Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ConfigureAdsVisibility(); });
             Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
-            Messenger.Default.Register(this, delegate (CheckNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
+            Messenger.Default.Register(this, delegate (UpdateUnreadNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
             Messenger.Default.Register<User>(this, RecieveSignInMessage);
             #endregion
 

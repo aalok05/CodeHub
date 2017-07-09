@@ -47,7 +47,7 @@ namespace CodeHub.Helpers
         public class HostWindowBlurMessageType
         {
         }
-        public class CheckNotificationMessageType
+        public class UpdateUnreadNotificationMessageType
         {
             public bool IsUnread { get; set; }
         }

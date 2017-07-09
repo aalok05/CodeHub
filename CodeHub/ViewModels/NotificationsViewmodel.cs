@@ -257,10 +257,13 @@ namespace CodeHub.ViewModels
                 if (UnreadNotifications.Count == 0)
                 {
                     ZeroUnreadCount = true;
-                    Messenger.Default.Send(new GlobalHelper.CheckNotificationMessageType { IsUnread = false });
+                    Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationMessageType { IsUnread = false });
                 }
                 else
+                {
                     ZeroUnreadCount = false;
+                    Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationMessageType { IsUnread = true });
+                }
             }
         }
         private async Task LoadParticipatingNotifications()
