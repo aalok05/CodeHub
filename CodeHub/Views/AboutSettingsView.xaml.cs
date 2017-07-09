@@ -37,8 +37,7 @@ namespace CodeHub.Views
 
         private async void GithubButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(
-               new Uri("https://github.com/aalok05/CodeHub"));
+            await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", "aalok05/CodeHub");
         }
 
         private async void EmailButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

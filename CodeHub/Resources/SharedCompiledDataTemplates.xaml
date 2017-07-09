@@ -10,61 +10,13 @@
 
     <!--  Shared converters  -->
     <converters:TimeAgoConverter x:Key="TimeAgoConverter" />
-    <converters:RepositoryContentToFileIconConverter x:Key="FileIconConverter" />
+    <converters:RepositoryContentToFileIconConverter x:Key="RepositoryContentToFileIconConverter" />
     <converter:StringVisibilityConverter x:Key="StringVisibilityConverter"/>
 
     <!--  Template for the repository items  -->
     <DataTemplate x:Key="RepositoryEntryTemplate" x:DataType="models:RepositoryContentWithCommitInfo">
         <UserControl>
             <Grid HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" MinWidth="320" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock x:Name="IconTextBlock"
-                           Margin="0,2,0,0"
-                           FontFamily="Segoe MDL2 Assets"
-                           FontSize="16"
-                           Foreground="{StaticResource AppPrimaryColorBrush}"
-                           IsTextScaleFactorEnabled="False"
-                           Text="{x:Bind Content, Converter={StaticResource FileIconConverter}, FallbackValue=&#xE8C8;}" />
-                <TextBlock x:Name="NameTextBlock"
-                           Margin="12,0,0,0"
-                           IsTextScaleFactorEnabled="False"
-                           MaxLines="1"
-                           Text="{x:Bind Content.Name}"
-                           TextTrimming="CharacterEllipsis"
-                           TextWrapping="NoWrap" />
-
-                <TextBlock x:Name="CommitMessageTextBlock"
-                           Margin="8,0,0,0"
-                           FontWeight="SemiLight"
-                           Foreground="#FFA0A0A0"
-                           IsTextScaleFactorEnabled="False"
-                           MaxLines="1"
-                           Text="{x:Bind CommitMessage}"
-                           Visibility="{x:Bind CommitMessage, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
-                           TextTrimming="CharacterEllipsis"
-                           TextWrapping="NoWrap" />
-                <TextBlock x:Name="LastEditTimeTextBlock"
-                           Margin="12,0,16,0"
-                           FontWeight="Normal"
-                           Foreground="#FFE0E0E0"
-                           IsTextScaleFactorEnabled="False"
-                           MaxLines="1"
-                           Text="{x:Bind LastEditTime, Converter={StaticResource TimeAgoConverter}}"
-                           Visibility="{x:Bind LastEditTime, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
-                           TextTrimming="CharacterEllipsis"
-                           TextWrapping="NoWrap" />
-
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="VisualStateGroup">
                         <VisualState x:Name="Mobile">
@@ -166,6 +118,54 @@
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="320" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="IconTextBlock"
+                           Margin="0,2,0,0"
+                           FontFamily="Segoe MDL2 Assets"
+                           FontSize="16"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="{x:Bind Content, Converter={StaticResource RepositoryContentToFileIconConverter}, FallbackValue=&#xE8C8;}" />
+                <TextBlock x:Name="NameTextBlock"
+                           Margin="12,0,0,0"
+                           IsTextScaleFactorEnabled="False"
+                           MaxLines="1"
+                           Text="{x:Bind Content.Name}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+
+                <TextBlock x:Name="CommitMessageTextBlock"
+                           Margin="8,0,0,0"
+                           FontWeight="SemiLight"
+                           Foreground="#FFA0A0A0"
+                           IsTextScaleFactorEnabled="False"
+                           MaxLines="1"
+                           Text="{x:Bind CommitMessage}"
+                           Visibility="{x:Bind CommitMessage, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+                <TextBlock x:Name="LastEditTimeTextBlock"
+                           Margin="12,0,16,0"
+                           FontWeight="Normal"
+                           Foreground="#FFE0E0E0"
+                           IsTextScaleFactorEnabled="False"
+                           MaxLines="1"
+                           Text="{x:Bind LastEditTime, Converter={StaticResource TimeAgoConverter}}"
+                           Visibility="{x:Bind LastEditTime, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+
             </Grid>
         </UserControl>
 

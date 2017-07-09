@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,322 +117,244 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="commented.Text" xml:space="preserve">
-    <value>kommentierte</value>
+  <data name="comment.PlaceholderText" xml:space="preserve">
+    <value>Comentado</value>
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
-  <data name="credits.Header" xml:space="preserve">
-    <value>Credits</value>
+  <data name="credit.Text" xml:space="preserve">
+    <value>Créditos</value>
   </data>
   <data name="disclaimer.Text" xml:space="preserve">
-    <value>Diese App steht in keiner Weise mit GitHub im Verbindung.</value>
+    <value>Esta aplicación no esta afiliada a GitHub de ninguna manera.</value>
   </data>
   <data name="privacyLink.Content" xml:space="preserve">
-    <value>Datenschutzrichtlinien</value>
+    <value>Política de privacidad</value>
   </data>
   <data name="rateButtonContent.Text" xml:space="preserve">
-    <value>Im Sore bewerten</value>
+    <value>Calificala en la tienda</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
-    <value>Design</value>
+    <value>Tema</value>
   </data>
   <data name="themeTip.Text" xml:space="preserve">
-    <value>Designänderungen erfordern einen Neustart der App</value>
+    <value>Cambios en el tema requieren reinicio</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
-    <value>Dunkles Design</value>
+    <value>Tema oscuro</value>
   </data>
   <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
-    <value>Helles Design</value>
+    <value>Tema claro</value>
   </data>
   <data name="version.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versión</value>
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
   <data name="adSetting.Text" xml:space="preserve">
-    <value>Werbung anzeigen, um die Entwicklung zu unterstützen</value>
+    <value>Apoyo al desarrollo, Habilitar anuncios </value>
   </data>
   <data name="busyScreen.BusyText" xml:space="preserve">
-    <value>Bitte warten...</value>
+    <value>Espere por favor...</value>
     <comment>preserve ellipsis here</comment>
   </data>
   <data name="donate.Text" xml:space="preserve">
-    <value>CodeHub durch eine Spende unterstützen</value>
+    <value>Dona para continuar con el soporte de CodeHub</value>
   </data>
-  <data name="firstDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $0,99</value>
+  <data name="firstDonateTierAmount.Text" xml:space="preserve">
+    <value>$0.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Kaufe den Entwicklern einen Kaffee.</value>
+    <value>Comprar al desarrollador un café.</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
-    <value>Folgen</value>
+    <value>Seguir</value>
   </data>
   <data name="followers.Text" xml:space="preserve">
-    <value>Follower</value>
+    <value>seguidores</value>
   </data>
   <data name="following.Text" xml:space="preserve">
-    <value>folgen</value>
+    <value>siguiendo</value>
   </data>
-  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $9,99</value>
+  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
+    <value>$9.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Spende diesen unglaublichen Betrag, wenn du dich gerade großzügig fühlst und CodeHub liebst.</value>
+    <value>Dona esta magnífica suma si te sientes generoso y amas CodeHub.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
-    <value>Commit-Meldungen für Dateien laden</value>
+    <value>Cargar los mensajes de commit para los archivos</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>Du hast noch keine Veranstaltungen</value>
+    <value>No tienes eventos todavía</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
-    <value>Wähle den Betrag, mit dem du die Entwickler unterstützen möchtest.</value>
+    <value>Escoja una opción para apoyar al desarrollador</value>
   </data>
   <data name="preview.Text" xml:space="preserve">
-    <value>Vorschau</value>
+    <value>Vista previa</value>
   </data>
   <data name="repositories.Text" xml:space="preserve">
-    <value>repositories</value>
+    <value>Repositorios</value>
   </data>
-  <data name="secondDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $2,99</value>
+  <data name="secondDonateTierAmount.Text" xml:space="preserve">
+    <value>$2.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Mache den Entwicklern ein Geschenk.</value>
+    <value>Proporcione un regalo al desarrollador.</value>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
-    <value>Zeilen nummerieren</value>
+    <value>Mostrar números de línea</value>
   </data>
   <data name="showReadMe.Text" xml:space="preserve">
-    <value>README in der Repository-Seite anzeigen</value>
+    <value>Mostrar README en la página del repositorio</value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
-    <value>Syntax-Highlighting-Stil</value>
+    <value>Estilo de resaltado de sintaxis</value>
   </data>
-  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $4,99</value>
+  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
+    <value>$4.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>Unterstütze die Entwicklung von CodeHub aktiv mit dieser tollen Spende.</value>
+    <value>Apoyar activamente el desarrollo de CodeHub con esta impresionante donación.</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
-    <value>Nicht mehr folgen</value>
+    <value>Dejar de seguir</value>
   </data>
   <data name="unsupportedFileType.Text" xml:space="preserve">
-    <value>Nicht unterstützter Dateityp</value>
+    <value>Tipo de archivo no compatible</value>
   </data>
   <data name="all.Text" xml:space="preserve">
-    <value>Alle</value>
+    <value>Todo</value>
     <comment>Context: all repositories</comment>
   </data>
-  <data name="closed.Text" xml:space="preserve">
-    <value>gelöst</value>
+  <data name="closedIssue.Text" xml:space="preserve">
+    <value>cerrado</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
   <data name="comments.Text" xml:space="preserve">
-    <value>Kommentare</value>
+    <value>Comentarios</value>
     <comment>Context: Your commit received 5 comments</comment>
   </data>
   <data name="loadMoreButton.Content" xml:space="preserve">
-    <value>Mehr laden...</value>
+    <value>Cargar más...</value>
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>mir</value>
+    <value>Mía</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
-    <value>Meine Repos</value>
+    <value>Mis repositorios</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>News-Feed</value>
+    <value>Noticias</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>Keine Probleme behoben</value>
+    <value>No hay problemas cerrados</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>Keine Probleme</value>
+    <value>Sin problemas</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
-    <value>Keine neuen Benachrichtigungen</value>
+    <value>No hay nuevas notificaciones</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>Keine ungelösten Probleme</value>
+    <value>No hay problemas abiertos</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>Noch keine Organisationen. Deaktiviere die Drittanbieter-Beschränkungen für deine Organisation.</value>
+    <value>No hay organizaciones todavía. Deshabilite las restricciones de aplicaciones de terceros para su organización</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>Noch keine Repositories</value>
+    <value>No hay repositorios todavía</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>Noch keine favorisierten Repositories</value>
+    <value>No hay repositorios favoritos todavía</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
-    <value>wurde gemeldet von</value>
+    <value>abierto por</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
-  <data name="open.Text" xml:space="preserve">
-    <value>ungelöst</value>
+  <data name="openedIssue.Text" xml:space="preserve">
+    <value>abierto</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="organizations.Text" xml:space="preserve">
-    <value>Organisationen</value>
+    <value>Organizaciones</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>Dich betreffende</value>
+    <value>participantes</value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Actualizar</value>
   </data>
   <data name="signOut.Text" xml:space="preserve">
-    <value>Abmelden</value>
+    <value>Salir</value>
   </data>
   <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
-    <value>Diesen Thread nicht mehr abonnieren</value>
+    <value>Cancelar suscripción de este hilo</value>
   </data>
   <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
-    <value>Als gelesen markieren</value>
+    <value>Marcar como leído</value>
   </data>
   <data name="starred.Text" xml:space="preserve">
-    <value>Favorisierte</value>
+    <value>favoritos</value>
     <comment>Context: starred repositories</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
-    <value>Dieser Monat</value>
+    <value>este mes</value>
   </data>
   <data name="thisWeek.Text" xml:space="preserve">
-    <value>Diese Woche</value>
+    <value>esta semana</value>
   </data>
   <data name="today.Text" xml:space="preserve">
-    <value>Heute</value>
+    <value>hoy</value>
   </data>
   <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
-    <value>Aufstrebende Repositories werden von Github aktualisiert</value>
+    <value>Los repositorios en tendencias están siendo actualizados por Github</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>Aufstrebend</value>
+    <value>Tendencias</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
-    <value>Ungelesene</value>
+    <value>No leído</value>
     <comment>Context: unread notifications</comment>
   </data>
   <data name="code.Text" xml:space="preserve">
-    <value>Code</value>
+    <value>Código</value>
   </data>
   <data name="issues.Text" xml:space="preserve">
-    <value>Probleme</value>
+    <value>Problemas</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>Keine Repositories</value>
+    <value>No hay Repositorios</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>Keine Ergebnisse</value>
+    <value>No hay Resultados</value>
   </data>
   <data name="searchAutoSuggestBox.Text" xml:space="preserve">
-    <value>Suche los!</value>
+    <value>Buscar</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
-    <value>Anmelden</value>
+    <value>Inicia sesión</value>
   </data>
   <data name="signInTips.Text" xml:space="preserve">
-    <value>Melde dich bei deinem GitHub-Konto an, um fortzufahren</value>
+    <value>Inicie sesión en su cuenta de GitHub para continuar</value>
   </data>
   <data name="welcome.Text" xml:space="preserve">
-    <value>Herzlich Willkommen bei CodeHub!</value>
-  </data>
-  <data name="contributor.Text" xml:space="preserve">
-    <value>Mitwirkende</value>
+    <value>Bienvenido a CodeHub</value>
   </data>
   <data name="creator.Text" xml:space="preserve">
-    <value>Schöpfer</value>
+    <value>Creador</value>
     <comment>Maker of the app</comment>
   </data>
   <data name="translator.Text" xml:space="preserve">
-    <value>Übersetzer</value>
+    <value>Traductores</value>
   </data>
-  <data name="clone.Text" xml:space="preserve">
-    <value>Klonen</value>
-  </data>
-  <data name="share.Text" xml:space="preserve">
-    <value>Teilen</value>
-  </data>
-  <data name="labels.Text" xml:space="preserve">
-    <value>Labels</value>
-  </data>
-  <data name="comment.PlaceholderText" xml:space="preserve">
-    <value>Kommentieren</value>
-  </data>
-  <data name="newIssue.Label" xml:space="preserve">
-    <value>Neues Problem</value>
-  </data>
-  <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Titel</value>
-  </data>
-  <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Rumpf</value>
-  </data>
-  <data name="create.Content" xml:space="preserve">
-    <value>Erstelle</value>
-  </data>
-  <data name="cancel.Content" xml:space="preserve">
-    <value>Abbrechen</value>
-  </data>
-  <data name="activity.Text" xml:space="preserve">
-    <value>aktivität</value>
-  </data>
-  <data name="pullRequests.Text" xml:space="preserve">
-    <value>Pull Requests</value>
-  </data>
-  <data name="readme.Text" xml:space="preserve">
-    <value>README</value>
-  </data>
-  <data name="contributors.Text" xml:space="preserve">
-    <value>MITARBEITER</value>
-  </data>
-  <data name="releases.Text" xml:space="preserve">
-    <value>VERÖFFENTLICHUNGEN</value>
-  </data>
-  <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>Keine angenommenen Aufnahmeanträge</value>
-  </data>
-  <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>Keine offenen Aufnahmeanträge</value>
-  </data>
-  <data name="commited.Text" xml:space="preserve">
-    <value>commited</value>
-  </data>
-  <data name="commits.Text" xml:space="preserve">
-    <value>Commits</value>
-  </data>
-  <data name="contacts.Text" xml:space="preserve">
-    <value>Kontakte</value>
-  </data>
-  <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Inhalt hinterm Fenster mit Blur-Effekt anzeigen</value>
-  </data>
-  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
-    <value>Spenden $14,99</value>
-  </data>
-  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
-    <value>Spenden $19,99</value>
-  </data>
-  <data name="owned.Text" xml:space="preserve">
-    <value>eigene</value>
-  </data>
-  <data name="save.Content" xml:space="preserve">
-    <value>Speichern</value>
-  </data>
-  <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
-  </data>
-  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
-    <value>Check for Notifications frequently</value>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Colaboradores</value>
   </data>
 </root>
