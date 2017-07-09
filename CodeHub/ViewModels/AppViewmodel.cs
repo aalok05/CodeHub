@@ -75,16 +75,21 @@ namespace CodeHub.ViewModels
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
         }
 
+        public void UpdateUnreadNotificationIndicator(bool IsUnread)
+        {
+            IsNotificationsUnread = IsUnread;
+        }
+
         public async Task CheckForUnreadNotifications()
         {
-            if (!IsNotificationsUnread)
+            var unread = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            if (unread != null)
             {
-                var unread = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                if (unread != null)
-                {
-                    IsNotificationsUnread = unread.Count > 0 ? true : false;
-                }
+                if (unread.Count > 0)
+                    UpdateUnreadNotificationIndicator(true);
+                else
+                    UpdateUnreadNotificationIndicator(false);
             }
-        } 
+        }
     }
 }

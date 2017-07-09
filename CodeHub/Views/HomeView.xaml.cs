@@ -46,7 +46,6 @@ namespace CodeHub.Views
                 weekListView.IsPullToRefreshWithMouseEnabled =
                 monthListView.IsPullToRefreshWithMouseEnabled = true;
             }
-            Messenger.Default.Send(new GlobalHelper.CheckNotificationMessageType());
         }
 
         private void Today_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)

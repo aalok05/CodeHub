@@ -221,8 +221,6 @@ namespace CodeHub.ViewModels
                 await NotificationsService.MarkAllNotificationsAsRead();                
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
                 await LoadUnreadNotifications();
-
-                Messenger.Default.Send(new GlobalHelper.CheckNotificationMessageType());
             }
         }
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
@@ -256,7 +254,13 @@ namespace CodeHub.ViewModels
             IsLoadingUnread = false;
             if (UnreadNotifications != null)
             {
-                ZeroUnreadCount = (UnreadNotifications.Count == 0) ? true : false;
+                if (UnreadNotifications.Count == 0)
+                {
+                    ZeroUnreadCount = true;
+                    Messenger.Default.Send(new GlobalHelper.CheckNotificationMessageType { IsUnread = false });
+                }
+                else
+                    ZeroUnreadCount = false;
             }
         }
         private async Task LoadParticipatingNotifications()

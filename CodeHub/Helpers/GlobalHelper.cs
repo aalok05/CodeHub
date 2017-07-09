@@ -49,7 +49,7 @@ namespace CodeHub.Helpers
         }
         public class CheckNotificationMessageType
         {
-
+            public bool IsUnread { get; set; }
         }
         #endregion
 

@@ -23,6 +23,7 @@ using UICompositionAnimations.Behaviours;
 using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
 using UICompositionAnimations.Behaviours.Effects;
+using CodeHub.Helpers;
 
 namespace CodeHub.Views
 {
@@ -46,7 +47,8 @@ namespace CodeHub.Views
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
             Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ConfigureAdsVisibility(); });
             Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
-            Messenger.Default.Register(this, delegate (CheckNotificationMessageType m) { ViewModel.CheckForUnreadNotifications(); });
+            Messenger.Default.Register(this, delegate (CheckNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
+            Messenger.Default.Register<User>(this, RecieveSignInMessage);
             #endregion
 
             SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
@@ -145,16 +147,13 @@ namespace CodeHub.Views
 
             if (ViewModel.isLoggedin)
             {
-                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
+                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
+                await ViewModel.CheckForUnreadNotifications();
             }
-
-            //Listening for Sign In message
-            Messenger.Default.Register<User>(this, RecieveSignInMessage);
 
             notifManager = new LocalNotificationManager(NotificationGrid);
 
             await ConfigureWindowBlur();
-
             await ConfigureHamburgerMenuBlur();
         }
 

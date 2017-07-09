@@ -45,7 +45,7 @@
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
 
             <!--  Check for notifications frequently  -->
-            <TextBlock x:Uid="checkNotificationsFrequently"
+            <!--<TextBlock x:Uid="checkNotificationsFrequently"
                        Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="20"
@@ -58,7 +58,7 @@
                        Foreground="Gray"
                        Text="Turning this on will consume more data"
                        TextWrapping="Wrap" />
-            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.IsNotificationCheckEnabled, Mode=TwoWay}" />
+            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.IsNotificationCheckEnabled, Mode=TwoWay}" />-->
 
             <TextBlock x:Uid="syntaxHightlignting"
                        Margin="0,20,0,0"
