@@ -38,6 +38,7 @@
                        HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiLight"
+                       Foreground="Gray"
                        TextWrapping="Wrap" />
             <ToggleSwitch x:Uid="ThemeToggleSwitch" IsOn="{x:Bind ViewModel.AppLightThemeEnabled, Mode=TwoWay}"
                           Margin="0,8,0,0"/>

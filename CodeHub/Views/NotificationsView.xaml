@@ -30,7 +30,8 @@
         <Grid Height="48"
               VerticalAlignment="Top"
               Background="{ThemeResource SystemChromeLowColor}" />
-        <Pivot Grid.Row="1"
+        <Pivot x:Name="NotifPivot"
+               Grid.Row="1"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -51,13 +52,12 @@
                                       Tapped="{x:Bind ViewModel.RefreshUnread}">
 
                         </AppBarButton>
-                        <!--TODO: Implement this when octokit fixes the bug related to MarkAllNotificationsAsRead-->
-                        <!--<AppBarButton Icon="Accept"
+                        <AppBarButton x:Uid="markAllAsRead"
+                                      Icon="Accept"
                                       Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Label="Mark all as read">
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
 
-                        </AppBarButton>-->
+                        </AppBarButton>
                     </CommandBar>
                     <ListView x:Name="UnreadFeedListView"
                               Grid.Row="1"
@@ -172,13 +172,6 @@
                                       Tapped="{x:Bind ViewModel.RefreshParticipating}">
 
                         </AppBarButton>
-                        <!--TODO: Implement this when octokit fixes the bug related to MarkAllNotificationsAsRead-->
-                        <!--<AppBarButton Icon="Accept"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
-                                      Label="Mark all as read">
-
-                        </AppBarButton>-->
                     </CommandBar>
                     <ListView x:Name="ParticipatingFeedListView"
                               Grid.Row="1"
@@ -294,13 +287,6 @@
                                       Tapped="{x:Bind ViewModel.RefreshAll}">
 
                         </AppBarButton>
-                        <!--TODO: Implement this when octokit fixes the bug related to MarkAllNotificationsAsRead-->
-                        <!--<AppBarButton Icon="Accept"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
-                                      Label="Mark all as read">
-                            
-                        </AppBarButton>-->
                     </CommandBar>
                     <ListView x:Name="AllFeedListView"
                               Grid.Row="1"

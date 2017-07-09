@@ -1,7 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CodeHub.Services;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Octokit;
 using System;
+using System.Threading.Tasks;
 
 namespace CodeHub.ViewModels
 {
@@ -46,6 +48,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsNotificationsUnread;
+        public bool IsNotificationsUnread
+        {
+            get
+            {
+                return _IsNotificationsUnread;
+            }
+            set
+            {
+                Set(() => IsNotificationsUnread, ref _IsNotificationsUnread, value);
+            }
+        }
+
         public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
@@ -58,6 +73,23 @@ namespace CodeHub.ViewModels
         public void GoBack()
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
+        }
+
+        public void UpdateUnreadNotificationIndicator(bool IsUnread)
+        {
+            IsNotificationsUnread = IsUnread;
+        }
+
+        public async Task CheckForUnreadNotifications()
+        {
+            var unread = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            if (unread != null)
+            {
+                if (unread.Count > 0)
+                    UpdateUnreadNotificationIndicator(true);
+                else
+                    UpdateUnreadNotificationIndicator(false);
+            }
         }
     }
 }
