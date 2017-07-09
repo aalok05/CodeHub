@@ -178,15 +178,6 @@
                         <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Symbol="Find" />
                     </Viewbox>
                 </Button>
-
-                <Ellipse x:Name="UnreadNotifIndicator"
-                         RelativePanel.LeftOf="moreButton"
-                         RelativePanel.AlignTopWith="notifButton"
-                         Width="10"
-                         Height="10"
-                         Fill="{StaticResource AppPrimaryColorBrush}"
-                         Visibility="{x:Bind ViewModel.IsNotificationsUnread,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
-
                 <Button x:Name="notifButton"
                         Width="50"
                         Height="48"
@@ -201,6 +192,17 @@
                         </Path.RenderTransform>
                     </Path>
                 </Button>
+                <Grid x:Name="UnreadNotifIndicator"
+                      RelativePanel.LeftOf="moreButton"
+                      RelativePanel.AlignTopWith="notifButton"
+                      Visibility="{x:Bind ViewModel.IsNotificationsUnread,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                    <Ellipse Width="12"
+                             Height="12"
+                             Fill="{ThemeResource SystemChromeLowColor}"/>
+                    <Ellipse Width="10"
+                             Height="10"
+                             Fill="{StaticResource AppPrimaryColorBrush}"/>
+                </Grid>
                 <Button x:Name="moreButton"
                         Width="50"
                         Height="48"
