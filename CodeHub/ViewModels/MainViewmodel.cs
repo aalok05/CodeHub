@@ -49,20 +49,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-
-        public bool _isStartLoading;
-        public bool isStartLoading
-        {
-            get
-            {
-                return _isStartLoading;
-            }
-            set
-            {
-                Set(() => isStartLoading, ref _isStartLoading, value);
-            }
-        }
-
         public ObservableCollection<HamItem> _HamItems = new ObservableCollection<HamItem>();
         public ObservableCollection<HamItem> HamItems
         {
@@ -193,7 +179,6 @@ namespace CodeHub.ViewModels
                                           {
                                               if(IsInternet())
                                               {
-                                                  isStartLoading = true;
                                                   if (isLoggedin == true)
                                                   {
                                                       var user = await UserUtility.GetCurrentUserInfo();
@@ -217,8 +202,6 @@ namespace CodeHub.ViewModels
                                                           }
                                                       }
                                                   }
-                                                  isStartLoading = false;
-
                                               }
                                           }));
             }

@@ -87,22 +87,20 @@
                       VerticalScrollBarVisibility="Hidden"
                       VerticalScrollMode="Enabled">
             <RelativePanel Background="Transparent">
-                <Ellipse x:Name="UserPic"
-                         Width="125"
-                         Height="125"
-                         Margin="0 10 0 0"
-                         RelativePanel.AlignHorizontalCenterWithPanel="True">
-                    <Ellipse.Fill>
-                        <ImageBrush>
-                            <ImageBrush.ImageSource>
-                                <BitmapImage DecodePixelHeight="125"
-                                             DecodePixelType="Logical"
+                <toolkitControl:RoundImageEx x:Name="UserPic"
+                                             Width="125"
+                                             Height="125"
+                                             Margin="0 10 0 0"
+                                             CornerRadius="999"
+                                             RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                             Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
+                                             DecodePixelHeight="125"
                                              DecodePixelWidth="125"
-                                             UriSource="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}" />
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
+                                             DecodePixelType="Logical"
+                                             IsCacheEnabled="True"
+                                             Stretch="UniformToFill">
+                    
+                </toolkitControl:RoundImageEx>
                 <TextBlock x:Name="UserNameText"
                            FontSize="22"
                            FontWeight="SemiBold"

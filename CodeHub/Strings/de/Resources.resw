@@ -424,9 +424,15 @@
     <value>Spenden $19,99</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>eigene</value>
   </data>
   <data name="save.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Speichern</value>
+  </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>Mark all as read</value>
+  </data>
+  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
+    <value>Check for Notifications frequently</value>
   </data>
 </root>

@@ -366,7 +366,8 @@ namespace CodeHub.Services
                         client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
                         client, repo.Id, branch, CancellationToken.None);
 
-                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type)
+                                                                                            .ThenBy(           entry => entry.Content.Name));
                 }
                 else
                 {

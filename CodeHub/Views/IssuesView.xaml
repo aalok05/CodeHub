@@ -119,19 +119,16 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        <Button Margin="0,0,16,16"
-                Padding="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Style="{StaticResource ActionButtonStyle}"
-                Tapped="AppBarButton_Tapped">
-            <Grid>
-                <Ellipse Width="50"
-                         Height="50"
-                         Fill="{StaticResource AppPrimaryColorBrush}" />
-                <SymbolIcon Symbol="Add" />
-            </Grid>
-        </Button>
+        <Grid Margin="0,0,16,16"
+              Padding="0"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Bottom"
+              Tapped="AppBarButton_Tapped">
+            <Ellipse Width="50"
+                     Height="50"
+                     Fill="{StaticResource AppPrimaryColorBrush}" />
+            <SymbolIcon Symbol="Add" />
+        </Grid>
         <RelativePanel x:Name="createIssuePanel">
             <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     Opacity="0.1"

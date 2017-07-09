@@ -50,6 +50,11 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
 
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Notifications" });
+
+            if (e.NavigationMode != NavigationMode.Back)
+            {
+                NotifPivot.SelectedItem = NotifPivot.Items[0];
+            }
         }
 
         public RelayCommand<Notification> _MarkasReadAllNotifCommand;
@@ -91,6 +96,9 @@ namespace CodeHub.Views
                                                   ViewModel.UnreadNotifications.RemoveAt(index);
                                               }
                                               ViewModel.IsLoadingUnread = false;
+
+                                              if(ViewModel.UnreadNotifications.Count == 0)
+                                                  Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationMessageType { IsUnread = false });
                                           }));
             }
         }

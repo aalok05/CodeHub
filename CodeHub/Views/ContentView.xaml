@@ -8,6 +8,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="using:CodeHub.Models"
       xmlns:octo="using:Octokit"
+      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
       xmlns:resources="using:CodeHub.Resources"
       mc:Ignorable="d">
     <Page.Resources>
@@ -73,16 +74,16 @@
             </Grid>
         </controls:AutoHideGrid>
 
-        <controls:AlternatingRowListView x:Name="ContentListView"
-                                         Grid.Row="1"
-                                         HorizontalAlignment="Stretch"
-                                         HorizontalContentAlignment="Stretch"
-                                         IsItemClickEnabled="True"
-                                         ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
-                                         ItemTemplate="{StaticResource RepositoryEntryTemplate}"
-                                         ItemsSource="{x:Bind ViewModel.Content, Mode=OneWay}"
-                                         OddRowBackground="{StaticResource OddAlternatingRowsBrush}"
-                                         SelectionMode="Single">
+        <ListView x:Name="ContentListView"
+                  Grid.Row="1"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch"
+                  IsItemClickEnabled="True"
+                  ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
+                  ItemTemplate="{StaticResource RepositoryEntryTemplate}"
+                  ItemsSource="{x:Bind ViewModel.Content, Mode=OneWay}"
+                  ui:ListViewBaseExtensions.AlternateColor="{StaticResource OddAlternatingRowsBrush}"
+                  SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -93,7 +94,7 @@
                     <Grid Height="48" />
                 </DataTemplate>
             </ListView.HeaderTemplate>
-        </controls:AlternatingRowListView>
+        </ListView>
 
         <ProgressRing Grid.Row="1"
                       Width="40"
