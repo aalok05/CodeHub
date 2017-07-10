@@ -28,16 +28,16 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private int _repositoryWatchersCount;
-        public int RepositoryWatchersCount
+        private int _WatchersCount;
+        public int WatchersCount
         {
             get
             {
-                return _repositoryWatchersCount;
+                return _WatchersCount;
             }
             set
             {
-                Set(() => RepositoryWatchersCount, ref _repositoryWatchersCount, value);
+                Set(() => WatchersCount, ref _WatchersCount, value);
             }
         }
 
@@ -182,10 +182,17 @@ namespace CodeHub.ViewModels
                     Repository = repo as Repository;
                 }
 
-                RepositoryWatchersCount = await RepositoryUtility.GetWatcherCount(Repository);
-
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 IsWatching = await RepositoryUtility.CheckWatched(Repository);
+
+                if (Repository.SubscribersCount == 0)
+                {
+                    WatchersCount = await RepositoryUtility.GetWatcherCount(Repository);
+                }
+                else
+                {
+                    WatchersCount = Repository.SubscribersCount;
+                }
 
                 isLoading = false;
             }

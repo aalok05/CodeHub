@@ -598,25 +598,15 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets the current count of watchers for a given repository
+        /// Gets the number of watchers for a given repository
         /// </summary>
         /// <param name="repo"></param>
         /// <returns></returns>
         public static async Task<int> GetWatcherCount(Repository repo)
         {
-            try
-            {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
+            GitHubClient client = await UserUtility.GetAuthenticatedClient();
 
-                var watchers = await client.Activity.Watching.GetAllWatchers(repo.Id);
-                int count = watchers.ToArray().Length;
-
-                return count;
-            }
-            catch
-            {
-                return -1;
-            }
+            return (await client.Activity.Watching.GetAllWatchers(repo.Id)).Count;
         }
 
         /// <summary>
