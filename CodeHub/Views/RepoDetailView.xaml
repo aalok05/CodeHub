@@ -194,7 +194,6 @@
                                Text="{x:Bind ViewModel.Repository.StargazersCount, Mode=OneWay}" />
                 </StackPanel>
             </Button>
-
             <Button x:Name="WatchButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
@@ -226,10 +225,9 @@
                                HorizontalAlignment="Center"
                                FontSize="14"
                                FontWeight="SemiLight"
-                               Text="{x:Bind ViewModel.Repository.SubscribersCount, Mode=OneWay}" />
+                               Text="{x:Bind ViewModel.RepositoryWatchersCount, Mode=OneWay}" />
                 </StackPanel>
             </Button>
-
             <Button x:Name="ForkButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
@@ -261,7 +259,6 @@
                 </StackPanel>
 
             </Button>
-
             <Button x:Name="ShareButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
