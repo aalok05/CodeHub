@@ -41,14 +41,20 @@ namespace CodeHub.Views
             ReadmeLoadingRing.IsActive = true;
             if (ViewModel.Repository != null)
             {
-                ReadmeWebView.NavigateToString("<html><head> <link rel =\"stylesheet\" href =\"ms-appx-web:///Assets/css/github-markdown.css\" type =\"text/css\" media =\"screen\" /> </head> <body> " + 
-                    await RepositoryUtility.GetReadmeHTMLForRepository(ViewModel.Repository.Id) + " </body></html> ");
+                String ReadmeHTML = await RepositoryUtility.GetReadmeHTMLForRepository(ViewModel.Repository.Id);
+                if (!string.IsNullOrWhiteSpace(ReadmeHTML))
+                   ReadmeWebView.NavigateToString("<html><head> <link rel =\"stylesheet\" href =\"ms-appx-web:///Assets/css/github-markdown.css\" type =\"text/css\" media =\"screen\" /> </head> <body> " + ReadmeHTML + " </body></html> ");
+                else
+                {
+                    ViewModel.NoReadme = true;
+                    ReadmeLoadingRing.IsActive = false;
+                }
             }
         }
 
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            /*  Also We are running a Javascript function that will make all links in the WebView open in an external browser
+            /*  We are running a Javascript function that will make all links in the WebView open in an external browser
              *  instead of within the WebView itself.
              */
             await ReadmeWebView.InvokeScriptAsync("eval", new[]

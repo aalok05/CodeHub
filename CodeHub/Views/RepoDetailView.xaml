@@ -367,7 +367,12 @@
                                   VerticalScrollBarVisibility="Hidden"
                                   VerticalScrollMode="Enabled">
                         <Grid x:Name="ReadmeGrid">
-                            <WebView x:Name="ReadmeWebView" NavigationCompleted="WebView_NavigationCompleted" />
+                            <TextBlock Text="NO README"
+                                       Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                       Style="{StaticResource ZeroItemsTextBoxStyle}"/>
+                            <WebView x:Name="ReadmeWebView" 
+                                     Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}"
+                                     NavigationCompleted="WebView_NavigationCompleted" />
 
                             <ProgressRing x:Name="ReadmeLoadingRing"
                                           Width="40"

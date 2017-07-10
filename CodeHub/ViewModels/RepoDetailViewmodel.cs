@@ -41,6 +41,18 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _NoReadme;
+        public bool NoReadme
+        {
+            get
+            {
+                return _NoReadme;
+            }
+            set
+            {
+                Set(() => NoReadme, ref _NoReadme, value);
+            }
+        }
 
         public bool _isStar;
         public bool IsStar
