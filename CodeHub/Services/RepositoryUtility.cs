@@ -598,18 +598,6 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Gets the number of watchers for a given repository
-        /// </summary>
-        /// <param name="repo"></param>
-        /// <returns></returns>
-        public static async Task<int> GetWatcherCount(Repository repo)
-        {
-            GitHubClient client = await UserUtility.GetAuthenticatedClient();
-
-            return (await client.Activity.Watching.GetAllWatchers(repo.Id)).Count;
-        }
-
-        /// <summary>
         /// Unwatches a repository
         /// </summary>
         /// <param name="repo"></param>
