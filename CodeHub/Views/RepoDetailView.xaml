@@ -346,8 +346,9 @@
                        Margin="8,8,0,8"
                        FontSize="15"
                        RelativePanel.Below="ButtonsPanel"
+                       RelativePanel.AlignHorizontalCenterWith="ButtonsPanel"
                        Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
-                       TextAlignment="Left"
+                       TextAlignment="Center"
                        TextWrapping="Wrap"
                        Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
 
