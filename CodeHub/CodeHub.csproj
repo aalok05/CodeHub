@@ -336,15 +336,15 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\RepositoryUtility.cs" />
     <Compile Include="ViewModels\AppViewmodel.cs" />
-    <Compile Include="ViewModels\HomeViewmodel.cs" />
+    <Compile Include="ViewModels\TrendingViewmodel.cs" />
     <Compile Include="ViewModels\MainViewmodel.cs" />
     <Compile Include="ViewModels\MyReposViewmodel.cs" />
     <Compile Include="ViewModels\ProfileViewmodel.cs" />
     <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
     <Compile Include="ViewModels\SearchViewmodel.cs" />
     <Compile Include="ViewModels\SettingsViewmodel.cs" />
-    <Compile Include="Views\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
+    <Compile Include="Views\TrendingView.xaml.cs">
+      <DependentUpon>TrendingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MyOrganizationsView.xaml.cs">
       <DependentUpon>MyOrganizationsView.xaml</DependentUpon>
@@ -552,7 +552,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\HomeView.xaml">
+    <Page Include="Views\TrendingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

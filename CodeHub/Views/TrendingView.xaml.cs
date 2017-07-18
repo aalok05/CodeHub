@@ -11,22 +11,22 @@ using Windows.System.Profile;
 
 namespace CodeHub.Views
 {
-    public sealed partial class HomeView : Windows.UI.Xaml.Controls.Page
+    public sealed partial class TrendingView : Windows.UI.Xaml.Controls.Page
     {
-        public HomeViewmodel ViewModel;
+        public TrendingViewmodel ViewModel;
 
-        public HomeView()
+        public TrendingView()
         { 
             this.InitializeComponent();
-            ViewModel = new HomeViewmodel();
+            ViewModel = new TrendingViewmodel();
             this.DataContext = ViewModel;
 
-            Unloaded += HomeView_Unloaded;
+            Unloaded += TrendingView_Unloaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
         }
 
-        private void HomeView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void TrendingView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             todayIncrementalLoadButton.Dispose();
             weekIncrementalLoadButton.Dispose();
