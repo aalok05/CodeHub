@@ -1,7 +1,9 @@
 ﻿<Application
     x:Class="CodeHub.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:brushes="using:UICompositionAnimations.Brushes">
+    
     <Application.Resources>
         <ResourceDictionary>
 
@@ -20,6 +22,19 @@
 
             <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="#0c0c0c"/>
 
+            <brushes:CustomAcrylicBrush x:Key="InAppAcrylicBrush"
+                                        Mode="InAppBlur"
+                                        BlurAmount="8"
+                                        TintMix="0.6"
+                                        Tint="{StaticResource SystemAltHighColor}"
+                                        NoiseTextureUri="Assets/Noise.png"/>
+            <brushes:CustomAcrylicBrush x:Key="HostBackdropAcrylicBrush"
+                                        Mode="HostBackdrop"
+                                        BlurAmount="8"
+                                        TintMix="0.6"
+                                        Tint="{StaticResource SystemAltHighColor}"
+                                        NoiseTextureUri="Assets/Noise.png"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

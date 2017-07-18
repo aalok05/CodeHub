@@ -33,7 +33,6 @@ namespace CodeHub.Views
         public CustomFrame AppFrame { get { return mainFrame; } }
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
-        AttachedStaticCompositionEffect<Border> HostWindowBlurEffect;
 
         public MainPage()
         {
@@ -57,12 +56,6 @@ namespace CodeHub.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
             ConfigureAdsVisibility();
-
-            Unloaded += (s,e) => 
-            {
-                Win2DCanvas.RemoveFromVisualTree();
-                Win2DCanvas = null;
-            };
         }
 
         private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
@@ -153,7 +146,7 @@ namespace CodeHub.Views
 
             notifManager = new LocalNotificationManager(NotificationGrid);
 
-            await ConfigureWindowBlur();
+            ConfigureWindowBlur();
             await ConfigureHamburgerMenuBlur();
         }
 
@@ -202,22 +195,18 @@ namespace CodeHub.Views
         /// Sets Acrylic blur effect for host window
         /// </summary>
         /// <returns></returns>
-        public async Task ConfigureWindowBlur()
+        public void ConfigureWindowBlur()
         {
             if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled))
             {
                 if (GetOSBuild() >= 15063 || AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
                 {
-                   HostWindowBlurEffect = await BlurBorder.AttachCompositionCustomAcrylicEffectAsync( ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.8f, Win2DCanvas, new Uri("ms-appx:///Assets/transparent.png"));
+                    BlurBorder.Background = (Brush)App.Current.Resources["HostBackdropAcrylicBrush"];
                 }
             }
             else
             {
-                if (HostWindowBlurEffect != null)
-                {
-                    //Remove the Host Window blur effect
-                    HostWindowBlurEffect.Dispose();
-                }
+                BlurBorder.Background = (Brush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"];
             }
         }
 
@@ -229,7 +218,7 @@ namespace CodeHub.Views
         {
             if (GetOSBuild() >= 15063)
             {
-                await BlurBorderHamburger.AttachCompositionInAppCustomAcrylicEffectAsync(BlurBorderHamburger, 8, 100, ((SolidColorBrush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color, 0.6f, null, Win2DCanvas, new Uri("ms-appx:///Assets/Noise.png"));
+                BlurBorderHamburger.Background = (Brush)App.Current.Resources["InAppAcrylicBrush"];
             }
             else
             {
