@@ -15,6 +15,8 @@
             <!--Resources-->
             <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
+            <SolidColorBrush x:Key="AppPrimaryDarkColorBrush" Color="{StaticResource AppPrimaryColorDark}"/>
+            <Color x:Key="AppPrimaryColorDark">#519932</Color>
 
             <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="#0c0c0c"/>
 

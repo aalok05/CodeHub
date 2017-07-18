@@ -37,7 +37,11 @@
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1"
+               Style="{StaticResource CustomPivotStyle}"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Uid="today" FontSize="15" FontWeight="Normal"/>
@@ -81,7 +85,7 @@
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                  Foreground="{StaticResource AppPrimaryColorBrush}"/>
-                    
+
                     <userControls:IncrementalLoadButtonControl x:Name="todayIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                                                Tapped="{x:Bind ViewModel.TodayIncrementalLoad}"
@@ -97,7 +101,6 @@
                                   Width="40"
                                   Height="40" />
                 </Grid>
-
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>

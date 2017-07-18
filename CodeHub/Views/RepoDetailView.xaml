@@ -354,7 +354,11 @@
             <Pivot x:Name="MainPivot"
                    RelativePanel.AlignBottomWithPanel="True"
                    RelativePanel.Below="DescriptionText"
+                   Style="{StaticResource CustomPivotStyle}"
                    SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+                <Pivot.Resources>
+                    <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+                </Pivot.Resources>
                 <PivotItem Margin="0">
                     <PivotItem.Header>
                         <TextBlock x:Uid="readme"
