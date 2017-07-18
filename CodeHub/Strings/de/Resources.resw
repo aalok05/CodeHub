@@ -163,9 +163,6 @@
     <value>$0,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Kaufe den Entwicklern einen Kaffee.</value>
-  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Folgen</value>
   </data>
@@ -178,9 +175,6 @@
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
     <value>$9,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Spende diesen unglaublichen Betrag, wenn du dich gerade großzügig fühlst und CodeHub liebst.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Commit-Meldungen für Dateien laden</value>
@@ -200,9 +194,6 @@
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
     <value>$2,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Mache den Entwicklern ein Geschenk.</value>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Zeilen nummerieren</value>
@@ -417,10 +408,10 @@
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
     <value>Inhalt hinterm Fenster mit Blur-Effekt anzeigen</value>
   </data>
-  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>$14,99 spenden</value>
   </data>
-  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
     <value>$19,99 spenden</value>
   </data>
   <data name="owned.Text" xml:space="preserve">

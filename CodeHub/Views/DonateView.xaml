@@ -88,7 +88,7 @@
                     IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Fourth_tier_Tapped" />
-            <Button x:Uid="fifthDonateTierDescription"
+            <Button x:Uid="fifthDonateTierAmount"
                     Padding="12"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
@@ -97,7 +97,7 @@
                     IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Fifth_tier_Tapped" />
-            <Button x:Uid="sixthDonateTierDescription"
+            <Button x:Uid="sixthDonateTierAmount"
                     Padding="12"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"

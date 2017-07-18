@@ -163,9 +163,6 @@
     <value>Doar US $0,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Compre um café para o desenvolvedor.</value>
-  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Seguir</value>
   </data>
@@ -178,9 +175,6 @@
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
     <value>Doar US $9,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Doe esta quantia magnífica se você está sentindo generoso e ama o CodeHub.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Mensagens de confirmação de commit para arquivos</value>
@@ -201,9 +195,6 @@
     <value>Doar US $2,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Dê um presente para o desenvolvedor.</value>
-  </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Mostrar número das linhas</value>
   </data>
@@ -216,9 +207,6 @@
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
     <value>Doar US $4,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>Apoiar ativamente o desenvolvimento de CodeHub com esta doação impressionante.</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>Deixar de Seguir</value>
@@ -417,10 +405,7 @@
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
     <value>Blur content behind window</value>
   </data>
-  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
-    <value>Doar US $14,99</value>
-  </data>
-  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
     <value>Doar US $19,99</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
@@ -434,5 +419,8 @@
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
     <value>Check for Notifications frequently</value>
+  </data>
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
+    <value>Doar US $14,99</value>
   </data>
 </root>
