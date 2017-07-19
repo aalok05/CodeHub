@@ -123,16 +123,16 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        <Grid Margin="0,0,16,16"
-              Padding="0"
-              HorizontalAlignment="Right"
-              VerticalAlignment="Bottom"
-              Tapped="AppBarButton_Tapped">
-            <Ellipse Width="50"
-                     Height="50"
-                     Fill="{StaticResource AppPrimaryColorBrush}" />
-            <SymbolIcon Symbol="Add" />
-        </Grid>
+        <Button Margin="0,0,16,16"
+                Width="50"
+                Height="50"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Tapped="AppBarButton_Tapped"
+                Background="{StaticResource AppPrimaryColorBrush}"
+                Style="{StaticResource RoundedButtonStyle}">
+            <SymbolIcon Symbol="Add" Foreground="White"/>
+        </Button>
         <RelativePanel x:Name="createIssuePanel">
             <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     Opacity="0.1"
