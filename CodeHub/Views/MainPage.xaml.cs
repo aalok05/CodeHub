@@ -22,8 +22,9 @@ using Windows.System.Profile;
 using UICompositionAnimations.Behaviours;
 using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
-using UICompositionAnimations.Behaviours.Effects;
 using CodeHub.Helpers;
+using UICompositionAnimations.Brushes;
+using UICompositionAnimations.Helpers;
 
 namespace CodeHub.Views
 {
@@ -197,17 +198,13 @@ namespace CodeHub.Views
         /// <returns></returns>
         public void ConfigureWindowBlur()
         {
-            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled))
+            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled) &&
+                ApiInformationHelper.IsCreatorsUpdateOrLater &&
+                !ApiInformationHelper.IsMobileDevice)
             {
-                if (GetOSBuild() >= 15063 || AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
-                {
-                    BlurBorder.Background = (Brush)App.Current.Resources["HostBackdropAcrylicBrush"];
-                }
+                BlurBorder.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HostBackdropAcrylicBrush");
             }
-            else
-            {
-                BlurBorder.Background = (Brush)App.Current.Resources["ApplicationPageBackgroundThemeBrush"];
-            }
+            else BlurBorder.Background = (Brush)XAMLHelper.GetGenericResourceValue("ApplicationPageBackgroundThemeBrush");
         }
 
         /// <summary>
@@ -216,14 +213,11 @@ namespace CodeHub.Views
         /// <returns></returns>
         public async Task ConfigureHamburgerMenuBlur()
         {
-            if (GetOSBuild() >= 15063)
+            if (ApiInformationHelper.IsCreatorsUpdateOrLater)
             {
-                BlurBorderHamburger.Background = (Brush)App.Current.Resources["InAppAcrylicBrush"];
+                BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
             }
-            else
-            {
-                await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
-            }
+            else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
         }
         #endregion
     }
