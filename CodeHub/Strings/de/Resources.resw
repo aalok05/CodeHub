@@ -208,9 +208,6 @@
     <value>$4,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>Unterstütze die Entwicklung von CodeHub aktiv mit dieser tollen Spende.</value>
-  </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>Nicht mehr folgen</value>
   </data>

@@ -176,9 +176,6 @@
     <value>捐赠9.99美元</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>慷慨的捐出这么多如果您喜爱CodeHub</value>
-  </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>加载文件的提交消息</value>
   </data>
@@ -210,9 +207,6 @@
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
     <value>捐赠4.99美元</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>大力支持CodeHub的开发</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>取消关注</value>
