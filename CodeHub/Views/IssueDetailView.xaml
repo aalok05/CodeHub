@@ -183,7 +183,11 @@
 
             </ScrollViewer>
         </RelativePanel>
-        <Pivot x:Name="CommentsPivot">
+        <Pivot x:Name="CommentsPivot"
+               Style="{StaticResource CustomPivotStyle}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Margin="0 4 0 4" Orientation="Horizontal">

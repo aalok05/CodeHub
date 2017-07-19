@@ -1,17 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -118,268 +118,274 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="commented.Text" xml:space="preserve">
-    <value>评论</value>
+    <value>a commenté</value>
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
   <data name="credits.Header" xml:space="preserve">
-    <value>开发人员</value>
+    <value>Credits</value>
   </data>
   <data name="disclaimer.Text" xml:space="preserve">
-    <value>本程序并不隶属于GitHub且与Github无任何关系</value>
+    <value>Cette application n'est en aucun cas affiliée à Github.</value>
   </data>
   <data name="privacyLink.Content" xml:space="preserve">
-    <value>隐私政策</value>
+    <value>Politique de confidentialité</value>
   </data>
   <data name="rateButtonContent.Text" xml:space="preserve">
-    <value>在商店中评价</value>
+    <value>Noter dans le store</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
-    <value>主题</value>
+    <value>Thème</value>
   </data>
   <data name="themeTip.Text" xml:space="preserve">
-    <value>重新启动应用使主题更改生效</value>
+    <value>L'application doit redémarrer pour prendre en compte les changements de thèmes</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
-    <value>深色主题</value>
+    <value>Thème Dark</value>
   </data>
   <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
-    <value>浅色主题</value>
+    <value>Thème Light</value>
   </data>
   <data name="version.Text" xml:space="preserve">
-    <value>版本</value>
+    <value>Version</value>
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
   <data name="adSetting.Text" xml:space="preserve">
-    <value>显示广告以支持开发</value>
+    <value>Soutenez le développement, activez les pubs.</value>
   </data>
   <data name="busyScreen.BusyText" xml:space="preserve">
-    <value>请稍后...</value>
+    <value>Patientez...</value>
     <comment>preserve ellipsis here</comment>
   </data>
   <data name="donate.Text" xml:space="preserve">
-    <value>捐赠以支持 CodeHub</value>
+    <value>Faire un don pour soutenir CodeHub</value>
   </data>
   <data name="firstDonateTierAmount.Content" xml:space="preserve">
-    <value>捐赠0.99美元</value>
+    <value>Donner 0.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
+  <data name="firstDonateTierDescription.Text" xml:space="preserve">
+    <value>Offre un café au développeur.</value>
+  </data>
   <data name="followButton.Content" xml:space="preserve">
-    <value>关注TA</value>
+    <value>S'abonner</value>
   </data>
   <data name="followers.Text" xml:space="preserve">
-    <value>关注我的</value>
+    <value>abonnés</value>
   </data>
   <data name="following.Text" xml:space="preserve">
-    <value>我关注的</value>
+    <value>abonnements</value>
   </data>
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
-    <value>捐赠9.99美元</value>
+    <value>Donner 9.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>慷慨的捐出这么多如果您喜爱CodeHub</value>
+    <value>Donnez cette somme remarquable si vous êtes généreux et que vous aimez CodeHub.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
-    <value>加载文件的提交消息</value>
+    <value>Load commit messages for files</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>你还没有任何事件</value>
+    <value>Vous n'avez aucun événement pour le moment</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
-    <value>选择一个捐赠选项</value>
+    <value>Choisir une option pour soutenir le développeur</value>
   </data>
   <data name="preview.Text" xml:space="preserve">
-    <value>预览</value>
+    <value>Aperçu</value>
   </data>
   <data name="repositories.Text" xml:space="preserve">
-    <value>仓库</value>
+    <value>dépôts</value>
   </data>
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
-    <value>捐赠2.99美元</value>
+    <value>Donner 2.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
+  <data name="secondDonateTierDescription.Text" xml:space="preserve">
+    <value>Offrir un cadeau au dévellopeur</value>
+  </data>
   <data name="showLineNumber.Text" xml:space="preserve">
-    <value>显示行号</value>
+    <value>Afficher les numéros de ligne</value>
   </data>
   <data name="showReadMe.Text" xml:space="preserve">
-    <value>显示README</value>
+    <value>Afficher README dans la page du dépôt.</value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
-    <value>语法高亮样式</value>
+    <value>Syntax Highlighting style</value>
   </data>
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
-    <value>捐赠4.99美元</value>
+    <value>Donner 4.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>大力支持CodeHub的开发</value>
+    <value>Supportez activement le dévellopement de CodeHub avec cette superbe donation.</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
-    <value>取消关注</value>
+    <value>se désabonner</value>
   </data>
   <data name="unsupportedFileType.Text" xml:space="preserve">
-    <value>暂不支持该类型的文件</value>
+    <value>Format de fichier non supporté</value>
   </data>
   <data name="all.Text" xml:space="preserve">
-    <value>所有</value>
+    <value>tout les</value>
     <comment>Context: all repositories</comment>
   </data>
   <data name="closed.Text" xml:space="preserve">
-    <value>已关闭</value>
+    <value>fermé</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
   <data name="comments.Text" xml:space="preserve">
-    <value>评论</value>
+    <value>Commentaires</value>
     <comment>Context: Your commit received 5 comments</comment>
   </data>
   <data name="loadMoreButton.Content" xml:space="preserve">
-    <value>加载更多...</value>
+    <value>Charger plus...</value>
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>我的</value>
+    <value>à moi</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
-    <value>我的仓库</value>
+    <value>Mes dépôts</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>动态</value>
+    <value>Fil d'actualités</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>暂无已关闭的问题</value>
+    <value>Aucun problème fermé</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>暂无问题</value>
+    <value>Aucun problème</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
-    <value>暂无新通知</value>
+    <value>Pas de nouvelles notifications</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>暂无打开的问题</value>
+    <value>Aucun problème ouvert</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>暂无组织.在你的组织设置中关闭对第三方应用的限制</value>
+    <value>No organizations yet. Disable third-party application restrictions for your organization</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>暂无仓库</value>
+    <value>Aucun dépôts</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>暂无加星标的仓库</value>
+    <value>Aucun dépôts favoris</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
-    <value>打开</value>
+    <value>ouvert par</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
   <data name="open.Text" xml:space="preserve">
-    <value>打开</value>
+    <value>ouvert</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="organizations.Text" xml:space="preserve">
-    <value>组织</value>
+    <value>Organisations</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>参与</value>
+    <value>participant/value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
-    <value>刷新</value>
+    <value>Actualiser</value>
   </data>
   <data name="signOut.Text" xml:space="preserve">
-    <value>注销</value>
+    <value>Deconnection</value>
   </data>
   <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
-    <value>退订此帖</value>
+    <value>Se désabonner de ce fil</value>
   </data>
   <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
-    <value>标记为已读</value>
+    <value>Marquer comme lu</value>
   </data>
   <data name="starred.Text" xml:space="preserve">
-    <value>带星标</value>
+    <value>favoris</value>
     <comment>Context: starred repositories</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
-    <value>本月</value>
+    <value>ce mois-ci</value>
   </data>
   <data name="thisWeek.Text" xml:space="preserve">
-    <value>本周</value>
+    <value>cette semaine</value>
   </data>
   <data name="today.Text" xml:space="preserve">
-    <value>今日</value>
+    <value>aujourd'hui</value>
   </data>
   <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
-    <value>正从Github获取热门仓库</value>
+    <value>Les dépôts tendances sont mis à jour par Github</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>热门</value>
+    <value>Tendance</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
-    <value>未读</value>
+    <value>non-lues</value>
     <comment>Context: unread notifications</comment>
   </data>
   <data name="code.Text" xml:space="preserve">
-    <value>查看代码</value>
+    <value>Code</value>
   </data>
   <data name="issues.Text" xml:space="preserve">
-    <value>问题</value>
+    <value>Problèmes</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>暂无仓库</value>
+    <value>Aucun dépôt</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>没有找到结果</value>
+    <value>Aucun résultat</value>
   </data>
-  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>开始搜索!</value>
+  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+    <value>search away!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
-    <value>登录</value>
+    <value>Se connecter</value>
   </data>
   <data name="signInTips.Text" xml:space="preserve">
-    <value>登录您的GitHub帐户以继续</value>
+    <value>Connectez-vous à votre compte Github pour continuer</value>
   </data>
   <data name="welcome.Text" xml:space="preserve">
-    <value>欢迎使用CodeHub</value>
-  </data>
-  <data name="contributor.Text" xml:space="preserve">
-    <value>贡献者</value>
+    <value>Bienvenue sur CodeHub</value>
   </data>
   <data name="creator.Text" xml:space="preserve">
-    <value>创造者</value>
-    <comment>Maker of the app</comment>
+    <value>Createur</value>
+    <comment>Createur de l'application</comment>
   </data>
   <data name="translator.Text" xml:space="preserve">
-    <value>译者</value>
+    <value>Traducteurs</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Contributeurs</value>
   </data>
   <data name="clone.Text" xml:space="preserve">
-    <value>Clone</value>
+    <value>Cloner</value>
   </data>
   <data name="share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>Partager</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
     <value>Labels</value>
   </data>
   <data name="comment.PlaceholderText" xml:space="preserve">
-    <value>Comment</value>
+    <value>Commenter</value>
   </data>
   <data name="newIssue.Label" xml:space="preserve">
-    <value>New Issue</value>
+    <value>Nouveau Problème</value>
   </data>
   <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Title</value>
+    <value>Titre</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Body</value>
+    <value>Corps</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Create</value>
+    <value>Créer</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>activitée</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -388,16 +394,16 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>CONTRIBUTEURS</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>VERSIONS</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>Aucune Pull Requests fermées</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>Aucune Pull Requests ouvertes</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -406,27 +412,27 @@
     <value>Commits</value>
   </data>
   <data name="contacts.Text" xml:space="preserve">
-    <value>往来</value>
+    <value>Contacts</value>
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Blur content behind window</value>
+    <value>Estomper le contenu derrière la fenêtre</value>
   </data>
-  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
-    <value>捐赠14.99美元</value>
+  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+    <value>Donner 14.99$</value>
   </data>
-  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
-    <value>捐赠19.99美元</value>
+  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+    <value>Donner 19.99$</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>possédé</value>
   </data>
   <data name="save.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Sauvegarder</value>
   </data>
   <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
+    <value>Marquer tout comme lu</value>
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
-    <value>Check for Notifications frequently</value>
+    <value>Checker fréquemment les notifications</value>
   </data>
 </root>

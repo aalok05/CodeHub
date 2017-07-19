@@ -159,12 +159,9 @@
   <data name="donate.Text" xml:space="preserve">
     <value>Dona para continuar con el soporte de CodeHub</value>
   </data>
-  <data name="firstDonateTierAmount.Text" xml:space="preserve">
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
     <value>$0.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Comprar al desarrollador un café.</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Seguir</value>
@@ -175,12 +172,9 @@
   <data name="following.Text" xml:space="preserve">
     <value>siguiendo</value>
   </data>
-  <data name="fourthDonateTierAmount.Text" xml:space="preserve">
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
     <value>$9.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Dona esta magnífica suma si te sientes generoso y amas CodeHub.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Cargar los mensajes de commit para los archivos</value>
@@ -197,12 +191,9 @@
   <data name="repositories.Text" xml:space="preserve">
     <value>Repositorios</value>
   </data>
-  <data name="secondDonateTierAmount.Text" xml:space="preserve">
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
     <value>$2.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Proporcione un regalo al desarrollador.</value>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Mostrar números de línea</value>
@@ -213,12 +204,9 @@
   <data name="syntaxHightlignting.Text" xml:space="preserve">
     <value>Estilo de resaltado de sintaxis</value>
   </data>
-  <data name="thirdDonateTierAmount.Text" xml:space="preserve">
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
     <value>$4.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>Apoyar activamente el desarrollo de CodeHub con esta impresionante donación.</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>Dejar de seguir</value>
@@ -335,7 +323,7 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>No hay Resultados</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>Buscar</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
@@ -356,5 +344,11 @@
   </data>
   <data name="contributor.Text" xml:space="preserve">
     <value>Colaboradores</value>
+  </data>
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
+    <value>$14.99</value>
+  </data>
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
+    <value>$19.99</value>
   </data>
 </root>

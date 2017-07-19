@@ -22,7 +22,11 @@
         <Grid Height="48"
               VerticalAlignment="Top"
               Background="{ThemeResource SystemChromeLowColor}" />
-        <Pivot SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+        <Pivot Style="{StaticResource CustomPivotStyle}"
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">

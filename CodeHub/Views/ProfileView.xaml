@@ -146,7 +146,11 @@
             </RelativePanel>
         </ScrollViewer>
         
-        <Pivot Grid.Row="1">
+        <Pivot Grid.Row="1"
+               Style="{StaticResource CustomPivotStyle}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <StackPanel Orientation="Horizontal">

@@ -116,7 +116,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <canvas:CanvasControl x:Name="Win2DCanvas" Opacity="0"/>
+
         <Grid x:Name="MainGrid"
               Background="Transparent"
               Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">

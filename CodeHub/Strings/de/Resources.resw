@@ -160,11 +160,8 @@
     <value>CodeHub durch eine Spende unterstützen</value>
   </data>
   <data name="firstDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $0,99</value>
+    <value>$0,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Kaufe den Entwicklern einen Kaffee.</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Folgen</value>
@@ -173,14 +170,11 @@
     <value>Follower</value>
   </data>
   <data name="following.Text" xml:space="preserve">
-    <value>folgen</value>
+    <value>Du folgst</value>
   </data>
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $9,99</value>
+    <value>$9,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Spende diesen unglaublichen Betrag, wenn du dich gerade großzügig fühlst und CodeHub liebst.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Commit-Meldungen für Dateien laden</value>
@@ -195,14 +189,11 @@
     <value>Vorschau</value>
   </data>
   <data name="repositories.Text" xml:space="preserve">
-    <value>repositories</value>
+    <value>Repositories</value>
   </data>
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $2,99</value>
+    <value>$2,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Mache den Entwicklern ein Geschenk.</value>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Zeilen nummerieren</value>
@@ -214,7 +205,7 @@
     <value>Syntax-Highlighting-Stil</value>
   </data>
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
-    <value>Spenden $4,99</value>
+    <value>$4,99 spenden</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="thirdDonateTierDescription.Text" xml:space="preserve">
@@ -243,7 +234,7 @@
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>mir</value>
+    <value>Von dir</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
@@ -335,8 +326,8 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>Keine Ergebnisse</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
-    <value>Suche los!</value>
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>Suchen</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Anmelden</value>
@@ -376,16 +367,16 @@
     <value>Titel</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Rumpf</value>
+    <value>Text</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Erstelle</value>
+    <value>Erstellen</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>aktivität</value>
+    <value>Aktivität</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -394,7 +385,7 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>MITARBEITER</value>
+    <value>MITWIRKENDE</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
     <value>VERÖFFENTLICHUNGEN</value>
@@ -406,7 +397,7 @@
     <value>Keine offenen Aufnahmeanträge</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
-    <value>commited</value>
+    <value>übergab den Commit</value>
   </data>
   <data name="commits.Text" xml:space="preserve">
     <value>Commits</value>
@@ -417,22 +408,22 @@
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
     <value>Inhalt hinterm Fenster mit Blur-Effekt anzeigen</value>
   </data>
-  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
-    <value>Spenden $14,99</value>
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
+    <value>$14,99 spenden</value>
   </data>
-  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
-    <value>Spenden $19,99</value>
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
+    <value>$19,99 spenden</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>eigene</value>
+    <value>Eigene</value>
   </data>
   <data name="save.Content" xml:space="preserve">
     <value>Speichern</value>
   </data>
-  <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
-  </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
     <value>Check for Notifications frequently</value>
+  </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>Mark all as read</value>
   </data>
 </root>

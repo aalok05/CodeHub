@@ -28,6 +28,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        private int _WatchersCount;
+        public int WatchersCount
+        {
+            get
+            {
+                return _WatchersCount;
+            }
+            set
+            {
+                Set(() => WatchersCount, ref _WatchersCount, value);
+            }
+        }
+
+        public bool _NoReadme;
+        public bool NoReadme
+        {
+            get
+            {
+                return _NoReadme;
+            }
+            set
+            {
+                Set(() => NoReadme, ref _NoReadme, value);
+            }
+        }
+
         public bool _isStar;
         public bool IsStar
         {
@@ -168,9 +194,13 @@ namespace CodeHub.ViewModels
                     Repository = repo as Repository;
                 }
 
+                WatchersCount = Repository.SubscribersCount;
                 IsStar = await RepositoryUtility.CheckStarred(Repository);
                 IsWatching = await RepositoryUtility.CheckWatched(Repository);
 
+                if (Repository.SubscribersCount == 0)
+                    WatchersCount = (await RepositoryUtility.GetRepository(Repository.Id)).SubscribersCount;
+                
                 isLoading = false;
             }
         }

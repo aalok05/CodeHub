@@ -163,9 +163,6 @@
     <value>Quyên góp $0,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Mời nhà phát triển một tách cà phê.</value>
-  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Theo dõi</value>
   </data>
@@ -178,9 +175,6 @@
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
     <value>Quyên góp $9,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Bạn rộng rãi và yêu CodeHub hãy tặng số tiền nầy</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Tải cam kết cho các tập tin</value>
@@ -201,9 +195,6 @@
     <value>Quyên góp $2,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Tặng nhà phát triển một món quà.</value>
-  </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Hiện số dòng</value>
   </data>
@@ -216,9 +207,6 @@
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
     <value>Quyên góp $4.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>Tích cực hỗ trợ sự phát triển của CodeHub với tài trợ tuyệt vời này.</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>Hủy theo dõi</value>
@@ -335,7 +323,7 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>Không có kết quả</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>Từ cần tìm!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
@@ -417,10 +405,10 @@
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
     <value>Blur content behind window</value>
   </data>
-  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>Quyên góp $14.99</value>
   </data>
-  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
     <value>Quyên góp $19.99</value>
   </data>
   <data name="owned.Text" xml:space="preserve">

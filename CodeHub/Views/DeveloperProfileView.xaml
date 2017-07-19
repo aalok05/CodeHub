@@ -172,8 +172,12 @@
         </ScrollViewer>
 
         <Pivot Grid.Row="1"
+               Style="{StaticResource CustomPivotStyle}"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}"
                Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Uid="activity"

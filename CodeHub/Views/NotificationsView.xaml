@@ -32,7 +32,11 @@
               Background="{ThemeResource SystemChromeLowColor}" />
         <Pivot x:Name="NotifPivot"
                Grid.Row="1"
+               Style="{StaticResource CustomPivotStyle}"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Uid="unread"

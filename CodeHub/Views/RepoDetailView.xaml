@@ -69,23 +69,22 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+
         <RelativePanel Background="Transparent">
             <toolkitControls:RoundImageEx x:Name="OwnerPic"
                                           Width="80"
                                           Height="80"
                                           Margin="8,8,8,0"
                                           CornerRadius="999"
-                                          Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
                                           DecodePixelHeight="80"
-                                          DecodePixelWidth="80"
                                           DecodePixelType="Logical"
+                                          DecodePixelWidth="80"
                                           IsCacheEnabled="True"
-                                          Stretch="UniformToFill">
-
-            </toolkitControls:RoundImageEx>
+                                          Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
+                                          Stretch="UniformToFill" />
             <HyperlinkButton x:Name="OwnerName"
+                             Margin="0,4,0,0"
                              Padding="0"
-                             Margin="0 4 0 0"
                              Command="{x:Bind ViewModel.ProfileTapped}"
                              RelativePanel.RightOf="OwnerPic">
                 <HyperlinkButton.Content>
@@ -102,20 +101,20 @@
                        RelativePanel.RightOf="OwnerName"
                        Text="/" />
             <TextBlock x:Name="RepoName"
+                       Margin="0,0,0,0"
                        FontWeight="Light"
-                       Margin="0 0 0 0"
                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                       Style="{StaticResource RepoNameTextBlockStyle}"
-                       RelativePanel.RightOf="slash"
                        RelativePanel.AlignRightWithPanel="True"
-                       TextWrapping="Wrap"
-                       Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+                       RelativePanel.RightOf="slash"
+                       Style="{StaticResource RepoNameTextBlockStyle}"
+                       Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}"
+                       TextWrapping="Wrap" />
 
             <TextBlock x:Name="updatedDateText"
+                       Margin="0,2,0,0"
                        FontSize="12"
-                       Margin="0 2 0 0"
-                       RelativePanel.Below="RepoName"
                        RelativePanel.AlignLeftWith="OwnerName"
+                       RelativePanel.Below="RepoName"
                        Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             <TextBlock x:Name="sizeCount"
                        Margin="8,2,0,0"
@@ -130,7 +129,7 @@
                        RelativePanel.RightOf="sizeCount"
                        Text="KB" />
             <TextBlock x:Name="LanguageText"
-                       Margin="0 0 8 0"
+                       Margin="0,0,8,0"
                        FontSize="25"
                        Foreground="Gray"
                        Opacity="0.6"
@@ -194,7 +193,6 @@
                                Text="{x:Bind ViewModel.Repository.StargazersCount, Mode=OneWay}" />
                 </StackPanel>
             </Button>
-
             <Button x:Name="WatchButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
@@ -203,8 +201,8 @@
                     RelativePanel.Below="OwnerPic"
                     Style="{StaticResource ActionButtonStyle}">
                 <StackPanel Orientation="Vertical">
-                    <Path HorizontalAlignment="Center"
-                          Width="22"
+                    <Path Width="22"
+                          HorizontalAlignment="Center"
                           Data="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"
                           StrokeThickness="0.0">
                         <Path.RenderTransform>
@@ -226,10 +224,9 @@
                                HorizontalAlignment="Center"
                                FontSize="14"
                                FontWeight="SemiLight"
-                               Text="{x:Bind ViewModel.Repository.SubscribersCount, Mode=OneWay}" />
+                               Text="{x:Bind ViewModel.WatchersCount, Mode=OneWay}" />
                 </StackPanel>
             </Button>
-
             <Button x:Name="ForkButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
@@ -261,7 +258,6 @@
                 </StackPanel>
 
             </Button>
-
             <Button x:Name="ShareButton"
                     MinWidth="40"
                     Margin="0,0,8,0"
@@ -303,7 +299,7 @@
                         </Viewbox>
                         <TextBlock x:Name="ViewCodeTextBlock"
                                    x:Uid="code"
-                                   Margin="4 0 0 0"
+                                   Margin="4,0,0,0"
                                    FontSize="12" />
                     </StackPanel>
                 </Button>
@@ -350,15 +346,20 @@
                        Margin="8,8,0,8"
                        FontSize="15"
                        RelativePanel.Below="ButtonsPanel"
+                       RelativePanel.AlignHorizontalCenterWith="ButtonsPanel"
                        Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
-                       TextAlignment="Left"
+                       TextAlignment="Center"
                        TextWrapping="Wrap"
                        Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
 
             <Pivot x:Name="MainPivot"
                    RelativePanel.AlignBottomWithPanel="True"
                    RelativePanel.Below="DescriptionText"
+                   Style="{StaticResource CustomPivotStyle}"
                    SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+                <Pivot.Resources>
+                    <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+                </Pivot.Resources>
                 <PivotItem Margin="0">
                     <PivotItem.Header>
                         <TextBlock x:Uid="readme"
@@ -371,7 +372,12 @@
                                   VerticalScrollBarVisibility="Hidden"
                                   VerticalScrollMode="Enabled">
                         <Grid x:Name="ReadmeGrid">
-                            <WebView x:Name="ReadmeWebView" NavigationCompleted="WebView_NavigationCompleted" />
+                            <TextBlock Text="NO README"
+                                       Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                       Style="{StaticResource ZeroItemsTextBoxStyle}"/>
+                            <WebView x:Name="ReadmeWebView" 
+                                     Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}"
+                                     NavigationCompleted="WebView_NavigationCompleted" />
 
                             <ProgressRing x:Name="ReadmeLoadingRing"
                                           Width="40"
@@ -400,7 +406,7 @@
                                     <StackPanel Orientation="Horizontal">
                                         <Border Width="40"
                                                 Height="40"
-                                                Margin="8 8 10 0"
+                                                Margin="8,8,10,0"
                                                 CornerRadius="8,8,8,8">
                                             <Border.Background>
                                                 <ImageBrush>
@@ -483,7 +489,7 @@
                                                        TextWrapping="Wrap" />
                 </ScrollViewer>
                 <Button x:Name="CloseReleaseTextPanel"
-                        Margin="0 8 8 0"
+                        Margin="0,8,8,0"
                         Padding="12"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
@@ -499,6 +505,5 @@
                                         RelativePanel.AlignRightWithPanel="True"
                                         TopScrollingRequested="TopScroller_OnTopScrollingRequested" />-->
         </RelativePanel>
-        
     </Grid>
 </Page>

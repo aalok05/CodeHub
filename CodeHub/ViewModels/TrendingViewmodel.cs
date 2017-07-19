@@ -17,7 +17,7 @@ using System.Threading;
 
 namespace CodeHub.ViewModels
 {
-    public class HomeViewmodel : AppViewmodel
+    public class TrendingViewmodel : AppViewmodel
     {
         #region properties
         public enum TimeRange

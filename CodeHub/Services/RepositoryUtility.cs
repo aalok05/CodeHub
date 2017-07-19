@@ -13,7 +13,7 @@ using Windows.Web.Http;
 using CodeHub.Models;
 using HtmlAgilityPack;
 using JetBrains.Annotations;
-using static CodeHub.ViewModels.HomeViewmodel;
+using static CodeHub.ViewModels.TrendingViewmodel;
 
 namespace CodeHub.Services
 {

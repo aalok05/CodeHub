@@ -2,7 +2,7 @@
 
     <Style x:Key="RepoNameTextBlockStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Left" />
-        <Setter Property="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
     </Style>
     <Style x:Key="ZeroItemsTextBoxStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="18" />
@@ -20,7 +20,6 @@
     </Style>
     <Style x:Key="FollowerCountStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="15" />
-        <Setter Property="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
         <Setter Property="TextAlignment" Value="Center" />
     </Style>
 
