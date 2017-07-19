@@ -128,7 +128,7 @@
                 Height="50"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Tapped="AppBarButton_Tapped"
+                Tapped="AddIssueButton_Tapped"
                 Background="{StaticResource AppPrimaryColorBrush}"
                 Style="{StaticResource RoundedButtonStyle}">
             <SymbolIcon Symbol="Add" Foreground="White"/>
