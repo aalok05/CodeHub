@@ -211,27 +211,23 @@
                         Style="{StaticResource ActionButtonStyle}"
                         Padding="12 0 12 0">
                     <Button.Flyout>
-                        <Flyout>
+                        <Flyout LightDismissOverlayMode="On">
                             <Button Style="{StaticResource ActionButtonStyle}"
                                     Margin="-7"
                                     Tapped="SignOutFlyout_Tapped">
                                 <RelativePanel>
-                                    <Ellipse x:Name="avatar"
-                                         Width="30"
-                                         Height="30"
-                                         Margin="0 0 10 0"
-                                         RelativePanel.AlignVerticalCenterWithPanel="True">
-                                        <Ellipse.Fill>
-                                            <ImageBrush>
-                                                <ImageBrush.ImageSource>
-                                                    <BitmapImage UriSource="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay, FallbackValue='ms-appx:///Assets/profile-placeholder.png'}" 
-                                                             DecodePixelHeight="26"
-                                                             DecodePixelType="Logical"
-                                                             DecodePixelWidth="26"/>
-                                                </ImageBrush.ImageSource>
-                                            </ImageBrush>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
+                                    <toolkitControl:RoundImageEx x:Name="avatar"
+                                                                 Width="30"
+                                                                 Height="30"
+                                                                 Margin="0 0 12 0"
+                                                                 CornerRadius="999"
+                                                                 DecodePixelHeight="30"
+                                                                 DecodePixelType="Logical"
+                                                                 DecodePixelWidth="30"
+                                                                 IsCacheEnabled="True"
+                                                                 Stretch="UniformToFill"
+                                                                 Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"/>
 
                                     <TextBlock x:Name="email"
                                            FontSize="10"
@@ -257,6 +253,7 @@
                        x:FieldModifier="Public"
                        DisplayMode="Overlay"
                        OpenPaneLength="270"
+                       LightDismissOverlayMode="On"
                        PaneBackground="Transparent">
                 <SplitView.Pane>
                     <Grid>
