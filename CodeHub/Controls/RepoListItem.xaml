@@ -125,7 +125,7 @@
         <TextBlock x:Name="StarCount"
                    Margin="0 8 0 0"
                    FontSize="14"
-                   Foreground="Gray"
+                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    RelativePanel.AlignVerticalCenterWith="StarSymbol"
                    RelativePanel.RightOf="StarSymbol"
                    Text="{Binding StargazersCount}" />
@@ -145,7 +145,7 @@
         <TextBlock x:Name="ForkCount"
                    Margin="0 8 12 0"
                    FontSize="14"
-                   Foreground="Gray"
+                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    RelativePanel.AlignVerticalCenterWith="ForkSymbol"
                    RelativePanel.RightOf="ForkSymbol"
                    Text="{Binding ForksCount}" />
