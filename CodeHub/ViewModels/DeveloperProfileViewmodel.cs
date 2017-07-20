@@ -173,7 +173,7 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
-        public async Task Load(string login)
+        public async Task Load(object user)
         {
             if (!GlobalHelper.IsInternet())
             {
@@ -182,33 +182,39 @@ namespace CodeHub.ViewModels
             }
             else
             {
-                if (!string.IsNullOrWhiteSpace(login))
+                isLoading = true;
+                string login = user as string;
+                if(login != null)
                 {
-                    isLoading = true;
-                    Developer = await UserUtility.GetUserInfo(login);
-                    isLoading = false;
-                    if (Developer != null)
+                    if (!string.IsNullOrWhiteSpace(login))
                     {
-                         if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
-                         {
-                             CanFollow = false;
-                         }
-                         else
-                         {
-                             CanFollow = true;
-                             FollowProgress = true;
-                             if (await UserUtility.CheckFollow(Developer.Login))
-                             {
-                                 IsFollowing = true;
-                             }
-                             FollowProgress = false;
-
-                             IsEventsLoading = true;
-                             Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
-                             IsEventsLoading = false;
-                         }
+                        Developer = await UserUtility.GetUserInfo(login);
                     }
                 }
+                else
+                {
+                    Developer = user as User;
+                }
+                if (Developer != null)
+                {
+                    if (Developer.Type == AccountType.Organization)
+                        CanFollow = false;
+                    else
+                    {
+                        CanFollow = true;
+                        FollowProgress = true;
+                        if (await UserUtility.CheckFollow(Developer.Login))
+                        {
+                            IsFollowing = true;
+                        }
+                        FollowProgress = false;
+
+                        IsEventsLoading = true;
+                        Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                        IsEventsLoading = false;
+                    }
+                }
+                isLoading = false;
             }
         }
 

@@ -87,7 +87,7 @@ namespace CodeHub.ViewModels
                                             DestPage = typeof(TrendingView) },
                             new HamItem() { Label = "Profile",
                                             Symbol = (Geometry)XamlReader.Load(profileSymbol),
-                                            DestPage =typeof(ProfileView) },
+                                            DestPage =typeof(DeveloperProfileView) },
                             new HamItem() { Label = "My Repositories",
                                             Symbol = (Geometry)XamlReader.Load(myRepoSymbol),
                                             DestPage =typeof(MyReposView) },
