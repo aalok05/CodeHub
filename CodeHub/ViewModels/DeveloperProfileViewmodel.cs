@@ -133,6 +133,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsOrganization;
+        public bool IsOrganization
+        {
+            get
+            {
+                return _IsOrganization;
+            }
+            set
+            {
+                Set(() => IsOrganization, ref _IsOrganization, value);
+            }
+        }
+
         public bool _IsReposLoading;
         public bool IsReposLoading
         {
@@ -198,21 +211,30 @@ namespace CodeHub.ViewModels
                 if (Developer != null)
                 {
                     if (Developer.Type == AccountType.Organization)
+                    {
                         CanFollow = false;
+                        IsOrganization = true;
+                    }
                     else
                     {
-                        CanFollow = true;
-                        FollowProgress = true;
-                        if (await UserUtility.CheckFollow(Developer.Login))
+                        if (Developer.Login == GlobalHelper.UserLogin)
                         {
-                            IsFollowing = true;
+                            CanFollow = false;
                         }
-                        FollowProgress = false;
-
-                        IsEventsLoading = true;
-                        Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
-                        IsEventsLoading = false;
+                        else
+                        {
+                            CanFollow = true;
+                            FollowProgress = true;
+                            if (await UserUtility.CheckFollow(Developer.Login))
+                            {
+                                IsFollowing = true;
+                            }
+                            FollowProgress = false;
+                        }
                     }
+                    IsEventsLoading = true;
+                    Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                    IsEventsLoading = false;
                 }
                 isLoading = false;
             }
@@ -273,7 +295,8 @@ namespace CodeHub.ViewModels
             if (p.SelectedIndex == 0)
             {
                 IsEventsLoading = true;
-                Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                if(Developer != null)
+                    Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
                 IsEventsLoading = false;
 
             }

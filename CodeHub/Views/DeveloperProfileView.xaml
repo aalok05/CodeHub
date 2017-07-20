@@ -132,7 +132,6 @@
                                Text="{x:Bind ViewModel.Developer.Email, Mode=OneWay}"
                                Visibility="{x:Bind ViewModel.Developer.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
                 </StackPanel>
-
                 <Grid x:Name="ButtonGrid"
                       RelativePanel.AlignHorizontalCenterWithPanel="True"
                       RelativePanel.Below="UserInfoPanel"
@@ -173,8 +172,7 @@
 
         <Pivot Grid.Row="1"
                Style="{StaticResource CustomPivotStyle}"
-               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}"
-               Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
             <Pivot.Resources>
                 <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
             </Pivot.Resources>
@@ -303,9 +301,11 @@
                                   IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
-            <PivotItem Margin="0">
+            <PivotItem Margin="0"
+                       Visibility="{x:Bind ViewModel.IsOrganization, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
                 <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{x:Bind ViewModel.IsOrganization, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
                         <TextBlock x:Uid="followers"
                                    Margin="0 0 10 0"
                                    FontSize="15"/>
@@ -335,7 +335,8 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{x:Bind ViewModel.IsOrganization, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
                         <TextBlock x:Uid="following"
                                    Margin="0 0 8 0"
                                    FontSize="15"/>
