@@ -13,7 +13,7 @@
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" x:Name="BoolToVisibilityConverter" />
     </UserControl.Resources>
-    <RelativePanel>
+    <RelativePanel Padding="12">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Narrow">
@@ -52,7 +52,7 @@
         <toolkitControl:RoundImageEx x:Name="OwnerAvatarEllipse"
                                      Width="60"
                                      Height="60"
-                                     Margin="8,12,8,8"
+                                     Margin="0,0,0,8"
                                      CornerRadius="999"
                                      DecodePixelHeight="60"
                                      DecodePixelType="Logical"
@@ -62,7 +62,7 @@
                                      Source="{Binding Owner.AvatarUrl, Mode=OneWay}" />
 
         <StackPanel x:Name="RepoNamePanel"
-                    Margin="4,12,0,4"
+                    Margin="8,0,0,4"
                     Orientation="Horizontal"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.RightOf="OwnerAvatarEllipse">
@@ -111,12 +111,24 @@
             </StackPanel>
         </StackPanel>
 
+        <TextBlock x:Name="description"
+                   Margin="8,12,4,8"
+                   FontSize="13"
+                   Foreground="Gray"
+                   MaxLines="3"
+                   RelativePanel.AlignLeftWith="RepoNamePanel"
+                   RelativePanel.Below="RepoNamePanel"
+                   Text="{Binding Description}"
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="Wrap"
+                   Visibility="{Binding Description, Converter={StaticResource StringVisibilityConverter}}" />
+        
         <Viewbox x:Name="StarSymbol"
                  MaxWidth="20"
                  MaxHeight="20"
-                 Margin="0,8,4,0"
+                 Margin="4,8,4,0"
                  RelativePanel.AlignLeftWith="RepoNamePanel"
-                 RelativePanel.Below="RepoNamePanel">
+                 RelativePanel.Below="description">
             <SymbolIcon Margin="5"
                         Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                         Symbol="Favorite" />
@@ -158,15 +170,5 @@
                    Text="{Binding Language}"
                    TextWrapping="Wrap" />
 
-        <TextBlock Margin="8,12,4,12"
-                   FontSize="12"
-                   Foreground="Gray"
-                   MaxLines="2"
-                   RelativePanel.AlignLeftWith="OwnerAvatarEllipse"
-                   RelativePanel.Below="StarSymbol"
-                   Text="{Binding Description}"
-                   TextTrimming="CharacterEllipsis"
-                   TextWrapping="Wrap"
-                   Visibility="{Binding Description, Converter={StaticResource StringVisibilityConverter}}" />
     </RelativePanel>
 </UserControl>
