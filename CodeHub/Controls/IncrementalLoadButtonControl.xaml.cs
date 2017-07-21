@@ -31,7 +31,7 @@ namespace CodeHub.Controls
         /// <summary>
         /// Gets or sets the minimum vertical offset before the control is shown
         /// </summary>
-        public double VerticalOffsetThreshold { get; set; } = 400;
+        public double VerticalOffsetThreshold { get; set; } = 60;
 
         private bool _ButtonShown;
 

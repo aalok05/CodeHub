@@ -7,25 +7,26 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Octokit;
 using System.Numerics;
+using Windows.System.Profile;
 
 namespace CodeHub.Views
 {
-    public sealed partial class HomeView : Windows.UI.Xaml.Controls.Page
+    public sealed partial class TrendingView : Windows.UI.Xaml.Controls.Page
     {
-        public HomeViewmodel ViewModel;
+        public TrendingViewmodel ViewModel;
 
-        public HomeView()
+        public TrendingView()
         { 
             this.InitializeComponent();
-            ViewModel = new HomeViewmodel();
+            ViewModel = new TrendingViewmodel();
             this.DataContext = ViewModel;
 
-            Unloaded += HomeView_Unloaded;
+            Unloaded += TrendingView_Unloaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
         }
 
-        private void HomeView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void TrendingView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             todayIncrementalLoadButton.Dispose();
             weekIncrementalLoadButton.Dispose();
@@ -37,6 +38,14 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
             todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
+
+            //Enabling IsPullToRefreshWithMouseEnabled in mobile was causing problem in sliding Pivot horizontally
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+            {
+                todayListView.IsPullToRefreshWithMouseEnabled =
+                weekListView.IsPullToRefreshWithMouseEnabled =
+                monthListView.IsPullToRefreshWithMouseEnabled = true;
+            }
         }
 
         private void Today_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
@@ -56,17 +65,17 @@ namespace CodeHub.Views
             refreshindicator3.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
         }
 
-        private void todayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void TodayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             todayIncrementalLoadButton.InitializeScrollViewer(todayListView);
         }
 
-        private void weekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void WeekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             weekIncrementalLoadButton.InitializeScrollViewer(weekListView);
         }
 
-        private void monthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void MonthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             monthIncrementalLoadButton.InitializeScrollViewer(monthListView);
         }

@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using CodeHub.Helpers;
 using GalaSoft.MvvmLight.Messaging;
+using Windows.System;
 
 namespace CodeHub.Views
 {
@@ -16,6 +17,8 @@ namespace CodeHub.Views
         private const string donateSecondAddOnId = "[Donate_second_tier_id]";
         private const string donateThirdAddOnId = "[Donate_third_tier_id]";
         private const string donateFourthAddOnId = "[Donate_fourth_tier_id]";
+        private const string donateFifthAddOnId = "[Donate_fifth_tier_id]";
+        private const string donateSixthAddOnId = "[Donate_sixth_tier_id]";
 
         private static readonly StoreContext WindowsStore = StoreContext.GetDefault();
 
@@ -32,36 +35,50 @@ namespace CodeHub.Views
                 TryNavigateBackForDesktopState(e.NewState.Name);
         }
 
-        private async void first_tier_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void First_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFirstAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            ReactToPurchaseResult(result);
         }
-        private async void second_tier_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void Second_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateSecondAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            ReactToPurchaseResult(result);
         }
-        private async void third_tier_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void Third_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateThirdAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            ReactToPurchaseResult(result);
         }
-        private async void fourth_tier_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void Fourth_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFourthAddOnId);
             ViewModel.isLoading = false;
-            reactToPurchaseResult(result);
+            ReactToPurchaseResult(result);
+        }
+        private async void Fifth_tier_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.isLoading = true;
+            StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFifthAddOnId);
+            ViewModel.isLoading = false;
+            ReactToPurchaseResult(result);
+        }
+        private async void Sixth_tier_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.isLoading = true;
+            StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateSixthAddOnId);
+            ViewModel.isLoading = false;
+            ReactToPurchaseResult(result);
         }
 
-        private void reactToPurchaseResult(StorePurchaseResult result)
+        private void ReactToPurchaseResult(StorePurchaseResult result)
         {
             if (result.Status == StorePurchaseStatus.Succeeded)
             {
@@ -86,6 +103,12 @@ namespace CodeHub.Views
                     Glyph = "\uE783"
                 });
             }
+        }
+
+        private async void PatreonButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(
+               new Uri("https://www.patreon.com/aalok05"));
         }
     }
 }

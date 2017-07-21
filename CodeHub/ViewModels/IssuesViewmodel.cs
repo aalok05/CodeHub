@@ -31,6 +31,32 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public string _NewIssueTitleText;
+        public string NewIssueTitleText
+        {
+            get
+            {
+                return _NewIssueTitleText;
+            }
+            set
+            {
+                Set(() => NewIssueTitleText, ref _NewIssueTitleText, value);
+            }
+        }
+
+        public string _NewIssueBodyText;
+        public string NewIssueBodyText
+        {
+            get
+            {
+                return _NewIssueBodyText;
+            }
+            set
+            {
+                Set(() => NewIssueBodyText, ref _NewIssueBodyText, value);
+            }
+        }
+
         public bool _zeroOpenIssues;
         /// <summary>
         /// 'No Issues' TextBlock will display if this is true
@@ -163,6 +189,7 @@ namespace CodeHub.ViewModels
         }
 
         #endregion
+
         public async Task Load(Repository repository)
         {
             if (!GlobalHelper.IsInternet())
@@ -190,13 +217,14 @@ namespace CodeHub.ViewModels
                 IsLoadingOpen = false;
 
                 ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
+
             }
         }
 
         public void IssueTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                            .NavigateAsync(typeof(IssueDetailView), "Issues", new Tuple<string, string, Issue>(Repository.Owner.Login, Repository.Name, e.ClickedItem as Issue));
+                            .NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(Repository, e.ClickedItem as Issue));
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -204,9 +232,17 @@ namespace CodeHub.ViewModels
             Pivot p = sender as Pivot;
 
             if (p.SelectedIndex == 0)
-            return;
-            
-            if (p.SelectedIndex == 1)
+            {
+                IsLoadingOpen = true;
+                OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
+                {
+                    State = ItemStateFilter.Open
+                });
+                IsLoadingOpen = false;
+
+                ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
+            }
+            else if (p.SelectedIndex == 1)
             {
                 IsLoadingClosed = true;
 
@@ -221,10 +257,37 @@ namespace CodeHub.ViewModels
             else if (p.SelectedIndex == 2)
             {
                 IsLoadingMine = true;
-                MyIssues = await RepositoryUtility.GetAllIssuesForRepoByUser(Repository.Id);
+                MyIssues = await UserUtility.GetAllIssuesForRepoByUser(Repository.Id);
                 IsLoadingMine = false;
 
                 ZeroMyIssues = MyIssues.Count == 0 ? true : false;
+            }
+        }
+
+        private RelayCommand _CreateIssue;
+        public RelayCommand CreateIssue
+        {
+            get
+            {
+                return _CreateIssue
+                    ?? (_CreateIssue = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if(!string.IsNullOrWhiteSpace(NewIssueTitleText))
+                                              {
+                                                  NewIssue newIssue = new NewIssue(NewIssueTitleText);
+                                                  newIssue.Body = NewIssueBodyText;
+                                                  isLoading = true;
+                                                  Issue issue = await IssueUtility.CreateIssue(Repository.Id, newIssue);
+                                                  isLoading = false;
+                                                  if (issue != null)
+                                                  {
+                                                      await SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
+                                                        .NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(Repository, issue));
+                                                  }
+                                              }
+                                             
+                                          }));
             }
         }
     }

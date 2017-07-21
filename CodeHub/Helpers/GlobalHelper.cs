@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
+using Windows.System.Profile;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Markup;
@@ -20,7 +21,6 @@ namespace CodeHub.Helpers
 
         public class AdsEnabledMessageType
         {
-            public bool isEnabled { get; set; }
         }
         public class SignOutMessageType
         {
@@ -44,18 +44,13 @@ namespace CodeHub.Helpers
         {
 
         }
-
-        /// <summary>
-        /// A class used to signal the UI to refresh when loading the blurred avatar image in the repo detail view
-        /// </summary>
-        public class SetBlurredAvatarUIBrightnessMessageType
+        public class HostWindowBlurMessageType
         {
-            /// <summary>
-            /// Gets or sets the calculated average brightness for the current user avatar
-            /// </summary>
-            public byte Brightness { get; set; }
         }
-
+        public class UpdateUnreadNotificationMessageType
+        {
+            public bool IsUnread { get; set; }
+        }
         #endregion
 
         /// <summary>
@@ -104,7 +99,7 @@ namespace CodeHub.Helpers
         /// <summary>
         /// Converts a Hex string to corressponding SolidColorBrush
         /// </summary>
-        /// <param name="hex"></param>
+        /// <param name="hex">rrggbbaa</param>
         /// <returns></returns>
         public static SolidColorBrush GetSolidColorBrush(string hex)
         {
@@ -120,6 +115,68 @@ namespace CodeHub.Helpers
         {
             var sym = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">"+path+"</Geometry>";
             return (Geometry)XamlReader.Load(sym);
+        }
+
+        /// <summary>
+        /// Gets the OS build
+        /// </summary>
+        /// <returns></returns>
+        public static ulong GetOSBuild()
+        {
+            string deviceFamilyVersion = AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+            ulong version = ulong.Parse(deviceFamilyVersion);
+            //ulong major = (version & 0xFFFF000000000000L) >> 48;
+            //ulong minor = (version & 0x0000FFFF00000000L) >> 32;
+            ulong build = (version & 0x00000000FFFF0000L) >> 16;
+            //ulong revision = (version & 0x000000000000FFFFL);
+            //var osVersion = $"{major}.{minor}.{build}.{revision}";
+            return build;
+        }
+
+        /// <summary>
+        /// Coverts a DateTime to 'time ago' format
+        /// </summary>
+        /// <returns></returns>
+        public static string ConvertDateToTimeAgoFormat(DateTime dt)
+        {
+            var ts = new TimeSpan(DateTime.Now.Ticks - dt.Ticks);
+            double delta = Math.Abs(ts.TotalSeconds);
+
+            if (delta < 60)
+            {
+                return ts.Seconds == 1 ? "one second ago" : ts.Seconds + " seconds ago";
+            }
+            if (delta < 120)
+            {
+                return "a minute ago";
+            }
+            if (delta < 2700) // 45 * 60
+            {
+                return ts.Minutes + " minutes ago";
+            }
+            if (delta < 5400) // 90 * 60
+            {
+                return "an hour ago";
+            }
+            if (delta < 86400) // 24 * 60 * 60
+            {
+                return ts.Hours + " hours ago";
+            }
+            if (delta < 172800) // 48 * 60 * 60
+            {
+                return "a day ago";
+            }
+            if (delta < 2592000) // 30 * 24 * 60 * 60
+            {
+                return ts.Days + " days ago";
+            }
+            if (delta < 31104000) // 12 * 30 * 24 * 60 * 60
+            {
+                int months = System.Convert.ToInt32(Math.Floor((double)ts.Days / 30));
+                return months <= 1 ? "one month ago" : months + " months ago";
+            }
+            int years = System.Convert.ToInt32(Math.Floor((double)ts.Days / 365));
+            return years <= 1 ? "one year ago" : years + " years ago";
         }
     }
 

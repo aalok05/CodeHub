@@ -105,25 +105,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _ShowReadmeInRepoPage = SettingsService.Get<bool>(SettingsKeys.ShowReadme);
-
-        /// <summary>
-        /// Gets or sets whether or not the README Webview is visible in RepoDetailView
-        /// </summary>
-        public bool ShowReadmeInRepoPage
-        {
-            get { return _ShowReadmeInRepoPage; }
-            set
-            {
-                if (_ShowReadmeInRepoPage != value)
-                {
-                    _ShowReadmeInRepoPage = value;
-                    SettingsService.Save(SettingsKeys.ShowReadme, value);
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
         public bool _LoadCommitsInfo = SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo);
 
         /// <summary>
@@ -157,7 +138,26 @@ namespace CodeHub.ViewModels
                 {
                     _IsAdsEnabled = value;
                     SettingsService.Save(SettingsKeys.IsAdsEnabled, value);
-                    Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType { isEnabled = value });
+                    Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType());
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public bool _IsNotificationCheckEnabled = SettingsService.Get<bool>(SettingsKeys.IsNotificationCheckEnabled);
+
+        /// <summary>
+        /// Gets or sets whether API calls for unread notifications will be frequently made
+        /// </summary>
+        public bool IsNotificationCheckEnabled
+        {
+            get { return _IsNotificationCheckEnabled; }
+            set
+            {
+                if (_IsNotificationCheckEnabled != value)
+                {
+                    _IsNotificationCheckEnabled = value;
+                    SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, value);
                     RaisePropertyChanged();
                 }
             }

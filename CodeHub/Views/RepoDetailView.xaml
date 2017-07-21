@@ -4,13 +4,14 @@
       xmlns:an="using:Microsoft.Toolkit.Uwp.UI.Animations"
       xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:control="using:CodeHub.Controls"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
       xmlns:converters="using:CodeHub.Converters"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:octo="using:Octokit"
+      xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -27,8 +28,19 @@
                         <AdaptiveTrigger MinWindowWidth="200" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RepoName.FontSize" Value="19" />
+                        <Setter Target="RepoName.FontSize" Value="18" />
+                        <Setter Target="OwnerName.FontSize" Value="13" />
+                        <Setter Target="DescriptionText.FontSize" Value="13" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MobileWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepoName.FontSize" Value="21" />
                         <Setter Target="OwnerName.FontSize" Value="15" />
+                        <Setter Target="DescriptionText.FontSize" Value="14" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -36,9 +48,11 @@
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="OwnerPic.Width" Value="120" />
-                        <Setter Target="OwnerPic.Height" Value="120" />
-                        <Setter Target="RepoName.FontSize" Value="25" />
+                        <Setter Target="OwnerPic.Width" Value="100" />
+                        <Setter Target="OwnerPic.Height" Value="100" />
+                        <Setter Target="RepoName.FontSize" Value="27" />
+                        <Setter Target="OwnerName.FontSize" Value="20" />
+                        <Setter Target="DescriptionText.FontSize" Value="15" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -46,88 +60,118 @@
                         <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="OwnerPic.Width" Value="130" />
-                        <Setter Target="OwnerPic.Height" Value="130" />
+                        <Setter Target="OwnerPic.Width" Value="120" />
+                        <Setter Target="OwnerPic.Height" Value="120" />
                         <Setter Target="RepoName.FontSize" Value="30" />
+                        <Setter Target="OwnerName.FontSize" Value="20" />
+                        <Setter Target="DescriptionText.FontSize" Value="16" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <ScrollViewer x:Name="MainScrollViewer"
-                      HorizontalScrollBarVisibility="Disabled"
-                      HorizontalScrollMode="Disabled"
-                      VerticalScrollBarVisibility="Hidden"
-                      VerticalScrollMode="Enabled">
-            <RelativePanel Grid.RowSpan="2" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Grid Height="155"
-                      Background="Transparent"
-                      RelativePanel.AlignLeftWithPanel="True"
-                      RelativePanel.AlignRightWithPanel="True">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="0.6*" />
-                    </Grid.RowDefinitions>
-                    <controls:ImageEx x:Name="BackgroundImage"
-                                      Grid.Row="0"
-                                      an:ParallaxService.VerticalMultiplier="-0.3"
-                                      IsCacheEnabled="True"
-                                      Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
-                                      Stretch="UniformToFill">
-                        <i:Interaction.Behaviors>
-                            <behaviors:Blur AutomaticallyStart="True"
-                                            Delay="0"
-                                            Value="100"
-                                            Duration="0" />
-                        </i:Interaction.Behaviors>
-                    </controls:ImageEx>
-                </Grid>
-                <Ellipse x:Name="OwnerPic"
-                         Width="100"
-                         Height="100"
-                         Margin="15,10,10,0"
-                         RelativePanel.AlignHorizontalCenterWithPanel="True"
-                         RelativePanel.AlignTopWithPanel="True">
-                    <Ellipse.Fill>
-                        <ImageBrush>
-                            <ImageBrush.ImageSource>
-                                <BitmapImage DecodePixelHeight="130"
-                                             DecodePixelType="Logical"
-                                             DecodePixelWidth="130"
-                                             UriSource="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
 
-                <TextBlock x:Name="RepoName"
-                           Margin="0,12,0,0"
-                           FontWeight="Light"
-                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="OwnerPic"
-                           Style="{StaticResource RepoNameTextBlockStyle}"
-                           Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
-                <HyperlinkButton x:Name="OwnerName"
-                                 Command="{x:Bind ViewModel.ProfileTapped}"
-                                 RelativePanel.AlignHorizontalCenterWith="RepoName"
-                                 RelativePanel.Below="RepoName">
-                    <HyperlinkButton.Content>
-                        <TextBlock x:Name="ProfileLinkBlock"
-                                   FontWeight="SemiBold"
-                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                   Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}"
-                                   TextWrapping="Wrap" />
-                    </HyperlinkButton.Content>
-                </HyperlinkButton>
+        <RelativePanel Background="Transparent">
+            <toolkitControls:RoundImageEx x:Name="OwnerPic"
+                                          Width="80"
+                                          Height="80"
+                                          Margin="8,8,8,0"
+                                          CornerRadius="999"
+                                          DecodePixelHeight="80"
+                                          DecodePixelType="Logical"
+                                          DecodePixelWidth="80"
+                                          IsCacheEnabled="True"
+                                          Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
+                                          Stretch="UniformToFill" />
+            <HyperlinkButton x:Name="OwnerName"
+                             Margin="0,4,0,0"
+                             Padding="0"
+                             Command="{x:Bind ViewModel.ProfileTapped}"
+                             RelativePanel.RightOf="OwnerPic">
+                <HyperlinkButton.Content>
+                    <TextBlock x:Name="ProfileLinkBlock"
+                               FontWeight="SemiBold"
+                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                               Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}"
+                               TextWrapping="Wrap" />
+                </HyperlinkButton.Content>
+            </HyperlinkButton>
+            <TextBlock x:Name="slash"
+                       Margin="4,4,4,0"
+                       RelativePanel.AlignVerticalCenterWith="OwnerName"
+                       RelativePanel.RightOf="OwnerName"
+                       Text="/" />
+            <TextBlock x:Name="RepoName"
+                       Margin="0,0,0,0"
+                       FontWeight="Light"
+                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                       RelativePanel.AlignRightWithPanel="True"
+                       RelativePanel.RightOf="slash"
+                       Style="{StaticResource RepoNameTextBlockStyle}"
+                       Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}"
+                       TextWrapping="Wrap" />
 
-                <Button x:Name="StarButton"
-                        Margin="24,16,12,0"
-                        Background="Transparent"
-                        Command="{x:Bind ViewModel.StarCommand}"
-                        RelativePanel.Below="OwnerName"
-                        RelativePanel.LeftOf="WatchButton"
-                        Style="{StaticResource EmptyButtonStyle}">
-                    <Viewbox MaxWidth="18" MaxHeight="18">
+            <TextBlock x:Name="updatedDateText"
+                       Margin="0,2,0,0"
+                       FontSize="12"
+                       RelativePanel.AlignLeftWith="OwnerName"
+                       RelativePanel.Below="RepoName"
+                       Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
+            <TextBlock x:Name="sizeCount"
+                       Margin="8,2,0,0"
+                       FontSize="12"
+                       RelativePanel.Below="RepoName"
+                       RelativePanel.RightOf="updatedDateText"
+                       Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
+            <TextBlock x:Name="sizeUnitText"
+                       Margin="2,2,12,0"
+                       FontSize="12"
+                       RelativePanel.AlignVerticalCenterWith="sizeCount"
+                       RelativePanel.RightOf="sizeCount"
+                       Text="KB" />
+            <TextBlock x:Name="LanguageText"
+                       Margin="0,0,8,0"
+                       FontSize="25"
+                       Foreground="Gray"
+                       Opacity="0.6"
+                       RelativePanel.AlignRightWithPanel="True"
+                       RelativePanel.AlignVerticalCenterWith="sizeUnitText"
+                       Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
+                       TextWrapping="Wrap"
+                       Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+
+            <Button x:Name="CloneButton"
+                    MinWidth="40"
+                    Margin="0,0,8,0"
+                    Command="{x:Bind ViewModel.CloneCommand}"
+                    RelativePanel.Below="OwnerPic"
+                    RelativePanel.LeftOf="StarButton"
+                    Style="{StaticResource ActionButtonStyle}">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxWidth="19"
+                             MaxHeight="19"
+                             HorizontalAlignment="Center">
+                        <SymbolIcon Symbol="Copy" />
+                    </Viewbox>
+                    <!--  TODO: Translation of 'Clone'  -->
+                    <TextBlock x:Uid="clone"
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Center"
+                               FontSize="13"
+                               FontWeight="SemiLight" />
+                </StackPanel>
+
+            </Button>
+            <Button x:Name="StarButton"
+                    MinWidth="40"
+                    Margin="0,0,8,0"
+                    Command="{x:Bind ViewModel.StarCommand}"
+                    RelativePanel.Below="OwnerPic"
+                    RelativePanel.LeftOf="WatchButton"
+                    Style="{StaticResource ActionButtonStyle}">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxWidth="19"
+                             MaxHeight="19"
+                             HorizontalAlignment="Center">
                         <SymbolIcon Symbol="Favorite">
                             <i:Interaction.Behaviors>
                                 <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="True">
@@ -142,23 +186,25 @@
                             </i:Interaction.Behaviors>
                         </SymbolIcon>
                     </Viewbox>
-
-                </Button>
-                <TextBlock x:Name="StarCountText"
-                           Margin="24,8,12,0"
-                           FontSize="14"
-                           FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWith="StarButton"
-                           RelativePanel.Below="StarButton"
-                           Text="{x:Bind ViewModel.Repository.StargazersCount, Mode=OneWay}" />
-                <Button x:Name="WatchButton"
-                        Margin="20,16,12,0"
-                        Background="Transparent"
-                        Command="{x:Bind ViewModel.WatchCommand}"
-                        RelativePanel.AlignHorizontalCenterWithPanel="True"
-                        RelativePanel.Below="OwnerName"
-                        Style="{StaticResource EmptyButtonStyle}">
-                    <Path Data="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z" StrokeThickness="0.0">
+                    <TextBlock Margin="0,8,0,0"
+                               HorizontalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="SemiLight"
+                               Text="{x:Bind ViewModel.Repository.StargazersCount, Mode=OneWay}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="WatchButton"
+                    MinWidth="40"
+                    Margin="0,0,8,0"
+                    Command="{x:Bind ViewModel.WatchCommand}"
+                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                    RelativePanel.Below="OwnerPic"
+                    Style="{StaticResource ActionButtonStyle}">
+                <StackPanel Orientation="Vertical">
+                    <Path Width="22"
+                          HorizontalAlignment="Center"
+                          Data="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"
+                          StrokeThickness="0.0">
                         <Path.RenderTransform>
                             <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                         </Path.RenderTransform>
@@ -174,22 +220,24 @@
                             </core:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Path>
-                </Button>
-                <TextBlock x:Name="WatchCountText"
-                           Margin="24,12,12,0"
-                           FontSize="14"
-                           FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWith="WatchButton"
-                           RelativePanel.Below="WatchButton"
-                           Text="{x:Bind ViewModel.Repository.SubscribersCount, Mode=OneWay}" />
-                <Button x:Name="ForkButton"
-                        Margin="24,16,0,0"
-                        Background="Transparent"
-                        Command="{x:Bind ViewModel.ForkCommand}"
-                        RelativePanel.Below="OwnerName"
-                        RelativePanel.RightOf="WatchButton"
-                        Style="{StaticResource EmptyButtonStyle}">
-                    <Path Data="F0 M10,16z M0,0z M10,5C10,3.89,9.11,3,8,3A1.993,1.993,0,0,0,7,6.72L7,7.02C6.98,7.54 6.77,8 6.37,8.4 5.97,8.8 5.51,9.01 4.99,9.03 4.16,9.05          3.51,9.19 2.99,9.48L2.99,4.72A1.993,1.993,0,0,0,1.99,1C0.88,1,0,1.89,0,3A2,2,0,0,0,1,4.72L1,11.28C0.41,11.63 0,12.27 0,13 0,14.11 0.89,15 2,15          3.11,15 4,14.11 4,13 4,12.47 3.8,12 3.47,11.64 3.56,11.58 3.95,11.23 4.06,11.17 4.31,11.06 4.62,11 5,11 6.05,10.95 6.95,10.55 7.75,9.75 8.55,8.95          8.95,7.77 9,6.73L8.98,6.73C9.59,6.37,10,5.73,10,5z M2,1.8C2.66,1.8 3.2,2.35 3.2,3 3.2,3.65 2.65,4.2 2,4.2 1.35,4.2 0.8,3.65 0.8,3 0.8,2.35 1.35,1.8          2,1.8z M2,14.21C1.34,14.21 0.8,13.66 0.8,13.01 0.8,12.36 1.35,11.81 2,11.81 2.65,11.81 3.2,12.36 3.2,13.01 3.2,13.66 2.65,14.21 2,14.21z M8,         6.21C7.34,6.21 6.8,5.66 6.8,5.01 6.8,4.36 7.35,3.81 8,3.81 8.65,3.81 9.2,4.36 9.2,5.01 9.2,5.66 8.65,6.21 8,6.21z" StrokeThickness="0.0">
+                    <TextBlock Margin="0,12,0,0"
+                               HorizontalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="SemiLight"
+                               Text="{x:Bind ViewModel.WatchersCount, Mode=OneWay}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="ForkButton"
+                    MinWidth="40"
+                    Margin="0,0,8,0"
+                    Command="{x:Bind ViewModel.ForkCommand}"
+                    RelativePanel.Below="OwnerPic"
+                    RelativePanel.RightOf="WatchButton"
+                    Style="{StaticResource ActionButtonStyle}">
+                <StackPanel Orientation="Vertical">
+                    <Path HorizontalAlignment="Center"
+                          Data="F0 M10,16z M0,0z M10,5C10,3.89,9.11,3,8,3A1.993,1.993,0,0,0,7,6.72L7,7.02C6.98,7.54 6.77,8 6.37,8.4 5.97,8.8 5.51,9.01 4.99,9.03 4.16,9.05          3.51,9.19 2.99,9.48L2.99,4.72A1.993,1.993,0,0,0,1.99,1C0.88,1,0,1.89,0,3A2,2,0,0,0,1,4.72L1,11.28C0.41,11.63 0,12.27 0,13 0,14.11 0.89,15 2,15          3.11,15 4,14.11 4,13 4,12.47 3.8,12 3.47,11.64 3.56,11.58 3.95,11.23 4.06,11.17 4.31,11.06 4.62,11 5,11 6.05,10.95 6.95,10.55 7.75,9.75 8.55,8.95          8.95,7.77 9,6.73L8.98,6.73C9.59,6.37,10,5.73,10,5z M2,1.8C2.66,1.8 3.2,2.35 3.2,3 3.2,3.65 2.65,4.2 2,4.2 1.35,4.2 0.8,3.65 0.8,3 0.8,2.35 1.35,1.8          2,1.8z M2,14.21C1.34,14.21 0.8,13.66 0.8,13.01 0.8,12.36 1.35,11.81 2,11.81 2.65,11.81 3.2,12.36 3.2,13.01 3.2,13.66 2.65,14.21 2,14.21z M8,         6.21C7.34,6.21 6.8,5.66 6.8,5.01 6.8,4.36 7.35,3.81 8,3.81 8.65,3.81 9.2,4.36 9.2,5.01 9.2,5.66 8.65,6.21 8,6.21z"
+                          StrokeThickness="0.0">
                         <Path.RenderTransform>
                             <CompositeTransform ScaleX="1.3" ScaleY="1.3" />
                         </Path.RenderTransform>
@@ -202,179 +250,260 @@
                             </core:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Path>
-                </Button>
-                <TextBlock Margin="20,10,0,0"
-                           FontSize="14"
-                           FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWith="ForkButton"
-                           RelativePanel.Below="ForkButton"
-                           Text="{x:Bind ViewModel.Repository.ForksCount, Mode=OneWay}" />
-
-                <TextBlock x:Name="LanguageText"
-                           Padding="0,12,0,8"
-                           FontSize="18"
-                           FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="StarCountText"
-                           Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
-                           Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-
-                <StackPanel x:Name="ButtonsPanel"
-                            Margin="0,8,0,8"
-                            Orientation="Horizontal"
-                            RelativePanel.AlignHorizontalCenterWithPanel="True"
-                            RelativePanel.Below="LanguageText">
-                    <Button x:Name="ViewCodeButton"
-                            Width="110"
-                            Height="35"
-                            Margin="0,0,20,0"
-                            Command="{x:Bind ViewModel.SourceCodeNavigate}"
-                            Style="{StaticResource ActionButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <Viewbox MaxWidth="14"
-                                     MaxHeight="14"
-                                     Margin="0 0 0 2">
-                                <Path Data="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"
-                                      Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      StrokeThickness="0" />
-                            </Viewbox>
-                            <TextBlock x:Uid="code"
-                                       x:Name="ViewCodeTextBlock"
-                                       Margin="4 0 0 0"
-                                       FontSize="12"
-                                       FontWeight="SemiLight" />
-
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="IssuesButton"
-                            Height="35"
-                            MinWidth="110"
-                            HorizontalAlignment="Center"
-                            Command="{x:Bind ViewModel.IssuesTapped}"
-                            Style="{StaticResource ActionButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <Viewbox MaxWidth="14" MaxHeight="14">
-                                <Path Data="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
-                                      Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      StrokeThickness="0" />
-                            </Viewbox>
-                            <TextBlock x:Uid="issues"
-                                       Margin="4 0 4 0"
-                                       FontSize="12"
-                                       FontWeight="SemiLight" />
-                            <TextBlock VerticalAlignment="Center"
-                                       FontSize="12"
-                                       Text="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}" />
-
-                        </StackPanel>
-                    </Button>
+                    <TextBlock Margin="0,12,0,0"
+                               HorizontalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="SemiLight"
+                               Text="{x:Bind ViewModel.Repository.ForksCount, Mode=OneWay}" />
                 </StackPanel>
 
-                <TextBlock x:Name="DescriptionText"
-                           Margin="8,8,8,12"
-                           x:DeferLoadStrategy="Lazy"
-                           FontSize="15"
-                           FontWeight="SemiLight"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="ButtonsPanel"
-                           Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
-                           TextAlignment="Center"
-                           TextWrapping="Wrap"
-                           Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-                <RelativePanel x:Name="DetailPanel"
-                               Margin="20,4,20,0"
-                               RelativePanel.AlignLeftWithPanel="True"
-                               RelativePanel.AlignRightWithPanel="True"
-                               RelativePanel.Below="DescriptionText">
-                    <Viewbox x:Name="calendarSymbol"
-                             MaxWidth="15"
-                             MaxHeight="15"
-                             Margin="0,0,8,0"
-                             x:DeferLoadStrategy="Lazy"
-                             RelativePanel.LeftOf="createdDateText">
-                        <SymbolIcon Foreground="#525252" Symbol="Calendar" />
-                    </Viewbox>
-                    <TextBlock x:Name="createdDateText"
-                               Margin="0 0 12 0"
-                               x:DeferLoadStrategy="Lazy"
-                               FontSize="12"
-                               RelativePanel.LeftOf="sizeSymbol"
-                               Text="{x:Bind ViewModel.Repository, Converter={StaticResource RepositoryCreationTimeConverter}, Mode=OneWay}" />
+            </Button>
+            <Button x:Name="ShareButton"
+                    MinWidth="40"
+                    Margin="0,0,8,0"
+                    RelativePanel.Below="OwnerPic"
+                    RelativePanel.RightOf="ForkButton"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Tapped="ShareButton_Tapped">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center"
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="18"
+                               Text="&#xE72D;" />
+                    <!--  TODO: Translation of 'Share'  -->
+                    <TextBlock x:Uid="share"
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Center"
+                               FontSize="13"
+                               FontWeight="SemiLight" />
+                </StackPanel>
+            </Button>
 
-                    <Viewbox x:Name="sizeSymbol"
-                             MaxWidth="15"
-                             MaxHeight="15"
-                             Margin="0,0,8,0"
-                             x:DeferLoadStrategy="Lazy"
-                             RelativePanel.LeftOf="sizeCount">
-                        <SymbolIcon Foreground="#525252" Symbol="Shop" />
-                    </Viewbox>
+            <StackPanel x:Name="ButtonsPanel"
+                        Margin="0,8,0,8"
+                        Orientation="Horizontal"
+                        RelativePanel.AlignHorizontalCenterWithPanel="True"
+                        RelativePanel.Below="CloneButton">
+                <Button x:Name="ViewCodeButton"
+                        Width="110"
+                        Height="35"
+                        Command="{x:Bind ViewModel.SourceCodeNavigate}"
+                        Style="{StaticResource ActionButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox MaxWidth="14"
+                                 MaxHeight="14"
+                                 Margin="0,0,0,2">
+                            <Path Data="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"
+                                  Fill="{ThemeResource ApplicationForegroundThemeBrush}"
+                                  StrokeThickness="0" />
+                        </Viewbox>
+                        <TextBlock x:Name="ViewCodeTextBlock"
+                                   x:Uid="code"
+                                   Margin="4,0,0,0"
+                                   FontSize="12" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="IssuesButton"
+                        Height="35"
+                        MinWidth="110"
+                        HorizontalAlignment="Center"
+                        Command="{x:Bind ViewModel.IssuesTapped}"
+                        Style="{StaticResource ActionButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox MaxWidth="14" MaxHeight="14">
+                            <Path Data="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+                                  Fill="{ThemeResource ApplicationForegroundThemeBrush}"
+                                  StrokeThickness="0" />
+                        </Viewbox>
+                        <TextBlock x:Uid="issues"
+                                   Margin="4,0,4,0"
+                                   FontSize="12" />
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="12"
+                                   Text="{x:Bind ViewModel.Repository.OpenIssuesCount, Mode=OneWay}" />
 
-                    <TextBlock x:Name="sizeCount"
-                               Margin="0,0,4,0"
-                               x:DeferLoadStrategy="Lazy"
-                               FontSize="12"
-                               RelativePanel.AlignHorizontalCenterWithPanel="True"
-                               Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
-                    <TextBlock x:Name="sizeUnitText"
-                               Margin="0 0 12 0"
-                               x:DeferLoadStrategy="Lazy"
-                               FontSize="12"
-                               RelativePanel.AlignVerticalCenterWith="sizeCount"
-                               RelativePanel.RightOf="sizeCount"
-                               Text="KB" />
+                    </StackPanel>
+                </Button>
+                <Button Height="35"
+                        MinWidth="110"
+                        HorizontalAlignment="Center"
+                        Command="{x:Bind ViewModel.PullRequestsTapped}"
+                        Style="{StaticResource ActionButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox MaxWidth="14" MaxHeight="14">
+                            <Path Data="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"
+                                  Fill="{ThemeResource ApplicationForegroundThemeBrush}"
+                                  StrokeThickness="0" />
+                        </Viewbox>
+                        <TextBlock x:Uid="pullRequests"
+                                   Margin="4,0,4,0"
+                                   FontSize="12" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
 
-                    <Viewbox x:Name="editSymbol"
-                             MaxWidth="15"
-                             MaxHeight="15"
-                             Margin="0,0,8,0"
-                             x:DeferLoadStrategy="Lazy"
-                             RelativePanel.RightOf="sizeUnitText">
-                        <SymbolIcon Foreground="#525252" Symbol="Edit" />
-                    </Viewbox>
-                    <TextBlock x:Name="updatedDateText"
-                               x:DeferLoadStrategy="Lazy"
-                               FontSize="12"
-                               RelativePanel.RightOf="editSymbol"
-                               Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
-                </RelativePanel>
+            <TextBlock x:Name="DescriptionText"
+                       Margin="8,8,0,8"
+                       FontSize="15"
+                       RelativePanel.Below="ButtonsPanel"
+                       RelativePanel.AlignHorizontalCenterWith="ButtonsPanel"
+                       Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Visibility="{x:Bind ViewModel.Repository.Description, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
 
-                <Grid x:Name="ReadmeGrid"
-                      Margin="0,16,0,0"
-                      RelativePanel.AlignBottomWithPanel="True"
-                      RelativePanel.AlignLeftWithPanel="True"
-                      RelativePanel.AlignRightWithPanel="True"
-                      RelativePanel.Below="DetailPanel">
-                    <WebView x:Name="ReadmeWebView"
-                             Height="500"
-                             NavigationCompleted="WebView_NavigationCompleted" />
-                    <ProgressRing x:Name="ReadmeLoadingRing"
-                                  Width="32"
-                                  Height="32"
-                                  Margin="0,20,0,0"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsHitTestVisible="False"
-                                  RelativePanel.AlignHorizontalCenterWith="ReadmeWebView"
-                                  RelativePanel.Below="DetailPanel" />
-                </Grid>
+            <Pivot x:Name="MainPivot"
+                   RelativePanel.AlignBottomWithPanel="True"
+                   RelativePanel.Below="DescriptionText"
+                   Style="{StaticResource CustomPivotStyle}"
+                   SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+                <Pivot.Resources>
+                    <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+                </Pivot.Resources>
+                <PivotItem Margin="0">
+                    <PivotItem.Header>
+                        <TextBlock x:Uid="readme"
+                                   FontSize="15"
+                                   FontWeight="SemiBold" />
+                    </PivotItem.Header>
+                    <ScrollViewer x:Name="ReadmeScrollViewer"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  HorizontalScrollMode="Disabled"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  VerticalScrollMode="Enabled">
+                        <Grid x:Name="ReadmeGrid">
+                            <TextBlock Text="NO README"
+                                       Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                       Style="{StaticResource ZeroItemsTextBoxStyle}"/>
+                            <WebView x:Name="ReadmeWebView" 
+                                     Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}"
+                                     NavigationCompleted="WebView_NavigationCompleted" />
 
-                <ProgressRing Width="40"
-                              Height="40"
-                              Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                              IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}"
-                              RelativePanel.AlignHorizontalCenterWithPanel="True"
-                              RelativePanel.AlignVerticalCenterWithPanel="True" />
-            </RelativePanel>
-        </ScrollViewer>
+                            <ProgressRing x:Name="ReadmeLoadingRing"
+                                          Width="40"
+                                          Height="40"
+                                          Foreground="{ThemeResource AppPrimaryColorBrush}" />
+                        </Grid>
 
-        <!--  Top scroller button  -->
-        <control:TopScrollerControl x:Name="TopScroller"
-                                    Margin="0,0,32,24"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom"
-                                    RelativePanel.AlignBottomWithPanel="True"
-                                    RelativePanel.AlignRightWithPanel="True"
-                                    TopScrollingRequested="TopScroller_OnTopScrollingRequested" />
+                    </ScrollViewer>
+                </PivotItem>
+                <PivotItem Margin="0">
+                    <PivotItem.Header>
+                        <TextBlock x:Uid="contributors"
+                                   FontSize="15"
+                                   FontWeight="SemiBold" />
+                    </PivotItem.Header>
+                    <Grid>
+                        <ListView IsItemClickEnabled="True"
+                                  ItemClick="{x:Bind ViewModel.UserTapped}"
+                                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.Contributors, Mode=OneWay}"
+                                  ScrollViewer.HorizontalScrollMode="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.VerticalScrollMode="Enabled">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:RepositoryContributor">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="40"
+                                                Height="40"
+                                                Margin="8,8,10,0"
+                                                CornerRadius="8,8,8,8">
+                                            <Border.Background>
+                                                <ImageBrush>
+                                                    <ImageBrush.ImageSource>
+                                                        <BitmapImage DecodePixelHeight="40"
+                                                                     DecodePixelType="Logical"
+                                                                     DecodePixelWidth="40"
+                                                                     UriSource="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                                    </ImageBrush.ImageSource>
+                                                </ImageBrush>
+                                            </Border.Background>
+                                        </Border>
 
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontSize="13"
+                                                   Text="{x:Bind Login}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <ProgressRing Width="40"
+                                      Height="40"
+                                      Foreground="{ThemeResource AppPrimaryColorBrush}"
+                                      IsActive="{x:Bind ViewModel.IsContributorsLoading, Mode=OneWay}" />
+                    </Grid>
+
+                </PivotItem>
+                <PivotItem Margin="0">
+                    <PivotItem.Header>
+                        <TextBlock x:Uid="releases"
+                                   FontSize="15"
+                                   FontWeight="SemiBold" />
+                    </PivotItem.Header>
+                    <Grid>
+                        <ListView IsItemClickEnabled="True"
+                                  ItemClick="ReleasesList_ItemClick"
+                                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}"
+                                  ScrollViewer.HorizontalScrollMode="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.VerticalScrollMode="Enabled">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:Release">
+                                    <control:ReleaseListItem />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <ProgressRing Width="40"
+                                      Height="40"
+                                      Foreground="{ThemeResource AppPrimaryColorBrush}"
+                                      IsActive="{x:Bind ViewModel.IsReleasesLoading, Mode=OneWay}" />
+                    </Grid>
+                </PivotItem>
+            </Pivot>
+            <Grid x:Name="ReleaseBodyTextPanel"
+                  RelativePanel.AlignBottomWithPanel="True"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.AlignTopWithPanel="True">
+                <Border>
+                    <i:Interaction.Behaviors>
+                        <behaviors:Blur AutomaticallyStart="True"
+                                        Delay="0"
+                                        Value="60"
+                                        Duration="0" />
+                    </i:Interaction.Behaviors>
+                </Border>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              HorizontalScrollMode="Disabled"
+                              VerticalScrollBarVisibility="Hidden"
+                              VerticalScrollMode="Enabled">
+                    <toolkitControls:MarkdownTextBlock x:Name="ReleaseBodyText"
+                                                       Padding="8"
+                                                       FontSize="13"
+                                                       ImageStretch="Fill"
+                                                       IsTextSelectionEnabled="False"
+                                                       LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
+                                                       TextWrapping="Wrap" />
+                </ScrollViewer>
+                <Button x:Name="CloseReleaseTextPanel"
+                        Margin="0,8,8,0"
+                        Padding="12"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Tapped="CloseReleaseTextPanel_Tapped">
+                    <SymbolIcon Symbol="Clear" />
+                </Button>
+
+            </Grid>
+            <!--<control:TopScrollerControl x:Name="TopScroller"
+                                        Margin="0,0,32,24"
+                                        RelativePanel.AlignBottomWithPanel="True"
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        TopScrollingRequested="TopScroller_OnTopScrollingRequested" />-->
+        </RelativePanel>
     </Grid>
 </Page>

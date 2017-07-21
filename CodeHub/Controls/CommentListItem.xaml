@@ -5,54 +5,50 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:CodeHub.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
     </UserControl.Resources>
-    <RelativePanel Margin="0,4,0,4">
-        <Border x:Name="avatar"
-                Width="27"
-                Height="27"
-                Margin="0,0,12,0"
-                CornerRadius="8,8,8,8"
-                RelativePanel.AlignLeftWithPanel="True"
-                RelativePanel.AlignTopWithPanel="True">
-            <Border.Background>
-                <ImageBrush ImageSource="{Binding User.AvatarUrl, Mode=OneWay}" />
-            </Border.Background>
-        </Border>
-        <StackPanel x:Name="detailsPanel"
-                    Orientation="Horizontal"
-                    Padding="4"
-                    Background="{ThemeResource SystemChromeLowColor}"
-                    RelativePanel.RightOf="avatar"
-                    RelativePanel.AlignRightWithPanel="True">
-            <TextBlock Margin="0,0,4,4"
-                       FontSize="13"
-                       Foreground="Gray"
-                       Text="{Binding User.Login, Mode=OneWay}" />
-            <TextBlock x:Uid="comment"
-                       Margin="0,0,4,4"
-                       FontSize="13"
-                       Foreground="Gray" />
-            <TextBlock Margin="0,0,0,4"
-                       FontSize="13"
-                       Foreground="Gray"
-                       Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
-        </StackPanel>
-
-        <TextBlock VerticalAlignment="Center"
+    <RelativePanel Margin="8 0 8 8"
+                   Background="{ThemeResource SystemChromeLowColor}">
+        <toolkitControls:RoundImageEx x:Name="avatar"
+                                      Width="35"
+                                      Height="35"
+                                      Margin="12,12,12,0"
+                                      CornerRadius="999"
+                                      DecodePixelHeight="35"
+                                      DecodePixelType="Logical"
+                                      DecodePixelWidth="35"
+                                      IsCacheEnabled="True"
+                                      Stretch="UniformToFill"
+                                      Source="{Binding User.AvatarUrl, Mode=OneWay}"/>
+        <TextBlock x:Name="login"
+                   FontSize="15"
+                   Foreground="Gray"
+                   Margin="0,12,0,12"
+                   RelativePanel.AlignRightWithPanel="True"
+                   RelativePanel.RightOf="avatar"
+                   Text="{Binding User.Login, Mode=OneWay}" />
+        <TextBlock x:Name="body"
+                   Margin="0,0,0,12"
+                   VerticalAlignment="Center"
                    FontSize="13"
                    MaxLines="3"
-                   RelativePanel.AlignLeftWith="detailsPanel"
+                   RelativePanel.AlignLeftWith="login"
                    RelativePanel.AlignRightWithPanel="True"
-                   RelativePanel.Below="detailsPanel"
+                   RelativePanel.Below="login"
                    Text="{Binding Body, Mode=OneWay}"
-                   TextWrapping="Wrap"
-                   TextTrimming="CharacterEllipsis" />
-
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="Wrap" />
+        <TextBlock FontSize="14"
+                   Margin="0 8 12 12"
+                   Foreground="Gray"
+                   RelativePanel.Below="body"
+                   RelativePanel.AlignRightWithPanel="True"
+                   Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
 
     </RelativePanel>
 </UserControl>

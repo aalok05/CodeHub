@@ -15,6 +15,20 @@ namespace CodeHub.ViewModels
 {
     public class IssueDetailViewmodel : AppViewmodel
     {
+        public Repository _repository;
+        public Repository Repository
+        {
+            get
+            {
+                return _repository;
+            }
+            set
+            {
+                Set(() => Repository, ref _repository, value);
+
+            }
+        }
+
         public Issue _issue;
         public Issue Issue
         {
@@ -29,29 +43,29 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public string _login;
-        public string Login
+        public bool _CanEditIssue;
+        public bool CanEditIssue
         {
             get
             {
-                return _login;
+                return _CanEditIssue; 
             }
             set
             {
-                Set(() => Login, ref _login, value);
+                Set(() => CanEditIssue, ref _CanEditIssue, value);
             }
         }
 
-        public string _repoName;
-        public string RepoName
+        public bool _IsMyRepo;
+        public bool IsMyRepo
         {
             get
             {
-                return _repoName;
+                return _IsMyRepo;
             }
             set
             {
-                Set(() => RepoName, ref _repoName, value);
+                Set(() => IsMyRepo, ref _IsMyRepo, value);
             }
         }
 
@@ -69,11 +83,66 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(Tuple<string, string, Issue> tuple)
+        public string _CommentText;
+        public string CommentText
         {
-            Issue = tuple.Item3;
-            Login = tuple.Item1;
-            RepoName = tuple.Item2;
+            get
+            {
+                return _CommentText;
+            }
+            set
+            {
+                Set(() => CommentText, ref _CommentText, value);
+            }
+        }
+
+        public string _NewIssueTitleText;
+        public string NewIssueTitleText
+        {
+            get
+            {
+                return _NewIssueTitleText;
+            }
+            set
+            {
+                Set(() => NewIssueTitleText, ref _NewIssueTitleText, value);
+            }
+        }
+
+        public string _NewIssueBodyText;
+        public string NewIssueBodyText
+        {
+            get
+            {
+                return _NewIssueBodyText;
+            }
+            set
+            {
+                Set(() => NewIssueBodyText, ref _NewIssueBodyText, value);
+            }
+        }
+
+        public ObservableCollection<Label> _AllLabels;
+        /// <summary>
+        /// All available labels in the repository
+        /// </summary>
+        public ObservableCollection<Label> AllLabels
+        {
+            get
+            {
+                return _AllLabels;
+            }
+            set
+            {
+                Set(() => AllLabels, ref _AllLabels, value);
+
+            }
+        }
+
+        public async Task Load(Tuple<Repository, Issue> tuple)
+        {
+            Issue = tuple.Item2;
+            Repository = tuple.Item1;
 
             if (!GlobalHelper.IsInternet())
             {
@@ -83,9 +152,16 @@ namespace CodeHub.ViewModels
             else
             {
                 isLoading = true;
-                Comments = await RepositoryUtility.GetAllCommentsForIssue(Login, RepoName, Issue.Number);
+                Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
                 isLoading = false;
 
+                if(Repository.Owner == null) 
+                    Repository = await RepositoryUtility.GetRepository(Repository.Id);
+
+                if (Repository.Owner.Login == GlobalHelper.UserLogin || Issue.User.Login == GlobalHelper.UserLogin)
+                    CanEditIssue = true;
+                if (Repository.Owner.Login == GlobalHelper.UserLogin)
+                    IsMyRepo = true;
             }
         }
 
@@ -104,6 +180,45 @@ namespace CodeHub.ViewModels
                                           {
                                               SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", Issue.User.Login);
                                           }));
+            }
+        }
+
+        private RelayCommand _CommentCommand;
+        public RelayCommand CommentCommand
+        {
+            get
+            {
+                return _CommentCommand
+                    ?? (_CommentCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              if(!string.IsNullOrWhiteSpace(CommentText))
+                                              {
+                                                   isLoading = true;
+                                                   IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                                   isLoading = false;
+                                                   if(newComment != null)
+                                                   {
+                                                      Comments.Add(newComment);
+                                                      CommentText = string.Empty;
+                                                   }
+
+                                              }
+                                          }));
+            }
+        }
+
+        public async Task EditIssue()
+        {
+            IssueUpdate updatedIssue = new IssueUpdate();
+            updatedIssue.Title = NewIssueTitleText;
+            updatedIssue.Body = NewIssueBodyText;
+            isLoading = true;
+            Issue issue = await IssueUtility.EditIssue(Repository.Id, Issue.Number, updatedIssue);
+            isLoading = false;
+            if (issue != null)
+            {
+                Issue = issue;
             }
         }
     }

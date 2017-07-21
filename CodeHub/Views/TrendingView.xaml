@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="CodeHub.Views.HomeView"
+    x:Class="CodeHub.Views.TrendingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CodeHub.Views"
@@ -27,7 +27,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -37,7 +37,11 @@
         <Grid Background="{ThemeResource SystemChromeLowColor}" 
               Grid.Row="1" Height="48" VerticalAlignment="Top"/>
         <Pivot Grid.Row="1"
+               Style="{StaticResource CustomPivotStyle}"
                SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+            <Pivot.Resources>
+                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+            </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Uid="today" FontSize="15" FontWeight="Normal"/>
@@ -46,11 +50,10 @@
                     <toolkitControl:PullToRefreshListView x:Name="todayListView"
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
-                                                          Loaded="todayListView_Loaded"
+                                                          Loaded="TodayListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposToday,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                                                          IsPullToRefreshWithMouseEnabled="True"
                                                           OverscrollLimit="0.4"
                                                           PullThreshold="100"
                                                           RefreshRequested="{x:Bind ViewModel.RefreshTodayCommand}"
@@ -82,10 +85,10 @@
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
                                  Foreground="{StaticResource AppPrimaryColorBrush}"/>
-                    
+
                     <userControls:IncrementalLoadButtonControl x:Name="todayIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreToday,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                                               Tapped="{x:Bind ViewModel.todayIncrementalLoad}"
+                                                               Tapped="{x:Bind ViewModel.TodayIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
                     <TextBlock x:Uid="trendingUpdatePlaceholder"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -98,7 +101,6 @@
                                   Width="40"
                                   Height="40" />
                 </Grid>
-
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -108,11 +110,10 @@
                     <toolkitControl:PullToRefreshListView x:Name="weekListView"  
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
-                                                          Loaded="weekListView_Loaded"
+                                                          Loaded="WeekListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposWeek,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                                                          IsPullToRefreshWithMouseEnabled="True"
                                                           OverscrollLimit="0.4"
                                                           PullThreshold="100"
                                                           RefreshRequested="{x:Bind ViewModel.RefreshWeekCommand}"
@@ -147,7 +148,7 @@
 
                     <userControls:IncrementalLoadButtonControl x:Name="weekIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreWeek,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                                               Tapped="{x:Bind ViewModel.weekIncrementalLoad}"
+                                                               Tapped="{x:Bind ViewModel.WeekIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
 
                     <TextBlock x:Uid="trendingUpdatePlaceholder"
@@ -169,11 +170,10 @@
                     <toolkitControl:PullToRefreshListView x:Name="monthListView"
                                                           IsItemClickEnabled="True"
                                                           ScrollViewer.HorizontalScrollMode="Disabled"
-                                                          Loaded="monthListView_Loaded"
+                                                          Loaded="MonthListView_Loaded"
                                                           ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                                                           ItemsSource="{x:Bind ViewModel.TrendingReposMonth,Mode=OneWay}"
                                                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                                                          IsPullToRefreshWithMouseEnabled="True"
                                                           OverscrollLimit="0.4"
                                                           PullThreshold="100"
                                                           RefreshRequested="{x:Bind ViewModel.RefreshMonthCommand}"
@@ -208,7 +208,7 @@
 
                     <userControls:IncrementalLoadButtonControl x:Name="monthIncrementalLoadButton"
                                                                Visibility="{x:Bind ViewModel.CanLoadMoreMonth,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                                               Tapped="{x:Bind ViewModel.monthIncrementalLoad}"
+                                                               Tapped="{x:Bind ViewModel.MonthIncrementalLoad}"
                                                                VerticalAlignment="Bottom"/>
 
                     <TextBlock x:Uid="trendingUpdatePlaceholder"

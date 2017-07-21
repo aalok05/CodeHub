@@ -2,7 +2,6 @@
 using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.ViewModels;
@@ -16,18 +15,23 @@ using Octokit;
 using CodeHub.Controls;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
-using Windows.UI.ViewManagement;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
 using Windows.System.Profile;
+using UICompositionAnimations.Behaviours;
+using Windows.UI.Xaml.Media;
+using System.Threading.Tasks;
+using CodeHub.Helpers;
+using UICompositionAnimations.Brushes;
+using UICompositionAnimations.Helpers;
 
 namespace CodeHub.Views
 {
     public sealed partial class MainPage : Windows.UI.Xaml.Controls.Page
     {
         public MainViewmodel ViewModel { get; set; }
-        public CustomFrame AppFrame { get { return this.mainFrame; } }
+        public CustomFrame AppFrame { get { return mainFrame; } }
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
 
@@ -41,7 +45,10 @@ namespace CodeHub.Views
             #region registering for messages
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
-            Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) {  ToggleAdsVisibility(m.isEnabled); });
+            Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ConfigureAdsVisibility(); });
+            Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
+            Messenger.Default.Register(this, delegate (UpdateUnreadNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
+            Messenger.Default.Register<User>(this, RecieveSignInMessage);
             #endregion
 
             SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
@@ -121,30 +128,30 @@ namespace CodeHub.Views
         }
         public void RecieveSignInMessage(User user)
         {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(HomeView))
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(FeedView))
             {
-                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
             }
         }
         #endregion
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.isLoggedin = (bool)e.Parameter;
 
             if (ViewModel.isLoggedin)
             {
-                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(HomeView), "Trending");
+                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
+                await ViewModel.CheckForUnreadNotifications();
             }
 
-            //Listening for Sign In message
-            Messenger.Default.Register<User>(this, RecieveSignInMessage);
-
             notifManager = new LocalNotificationManager(NotificationGrid);
+
+            ConfigureWindowBlur();
+            await ConfigureHamburgerMenuBlur();
         }
 
         #region other methods
-
         /// <summary>
         /// Sets the Header Text to pageName
         /// </summary>
@@ -169,9 +176,15 @@ namespace CodeHub.Views
             if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
             {
                 if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                {
                     adControlDesktop.Visibility = Visibility.Collapsed;
+                    adControlMobile.Visibility = Visibility.Visible;
+                }
                 else
+                {
                     adControlMobile.Visibility = Visibility.Collapsed;
+                    adControlDesktop.Visibility = Visibility.Visible;
+                }
             }
             else
             {
@@ -180,22 +193,31 @@ namespace CodeHub.Views
         }
 
         /// <summary>
-        /// Toggles visibility of Ad units 
+        /// Sets Acrylic blur effect for host window
         /// </summary>
-        /// <param name="isEnabled"></param>
-        public void ToggleAdsVisibility(bool isEnabled)
+        /// <returns></returns>
+        public void ConfigureWindowBlur()
         {
-            if (isEnabled)
+            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled) &&
+                ApiInformationHelper.IsCreatorsUpdateOrLater &&
+                !ApiInformationHelper.IsMobileDevice)
             {
-                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-                    adControlMobile.Visibility = Visibility.Visible;
-                else
-                    adControlDesktop.Visibility = Visibility.Visible;
+                BlurBorder.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HostBackdropAcrylicBrush");
             }
-            else
+            else BlurBorder.Background = (Brush)XAMLHelper.GetGenericResourceValue("ApplicationPageBackgroundThemeBrush");
+        }
+
+        /// <summary>
+        ///  Sets blur effect for hamburger menu pane
+        /// </summary>
+        /// <returns></returns>
+        public async Task ConfigureHamburgerMenuBlur()
+        {
+            if (ApiInformationHelper.IsCreatorsUpdateOrLater)
             {
-                adControlMobile.Visibility = adControlDesktop.Visibility = Visibility.Collapsed;
+                BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
             }
+            else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
         }
         #endregion
     }

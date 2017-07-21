@@ -50,11 +50,11 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
 
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Notifications" });
-        }
 
-        private void Repo_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", (sender as HyperlinkButton).Content);
+            if (e.NavigationMode != NavigationMode.Back)
+            {
+                NotifPivot.SelectedItem = NotifPivot.Items[0];
+            }
         }
 
         public RelayCommand<Notification> _MarkasReadAllNotifCommand;
@@ -88,12 +88,17 @@ namespace CodeHub.Views
                                           async (Notification notification) =>
                                           {
                                               ViewModel.IsLoadingUnread = true;
-                                              await NotificationsService.MarkNotificationAsRead(notification.Id);
+                                              if (notification.Unread)
+                                              {
+                                                  await NotificationsService.MarkNotificationAsRead(notification.Id);
 
-                                              var index = ViewModel.UnreadNotifications.IndexOf(ViewModel.UnreadNotifications.Where(p => p.Id == notification.Id).First());
-                                              ViewModel.UnreadNotifications.RemoveAt(index);
-
+                                                  var index = ViewModel.UnreadNotifications.IndexOf(ViewModel.UnreadNotifications.Where(p => p.Id == notification.Id).First());
+                                                  ViewModel.UnreadNotifications.RemoveAt(index);
+                                              }
                                               ViewModel.IsLoadingUnread = false;
+
+                                              if(ViewModel.UnreadNotifications.Count == 0)
+                                                  Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationMessageType { IsUnread = false });
                                           }));
             }
         }

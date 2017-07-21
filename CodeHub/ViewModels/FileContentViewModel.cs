@@ -145,7 +145,12 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(Tuple<Repository, string, string> repoPath)  //This page recieves RepositoryId and name of the file
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repoPath">Tuple with Repository, path and branch</param>
+        /// <returns></returns>
+        public async Task Load(Tuple<Repository, string, string> repoPath)
         {
             IsSupportedFile = true;
             Repository = repoPath.Item1;
@@ -196,9 +201,9 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-
-                    Uri uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.DownloadUrl;
-                    ImageFile = new BitmapImage(uri);
+                    Uri uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.DownloadUrl;
+                    if(uri != null)
+                        ImageFile = new BitmapImage(uri);
                     isLoading = false;
                     return;
                 }
@@ -207,8 +212,7 @@ namespace CodeHub.ViewModels
                     /*
                      *  Files with .md extension
                      */
-
-                    TextContent = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))[0].Content.Content;
+                    TextContent = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.Content;
                     isLoading = false;
                     return;
                 }
@@ -235,7 +239,8 @@ namespace CodeHub.ViewModels
                     */
 
                     RepositoryContent result = await RepositoryUtility.GetRepositoryContentTextByPath(Repository, Path, SelectedBranch);
-                    TextContent = result.Content;
+                    if(result != null)
+                        TextContent = result.Content;
                 }
 
                 if (HTMLContent == null && TextContent == null)

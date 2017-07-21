@@ -8,13 +8,20 @@
              d:DesignWidth="400"
              mc:Ignorable="d">
 
-    <StackPanel Margin="8,3,0,3" Orientation="Horizontal">
+    <StackPanel Margin="8,4,0,4" Orientation="Horizontal">
         <Border Width="40"
                 Height="40"
-                Margin="0,0,10,0"
+                Margin="0,0,8,0"
                 CornerRadius="8,8,8,8">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding AvatarUrl, FallbackValue='/Assets/Images/placeholder.jpg', Mode=OneWay}" />
+                <ImageBrush>
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="{Binding AvatarUrl, Mode=OneWay}" 
+                                     DecodePixelHeight="40" 
+                                     DecodePixelWidth="40"
+                                     DecodePixelType="Logical"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
             </Border.Background>
         </Border>
 

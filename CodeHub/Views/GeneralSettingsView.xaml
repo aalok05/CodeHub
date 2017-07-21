@@ -7,7 +7,7 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               mc:Ignorable="d">
 
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    <ScrollViewer Background="Transparent"
                   HorizontalScrollBarVisibility="Disabled"
                   HorizontalScrollMode="Disabled"
                   VerticalScrollBarVisibility="Auto"
@@ -31,19 +31,9 @@
             <TextBlock x:Uid="adSetting"
                        HorizontalAlignment="Left"
                        FontSize="20"
-                       FontWeight="SemiLight"
-                       />
+                       FontWeight="SemiLight" />
 
             <ToggleSwitch Margin="0,8,0,0" IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
-
-            <!--  Show Readme  -->
-            <TextBlock x:Uid="showReadMe"
-                       Margin="0,12,0,0"
-                       HorizontalAlignment="Left"
-                       FontSize="20"
-                       FontWeight="SemiLight"
-                       TextWrapping="Wrap" />
-            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowReadmeInRepoPage, Mode=TwoWay}" />
 
             <!--  Load commit messages  -->
             <TextBlock x:Uid="loadCommitMessage"
@@ -53,6 +43,22 @@
                        FontWeight="SemiLight"
                        TextWrapping="Wrap" />
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
+
+            <!--  Check for notifications frequently  -->
+            <!--<TextBlock x:Uid="checkNotificationsFrequently"
+                       Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="20"
+                       FontWeight="SemiLight"
+                       TextWrapping="Wrap" />
+            <TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       FontWeight="SemiLight"
+                       Foreground="Gray"
+                       Text="Turning this on will consume more data"
+                       TextWrapping="Wrap" />
+            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.IsNotificationCheckEnabled, Mode=TwoWay}" />-->
 
             <TextBlock x:Uid="syntaxHightlignting"
                        Margin="0,20,0,0"
@@ -83,7 +89,7 @@
                        Margin="0,20,0,0"
                        HorizontalAlignment="Left"
                        FontSize="17"
-                       FontWeight="SemiLight"  />
+                       FontWeight="SemiLight" />
             <controls:Hilite_meHighlightStylePreviewControl Height="200"
                                                             Margin="0,12,0,0"
                                                             HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"

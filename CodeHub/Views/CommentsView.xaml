@@ -11,7 +11,8 @@
         <convertes:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
     </Page.Resources>
 
-    <RelativePanel Margin="0,4,0,4">
+    <RelativePanel Margin="0,4,0,4"
+                   Background="Transparent">
         <HyperlinkButton x:Name="avatar"
                          Margin="16,4,0,0"
                          VerticalAlignment="Top"
@@ -30,7 +31,7 @@
 
         <StackPanel x:Name="detailsPanel"
                     Padding="8"
-                    Margin="0 4 0 4"
+                    Margin="0 4 0 8"
                     Background="{ThemeResource SystemChromeLowColor}"
                     Orientation="Horizontal"
                     RelativePanel.RightOf="avatar"
@@ -49,12 +50,10 @@
                 </HyperlinkButton.ContentTemplate>
             </HyperlinkButton>
 
-            <TextBlock 
-                       x:Uid="comment"
+            <TextBlock x:Uid="commented"
                        Margin="0,0,4,0"
                        FontSize="13"
-                       Foreground="Gray"
-                       Text="commented" />
+                       Foreground="Gray"/>
             <TextBlock FontSize="13"
                        Foreground="Gray"
                        Text="{x:Bind ViewModel.Comment.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />

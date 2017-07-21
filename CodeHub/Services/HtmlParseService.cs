@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using static CodeHub.ViewModels.HomeViewmodel;
+using static CodeHub.ViewModels.TrendingViewmodel;
 using CodeHub.Helpers;
 
 namespace CodeHub.Services

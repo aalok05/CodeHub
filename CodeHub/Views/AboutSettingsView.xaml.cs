@@ -28,5 +28,22 @@ namespace CodeHub.Views
             await Launcher.LaunchUriAsync(
                 new Uri($"ms-windows-store://review/?PFN={Package.Current.Id.FamilyName}"));
         }
+
+        private async void TwitterButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(
+               new Uri("https://twitter.com/devaalok"));
+        }
+
+        private async void GithubButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", "aalok05/CodeHub");
+        }
+
+        private async void EmailButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(
+               new Uri("mailto:contact@devnextdoor.com"));
+        }
     }
 }

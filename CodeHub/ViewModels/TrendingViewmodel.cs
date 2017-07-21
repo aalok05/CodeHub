@@ -17,7 +17,7 @@ using System.Threading;
 
 namespace CodeHub.ViewModels
 {
-    public class HomeViewmodel : AppViewmodel
+    public class TrendingViewmodel : AppViewmodel
     {
         #region properties
         public enum TimeRange
@@ -399,7 +399,7 @@ namespace CodeHub.ViewModels
             }
 
         }
-        public async void todayIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async void TodayIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             IsIncrementalLoadingToday = true;
             CanLoadMoreToday = false;
@@ -415,7 +415,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void weekIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async void WeekIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             IsIncrementalLoadingWeek = true;
             CanLoadMoreWeek = false;
@@ -431,7 +431,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void monthIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async void MonthIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             IsIncrementalLoadingMonth = true;
             CanLoadMoreMonth = false;

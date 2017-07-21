@@ -10,7 +10,12 @@ namespace CodeHub.Services
 {
     class NotificationsService
     {
-
+        /// <summary>
+        /// Gets all Notifications for the current user
+        /// </summary>
+        /// <param name="all"></param>
+        /// <param name="participating"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Notification>> GetAllNotificationsForCurrentUser(bool all, bool participating)
         {
             try
@@ -27,6 +32,11 @@ namespace CodeHub.Services
 
         }
 
+        /// <summary>
+        ///  Gets all Notifications for a repository
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <returns></returns>
         public static async Task<ObservableCollection<Notification>> GetAllNotificationsForRepository(long repoId)
         {
             try
@@ -40,6 +50,11 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Gets a notification
+        /// </summary>
+        /// <param name="notificationId"></param>
+        /// <returns></returns>
         public static async Task<Notification> GetNotificationById(string notificationId)
         {
             try
@@ -62,12 +77,21 @@ namespace CodeHub.Services
 
         }
 
+        /// <summary>
+        /// Marks all notifications as read
+        /// </summary>
+        /// <returns></returns>
         public static async Task MarkAllNotificationsAsRead()
         {
             var client = await UserUtility.GetAuthenticatedClient();
-            await client.Activity.Notifications.MarkAsRead();
+            await client.Activity.Notifications.MarkAsRead(new MarkAsReadRequest());
         }
 
+        /// <summary>
+        /// Marks a notification as read
+        /// </summary>
+        /// <param name="notificationId"></param>
+        /// <returns></returns>
         public static async Task MarkNotificationAsRead(string notificationId)
         {
             var client = await UserUtility.GetAuthenticatedClient();
@@ -78,6 +102,13 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Sets the user's subscription settings for a given thread
+        /// </summary>
+        /// <param name="notificationId"></param>
+        /// <param name="subscribed"></param>
+        /// <param name="ignored"></param>
+        /// <returns></returns>
         public static async Task SetThreadSubscription(string notificationId, bool subscribed,bool ignored)
         {
             var client = await UserUtility.GetAuthenticatedClient();
@@ -94,6 +125,11 @@ namespace CodeHub.Services
 
         }
 
+        /// <summary>
+        /// Gets a ThreadSubscription
+        /// </summary>
+        /// <param name="notificationId"></param>
+        /// <returns></returns>
         public static async Task<ThreadSubscription> GetSubscribtionThread(string notificationId)
         {
             var client = await UserUtility.GetAuthenticatedClient();

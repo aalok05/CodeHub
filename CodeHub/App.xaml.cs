@@ -32,9 +32,10 @@ namespace CodeHub
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
-            SettingsService.Save(SettingsKeys.ShowReadme, false, false);
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
             SettingsService.Save(SettingsKeys.IsAdsEnabled, false, false);
+            SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, false, false);
+            SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
         }
 
         /// <summary>
@@ -46,10 +47,7 @@ namespace CodeHub
         {
             // Set the right theme-depending color for the alternating rows
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
-            {
-                XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush",
-                   new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
-            }
+                XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
 
             CustomFrame rootFrame = Window.Current.Content as CustomFrame;
 

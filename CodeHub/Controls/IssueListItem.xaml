@@ -11,103 +11,39 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter"/>
+        <converters:IssueDetailStringConverter x:Key="IssueDetailStringConverter" x:Name="IssueDetailStringConverter"/>
     </UserControl.Resources>
-    <RelativePanel Margin="0 0 0 5">
-        <StackPanel x:Name="NumberBlock"
-                    Orientation="Horizontal"
-                    RelativePanel.AlignTopWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True">
-            <TextBlock 
-                    Margin="5 10 3 5"
-                    Text="#"
-                    FontSize="16"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource AppPrimaryColorBrush}"/>
-            <TextBlock 
-                    Margin="0 10 0 5"
-                    Text="{Binding Number}"
-                    FontSize="16"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource AppPrimaryColorBrush}"/>
-        </StackPanel>
-        <TextBlock x:Name="TitleBlock" 
-                   Text="{Binding Title}"
-                   Style="{StaticResource RepoNameTextBlockStyle}"
-                   RelativePanel.AlignVerticalCenterWith="NumberBlock"
-                   Margin="5 10 0 5"
+    <RelativePanel Margin="8">
+        <TextBlock x:Name="TitleBlock"
+                   Margin="4,0,0,4"
                    FontSize="16"
-                   RelativePanel.RightOf="NumberBlock"/>
-        <StackPanel x:Name="StateBlock"
-                    Orientation="Horizontal"
-                RelativePanel.AlignLeftWith="NumberBlock"
-                RelativePanel.Below="TitleBlock"
-                Margin="10 5 0 0">
-
-            <Viewbox Margin="0 0 3 0" 
-                     MaxHeight="15"
-                     MaxWidth="15">
-                <SymbolIcon Symbol="Setting" Foreground="Gray"/>
-            </Viewbox>
-            
-            <TextBlock 
-                FontSize="12"
-                TextAlignment="Left"
-                Foreground="Gray"
-                Text="{Binding State}"/>
-        </StackPanel>
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   Style="{StaticResource RepoNameTextBlockStyle}"
+                   Text="{Binding Title}"
+                   TextWrapping="Wrap"/>
 
         <StackPanel x:Name="CommentsBlock"
+                    Margin="4,0,4,0"
                     Orientation="Horizontal"
-                RelativePanel.RightOf="StateBlock"
-                RelativePanel.Below="TitleBlock"
-                Margin="15 5 0 0">
-            <Viewbox Margin="0 0 3 0" 
-                     MaxHeight="15"
-                     MaxWidth="15">
-                <SymbolIcon Symbol="Message" Foreground="Gray"/>
+                    RelativePanel.AlignVerticalCenterWith="DetailTextblock"
+                    RelativePanel.AlignRightWithPanel="True">
+            <Viewbox MaxWidth="16"
+                     MaxHeight="16"
+                     Margin="0,0,4,0">
+                <SymbolIcon Foreground="Gray" Symbol="Message" />
             </Viewbox>
-            <TextBlock
-                FontSize="12"
-                TextAlignment="Left"
-                Foreground="Gray"
-                Text="{Binding Comments}"/>
+            <TextBlock FontSize="18"
+                       Foreground="Gray"
+                       Text="{Binding Comments}"
+                       TextAlignment="Left" />
         </StackPanel>
-        <StackPanel x:Name="AssignedBlock"
-                Orientation="Horizontal"
-                RelativePanel.AlignLeftWith="StateBlock"
-                RelativePanel.Below="StateBlock"
-                Margin="10 5 0 0">
-
-            <Viewbox Margin="0 0 3 0" 
-                     MaxHeight="15"
-                     MaxWidth="15">
-                <SymbolIcon Symbol="Contact" Foreground="Gray"/>
-            </Viewbox>
-
-            <TextBlock 
-                FontSize="12"
-                TextAlignment="Left"
-                Foreground="Gray"
-                Text="{Binding Assignee.Login,TargetNullValue='unassigned',FallbackValue='unassigned'}"/>
-        </StackPanel>
-        <StackPanel x:Name="UpdatedBlock"
-                Orientation="Horizontal"
-                RelativePanel.RightOf="AssignedBlock"
-                RelativePanel.Below="CommentsBlock"
-                Margin="15 5 0 0">
-
-            <Viewbox Margin="0 0 3 0" 
-                     MaxHeight="15"
-                     MaxWidth="15">
-                <SymbolIcon Symbol="Edit" Foreground="Gray"/>
-            </Viewbox>
-
-            <TextBlock 
-                FontSize="12"
-                TextAlignment="Left"
-                Foreground="Gray"
-                Text="{Binding UpdatedAt,Converter={StaticResource TimeAgoConverter}}"/>
-        </StackPanel>
-
+        <TextBlock x:Name="DetailTextblock"
+                   Margin="4 4 0 0"
+                   FontSize="13"
+                   Foreground="Gray"
+                   RelativePanel.Below="TitleBlock"
+                   RelativePanel.AlignLeftWith="TitleBlock"
+                   Text="{Binding Converter={StaticResource IssueDetailStringConverter}, Mode=OneWay}"/>
     </RelativePanel>
 </UserControl>

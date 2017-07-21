@@ -48,7 +48,7 @@
     </Page.Resources>
     
     <!--Root grid-->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">

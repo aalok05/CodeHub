@@ -23,7 +23,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter"/>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="40"/>
@@ -129,6 +129,7 @@
                       Grid.Row="2"
                       Width="50"
                       Height="50"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>

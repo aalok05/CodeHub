@@ -2,7 +2,8 @@
 using Windows.UI.Xaml;
 using CodeHub.Helpers;
 using CodeHub.ViewModels;
-
+using Windows.UI.Xaml.Navigation;
+using Windows.System.Profile;
 
 namespace CodeHub.Views
 {
@@ -20,6 +21,13 @@ namespace CodeHub.Views
         {
             if (e.NewState != null)
                 TryNavigateBackForDesktopState(e.NewState.Name);
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (GlobalHelper.GetOSBuild() < 15063 || AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            {
+                AcrylicBlurToggleSwitch.IsEnabled = false; 
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using Octokit;
 using GalaSoft.MvvmLight.Ioc;
 using Windows.UI.Xaml.Controls;
 using System;
+using Windows.UI.Xaml.Input;
 
 namespace CodeHub.Views
 {
@@ -43,16 +44,6 @@ namespace CodeHub.Views
             refreshindicator.Opacity = e.PullProgress;
             refreshindicator.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
         }
-
-        private void Actor_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (sender as HyperlinkButton).Content);
-        }
-        private void Repo_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", (sender as HyperlinkButton).Content);
-        }
-
         private async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));

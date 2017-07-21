@@ -51,8 +51,9 @@ namespace CodeHub.Services
         public const String HighlightStyleIndex = nameof(HighlightStyleIndex);
         public const String ShowLineNumbers = nameof(ShowLineNumbers);
         public const String HideSystemTray = nameof(HideSystemTray);
-        public const String ShowReadme = nameof(ShowReadme);
         public const String LoadCommitsInfo = nameof(LoadCommitsInfo);
         public const String IsAdsEnabled = nameof(IsAdsEnabled);
+        public const String IsAcrylicBlurEnabled = nameof(IsAcrylicBlurEnabled);
+        public const String IsNotificationCheckEnabled = nameof(IsNotificationCheckEnabled);
     }
 }

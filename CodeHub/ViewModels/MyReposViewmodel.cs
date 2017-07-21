@@ -117,6 +117,7 @@ namespace CodeHub.ViewModels
 
         public ObservableCollection<Repository> RepositoriesNotFiltered { get; set; }
         public ObservableCollection<Repository> StarredRepositoriesNotFiltered { get; set; }
+
         public async Task Load()
         {
           
@@ -220,7 +221,7 @@ namespace CodeHub.ViewModels
         private async Task LoadRepos()
         {
             var repos = await UserUtility.GetUserRepositories();
-            if (repos.Count == 0 || repos == null)
+            if (repos == null || repos.Count == 0)
             {
                 ZeroRepo = true;
                 if(Repositories!=null)
@@ -237,7 +238,7 @@ namespace CodeHub.ViewModels
         private async Task LoadStarRepos()
         {
             var starred = await UserUtility.GetStarredRepositories();
-            if (starred.Count == 0 || starred == null)
+            if (starred == null || starred.Count == 0)
             {
                 ZeroStarRepo = true;
                 if(StarredRepositories!=null)
@@ -255,18 +256,25 @@ namespace CodeHub.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(sender.Text))
             {
-                var filtered = RepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
-                Repositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+                if (RepositoriesNotFiltered != null)
+                {
+                    var filtered = RepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
+                    Repositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+                }
             }
             else
                 Repositories = RepositoriesNotFiltered;
         }
         public void StarredQueryString_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+
             if (!string.IsNullOrWhiteSpace(sender.Text))
             {
-                var filtered = StarredRepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
-                StarredRepositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+                if (StarredRepositoriesNotFiltered != null)
+                {
+                    var filtered = StarredRepositoriesNotFiltered.Where(w => w.Name.ToLower().Contains(sender.Text.ToLower()));
+                    StarredRepositories = new ObservableCollection<Repository>(new List<Repository>(filtered));
+                }
             }
             else
                 StarredRepositories = StarredRepositoriesNotFiltered;

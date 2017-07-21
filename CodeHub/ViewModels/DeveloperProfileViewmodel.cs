@@ -8,22 +8,38 @@ using Octokit;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using System;
 
 namespace CodeHub.ViewModels
 {
     public class DeveloperProfileViewmodel : AppViewmodel
     {
-        public User _developer;
-        public User Developer
+        #region properties
+        public ObservableCollection<Activity> _events;
+        public ObservableCollection<Activity> Events
         {
             get
             {
-                return _developer;
+                return _events;
             }
             set
             {
-                Set(() => Developer, ref _developer, value);
+                Set(() => Events, ref _events, value);
             }
+        }
+
+        public ObservableCollection<Repository> _repositories;
+        public ObservableCollection<Repository> Repositories
+        {
+            get
+            {
+                return _repositories;
+            }
+            set
+            {
+                Set(() => Repositories, ref _repositories, value);
+            }
+
         }
 
         public ObservableCollection<User> _followers;
@@ -52,6 +68,45 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _IsFollowersLoading;
+        public bool IsFollowersLoading
+        {
+            get
+            {
+                return _IsFollowersLoading;
+            }
+            set
+            {
+                Set(() => IsFollowersLoading, ref _IsFollowersLoading, value);
+            }
+        }
+
+        public bool _IsFollowingLoading;
+        public bool IsFollowingLoading
+        {
+            get
+            {
+                return _IsFollowingLoading;
+            }
+            set
+            {
+                Set(() => IsFollowingLoading, ref _IsFollowingLoading, value);
+            }
+        }
+
+        public User _developer;
+        public User Developer
+        {
+            get
+            {
+                return _developer;
+            }
+            set
+            {
+                Set(() => Developer, ref _developer, value);
+            }
+        }
+
         public bool _isFollowing;
         public bool IsFollowing
         {
@@ -62,6 +117,45 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => IsFollowing, ref _isFollowing, value);
+            }
+        }
+
+        public bool _IsEventsLoading;
+        public bool IsEventsLoading
+        {
+            get
+            {
+                return _IsEventsLoading;
+            }
+            set
+            {
+                Set(() => IsEventsLoading, ref _IsEventsLoading, value);
+            }
+        }
+
+        public bool _IsOrganization;
+        public bool IsOrganization
+        {
+            get
+            {
+                return _IsOrganization;
+            }
+            set
+            {
+                Set(() => IsOrganization, ref _IsOrganization, value);
+            }
+        }
+
+        public bool _IsReposLoading;
+        public bool IsReposLoading
+        {
+            get
+            {
+                return _IsReposLoading;
+            }
+            set
+            {
+                Set(() => IsReposLoading, ref _IsReposLoading, value);
             }
         }
 
@@ -78,32 +172,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _followersLoading;
-        public bool FollowersLoading
-        {
-            get
-            {
-                return _followersLoading;
-            }
-            set
-            {
-                Set(() => FollowersLoading, ref _followersLoading, value);
-            }
-        }
-
-        public bool _followingLoading;
-        public bool FollowingLoading
-        {
-            get
-            {
-                return _followingLoading;
-            }
-            set
-            {
-                Set(() => FollowingLoading, ref _followingLoading, value);
-            }
-        }
-
         public bool _followProgress;
         public bool FollowProgress
         {
@@ -116,49 +184,60 @@ namespace CodeHub.ViewModels
                 Set(() => FollowProgress, ref _followProgress, value);
             }
         }
-        public async Task Load(string login)
+        #endregion
+
+        public async Task Load(object user)
         {
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
             }
             else
             {
-                if (!string.IsNullOrWhiteSpace(login))
+                isLoading = true;
+                string login = user as string;
+                if(login != null)
                 {
-                    isLoading = true;
-                    Developer = await UserUtility.GetUserInfo(login);
-                    isLoading = false;
-                    if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
+                    if (!string.IsNullOrWhiteSpace(login))
+                    {
+                        Developer = await UserUtility.GetUserInfo(login);
+                    }
+                }
+                else
+                {
+                    Developer = user as User;
+                }
+                if (Developer != null)
+                {
+                    if (Developer.Type == AccountType.Organization)
                     {
                         CanFollow = false;
+                        IsOrganization = true;
                     }
                     else
                     {
-                        CanFollow = true;
-                        FollowProgress = true;
-                        if (await UserUtility.CheckFollow(Developer.Login))
+                        if (Developer.Login == GlobalHelper.UserLogin)
                         {
-                            IsFollowing = true;
+                            CanFollow = false;
                         }
-                        FollowProgress = false;
-
-                        FollowersLoading = true;
-                        Followers = await UserUtility.GetAllFollowers(Developer.Login);
-                        FollowersLoading = false;
-
-                        FollowingLoading = true;
-                        Following = await UserUtility.GetAllFollowing(Developer.Login);
-                        FollowingLoading = false;
+                        else
+                        {
+                            CanFollow = true;
+                            FollowProgress = true;
+                            if (await UserUtility.CheckFollow(Developer.Login))
+                            {
+                                IsFollowing = true;
+                            }
+                            FollowProgress = false;
+                        }
                     }
+                    IsEventsLoading = true;
+                    Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                    IsEventsLoading = false;
                 }
-
+                isLoading = false;
             }
-        }
-        public void ProfileTapped(object sender, ItemClickEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
         }
 
         private RelayCommand _followCommand;
@@ -177,7 +256,7 @@ namespace CodeHub.ViewModels
 
                                                   Messenger.Default.Send(new GlobalHelper.FollowActivityMessageType());
                                                   GlobalHelper.NewFollowActivity = true;
-                                                  
+
                                               }
                                               FollowProgress = false;
                                           }));
@@ -204,25 +283,81 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private RelayCommand _reposNavigate;
-        public RelayCommand NavigateToRepositories
-        {
-            get
-            {
-                return _reposNavigate
-                    ?? (_reposNavigate = new RelayCommand(
-                                          () =>
-                                          {
-                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoListView), "Repositories", Developer.Login);
-                                          }));
-            }
-        }
         public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
         {
             Developer = await UserUtility.GetUserInfo(Developer.Login);
-            FollowersLoading = true;
-            Followers = await UserUtility.GetAllFollowers(Developer.Login);
-            FollowersLoading = false;
+        }
+
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot p = sender as Pivot;
+
+            if (p.SelectedIndex == 0)
+            {
+                IsEventsLoading = true;
+                if(Developer != null)
+                    Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                IsEventsLoading = false;
+
+            }
+            else if (p.SelectedIndex == 1)
+            {
+                IsReposLoading = true;
+                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login);
+                IsReposLoading = false;
+            }
+            else if (p.SelectedIndex == 2)
+            {
+                IsFollowersLoading = true;
+                Followers = await UserUtility.GetAllFollowers(Developer.Login);
+                IsFollowersLoading = false;
+            }
+            else if (p.SelectedIndex == 3)
+            {
+                IsFollowingLoading = true;
+                Following = await UserUtility.GetAllFollowing(Developer.Login);
+                IsFollowingLoading = false;
+            }
+        }
+
+        public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
+        }
+
+        public void UserTapped(object sender, ItemClickEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
+        }
+
+        public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Activity activity = e.ClickedItem as Activity;
+
+            switch (activity.Type)
+            {
+                case "IssueCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
+                    break;
+
+                case "IssuesEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
+                    break;
+
+                case "PullRequestReviewCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
+                    break;
+
+                case "PullRequestEvent":
+                case "PullRequestReviewEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+                    break;
+
+                default:
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", activity.Repo.Name);
+                    break;
+            }
+
         }
     }
 }

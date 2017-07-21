@@ -6,7 +6,7 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -38,9 +38,22 @@
                        HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiLight"
+                       Foreground="Gray"
                        TextWrapping="Wrap" />
             <ToggleSwitch x:Uid="ThemeToggleSwitch" IsOn="{x:Bind ViewModel.AppLightThemeEnabled, Mode=TwoWay}"
-                      Margin="0,8,0,0"/>
+                          Margin="0,8,0,0"/>
+        </StackPanel>
+        <StackPanel x:Name="AcrylicBlurPanel"
+                    Grid.Row="1"
+                    Orientation="Vertical"
+                    Margin="12,12,0,0">
+            <TextBlock x:Uid="blurContentBehindWindow"
+                       HorizontalAlignment="Left"
+                       FontSize="20"
+                       FontWeight="SemiLight"/>
+            <ToggleSwitch x:Name="AcrylicBlurToggleSwitch"
+                          IsOn="{x:Bind ViewModel.IsAcrylicBlurEnabled, Mode=TwoWay}"
+                          Margin="0,8,0,0"/>
         </StackPanel>
     </Grid>
 
