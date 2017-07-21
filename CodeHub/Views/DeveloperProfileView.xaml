@@ -108,7 +108,7 @@
                                                  IsCacheEnabled="True"
                                                  Stretch="UniformToFill"/>
                 </toolkitControl:DropShadowPanel>
-                
+
                 <TextBlock x:Name="UserNameText"
                            FontSize="22"
                            FontWeight="SemiBold"

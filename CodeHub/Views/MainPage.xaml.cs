@@ -83,14 +83,11 @@ namespace CodeHub.Views
         }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
-            {
-                ViewModel.HamItemClicked(e.ClickedItem as HamItem);
-
-                //Don't close the Hamburger menu if visual state is DesktopEx
-                if (!(HamSplitView.DisplayMode == SplitViewDisplayMode.Inline))
-                    HamSplitView.IsPaneOpen = false;
-            }
+            ViewModel.HamItemClicked(e.ClickedItem as HamItem);
+            
+            //Don't close the Hamburger menu if visual state is DesktopEx
+            if (!(HamSplitView.DisplayMode == SplitViewDisplayMode.Inline))
+                HamSplitView.IsPaneOpen = false;
         }
         private void SettingsItem_ItemClick(object sender, TappedRoutedEventArgs e)
         {
