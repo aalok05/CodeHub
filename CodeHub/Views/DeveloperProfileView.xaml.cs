@@ -29,9 +29,12 @@ namespace CodeHub.Views
             if(ViewModel.Developer!= null)
             {
                 if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
+                {
                     Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
-                else
-                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
+                    Pivot.Items.Remove(FollowersPivotItem);
+                    Pivot.Items.Remove(FollowingPivotItem);
+                }
+                else Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
             }
            
         }

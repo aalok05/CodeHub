@@ -133,19 +133,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _IsOrganization;
-        public bool IsOrganization
-        {
-            get
-            {
-                return _IsOrganization;
-            }
-            set
-            {
-                Set(() => IsOrganization, ref _IsOrganization, value);
-            }
-        }
-
         public bool _IsReposLoading;
         public bool IsReposLoading
         {
@@ -210,28 +197,21 @@ namespace CodeHub.ViewModels
                 }
                 if (Developer != null)
                 {
-                    if (Developer.Type == AccountType.Organization)
+                    if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
                     {
                         CanFollow = false;
-                        IsOrganization = true;
                     }
                     else
                     {
-                        if (Developer.Login == GlobalHelper.UserLogin)
+                        CanFollow = true;
+                        FollowProgress = true;
+                        if (await UserUtility.CheckFollow(Developer.Login))
                         {
-                            CanFollow = false;
+                            IsFollowing = true;
                         }
-                        else
-                        {
-                            CanFollow = true;
-                            FollowProgress = true;
-                            if (await UserUtility.CheckFollow(Developer.Login))
-                            {
-                                IsFollowing = true;
-                            }
-                            FollowProgress = false;
-                        }
+                        FollowProgress = false;
                     }
+
                     IsEventsLoading = true;
                     Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
                     IsEventsLoading = false;
