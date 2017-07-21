@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -163,9 +163,6 @@
     <value>Donner 0.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="firstDonateTierDescription.Text" xml:space="preserve">
-    <value>Offre un café au développeur.</value>
-  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>S'abonner</value>
   </data>
@@ -178,9 +175,6 @@
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
     <value>Donner 9.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="fourthDonateTierDescription.Text" xml:space="preserve">
-    <value>Donnez cette somme remarquable si vous êtes généreux et que vous aimez CodeHub.</value>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Load commit messages for files</value>
@@ -201,9 +195,6 @@
     <value>Donner 2.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
-  <data name="secondDonateTierDescription.Text" xml:space="preserve">
-    <value>Offrir un cadeau au dévellopeur</value>
-  </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Afficher les numéros de ligne</value>
   </data>
@@ -216,9 +207,6 @@
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
     <value>Donner 4.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
-  </data>
-  <data name="thirdDonateTierDescription.Text" xml:space="preserve">
-    <value>Supportez activement le dévellopement de CodeHub avec cette superbe donation.</value>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>se désabonner</value>
@@ -285,7 +273,7 @@
     <value>Organisations</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>participant/value>
+    <value>participant</value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
@@ -335,7 +323,7 @@
   <data name="noResult.Text" xml:space="preserve">
     <value>Aucun résultat</value>
   </data>
-  <data name="searchAutoSuggestBox.Text" xml:space="preserve">
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>search away!</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
@@ -417,10 +405,10 @@
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
     <value>Estomper le contenu derrière la fenêtre</value>
   </data>
-  <data name="fifthDonateTierDescription.Content" xml:space="preserve">
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>Donner 14.99$</value>
   </data>
-  <data name="sixthDonateTierDescription.Content" xml:space="preserve">
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
     <value>Donner 19.99$</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
