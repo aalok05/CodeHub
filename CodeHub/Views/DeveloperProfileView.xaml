@@ -87,25 +87,33 @@
                       VerticalScrollBarVisibility="Hidden"
                       VerticalScrollMode="Enabled">
             <RelativePanel Background="Transparent">
-                <toolkitControl:RoundImageEx x:Name="UserPic"
-                                             Width="125"
-                                             Height="125"
-                                             Margin="0 10 0 0"
-                                             CornerRadius="999"
-                                             RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                             Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
-                                             DecodePixelHeight="125"
-                                             DecodePixelWidth="125"
-                                             DecodePixelType="Logical"
-                                             IsCacheEnabled="True"
-                                             Stretch="UniformToFill">
-                    
-                </toolkitControl:RoundImageEx>
+                <toolkitControl:DropShadowPanel x:Name="UserPicShadow"
+                                                Margin="0 10 0 0"
+                                                BlurRadius="8"
+                                                ShadowOpacity="0.7"
+                                                OffsetX="2"
+                                                OffsetY="2"
+                                                Color="Black"
+                                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center">
+                    <toolkitControl:RoundImageEx x:Name="UserPic"
+                                                 Width="125"
+                                                 Height="125"
+                                                 CornerRadius="999"
+                                                 Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
+                                                 DecodePixelHeight="125"
+                                                 DecodePixelWidth="125"
+                                                 DecodePixelType="Logical"
+                                                 IsCacheEnabled="True"
+                                                 Stretch="UniformToFill"/>
+                </toolkitControl:DropShadowPanel>
+                
                 <TextBlock x:Name="UserNameText"
                            FontSize="22"
                            FontWeight="SemiBold"
                            RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="UserPic"
+                           RelativePanel.Below="UserPicShadow"
                            Text="{x:Bind ViewModel.Developer.Name, Mode=OneWay}"
                            TextWrapping="Wrap" />
                 <TextBlock x:Name="LoginText"

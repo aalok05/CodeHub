@@ -261,6 +261,7 @@
                         <RelativePanel Name="HamRelative"
                                        Padding="0 10 0 0"
                                        Background="Transparent">
+
                             <toolkitControl:RoundImageEx x:Name="avatarEllipse"
                                                          Margin="16 12 12 12"
                                                          CornerRadius="999"
@@ -272,9 +273,7 @@
                                                          IsCacheEnabled="True"
                                                          Stretch="UniformToFill"
                                                          Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
-                                                         Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"
-                                                         Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
-
+                                                         Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
                             <StackPanel Orientation="Vertical"
                                         RelativePanel.AlignVerticalCenterWith="avatarEllipse"
                                         RelativePanel.RightOf="avatarEllipse"
@@ -314,16 +313,18 @@
                                         </core:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                     <RelativePanel Width="270">
-                                        <Ellipse x:Name="smallAvatarEllipse"
-                                                 Width="27"
-                                                 Height="27"
-                                                 Margin="0 0 10 0"
-                                                 RelativePanel.AlignVerticalCenterWithPanel="True">
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{x:Bind ViewModel.User.AvatarUrl, FallbackValue='ms-appx:///Assets/profile-placeholder.png', Mode=OneWay}" />
-                                            </Ellipse.Fill>
-                                        </Ellipse>
-
+                                        <toolkitControl:RoundImageEx x:Name="smallAvatarEllipse"
+                                                                     CornerRadius="999"
+                                                                     Margin="0 0 10 0"
+                                                                     Width="27"
+                                                                     Height="27"
+                                                                     DecodePixelHeight="27"
+                                                                     DecodePixelType="Logical"
+                                                                     DecodePixelWidth="27"
+                                                                     IsCacheEnabled="True"
+                                                                     Stretch="UniformToFill"
+                                                                     RelativePanel.AlignVerticalCenterWithPanel="True"
+                                                                     Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"/>
                                         <TextBlock x:Name="EmailText"
                                                    FontSize="10"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
