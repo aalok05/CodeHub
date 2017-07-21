@@ -47,10 +47,7 @@ namespace CodeHub
         {
             // Set the right theme-depending color for the alternating rows
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
-            {
-                XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush",
-                   new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
-            }
+                XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
 
             CustomFrame rootFrame = Window.Current.Content as CustomFrame;
 

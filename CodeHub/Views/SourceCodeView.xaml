@@ -29,6 +29,7 @@
                                    MinWidth="120"
                                    Margin="12,8,0,12"
                                    FontSize="13"
+                                   LightDismissOverlayMode="On"
                                    ItemsSource="{x:Bind ViewModel.Branches, Mode=OneWay}"
                                    PlaceholderText="{x:Bind ViewModel.SelectedBranch, Mode=OneWay}"
                                    SelectedItem="{x:Bind ViewModel.SelectedBranch, Mode=OneWay}"

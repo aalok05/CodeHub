@@ -41,13 +41,16 @@ namespace CodeHub.Views
             ToggleNewIssuePanelVisibility(false);
         }
 
-        private void AppBarButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private void AddIssueButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ToggleNewIssuePanelVisibility(true);
         }
 
         private async void ToggleNewIssuePanelVisibility(bool visible)
         {
+            //clearing the text in TextBoxes
+            ViewModel.NewIssueTitleText = ViewModel.NewIssueBodyText = string.Empty;
+
             if (visible)
             {
                 createIssuePanel.Visibility = Visibility.Visible;
@@ -57,8 +60,6 @@ namespace CodeHub.Views
             {
                 await createIssuePanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
                 createIssuePanel.Visibility = Visibility.Collapsed;
-                //clearing the text in TextBoxes
-                ViewModel.NewIssueTitleText = ViewModel.NewIssueBodyText = string.Empty;
             }
         }
     }

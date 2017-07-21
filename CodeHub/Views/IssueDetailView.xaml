@@ -148,22 +148,15 @@
                            Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
             </StackPanel>
             <Button Margin="0 8 8 0"
-                    Padding="0"
-                    Background="Transparent"
+                    Width="40"
+                    Height="40"
+                    Background="{ThemeResource SystemChromeLowColor}"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignVerticalCenterWith="statePanel"
-                    Style="{StaticResource ActionButtonStyle}"
+                    Style="{StaticResource RoundedButtonStyle}"
                     Visibility="{x:Bind ViewModel.CanEditIssue, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
                     Tapped="EditIssue_Tapped">
-                <Grid>
-                    <Ellipse Width="40"
-                             Height="40"
-                             Fill="{ThemeResource SystemChromeLowColor}" />
-                    <Viewbox MaxWidth="15"
-                             MaxHeight="15">
-                        <SymbolIcon Symbol="Edit" />
-                    </Viewbox>
-                </Grid>
+                <SymbolIcon Symbol="Edit"/>
             </Button>
             <ScrollViewer Margin="8 8 4 8"
                           HorizontalScrollBarVisibility="Disabled"
@@ -247,6 +240,7 @@
                     <ProgressRing Grid.Row="0"
                                   Width="20"
                                   Height="20"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   HorizontalAlignment="Center"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>

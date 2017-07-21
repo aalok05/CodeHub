@@ -219,7 +219,7 @@
     <comment>Context: all repositories</comment>
   </data>
   <data name="closed.Text" xml:space="preserve">
-    <value>gelöst</value>
+    <value>Bearbeitet</value>
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
   <data name="comments.Text" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>Von dir</value>
+    <value>Dir</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
@@ -266,14 +266,14 @@
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
   <data name="open.Text" xml:space="preserve">
-    <value>ungelöst</value>
+    <value>Ausstehend</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="organizations.Text" xml:space="preserve">
     <value>Organisationen</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>Dich betreffende</value>
+    <value>Dich betreffend</value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
@@ -302,10 +302,10 @@
     <value>Heute</value>
   </data>
   <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
-    <value>Aufstrebende Repositories werden von Github aktualisiert</value>
+    <value>Trend-Repos werden von Github aktualisiert</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>Aufstrebend</value>
+    <value>Trends</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
     <value>Ungelesene</value>
@@ -388,13 +388,13 @@
     <value>VERÖFFENTLICHUNGEN</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>Keine angenommenen Aufnahmeanträge</value>
+    <value>Keine angenommenen Pull Requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>Keine offenen Aufnahmeanträge</value>
+    <value>Keine offenen Pull Requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
-    <value>übergab den Commit</value>
+    <value>brachte den Commit</value>
   </data>
   <data name="commits.Text" xml:space="preserve">
     <value>Commits</value>
@@ -403,7 +403,7 @@
     <value>Kontakte</value>
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Inhalt hinterm Fenster mit Blur-Effekt anzeigen</value>
+    <value>Stelle Inhalt im Hintergrund unscharf (Blur)</value>
   </data>
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>$14,99 spenden</value>
@@ -418,9 +418,9 @@
     <value>Speichern</value>
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
-    <value>Check for Notifications frequently</value>
+    <value>Häufiger auf Benachrichtigungen überprüfen</value>
   </data>
   <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
+    <value>Alle als gelesen markieren</value>
   </data>
 </root>

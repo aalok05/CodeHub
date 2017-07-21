@@ -339,7 +339,6 @@
     <Compile Include="ViewModels\TrendingViewmodel.cs" />
     <Compile Include="ViewModels\MainViewmodel.cs" />
     <Compile Include="ViewModels\MyReposViewmodel.cs" />
-    <Compile Include="ViewModels\ProfileViewmodel.cs" />
     <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
     <Compile Include="ViewModels\SearchViewmodel.cs" />
     <Compile Include="ViewModels\SettingsViewmodel.cs" />
@@ -354,9 +353,6 @@
     </Compile>
     <Compile Include="Views\NotificationsView.xaml.cs">
       <DependentUpon>NotificationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProfileView.xaml.cs">
-      <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PullRequestDetailView.xaml.cs">
       <DependentUpon>PullRequestDetailView.xaml</DependentUpon>
@@ -565,10 +561,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NotificationsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

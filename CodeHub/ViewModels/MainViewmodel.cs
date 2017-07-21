@@ -87,7 +87,7 @@ namespace CodeHub.ViewModels
                                             DestPage = typeof(TrendingView) },
                             new HamItem() { Label = "Profile",
                                             Symbol = (Geometry)XamlReader.Load(profileSymbol),
-                                            DestPage =typeof(ProfileView) },
+                                            DestPage =typeof(DeveloperProfileView) },
                             new HamItem() { Label = "My Repositories",
                                             Symbol = (Geometry)XamlReader.Load(myRepoSymbol),
                                             DestPage =typeof(MyReposView) },
@@ -247,8 +247,7 @@ namespace CodeHub.ViewModels
         }
         public void AppBarProfile_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[2].DestPage)
-                HamItemClicked(HamItems[2]);
+            HamItemClicked(HamItems[2]);
         }
         public void AppBarMyRepos_Tapped(object sender, TappedRoutedEventArgs e)
         {

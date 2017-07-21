@@ -20,7 +20,7 @@
             <SolidColorBrush x:Key="AppPrimaryDarkColorBrush" Color="{StaticResource AppPrimaryColorDark}"/>
             <Color x:Key="AppPrimaryColorDark">#519932</Color>
 
-            <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="#0c0c0c"/>
+            <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="Black" Opacity="0.2"/>
 
             <brushes:CustomAcrylicBrush x:Key="InAppAcrylicBrush"
                                         Mode="InAppBlur"
