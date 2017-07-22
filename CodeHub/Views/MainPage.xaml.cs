@@ -105,6 +105,12 @@ namespace CodeHub.Views
             moreButton.Flyout.Hide();
             ViewModel.SignOutCommand.Execute(null);
         }
+        private async void CloseWhatsNew_Tapped(object sender, RoutedEventArgs e)
+        {
+            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            ViewModel.isLoading = false;
+            WhatsNewPopup.Visibility = Visibility.Collapsed;
+        }
         #endregion
 
         #region Messaging
@@ -140,6 +146,13 @@ namespace CodeHub.Views
             {
                 await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
                 await ViewModel.CheckForUnreadNotifications();
+
+                if (WhatsNewDisplayService.IsNewVersion())
+                {
+                    ViewModel.isLoading = true;
+                    WhatsNewPopup.Visibility = Visibility.Visible;
+                    await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                }
             }
 
             notifManager = new LocalNotificationManager(NotificationGrid);
