@@ -275,6 +275,7 @@
             </PivotItem>
         </Pivot>
         <RelativePanel x:Name="EditLabelsPanel"
+                       Visibility="Collapsed"
                        Grid.RowSpan="2"
                        Grid.ColumnSpan="2">
             <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"

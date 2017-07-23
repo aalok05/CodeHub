@@ -150,6 +150,7 @@ namespace CodeHub.Views
                 if (WhatsNewDisplayService.IsNewVersion())
                 {
                     ViewModel.isLoading = true;
+                    WhatsNewPopup.SetVisualOpacity(0);
                     WhatsNewPopup.Visibility = Visibility.Visible;
                     await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
                 }

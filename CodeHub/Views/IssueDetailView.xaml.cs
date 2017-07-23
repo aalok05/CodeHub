@@ -33,7 +33,6 @@ namespace CodeHub.Views
 
             commentsListView.SelectedIndex = -1;
             ViewModel.CommentText = string.Empty;
-            EditLabelsPanel.Visibility = Visibility.Collapsed;
 
             if (e.NavigationMode != NavigationMode.Back)
             {
@@ -96,6 +95,7 @@ namespace CodeHub.Views
         {
             ViewModel.NewIssueBodyText = ViewModel.Issue.Body;
             ViewModel.NewIssueTitleText = ViewModel.Issue.Title;
+            EditLabelsPanel.SetVisualOpacity(0);
             EditLabelsPanel.Visibility = Visibility.Visible;
             await EditLabelsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
         }
