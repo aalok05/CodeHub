@@ -492,6 +492,44 @@
                             BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+        
+        <Grid x:Name="WhatsNewPopup"
+              Grid.RowSpan="3"
+              Canvas.ZIndex="1"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              MaxWidth="340"
+              MaxHeight="500"
+              Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="What's new?"
+                           VerticalAlignment="Center"
+                           Margin="8"
+                           FontSize="20"
+                           FontWeight="SemiBold"/>
+            <Button Style="{StaticResource ActionButtonStyle}"
+                        Tapped="CloseWhatsNew_Tapped"
+                        MinWidth="50"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Clear"/>
+            </Button>
+            <ScrollViewer Grid.Row="1"
+                              HorizontalScrollMode="Disabled"
+                              VerticalScrollBarVisibility="Hidden"
+                              VerticalScrollMode="Auto"
+                              Background="{ThemeResource SystemChromeLowColor}">
+                <TextBlock Margin="12"
+                           Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"
+                           TextWrapping="WrapWholeWords">
+                </TextBlock>
+
+            </ScrollViewer>
+        </Grid>
+        
         <Grid x:Name="NotificationGrid" />
 
     </Grid>
