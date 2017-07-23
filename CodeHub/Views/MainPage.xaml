@@ -494,12 +494,12 @@
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
         
         <Grid x:Name="WhatsNewPopup"
-                  Grid.RowSpan="3"
-                  Canvas.ZIndex="1"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  MaxWidth="340"
-                  Visibility="Collapsed"
-                  MaxHeight="500">
+              Grid.RowSpan="3"
+              Canvas.ZIndex="1"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              MaxWidth="340"
+              MaxHeight="500"
+              Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="*"/>
@@ -523,13 +523,8 @@
                               VerticalScrollMode="Auto"
                               Background="{ThemeResource SystemChromeLowColor}">
                 <TextBlock Margin="12"
-                               TextWrapping="WrapWholeWords">
-                            <Run>Hi all,</Run><LineBreak/>
-                            <Run>Here's the changelog for v 2.1.9</Run>
-                            <LineBreak/><LineBreak/>
-                            <Run>- Design Improvements</Run><LineBreak/>
-                            <Run>- Added support for French</Run><LineBreak/>
-                            <Run>- Added 'Whats new' popup</Run><LineBreak/>
+                           Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"
+                           TextWrapping="WrapWholeWords">
                 </TextBlock>
 
             </ScrollViewer>

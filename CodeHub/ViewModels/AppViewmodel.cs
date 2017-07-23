@@ -61,6 +61,14 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public string WhatsNewText
+        {
+            get
+            {
+                return "Hi all,\n Here's the changelog for v 2.1.9 \n\n -Design Improvements \n -Added support for French \n -Added 'Whats new' popup ";
+            }
+        }
+
         public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));

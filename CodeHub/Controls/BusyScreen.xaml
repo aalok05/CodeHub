@@ -20,7 +20,7 @@
         
         <Grid Grid.ColumnSpan="2">
             <i:Interaction.Behaviors>
-                <behaviors:Blur Value="5" Duration="0" Delay="0" AutomaticallyStart="True"/>
+                <behaviors:Blur Value="20" Duration="0" Delay="0" AutomaticallyStart="True"/>
             </i:Interaction.Behaviors>
         </Grid>
 
