@@ -51,17 +51,13 @@ namespace CodeHub.Views
             #endregion
 
             Loaded += MainPage_Loaded;
-
-            SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
-            { return new NavigationService(mainFrame); });
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            await ViewModel.Initialize();
+            await ViewModel.Initialize(AppFrame);
 
             if (ViewModel.isLoggedin)
             {
@@ -90,16 +86,6 @@ namespace CodeHub.Views
                 ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
             }
             else ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
-        }
-        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (AppFrame == null) return;
-            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
-            if (service != null && AppFrame.CanGoBack && !e.Handled) // The base CanGoBack is synchronous and not reliable here
-            {
-                e.Handled = true;
-                service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
-            }
         }
 
         #region click events

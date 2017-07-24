@@ -20,6 +20,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.System.Profile;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Core;
+using CodeHub.Controls;
 
 namespace CodeHub.ViewModels
 {
@@ -174,8 +176,12 @@ namespace CodeHub.ViewModels
 
         #endregion
 
-        public async Task Initialize()
+        public async Task Initialize(CustomFrame frame)
         {
+
+            SimpleIoc.Default.Register<IAsyncNavigationService>(() => { return new NavigationService(frame); });
+            SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
+
             isLoggedin = await AuthService.checkAuth();
             await Load();
 
@@ -331,6 +337,16 @@ namespace CodeHub.ViewModels
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(FeedView))
             {
                 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
+            }
+        }
+
+        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
+            if (service != null && !e.Handled) // The base CanGoBack is synchronous and not reliable here
+            {
+                e.Handled = true;
+                service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
             }
         }
     }
