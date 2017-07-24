@@ -12,11 +12,6 @@
       xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
-    <i:Interaction.Behaviors>
-        <core:EventTriggerBehavior EventName="Loaded">
-            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}" />
-        </core:EventTriggerBehavior>
-    </i:Interaction.Behaviors>
     <Page.Resources>
         <DataTemplate x:Key="HamMenuItemTemplate" x:DataType="model:HamItem">
             <Grid Background="Transparent">
@@ -95,7 +90,6 @@
                     <VisualState.Setters>
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
-                        <Setter Target="HamSplitView.DisplayMode" Value="Overlay" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
                         <Setter Target="moreButton.Visibility" Value="Collapsed"/>
                         <Setter Target="UnreadNotifIndicator.Margin" Value="0 12 12 0"/>
@@ -108,7 +102,6 @@
                     <VisualState.Setters>
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
-                        <Setter Target="HamSplitView.DisplayMode" Value="Inline" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
                         <Setter Target="moreButton.Visibility" Value="Collapsed"/>
                         <Setter Target="UnreadNotifIndicator.Margin" Value="0 12 12 0"/>
@@ -148,7 +141,7 @@
                                              Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
                                              Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
                 <Button Name="HamButton"
-                        Click="HamButton_Click"
+                        Command="{x:Bind ViewModel.OpenPaneCommand}"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource SplitViewTogglePaneButtonStyle}" />
 
@@ -250,8 +243,9 @@
 
             <SplitView x:Name="HamSplitView"
                        Grid.Row="1"
+                       IsPaneOpen="{x:Bind ViewModel.IsPaneOpen,Mode=TwoWay}"
                        x:FieldModifier="Public"
-                       DisplayMode="Overlay"
+                       DisplayMode="{x:Bind ViewModel.DisplayMode, Mode=TwoWay}"
                        OpenPaneLength="270"
                        LightDismissOverlayMode="On"
                        PaneBackground="Transparent">
@@ -291,13 +285,14 @@
 
                             <ListView Name="HamListView"
                                       Width="270"
-                                      IsItemClickEnabled="True"
                                       ItemClick="HamListView_ItemClick"
+                                      IsItemClickEnabled="True"
                                       ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                       ItemTemplate="{StaticResource HamMenuItemTemplate}"
                                       ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
                                       RelativePanel.Below="avatarEllipse"
-                                      SelectionMode="Single" />
+                                      SelectionMode="Single">
+                            </ListView>
 
                             <ListView x:Name="HamListViewBottom"
                                       Width="270"
@@ -306,12 +301,8 @@
                                       RelativePanel.AlignHorizontalCenterWithPanel="True"
                                       SelectionMode="Single">
 
-                                <ListViewItem Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <i:Interaction.Behaviors>
-                                        <core:EventTriggerBehavior EventName="Tapped">
-                                            <core:InvokeCommandAction Command="{x:Bind ViewModel.SignOutCommand}" />
-                                        </core:EventTriggerBehavior>
-                                    </i:Interaction.Behaviors>
+                                <ListViewItem Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
+                                              Tapped="{x:Bind ViewModel.SignOut}">
                                     <RelativePanel Width="270">
                                         <toolkitControl:RoundImageEx x:Name="smallAvatarEllipse"
                                                                      CornerRadius="999"
@@ -338,7 +329,7 @@
                                                    RelativePanel.Below="EmailText" />
                                     </RelativePanel>
                                 </ListViewItem>
-                                <ListViewItem Tapped="SettingsItem_ItemClick">
+                                <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
                                     <StackPanel HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Orientation="Horizontal">
@@ -371,6 +362,7 @@
                                              Navigated="{x:Bind ViewModel.MainFrame_Navigated}" />
                         <AD:AdControl x:Name="adControlDesktop"
                                       Grid.Row="1"
+                                      Visibility="{x:Bind ViewModel.IsDesktopAdsVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
                                       Width="728"
                                       Height="90"
                                       HorizontalAlignment="Left"
@@ -381,6 +373,7 @@
                                       IsAutoRefreshEnabled="True" />
                         <AD:AdControl x:Name="adControlMobile"
                                       Grid.Row="1"
+                                      Visibility="{x:Bind ViewModel.IsMobileAdsVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
                                       Width="320"
                                       Height="50"
                                       HorizontalAlignment="Left"
@@ -489,7 +482,6 @@
 
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"
-                            BusyText="{x:Bind ViewModel.BusyScreenText, Mode=OneWay, TargetNullValue='Loading...'}"
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
         

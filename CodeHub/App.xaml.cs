@@ -43,7 +43,7 @@ namespace CodeHub
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Set the right theme-depending color for the alternating rows
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
@@ -59,32 +59,13 @@ namespace CodeHub
                 rootFrame = new CustomFrame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (!e.PrelaunchActivated)
             {
                 if (rootFrame.Content == null)
                 {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing a boolean as navigation parameter,
-                    // indicating whether the user is logged in or not
-
-                    if (await AuthService.checkAuth())
-                    {
-                       await rootFrame.Navigate(typeof(MainPage), true);
-                    }
-                    else
-                    {
-                       await rootFrame.Navigate(typeof(MainPage), false);
-                    }
+                    Window.Current.Content = new MainPage();
                 }
 
                 if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
