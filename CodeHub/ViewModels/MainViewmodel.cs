@@ -178,7 +178,6 @@ namespace CodeHub.ViewModels
 
         public async Task Initialize(CustomFrame frame)
         {
-
             SimpleIoc.Default.Register<IAsyncNavigationService>(() => { return new NavigationService(frame); });
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
 
@@ -282,6 +281,7 @@ namespace CodeHub.ViewModels
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[4].DestPage)
                 HamItemClicked(HamItems[4]);
         }
+
         public void NavigateToSettings()
         {
             foreach (var i in HamItems)
@@ -330,6 +330,7 @@ namespace CodeHub.ViewModels
                     IsMobileAdsVisible = false;
                 }
             }
+            else IsMobileAdsVisible = IsDesktopAdsVisible = false;
         }
 
         public void RecieveSignInMessage(User user)
@@ -343,10 +344,10 @@ namespace CodeHub.ViewModels
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
-            if (service != null && !e.Handled) // The base CanGoBack is synchronous and not reliable here
+            if (service != null && !e.Handled)
             {
                 e.Handled = true;
-                service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
+                service.GoBackAsync();
             }
         }
     }
