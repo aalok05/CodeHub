@@ -133,7 +133,8 @@
                 Style="{StaticResource RoundedButtonStyle}">
             <SymbolIcon Symbol="Add" Foreground="White"/>
         </Button>
-        <RelativePanel x:Name="createIssuePanel">
+        <RelativePanel x:Name="createIssuePanel"
+                       Visibility="Collapsed">
             <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     Opacity="0.1"
                     RelativePanel.AlignBottomWithPanel="True"

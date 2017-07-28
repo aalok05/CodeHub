@@ -16,6 +16,12 @@ using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Ioc;
 using Windows.UI.Xaml.Input;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.System.Profile;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Core;
+using CodeHub.Controls;
 
 namespace CodeHub.ViewModels
 {
@@ -23,7 +29,7 @@ namespace CodeHub.ViewModels
     {
         #region properties
 
-        public string _headerText;
+        private string _headerText;
         public string HeaderText
         {
             get
@@ -36,7 +42,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public string _email;
+        private string _email;
         public string Email
         {
             get
@@ -49,7 +55,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public ObservableCollection<HamItem> _HamItems = new ObservableCollection<HamItem>();
+        private ObservableCollection<HamItem> _HamItems = new ObservableCollection<HamItem>();
         public ObservableCollection<HamItem> HamItems
         {
 
@@ -59,17 +65,45 @@ namespace CodeHub.ViewModels
                 Set(() => HamItems, ref _HamItems, value);
             }
         }
-
-        public string _busyScreenText;
-        public string BusyScreenText
+        private bool _isPaneOpen;
+        public bool IsPaneOpen
         {
-            get { return _busyScreenText; }
+            get { return _isPaneOpen; }
             set
             {
-                Set(() => BusyScreenText, ref _busyScreenText, value);
+                Set(() => IsPaneOpen, ref _isPaneOpen, value);
+            }
+        }
+        private bool _isDesktopAdsVisible;
+        public bool IsDesktopAdsVisible
+        {
+            get { return _isDesktopAdsVisible; }
+            set
+            {
+                Set(() => IsDesktopAdsVisible, ref _isDesktopAdsVisible, value);
+            }
+        }
+        private bool _isMobileAdsVisible;
+        public bool IsMobileAdsVisible
+        {
+            get { return _isMobileAdsVisible; }
+            set
+            {
+                Set(() => IsMobileAdsVisible, ref _isMobileAdsVisible, value);
+            }
+        }
+        private SplitViewDisplayMode _displayMode = SplitViewDisplayMode.Overlay;
+        public SplitViewDisplayMode DisplayMode
+        {
+            get { return _displayMode; }
+
+            set
+            {
+                Set(() => DisplayMode, ref _displayMode, value);
             }
         }
         #endregion
+
         public MainViewmodel()
         {
             var trendingSymbol = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">F0 M12,16z M0,0z M5.05,0.31C5.86,2.48 5.46,3.69 4.53,4.62 3.55,5.67 1.98,6.45 0.9,7.98 -0.55,10.03 -0.8,14.51 4.43,15.68 2.23,14.52 1.76,11.16 4.13,9.07 3.52,11.1 4.66,12.4 6.07,11.93 7.46,11.46 8.37,12.46 8.34,13.6 8.32,14.38 8.03,15.04 7.21,15.41 10.63,14.82 11.99,11.99 11.99,9.85 11.99,7.01 9.46,6.63 10.74,4.24 9.22,4.37 8.71,5.37 8.85,6.99 8.94,8.07 7.83,8.79 6.99,8.32 6.32,7.91 6.33,7.13 6.93,6.54 8.18,5.31 8.68,2.45 5.05,0.32L5.03,0.3 5.05,0.31z</Geometry>";
@@ -100,7 +134,23 @@ namespace CodeHub.ViewModels
             HamItems[0].IsSelected = true;
 
         }
+
         #region commands
+
+        private RelayCommand _openPaneCommand;
+        public RelayCommand OpenPaneCommand
+        {
+            get
+            {
+                return _openPaneCommand
+                    ?? (_openPaneCommand = new RelayCommand(
+                                          () =>
+                                          {
+                                              IsPaneOpen = !IsPaneOpen;
+                                          }));
+            }
+        }
+
         private RelayCommand _signInCommand;
         public RelayCommand SignInCommand
         {
@@ -111,30 +161,12 @@ namespace CodeHub.ViewModels
                                           async () =>
                                           {
                                               AuthService service = new AuthService();
-                                              BusyScreenText = "Signing in...";
                                               isLoading = true;
 
                                               if (await service.Authenticate())
                                               { 
                                                   var user = await UserUtility.GetCurrentUserInfo();
-                                                  if (user != null)
-                                                  {
-                                                      GlobalHelper.UserLogin = user.Login;
-                                                      isLoggedin = true;
-                                                      Messenger.Default.Send<User>(user); //Sending Sign in message to all viewModels
-                                                      User = user;
-                                                      if (user.Email == null)
-                                                      {
-                                                          /*  If User's email is not visible publicly, the email field will return null
-                                                           *  In this case we have to get the email separately
-                                                           */
-                                                           this.Email = await UserUtility.GetUserEmail();
-                                                      }
-                                                      else
-                                                      {
-                                                          this.Email = user.Email;
-                                                      }
-                                                  }
+                                                  await LoadUser(user);
                                               }
                                               isLoading = false;
                                              
@@ -142,74 +174,62 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private RelayCommand _signOutCommand;
-        public RelayCommand SignOutCommand
-        {
-            get
-            {
-                return _signOutCommand
-                    ?? (_signOutCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              BusyScreenText = "Signing out...";
-                                              isLoading = true;
-
-                                              if (await AuthService.signOut())
-                                              {
-                                                  isLoggedin = false;
-                                                  User = null;
-
-                                                  //Sending Sign Out message to all viewModels
-                                                  Messenger.Default.Send<GlobalHelper.SignOutMessageType>(new GlobalHelper.SignOutMessageType());
-                                                  HamItemClicked(HamItems[0]);
-                                              }
-                                              isLoading = false;
-                                          }));
-            }
-        }
-
-        public RelayCommand _loadCommand;
-        public RelayCommand LoadCommand
-        {
-            get
-            {
-                return _loadCommand
-                    ?? (_loadCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if(IsInternet())
-                                              {
-                                                  if (isLoggedin == true)
-                                                  {
-                                                      var user = await UserUtility.GetCurrentUserInfo();
-
-                                                      if (user != null)
-                                                      {
-                                                          User = user;
-                                                          GlobalHelper.UserLogin = user.Login;
-                                                          Messenger.Default.Send<User>(user); //Sending Sign in message to all viewModels
-                                                        
-                                                          if (user.Email == null)
-                                                          {
-                                                              /*  If User's email is not visible publicly, the email field will return null
-                                                              *   In this case we have to get the email separately
-                                                              */
-                                                              this.Email = await UserUtility.GetUserEmail();
-                                                          }
-                                                          else
-                                                          {
-                                                              this.Email = user.Email;
-                                                          }
-                                                      }
-                                                  }
-                                              }
-                                          }));
-            }
-        }
-
         #endregion
 
-        #region events and methods
+        public async Task Initialize(CustomFrame frame)
+        {
+            SimpleIoc.Default.Register<IAsyncNavigationService>(() => { return new NavigationService(frame); });
+            SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
+
+            isLoggedin = await AuthService.checkAuth();
+            await Load();
+
+            ConfigureAdsVisibility();
+        }
+
+        public async Task Load()
+        {
+            if (IsInternet())
+            {
+                if (isLoggedin == true)
+                {
+                    var user = await UserUtility.GetCurrentUserInfo();
+
+                    await LoadUser(user);
+                }
+            }
+        }
+        public async Task SignOut()
+        {
+            isLoading = true;
+
+            if (await AuthService.signOut())
+            {
+                isLoggedin = false;
+                User = null;
+                Messenger.Default.Send<GlobalHelper.SignOutMessageType>(new SignOutMessageType());
+                HamItemClicked(HamItems[0]);
+            }
+            isLoading = false;
+        }
+        public async Task LoadUser(User user)
+        {
+            if (user != null)
+            {
+                GlobalHelper.UserLogin = user.Login;
+                isLoggedin = true;
+                Messenger.Default.Send<User>(user);
+                User = user;
+                if (user.Email == null)
+                {
+                    // If User's email is not visible publicly, the email field will return null
+                    // In this case we have to get the email separately
+                    this.Email = await UserUtility.GetUserEmail();
+                }
+                else Email = user.Email;
+            }
+        }
+
         public void HamItemClicked(HamItem item)
         {
             foreach(var i in HamItems)
@@ -218,6 +238,9 @@ namespace CodeHub.ViewModels
             }
             item.IsSelected = true;
             Navigate(item.DestPage,item.Label);
+
+            if (!(DisplayMode == SplitViewDisplayMode.Inline))
+                IsPaneOpen = false;
         }
         public void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {
@@ -234,7 +257,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        #region navigation click events
         public void AppBarNewsFeed_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[0].DestPage)
@@ -259,6 +281,7 @@ namespace CodeHub.ViewModels
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != HamItems[4].DestPage)
                 HamItemClicked(HamItems[4]);
         }
+
         public void NavigateToSettings()
         {
             foreach (var i in HamItems)
@@ -266,6 +289,8 @@ namespace CodeHub.ViewModels
                 i.IsSelected = false;
             }
             Navigate(typeof(SettingsView), "Settings");
+            if (!(DisplayMode == SplitViewDisplayMode.Inline))
+                IsPaneOpen = false;
         }
         public void NavigateToSearch()
         {
@@ -289,8 +314,41 @@ namespace CodeHub.ViewModels
                 Navigate(typeof(NotificationsView), "Notifications");
             }
         }
-        #endregion
 
-        #endregion
+        public void ConfigureAdsVisibility()
+        {
+            if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
+            {
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                {
+                    IsMobileAdsVisible = true;
+                    IsDesktopAdsVisible = false;
+                }
+                else
+                {
+                    IsDesktopAdsVisible = true;
+                    IsMobileAdsVisible = false;
+                }
+            }
+            else IsMobileAdsVisible = IsDesktopAdsVisible = false;
+        }
+
+        public void RecieveSignInMessage(User user)
+        {
+            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(FeedView))
+            {
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
+            }
+        }
+
+        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
+            if (service != null && !e.Handled)
+            {
+                e.Handled = true;
+                service.GoBackAsync();
+            }
+        }
     }
 }

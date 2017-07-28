@@ -27,7 +27,6 @@ namespace CodeHub.Views
             base.OnNavigatedTo(e);
 
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Issues" });
-            createIssuePanel.Visibility = Visibility.Collapsed;
 
             if (e.NavigationMode != NavigationMode.Back)
             {
@@ -53,6 +52,7 @@ namespace CodeHub.Views
 
             if (visible)
             {
+                createIssuePanel.SetVisualOpacity(0);
                 createIssuePanel.Visibility = Visibility.Visible;
                 await createIssuePanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             }
