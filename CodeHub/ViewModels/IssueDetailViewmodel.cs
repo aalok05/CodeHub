@@ -122,6 +122,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _isEditingIssue;
+        public bool IsEditingIssue
+        {
+            get
+            {
+                return _isEditingIssue;
+            }
+            set
+            {
+                Set(() => IsEditingIssue, ref _isEditingIssue, value);
+
+            }
+        }
+
         public ObservableCollection<Label> _AllLabels;
         /// <summary>
         /// All available labels in the repository
@@ -213,9 +227,9 @@ namespace CodeHub.ViewModels
             IssueUpdate updatedIssue = new IssueUpdate();
             updatedIssue.Title = NewIssueTitleText;
             updatedIssue.Body = NewIssueBodyText;
-            isLoading = true;
+            IsEditingIssue = true;
             Issue issue = await IssueUtility.EditIssue(Repository.Id, Issue.Number, updatedIssue);
-            isLoading = false;
+            IsEditingIssue = false;
             if (issue != null)
             {
                 Issue = issue;

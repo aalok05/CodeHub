@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Navigation;
 using Octokit;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
+using System.Threading.Tasks;
 
 namespace CodeHub.Views
 {
@@ -34,32 +35,36 @@ namespace CodeHub.Views
                 IssuesPivot.SelectedItem = IssuesPivot.Items[0];
             }
         }
-
-        private void CancelNewIssueButton_Tapped(object sender, TappedRoutedEventArgs e)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            ToggleNewIssuePanelVisibility(false);
+            await ToggleNewIssuePanelVisibility(false);
         }
 
-        private void AddIssueButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void CancelNewIssueButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ToggleNewIssuePanelVisibility(true);
+            await ToggleNewIssuePanelVisibility(false);
         }
 
-        private async void ToggleNewIssuePanelVisibility(bool visible)
+        private async void AddIssueButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ToggleNewIssuePanelVisibility(true);
+        }
+
+        private async Task ToggleNewIssuePanelVisibility(bool visible)
         {
             //clearing the text in TextBoxes
             ViewModel.NewIssueTitleText = ViewModel.NewIssueBodyText = string.Empty;
 
             if (visible)
             {
-                createIssuePanel.SetVisualOpacity(0);
-                createIssuePanel.Visibility = Visibility.Visible;
-                await createIssuePanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                createIssueDialog.SetVisualOpacity(0);
+                createIssueDialog.Visibility = Visibility.Visible;
+                await createIssueDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             }
             else
             {
-                await createIssuePanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-                createIssuePanel.Visibility = Visibility.Collapsed;
+                await createIssueDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                createIssueDialog.Visibility = Visibility.Collapsed;
             }
         }
     }
