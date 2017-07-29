@@ -47,6 +47,7 @@ namespace CodeHub.Views
             Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ViewModel.ConfigureAdsVisibility(); });
             Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
             Messenger.Default.Register(this, delegate (UpdateUnreadNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
+            Messenger.Default.Register(this, delegate (ShowWhatsNewPopupMessageType m) { ShowWhatsNewPopup(); });
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
             #endregion
 
@@ -66,10 +67,7 @@ namespace CodeHub.Views
 
                 if (WhatsNewDisplayService.IsNewVersion())
                 {
-                    ViewModel.isLoading = true;
-                    WhatsNewPopup.SetVisualOpacity(0);
-                    WhatsNewPopup.Visibility = Visibility.Visible;
-                    await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                    await ShowWhatsNewPopup();
                 }
             }
 
@@ -154,6 +152,14 @@ namespace CodeHub.Views
                 BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
             }
             else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
+        }
+
+        private async Task ShowWhatsNewPopup()
+        {
+            WhatsNewPopup.SetVisualOpacity(0);
+            WhatsNewPopup.Visibility = Visibility.Visible;
+            ViewModel.isLoading = true;
+            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
         }
         #endregion
     }

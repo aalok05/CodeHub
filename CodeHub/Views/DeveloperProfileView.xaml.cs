@@ -16,9 +16,6 @@ namespace CodeHub.Views
             ViewModel = new DeveloperProfileViewmodel();
            
             this.DataContext = ViewModel;
-
-            //Follow activity happened, refresh UI 
-            Messenger.Default.Register<GlobalHelper.FollowActivityMessageType>(this, ViewModel.FollowActivity);
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

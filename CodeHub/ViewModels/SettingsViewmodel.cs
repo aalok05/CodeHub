@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls;
 using CodeHub.Views;
 using CodeHub.Services.Hilite_me;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -55,6 +56,20 @@ namespace CodeHub.ViewModels
             {
                 var v = Windows.ApplicationModel.Package.Current.Id.Version;
                 return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
+            }
+        }
+
+        private ICommand _shoWWhatsNewCommand;
+        public ICommand ShoWWhatsNewCommand
+        {
+            get
+            {
+                if (_shoWWhatsNewCommand == null)
+                {
+                    _shoWWhatsNewCommand = new RelayCommand(() => Messenger.Default.Send(new GlobalHelper.ShowWhatsNewPopupMessageType()));
+                }
+
+                return _shoWWhatsNewCommand;
             }
         }
         #endregion

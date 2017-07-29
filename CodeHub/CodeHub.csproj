@@ -295,10 +295,10 @@
     <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
-    <Compile Include="Views\AboutSettingsView.xaml.cs">
+    <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppearanceView.xaml.cs">
+    <Compile Include="Views\Settings\AppearanceView.xaml.cs">
       <DependentUpon>AppearanceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommentsView.xaml.cs">
@@ -310,7 +310,7 @@
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DonateView.xaml.cs">
+    <Compile Include="Views\Settings\DonateView.xaml.cs">
       <DependentUpon>DonateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FeedView.xaml.cs">
@@ -319,7 +319,7 @@
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GeneralSettingsView.xaml.cs">
+    <Compile Include="Views\Settings\GeneralSettingsView.xaml.cs">
       <DependentUpon>GeneralSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IssueDetailView.xaml.cs">
@@ -502,11 +502,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\AboutSettingsView.xaml">
+    <Page Include="Views\Settings\AboutSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppearanceView.xaml">
+    <Page Include="Views\Settings\AppearanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -522,7 +522,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DonateView.xaml">
+    <Page Include="Views\Settings\DonateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -534,7 +534,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GeneralSettingsView.xaml">
+    <Page Include="Views\Settings\GeneralSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
