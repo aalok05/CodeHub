@@ -107,6 +107,7 @@
     <Content Include="Assets\flame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\green.jpeg" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
     <Content Include="Assets\NewStoreLogo.scale-150.png" />
@@ -381,7 +382,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\appLogoPurple.png" />
-    <Content Include="Assets\Images\codeBack.jpg" />
     <Content Include="Assets\Images\placeholder.jpg" />
     <Content Include="Assets\profile-placeholder.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
