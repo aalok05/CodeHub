@@ -30,34 +30,35 @@
                    Width="90"
                    Height="90"
                    Margin="12"
-                   RelativePanel.AlignRightWithPanel="True"
+                   RelativePanel.AlignHorizontalCenterWithPanel="True"
                    RelativePanel.AlignTopWithPanel="True"
                    Source="{x:Bind ViewModel.Logo}" />
             <TextBlock x:Name="DisplayNameTextBlock"
                        Margin="8,0,0,12"
                        FontSize="24"
-                       RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.AlignRightWith="LogoImage"
-                       RelativePanel.AlignTopWithPanel="True"
+                       RelativePanel.Below="LogoImage"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
                        Text="{x:Bind ViewModel.DisplayName}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="versionText"
-                       Margin="8,8,0,10"
+                       Margin="0,8,0,10"
                        FontSize="18"
                        FontWeight="Light"
-                       RelativePanel.Below="DisplayNameTextBlock">
+                       RelativePanel.Below="DisplayNameTextBlock"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True">
 
                 <Run x:Uid="version" />
                 <Run Text="{x:Bind ViewModel.Version}" />
             </TextBlock>
             <TextBlock x:Name="disclaimerText"
                        x:Uid="disclaimer"
-                       Margin="8,0,0,10"
+                       Margin="0,0,0,12"
                        FontSize="14"
                        FontWeight="SemiLight"
                        Foreground="Gray"
-                       RelativePanel.Below="versionText" />
-            <toolkitControls:Expander x:Name="CreditsExpander"
+                       RelativePanel.Below="versionText"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+            <!--<toolkitControls:Expander x:Name="CreditsExpander"
                                       x:Uid="credits"
                                       Margin="8,8,8,12"
                                       HorizontalContentAlignment="Left"
@@ -141,17 +142,24 @@
                                FontSize="13"
                                Text="Angel Careaga - Spanish" />
                 </StackPanel>
-            </toolkitControls:Expander>
+            </toolkitControls:Expander>-->
 
-            <TextBlock x:Name="contacts"
+            <Button Content="What's new in this version?"
+                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                    RelativePanel.Below="disclaimerText"
+                    Padding="8"
+                    FontSize="15"
+                    Command="{x:Bind ViewModel.ShoWWhatsNewCommand}"
+                    Style="{StaticResource ActionButtonStyle}"/>
+            <!--<TextBlock x:Name="contacts"
                        x:Uid="contacts"
                        Margin="8,12,0,4"
                        FontSize="18"
                        FontWeight="Light"
-                       RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.Below="CreditsExpander"/>
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       RelativePanel.Below="disclaimerText"/>-->
             
-            <Button x:Name="TwitterButton"
+            <!--<Button x:Name="TwitterButton"
                     MinWidth="60"
                     Margin="8 16 8 0"
                     RelativePanel.Below="contacts"
@@ -234,16 +242,16 @@
                                Foreground="{StaticResource AppPrimaryColorBrush}"
                                Text="Email" />
                 </StackPanel>
-            </Button>
+            </Button>-->
             
             
-            <HyperlinkButton x:Name="privacyLink"
+            <!--<HyperlinkButton x:Name="privacyLink"
                              x:Uid="privacyLink"
                              Margin="8 12 0 0"
                              FontSize="14"
                              Foreground="{StaticResource AppPrimaryColorBrush}"
                              NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
-                             RelativePanel.Below="TwitterButton" />
+                             RelativePanel.Below="TwitterButton" />-->
         </RelativePanel>
     </ScrollViewer>
 
