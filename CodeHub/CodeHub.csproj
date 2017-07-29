@@ -310,6 +310,9 @@
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\CreditSettingsView.xaml.cs">
+      <DependentUpon>CreditSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\DonateView.xaml.cs">
       <DependentUpon>DonateView.xaml</DependentUpon>
     </Compile>
@@ -519,6 +522,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeveloperProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\CreditSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

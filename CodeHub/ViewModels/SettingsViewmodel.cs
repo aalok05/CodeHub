@@ -217,6 +217,13 @@ namespace CodeHub.ViewModels
                     SubText = "Support the app and the developer",
                     GlyphString = "\xE170",
                     DestPage = typeof(DonateView)
+                },
+                new SettingsItem()
+                {
+                    MainText = "Credits",
+                    SubText = "Thanks for your contributions!",
+                    GlyphString = "\xE006",
+                    DestPage = typeof(CreditSettingsView)
                 }
             };
         }
