@@ -357,9 +357,6 @@
   <data name="comment.PlaceholderText" xml:space="preserve">
     <value>Commenter</value>
   </data>
-  <data name="newIssue.Label" xml:space="preserve">
-    <value>Nouveau Problème</value>
-  </data>
   <data name="title.PlaceholderText" xml:space="preserve">
     <value>Titre</value>
   </data>
@@ -423,7 +420,7 @@
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
     <value>Checker fréquemment les notifications</value>
   </data>
-  <data name="newIssueText.Text" xml:space="preserve">
+  <data name="newIssue.Text" xml:space="preserve">
     <value>Nouveau Problème</value>
   </data>
 </root>

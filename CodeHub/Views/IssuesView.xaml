@@ -187,7 +187,7 @@
                 <StackPanel x:Name="createIssuePanel"
                             Orientation="Vertical"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                    <TextBlock x:Uid="newIssueText"
+                    <TextBlock x:Uid="newIssue"
                                FontSize="20"
                                Margin="8"
                                FontWeight="SemiBold"/>

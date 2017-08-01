@@ -357,9 +357,6 @@
   <data name="comment.PlaceholderText" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="newIssue.Label" xml:space="preserve">
-    <value>New Issue</value>
-  </data>
   <data name="title.PlaceholderText" xml:space="preserve">
     <value>Title</value>
   </data>
@@ -423,7 +420,7 @@
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>Doar US $14,99</value>
   </data>
-  <data name="newIssueText.Text" xml:space="preserve">
+  <data name="newIssue.Text" xml:space="preserve">
     <value>New Issue</value>
   </data>
 </root>
