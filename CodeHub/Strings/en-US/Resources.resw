@@ -423,7 +423,7 @@
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
     <value>Check for Notifications frequently</value>
   </data>
-  <data name="newIssue.Text" xml:space="preserve">
+  <data name="newIssueText.Text" xml:space="preserve">
     <value>New Issue</value>
   </data>
 </root>

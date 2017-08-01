@@ -354,7 +354,7 @@
   <data name="newIssue.Label" xml:space="preserve">
     <value>New Issue</value>
   </data>
-  <data name="newIssue.Text" xml:space="preserve">
+  <data name="newIssueText.Text" xml:space="preserve">
     <value>New Issue</value>
   </data>
 </root>
