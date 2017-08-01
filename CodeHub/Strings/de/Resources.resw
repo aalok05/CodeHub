@@ -423,4 +423,7 @@
   <data name="markAllAsRead.Label" xml:space="preserve">
     <value>Alle als gelesen markieren</value>
   </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>Neues Problem</value>
+  </data>
 </root>

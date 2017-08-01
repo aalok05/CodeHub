@@ -423,4 +423,7 @@
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
     <value>Checker fréquemment les notifications</value>
   </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>Nouveau Problème</value>
+  </data>
 </root>
