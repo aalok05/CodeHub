@@ -228,7 +228,7 @@ namespace CodeHub.ViewModels
                     isLoading = false;
                     return;
                 }
-                SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
+                SyntaxHighlightStyleEnum style = (SyntaxHighlightStyleEnum)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
                 bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
                 HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
 

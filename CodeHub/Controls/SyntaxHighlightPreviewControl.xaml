@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="CodeHub.Controls.SyntaxHighlightPreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:CodeHub.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" x:Name="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+    <StackPanel Background="{Binding BackgroundColor}">
+        <Border Background="{ThemeResource SystemChromeLowColor}">
+            <TextBlock Text="{Binding Name}"
+                       Padding="8"
+                       FontWeight="SemiBold"
+                       FontSize="16"/>
+        </Border>
+
+        <TextBlock Margin="8 8 0 0"
+                   FontSize="12">
+            <Run Foreground="{Binding ColorOne}" Text="using " />
+            <Run Foreground="{Binding ColorTwo}" Text="System;" />
+        </TextBlock>
+        <TextBlock Margin="8,8,8,0"
+                   FontSize="12">
+            <Run Text="namespace "
+                 Foreground="{Binding ColorOne}"/>
+            <Run Text="CodeHub"
+                 Foreground="{Binding ColorTwo}"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,4"
+                   FontSize="12"
+                   Foreground="{Binding ColorTwo}"
+                   >{</TextBlock>
+        <TextBlock Margin="24,0,0,0"
+                   FontSize="12"
+                   Foreground="{Binding ColorThree}"
+                   Text="/// &lt;summary>"/>
+        <TextBlock Margin="24,0,0,0"
+                   FontSize="12"
+                   Foreground="{Binding ColorThree}"
+                   Text="/// A summary of the class"/>
+        <TextBlock Margin="24,0,0,4"
+                   FontSize="12"
+                   Foreground="{Binding ColorThree}"
+                   Text="/// &lt;/summary>"/>
+        <TextBlock Margin="24,0,0,0"
+                   FontSize="12">
+            <Run Text="public static class "
+                 Foreground="{Binding ColorOne}"/>
+            <Run Text="ClassName"
+                 Foreground="{Binding ColorFour}"/>
+        </TextBlock>
+        <TextBlock Margin="24,0,0,8"
+                   FontSize="12"
+                   Foreground="{Binding ColorTwo}"
+                   >{</TextBlock>
+    </StackPanel>
+</UserControl>
