@@ -223,8 +223,7 @@
 
         <ProgressRing Width="40"
                       Height="40"
-                      IsActive="True"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
-                      Visibility="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                      IsActive="{x:Bind ViewModel.IsCreatingIssue,Mode=OneWay}"
+                      Foreground="{StaticResource AppPrimaryColorBrush}" />
     </Grid>
 </Page>

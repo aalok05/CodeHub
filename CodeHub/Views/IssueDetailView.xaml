@@ -337,8 +337,7 @@
                       Height="40"
                       Grid.RowSpan="2"
                       Grid.ColumnSpan="2"
-                      IsActive="True"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
-                      Visibility="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                      IsActive="{x:Bind ViewModel.IsEditingIssue,Mode=OneWay}"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
     </Grid>
 </Page>

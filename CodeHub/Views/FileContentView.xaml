@@ -120,6 +120,7 @@
         <ProgressRing Grid.Row="1"
                       Width="40"
                       Height="40"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
     </Grid>
 
