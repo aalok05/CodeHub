@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
+using System.Threading.Tasks;
 
 namespace CodeHub.Views
 {
@@ -47,13 +48,14 @@ namespace CodeHub.Views
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
                 NavigationCacheMode = NavigationCacheMode.Disabled;
             }
-            base.OnNavigatedTo(e);
+
+            await ToggleEditIssuePanelVisibility(false);
         }
 
         public void ConfigureStateSymbol(Issue issue)
@@ -93,17 +95,12 @@ namespace CodeHub.Views
 
         private async void EditIssue_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            ViewModel.NewIssueBodyText = ViewModel.Issue.Body;
-            ViewModel.NewIssueTitleText = ViewModel.Issue.Title;
-            EditLabelsPanel.SetVisualOpacity(0);
-            EditLabelsPanel.Visibility = Visibility.Visible;
-            await EditLabelsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            await ToggleEditIssuePanelVisibility(true);
         }
 
         private async void CancelEditIssue_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await EditLabelsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-            EditLabelsPanel.Visibility = Visibility.Collapsed;
+            await ToggleEditIssuePanelVisibility(false);
         }
 
         private async void EditIssueSaved_Tapped(object sender, TappedRoutedEventArgs e)
@@ -111,7 +108,24 @@ namespace CodeHub.Views
             if (ViewModel.NewIssueTitleText != ViewModel.Issue.Title || ViewModel.NewIssueBodyText != ViewModel.Issue.Body)
             {
                 await ViewModel.EditIssue();
-                EditLabelsPanel.Visibility = Visibility.Collapsed;
+                EditIssueDialog.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async Task ToggleEditIssuePanelVisibility(bool visible)
+        {
+            if (visible)
+            {
+                ViewModel.NewIssueBodyText = ViewModel.Issue.Body;
+                ViewModel.NewIssueTitleText = ViewModel.Issue.Title;
+                EditIssueDialog.SetVisualOpacity(0);
+                EditIssueDialog.Visibility = Visibility.Visible;
+                await EditIssueDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+            else
+            {
+                await EditIssueDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                EditIssueDialog.Visibility = Visibility.Collapsed;
             }
         }
     }

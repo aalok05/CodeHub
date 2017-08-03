@@ -19,34 +19,26 @@ namespace CodeHub.Helpers
         */
         #region Message Types
 
-        public class AdsEnabledMessageType
-        {
-        }
-        public class SignOutMessageType
-        {
+        public class AdsEnabledMessageType {}
 
-        }
-        public class HasInternetMessageType
-        {
+        public class SignOutMessageType {}
 
-        }
+        public class HasInternetMessageType {}
+
+        public class HostWindowBlurMessageType {}
+
+        public class ShowWhatsNewPopupMessageType {}
+
         public class LocalNotificationMessageType
         {
             public string Message { get; set; }
             public string Glyph { get; set; }
-
         }
         public class SetHeaderTextMessageType
         {
             public string PageName { get; set; }
         }
-        public class FollowActivityMessageType
-        {
 
-        }
-        public class HostWindowBlurMessageType
-        {
-        }
         public class UpdateUnreadNotificationMessageType
         {
             public bool IsUnread { get; set; }
@@ -62,11 +54,6 @@ namespace CodeHub.Helpers
         /// Indicates whether user has performed a new Star/Unstar action. Used to update starred repositories
         /// </summary>
         public static bool NewStarActivity { get; set; }
-
-        /// <summary>
-        /// Indicates whether user has performed a new Follow/UnFollow action. Used to update followers
-        /// </summary>
-        public static bool NewFollowActivity { get; set; }
 
         /// <summary>
         /// List of names and owner names of Trending repositories

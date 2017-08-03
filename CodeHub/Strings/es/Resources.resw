@@ -351,4 +351,7 @@
   <data name="sixthDonateTierAmount.Content" xml:space="preserve">
     <value>$19.99</value>
   </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>New Issue</value>
+  </data>
 </root>

@@ -81,6 +81,7 @@
                         <Setter Target="profileEllipse.Visibility" Value="Visible" />
                         <Setter Target="moreButton.Visibility" Value="Visible"/>
                         <Setter Target="UnreadNotifIndicator.Margin" Value="0 8 12 0"/>
+                        <Setter Target="WhatsNewPopupGrid.Width" Value="340"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -93,6 +94,7 @@
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
                         <Setter Target="moreButton.Visibility" Value="Collapsed"/>
                         <Setter Target="UnreadNotifIndicator.Margin" Value="0 12 12 0"/>
+                        <Setter Target="WhatsNewPopupGrid.Width" Value="480"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -105,6 +107,7 @@
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
                         <Setter Target="moreButton.Visibility" Value="Collapsed"/>
                         <Setter Target="UnreadNotifIndicator.Margin" Value="0 12 12 0"/>
+                        <Setter Target="WhatsNewPopupGrid.Width" Value="480"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -484,44 +487,51 @@
                             Grid.RowSpan="2"
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-        
-        <Grid x:Name="WhatsNewPopup"
-              Grid.RowSpan="3"
-              Canvas.ZIndex="1"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-              MaxWidth="340"
-              MaxHeight="500"
-              Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="48"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <TextBlock Text="What's new?"
+        <toolkitControl:DropShadowPanel x:Name="WhatsNewPopup"
+                                        BlurRadius="8"
+                                        ShadowOpacity="0.7"
+                                        OffsetX="2"
+                                        OffsetY="2"
+                                        Color="Black"
+                                        Grid.RowSpan="3"
+                                        Canvas.ZIndex="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Visibility="Collapsed">
+            <Grid x:Name="WhatsNewPopupGrid"
+                  Height="600"
+                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="What's new?"
                            VerticalAlignment="Center"
                            Margin="8"
                            FontSize="20"
                            FontWeight="SemiBold"/>
-            <Button Style="{StaticResource ActionButtonStyle}"
+                <Button Style="{StaticResource ActionButtonStyle}"
                         Tapped="CloseWhatsNew_Tapped"
                         MinWidth="50"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Stretch">
-                <SymbolIcon Symbol="Clear"/>
-            </Button>
-            <ScrollViewer Grid.Row="1"
+                    <SymbolIcon Symbol="Clear"/>
+                </Button>
+                <ScrollViewer Grid.Row="1"
                               HorizontalScrollMode="Disabled"
                               VerticalScrollBarVisibility="Hidden"
                               VerticalScrollMode="Auto"
                               Background="{ThemeResource SystemChromeLowColor}">
-                <TextBlock Margin="12"
-                           Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"
-                           TextWrapping="WrapWholeWords">
-                </TextBlock>
+                    <TextBlock Margin="12"
+                               Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"
+                               TextWrapping="WrapWholeWords">
+                    </TextBlock>
 
-            </ScrollViewer>
-        </Grid>
-        
+                </ScrollViewer>
+            </Grid>
+        </toolkitControl:DropShadowPanel>
+
         <Grid x:Name="NotificationGrid" />
 
     </Grid>

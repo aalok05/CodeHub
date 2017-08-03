@@ -107,6 +107,7 @@
     <Content Include="Assets\flame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\green.jpeg" />
     <Content Include="Assets\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\NewStoreLogo.scale-125.png" />
     <Content Include="Assets\NewStoreLogo.scale-150.png" />
@@ -236,6 +237,9 @@
     <Compile Include="Controls\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SyntaxHighlightPreviewControl.xaml.cs">
+      <DependentUpon>SyntaxHighlightPreviewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TopScrollerControl.xaml.cs">
       <DependentUpon>TopScrollerControl.xaml</DependentUpon>
     </Compile>
@@ -263,6 +267,7 @@
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
+    <Compile Include="Models\SyntaxHighlightStyle.cs" />
     <Compile Include="Models\WrappedWebResult.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
@@ -295,10 +300,10 @@
     <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
-    <Compile Include="Views\AboutSettingsView.xaml.cs">
+    <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppearanceView.xaml.cs">
+    <Compile Include="Views\Settings\AppearanceView.xaml.cs">
       <DependentUpon>AppearanceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommentsView.xaml.cs">
@@ -310,7 +315,10 @@
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DonateView.xaml.cs">
+    <Compile Include="Views\Settings\CreditSettingsView.xaml.cs">
+      <DependentUpon>CreditSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\DonateView.xaml.cs">
       <DependentUpon>DonateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FeedView.xaml.cs">
@@ -319,7 +327,7 @@
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GeneralSettingsView.xaml.cs">
+    <Compile Include="Views\Settings\GeneralSettingsView.xaml.cs">
       <DependentUpon>GeneralSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IssueDetailView.xaml.cs">
@@ -378,7 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\appLogoPurple.png" />
-    <Content Include="Assets\Images\codeBack.jpg" />
     <Content Include="Assets\Images\placeholder.jpg" />
     <Content Include="Assets\profile-placeholder.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
@@ -475,6 +482,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SyntaxHighlightPreviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TopScrollerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -502,11 +513,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\AboutSettingsView.xaml">
+    <Page Include="Views\Settings\AboutSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppearanceView.xaml">
+    <Page Include="Views\Settings\AppearanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -522,7 +533,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DonateView.xaml">
+    <Page Include="Views\Settings\CreditSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\DonateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -534,7 +549,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GeneralSettingsView.xaml">
+    <Page Include="Views\Settings\GeneralSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

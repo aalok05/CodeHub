@@ -233,10 +233,6 @@ namespace CodeHub.ViewModels
                                               if (await UserUtility.FollowUser(Developer.Login))
                                               {
                                                   IsFollowing = true;
-
-                                                  Messenger.Default.Send(new GlobalHelper.FollowActivityMessageType());
-                                                  GlobalHelper.NewFollowActivity = true;
-
                                               }
                                               FollowProgress = false;
                                           }));
@@ -256,16 +252,8 @@ namespace CodeHub.ViewModels
                                               await UserUtility.UnFollowUser(Developer.Login);
                                               IsFollowing = false;
                                               FollowProgress = false;
-
-                                              Messenger.Default.Send(new GlobalHelper.FollowActivityMessageType());
-                                              GlobalHelper.NewFollowActivity = true;
                                           }));
             }
-        }
-
-        public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
-        {
-            Developer = await UserUtility.GetUserInfo(Developer.Login);
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

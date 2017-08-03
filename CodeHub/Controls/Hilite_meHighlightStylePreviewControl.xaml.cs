@@ -48,7 +48,7 @@ namespace CodeHub.Controls
         }
 
         public static readonly DependencyProperty LineNumbersVisibleProperty = DependencyProperty.Register(
-            nameof(LineNumbersVisible), typeof(SyntaxHighlightStyle), typeof(Hilite_meHighlightStylePreviewControl),
+            nameof(LineNumbersVisible), typeof(SyntaxHighlightStyleEnum), typeof(Hilite_meHighlightStylePreviewControl),
             new PropertyMetadata(false, OnLineNumbersVisiblePropertyChanged));
 
         private static async void OnLineNumbersVisiblePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -72,14 +72,14 @@ namespace CodeHub.Controls
         /// <summary>
         /// Gets or sets the currently selected code highlight style
         /// </summary>
-        public SyntaxHighlightStyle HighlightStyle
+        public SyntaxHighlightStyleEnum HighlightStyle
         {
-            get { return (SyntaxHighlightStyle)GetValue(HighlightStyleProperty); }
+            get { return (SyntaxHighlightStyleEnum)GetValue(HighlightStyleProperty); }
             set { SetValue(HighlightStyleProperty, value); }
         }
 
         public static readonly DependencyProperty HighlightStyleProperty = DependencyProperty.Register(
-            nameof(HighlightStyle), typeof(SyntaxHighlightStyle), typeof(Hilite_meHighlightStylePreviewControl),
+            nameof(HighlightStyle), typeof(SyntaxHighlightStyleEnum), typeof(Hilite_meHighlightStylePreviewControl),
             new PropertyMetadata(DependencyProperty.UnsetValue, OnHighlightStylePropertyChanged));
 
         // Private semaphore to avoid concurrent accesses
@@ -89,10 +89,10 @@ namespace CodeHub.Controls
         private const int AnimationDuration = 400;
 
         // Gets a collection of the highlight styles with a white background
-        private static readonly IReadOnlyCollection<SyntaxHighlightStyle> LightStyles = new[]
+        private static readonly IReadOnlyCollection<SyntaxHighlightStyleEnum> LightStyles = new[]
         {
-            SyntaxHighlightStyle.Borland, SyntaxHighlightStyle.Colorful, SyntaxHighlightStyle.Emacs,
-            SyntaxHighlightStyle.Perldoc, SyntaxHighlightStyle.VS
+            SyntaxHighlightStyleEnum.Borland, SyntaxHighlightStyleEnum.Colorful, SyntaxHighlightStyleEnum.Emacs,
+            SyntaxHighlightStyleEnum.Perldoc, SyntaxHighlightStyleEnum.VS
         };
 
         // Indicates the transition needed when changing the highlight preview
@@ -108,13 +108,13 @@ namespace CodeHub.Controls
             // Unpack the parameters and lock the UI
             Hilite_meHighlightStylePreviewControl @this = d.To<Hilite_meHighlightStylePreviewControl>();
             await @this.AnimationSemaphore.WaitAsync();
-            SyntaxHighlightStyle style = e.NewValue.To<SyntaxHighlightStyle>();
+            SyntaxHighlightStyleEnum style = e.NewValue.To<SyntaxHighlightStyleEnum>();
 
             // Check if there's a background transition
             HighlightTransitionType transition = HighlightTransitionType.None;
             if (e.OldValue != DependencyProperty.UnsetValue && e.OldValue != null)
             {
-                SyntaxHighlightStyle old = e.OldValue.To<SyntaxHighlightStyle>();
+                SyntaxHighlightStyleEnum old = e.OldValue.To<SyntaxHighlightStyleEnum>();
                 if (LightStyles.Contains(style) && !LightStyles.Contains(old))
                 {
                     // Dark to light transition needed

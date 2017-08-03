@@ -146,7 +146,20 @@ namespace CodeHub.ViewModels
 
             }
         }
+        public bool _isCreatingIssue;
+        public bool IsCreatingIssue
+        {
+            get
+            {
+                return _isCreatingIssue;
+            }
+            set
+            {
+                Set(() => IsCreatingIssue, ref _isCreatingIssue, value);
 
+            }
+        }
+        
         public ObservableCollection<Issue> _openissues;
         public ObservableCollection<Issue> OpenIssues
         {
@@ -277,9 +290,9 @@ namespace CodeHub.ViewModels
                                               {
                                                   NewIssue newIssue = new NewIssue(NewIssueTitleText);
                                                   newIssue.Body = NewIssueBodyText;
-                                                  isLoading = true;
+                                                  IsCreatingIssue = true;
                                                   Issue issue = await IssueUtility.CreateIssue(Repository.Id, newIssue);
-                                                  isLoading = false;
+                                                  IsCreatingIssue = false;
                                                   if (issue != null)
                                                   {
                                                       await SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
