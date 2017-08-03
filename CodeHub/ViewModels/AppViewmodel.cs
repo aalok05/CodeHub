@@ -65,7 +65,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all,\n Here's the changelog for v 2.1.9 \n\n -Design Improvements \n -Added support for French \n -Added 'Whats new' popup ";
+                return "Hi all,\n Here's the changelog for v 2.2.0 \n\n -Redesigned Sign In page \n -Added Syntax Highlight preview inside Combobox (Settings -> General) \n -Improved design of 'New Issue' and 'Edit Issue' dialogs \n -Added Credits page in settings \n -Redesigned About page ";
             }
         }
 
