@@ -26,7 +26,6 @@
         </Grid.RowDefinitions>
 
         <controls:AnimatedComboBox Grid.Row="0"
-                                   MinWidth="120"
                                    Margin="12,8,0,12"
                                    FontSize="13"
                                    LightDismissOverlayMode="On"

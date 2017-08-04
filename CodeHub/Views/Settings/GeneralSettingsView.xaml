@@ -68,39 +68,29 @@
                        FontWeight="SemiLight" />
 
             <!--  Style  -->
-            <ComboBox x:Name="SyntaxStyleCombobox"
-                      Margin="0,12,0,0"
-                      FontSize="13"
-                      ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
-                      SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
-                      Style="{StaticResource CustomComboBoxStyle}"
-                      ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
-                <ComboBox.ItemTemplate>
+            <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
+                                       Margin="0,12,0,0"
+                                       MinWidth="340"
+                                       Padding="0"
+                                       FontSize="13"
+                                       ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
+                                       SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
+                                       Style="{StaticResource AnimatedComboBoxStyle}"
+                                       ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
+                <controls:AnimatedComboBox.ItemTemplate>
                     <DataTemplate x:DataType="model:SyntaxHighlightStyle">
                         <controls:SyntaxHighlightPreviewControl/>
                     </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                </controls:AnimatedComboBox.ItemTemplate>
+            </controls:AnimatedComboBox>
 
             <!--  Line numbers  -->
             <TextBlock x:Uid="showLineNumber"
                        Margin="0,20,0,0"
                        HorizontalAlignment="Left"
                        FontSize="18"
-                       FontWeight="SemiLight"
-                       Text="Show line numbers" />
+                       FontWeight="SemiLight"/>
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
-
-            <!--  Preview  -->
-            <!--<TextBlock x:Uid="preview"
-                       Margin="0,20,0,0"
-                       HorizontalAlignment="Left"
-                       FontSize="17"
-                       FontWeight="SemiLight" />
-            <controls:Hilite_meHighlightStylePreviewControl Height="200"
-                                                            Margin="0,12,0,0"
-                                                            HighlightStyle="{x:Bind ViewModel.HighlightStyle, Mode=OneWay}"
-                                                            LineNumbersVisible="{x:Bind ViewModel.ShowLineNumbers, Mode=OneWay}" />-->
 
         </StackPanel>
     </ScrollViewer>

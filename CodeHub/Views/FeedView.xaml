@@ -41,7 +41,8 @@
             <toolkitControl:PullToRefreshListView.ItemTemplate>
                 <DataTemplate x:DataType="octo:Activity">
                     <UserControl>
-                        <RelativePanel x:Name="MainPanel">
+                        <RelativePanel x:Name="MainPanel"
+                                       Margin="0 0 0 8">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
                                     <VisualState>

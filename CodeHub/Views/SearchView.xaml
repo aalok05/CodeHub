@@ -50,8 +50,7 @@
                                   FontSize="13"
                                   SelectionChanged="{x:Bind ViewModel.SearchItem_SelectionChanged}"
                                   SelectedIndex="{x:Bind ViewModel.SelectedSearchItemIndex,Mode=TwoWay}"
-                                  Style="{StaticResource AnimatedComboBoxStyle}"
-                                  MinWidth="120"/>
+                                  Style="{StaticResource AnimatedComboBoxStyle}"/>
 
         <Grid  Grid.Row="2"
                Visibility="{x:Bind ViewModel.ZeroResultCount,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}">
