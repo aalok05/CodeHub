@@ -33,12 +33,6 @@ namespace CodeHub.Views
             Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage); //listen for sign out message
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "News Feed" });
-        }
         private void Feed_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
         {
             refreshindicator.Opacity = e.PullProgress;

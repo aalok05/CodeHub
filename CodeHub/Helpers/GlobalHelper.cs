@@ -45,6 +45,8 @@ namespace CodeHub.Helpers
         }
         #endregion
 
+        public static Stack<string> NavigationStack { get; set; } =  new Stack<string>();
+
         /// <summary>
         /// Username of the Authenticated user 
         /// </summary>

@@ -42,7 +42,6 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Settings" });
 
             if (Window.Current.Bounds.Width < 720)
             {

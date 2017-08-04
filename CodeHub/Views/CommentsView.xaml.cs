@@ -36,7 +36,6 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Comments" });
             if (e.NavigationMode != NavigationMode.Back)
             {
                  ViewModel.Load((e.Parameter as IssueComment));
