@@ -66,9 +66,8 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
             Frame.NavigateWithoutAnimations(type, parameter);
-
+            GlobalHelper.NavigationStack.Push(pageTitle);
             NavigationSemaphore.Release();
         }
 
@@ -77,9 +76,8 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
             Frame.NavigateWithoutAnimations(type);
-
+            GlobalHelper.NavigationStack.Push(pageTitle);
             NavigationSemaphore.Release();
         }
 
