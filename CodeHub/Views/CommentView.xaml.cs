@@ -21,13 +21,13 @@ using Windows.UI.Xaml.Navigation;
 namespace CodeHub.Views
 {
 
-    public sealed partial class CommentsView : Windows.UI.Xaml.Controls.Page
+    public sealed partial class CommentView : Windows.UI.Xaml.Controls.Page
     {
-        public CommentsViewmodel ViewModel;
-        public CommentsView()
+        public CommentViewmodel ViewModel;
+        public CommentView()
         {
             this.InitializeComponent();
-            ViewModel = new CommentsViewmodel();
+            ViewModel = new CommentViewmodel();
             this.DataContext = ViewModel;
            
             NavigationCacheMode = NavigationCacheMode.Required;

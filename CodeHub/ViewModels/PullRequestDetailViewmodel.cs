@@ -117,7 +117,7 @@ namespace CodeHub.ViewModels
 
         public void CommentTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(CommentsView), "Comments", e.ClickedItem as IssueComment);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(CommentView), "Comment", e.ClickedItem as IssueComment);
         }
 
         private RelayCommand _userTapped;
