@@ -43,8 +43,8 @@
                         <RowDefinition Height="40" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <AutoSuggestBox Grid.Row="0"
-                                    PlaceholderText="filter"
+                    <AutoSuggestBox x:Uid="searchAutoSuggestBox"
+                                    Grid.Row="0"
                                     Style="{StaticResource SearchBoxStyle}"
                                     Text="{x:Bind ViewModel.MyReposQueryString, Mode=TwoWay}"
                                     TextChanged="{x:Bind ViewModel.MyReposQueryString_TextChanged}" />
@@ -105,8 +105,8 @@
                         <RowDefinition Height="40" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <AutoSuggestBox Grid.Row="0"
-                                    PlaceholderText="filter"
+                    <AutoSuggestBox x:Uid="searchAutoSuggestBox"
+                                    Grid.Row="0"
                                     Style="{StaticResource SearchBoxStyle}"
                                     Text="{x:Bind ViewModel.StarredQueryString, Mode=TwoWay}"
                                     TextChanged="{x:Bind ViewModel.StarredQueryString_TextChanged}" />
