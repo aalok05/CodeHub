@@ -324,7 +324,7 @@
     <value>Nincs találat</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>search away!</value>
+    <value>search</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Bejelentkezés</value>
