@@ -202,7 +202,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Activity">
                                 <UserControl>
-                                    <RelativePanel>
+                                    <RelativePanel Padding="8">
                                         <VisualStateManager.VisualStateGroups>
                                             <VisualStateGroup>
                                                 <VisualState>
@@ -216,9 +216,10 @@
                                                 </VisualState>
                                                 <VisualState>
                                                     <VisualState.StateTriggers>
-                                                        <AdaptiveTrigger MinWindowWidth="720" />
+                                                        <AdaptiveTrigger MinWindowWidth="620" />
                                                     </VisualState.StateTriggers>
                                                     <VisualState.Setters>
+                                                        <Setter Target="RepoText.Margin" Value="4 12 0 4" />
                                                         <Setter Target="RepoText.(RelativePanel.Below)" Value="timeText" />
                                                         <Setter Target="RepoText.(RelativePanel.RightOf)" Value="actionText" />
                                                     </VisualState.Setters>
@@ -246,7 +247,7 @@
                                                    Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
 
                                         <TextBlock x:Name="userText"
-                                                   Margin="4,0,4,4"
+                                                   Margin="4,12,4,4"
                                                    FontSize="13.5"
                                                    FontWeight="SemiBold"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -255,14 +256,14 @@
                                                    Text="{Binding Actor.Login}" />
 
                                         <TextBlock x:Name="actionText"
-                                                   Margin="0,0,0,4"
+                                                   Margin="0,12,0,4"
                                                    FontSize="13"
                                                    RelativePanel.Below="timeText"
                                                    RelativePanel.RightOf="userText"
                                                    Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
 
                                         <TextBlock x:Name="RepoText"
-                                                   Margin="4 0 0 4"
+                                                   Margin="4 8 0 4"
                                                    FontSize="13.5"
                                                    FontWeight="SemiBold"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
