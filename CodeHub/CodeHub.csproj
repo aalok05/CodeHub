@@ -209,9 +209,6 @@
       <DependentUpon>CommitListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomFrame.cs" />
-    <Compile Include="Controls\Hilite_meHighlightStylePreviewControl.xaml.cs">
-      <DependentUpon>Hilite_meHighlightStylePreviewControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
     <Compile Include="Controls\IncrementalLoadButtonControl.xaml.cs">
       <DependentUpon>IncrementalLoadButtonControl.xaml</DependentUpon>
@@ -443,10 +440,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CommitListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Hilite_meHighlightStylePreviewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
