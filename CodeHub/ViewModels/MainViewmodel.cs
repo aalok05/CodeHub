@@ -217,8 +217,11 @@ namespace CodeHub.ViewModels
             if (user != null)
             {
                 GlobalHelper.UserLogin = user.Login;
-                isLoggedin = true;
-                Messenger.Default.Send<User>(user);
+                if (!isLoggedin)
+                {
+                    isLoggedin = true;
+                    Messenger.Default.Send<User>(user);
+                }
                 User = user;
                 if (user.Email == null)
                 {
