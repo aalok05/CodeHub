@@ -31,7 +31,6 @@ namespace CodeHub.Views
                     Pivot.Items.Remove(FollowersPivotItem);
                     Pivot.Items.Remove(FollowingPivotItem);
                 }
-                else Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Profile" });
             }
            
         }
