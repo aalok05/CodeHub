@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +46,14 @@ namespace CodeHub.Helpers
         }
         #endregion
 
+        /// <summary>
+        /// Client for GitHub client
+        /// </summary>
+        public static GitHubClient GithubClient { get; set; }
+
+        /// <summary>
+        /// Maintains a stack of page titles
+        /// </summary>
         public static Stack<string> NavigationStack { get; set; } =  new Stack<string>();
 
         /// <summary>

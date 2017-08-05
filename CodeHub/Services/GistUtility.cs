@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Octokit;
 using System.Collections.ObjectModel;
+using CodeHub.Helpers;
 
 namespace CodeHub.Services
 {
@@ -19,8 +20,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var gists = await client.Gist.GetAllForUser(login);
+                var gists = await GlobalHelper.GithubClient.Gist.GetAllForUser(login);
                 return new ObservableCollection<Gist>(new List<Gist>(gists));
             }
             catch

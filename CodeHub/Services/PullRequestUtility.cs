@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using CodeHub.Helpers;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,8 +21,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.PullRequest.Get(repoId, number);
+                return await GlobalHelper.GithubClient.PullRequest.Get(repoId, number);
             }
             catch
             {
@@ -39,8 +39,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var commits = await client.PullRequest.Commits(repoId, number);
+                var commits = await GlobalHelper.GithubClient.PullRequest.Commits(repoId, number);
                 return new ObservableCollection<PullRequestCommit>(commits);
             }
             catch

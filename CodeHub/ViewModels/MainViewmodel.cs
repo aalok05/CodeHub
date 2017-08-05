@@ -189,9 +189,11 @@ namespace CodeHub.ViewModels
 
         public async Task Load()
         {
+            GlobalHelper.GithubClient = await UserUtility.GetAuthenticatedClient();
+
             if (IsInternet())
             {
-                if (isLoggedin == true)
+                if (isLoggedin)
                 {
                     var user = await UserUtility.GetCurrentUserInfo();
 

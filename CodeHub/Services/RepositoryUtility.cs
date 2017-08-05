@@ -56,20 +56,18 @@ namespace CodeHub.Services
                     }
                 }
 
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-
                 if (firstCall)
                 {
                     for (int i = 0; i < 7; i++)
                     {
-                        repos.Add(await client.Repository.Get(repoNames[i].Item1, repoNames[i].Item2));
+                        repos.Add(await GlobalHelper.GithubClient.Repository.Get(repoNames[i].Item1, repoNames[i].Item2));
                     }
                 }
                 else
                 {
                     for (int i = 7; i < repoNames.Count; i++)
                     {
-                        repos.Add(await client.Repository.Get(repoNames[i].Item1, repoNames[i].Item2));
+                        repos.Add(await GlobalHelper.GithubClient.Repository.Get(repoNames[i].Item1, repoNames[i].Item2));
                     }
                 }
 
@@ -91,8 +89,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var branches = await client.Repository.Branch.GetAll(repo.Owner.Login, repo.Name);
+                var branches = await GlobalHelper.GithubClient.Repository.Branch.GetAll(repo.Owner.Login, repo.Name);
 
                 ObservableCollection<string> branchList = new ObservableCollection<string>();
                 foreach (Branch i in branches)
@@ -117,8 +114,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Repository.Get(ownerName, repoName);
+                return await GlobalHelper.GithubClient.Repository.Get(ownerName, repoName);
             }
             catch
             {
@@ -135,8 +131,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Repository.Get(repoId);
+                return await GlobalHelper.GithubClient.Repository.Get(repoId);
             }
             catch
             {
@@ -335,9 +330,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-
-                var results = await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch);
+                var results = await GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Id, path, branch);
 
                 return results.First();
             }
@@ -357,21 +350,20 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 IEnumerable<RepositoryContentWithCommitInfo> results;
 
                 if (SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo))
                 {
                     results = await TryLoadLinkedCommitDataAsync(
-                        client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
-                        client, repo.Id, branch, CancellationToken.None);
+                        GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
+                        GlobalHelper.GithubClient, repo.Id, branch, CancellationToken.None);
 
                     return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type)
                                                                                             .ThenBy(           entry => entry.Content.Name));
                 }
                 else
                 {
-                    results = from item in await client.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
+                    results = from item in await GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
                               select new RepositoryContentWithCommitInfo(item);
 
                     return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type));
@@ -394,21 +386,20 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 String url = $"{repo.HtmlUrl}/tree/{branch}/{path}";
                 IEnumerable<RepositoryContentWithCommitInfo> results;
 
                 if (SettingsService.Get<bool>(SettingsKeys.LoadCommitsInfo))
                 {
                     results = await TryLoadLinkedCommitDataAsync(
-                        client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
-                        client, repo.Id, branch, CancellationToken.None);
+                        GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Id, path, branch), url,
+                        GlobalHelper.GithubClient, repo.Id, branch, CancellationToken.None);
 
                     return new ObservableCollection<RepositoryContentWithCommitInfo>(results);
                 }
                 else
                 {
-                    results = from item in await client.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
+                    results = from item in await GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
                               select new RepositoryContentWithCommitInfo(item);
 
                     return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type));
@@ -432,8 +423,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var issues = await client.Issue.GetAllForRepository(repoId, filter);
+                var issues = await GlobalHelper.GithubClient.Issue.GetAllForRepository(repoId, filter);
                 return new ObservableCollection<Issue>(issues);
             }
             catch
@@ -455,8 +445,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var prList = await client.PullRequest.GetAllForRepository(repoId, filter);
+                var prList = await GlobalHelper.GithubClient.PullRequest.GetAllForRepository(repoId, filter);
                 return new ObservableCollection<PullRequest>(prList);
             }
             catch
@@ -475,8 +464,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var result = await client.Repository.GetAllForUser(login);
+                var result = await GlobalHelper.GithubClient.Repository.GetAllForUser(login);
                 return new ObservableCollection<Repository>(result);
             }
             catch
@@ -495,8 +483,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                return await client.Repository.Content.GetReadmeHtml(repoId);
+                return await GlobalHelper.GithubClient.Repository.Content.GetReadmeHtml(repoId);
             }
             catch
             {
@@ -514,8 +501,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                return await client.Repository.Content.GetReadme(repoId);
+                return await GlobalHelper.GithubClient.Repository.Content.GetReadme(repoId);
             }
             catch
             {
@@ -533,8 +519,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var repo = await client.Repository.Get(repoId);
+                var repo = await GlobalHelper.GithubClient.Repository.Get(repoId);
                 return repo.DefaultBranch;
             }
             catch
@@ -552,8 +537,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Activity.Starring.StarRepo(repo.Owner.Login, repo.Name);
+                return await GlobalHelper.GithubClient.Activity.Starring.StarRepo(repo.Owner.Login, repo.Name);
             }
             catch
             {
@@ -570,8 +554,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Activity.Starring.RemoveStarFromRepo(repo.Owner.Login, repo.Name);
+                return await GlobalHelper.GithubClient.Activity.Starring.RemoveStarFromRepo(repo.Owner.Login, repo.Name);
             }
             catch
             {
@@ -588,8 +571,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                return (await client.Activity.Watching.WatchRepo(repo.Id, new NewSubscription { Subscribed = true })).Subscribed;
+                return (await GlobalHelper.GithubClient.Activity.Watching.WatchRepo(repo.Id, new NewSubscription { Subscribed = true })).Subscribed;
             }
             catch
             {
@@ -606,8 +588,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                return await client.Activity.Watching.UnwatchRepo(repo.Id);
+                return await GlobalHelper.GithubClient.Activity.Watching.UnwatchRepo(repo.Id);
             }
             catch
             {
@@ -624,8 +605,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                return await client.Repository.Forks.Create(repo.Id, new NewRepositoryFork());
+                return await GlobalHelper.GithubClient.Repository.Forks.Create(repo.Id, new NewRepositoryFork());
             }
             catch
             {
@@ -642,8 +622,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Activity.Watching.CheckWatched(repo.Id);
+                return await GlobalHelper.GithubClient.Activity.Watching.CheckWatched(repo.Id);
             }
             catch
             {
@@ -660,8 +639,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Activity.Starring.CheckStarred(repo.Owner.Login, repo.Name);
+                return await GlobalHelper.GithubClient.Activity.Starring.CheckStarred(repo.Owner.Login, repo.Name);
             }
             catch
             {
@@ -679,10 +657,9 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 CommitRequest request = new CommitRequest { Path = path };
 
-                var list = await client.Repository.Commit.GetAll(repoId, request);
+                var list = await GlobalHelper.GithubClient.Repository.Commit.GetAll(repoId, request);
                 return new ObservableCollection<GitHubCommit>(list);
             }
             catch
@@ -700,13 +677,12 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
                 ApiOptions options = new ApiOptions
                 {
                     PageCount = 1,
                     PageSize = 100
                 };
-                var users = await client.Repository.GetAllContributors(repoId, options);
+                var users = await GlobalHelper.GithubClient.Repository.GetAllContributors(repoId, options);
                 return new ObservableCollection<RepositoryContributor>(users);
             }
             catch
@@ -724,8 +700,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                var releases = await client.Repository.Release.GetAll(repoId);
+                var releases = await GlobalHelper.GithubClient.Repository.Release.GetAll(repoId);
                 return new ObservableCollection<Release>(releases);
             }
             catch
