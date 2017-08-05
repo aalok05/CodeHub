@@ -25,8 +25,6 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Pull Request" });
-
             ViewModel.CommentText = string.Empty;
 
             if (e.NavigationMode != NavigationMode.Back)

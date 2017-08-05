@@ -16,14 +16,12 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-
                 ApiOptions options = new ApiOptions
                 {
                     PageSize = 30,
                     PageCount = 1
                 };
-                var result = await client.Activity.Events.GetAllUserPerformedPublic(login, options);
+                var result = await GlobalHelper.GithubClient.Activity.Events.GetAllUserPerformedPublic(login, options);
 
                 return new ObservableCollection<Activity>(result);
             }

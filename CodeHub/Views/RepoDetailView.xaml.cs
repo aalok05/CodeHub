@@ -32,7 +32,6 @@ namespace CodeHub.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Repository" });
             ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
 
             await ViewModel.Load(e.Parameter);

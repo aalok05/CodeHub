@@ -324,7 +324,7 @@
     <value>Nenhum Resultado</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>pesquise!</value>
+    <value>pesquise</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Fazer Logon</value>

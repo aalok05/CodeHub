@@ -83,7 +83,7 @@
                                           Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
                                           Stretch="UniformToFill" />
             <HyperlinkButton x:Name="OwnerName"
-                             Margin="0,4,0,0"
+                             Margin="0,8,0,0"
                              Padding="0"
                              Command="{x:Bind ViewModel.ProfileTapped}"
                              RelativePanel.RightOf="OwnerPic">
@@ -96,12 +96,12 @@
                 </HyperlinkButton.Content>
             </HyperlinkButton>
             <TextBlock x:Name="slash"
-                       Margin="4,4,4,0"
+                       Margin="4,8,4,0"
                        RelativePanel.AlignVerticalCenterWith="OwnerName"
                        RelativePanel.RightOf="OwnerName"
                        Text="/" />
             <TextBlock x:Name="RepoName"
-                       Margin="0,0,0,0"
+                       Margin="0,4,0,0"
                        FontWeight="Light"
                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                        RelativePanel.AlignRightWithPanel="True"

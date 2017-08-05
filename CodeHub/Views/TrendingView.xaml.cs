@@ -36,7 +36,7 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Trending" });
+
             todayListView.SelectedIndex = weekListView.SelectedIndex = monthListView.SelectedIndex =  - 1;
 
             //Enabling IsPullToRefreshWithMouseEnabled in mobile was causing problem in sliding Pivot horizontally

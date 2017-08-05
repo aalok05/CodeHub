@@ -49,6 +49,8 @@ namespace CodeHub.Services
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
             result = await Frame.Navigate(type, parameter);
 
+            GlobalHelper.NavigationStack.Push(pageTitle);
+
             NavigationSemaphore.Release();
             return result;
         }
@@ -64,9 +66,8 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
             Frame.NavigateWithoutAnimations(type, parameter);
-
+            GlobalHelper.NavigationStack.Push(pageTitle);
             NavigationSemaphore.Release();
         }
 
@@ -75,9 +76,8 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
             Frame.NavigateWithoutAnimations(type);
-
+            GlobalHelper.NavigationStack.Push(pageTitle);
             NavigationSemaphore.Release();
         }
 
@@ -97,6 +97,8 @@ namespace CodeHub.Services
             bool result;
             if (Frame.CanGoBack)
             {
+                GlobalHelper.NavigationStack.Pop();
+                Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = GlobalHelper.NavigationStack.Peek() });
                 await Frame.GoBack();
                 result = true;
             }

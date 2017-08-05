@@ -209,9 +209,6 @@
       <DependentUpon>CommitListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomFrame.cs" />
-    <Compile Include="Controls\Hilite_meHighlightStylePreviewControl.xaml.cs">
-      <DependentUpon>Hilite_meHighlightStylePreviewControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
     <Compile Include="Controls\IncrementalLoadButtonControl.xaml.cs">
       <DependentUpon>IncrementalLoadButtonControl.xaml</DependentUpon>
@@ -287,7 +284,7 @@
       <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\WhatsNewDisplayService.cs" />
-    <Compile Include="ViewModels\CommentsViewmodel.cs" />
+    <Compile Include="ViewModels\CommentViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
     <Compile Include="ViewModels\FeedViewmodel.cs" />
@@ -306,8 +303,8 @@
     <Compile Include="Views\Settings\AppearanceView.xaml.cs">
       <DependentUpon>AppearanceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CommentsView.xaml.cs">
-      <DependentUpon>CommentsView.xaml</DependentUpon>
+    <Compile Include="Views\CommentView.xaml.cs">
+      <DependentUpon>CommentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ContentView.xaml.cs">
       <DependentUpon>ContentView.xaml</DependentUpon>
@@ -446,10 +443,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Hilite_meHighlightStylePreviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\IncrementalLoadButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -521,7 +514,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CommentsView.xaml">
+    <Page Include="Views\CommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

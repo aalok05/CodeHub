@@ -49,8 +49,6 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Notifications" });
-
             if (e.NavigationMode != NavigationMode.Back)
             {
                 NotifPivot.SelectedItem = NotifPivot.Items[0];

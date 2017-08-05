@@ -79,8 +79,6 @@ namespace CodeHub.ViewModels
         /// <summary>
         /// Gets the collection of the available highlight styles
         /// </summary>
-        //public IEnumerable<SyntaxHighlightStyleEnum> AvailableHighlightStyles { get; } = Enum.GetValues(typeof(SyntaxHighlightStyleEnum)).Cast<SyntaxHighlightStyleEnum>();
-
         public IEnumerable<SyntaxHighlightStyle> AvailableHighlightStyles { get; set; }
 
         public int _SelectedHighlightStyleIndex = SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);

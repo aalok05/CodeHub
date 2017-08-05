@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CodeHub.ViewModels
 {
-    public class CommentsViewmodel : AppViewmodel
+    public class CommentViewmodel : AppViewmodel
     {
         public IssueComment _comment;
         public IssueComment Comment

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using CodeHub.Helpers;
 
 namespace CodeHub.Services
 {
@@ -12,13 +13,16 @@ namespace CodeHub.Services
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Repository>> SearchRepos(string query)
+        public static async Task<ObservableCollection<Repository>> SearchRepos(string query, Language? language = null)
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchRepositoriesRequest(query);
-                var result = await client.Search.SearchRepo(request);
+                if(language != null)
+                {
+                    request.Language = language;
+                }
+                var result = await GlobalHelper.GithubClient.Search.SearchRepo(request);
                 return new ObservableCollection<Repository>(new List<Repository>(result.Items));
             }
             catch
@@ -33,14 +37,17 @@ namespace CodeHub.Services
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<SearchCode>> SearchCode(string query)
+        public static async Task<ObservableCollection<SearchCode>> SearchCode(string query, Language? language = null)
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchCodeRequest(query);
-                var result = await client.Search.SearchCode(request);
-                return new ObservableCollection<SearchCode>(new List<SearchCode>(result.Items));
+                if (language != null)
+                {
+                    request.Language = language;
+                }
+                var result = await GlobalHelper.GithubClient.Search.SearchCode(request);
+                return new ObservableCollection<SearchCode>(result.Items);
             }
             catch
             {
@@ -54,13 +61,16 @@ namespace CodeHub.Services
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<User>> SearchUsers(string query)
+        public static async Task<ObservableCollection<User>> SearchUsers(string query, Language? language = null)
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchUsersRequest(query);
-                var result = await client.Search.SearchUsers(request);
+                if (language != null)
+                {
+                    request.Language = language;
+                }
+                var result = await GlobalHelper.GithubClient.Search.SearchUsers(request);
                 return new ObservableCollection<User>(new List<User>(result.Items));
             }
             catch
@@ -75,13 +85,16 @@ namespace CodeHub.Services
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Issue>> SearchIssues(string query)
+        public static async Task<ObservableCollection<Issue>> SearchIssues(string query, Language? language = null)
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
                 var request = new SearchIssuesRequest(query);
-                var result = await client.Search.SearchIssues(request);
+                if (language != null)
+                {
+                    request.Language = language;
+                }
+                var result = await GlobalHelper.GithubClient.Search.SearchIssues(request);
                 return new ObservableCollection<Issue>(new List<Issue>(result.Items));
             }
             catch
