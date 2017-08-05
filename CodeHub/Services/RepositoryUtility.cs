@@ -110,15 +110,15 @@ namespace CodeHub.Services
         /// <summary>
         /// Gets a specified Repository
         /// </summary>
-        /// <param name="repoName"></param>
         /// <param name="ownerName"></param>
+        /// <param name="repoName"></param>
         /// <returns></returns>
-        public static async Task<Repository> GetRepository(string repoName, string ownerName)
+        public static async Task<Repository> GetRepository(string ownerName, string repoName)
         {
             try
             {
                 var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Repository.Get(repoName, ownerName);
+                return await client.Repository.Get(ownerName, repoName);
             }
             catch
             {

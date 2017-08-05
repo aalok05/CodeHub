@@ -39,9 +39,15 @@ namespace CodeHub.Views
                 {
                     ViewModel.Comments.Clear();
                 }
-
-                ConfigureStateSymbol((e.Parameter as Tuple<Repository, Issue>).Item2);
-                await ViewModel.Load((e.Parameter as Tuple<Repository, Issue>));
+                if (e.Parameter as Tuple<Repository, Issue> != null)
+                {
+                    ConfigureStateSymbol((e.Parameter as Tuple<Repository, Issue>).Item2);
+                }
+                else if(e.Parameter as Tuple<string, string, Issue> != null)
+                {
+                    ConfigureStateSymbol((e.Parameter as Tuple<string, string, Issue>).Item3);
+                }
+                await ViewModel.Load(e.Parameter);
                 CommentsPivot.SelectedItem = CommentsPivot.Items[0];
             }
         }

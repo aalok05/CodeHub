@@ -153,10 +153,23 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(Tuple<Repository, Issue> tuple)
+        public async Task Load(object param)
         {
-            Issue = tuple.Item2;
-            Repository = tuple.Item1;
+            if (param as Tuple<Repository, Issue> != null)
+            {
+                var tuple = param as Tuple<Repository, Issue>;
+                Issue = tuple.Item2;
+                Repository = tuple.Item1;
+            }
+            else
+            {
+                var tuple = (param as Tuple<string, string, Issue>);
+                if(tuple != null)
+                {
+                    Issue = tuple.Item3;
+                    Repository = await RepositoryUtility.GetRepository(tuple.Item1, tuple.Item2);
+                }
+            }
 
             if (!GlobalHelper.IsInternet())
             {
