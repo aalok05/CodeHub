@@ -65,7 +65,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all,\n Here's the changelog for v 2.2.1 \n\n -Tweaked navigation animation \n -Added ability to filter search results by language \n -Fixed a crash when clicking on an Issue on Search page \n - Performace improvements";
+                return "Hi all,\n Here's the changelog for v 2.2.1 \n\n -Tweaked navigation animation \n -Added ability to filter search results by language \n -Fixed a crash when clicking on an Issue on Search page \n -Performace improvements";
             }
         }
 
