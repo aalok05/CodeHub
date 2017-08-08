@@ -51,6 +51,8 @@ namespace CodeHub.Views
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
             #endregion
 
+            notifManager = new LocalNotificationManager(NotificationGrid);
+
             Loaded += MainPage_Loaded;
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
@@ -63,15 +65,13 @@ namespace CodeHub.Views
             if (ViewModel.isLoggedin)
             {
                 await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
-                await ViewModel.CheckForUnreadNotifications();
+
+                if(IsInternet())
+                    await ViewModel.CheckForUnreadNotifications();
 
                 if (WhatsNewDisplayService.IsNewVersion())
-                {
                     await ShowWhatsNewPopup();
-                }
             }
-
-            notifManager = new LocalNotificationManager(NotificationGrid);
 
             ConfigureWindowBlur();
             await ConfigureHamburgerMenuBlur();
@@ -129,9 +129,9 @@ namespace CodeHub.Views
             await HeaderAnimationSemaphore.WaitAsync();
             if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
             {
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.Y, 0, -24, 160, null, null, EasingFunctionNames.Linear);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(0.7f, 0, TranslationAxis.Y, 0, -24, 160, null, null, EasingFunctionNames.Linear);
                 ViewModel.HeaderText = pageName.ToUpper();
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.Y, 24, 0, 160, null, null, EasingFunctionNames.Linear);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 0.7f, TranslationAxis.Y, 24, 0, 160, null, null, EasingFunctionNames.Linear);
             }
             HeaderAnimationSemaphore.Release();
         }
