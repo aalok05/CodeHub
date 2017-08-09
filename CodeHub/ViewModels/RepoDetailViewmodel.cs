@@ -390,15 +390,21 @@ namespace CodeHub.ViewModels
 
             if (p.SelectedIndex == 1)
             {
-                IsContributorsLoading = true;
-                Contributors = await RepositoryUtility.GetContributorsForRepository(Repository.Id);
-                IsContributorsLoading = false;
+                if (GlobalHelper.IsInternet())
+                {
+                    IsContributorsLoading = true;
+                    Contributors = await RepositoryUtility.GetContributorsForRepository(Repository.Id);
+                    IsContributorsLoading = false;
+                }
             }
             else if (p.SelectedIndex == 2)
             {
-                IsReleasesLoading = true;
-                Releases = await RepositoryUtility.GetReleasesForRepository(Repository.Id);
-                IsReleasesLoading = false;
+                if (GlobalHelper.IsInternet())
+                {
+                    IsReleasesLoading = true;
+                    Releases = await RepositoryUtility.GetReleasesForRepository(Repository.Id);
+                    IsReleasesLoading = false;
+                }
             }
         }
     }
