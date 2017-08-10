@@ -73,7 +73,7 @@
         <RelativePanel>
             <StackPanel x:Name="OwnerNamePanel"
                         Margin="0 8 0 0"
-                        MinHeight="30"
+                        MinHeight="34"
                         Orientation="Horizontal"
                         RelativePanel.AlignHorizontalCenterWithPanel="True">
                 <HyperlinkButton x:Name="OwnerName"
@@ -89,6 +89,7 @@
                 </HyperlinkButton>
                 <TextBlock x:Name="slash"
                            Margin="4,0,4,0"
+                           VerticalAlignment="Center"
                            Text="/" />
                 <TextBlock x:Name="RepoName"
                            FontWeight="Light"
@@ -98,10 +99,10 @@
                            Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <Button MinWidth="30"
-                    MinHeight="30"
+            <Button x:Name="ExpanderButton" 
+                    MinWidth="34"
+                    MinHeight="34"
                     Margin="0 8 8 0"
-                    Padding="0"
                     Click="Expander_Click"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignVerticalCenterWith="OwnerNamePanel"
@@ -110,8 +111,6 @@
                           FontFamily="Segoe MDL2 Assets"
                           FontSize="14"
                           Glyph="&#xE0E4;" />
-
-
             </Button>
             <RelativePanel x:Name="InfoPanel"
                            Margin="0 20 0 16"

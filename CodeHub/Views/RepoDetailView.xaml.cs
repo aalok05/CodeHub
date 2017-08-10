@@ -120,17 +120,20 @@ namespace CodeHub.Views
             ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void Expander_Click(object sender, RoutedEventArgs e)
+        private async void Expander_Click(object sender, RoutedEventArgs e)
         {
             if(InfoPanel.Visibility == Visibility.Visible)
             {
-                InfoPanel.Visibility = Visibility.Collapsed;
                 ExpanderIcon.Glyph = "\uE0E5";
+                await InfoPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                InfoPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
-                InfoPanel.Visibility = Visibility.Visible;
                 ExpanderIcon.Glyph = "\uE0E4";
+                InfoPanel.SetVisualOpacity(0);
+                InfoPanel.Visibility = Visibility.Visible;
+                await InfoPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
             }
         }
     }
