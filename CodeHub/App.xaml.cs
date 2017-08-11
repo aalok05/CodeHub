@@ -76,7 +76,14 @@ namespace CodeHub
                     var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                     if (titleBar != null)
                     {
-                        titleBar.BackgroundColor = titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["SystemAltHighColor"];
+                        titleBar.BackgroundColor = 
+                        titleBar.ButtonBackgroundColor = 
+                        titleBar.InactiveBackgroundColor = 
+                        titleBar.ButtonInactiveBackgroundColor =
+                        (Color)App.Current.Resources["SystemChromeLowColor"];
+                         
+                        titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
+                        
                     }
                 }
 

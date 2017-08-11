@@ -31,7 +31,7 @@
             <brushes:CustomAcrylicBrush x:Key="HostBackdropAcrylicBrush"
                                         Mode="HostBackdrop"
                                         BlurAmount="8"
-                                        TintMix="0.6"
+                                        TintMix="0.7"
                                         Tint="{StaticResource SystemAltHighColor}"
                                         NoiseTextureUri="Assets/Noise.png"/>
             

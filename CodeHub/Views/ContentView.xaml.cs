@@ -33,8 +33,6 @@ namespace CodeHub.Views
             //This page recieves repository ,path and branch
             var tuple = e.Parameter as Tuple<Repository, string, string>;
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = tuple.Item1.FullName });
-
             ContentListView.SelectedIndex = -1;
 
             if (ViewModel.Content != null)

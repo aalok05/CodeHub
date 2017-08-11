@@ -38,17 +38,26 @@ namespace CodeHub.Views
 
             MainPivot.SelectedItem = MainPivot.Items[0];
             ReadmeLoadingRing.IsActive = true;
-            if (ViewModel.Repository != null)
+
+            if (GlobalHelper.IsInternet())
             {
-                String ReadmeHTML = await RepositoryUtility.GetReadmeHTMLForRepository(ViewModel.Repository.Id);
-                if (!string.IsNullOrWhiteSpace(ReadmeHTML))
-                   ReadmeWebView.NavigateToString("<html><head> <link rel =\"stylesheet\" href =\"ms-appx-web:///Assets/css/github-markdown.css\" type =\"text/css\" media =\"screen\" /> </head> <body> " + ReadmeHTML + " </body></html> ");
-                else
+                if (ViewModel.Repository != null)
                 {
-                    ViewModel.NoReadme = true;
-                    ReadmeLoadingRing.IsActive = false;
+                    String ReadmeHTML = await RepositoryUtility.GetReadmeHTMLForRepository(ViewModel.Repository.Id);
+                    if (!string.IsNullOrWhiteSpace(ReadmeHTML))
+                        ReadmeWebView.NavigateToString("<html><head> <link rel =\"stylesheet\" href =\"ms-appx-web:///Assets/css/github-markdown.css\" type =\"text/css\" media =\"screen\" /> </head> <body> " + ReadmeHTML + " </body></html> ");
+                    else
+                    {
+                        ViewModel.NoReadme = true;
+                        ReadmeLoadingRing.IsActive = false;
+                    }
                 }
             }
+            else
+            {
+                ReadmeLoadingRing.IsActive = false;
+            }
+
         }
 
         private async void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -109,6 +118,23 @@ namespace CodeHub.Views
         {
             await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private async void Expander_Click(object sender, RoutedEventArgs e)
+        {
+            if(InfoPanel.Visibility == Visibility.Visible)
+            {
+                ExpanderIcon.Glyph = "\uE0E5";
+                await InfoPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                InfoPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ExpanderIcon.Glyph = "\uE0E4";
+                InfoPanel.SetVisualOpacity(0);
+                InfoPanel.Visibility = Visibility.Visible;
+                await InfoPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
         }
     }
 }
