@@ -54,9 +54,9 @@
                 <Viewbox MaxHeight="13"
                          MaxWidth="13"
                          Margin="0 0 4 0">
-                    <SymbolIcon Symbol="Refresh"/>
+                    <SymbolIcon Symbol="Refresh" Opacity="0.7"/>
                 </Viewbox>
-                <TextBlock Text="Reset"/>
+                <TextBlock Text="Reset" Opacity="0.7"/>
             </StackPanel>
         </Button>
         <StackPanel Grid.Row="1"
@@ -68,12 +68,14 @@
                                       FontSize="13"
                                       Margin="0 0 8 0"
                                       PlaceholderText="All Languages"
+                                      Opacity="0.7"
                                       SelectionChanged="{x:Bind ViewModel.Language_SelectionChanged}"
                                       SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex,Mode=TwoWay}"
                                       Style="{StaticResource AnimatedComboBoxStyle}"/>
 
             <control:AnimatedComboBox ItemsSource="{x:Bind ViewModel.AvailableSearchItems,Mode=OneWay}"
                                       FontSize="13"
+                                      Opacity="0.7"
                                       SelectionChanged="{x:Bind ViewModel.SearchItem_SelectionChanged}"
                                       SelectedIndex="{x:Bind ViewModel.SelectedSearchItemIndex,Mode=TwoWay}"
                                       Style="{StaticResource AnimatedComboBoxStyle}"/>

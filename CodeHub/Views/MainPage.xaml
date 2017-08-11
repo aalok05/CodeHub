@@ -31,7 +31,7 @@
                 <Viewbox Grid.Column="0"
                          MaxWidth="18"
                          MaxHeight="18">
-                    <Path Data="{x:Bind Symbol}" StrokeThickness="0">
+                    <Path Data="{x:Bind Symbol}" StrokeThickness="0" Opacity="0.7">
                         <i:Interaction.Behaviors>
                             <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
                                 <core:ChangePropertyAction PropertyName="Fill" Value="{StaticResource AppPrimaryColorBrush}" />
@@ -279,10 +279,12 @@
                                         Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock Margin="0 0 0 4"
                                            FontSize="14"
+                                           Opacity="0.7"
                                            FontWeight="Medium"
                                            Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
                                 <TextBlock Margin="0 0 0 10"
                                            FontSize="11.5"
+                                           Opacity="0.7"
                                            FontWeight="SemiBold"
                                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                            Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
@@ -341,7 +343,7 @@
                                         <Viewbox MaxHeight="18"
                                                  MaxWidth="18">
                                             <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
-                                                    Symbol="Setting" />
+                                                        Symbol="Setting" />
                                         </Viewbox>
                                         <TextBlock Margin="15 0 0 0"
                                                    FontSize="13"
@@ -508,16 +510,24 @@
                                         Visibility="Collapsed">
             <Grid x:Name="WhatsNewPopupGrid"
                   Height="600"
+                  BorderBrush="{StaticResource AppPrimaryColorBrush}"
+                  BorderThickness="0.8"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="48"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="What's new?"
-                           VerticalAlignment="Center"
-                           Margin="8"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
+                <TextBlock VerticalAlignment="Center"
+                           Margin="8">
+                    <Run FontFamily="Segoe MDL2 Assets"
+                         Text="&#xE8BD; "
+                         FontSize="18"
+                         FontWeight="SemiBold"
+                         Foreground="{StaticResource AppPrimaryColorBrush}"/> 
+                    <Run Text="What's new?"
+                         FontSize="20"
+                         FontWeight="SemiBold"/>
+                </TextBlock>
                 <Button Style="{StaticResource ActionButtonStyle}"
                         Tapped="CloseWhatsNew_Tapped"
                         MinWidth="50"
@@ -531,16 +541,25 @@
                               VerticalScrollMode="Auto"
                               Background="{ThemeResource SystemChromeLowColor}">
                     <TextBlock Margin="12"
-                               Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"
+                               Opacity="0.8"
                                TextWrapping="WrapWholeWords">
+                        <Run Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"/>
+                        <Run FontFamily="Segoe MDL2 Assets" 
+                             Text="&#x0a;&#x0a;&#xE775; "
+                             FontSize="17"
+                             Foreground="Green"/> 
+                        <Run Text="If you'd like to translate CodeHub into your language, be sure to send me an email!"/>
+                        <Run FontFamily="Segoe MDL2 Assets"
+                             Text="&#x0a;&#x0a;&#xE170; "
+                             FontSize="17"
+                             Foreground="Yellow"/> 
+                        <Run Text="If you are enjoying CodeHub, please make a donation to help me support myself by going to Settings -> Donate"/>
                     </TextBlock>
-
                 </ScrollViewer>
             </Grid>
         </toolkitControl:DropShadowPanel>
 
         <Grid x:Name="NotificationGrid" />
-
     </Grid>
 
 </Page>
