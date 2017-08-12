@@ -4,26 +4,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:CodeHub.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
 
-    <RelativePanel Margin="8,3,0,3">
-        <Ellipse x:Name="avatarEllipse"
-                 Width="65"
-                 Height="65"
-                 Margin="0,0,10,0">
-            <Ellipse.Fill>
-                <ImageBrush>
-                    <ImageBrush.ImageSource>
-                        <BitmapImage DecodePixelHeight="65"
+    <RelativePanel Margin="8,8,0,8">
+        <toolkitControl:RoundImageEx x:Name="avatarEllipse"
+                                     Width="65"
+                                     Height="65"
+                                     Margin="0,0,12,0"
+                                     CornerRadius="999"
+                                     DecodePixelHeight="65"
                                      DecodePixelType="Logical"
                                      DecodePixelWidth="65"
-                                     UriSource="{Binding AvatarUrl, Mode=OneWay}" />
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Ellipse.Fill>
-        </Ellipse>
+                                     IsCacheEnabled="True"
+                                     Stretch="UniformToFill"
+                                     Source="{Binding AvatarUrl, Mode=OneWay}" />
 
         <TextBlock x:Name="nameText"
                    FontSize="20"
