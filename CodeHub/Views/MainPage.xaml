@@ -270,7 +270,7 @@
                                     <RelativePanel Width="270">
                                         <toolkitControl:RoundImageEx x:Name="smallAvatarEllipse"
                                                                      CornerRadius="999"
-                                                                     Margin="0 0 16 0"
+                                                                     Margin="12 0 16 0"
                                                                      Width="27"
                                                                      Height="27"
                                                                      DecodePixelHeight="27"
@@ -298,7 +298,8 @@
                                                 VerticalAlignment="Center"
                                                 Orientation="Horizontal">
                                         <Viewbox MaxHeight="18"
-                                                 MaxWidth="18">
+                                                 MaxWidth="18"
+                                                 Margin="12 0 0 0">
                                             <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
                                                         Symbol="Setting" />
                                         </Viewbox>
@@ -312,7 +313,6 @@
                             </ListView>
                         </RelativePanel>
                     </Grid>
-
                 </SplitView.Pane>
                 <SplitView.Content>
                     <Grid>
