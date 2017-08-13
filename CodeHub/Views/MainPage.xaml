@@ -13,60 +13,13 @@
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="HamMenuItemTemplate" x:DataType="model:HamItem">
-            <Grid Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Rectangle Width="6"
-                           Height="45"
-                           Margin="-12,0,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Fill="{StaticResource AppPrimaryColorBrush}"
-                           Visibility="{x:Bind SelectedVisual, Mode=TwoWay}" />
-
-                <Viewbox Grid.Column="0"
-                         MaxWidth="18"
-                         MaxHeight="18">
-                    <Path Data="{x:Bind Symbol}" StrokeThickness="0" Opacity="0.7">
-                        <i:Interaction.Behaviors>
-                            <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
-                                <core:ChangePropertyAction PropertyName="Fill" Value="{StaticResource AppPrimaryColorBrush}" />
-                            </core:DataTriggerBehavior>
-                            <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="False">
-                                <core:ChangePropertyAction PropertyName="Fill" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
-                            </core:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </Path>
-                </Viewbox>
-
-                <TextBlock Grid.Column="1"
-                           Margin="24,0,0,0"
-                           FontSize="13"
-                           VerticalAlignment="Center"
-                           Text="{x:Bind Label}">
-                    <i:Interaction.Behaviors>
-                        <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="True">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
-                        </core:DataTriggerBehavior>
-                        <core:DataTriggerBehavior Binding="{x:Bind IsSelected, Mode=TwoWay}" Value="False">
-                            <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
-                        </core:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </TextBlock>
-            </Grid>
-
-        </DataTemplate>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
+            <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="320" />
@@ -251,7 +204,7 @@
                        IsPaneOpen="{x:Bind ViewModel.IsPaneOpen,Mode=TwoWay}"
                        x:FieldModifier="Public"
                        DisplayMode="{x:Bind ViewModel.DisplayMode, Mode=TwoWay}"
-                       OpenPaneLength="270"
+                       OpenPaneLength="320"
                        LightDismissOverlayMode="On"
                        PaneBackground="Transparent">
                 <SplitView.Pane>
@@ -291,18 +244,22 @@
                             </StackPanel>
 
                             <ListView Name="HamListView"
-                                      Width="270"
+                                      Width="320"
                                       ItemClick="HamListView_ItemClick"
                                       IsItemClickEnabled="True"
                                       ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                      ItemTemplate="{StaticResource HamMenuItemTemplate}"
                                       ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
                                       RelativePanel.Below="avatarEllipse"
                                       SelectionMode="Single">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:HamItem">
+                                        <control:HamMenuListItem/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
                             </ListView>
 
                             <ListView x:Name="HamListViewBottom"
-                                      Width="270"
+                                      Width="320"
                                       ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                       RelativePanel.AlignBottomWithPanel="True"
                                       RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -313,7 +270,7 @@
                                     <RelativePanel Width="270">
                                         <toolkitControl:RoundImageEx x:Name="smallAvatarEllipse"
                                                                      CornerRadius="999"
-                                                                     Margin="0 0 10 0"
+                                                                     Margin="0 0 16 0"
                                                                      Width="27"
                                                                      Height="27"
                                                                      DecodePixelHeight="27"
@@ -345,7 +302,7 @@
                                             <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
                                                         Symbol="Setting" />
                                         </Viewbox>
-                                        <TextBlock Margin="15 0 0 0"
+                                        <TextBlock Margin="24 0 0 0"
                                                    FontSize="13"
                                                    VerticalAlignment="Center"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
