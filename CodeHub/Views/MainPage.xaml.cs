@@ -54,12 +54,40 @@ namespace CodeHub.Views
             notifManager = new LocalNotificationManager(NotificationGrid);
 
             Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
             
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Window.Current.Bounds.Width < 1024)
+            {
+                ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
+                ViewModel.IsPaneOpen = false;
+
+                if (ApiInformationHelper.IsCreatorsUpdateOrLater)
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
+                }
+            }
+            else
+            {
+                ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
+                ViewModel.IsPaneOpen = true;
+
+                if (ApiInformationHelper.IsCreatorsUpdateOrLater && !ApiInformationHelper.IsMobileDevice)
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HamburgerBackdropAcrylicBrush");
+                }
+            }
+        }
+
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ConfigureWindowBlur();
+            await ConfigureHamburgerMenuBlur();
+
             await ViewModel.Initialize(AppFrame);
 
             if (ViewModel.isLoggedin)
@@ -72,18 +100,6 @@ namespace CodeHub.Views
                 if (WhatsNewDisplayService.IsNewVersion())
                     await ShowWhatsNewPopup();
             }
-
-            ConfigureWindowBlur();
-            await ConfigureHamburgerMenuBlur();
-        }
-
-        private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
-        {
-            if(e.NewState.Name == "Desktop" || e.NewState.Name == "Mobile")
-            {
-                ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
-            }
-            else ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
         }
 
         #region click events
@@ -149,7 +165,14 @@ namespace CodeHub.Views
         {
             if (ApiInformationHelper.IsCreatorsUpdateOrLater)
             {
-                BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
+                if (!ApiInformationHelper.IsMobileDevice && HamSplitView.DisplayMode == SplitViewDisplayMode.Inline)
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HamburgerBackdropAcrylicBrush");
+                }
+                else
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
+                }
             }
             else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
         }
