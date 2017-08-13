@@ -142,7 +142,7 @@
                                        Text="{Binding Repo.Name}" />
 
                             <Border x:Name="commentText"
-                                    RelativePanel.AlignLeftWithPanel="True"
+                                    RelativePanel.AlignLeftWith="avatar"
                                     RelativePanel.AlignRightWithPanel="True"
                                     RelativePanel.Below="avatar">
                                 <toolkitControl:MarkdownTextBlock Padding="16"

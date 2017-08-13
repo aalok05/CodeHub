@@ -121,7 +121,7 @@
                                                    RelativePanel.RightOf="notifSymbol"
                                                    Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
                                         <TextBlock x:Name="titleText"
-                                                   Margin="12,0,0,0"
+                                                   Margin="12,8,0,0"
                                                    FontSize="13"
                                                    TextWrapping="Wrap"
                                                    RelativePanel.AlignRightWithPanel="True"
@@ -130,7 +130,7 @@
                                                    Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                         <TextBlock x:Name="RepoText"
-                                                   Margin="12 4 0 4"
+                                                   Margin="12 8 0 8"
                                                    Text="{Binding Repository.FullName}"
                                                    FontSize="13.5"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -236,7 +236,7 @@
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
                                             <TextBlock x:Name="titleText"
-                                                       Margin="12,0,0,0"
+                                                       Margin="12,8,0,0"
                                                        FontSize="13"
                                                        TextWrapping="Wrap"
                                                        RelativePanel.AlignRightWithPanel="True"
@@ -245,7 +245,7 @@
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                             <TextBlock x:Name="RepoText"
-                                                       Margin="12 4 0 4"
+                                                       Margin="12 8 0 8"
                                                        Text="{Binding Repository.FullName}"
                                                        FontSize="13.5"
                                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -351,7 +351,7 @@
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
                                             <TextBlock x:Name="titleText"
-                                                       Margin="12,0,0,0"
+                                                       Margin="12,8,0,0"
                                                        FontSize="13"
                                                        TextWrapping="Wrap"
                                                        RelativePanel.AlignRightWithPanel="True"
@@ -360,7 +360,7 @@
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                             <TextBlock x:Name="RepoText"
-                                                       Margin="12 4 0 4"
+                                                       Margin="12 8 0 8"
                                                        Text="{Binding Repository.FullName}"
                                                        FontSize="13.5"
                                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
