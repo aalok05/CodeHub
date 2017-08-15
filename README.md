@@ -5,7 +5,7 @@
 
 CodeHub is a Universal Windows GitHub client that helps you keep up with the open source world.
 
-<a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a>
+<p align="center"><a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a></p>
 
 ## Features
 * Trending repositories
@@ -20,9 +20,10 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 ## Screenshots
 
-| Notifications        			                               | Trending           				  | News Feed  				          |
-| ----------------------------------------------------------------- |:----------------------------------------------------------------:| :---------------------------------------------------------------:|
-| ![screenshot](https://preview.ibb.co/jvsU35/mob1.png)      | ![screenshot](https://preview.ibb.co/ekXJwQ/mob4.png) | ![screenshot](https://preview.ibb.co/fEesO5/mob5.png) |
+|             |               |                   |
+| ----------- |:-------------:| :----------------:|
+| ![screenshot](Screenshots/repoView1.PNG) | ![screenshot](Screenshots/repoView2.PNG)  | ![screenshot](Screenshots/trending.PNG) |
+
 
 ## Contributions
 Pull requests are welcome in the `dev` branch!
