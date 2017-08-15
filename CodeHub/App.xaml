@@ -34,6 +34,12 @@
                                         TintMix="0.7"
                                         Tint="{StaticResource SystemAltHighColor}"
                                         NoiseTextureUri="Assets/Noise.png"/>
+            <brushes:CustomAcrylicBrush x:Key="HamburgerBackdropAcrylicBrush"
+                                        Mode="HostBackdrop"
+                                        BlurAmount="9"
+                                        TintMix="0.8"
+                                        Tint="{StaticResource SystemAltHighColor}"
+                                        NoiseTextureUri="Assets/Noise.png"/>
             
         </ResourceDictionary>
     </Application.Resources>

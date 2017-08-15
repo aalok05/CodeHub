@@ -209,6 +209,9 @@
       <DependentUpon>CommitListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomFrame.cs" />
+    <Compile Include="Controls\HamMenuListItem.xaml.cs">
+      <DependentUpon>HamMenuListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
     <Compile Include="Controls\IncrementalLoadButtonControl.xaml.cs">
       <DependentUpon>IncrementalLoadButtonControl.xaml</DependentUpon>
@@ -440,6 +443,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CommitListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HamMenuListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

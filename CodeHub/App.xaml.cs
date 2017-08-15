@@ -49,21 +49,9 @@ namespace CodeHub
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
                 XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
 
-            CustomFrame rootFrame = Window.Current.Content as CustomFrame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new CustomFrame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-            }
-
             if (!e.PrelaunchActivated)
             {
-                if (rootFrame.Content == null)
+                if (Window.Current.Content == null)
                 {
                     Window.Current.Content = new MainPage();
                 }
@@ -90,16 +78,6 @@ namespace CodeHub
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-        }
-
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
     }
 }

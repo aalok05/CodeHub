@@ -11,8 +11,8 @@
     "MvvmLightLibs": "5.3.0",
     "Octokit": "0.24.0",
     "RavinduL.LocalNotifications": "2.0.0",
-    "System.Numerics.Vectors": "4.3.0",
-    "UICompositionAnimations": "2.10.1",
+    "System.Numerics.Vectors": "4.4.0",
+    "UICompositionAnimations": "2.10.3",
     "Win2D.uwp": "1.21.0"
   },
   "frameworks": {

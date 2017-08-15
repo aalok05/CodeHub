@@ -164,7 +164,8 @@ namespace CodeHub.ViewModels
                                               isLoading = true;
 
                                               if (await service.Authenticate())
-                                              { 
+                                              {
+                                                  GlobalHelper.GithubClient = await UserUtility.GetAuthenticatedClient();
                                                   var user = await UserUtility.GetCurrentUserInfo();
                                                   await LoadUser(user);
                                               }
