@@ -20,9 +20,9 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 ## Screenshots
 
-|             |               |                   |
-| ----------- |:-------------:| :----------------:|
-| ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/repoView1.PNG) | ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/repoView2.PNG)  | ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/trending.PNG) |
+|               |                   |
+|:-------------:| :----------------:|
+| ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/repoView.PNG)  | ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/trending.PNG) |
 
 
 ## Contributing
