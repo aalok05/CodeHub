@@ -22,11 +22,11 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 |             |               |                   |
 | ----------- |:-------------:| :----------------:|
-| ![screenshot](Screenshots/repoView1.PNG) | ![screenshot](Screenshots/repoView2.PNG)  | ![screenshot](Screenshots/trending.PNG) |
+| ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/repoView1.PNG) | ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/repoView2.PNG)  | ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/trending.PNG) |
 
 
-## Contributions
-Pull requests are welcome in the `dev` branch!
+## Contributing
+Do you want to contribute? Here are our [contribution guidelines](https://github.com/aalok05/CodeHub/blob/master/CONTRIBUTING.md).
 
 ## Setting up the project 
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
