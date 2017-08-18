@@ -52,6 +52,11 @@ namespace CodeHub.Helpers
         public static GitHubClient GithubClient { get; set; }
 
         /// <summary>
+        /// Indicates if Ads are visible
+        /// </summary>
+        public static bool HasAlreadyDonated { get; set; }
+
+        /// <summary>
         /// Maintains a stack of page titles
         /// </summary>
         public static Stack<string> NavigationStack { get; set; } =  new Stack<string>();

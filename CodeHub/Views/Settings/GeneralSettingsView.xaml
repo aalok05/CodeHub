@@ -6,8 +6,11 @@
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                               xmlns:local="using:CodeHub.Views"
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:converter="using:CodeHub.Converters"
                               mc:Ignorable="d">
-
+    <local:SettingsDetailPageBase.Resources>
+        <converter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
+    </local:SettingsDetailPageBase.Resources>
     <ScrollViewer Background="Transparent"
                   HorizontalScrollBarVisibility="Disabled"
                   HorizontalScrollMode="Disabled"
@@ -33,8 +36,19 @@
                        HorizontalAlignment="Left"
                        FontSize="20"
                        FontWeight="SemiLight" />
-
-            <ToggleSwitch Margin="0,8,0,0" IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
+            
+            <TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       FontWeight="SemiLight"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"
+                       Visibility="{x:Bind ViewModel.CanDisableAds,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
+                       Text="Make any donation to enable the option to disable ads."/>
+            
+            <ToggleSwitch Margin="0,8,0,0"
+                          IsEnabled="{x:Bind ViewModel.CanDisableAds,Mode=OneWay}"
+                          IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
 
             <!--  Load commit messages  -->
             <TextBlock x:Uid="loadCommitMessage"

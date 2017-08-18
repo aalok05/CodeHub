@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Input;
 using CodeHub.Helpers;
 using GalaSoft.MvvmLight.Messaging;
 using Windows.System;
+using CodeHub.Services;
 
 namespace CodeHub.Views
 {
@@ -86,6 +87,10 @@ namespace CodeHub.Views
                     Message = "Thanks for your donation! I deeply appreciate your contribution to the development of CodeHub",
                     Glyph = "\uED54"
                 });
+
+                SettingsService.Save<bool>(SettingsKeys.IsAdsEnabled, false);
+                GlobalHelper.HasAlreadyDonated = true;
+                Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType());
             }
             else if (result.Status == StorePurchaseStatus.AlreadyPurchased)
             {
