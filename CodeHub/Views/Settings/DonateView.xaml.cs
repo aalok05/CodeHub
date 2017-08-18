@@ -14,12 +14,12 @@ namespace CodeHub.Views
 {
     public sealed partial class DonateView : SettingsDetailPageBase
     {
-        private const string donateFirstAddOnId = "[Donate_first_tier_id]";
-        private const string donateSecondAddOnId = "[Donate_second_tier_id]";
-        private const string donateThirdAddOnId = "[Donate_third_tier_id]";
-        private const string donateFourthAddOnId = "[Donate_fourth_tier_id]";
-        private const string donateFifthAddOnId = "[Donate_fifth_tier_id]";
-        private const string donateSixthAddOnId = "[Donate_sixth_tier_id]";
+        private const string donateFirstAddOnId = "9pd0r1dxkt8j";
+        private const string donateSecondAddOnId = "9msvqcz4pbws";
+        private const string donateThirdAddOnId = "9n571g3nr2cs";
+        private const string donateFourthAddOnId = "9nsmgzx3p43x";
+        private const string donateFifthAddOnId = "9phrhpvhscdv";
+        private const string donateSixthAddOnId = "9nnqdq0kq21j";
 
         private static readonly StoreContext WindowsStore = StoreContext.GetDefault();
 

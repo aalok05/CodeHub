@@ -510,7 +510,7 @@
                              Text="&#x0a;&#x0a;&#xE170; "
                              FontSize="17"
                              Foreground="Yellow"/> 
-                        <Run Text="If you are enjoying CodeHub, please make a donation to help me support myself by going to Settings -> Donate"/>
+                        <Run Text="If you are enjoying CodeHub, please make a donation to help me support myself, by going to Settings -> Donate. Also get rid of the ads!"/>
                     </TextBlock>
                 </ScrollViewer>
             </Grid>
