@@ -89,10 +89,17 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all,\n Here's the changelog for v 2.2.2 \n\n -Added an expand/collapse button in repository page to view readme comfortably \n -Design improvements \n -Fixed a bug where app was crashing when opened without an internet connection ";
+                return "Hi all,\nHere's the changelog for v 2.2.4\n\n\x2022 Design improvements and bug fixes! ";
             }
         }
         #endregion
+
+        private const string donateFirstAddOnId = "9pd0r1dxkt8j";
+        private const string donateSecondAddOnId = "9msvqcz4pbws";
+        private const string donateThirdAddOnId = "9n571g3nr2cs";
+        private const string donateFourthAddOnId = "9nsmgzx3p43x";
+        private const string donateFifthAddOnId = "9phrhpvhscdv";
+        private const string donateSixthAddOnId = "9nnqdq0kq21j";
 
         public AppViewmodel()
         {
@@ -134,7 +141,7 @@ namespace CodeHub.ViewModels
         {
             LicenseInformation licenseInformation = CurrentAppSimulator.LicenseInformation;
 
-            string[] addOnIds = new string[] { "[Donate_first_tier_id]", "[Donate_second_tier_id]", "[Donate_third_tier_id]", "[Donate_fourth_tier_id]", "[Donate_fifth_tier_id]", "[Donate_sixth_tier_id]" };
+            string[] addOnIds = new string[] { donateFirstAddOnId, donateSecondAddOnId, donateThirdAddOnId, donateFourthAddOnId, donateFifthAddOnId, donateSixthAddOnId };
 
             for (int i = 0; i < addOnIds.Length; i++)
             {
