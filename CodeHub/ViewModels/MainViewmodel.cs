@@ -5,20 +5,14 @@ using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.Views;
 using Octokit;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using static CodeHub.Helpers.GlobalHelper;
-using Windows.Foundation;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
-using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Ioc;
 using Windows.UI.Xaml.Input;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.System.Profile;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using CodeHub.Controls;
@@ -74,24 +68,7 @@ namespace CodeHub.ViewModels
                 Set(() => IsPaneOpen, ref _isPaneOpen, value);
             }
         }
-        private bool _isDesktopAdsVisible;
-        public bool IsDesktopAdsVisible
-        {
-            get { return _isDesktopAdsVisible; }
-            set
-            {
-                Set(() => IsDesktopAdsVisible, ref _isDesktopAdsVisible, value);
-            }
-        }
-        private bool _isMobileAdsVisible;
-        public bool IsMobileAdsVisible
-        {
-            get { return _isMobileAdsVisible; }
-            set
-            {
-                Set(() => IsMobileAdsVisible, ref _isMobileAdsVisible, value);
-            }
-        }
+
         private SplitViewDisplayMode _displayMode = SplitViewDisplayMode.Overlay;
         public SplitViewDisplayMode DisplayMode
         {
@@ -319,24 +296,6 @@ namespace CodeHub.ViewModels
                 }
                 Navigate(typeof(NotificationsView), "Notifications");
             }
-        }
-
-        public void ConfigureAdsVisibility()
-        {
-            if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
-            {
-                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-                {
-                    IsMobileAdsVisible = true;
-                    IsDesktopAdsVisible = false;
-                }
-                else
-                {
-                    IsDesktopAdsVisible = true;
-                    IsMobileAdsVisible = false;
-                }
-            }
-            else IsMobileAdsVisible = IsDesktopAdsVisible = false;
         }
 
         public void RecieveSignInMessage(User user)

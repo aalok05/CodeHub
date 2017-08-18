@@ -159,6 +159,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _CanDisableAds = GlobalHelper.HasAlreadyDonated;
+        public bool CanDisableAds
+        {
+            get
+            {
+                return _CanDisableAds;
+            }
+            set
+            {
+                Set(() => CanDisableAds, ref _CanDisableAds, value);
+            }
+        }
+
         public bool _IsNotificationCheckEnabled = SettingsService.Get<bool>(SettingsKeys.IsNotificationCheckEnabled);
 
         /// <summary>

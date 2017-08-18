@@ -44,27 +44,7 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="48"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <CommandBar Grid.Row="0"
-                                DefaultLabelPosition="Right">
-                        <AppBarButton x:Uid="refreshAppBarButton"
-                                      Icon="Refresh"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.RefreshUnread}">
-
-                        </AppBarButton>
-                        <AppBarButton x:Uid="markAllAsRead"
-                                      Icon="Accept"
-                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
-
-                        </AppBarButton>
-                    </CommandBar>
                     <ListView x:Name="UnreadFeedListView"
-                              Grid.Row="1"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -145,15 +125,28 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Grid.Row="1"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingUnread, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Grid.Row="1"
                                Visibility="{x:Bind ViewModel.ZeroUnreadCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <CommandBar VerticalAlignment="Bottom"
+                                DefaultLabelPosition="Right">
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                      Tapped="{x:Bind ViewModel.RefreshUnread}">
+
+                        </AppBarButton>
+                        <AppBarButton x:Uid="markAllAsRead"
+                                      Icon="Accept"
+                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+
+                        </AppBarButton>
+                    </CommandBar>
                 </Grid>
             </PivotItem>
             <PivotItem Margin="0">
@@ -164,21 +157,7 @@
                                Text="participating" />
                 </PivotItem.Header>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="48"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <CommandBar Grid.Row="0"
-                                DefaultLabelPosition="Right">
-                        <AppBarButton x:Uid="refreshAppBarButton"
-                                      Icon="Refresh"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.RefreshParticipating}">
-
-                        </AppBarButton>
-                    </CommandBar>
                     <ListView x:Name="ParticipatingFeedListView"
-                              Grid.Row="1"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -261,15 +240,22 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Grid.Row="1"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsloadingParticipating, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Grid.Row="1"
                                Visibility="{x:Bind ViewModel.ZeroParticipatingCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <CommandBar DefaultLabelPosition="Right"
+                                VerticalAlignment="Bottom">
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                      Tapped="{x:Bind ViewModel.RefreshParticipating}">
+
+                        </AppBarButton>
+                    </CommandBar>
                 </Grid>
             </PivotItem>
             <PivotItem Margin="0">
@@ -279,21 +265,7 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="46"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <CommandBar Grid.Row="0"
-                                DefaultLabelPosition="Right">
-                        <AppBarButton x:Uid="refreshAppBarButton"
-                                      Icon="Refresh"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.RefreshAll}">
-
-                        </AppBarButton>
-                    </CommandBar>
                     <ListView x:Name="AllFeedListView"
-                              Grid.Row="1"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -376,15 +348,22 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Grid.Row="1"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingAll, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Grid.Row="1"
                                Visibility="{x:Bind ViewModel.ZeroAllCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <CommandBar DefaultLabelPosition="Right"
+                                VerticalAlignment="Bottom">
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                      Tapped="{x:Bind ViewModel.RefreshAll}">
+
+                        </AppBarButton>
+                    </CommandBar>
                 </Grid>
 
             </PivotItem>

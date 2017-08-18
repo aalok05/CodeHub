@@ -329,10 +329,10 @@
                                       Visibility="{x:Bind ViewModel.IsDesktopAdsVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
                                       Width="728"
                                       Height="90"
-                                      HorizontalAlignment="Left"
+                                      HorizontalAlignment="Center"
                                       VerticalAlignment="Bottom"
-                                      AdUnitId="00000000"
-                                      ApplicationId="00000000-0000-0000-0000-000000000000"
+                                      AdUnitId="test"
+                                      ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"
                                       AutoRefreshIntervalInSeconds="60"
                                       IsAutoRefreshEnabled="True" />
                         <AD:AdControl x:Name="adControlMobile"
@@ -340,10 +340,10 @@
                                       Visibility="{x:Bind ViewModel.IsMobileAdsVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
                                       Width="320"
                                       Height="50"
-                                      HorizontalAlignment="Left"
+                                      HorizontalAlignment="Center"
                                       VerticalAlignment="Bottom"
-                                      AdUnitId="00000000"
-                                      ApplicationId="00000000-0000-0000-0000-000000000000"
+                                      AdUnitId="test"
+                                      ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"
                                       AutoRefreshIntervalInSeconds="60"
                                       IsAutoRefreshEnabled="True" />
                     </Grid>
