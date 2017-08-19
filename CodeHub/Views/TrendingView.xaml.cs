@@ -89,7 +89,8 @@ namespace CodeHub.Views
                 if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
                 {
                     // Scrolled to bottom
-                    await ViewModel.TodayIncrementalLoad();
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.TodayIncrementalLoad();
                 }
             }
 
@@ -107,7 +108,8 @@ namespace CodeHub.Views
                 if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
                 {
                     // Scrolled to bottom
-                    await ViewModel.WeekIncrementalLoad();
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.WeekIncrementalLoad();
                 }
             }
         }
@@ -123,7 +125,8 @@ namespace CodeHub.Views
                 if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
                 {
                     // Scrolled to bottom
-                    await ViewModel.MonthIncrementalLoad();
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.MonthIncrementalLoad();
                 }
             }
         }
