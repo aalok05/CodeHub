@@ -419,11 +419,17 @@ namespace CodeHub.Services
         /// <param name="repoId"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepo(long repoId, RepositoryIssueRequest filter)
+        public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepo(long repoId, RepositoryIssueRequest filter, int pageIndex)
         {
             try
             {
-                var issues = await GlobalHelper.GithubClient.Issue.GetAllForRepository(repoId, filter);
+                ApiOptions options = new ApiOptions
+                {
+                    PageCount = 1,
+                    PageSize = 10,
+                    StartPage = pageIndex
+                };
+                var issues = await GlobalHelper.GithubClient.Issue.GetAllForRepository(repoId, filter, options);
                 return new ObservableCollection<Issue>(issues);
             }
             catch

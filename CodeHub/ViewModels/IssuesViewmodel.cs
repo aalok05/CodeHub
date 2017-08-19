@@ -159,7 +159,33 @@ namespace CodeHub.ViewModels
 
             }
         }
-        
+        public bool _isIncrementalLoadingOpen;
+        public bool IsIncrementalLoadingOpen
+        {
+            get
+            {
+                return _isIncrementalLoadingOpen;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoadingOpen, ref _isIncrementalLoadingOpen, value);
+
+            }
+        }
+        public bool _isIncrementalLoadingClosed;
+        public bool IsIncrementalLoadingClosed
+        {
+            get
+            {
+                return _isIncrementalLoadingClosed;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoadingClosed, ref _isIncrementalLoadingClosed, value);
+
+            }
+        }
+
         public ObservableCollection<Issue> _openissues;
         public ObservableCollection<Issue> OpenIssues
         {
@@ -201,18 +227,44 @@ namespace CodeHub.ViewModels
 
         }
 
+        private int _OpenPaginationIndex;
+        public int OpenPaginationIndex
+        {
+            get
+            {
+                return _OpenPaginationIndex;
+            }
+            set
+            {
+                Set(() => OpenPaginationIndex, ref _OpenPaginationIndex, value);
+            }
+        }
+
+        private int _ClosedPaginationIndex;
+        public int ClosedPaginationIndex
+        {
+            get
+            {
+                return _ClosedPaginationIndex;
+            }
+            set
+            {
+                Set(() => ClosedPaginationIndex, ref _ClosedPaginationIndex, value);
+            }
+        }
+
         #endregion
 
         public async Task Load(Repository repository)
         {
             if (!GlobalHelper.IsInternet())
             {
-                //Sending NoInternet message to all viewModels
                 Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
             }
             else
             {
                 Repository = repository;
+                OpenPaginationIndex = ClosedPaginationIndex = 0;
 
                 /*Clear off Issues of the previous repository*/
                 if (OpenIssues != null)
@@ -223,10 +275,12 @@ namespace CodeHub.ViewModels
                     MyIssues.Clear();
 
                 IsLoadingOpen = true;
+                OpenPaginationIndex++;
                 OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
                 {
                     State = ItemStateFilter.Open
-                });
+                },
+                OpenPaginationIndex);
                 IsLoadingOpen = false;
 
                 ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
@@ -250,7 +304,8 @@ namespace CodeHub.ViewModels
                 OpenIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
                 {
                     State = ItemStateFilter.Open
-                });
+                },
+                OpenPaginationIndex = 1);
                 IsLoadingOpen = false;
 
                 ZeroOpenIssues = OpenIssues.Count == 0 ? true : false;
@@ -262,7 +317,8 @@ namespace CodeHub.ViewModels
                 ClosedIssues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
                 {
                     State = ItemStateFilter.Closed
-                });
+                },
+                ClosedPaginationIndex = 1);
                 IsLoadingClosed = false;
 
                 ZeroClosedIssues = ClosedIssues.Count == 0 ? true : false;
@@ -274,6 +330,66 @@ namespace CodeHub.ViewModels
                 IsLoadingMine = false;
 
                 ZeroMyIssues = MyIssues.Count == 0 ? true : false;
+            }
+        }
+
+        public async Task OpenIncrementalLoad()
+        {
+            OpenPaginationIndex++;
+            IsIncrementalLoadingOpen = true;
+            var issues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
+            {
+                State = ItemStateFilter.Open
+            }, 
+            OpenPaginationIndex);
+
+            IsIncrementalLoadingOpen = false;
+
+            if (issues != null)
+            {
+                if(issues.Count > 0)
+                {
+                    foreach (var i in issues)
+                    {
+                        OpenIssues.Add(i);
+                    }
+                }
+                else
+                {
+                    //no more issues left to load
+                    OpenPaginationIndex = -1;
+                }
+
+            }
+        }
+
+        public async Task ClosedIncrementalLoad()
+        {
+            ClosedPaginationIndex++;
+            IsIncrementalLoadingClosed = true;
+            var issues = await RepositoryUtility.GetAllIssuesForRepo(Repository.Id, new RepositoryIssueRequest
+            {
+                State = ItemStateFilter.Closed
+            },
+            ClosedPaginationIndex);
+
+            IsIncrementalLoadingClosed = false;
+
+            if (issues != null)
+            {
+                if (issues.Count > 0)
+                {
+                    foreach (var i in issues)
+                    {
+                        ClosedIssues.Add(i);
+                    }
+                }
+                else
+                {
+                    //no more issues left to load
+                    ClosedPaginationIndex = -1;
+                }
+
             }
         }
 
