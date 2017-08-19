@@ -71,9 +71,7 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _CanLoadMoreToday;
-        /// <summary>
-        /// Indicates whether Load more button is visible or not
-        /// </summary>
+
         public bool CanLoadMoreToday
         {
             get
@@ -86,9 +84,7 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _CanLoadMoreWeek;
-        /// <summary>
-        /// Indicates whether Load more button is visible or not
-        /// </summary>
+
         public bool CanLoadMoreWeek
         {
             get
@@ -101,9 +97,7 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _CanLoadMoreMonth;
-        /// <summary>
-        /// Indicates whether Load more button is visible or not
-        /// </summary>
+
         public bool CanLoadMoreMonth
         {
             get
@@ -399,7 +393,7 @@ namespace CodeHub.ViewModels
             }
 
         }
-        public async void TodayIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async Task TodayIncrementalLoad()
         {
             IsIncrementalLoadingToday = true;
             CanLoadMoreToday = false;
@@ -415,7 +409,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void WeekIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async Task WeekIncrementalLoad()
         {
             IsIncrementalLoadingWeek = true;
             CanLoadMoreWeek = false;
@@ -431,7 +425,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void MonthIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async Task MonthIncrementalLoad()
         {
             IsIncrementalLoadingMonth = true;
             CanLoadMoreMonth = false;
