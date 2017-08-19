@@ -447,11 +447,17 @@ namespace CodeHub.Services
         /// <param name="repoId"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<PullRequest>> GetAllPullRequestsForRepo(long repoId, PullRequestRequest filter)
+        public static async Task<ObservableCollection<PullRequest>> GetAllPullRequestsForRepo(long repoId, PullRequestRequest filter, int pageIndex)
         {
             try
             {
-                var prList = await GlobalHelper.GithubClient.PullRequest.GetAllForRepository(repoId, filter);
+                ApiOptions options = new ApiOptions
+                {
+                    PageCount = 1,
+                    PageSize = 10,
+                    StartPage = pageIndex
+                };
+                var prList = await GlobalHelper.GithubClient.PullRequest.GetAllForRepository(repoId, filter, options);
                 return new ObservableCollection<PullRequest>(prList);
             }
             catch

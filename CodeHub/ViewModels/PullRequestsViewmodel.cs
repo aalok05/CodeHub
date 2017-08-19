@@ -118,6 +118,59 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _isIncrementalLoadingOpen;
+        public bool IsIncrementalLoadingOpen
+        {
+            get
+            {
+                return _isIncrementalLoadingOpen;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoadingOpen, ref _isIncrementalLoadingOpen, value);
+
+            }
+        }
+        public bool _isIncrementalLoadingClosed;
+        public bool IsIncrementalLoadingClosed
+        {
+            get
+            {
+                return _isIncrementalLoadingClosed;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoadingClosed, ref _isIncrementalLoadingClosed, value);
+
+            }
+        }
+
+        private int _OpenPaginationIndex;
+        public int OpenPaginationIndex
+        {
+            get
+            {
+                return _OpenPaginationIndex;
+            }
+            set
+            {
+                Set(() => OpenPaginationIndex, ref _OpenPaginationIndex, value);
+            }
+        }
+
+        private int _ClosedPaginationIndex;
+        public int ClosedPaginationIndex
+        {
+            get
+            {
+                return _ClosedPaginationIndex;
+            }
+            set
+            {
+                Set(() => ClosedPaginationIndex, ref _ClosedPaginationIndex, value);
+            }
+        }
+
         #endregion
 
         public async Task Load(Repository repository)
@@ -130,6 +183,7 @@ namespace CodeHub.ViewModels
             else
             {
                 Repository = repository;
+                OpenPaginationIndex = ClosedPaginationIndex = 0;
 
                 /*Clear off Pull Requests of the previous repository*/
                 if (OpenPullRequests != null)
@@ -138,10 +192,12 @@ namespace CodeHub.ViewModels
                     ClosedPullRequests.Clear();
 
                 IsLoadingOpen = true;
+                OpenPaginationIndex++;
                 OpenPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
                 {
                     State = ItemStateFilter.Open
-                });
+                },
+                OpenPaginationIndex);
                 IsLoadingOpen = false;
 
                 ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
@@ -165,7 +221,8 @@ namespace CodeHub.ViewModels
                 OpenPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
                 {
                     State = ItemStateFilter.Open
-                });
+                },
+                OpenPaginationIndex = 1);
                 IsLoadingOpen = false;
 
                 ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
@@ -177,10 +234,71 @@ namespace CodeHub.ViewModels
                 ClosedPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
                 {
                     State = ItemStateFilter.Closed
-                });
+                },
+                ClosedPaginationIndex = 1);
                 IsLoadingClosed = false;
 
                 ZeroClosedPullRequests = ClosedPullRequests.Count == 0 ? true : false;
+            }
+        }
+
+        public async Task OpenIncrementalLoad()
+        {
+            OpenPaginationIndex++;
+            IsIncrementalLoadingOpen = true;
+            var PRs = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+            {
+                State = ItemStateFilter.Open
+            },
+            OpenPaginationIndex);
+
+            IsIncrementalLoadingOpen = false;
+
+            if (PRs != null)
+            {
+                if (PRs.Count > 0)
+                {
+                    foreach (var i in PRs)
+                    {
+                        OpenPullRequests.Add(i);
+                    }
+                }
+                else
+                {
+                    //no more issues left to load
+                    OpenPaginationIndex = -1;
+                }
+
+            }
+        }
+
+        public async Task ClosedIncrementalLoad()
+        {
+            ClosedPaginationIndex++;
+            IsIncrementalLoadingClosed = true;
+            var PRs = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+            {
+                State = ItemStateFilter.Closed
+            },
+            ClosedPaginationIndex);
+
+            IsIncrementalLoadingClosed = false;
+
+            if (PRs != null)
+            {
+                if (PRs.Count > 0)
+                {
+                    foreach (var i in PRs)
+                    {
+                        ClosedPullRequests.Add(i);
+                    }
+                }
+                else
+                {
+                    //no more issues left to load
+                    ClosedPaginationIndex = -1;
+                }
+
             }
         }
     }
