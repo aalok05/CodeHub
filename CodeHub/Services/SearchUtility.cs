@@ -23,7 +23,7 @@ namespace CodeHub.Services
                     request.Language = language;
                 }
                 var result = await GlobalHelper.GithubClient.Search.SearchRepo(request);
-                return new ObservableCollection<Repository>(new List<Repository>(result.Items));
+                return new ObservableCollection<Repository>(result.Items);
             }
             catch
             {
@@ -71,7 +71,7 @@ namespace CodeHub.Services
                     request.Language = language;
                 }
                 var result = await GlobalHelper.GithubClient.Search.SearchUsers(request);
-                return new ObservableCollection<User>(new List<User>(result.Items));
+                return new ObservableCollection<User>(result.Items);
             }
             catch
             {
@@ -95,7 +95,7 @@ namespace CodeHub.Services
                     request.Language = language;
                 }
                 var result = await GlobalHelper.GithubClient.Search.SearchIssues(request);
-                return new ObservableCollection<Issue>(new List<Issue>(result.Items));
+                return new ObservableCollection<Issue>(result.Items);
             }
             catch
             {
