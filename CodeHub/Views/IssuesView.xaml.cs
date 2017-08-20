@@ -94,16 +94,17 @@ namespace CodeHub.Views
                 var verticalOffset = sv.VerticalOffset;
                 var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
 
-                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && maxVerticalOffset > ViewModel.MaxOpenScrollViewerVerticalffset)
                 {
+                    ViewModel.MaxOpenScrollViewerVerticalffset = maxVerticalOffset;
+
                     // Scrolled to bottom
                     if (GlobalHelper.IsInternet())
                         await ViewModel.OpenIncrementalLoad();
                 }
             }
-
-
         }
+
         private async void OnClosedScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (ViewModel.ClosedPaginationIndex != -1)
@@ -113,8 +114,10 @@ namespace CodeHub.Views
                 var verticalOffset = sv.VerticalOffset;
                 var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
 
-                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && maxVerticalOffset > ViewModel.MaxClosedScrollViewerVerticalffset)
                 {
+                    ViewModel.MaxClosedScrollViewerVerticalffset = maxVerticalOffset;
+
                     // Scrolled to bottom
                     if (GlobalHelper.IsInternet())
                         await ViewModel.ClosedIncrementalLoad();
