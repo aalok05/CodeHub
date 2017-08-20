@@ -13,7 +13,12 @@
         <converter:StringVisibilityConverter x:Key="StringVisibilityConverter" x:Name="StringVisibilityConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" x:Name="BoolToVisibilityConverter" />
     </UserControl.Resources>
-    <RelativePanel Padding="12">
+    <RelativePanel Padding="12"
+                   Margin="4 4 4 0">
+        <RelativePanel.Background>
+            <SolidColorBrush Color="{ThemeResource SystemChromeLowColor}"
+                             Opacity="0.7"/>
+        </RelativePanel.Background>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Narrow">
@@ -62,7 +67,7 @@
                                      Source="{Binding Owner.AvatarUrl, Mode=OneWay}" />
 
         <StackPanel x:Name="RepoNamePanel"
-                    Margin="8,0,0,4"
+                    Margin="12,0,0,4"
                     Orientation="Horizontal"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.RightOf="OwnerAvatarEllipse">
@@ -112,10 +117,10 @@
         </StackPanel>
 
         <TextBlock x:Name="description"
-                   Margin="8,12,4,8"
+                   Margin="16,12,4,8"
                    FontSize="13"
                    Foreground="Gray"
-                   MaxLines="3"
+                   MaxLines="1"
                    RelativePanel.AlignLeftWith="RepoNamePanel"
                    RelativePanel.Below="RepoNamePanel"
                    Text="{Binding Description}"
@@ -126,7 +131,7 @@
         <Viewbox x:Name="StarSymbol"
                  MaxWidth="20"
                  MaxHeight="20"
-                 Margin="4,8,4,0"
+                 Margin="12,8,4,0"
                  RelativePanel.AlignLeftWith="RepoNamePanel"
                  RelativePanel.Below="description">
             <SymbolIcon Margin="5"
