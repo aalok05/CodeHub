@@ -92,7 +92,7 @@
                            VerticalAlignment="Center"
                            Text="/" />
                 <TextBlock x:Name="RepoName"
-                           FontWeight="Light"
+                           FontWeight="Bold"
                            VerticalAlignment="Center"
                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                            Style="{StaticResource RepoNameTextBlockStyle}"
@@ -121,18 +121,14 @@
                             RelativePanel.AlignHorizontalCenterWithPanel="True"
                             Orientation="Horizontal">
                     <TextBlock x:Name="updatedDateText"
-                               FontWeight="SemiLight"
                                Text="{x:Bind ViewModel.Repository.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
                     <TextBlock x:Name="sizeCount"
                                Margin="8,0,0,0"
-                               FontWeight="SemiLight"
                                Text="{x:Bind ViewModel.Repository.Size, Mode=OneWay}" />
                     <TextBlock x:Name="sizeUnitText"
                                Margin="2,0,12,0"
-                               FontWeight="SemiLight"
                                Text="KB" />
                     <TextBlock x:Name="LanguageText"
-                               FontWeight="SemiLight"
                                Text="{x:Bind ViewModel.Repository.Language, Mode=OneWay}"
                                Visibility="{x:Bind ViewModel.Repository.Language, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
                 </StackPanel>
