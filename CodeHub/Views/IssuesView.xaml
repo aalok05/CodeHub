@@ -68,6 +68,7 @@
                 <Grid>
                     <ListView x:Name="openIssueListView"
                               IsItemClickEnabled="True"
+                              Loaded="openIssueListView_Loaded"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.OpenIssues, Mode=OneWay}"
@@ -79,6 +80,14 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+                    <ProgressBar IsIndeterminate="True" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Bottom" 
+                                 Margin="0 0 0 10"
+                                 MaxHeight="5"
+                                 MaxWidth="2000"
+                                 Visibility="{x:Bind ViewModel.IsIncrementalLoadingOpen,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Uid="noOpenIssue"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -100,6 +109,7 @@
                 <Grid>
                     <ListView x:Name="closedIssueListView"
                               IsItemClickEnabled="True"
+                              Loaded="closedIssueListView_Loaded"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.ClosedIssues, Mode=OneWay}"
@@ -111,6 +121,14 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+                    <ProgressBar IsIndeterminate="True" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Bottom" 
+                                 Margin="0 0 0 10"
+                                 MaxHeight="5"
+                                 MaxWidth="2000"
+                                 Visibility="{x:Bind ViewModel.IsIncrementalLoadingClosed,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Uid="noClosedIssue"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -142,6 +160,7 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+
                     <TextBlock x:Uid="noIssues"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"

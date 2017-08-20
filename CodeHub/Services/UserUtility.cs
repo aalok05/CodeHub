@@ -167,14 +167,15 @@ namespace CodeHub.Services
         /// Gets all public events of current user
         /// </summary>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Activity>> GetUserActivity()
+        public static async Task<ObservableCollection<Activity>> GetUserActivity(int pageIndex)
         {
             try
             {
                 var options = new ApiOptions
                 {
-                    PageSize = 50,
-                    PageCount = 1
+                    PageSize = 10,
+                    PageCount = 1,
+                    StartPage = pageIndex
                 };
                 var result = await GlobalHelper.GithubClient.Activity.Events.GetAllUserReceivedPublic(GlobalHelper.UserLogin, options);
 

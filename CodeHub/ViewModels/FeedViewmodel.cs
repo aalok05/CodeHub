@@ -31,6 +31,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        private int _PaginationIndex;
+        public int PaginationIndex
+        {
+            get
+            {
+                return _PaginationIndex;
+            }
+            set
+            {
+                Set(() => PaginationIndex, ref _PaginationIndex, value);
+            }
+        }
+
         public bool _zeroEventCount;
         public bool ZeroEventCount
         {
@@ -41,6 +54,20 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => ZeroEventCount, ref _zeroEventCount, value);
+            }
+        }
+
+        public bool _isIncrementalLoading;
+        public bool IsIncrementalLoading
+        {
+            get
+            {
+                return _isIncrementalLoading;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoading, ref _isIncrementalLoading, value);
+
             }
         }
 
@@ -67,12 +94,6 @@ namespace CodeHub.ViewModels
                                                       await LoadEvents();
                                                       isLoading = false;
                                                   }
-                                                  else
-                                                  {
-                                                      /*Silent loading */
-                                                      await LoadEvents();
-                                                  }
-
                                               }
                                           }));
             }
@@ -82,15 +103,16 @@ namespace CodeHub.ViewModels
             
             if (!GlobalHelper.IsInternet())
             {
-                //Sending NoInternet message to all viewModels
                 Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
             }
             else
             {
-               
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
+
+                PaginationIndex = 0;
                 await LoadEvents();
+
                 isLoading = false;
             }
         }
@@ -109,20 +131,57 @@ namespace CodeHub.ViewModels
             {
                 isLoggedin = true;
                 User = user;
+                PaginationIndex = 0;
                 await LoadEvents();
             }
             isLoading = false;
 
         }
 
-        private async Task LoadEvents()
+        public async Task LoadEvents()
         {
-            Events = await UserUtility.GetUserActivity();
-            if(Events!=null)
+            PaginationIndex++;
+            if(PaginationIndex > 1)
             {
-                ZeroEventCount = (Events.Count == 0) ? true : false;
+                IsIncrementalLoading = true;
+
+                var events = await UserUtility.GetUserActivity(PaginationIndex);
+                if (events != null)
+                {
+                    if(events.Count > 0)
+                    {
+                        foreach (var i in events)
+                        {
+                            Events.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        //no more feed items left to load
+                        PaginationIndex = -1;
+                    }
+
+                }
+                IsIncrementalLoading = false;
+            }
+            else if(PaginationIndex == 1)
+            {
+                Events = await UserUtility.GetUserActivity(PaginationIndex);
+                if (Events != null)
+                {
+                    if(Events.Count == 0)
+                    {
+                        PaginationIndex = 0;
+                        ZeroEventCount = true;
+                    }
+                    else
+                    {
+                        ZeroEventCount = false;
+                    }
+                }
             }
         }
+
         public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Activity activity = e.ClickedItem as Activity;

@@ -36,6 +36,7 @@
                 <Grid>
                     <ListView x:Name="openPRListView"
                               IsItemClickEnabled="True"
+                              Loaded="openPRListView_Loaded"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.PullRequestTapped}"
                               ItemsSource="{x:Bind ViewModel.OpenPullRequests, Mode=OneWay}"
@@ -47,6 +48,14 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+                    <ProgressBar IsIndeterminate="True" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Bottom" 
+                                 Margin="0 0 0 10"
+                                 MaxHeight="5"
+                                 MaxWidth="2000"
+                                 Visibility="{x:Bind ViewModel.IsIncrementalLoadingOpen,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Uid="noOpenPullRequests"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -66,8 +75,9 @@
                                Text="closed" />
                 </PivotItem.Header>
                 <Grid>
-                    <ListView x:Name="closedIssueListView"
+                    <ListView x:Name="closedPRListView"
                               IsItemClickEnabled="True"
+                              Loaded="closedPRListView_Loaded"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.PullRequestTapped}"
                               ItemsSource="{x:Bind ViewModel.ClosedPullRequests, Mode=OneWay}"
@@ -79,6 +89,14 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+                    <ProgressBar IsIndeterminate="True" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Bottom" 
+                                 Margin="0 0 0 10"
+                                 MaxHeight="5"
+                                 MaxWidth="2000"
+                                 Visibility="{x:Bind ViewModel.IsIncrementalLoadingClosed,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Uid="noClosedPullRequests"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"

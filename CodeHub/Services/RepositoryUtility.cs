@@ -419,11 +419,17 @@ namespace CodeHub.Services
         /// <param name="repoId"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepo(long repoId, RepositoryIssueRequest filter)
+        public static async Task<ObservableCollection<Issue>> GetAllIssuesForRepo(long repoId, RepositoryIssueRequest filter, int pageIndex)
         {
             try
             {
-                var issues = await GlobalHelper.GithubClient.Issue.GetAllForRepository(repoId, filter);
+                ApiOptions options = new ApiOptions
+                {
+                    PageCount = 1,
+                    PageSize = 10,
+                    StartPage = pageIndex
+                };
+                var issues = await GlobalHelper.GithubClient.Issue.GetAllForRepository(repoId, filter, options);
                 return new ObservableCollection<Issue>(issues);
             }
             catch
@@ -441,11 +447,17 @@ namespace CodeHub.Services
         /// <param name="repoId"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<PullRequest>> GetAllPullRequestsForRepo(long repoId, PullRequestRequest filter)
+        public static async Task<ObservableCollection<PullRequest>> GetAllPullRequestsForRepo(long repoId, PullRequestRequest filter, int pageIndex)
         {
             try
             {
-                var prList = await GlobalHelper.GithubClient.PullRequest.GetAllForRepository(repoId, filter);
+                ApiOptions options = new ApiOptions
+                {
+                    PageCount = 1,
+                    PageSize = 10,
+                    StartPage = pageIndex
+                };
+                var prList = await GlobalHelper.GithubClient.PullRequest.GetAllForRepository(repoId, filter, options);
                 return new ObservableCollection<PullRequest>(prList);
             }
             catch

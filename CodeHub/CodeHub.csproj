@@ -213,9 +213,6 @@
       <DependentUpon>HamMenuListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\HtmlToRtfConverter.cs" />
-    <Compile Include="Controls\IncrementalLoadButtonControl.xaml.cs">
-      <DependentUpon>IncrementalLoadButtonControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\IssueListItem.xaml.cs">
       <DependentUpon>IssueListItem.xaml</DependentUpon>
     </Compile>
@@ -447,10 +444,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\HamMenuListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\IncrementalLoadButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

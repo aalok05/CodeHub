@@ -30,6 +30,7 @@
         <toolkitControl:PullToRefreshListView x:Name="FeedListView"
                                               IsItemClickEnabled="True"
                                               IsPullToRefreshWithMouseEnabled="True"
+                                              Loaded="FeedListView_Loaded"
                                               ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
                                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
@@ -173,6 +174,14 @@
                       VerticalAlignment="Center"
                       Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
+        <ProgressBar IsIndeterminate="True" 
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Bottom" 
+                     Margin="0 0 0 10"
+                     MaxHeight="5"
+                     MaxWidth="2000"
+                     Visibility="{x:Bind ViewModel.IsIncrementalLoading,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                     Foreground="{StaticResource AppPrimaryColorBrush}"/>
         <TextBlock x:Uid="noEvent"
                    Style="{StaticResource ZeroItemsTextBoxStyle}"
                    Visibility="{x:Bind ViewModel.ZeroEventCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />

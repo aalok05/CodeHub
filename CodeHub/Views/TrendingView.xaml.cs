@@ -15,6 +15,10 @@ namespace CodeHub.Views
     {
         public TrendingViewmodel ViewModel;
 
+        private ScrollViewer TodayScrollViewer;
+        private ScrollViewer WeekScrollViewer;
+        private ScrollViewer MonthScrollViewer;
+
         public TrendingView()
         { 
             this.InitializeComponent();
@@ -28,9 +32,16 @@ namespace CodeHub.Views
 
         private void TrendingView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            todayIncrementalLoadButton.Dispose();
-            weekIncrementalLoadButton.Dispose();
-            monthIncrementalLoadButton.Dispose();
+            if(TodayScrollViewer != null)
+                TodayScrollViewer.ViewChanged -= OnTodayScrollViewerViewChanged;
+
+            if (WeekScrollViewer != null)
+                WeekScrollViewer.ViewChanged -= OnWeekScrollViewerViewChanged;
+
+            if (MonthScrollViewer != null)
+                MonthScrollViewer.ViewChanged -= OnMonthScrollViewerViewChanged;
+
+            TodayScrollViewer = WeekScrollViewer = MonthScrollViewer = null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -65,19 +76,86 @@ namespace CodeHub.Views
             refreshindicator3.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
         }
 
-        private void TodayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+
+        private async void OnTodayScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            todayIncrementalLoadButton.InitializeScrollViewer(todayListView);
+            if (ViewModel.CanLoadMoreToday)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                {
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.TodayIncrementalLoad();
+                }
+            }
+
+
+        }
+        private async void OnWeekScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (ViewModel.CanLoadMoreWeek)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                {
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.WeekIncrementalLoad();
+                }
+            }
+        }
+        private async void OnMonthScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (ViewModel.CanLoadMoreMonth)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                {
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.MonthIncrementalLoad();
+                }
+            }
         }
 
-        private void WeekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void todayListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            weekIncrementalLoadButton.InitializeScrollViewer(weekListView);
+            if (TodayScrollViewer != null)
+                TodayScrollViewer.ViewChanged -= OnTodayScrollViewerViewChanged;
+
+            TodayScrollViewer = todayListView.FindChild<ScrollViewer>();
+            TodayScrollViewer.ViewChanged += OnTodayScrollViewerViewChanged;
         }
 
-        private void MonthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void weekListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            monthIncrementalLoadButton.InitializeScrollViewer(monthListView);
+            if (WeekScrollViewer != null)
+                WeekScrollViewer.ViewChanged -= OnWeekScrollViewerViewChanged;
+
+            WeekScrollViewer = weekListView.FindChild<ScrollViewer>();
+            WeekScrollViewer.ViewChanged += OnWeekScrollViewerViewChanged;
+        }
+
+        private void monthListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (MonthScrollViewer != null)
+                MonthScrollViewer.ViewChanged -= OnMonthScrollViewerViewChanged;
+
+            MonthScrollViewer = monthListView.FindChild<ScrollViewer>();
+            MonthScrollViewer.ViewChanged += OnMonthScrollViewerViewChanged;
         }
     }
 }
