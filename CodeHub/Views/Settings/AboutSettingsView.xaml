@@ -167,7 +167,7 @@
                              Margin="8 12 0 0"
                              FontSize="14"
                              Foreground="{StaticResource AppPrimaryColorBrush}"
-                             NavigateUri="http://devnextdoor.com/privacy-policy-of-codehub"
+                             NavigateUri="http://codehubapp.azurewebsites.net/"
                              RelativePanel.Below="TwitterButton" />-->
         </RelativePanel>
     </ScrollViewer>
