@@ -145,31 +145,11 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private int _OpenPaginationIndex;
-        public int OpenPaginationIndex
-        {
-            get
-            {
-                return _OpenPaginationIndex;
-            }
-            set
-            {
-                Set(() => OpenPaginationIndex, ref _OpenPaginationIndex, value);
-            }
-        }
+        public int OpenPaginationIndex{ get; set; }
+        public int ClosedPaginationIndex{ get; set; }
 
-        private int _ClosedPaginationIndex;
-        public int ClosedPaginationIndex
-        {
-            get
-            {
-                return _ClosedPaginationIndex;
-            }
-            set
-            {
-                Set(() => ClosedPaginationIndex, ref _ClosedPaginationIndex, value);
-            }
-        }
+        public double MaxOpenScrollViewerVerticalffset { get; set; }
+        public double MaxClosedScrollViewerVerticalffset { get; set; }
 
         #endregion
 
@@ -226,6 +206,7 @@ namespace CodeHub.ViewModels
                 IsLoadingOpen = false;
 
                 ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
+                MaxOpenScrollViewerVerticalffset = 0;
             }
             else if (p.SelectedIndex == 1)
             {
@@ -239,6 +220,7 @@ namespace CodeHub.ViewModels
                 IsLoadingClosed = false;
 
                 ZeroClosedPullRequests = ClosedPullRequests.Count == 0 ? true : false;
+                MaxClosedScrollViewerVerticalffset = 0;
             }
         }
 

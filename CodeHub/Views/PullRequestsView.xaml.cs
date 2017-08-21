@@ -70,8 +70,10 @@ namespace CodeHub.Views
                 var verticalOffset = sv.VerticalOffset;
                 var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
 
-                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && verticalOffset > ViewModel.MaxOpenScrollViewerVerticalffset)
                 {
+                    ViewModel.MaxOpenScrollViewerVerticalffset = maxVerticalOffset;
+
                     // Scrolled to bottom
                     if (GlobalHelper.IsInternet())
                         await ViewModel.OpenIncrementalLoad();
@@ -89,8 +91,10 @@ namespace CodeHub.Views
                 var verticalOffset = sv.VerticalOffset;
                 var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
 
-                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset)
+                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset && verticalOffset > ViewModel.MaxClosedScrollViewerVerticalffset)
                 {
+                    ViewModel.MaxClosedScrollViewerVerticalffset = maxVerticalOffset;
+
                     // Scrolled to bottom
                     if (GlobalHelper.IsInternet())
                         await ViewModel.ClosedIncrementalLoad();
