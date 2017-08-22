@@ -162,7 +162,7 @@ namespace CodeHub.ViewModels
             isLoggedin = await AuthService.checkAuth();
             await Load();
 
-            ConfigureAdsVisibility();
+            await ConfigureAdsVisibility();
         }
 
         public async Task Load()
