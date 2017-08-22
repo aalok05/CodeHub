@@ -4,8 +4,9 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Octokit;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Store;
+using Windows.Services.Store;
 using Windows.System.Profile;
 
 namespace CodeHub.ViewModels
@@ -101,11 +102,6 @@ namespace CodeHub.ViewModels
         private const string donateFifthAddOnId = "9phrhpvhscdv";
         private const string donateSixthAddOnId = "9nnqdq0kq21j";
 
-        public AppViewmodel()
-        {
-            ConfigureAdsVisibility();
-        }
-
         public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
@@ -137,26 +133,43 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool HasAlreadyDonated()
+        public async Task<bool> HasAlreadyDonated()
         {
-            LicenseInformation licenseInformation = CurrentAppSimulator.LicenseInformation;
-
-            string[] addOnIds = new string[] { donateFirstAddOnId, donateSecondAddOnId, donateThirdAddOnId, donateFourthAddOnId, donateFifthAddOnId, donateSixthAddOnId };
-
-            for (int i = 0; i < addOnIds.Length; i++)
+            try
             {
-                if (licenseInformation.ProductLicenses[addOnIds[i]].IsActive)
-                {
-                    return true;
-                }
-            }
+                StoreContext WindowsStore = StoreContext.GetDefault();
 
-            return false;
+                string[] productKinds = { "Durable" };
+                List<String> filterList = new List<string>(productKinds);
+
+                StoreProductQueryResult queryResult = await WindowsStore.GetUserCollectionAsync(filterList);
+
+                if (queryResult.ExtendedError != null)
+                {
+                    return false;
+                }
+
+                foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
+                {
+                    if (item.Value != null)
+                    {
+                        if (item.Value.IsInUserCollection)
+                            return true;
+                    }
+                    return false;
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void ConfigureAdsVisibility()
+        public async Task ConfigureAdsVisibility()
         {
-            if (HasAlreadyDonated())
+            if (await HasAlreadyDonated())
             {
                 GlobalHelper.HasAlreadyDonated = true;
                 ToggleAdsVisiblity();

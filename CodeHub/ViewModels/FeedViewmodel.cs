@@ -31,18 +31,8 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private int _PaginationIndex;
-        public int PaginationIndex
-        {
-            get
-            {
-                return _PaginationIndex;
-            }
-            set
-            {
-                Set(() => PaginationIndex, ref _PaginationIndex, value);
-            }
-        }
+        public int PaginationIndex { get; set; }
+        public double MaxScrollViewerOffset { get; set; }
 
         public bool _zeroEventCount;
         public bool ZeroEventCount
@@ -112,6 +102,7 @@ namespace CodeHub.ViewModels
 
                 PaginationIndex = 0;
                 await LoadEvents();
+                MaxScrollViewerOffset = 0;
 
                 isLoading = false;
             }
