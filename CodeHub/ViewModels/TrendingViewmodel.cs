@@ -110,6 +110,45 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public Repository _firstTrendingReposToday;
+        public Repository FirstTrendingReposToday
+        {
+            get
+            {
+                return _firstTrendingReposToday;
+            }
+            set
+            {
+                Set(() => FirstTrendingReposToday, ref _firstTrendingReposToday, value);
+
+            }
+        }
+        public Repository _firstTrendingReposWeek;
+        public Repository FirstTrendingReposWeek
+        {
+            get
+            {
+                return _firstTrendingReposWeek;
+            }
+            set
+            {
+                Set(() => FirstTrendingReposWeek, ref _firstTrendingReposWeek, value);
+
+            }
+        }
+        public Repository _firstTrendingReposMonth;
+        public Repository FirstTrendingReposMonth
+        {
+            get
+            {
+                return _firstTrendingReposMonth;
+            }
+            set
+            {
+                Set(() => FirstTrendingReposMonth, ref _firstTrendingReposMonth, value);
+            }
+        }
+
         public ObservableCollection<Repository> _trendingReposToday;
         public ObservableCollection<Repository> TrendingReposToday
         {
@@ -345,7 +384,10 @@ namespace CodeHub.ViewModels
                 if (repos != null)
                 {
                     ZeroTodayCount = false;
+                    FirstTrendingReposToday = repos[0];
+                    repos.RemoveAt(0);
                     TrendingReposToday = repos;
+                    
                 }
                 else
                 {
@@ -364,7 +406,10 @@ namespace CodeHub.ViewModels
                 if (repos != null)
                 {
                     ZeroWeeklyCount = false;
+                    FirstTrendingReposWeek = repos[0];
+                    repos.RemoveAt(0);
                     TrendingReposWeek = repos;
+                    
                 }
                 else
                 {
@@ -382,6 +427,8 @@ namespace CodeHub.ViewModels
                 if (repos != null)
                 {
                     ZeroMonthlyCount = false;
+                    FirstTrendingReposMonth = repos[0];
+                    repos.RemoveAt(0);
                     TrendingReposMonth = repos;
                 }
                 else
