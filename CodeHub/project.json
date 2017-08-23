@@ -2,7 +2,6 @@
   "dependencies": {
     "HtmlAgilityPack": "1.5.1",
     "JetBrains.Annotations": "11.0.0",
-    "LumiaImagingSDK.UWP": "3.0.593",
     "Microsoft.Advertising.XAML": "10.1705.16001",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
     "Microsoft.Services.Store.SDK": "10.1705.16001",
@@ -16,7 +15,7 @@
     "Win2D.uwp": "1.21.0"
   },
   "frameworks": {
-    "uap10.0": {}
+    "uap10.0.14393": {}
   },
   "runtimes": {
     "win10-arm": {},
