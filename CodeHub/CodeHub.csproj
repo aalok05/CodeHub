@@ -209,6 +209,9 @@
       <DependentUpon>CommitListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomFrame.cs" />
+    <Compile Include="Controls\FirstTrendingRepoControl.xaml.cs">
+      <DependentUpon>FirstTrendingRepoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HamMenuListItem.xaml.cs">
       <DependentUpon>HamMenuListItem.xaml</DependentUpon>
     </Compile>
@@ -440,6 +443,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CommitListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FirstTrendingRepoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

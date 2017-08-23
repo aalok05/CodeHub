@@ -1,7 +1,6 @@
 ﻿<Page x:Class="CodeHub.Views.TrendingView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:converters="using:CodeHub.Converters"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,14 +17,8 @@
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Page.Resources>
-        <DataTemplate x:Key="LanguageItemTemplate" x:DataType="octo:Language">
-            <TextBlock Margin="24,0,0,0"
-                       VerticalAlignment="Center"
-                       Text="{Binding}" />
-        </DataTemplate>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
-
     </Page.Resources>
 
     <Grid Background="Transparent">
@@ -71,107 +64,9 @@
                                         Padding="0"
                                         HorizontalContentAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
+                                        Tapped="{x:Bind ViewModel.FirstRepoTodayNavigate}"
                                         Visibility="{x:Bind ViewModel.IsLoadingToday, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="290" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="0.5*" />
-                                                <RowDefinition Height="1*" />
-                                            </Grid.RowDefinitions>
-                                            <toolkitControl:ImageEx Grid.Row="0"
-                                                                    IsCacheEnabled="True"
-                                                                    Source="{x:Bind ViewModel.FirstTrendingReposToday.Owner.AvatarUrl, Mode=OneWay}"
-                                                                    Stretch="UniformToFill">
-                                                <i:Interaction.Behaviors>
-                                                    <behaviors:Blur AutomaticallyStart="True"
-                                                                    Delay="0"
-                                                                    Value="100"
-                                                                    Duration="0" />
-                                                </i:Interaction.Behaviors>
-                                            </toolkitControl:ImageEx>
-                                            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                                        </Grid>
-                                        <StackPanel Grid.Row="0" 
-                                                    Orientation="Vertical">
-                                            <toolkitControl:DropShadowPanel Margin="0,12,0,8"
-                                                                            HorizontalAlignment="Center"
-                                                                            VerticalAlignment="Center"
-                                                                            BlurRadius="8"
-                                                                            OffsetX="2"
-                                                                            OffsetY="2"
-                                                                            ShadowOpacity="0.7"
-                                                                            Color="Black">
-                                                <toolkitControl:RoundImageEx Width="120"
-                                                                             Height="120"
-                                                                             CornerRadius="999"
-                                                                             DecodePixelHeight="120"
-                                                                             DecodePixelType="Logical"
-                                                                             DecodePixelWidth="120"
-                                                                             IsCacheEnabled="True"
-                                                                             Source="{x:Bind ViewModel.FirstTrendingReposToday.Owner.AvatarUrl, Mode=OneWay}"
-                                                                             Stretch="UniformToFill" />
-                                            </toolkitControl:DropShadowPanel>
-
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       FontSize="20"
-                                                       FontWeight="Bold"
-                                                       Style="{StaticResource RepoNameTextBlockStyle}"
-                                                       Text="{x:Bind ViewModel.FirstTrendingReposToday.FullName, Mode=OneWay}"
-                                                       TextAlignment="Center"
-                                                       TextWrapping="Wrap" />
-                                            <StackPanel Margin="0,12,0,0"
-                                                        HorizontalAlignment="Center"
-                                                        Orientation="Horizontal">
-                                                <Viewbox x:Name="StarSymbol"
-                                                         MaxWidth="24"
-                                                         MaxHeight="24"
-                                                         Margin="0,0,4,0">
-                                                    <SymbolIcon Margin="5"
-                                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                                Symbol="Favorite" />
-                                                </Viewbox>
-
-                                                <TextBlock Margin="0,0,8,0"
-                                                           FontSize="18"
-                                                           FontWeight="SemiLight"
-                                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposToday.StargazersCount, Mode=OneWay}" />
-
-                                                <Viewbox MaxWidth="20"
-                                                         MaxHeight="20"
-                                                         Margin="0,0,4,0">
-                                                    <Path Data="F0 M10,16z M0,0z M10,5C10,3.89,9.11,3,8,3A1.993,1.993,0,0,0,7,6.72L7,7.02C6.98,7.54 6.77,8 6.37,8.4 5.97,8.8 5.51,9.01 4.99,9.03 4.16,9.05 3.51,9.19 2.99,9.48L2.99,4.72A1.993,1.993,0,0,0,1.99,1C0.88,1,0,1.89,0,3A2,2,0,0,0,1,4.72L1,11.28C0.41,11.63 0,12.27 0,13 0,14.11 0.89,15 2,15 3.11,15 4,14.11 4,13 4,12.47 3.8,12 3.47,11.64 3.56,11.58 3.95,11.23 4.06,11.17 4.31,11.06 4.62,11 5,11 6.05,10.95 6.95,10.55 7.75,9.75 8.55,8.95 8.95,7.77 9,6.73L8.98,6.73C9.59,6.37,10,5.73,10,5z M2,1.8C2.66,1.8 3.2,2.35 3.2,3 3.2,3.65 2.65,4.2 2,4.2 1.35,4.2 0.8,3.65 0.8,3 0.8,2.35 1.35,1.8 2,1.8z M2,14.21C1.34,14.21 0.8,13.66 0.8,13.01 0.8,12.36 1.35,11.81 2,11.81 2.65,11.81 3.2,12.36 3.2,13.01 3.2,13.66 2.65,14.21 2,14.21z M8,6.21C7.34,6.21 6.8,5.66 6.8,5.01 6.8,4.36 7.35,3.81 8,3.81 8.65,3.81 9.2,4.36 9.2,5.01 9.2,5.66 8.65,6.21 8,6.21z"
-                                                          Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                          StrokeThickness="0.0" />
-                                                </Viewbox>
-
-                                                <TextBlock FontSize="18"
-                                                           FontWeight="SemiLight"
-                                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposToday.ForksCount, Mode=OneWay}" />
-
-                                                <TextBlock Margin="8,0,0,0"
-                                                           FontSize="18"
-                                                           Foreground="Gray"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposToday.Language, Mode=OneWay}"
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-
-                                            <TextBlock Margin="0,12,0,12"
-                                                       HorizontalAlignment="Center"
-                                                       FontSize="17"
-                                                       FontWeight="SemiLight"
-                                                       Foreground="Gray"
-                                                       Text="{x:Bind ViewModel.FirstTrendingReposToday.Description, Mode=OneWay}"
-                                                       TextAlignment="Center"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </Grid>
+                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposToday,Mode=OneWay}"/>
                                 </Button>
                             </toolkitControl:ScrollHeader>
                         </toolkitControl:PullToRefreshListView.Header>
@@ -235,105 +130,11 @@
                                                          TargetListViewBase="{x:Bind weekListView}">
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
+                                        Tapped="{x:Bind ViewModel.FirstRepoWeekNavigate}"
                                         HorizontalContentAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
                                         Visibility="{x:Bind ViewModel.IsLoadingWeek, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="290" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="0.5*" />
-                                                <RowDefinition Height="1*" />
-                                            </Grid.RowDefinitions>
-                                            <toolkitControl:ImageEx Grid.Row="0"
-                                                                    IsCacheEnabled="True"
-                                                                    Source="{x:Bind ViewModel.FirstTrendingReposWeek.Owner.AvatarUrl, Mode=OneWay}"
-                                                                    Stretch="UniformToFill">
-                                                <i:Interaction.Behaviors>
-                                                    <behaviors:Blur AutomaticallyStart="True"
-                                                                    Delay="0"
-                                                                    Value="100"
-                                                                    Duration="0" />
-                                                </i:Interaction.Behaviors>
-                                            </toolkitControl:ImageEx>
-                                            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                                        </Grid>
-                                        <StackPanel Grid.Row="0" 
-                                                    Orientation="Vertical">
-                                            <toolkitControl:DropShadowPanel Margin="0,12,0,8"
-                                                                            HorizontalAlignment="Center"
-                                                                            VerticalAlignment="Center"
-                                                                            BlurRadius="8"
-                                                                            OffsetX="2"
-                                                                            OffsetY="2"
-                                                                            ShadowOpacity="0.7"
-                                                                            Color="Black">
-                                                <toolkitControl:RoundImageEx Width="120"
-                                                                             Height="120"
-                                                                             CornerRadius="999"
-                                                                             DecodePixelHeight="120"
-                                                                             DecodePixelType="Logical"
-                                                                             DecodePixelWidth="120"
-                                                                             IsCacheEnabled="True"
-                                                                             Source="{x:Bind ViewModel.FirstTrendingReposWeek.Owner.AvatarUrl, Mode=OneWay}"
-                                                                             Stretch="UniformToFill" />
-                                            </toolkitControl:DropShadowPanel>
-
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       FontSize="20"
-                                                       FontWeight="Bold"
-                                                       Style="{StaticResource RepoNameTextBlockStyle}"
-                                                       Text="{x:Bind ViewModel.FirstTrendingReposWeek.FullName, Mode=OneWay}"
-                                                       TextAlignment="Center"
-                                                       TextWrapping="Wrap" />
-                                            <StackPanel Margin="0,12,0,0"
-                                                        HorizontalAlignment="Center"
-                                                        Orientation="Horizontal">
-                                                <Viewbox MaxWidth="24"
-                                                         MaxHeight="24"
-                                                         Margin="0,0,4,0">
-                                                    <SymbolIcon Margin="5"
-                                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                                Symbol="Favorite" />
-                                                </Viewbox>
-
-                                                <TextBlock Margin="0,0,8,0"
-                                                           FontSize="18"
-                                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposWeek.StargazersCount, Mode=OneWay}" />
-
-                                                <Viewbox MaxWidth="22"
-                                                         MaxHeight="22"
-                                                         Margin="0,0,4,0">
-                                                    <Path Data="F0 M10,16z M0,0z M10,5C10,3.89,9.11,3,8,3A1.993,1.993,0,0,0,7,6.72L7,7.02C6.98,7.54 6.77,8 6.37,8.4 5.97,8.8 5.51,9.01 4.99,9.03 4.16,9.05 3.51,9.19 2.99,9.48L2.99,4.72A1.993,1.993,0,0,0,1.99,1C0.88,1,0,1.89,0,3A2,2,0,0,0,1,4.72L1,11.28C0.41,11.63 0,12.27 0,13 0,14.11 0.89,15 2,15 3.11,15 4,14.11 4,13 4,12.47 3.8,12 3.47,11.64 3.56,11.58 3.95,11.23 4.06,11.17 4.31,11.06 4.62,11 5,11 6.05,10.95 6.95,10.55 7.75,9.75 8.55,8.95 8.95,7.77 9,6.73L8.98,6.73C9.59,6.37,10,5.73,10,5z M2,1.8C2.66,1.8 3.2,2.35 3.2,3 3.2,3.65 2.65,4.2 2,4.2 1.35,4.2 0.8,3.65 0.8,3 0.8,2.35 1.35,1.8 2,1.8z M2,14.21C1.34,14.21 0.8,13.66 0.8,13.01 0.8,12.36 1.35,11.81 2,11.81 2.65,11.81 3.2,12.36 3.2,13.01 3.2,13.66 2.65,14.21 2,14.21z M8,6.21C7.34,6.21 6.8,5.66 6.8,5.01 6.8,4.36 7.35,3.81 8,3.81 8.65,3.81 9.2,4.36 9.2,5.01 9.2,5.66 8.65,6.21 8,6.21z"
-                                                          Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                          StrokeThickness="0.0" />
-                                                </Viewbox>
-
-                                                <TextBlock FontSize="18"
-                                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposWeek.ForksCount, Mode=OneWay}" />
-
-                                                <TextBlock Margin="8,0,0,0"
-                                                           FontSize="18"
-                                                           Foreground="Gray"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposWeek.Language, Mode=OneWay}"
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-
-                                            <TextBlock Margin="0,12,0,12"
-                                                       HorizontalAlignment="Center"
-                                                       FontSize="16"
-                                                       Foreground="Gray"
-                                                       Text="{x:Bind ViewModel.FirstTrendingReposWeek.Description, Mode=OneWay}"
-                                                       TextAlignment="Center"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </Grid>
+                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposWeek,Mode=OneWay}"/>
                                 </Button>
                             </toolkitControl:ScrollHeader>
                         </toolkitControl:PullToRefreshListView.Header>
@@ -396,105 +197,11 @@
                                                          TargetListViewBase="{x:Bind monthListView}">
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
+                                        Tapped="{x:Bind ViewModel.FirstRepoMonthNavigate}"
                                         HorizontalContentAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
                                         Visibility="{x:Bind ViewModel.IsLoadingMonth, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="290" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="0.5*" />
-                                                <RowDefinition Height="1*" />
-                                            </Grid.RowDefinitions>
-                                            <toolkitControl:ImageEx Grid.Row="0"
-                                                                    IsCacheEnabled="True"
-                                                                    Source="{x:Bind ViewModel.FirstTrendingReposMonth.Owner.AvatarUrl, Mode=OneWay}"
-                                                                    Stretch="UniformToFill">
-                                                <i:Interaction.Behaviors>
-                                                    <behaviors:Blur AutomaticallyStart="True"
-                                                                    Delay="0"
-                                                                    Value="100"
-                                                                    Duration="0" />
-                                                </i:Interaction.Behaviors>
-                                            </toolkitControl:ImageEx>
-                                            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                                        </Grid>
-                                        <StackPanel Grid.Row="0" 
-                                                    Orientation="Vertical">
-                                            <toolkitControl:DropShadowPanel Margin="0,12,0,8"
-                                                                            HorizontalAlignment="Center"
-                                                                            VerticalAlignment="Center"
-                                                                            BlurRadius="8"
-                                                                            OffsetX="2"
-                                                                            OffsetY="2"
-                                                                            ShadowOpacity="0.7"
-                                                                            Color="Black">
-                                                <toolkitControl:RoundImageEx Width="120"
-                                                                             Height="120"
-                                                                             CornerRadius="999"
-                                                                             DecodePixelHeight="120"
-                                                                             DecodePixelType="Logical"
-                                                                             DecodePixelWidth="120"
-                                                                             IsCacheEnabled="True"
-                                                                             Source="{x:Bind ViewModel.FirstTrendingReposMonth.Owner.AvatarUrl, Mode=OneWay}"
-                                                                             Stretch="UniformToFill" />
-                                            </toolkitControl:DropShadowPanel>
-
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       FontSize="20"
-                                                       FontWeight="Bold"
-                                                       Style="{StaticResource RepoNameTextBlockStyle}"
-                                                       Text="{x:Bind ViewModel.FirstTrendingReposMonth.FullName, Mode=OneWay}"
-                                                       TextAlignment="Center"
-                                                       TextWrapping="Wrap" />
-                                            <StackPanel Margin="0,12,0,0"
-                                                        HorizontalAlignment="Center"
-                                                        Orientation="Horizontal">
-                                                <Viewbox MaxWidth="24"
-                                                         MaxHeight="24"
-                                                         Margin="0,0,4,0">
-                                                    <SymbolIcon Margin="5"
-                                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                                Symbol="Favorite" />
-                                                </Viewbox>
-
-                                                <TextBlock Margin="0,0,8,0"
-                                                           FontSize="18"
-                                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposMonth.StargazersCount, Mode=OneWay}" />
-
-                                                <Viewbox MaxWidth="22"
-                                                         MaxHeight="22"
-                                                         Margin="0,0,4,0">
-                                                    <Path Data="F0 M10,16z M0,0z M10,5C10,3.89,9.11,3,8,3A1.993,1.993,0,0,0,7,6.72L7,7.02C6.98,7.54 6.77,8 6.37,8.4 5.97,8.8 5.51,9.01 4.99,9.03 4.16,9.05 3.51,9.19 2.99,9.48L2.99,4.72A1.993,1.993,0,0,0,1.99,1C0.88,1,0,1.89,0,3A2,2,0,0,0,1,4.72L1,11.28C0.41,11.63 0,12.27 0,13 0,14.11 0.89,15 2,15 3.11,15 4,14.11 4,13 4,12.47 3.8,12 3.47,11.64 3.56,11.58 3.95,11.23 4.06,11.17 4.31,11.06 4.62,11 5,11 6.05,10.95 6.95,10.55 7.75,9.75 8.55,8.95 8.95,7.77 9,6.73L8.98,6.73C9.59,6.37,10,5.73,10,5z M2,1.8C2.66,1.8 3.2,2.35 3.2,3 3.2,3.65 2.65,4.2 2,4.2 1.35,4.2 0.8,3.65 0.8,3 0.8,2.35 1.35,1.8 2,1.8z M2,14.21C1.34,14.21 0.8,13.66 0.8,13.01 0.8,12.36 1.35,11.81 2,11.81 2.65,11.81 3.2,12.36 3.2,13.01 3.2,13.66 2.65,14.21 2,14.21z M8,6.21C7.34,6.21 6.8,5.66 6.8,5.01 6.8,4.36 7.35,3.81 8,3.81 8.65,3.81 9.2,4.36 9.2,5.01 9.2,5.66 8.65,6.21 8,6.21z"
-                                                          Fill="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                          StrokeThickness="0.0" />
-                                                </Viewbox>
-
-                                                <TextBlock FontSize="18"
-                                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposMonth.ForksCount, Mode=OneWay}" />
-
-                                                <TextBlock Margin="8,0,0,0"
-                                                           FontSize="18"
-                                                           Foreground="Gray"
-                                                           Text="{x:Bind ViewModel.FirstTrendingReposMonth.Language, Mode=OneWay}"
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-
-                                            <TextBlock Margin="0,12,0,12"
-                                                       HorizontalAlignment="Center"
-                                                       FontSize="16"
-                                                       Foreground="Gray"
-                                                       Text="{x:Bind ViewModel.FirstTrendingReposMonth.Description, Mode=OneWay}"
-                                                       TextAlignment="Center"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </Grid>
+                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposMonth,Mode=OneWay}"/>
                                 </Button>
                             </toolkitControl:ScrollHeader>
                         </toolkitControl:PullToRefreshListView.Header>

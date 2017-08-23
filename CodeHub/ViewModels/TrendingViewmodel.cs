@@ -373,6 +373,22 @@ namespace CodeHub.ViewModels
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
         }
 
+        public void FirstRepoTodayNavigate(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if(FirstTrendingReposToday!=null)
+                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", FirstTrendingReposToday);
+        }
+        public void FirstRepoWeekNavigate(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (FirstTrendingReposWeek != null)
+                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", FirstTrendingReposWeek);
+        }
+        public void FirstRepoMonthNavigate(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (FirstTrendingReposMonth != null)
+                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", FirstTrendingReposMonth);
+        }
+
         private async Task LoadTrendingRepos(TimeRange range)
         {
             if (range == TimeRange.TODAY)
