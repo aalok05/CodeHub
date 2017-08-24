@@ -66,7 +66,8 @@
                                         HorizontalAlignment="Stretch"
                                         Tapped="{x:Bind ViewModel.FirstRepoTodayNavigate}"
                                         Visibility="{x:Bind ViewModel.IsLoadingToday, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposToday,Mode=OneWay}"/>
+                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposToday,Mode=OneWay}"
+                                                                           Visibility="{x:Bind ViewModel.ZeroTodayCount, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
                                 </Button>
                             </toolkitControl:ScrollHeader>
                         </toolkitControl:PullToRefreshListView.Header>
@@ -134,7 +135,8 @@
                                         HorizontalContentAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
                                         Visibility="{x:Bind ViewModel.IsLoadingWeek, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposWeek,Mode=OneWay}"/>
+                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposWeek,Mode=OneWay}"
+                                                                           Visibility="{x:Bind ViewModel.ZeroWeeklyCount, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
                                 </Button>
                             </toolkitControl:ScrollHeader>
                         </toolkitControl:PullToRefreshListView.Header>
@@ -201,7 +203,8 @@
                                         HorizontalContentAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
                                         Visibility="{x:Bind ViewModel.IsLoadingMonth, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposMonth,Mode=OneWay}"/>
+                                    <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposMonth,Mode=OneWay}"
+                                                                           Visibility="{x:Bind ViewModel.ZeroMonthlyCount, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
                                 </Button>
                             </toolkitControl:ScrollHeader>
                         </toolkitControl:PullToRefreshListView.Header>
