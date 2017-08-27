@@ -80,7 +80,7 @@ namespace CodeHub.Services
         /// <returns></returns>
         public static async Task MarkAllNotificationsAsRead()
         {
-            await GlobalHelper.GithubClient.Activity.Notifications.MarkAsRead(new MarkAsReadRequest());
+            await GlobalHelper.GithubClient.Activity.Notifications.MarkAsRead();
         }
 
         /// <summary>
