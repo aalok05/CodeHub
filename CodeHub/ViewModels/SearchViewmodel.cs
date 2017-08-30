@@ -369,13 +369,14 @@ namespace CodeHub.ViewModels
         }
         public void IssueNavigate(object sender, ItemClickEventArgs e)
         {
-            var issue = e.ClickedItem as Issue;
-
+            Issue issue = e.ClickedItem as Issue;
+            
             /* The 'Repository' field of the Issue is null (Octokit API returns null), 
              * so we have to extract Owner Login and Repository name from the Html Url
              */
-            string owner = (issue.HtmlUrl.Segments[1]).Replace("/", "");
-            string repo = issue.HtmlUrl.Segments[2].Replace("/", "");
+            string[] array = issue.HtmlUrl.Split('/');
+            string owner = array[3];
+            string repo = array[4];
 
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView),"Issues", new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
         }

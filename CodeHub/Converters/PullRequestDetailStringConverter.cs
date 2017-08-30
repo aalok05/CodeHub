@@ -14,15 +14,20 @@ namespace CodeHub.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             PullRequest pr = (PullRequest)value;
-            switch (pr.State)
+
+            if (pr.State.TryParse(out ItemState eventState))
             {
-                case ItemState.Open:
-                    return $"#{pr.Number} opened by {pr.User.Login} {GlobalHelper.ConvertDateToTimeAgoFormat(DateTime.Parse(pr.CreatedAt.ToString()))}";
+                switch (eventState)
+                {
+                    case ItemState.Open:
+                        return $"#{pr.Number} opened by {pr.User.Login} {GlobalHelper.ConvertDateToTimeAgoFormat(DateTime.Parse(pr.CreatedAt.ToString()))}";
 
-                case ItemState.Closed:
-                    return $"#{pr.Number} by {pr.User.Login} was merged {GlobalHelper.ConvertDateToTimeAgoFormat(DateTime.Parse(pr.CreatedAt.ToString()))}";
+                    case ItemState.Closed:
+                        return $"#{pr.Number} by {pr.User.Login} was merged {GlobalHelper.ConvertDateToTimeAgoFormat(DateTime.Parse(pr.CreatedAt.ToString()))}";
 
+                }
             }
+
             return string.Empty;
         }
 
