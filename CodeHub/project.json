@@ -8,7 +8,7 @@
     "Microsoft.Toolkit.Uwp.UI.Controls": "1.5.1",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "MvvmLightLibs": "5.3.0",
-    "Octokit": "0.25.0",
+    "Octokit": "0.24.0",
     "RavinduL.LocalNotifications": "2.0.0",
     "System.Numerics.Vectors": "4.4.0",
     "UICompositionAnimations": "2.11.1",
