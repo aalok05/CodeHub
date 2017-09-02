@@ -460,4 +460,7 @@
   <data name="creatorText.Text" xml:space="preserve">
     <value>Fejlesztette Aalok Singh</value>
   </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Adományozz az alábbi opció engedélyezéséhez.</value>
+  </data>
 </root>

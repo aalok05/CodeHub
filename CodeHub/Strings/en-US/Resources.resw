@@ -465,4 +465,7 @@
   <data name="creatorText.Text" xml:space="preserve">
     <value>Developed by Aalok Singh</value>
   </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Make any donation to enable the option to disable ads.</value>
+  </data>
 </root>
