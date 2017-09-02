@@ -371,7 +371,6 @@
   </data>
   <data name="activity.Text" xml:space="preserve">
     <value>előzményei</value>
-    <comment>ez nem a legjobb fordítás</comment>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -414,6 +413,12 @@
   </data>
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value> Adományozz $14.99-t</value>
+  </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>Mind megjelölése olvasottként</value>
+  </data>
+  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
+    <value>Értesítések gyakori keresése</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
     <value>New Issue</value>
