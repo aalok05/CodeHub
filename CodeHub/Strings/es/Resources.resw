@@ -390,4 +390,10 @@
   <data name="yearsAgo" xml:space="preserve">
     <value>years ago</value>
   </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>What's new in this version?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>Developed by Aalok Singh</value>
+  </data>
 </root>
