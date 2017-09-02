@@ -418,4 +418,40 @@
   <data name="newIssue.Text" xml:space="preserve">
     <value>New Issue</value>
   </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>egy másodperccel ezelőtt</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>másodperccel ezelőtt</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>egy perccel ezelőtt</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>perccel ezelőtt</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>egy órával ezelőtt</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>órával ezelőtt</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>egy nappal ezelőtt</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>nappal ezelőtt</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>egy hónappal ezelőtt</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>hónappal ezelőtt</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>egy évvel ezelőtt</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>évvel ezelőtt</value>
+  </data>
 </root>

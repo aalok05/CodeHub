@@ -423,4 +423,40 @@
   <data name="newIssue.Text" xml:space="preserve">
     <value>Nouveau Problème</value>
   </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>one second ago</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>seconds ago</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>a minute ago</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>hours ago</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>a day ago</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>days ago</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>one month ago</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>mounths ago</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>one year ago</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>years ago</value>
+  </data>
 </root>
