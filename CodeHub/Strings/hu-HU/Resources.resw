@@ -118,14 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="commented.Text" xml:space="preserve">
-    <value>commented</value>
+    <value>hozzászólt</value>
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
   <data name="credits.Header" xml:space="preserve">
-    <value>Credits</value>
+    <value>Közreműködők</value>
   </data>
   <data name="disclaimer.Text" xml:space="preserve">
-    <value>This app is in no way affiliated with GitHub.</value>
+    <value>Ez az alkalmazás semmilyen módon nem kapcsolódik a GitHub-hoz.</value>
   </data>
   <data name="privacyLink.Content" xml:space="preserve">
     <value>Adatvédelmi Irányelvek</value>
@@ -150,7 +150,7 @@
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
   <data name="adSetting.Text" xml:space="preserve">
-    <value>Fejlesztés tmogatása, reklámok megjelenítése</value>
+    <value>Fejlesztés támogatása, reklámok megjelenítése</value>
   </data>
   <data name="busyScreen.BusyText" xml:space="preserve">
     <value>Kérlek várj...</value>
@@ -186,10 +186,10 @@
     <value>Válassz egy lehetőséget a fejlesztő támogatásához</value>
   </data>
   <data name="preview.Text" xml:space="preserve">
-    <value>Preview</value>
+    <value>Előnézet</value>
   </data>
   <data name="repositories.Text" xml:space="preserve">
-    <value>repositories</value>
+    <value>projektek</value>
   </data>
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
     <value>Adományozz $2.99-t</value>
@@ -199,7 +199,7 @@
     <value>Sorszámozás bekapcsolása</value>
   </data>
   <data name="showReadMe.Text" xml:space="preserve">
-    <value>Show README in Repository page</value>
+    <value>README mutatása a Projektek kezdőlapjaként</value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
     <value>Kódszínezés típusa</value>
@@ -235,16 +235,16 @@
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
-    <value>My Repos</value>
+    <value>Saját Projektjeim</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
     <value>Hírek</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>Nincs lezárt probléma</value>
+    <value>Nincs lezárt Probléma</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>No Issues</value>
+    <value>Nincsenek Problémák</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
     <value>Nincs új értesítés</value>
@@ -253,13 +253,13 @@
     <value>Nincs probléma</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>No organizations yet. Disable third-party application restrictions for your organization</value>
+    <value>Még nincsenek szervezetek. Titlsa le a 3. féltől származó alkalmazásokat korlátozó beállítást.</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>No Repositories yet</value>
+    <value>Nincsenek Projektek még</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>No starred Repositories yet</value>
+    <value>Nincs csillagozott Projekt még</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>elindította</value>
@@ -273,7 +273,7 @@
     <value>Organizations</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>participating</value>
+    <value>fontos</value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
@@ -283,13 +283,13 @@
     <value>Kijelentkezés</value>
   </data>
   <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
-    <value>Unsubscribe from this thread</value>
+    <value>Leiratkozás</value>
   </data>
   <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
-    <value>Mark as read</value>
+    <value>Olvasottnak jelöl</value>
   </data>
   <data name="starred.Text" xml:space="preserve">
-    <value>starred</value>
+    <value>csillagozott</value>
     <comment>Context: starred repositories</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
@@ -302,7 +302,7 @@
     <value>ma</value>
   </data>
   <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
-    <value>Trending Repositories are being updated by Github</value>
+    <value>Felkapott Projektek frissítése GitHub által</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
     <value>Felkapottak</value>
@@ -318,13 +318,13 @@
     <value>Problémák</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>No Repositories</value>
+    <value>Nincs Projekt</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
     <value>Nincs találat</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>search</value>
+    <value>keresés</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Bejelentkezés</value>
@@ -361,7 +361,7 @@
     <value>Cím</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Body</value>
+    <value>Tartalom</value>
   </data>
   <data name="create.Content" xml:space="preserve">
     <value>Létrehoz</value>
@@ -386,10 +386,10 @@
     <value>RELEASES</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>Nincs lezárt Pull Request</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>Nincs nyitott Pull Request</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -413,9 +413,9 @@
     <value>Mentés</value>
   </data>
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
-    <value> Adományozz $14.99-t</value>
+    <value>Adományozz $14.99-t</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
-    <value>New Issue</value>
+    <value>Új Probléma</value>
   </data>
 </root>
