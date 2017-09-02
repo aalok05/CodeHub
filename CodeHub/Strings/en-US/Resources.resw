@@ -471,4 +471,10 @@
   <data name="donatePatreonBtn.Content" xml:space="preserve">
     <value>Donate to CodeHub on Patreon</value>
   </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Reset</value>
+  </data>
 </root>

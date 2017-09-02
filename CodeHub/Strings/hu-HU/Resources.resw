@@ -466,4 +466,10 @@
   <data name="donatePatreonBtn.Content" xml:space="preserve">
     <value>Adományozz CodeHub-nak Patreon-on</value>
   </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>Minden programnyelv</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Töröl</value>
+  </data>
 </root>
