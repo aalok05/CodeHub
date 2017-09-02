@@ -146,16 +146,19 @@ namespace CodeHub.Helpers
             double delta = Math.Abs(ts.TotalSeconds);
 
             var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
-
-            if (ts.Seconds == 1)
-            {
-                return languageLoader.GetString("aSecondAgo");
-            }
+                        
             if (delta < 60)
             {
-                 return string.Format("{0} {1}",
-                     ts.Seconds,
-                     languageLoader.GetString("secondsAgo"));
+                if (ts.Seconds == 1)
+                {
+                    return languageLoader.GetString("aSecondAgo");
+                }
+                else
+                {
+                    return string.Format("{0} {1}",
+                         ts.Seconds,
+                         languageLoader.GetString("secondsAgo"));
+                }
             }
             if (delta < 120)
             {
