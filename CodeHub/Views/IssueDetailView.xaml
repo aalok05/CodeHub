@@ -36,6 +36,8 @@
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="1" />
                         <Setter Target="EditLabelsShadow.Width" Value="340" />
                         <Setter Target="EditLabelsPanel.Width" Value="340" />
+                        <Setter Target="CommentDialogShadow.Width" Value="340" />
+                        <Setter Target="CommentDialog.Width" Value="340" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Normal">
@@ -51,6 +53,8 @@
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
                         <Setter Target="EditLabelsShadow.Width" Value="600" />
                         <Setter Target="EditLabelsPanel.Width" Value="600" />
+                        <Setter Target="CommentDialogShadow.Width" Value="600" />
+                        <Setter Target="CommentDialog.Width" Value="600" />
                     </VisualState.Setters>
 
                 </VisualState>
@@ -67,11 +71,12 @@
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
                         <Setter Target="EditLabelsShadow.Width" Value="600" />
                         <Setter Target="EditLabelsPanel.Width" Value="600" />
+                        <Setter Target="CommentDialogShadow.Width" Value="600" />
+                        <Setter Target="CommentDialog.Width" Value="600" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="1.1*" />
             <RowDefinition Height="1*" />
@@ -219,28 +224,14 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Grid Grid.Row="2" VerticalAlignment="Bottom">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Uid="comment"
-                                 Grid.Column="0"
-                                 AcceptsReturn="True"
-                                 Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                                 Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
-                        <Button Grid.Column="1"
-                                Width="40"
-                                Height="40"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Background="{StaticResource AppPrimaryColorBrush}"
-                                Command="{x:Bind ViewModel.CommentCommand}"
-                                Style="{StaticResource ActionButtonStyle}">
-                            <SymbolIcon Symbol="Send" />
-                        </Button>
-                    </Grid>
-
+                    <Button Grid.Row="2"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Content="Comment"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CommentDialogOpen_Tapped" />
                     <ProgressRing Grid.Row="0"
                                   Width="20"
                                   Height="20"
@@ -281,8 +272,8 @@
         <Grid x:Name="EditIssueDialog"
               Grid.RowSpan="2"
               Grid.ColumnSpan="2"
-              Visibility="Collapsed"
-              Background="Transparent">
+              Background="Transparent"
+              Visibility="Collapsed">
             <Border>
                 <i:Interaction.Behaviors>
                     <behaviors:Blur AutomaticallyStart="True"
@@ -300,12 +291,12 @@
                                             ShadowOpacity="0.7"
                                             Color="Black">
                 <StackPanel x:Name="EditLabelsPanel"
-                            Orientation="Vertical"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                    <TextBlock Text="Edit Issue"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Orientation="Vertical">
+                    <TextBlock Margin="8"
                                FontSize="20"
-                               Margin="8"
-                               FontWeight="SemiBold"/>
+                               FontWeight="SemiBold"
+                               Text="Edit Issue" />
                     <TextBox x:Uid="title"
                              Margin="8"
                              IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
@@ -318,8 +309,7 @@
                              IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                              Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                              Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
-                    <StackPanel Margin="8,8,8,16"
-                                Orientation="Horizontal">
+                    <StackPanel Margin="8,8,8,16" Orientation="Horizontal">
                         <Button x:Uid="save"
                                 Width="158"
                                 Margin="0,0,4,0"
@@ -333,11 +323,80 @@
                 </StackPanel>
             </toolkitControl:DropShadowPanel>
         </Grid>
-        <ProgressRing Width="40"
-                      Height="40"
-                      Grid.RowSpan="2"
+        <Grid x:Name="CommentDialog"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="Transparent"
+              Visibility="Collapsed">
+            <Border>
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur AutomaticallyStart="True"
+                                    Delay="0"
+                                    Value="30"
+                                    Duration="0" />
+                </i:Interaction.Behaviors>
+             </Border>
+            <StackPanel x:Name="CommentDialogShadow"
+                        Grid.Row="0"
+                        Orientation="Vertical"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Pivot Style="{StaticResource CustomPivotStyle}">
+                    <PivotItem Margin="0"
+                               Height="400">
+                        <PivotItem.Header>
+                            <TextBlock Margin="0 0 8 0"
+                                       FontSize="15"
+                                       Text="Write" />
+                        </PivotItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <toolkitControl:TextToolbar x:Name="Toolbar"
+                                                        Grid.Row="0"
+                                                        Background="#4C4F4F4F"
+                                                        Editor="{Binding ElementName=EditZone}"
+                                                        Format="MarkDown"
+                                                        IsEnabled="True" />
+                            <RichEditBox x:Name="EditZone"
+                                         Grid.Row="1"
+                                         MinHeight="300" 
+                                         TextChanged="EditZone_TextChanged"
+                                         TextWrapping="Wrap" />
+                        </Grid>
+
+                    </PivotItem>
+                    <PivotItem Margin="0"
+                               Height="400">
+                        <PivotItem.Header>
+                            <TextBlock FontSize="15" Text="Preview" />
+                        </PivotItem.Header>
+                        <toolkitControl:MarkdownTextBlock x:Name="Previewer"
+                                                          LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
+                                                          Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
+                    </PivotItem>
+                </Pivot>
+                <Button Height="40"
+                        HorizontalAlignment="Stretch"
+                        Background="{StaticResource AppPrimaryColorBrush}"
+                        Content="Comment"
+                        Tapped="Comment_Tapped"
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Height="40"
+                        HorizontalAlignment="Stretch"
+                        Content="Cancel"
+                        Tapped="CancelComment_Tapped"
+                        Style="{StaticResource ActionButtonStyle}"/>
+            </StackPanel>
+
+        </Grid>
+        <ProgressRing Grid.RowSpan="2"
                       Grid.ColumnSpan="2"
-                      IsActive="{x:Bind ViewModel.IsEditingIssue,Mode=OneWay}"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                      Width="40"
+                      Height="40"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="{x:Bind ViewModel.IsEditingIssue, Mode=OneWay}" />
+
     </Grid>
 </Page>

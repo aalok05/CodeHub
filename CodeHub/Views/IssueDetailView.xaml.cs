@@ -60,6 +60,7 @@ namespace CodeHub.Views
             }
 
             await ToggleEditIssuePanelVisibility(false);
+            await ToggleCommentDialogVisibility(false);
         }
 
         public void ConfigureStateSymbol(Issue issue)
@@ -131,6 +132,42 @@ namespace CodeHub.Views
                 await EditIssueDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
                 EditIssueDialog.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private async Task ToggleCommentDialogVisibility(bool visible)
+        {
+            if (visible)
+            {
+                CommentDialog.SetVisualOpacity(0);
+                CommentDialog.Visibility = Visibility.Visible;
+                await CommentDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+            else
+            {
+                await CommentDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                CommentDialog.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async void CommentDialogOpen_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ToggleCommentDialogVisibility(true);
+        }
+
+        private void EditZone_TextChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.CommentText = Toolbar.Formatter?.Text;
+        }
+
+        private async void CancelComment_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ToggleCommentDialogVisibility(false);
+        }
+
+        private async void Comment_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ToggleCommentDialogVisibility(false);
+            ViewModel.CommentCommand.Execute(null);
         }
     }
 }
