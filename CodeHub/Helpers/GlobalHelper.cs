@@ -177,7 +177,7 @@ namespace CodeHub.Helpers
             if (delta < 86400) // 24 * 60 * 60
             {
                 return string.Format("{0} {1}",
-                    ts.Seconds,
+                    ts.Hours,
                     languageLoader.GetString("hoursAgo"));
             }
             if (delta < 172800) // 48 * 60 * 60
