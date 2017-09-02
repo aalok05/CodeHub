@@ -424,40 +424,40 @@
     <value>Neues Problem</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
-    <value>one second ago</value>
+    <value>eine Sekunde zuvor</value>
   </data>
   <data name="secondsAgo" xml:space="preserve">
-    <value>seconds ago</value>
+    <value>Sekunden zuvor</value>
   </data>
   <data name="aMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>eine Minute zuvor</value>
   </data>
   <data name="minutesAgo" xml:space="preserve">
-    <value>minutes ago</value>
+    <value>Minuten zuvor</value>
   </data>
   <data name="anHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>eine Stunde zuvor</value>
   </data>
   <data name="hoursAgo" xml:space="preserve">
-    <value>hours ago</value>
+    <value>Stunden zuvor</value>
   </data>
   <data name="aDayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>einen Tag zuvor</value>
   </data>
   <data name="daysAgo" xml:space="preserve">
-    <value>days ago</value>
+    <value>Tage zuvor</value>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
-    <value>one month ago</value>
+    <value>einen Monat zuvor</value>
   </data>
   <data name="monthsAgo" xml:space="preserve">
-    <value>months ago</value>
+    <value>Monate zuvor</value>
   </data>
   <data name="aYearAgo" xml:space="preserve">
-    <value>one year ago</value>
+    <value>ein Jahr zuvor</value>
   </data>
   <data name="yearsAgo" xml:space="preserve">
-    <value>years ago</value>
+    <value>Jahre zuvor</value>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
     <value>What's new in this version?</value>
