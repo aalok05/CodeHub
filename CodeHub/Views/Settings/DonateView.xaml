@@ -41,7 +41,7 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                    Content="Donate to CodeHub on Patreon"
+                    x:Uid="donatePatreonBtn"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="PatreonButton_Tapped"/>
 

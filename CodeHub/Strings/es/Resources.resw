@@ -399,4 +399,7 @@
   <data name="addDisable.Text" xml:space="preserve">
     <value>Make any donation to enable the option to disable ads.</value>
   </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>Donate to CodeHub on Patreon</value>
+  </data>
 </root>

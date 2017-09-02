@@ -463,4 +463,7 @@
   <data name="addDisable.Text" xml:space="preserve">
     <value>Adományozz az alábbi opció engedélyezéséhez.</value>
   </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>Adományozz CodeHub-nak Patreon-on</value>
+  </data>
 </root>
