@@ -139,61 +139,63 @@ namespace CodeHub.Services
         /// <exception cref="Exception">When the given type don't have a Page Title pair</exception> 
         public string ChoosePageTitleByPageType(Type type)
         {
+            var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
                  if (type == typeof(CommentView))
             {
-                return "Comment";
+                return languageLoader.GetString("pageTitle_CommentView");
             }
             else if (type == typeof(DeveloperProfileView))
             {
-                return "Profile";
+                return languageLoader.GetString("pageTitle_DeveloperProfileView");
             }
             else if (type == typeof(FeedView))
             {
-                return "News Feed";
+                return languageLoader.GetString("pageTitle_FeedView");
             }
             else if (type == typeof(IssueDetailView))
             {
-                return "Issue";
+                return languageLoader.GetString("pageTitle_IssueDetailView");
             }
             else if (type == typeof(IssuesView))
             {
-                return "Issues";
+                return languageLoader.GetString("pageTitle_IssuesView");
             }
             else if (type == typeof(MyOrganizationsView))
             {
-                return "My Organizations";
+                return languageLoader.GetString("pageTitle_MyOrganizationsView");
             }
             else if (type == typeof(MyReposView))
             {
-                return "My Repositories";
+                return languageLoader.GetString("pageTitle_MyReposView");
             }
             else if (type == typeof(NotificationsView))
             {
-                return "Notifications";
+                return languageLoader.GetString("pageTitle_NotificationsView");
             }
             else if (type == typeof(PullRequestDetailView))
             {
-                return "Pull Request";
+                return languageLoader.GetString("pageTitle_PullRequestDetailView");
             }
             else if (type == typeof(PullRequestsView))
             {
-                return "Pull Requests";
+                return languageLoader.GetString("pageTitle_PullRequestsView");
             }
             else if (type == typeof(RepoDetailView))
             {
-                return "Repository";
+                return languageLoader.GetString("pageTitle_RepoDetailView");
             }
             else if (type == typeof(SearchView))
             {
-                return "Search";
+                return languageLoader.GetString("pageTitle_SearchView");
             }
             else if (type == typeof(SettingsView))
             {
-                return "Settings";
+                return languageLoader.GetString("pageTitle_SettingsView");
             }
             else if (type == typeof(TrendingView))
             {
-                return "Trending";
+                return languageLoader.GetString("pageTitle_TrendingView");
             }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
