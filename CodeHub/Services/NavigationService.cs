@@ -151,6 +151,10 @@ namespace CodeHub.Services
             {
                 return "News Feed";
             }
+            else if (type == typeof(IssueDetailView))
+            {
+                return "Issue";
+            }
             else if (type == typeof(IssuesView))
             {
                 return "Issues";

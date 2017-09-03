@@ -378,7 +378,7 @@ namespace CodeHub.ViewModels
             string owner = array[3];
             string repo = array[4];
 
-            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView),"Issues", new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
         }
         private void ChangeVisibilityOfListViews(int selectedSearchItemIndex)
         {
