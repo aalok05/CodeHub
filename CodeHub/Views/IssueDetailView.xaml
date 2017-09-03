@@ -34,10 +34,10 @@
                         <Setter Target="CommentsPivot.(Grid.Column)" Value="0" />
                         <Setter Target="CommentsPivot.(Grid.ColumnSpan)" Value="2" />
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="1" />
-                        <Setter Target="EditLabelsShadow.Width" Value="340" />
-                        <Setter Target="EditLabelsPanel.Width" Value="340" />
+                        <Setter Target="EditIssueShadow.Width" Value="340" />
+                        <Setter Target="EditIssuePanel.Width" Value="340" />
                         <Setter Target="CommentDialogShadow.Width" Value="340" />
-                        <Setter Target="CommentDialog.Width" Value="340" />
+                        <Setter Target="CommentDialogPanel.Width" Value="340" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Normal">
@@ -51,10 +51,10 @@
                         <Setter Target="CommentsPivot.(Grid.Row)" Value="0" />
                         <Setter Target="CommentsPivot.(Grid.Column)" Value="1" />
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
-                        <Setter Target="EditLabelsShadow.Width" Value="600" />
-                        <Setter Target="EditLabelsPanel.Width" Value="600" />
+                        <Setter Target="EditIssueShadow.Width" Value="600" />
+                        <Setter Target="EditIssuePanel.Width" Value="600" />
                         <Setter Target="CommentDialogShadow.Width" Value="600" />
-                        <Setter Target="CommentDialog.Width" Value="600" />
+                        <Setter Target="CommentDialogPanel.Width" Value="600" />
                     </VisualState.Setters>
 
                 </VisualState>
@@ -69,10 +69,10 @@
                         <Setter Target="CommentsPivot.(Grid.Row)" Value="0" />
                         <Setter Target="CommentsPivot.(Grid.Column)" Value="1" />
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
-                        <Setter Target="EditLabelsShadow.Width" Value="600" />
-                        <Setter Target="EditLabelsPanel.Width" Value="600" />
+                        <Setter Target="EditIssueShadow.Width" Value="600" />
+                        <Setter Target="EditIssuePanel.Width" Value="600" />
                         <Setter Target="CommentDialogShadow.Width" Value="600" />
-                        <Setter Target="CommentDialog.Width" Value="600" />
+                        <Setter Target="CommentDialogPanel.Width" Value="600" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -269,6 +269,7 @@
                 </ListView>
             </PivotItem>
         </Pivot>
+
         <Grid x:Name="EditIssueDialog"
               Grid.RowSpan="2"
               Grid.ColumnSpan="2"
@@ -282,7 +283,7 @@
                                     Duration="0" />
                 </i:Interaction.Behaviors>
             </Border>
-            <toolkitControl:DropShadowPanel x:Name="EditLabelsShadow"
+            <toolkitControl:DropShadowPanel x:Name="EditIssueShadow"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             BlurRadius="8"
@@ -290,7 +291,7 @@
                                             OffsetY="2"
                                             ShadowOpacity="0.7"
                                             Color="Black">
-                <StackPanel x:Name="EditLabelsPanel"
+                <StackPanel x:Name="EditIssuePanel"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                             Orientation="Vertical">
                     <TextBlock Margin="8"
@@ -323,6 +324,7 @@
                 </StackPanel>
             </toolkitControl:DropShadowPanel>
         </Grid>
+
         <Grid x:Name="CommentDialog"
               Grid.RowSpan="2"
               Grid.ColumnSpan="2"
@@ -335,68 +337,78 @@
                                     Value="30"
                                     Duration="0" />
                 </i:Interaction.Behaviors>
-             </Border>
-            <StackPanel x:Name="CommentDialogShadow"
-                        Grid.Row="0"
-                        Orientation="Vertical"
-                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Pivot Style="{StaticResource CustomPivotStyle}">
-                    <PivotItem Margin="0"
-                               Height="400">
-                        <PivotItem.Header>
-                            <TextBlock Margin="0 0 8 0"
-                                       FontSize="15"
-                                       Text="Write" />
-                        </PivotItem.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <toolkitControl:TextToolbar x:Name="Toolbar"
-                                                        Grid.Row="0"
-                                                        Background="#4C4F4F4F"
-                                                        Editor="{Binding ElementName=EditZone}"
-                                                        Format="MarkDown"
-                                                        IsEnabled="True" />
-                            <RichEditBox x:Name="EditZone"
-                                         Grid.Row="1"
-                                         MinHeight="300" 
-                                         TextChanged="EditZone_TextChanged"
-                                         TextWrapping="Wrap" />
-                        </Grid>
+            </Border>
+            <toolkitControl:DropShadowPanel x:Name="CommentDialogShadow"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            BlurRadius="8"
+                                            OffsetX="2"
+                                            OffsetY="2"
+                                            ShadowOpacity="0.7"
+                                            Color="Black">
+                <StackPanel x:Name="CommentDialogPanel"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Orientation="Vertical">
+                    <Pivot Style="{StaticResource CustomPivotStyle}">
+                        <PivotItem Height="200" Margin="0">
+                            <PivotItem.Header>
+                                <TextBlock Margin="0 0 8 0"
+                                           FontSize="15"
+                                           Text="Write" />
+                            </PivotItem.Header>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <toolkitControl:TextToolbar x:Name="Toolbar"
+                                                            Grid.Row="0"
+                                                            FontSize="13"
+                                                            Background="#4C4F4F4F"
+                                                            Editor="{Binding ElementName=EditZone}"
+                                                            Format="MarkDown"
+                                                            IsEnabled="True" />
+                                <RichEditBox x:Name="EditZone"
+                                             Grid.Row="1"
+                                             MinHeight="150"
+                                             BorderThickness="0"
+                                             TextChanged="EditZone_TextChanged"
+                                             TextWrapping="Wrap" />
+                            </Grid>
 
-                    </PivotItem>
-                    <PivotItem Margin="0"
-                               Height="400">
-                        <PivotItem.Header>
-                            <TextBlock FontSize="15" Text="Preview" />
-                        </PivotItem.Header>
-                        <toolkitControl:MarkdownTextBlock x:Name="Previewer"
-                                                          LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
-                                                          Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
-                    </PivotItem>
-                </Pivot>
-                <Button Height="40"
-                        HorizontalAlignment="Stretch"
-                        Background="{StaticResource AppPrimaryColorBrush}"
-                        Content="Comment"
-                        Tapped="Comment_Tapped"
-                        Style="{StaticResource ActionButtonStyle}"/>
-                <Button Height="40"
-                        HorizontalAlignment="Stretch"
-                        Content="Cancel"
-                        Tapped="CancelComment_Tapped"
-                        Style="{StaticResource ActionButtonStyle}"/>
-            </StackPanel>
+                        </PivotItem>
+                        <PivotItem Height="200" Margin="0">
+                            <PivotItem.Header>
+                                <TextBlock FontSize="15" Text="Preview" />
+                            </PivotItem.Header>
+                            <toolkitControl:MarkdownTextBlock x:Name="Previewer"
+                                                              LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
+                                                              Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
+                        </PivotItem>
+                    </Pivot>
+                    <Button Height="40"
+                            HorizontalAlignment="Stretch"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Content="Comment"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="Comment_Tapped" />
+                    <Button Height="40"
+                            HorizontalAlignment="Stretch"
+                            Content="Cancel"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CancelComment_Tapped" />
+                </StackPanel>
+            </toolkitControl:DropShadowPanel>
+
 
         </Grid>
+
         <ProgressRing Grid.RowSpan="2"
                       Grid.ColumnSpan="2"
                       Width="40"
                       Height="40"
                       Foreground="{StaticResource AppPrimaryColorBrush}"
                       IsActive="{x:Bind ViewModel.IsEditingIssue, Mode=OneWay}" />
-
+        
     </Grid>
 </Page>

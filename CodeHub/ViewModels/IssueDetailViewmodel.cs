@@ -222,18 +222,14 @@ namespace CodeHub.ViewModels
                     ?? (_CommentCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if(!string.IsNullOrWhiteSpace(CommentText))
-                                              {
-                                                   isLoading = true;
-                                                   IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
-                                                   isLoading = false;
-                                                   if(newComment != null)
-                                                   {
-                                                      Comments.Add(newComment);
-                                                      CommentText = string.Empty;
-                                                   }
-
-                                              }
+                                               isLoading = true;
+                                               IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                               isLoading = false;
+                                               if(newComment != null)
+                                               {
+                                                  Comments.Add(newComment);
+                                                  CommentText = string.Empty;
+                                               }
                                           }));
             }
         }
