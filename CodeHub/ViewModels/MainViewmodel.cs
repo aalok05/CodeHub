@@ -283,7 +283,7 @@ namespace CodeHub.ViewModels
                 {
                     i.IsSelected = false;
                 }
-                Navigate(typeof(SearchView), "Search");
+                Navigate(typeof(SearchView));
             }
         }
         public void NavigateToNotifications()

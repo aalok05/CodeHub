@@ -175,6 +175,10 @@ namespace CodeHub.Services
             {
                 return "Repository";
             }
+            else if (type == typeof(SearchView))
+            {
+                return "Search";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
