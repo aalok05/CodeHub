@@ -90,7 +90,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all,\nHere's the changelog for v 2.2.5\n\n\x2022 Design improvements \n\x2022 Implemented infinite scrolling in News Feed, Issues, PRs and Trending \n\x2022 Reduced network usage ";
+                return "Hi all,\nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs \n\x2022 Bug fixes and under the hood improvements";
             }
         }
         #endregion
