@@ -147,6 +147,10 @@ namespace CodeHub.Services
             {
                 return "News Feed";
             }
+            else if (type == typeof(IssuesView))
+            {
+                return "Issues";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
