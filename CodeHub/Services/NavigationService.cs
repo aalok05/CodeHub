@@ -155,6 +155,10 @@ namespace CodeHub.Services
             {
                 return "My Organizations";
             }
+            else if (type == typeof(MyReposView))
+            {
+                return "My Repositories";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
