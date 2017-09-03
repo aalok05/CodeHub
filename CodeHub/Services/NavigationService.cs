@@ -6,6 +6,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
 using CodeHub.Helpers;
 using GalaSoft.MvvmLight.Messaging;
+using CodeHub.Views;
 
 namespace CodeHub.Services
 {
@@ -138,6 +139,11 @@ namespace CodeHub.Services
         /// <exception cref="Exception">When the given type don't have a Page Title pair</exception> 
         public string ChoosePageTitleByPageType(Type type)
         {
+            if (type == typeof(CommentView))
+            {
+                return "Comment";
+            }
+
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
     }
