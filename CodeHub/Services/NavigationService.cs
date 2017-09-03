@@ -55,6 +55,29 @@ namespace CodeHub.Services
             return result;
         }
 
+        /// <summary>
+        /// Navigates to the target page
+        /// </summary>
+        /// <param name="pageType">The type of the target page</param>
+        public Task<bool> NavigateAsync(Type pageType)
+        {
+            string pageTitle = ChoosePageTitleByPageType(pageType);
+
+            return NavigateAsync(pageType, pageTitle);
+        }
+
+        /// <summary>
+        /// Navigates to the target page with a given parameter
+        /// </summary>
+        /// <param name="pageType">The type of the target page</param>
+        /// <param name="parameter">The navigation parameter</param>
+        public Task<bool> NavigateAsync(Type pageType, object parameter)
+        {
+            string pageTitle = ChoosePageTitleByPageType(pageType);
+
+            return NavigateAsync(pageType, pageTitle, parameter);
+        }
+
         // Navigation without parameters
         public Task<bool> NavigateAsync(Type type, String pageTitle) => NavigateCoreAsync(type, pageTitle, null);
 
@@ -105,6 +128,17 @@ namespace CodeHub.Services
             else result = false;
             NavigationSemaphore.Release();
             return result;
+        }
+
+        /// <summary>
+        /// Search for the Page Title with the given Menu type
+        /// </summary>
+        /// <param name="type">type of the Menu</param>
+        /// <returns>string</returns>
+        /// <exception cref="Exception">When the given type don't have a Page Title pair</exception> 
+        public string ChoosePageTitleByPageType(Type type)
+        {
+            throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
     }
 }
