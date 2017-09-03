@@ -167,6 +167,10 @@ namespace CodeHub.Services
             {
                 return "Pull Request";
             }
+            else if (type == typeof(PullRequestsView))
+            {
+                return "Pull Requests";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }

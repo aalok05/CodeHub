@@ -257,7 +257,7 @@ namespace CodeHub.ViewModels
                     ?? (_PullRequestsTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(PullRequestsView), "Pull Requests", Repository);
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(PullRequestsView), Repository);
                                           }));
             }
         }
