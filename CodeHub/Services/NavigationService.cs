@@ -183,6 +183,10 @@ namespace CodeHub.Services
             {
                 return "Settings";
             }
+            else if (type == typeof(TrendingView))
+            {
+                return "Trending";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
