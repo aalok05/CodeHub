@@ -357,7 +357,7 @@ namespace CodeHub.ViewModels
         }
         public void UserDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (e.ClickedItem as User).Login);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), (e.ClickedItem as User).Login);
         }
         public void CodeNavigate(object sender, ItemClickEventArgs e)
         {

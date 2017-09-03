@@ -143,6 +143,10 @@ namespace CodeHub.Services
             {
                 return "Comment";
             }
+            else if (type == typeof(DeveloperProfileView))
+            {
+                return "Profile";
+            }
             else if (type == typeof(FeedView))
             {
                 return "News Feed";

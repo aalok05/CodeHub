@@ -229,7 +229,7 @@ namespace CodeHub.ViewModels
                     ?? (_profileTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", Repository.Owner.Login);
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), Repository.Owner.Login);
                                           }));
             }
         }
@@ -381,7 +381,7 @@ namespace CodeHub.ViewModels
 
         public void UserTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((RepositoryContributor)e.ClickedItem).Login);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), ((RepositoryContributor)e.ClickedItem).Login);
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

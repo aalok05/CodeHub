@@ -295,7 +295,7 @@ namespace CodeHub.ViewModels
 
         public void UserTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), ((User)e.ClickedItem).Login);
         }
 
         public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)
