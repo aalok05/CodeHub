@@ -294,7 +294,7 @@ namespace CodeHub.ViewModels
                 {
                     i.IsSelected = false;
                 }
-                Navigate(typeof(NotificationsView), "Notifications");
+                Navigate(typeof(NotificationsView));
             }
         }
 

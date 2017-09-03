@@ -107,10 +107,16 @@ namespace CodeHub.ViewModels
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
+        public void Navigate(Type pageType)
+        {
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(pageType, User);
+        }
+
         public void Navigate(Type pageType, string pageTitle)
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(pageType, pageTitle, User);
         }
+
         public void GoBack()
         {
             SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();

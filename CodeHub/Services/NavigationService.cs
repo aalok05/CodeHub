@@ -159,6 +159,10 @@ namespace CodeHub.Services
             {
                 return "My Repositories";
             }
+            else if (type == typeof(NotificationsView))
+            {
+                return "Notifications";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
