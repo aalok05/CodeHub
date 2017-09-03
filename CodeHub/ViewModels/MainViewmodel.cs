@@ -106,8 +106,7 @@ namespace CodeHub.ViewModels
                                            Symbol = (Geometry)XamlReader.Load(organizationsSymbol),
                                            DestPage =typeof(MyOrganizationsView)}
                 };
-
-            HeaderText = HamItems[0].Label.ToUpper();
+            
             HamItems[0].IsSelected = true;
 
         }
