@@ -220,7 +220,7 @@ namespace CodeHub.ViewModels
                 i.IsSelected = false;
             }
             item.IsSelected = true;
-            Navigate(item.DestPage,item.Label);
+            Navigate(item.DestPage);
 
             if (!(DisplayMode == SplitViewDisplayMode.Inline))
                 IsPaneOpen = false;
