@@ -171,6 +171,10 @@ namespace CodeHub.Services
             {
                 return "Pull Requests";
             }
+            else if (type == typeof(RepoDetailView))
+            {
+                return "Repository";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }

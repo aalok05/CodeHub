@@ -346,7 +346,7 @@ namespace CodeHub.ViewModels
                                                       Glyph = "\uE081"
                                                   });
 
-                                                  SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", forkedRepo).Forget();
+                                                  SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), forkedRepo).Forget();
                                               }
                                               else
                                               {
