@@ -174,21 +174,24 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
             }
             else
             {
-                isLoading = true;
-                Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
-                isLoading = false;
+                if (Repository != null)
+                {
+                    isLoading = true;
+                    Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
+                    isLoading = false;
 
-                if(Repository.Owner == null) 
-                    Repository = await RepositoryUtility.GetRepository(Repository.Id);
+                    if (Repository.Owner == null)
+                        Repository = await RepositoryUtility.GetRepository(Repository.Id);
 
-                if (Repository.Owner.Login == GlobalHelper.UserLogin || Issue.User.Login == GlobalHelper.UserLogin)
-                    CanEditIssue = true;
-                if (Repository.Owner.Login == GlobalHelper.UserLogin)
-                    IsMyRepo = true;
+                    if (Repository.Owner.Login == GlobalHelper.UserLogin || Issue.User.Login == GlobalHelper.UserLogin)
+                        CanEditIssue = true;
+                    if (Repository.Owner.Login == GlobalHelper.UserLogin)
+                        IsMyRepo = true;
+                }
             }
         }
 
@@ -219,18 +222,14 @@ namespace CodeHub.ViewModels
                     ?? (_CommentCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if(!string.IsNullOrWhiteSpace(CommentText))
-                                              {
-                                                   isLoading = true;
-                                                   IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
-                                                   isLoading = false;
-                                                   if(newComment != null)
-                                                   {
-                                                      Comments.Add(newComment);
-                                                      CommentText = string.Empty;
-                                                   }
-
-                                              }
+                                               isLoading = true;
+                                               IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                               isLoading = false;
+                                               if(newComment != null)
+                                               {
+                                                  Comments.Add(newComment);
+                                                  CommentText = string.Empty;
+                                               }
                                           }));
             }
         }

@@ -182,7 +182,7 @@ namespace CodeHub.Services
                 String html = tcs.Task.Result;
                 if (token.IsCancellationRequested)
                 {
-                    return contents?.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
+                    return contents?.OrderByDescending(entry => entry.Type.Value).Select(content => new RepositoryContentWithCommitInfo(content));
                 }
 
                 // Load the HTML document
@@ -219,7 +219,7 @@ namespace CodeHub.Services
                     IReadOnlyList<GitHubCommit>[] commits = await Task.WhenAll(tasks);
 
                     // Query the results
-                    return contents.AsParallel().OrderByDescending(file => file.Type).Select((file, i) =>
+                    return contents.AsParallel().OrderByDescending(file => file.Type.Value).Select((file, i) =>
                     {
                         GitHubCommit commit = commits[i].FirstOrDefault();
                         return commit != null
@@ -308,12 +308,12 @@ namespace CodeHub.Services
                     }
                 });
                 if (!result.IsCompleted) throw new InvalidOperationException();
-                return partials.SelectMany(list => list).OrderByDescending(entry => entry.Content.Type);
+                return partials.SelectMany(list => list).OrderByDescending(entry => entry.Content.Type.Value);
             }
             catch
             {
                 // Just return the original content without additional info
-                return contents?.OrderByDescending(entry => entry.Type).Select(content => new RepositoryContentWithCommitInfo(content));
+                return contents?.OrderByDescending(entry => entry.Type.Value).Select(content => new RepositoryContentWithCommitInfo(content));
             }
         }
 
@@ -358,7 +358,7 @@ namespace CodeHub.Services
                         GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch), repo.HtmlUrl,
                         GlobalHelper.GithubClient, repo.Id, branch, CancellationToken.None);
 
-                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type)
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type.Value)
                                                                                             .ThenBy(           entry => entry.Content.Name));
                 }
                 else
@@ -366,7 +366,7 @@ namespace CodeHub.Services
                     results = from item in await GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Owner.Login, repo.Name, branch)
                               select new RepositoryContentWithCommitInfo(item);
 
-                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type));
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type.Value));
                 }
             }
             catch
@@ -402,7 +402,7 @@ namespace CodeHub.Services
                     results = from item in await GlobalHelper.GithubClient.Repository.Content.GetAllContentsByRef(repo.Id, path, branch)
                               select new RepositoryContentWithCommitInfo(item);
 
-                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type));
+                    return new ObservableCollection<RepositoryContentWithCommitInfo>(results.OrderByDescending(entry => entry.Content.Type.Value));
                 }
 
             }

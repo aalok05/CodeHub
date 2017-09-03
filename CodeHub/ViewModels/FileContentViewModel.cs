@@ -201,9 +201,9 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    Uri uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.DownloadUrl;
-                    if(uri != null)
-                        ImageFile = new BitmapImage(uri);
+                    String uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.DownloadUrl;
+                    if(!string.IsNullOrWhiteSpace(uri))
+                        ImageFile = new BitmapImage(new Uri(uri));
                     isLoading = false;
                     return;
                 }

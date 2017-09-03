@@ -137,26 +137,36 @@ namespace CodeHub.ViewModels
         {
             try
             {
-                StoreContext WindowsStore = StoreContext.GetDefault();
-
-                string[] productKinds = { "Durable" };
-                List<String> filterList = new List<string>(productKinds);
-
-                StoreProductQueryResult queryResult = await WindowsStore.GetUserCollectionAsync(filterList);
-
-                if (queryResult.ExtendedError != null)
+                if (SettingsService.Get<bool>(SettingsKeys.HasUserDonated))
                 {
-                    return false;
+                    return true;
                 }
-
-                foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
+                else
                 {
-                    if (item.Value != null)
+                    StoreContext WindowsStore = StoreContext.GetDefault();
+
+                    string[] productKinds = { "Durable" };
+                    List<String> filterList = new List<string>(productKinds);
+
+                    StoreProductQueryResult queryResult = await WindowsStore.GetUserCollectionAsync(filterList);
+
+                    if (queryResult.ExtendedError != null)
                     {
-                        if (item.Value.IsInUserCollection)
-                            return true;
+                        return false;
                     }
-                    return false;
+
+                    foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
+                    {
+                        if (item.Value != null)
+                        {
+                            if (item.Value.IsInUserCollection)
+                            {
+                                SettingsService.Save(SettingsKeys.HasUserDonated, true, true);
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
                 }
 
                 return false;

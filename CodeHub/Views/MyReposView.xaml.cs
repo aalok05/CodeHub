@@ -6,6 +6,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Windows.System.Profile;
+using Windows.Devices.Input;
 
 namespace CodeHub.Views
 {
@@ -31,12 +32,10 @@ namespace CodeHub.Views
 
             ViewModel.User = (User)e.Parameter;
 
-            //Enabling IsPullToRefreshWithMouseEnabled in mobile was causing problem in sliding Pivot horizontally
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-            {
-                RepoListView.IsPullToRefreshWithMouseEnabled =
-                StarredRepoListView.IsPullToRefreshWithMouseEnabled = true;
-            }
+            MouseCapabilities mouseCapabilities = new MouseCapabilities();
+            bool hasMouse = mouseCapabilities.MousePresent != 0;
+
+            RepoListView.IsPullToRefreshWithMouseEnabled = StarredRepoListView.IsPullToRefreshWithMouseEnabled = hasMouse;
         }
         private async void MyReposView_Loading(FrameworkElement sender, object args)
         {
