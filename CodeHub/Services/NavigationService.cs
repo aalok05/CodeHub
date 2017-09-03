@@ -139,9 +139,13 @@ namespace CodeHub.Services
         /// <exception cref="Exception">When the given type don't have a Page Title pair</exception> 
         public string ChoosePageTitleByPageType(Type type)
         {
-            if (type == typeof(CommentView))
+                 if (type == typeof(CommentView))
             {
                 return "Comment";
+            }
+            else if (type == typeof(FeedView))
+            {
+                return "News Feed";
             }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);

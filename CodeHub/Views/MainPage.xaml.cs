@@ -92,7 +92,7 @@ namespace CodeHub.Views
 
             if (ViewModel.isLoggedin)
             {
-                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
+                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView));
 
                 if(IsInternet())
                     await ViewModel.CheckForUnreadNotifications();
