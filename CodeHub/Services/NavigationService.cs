@@ -151,6 +151,10 @@ namespace CodeHub.Services
             {
                 return "Issues";
             }
+            else if (type == typeof(MyOrganizationsView))
+            {
+                return "My Organizations";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
