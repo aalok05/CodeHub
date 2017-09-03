@@ -363,7 +363,6 @@
                                 </Grid.RowDefinitions>
                                 <toolkitControl:TextToolbar x:Name="Toolbar"
                                                             Grid.Row="0"
-                                                            FontSize="13"
                                                             Background="#4C4F4F4F"
                                                             Editor="{Binding ElementName=EditZone}"
                                                             Format="MarkDown"
