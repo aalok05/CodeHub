@@ -163,6 +163,10 @@ namespace CodeHub.Services
             {
                 return "Notifications";
             }
+            else if (type == typeof(PullRequestDetailView))
+            {
+                return "Pull Request";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }

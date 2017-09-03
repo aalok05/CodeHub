@@ -188,7 +188,7 @@ namespace CodeHub.ViewModels
         public void PullRequestTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                            .NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(Repository, e.ClickedItem as PullRequest));
+                            .NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(Repository, e.ClickedItem as PullRequest));
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
