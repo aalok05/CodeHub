@@ -271,7 +271,7 @@ namespace CodeHub.ViewModels
             {
                 i.IsSelected = false;
             }
-            Navigate(typeof(SettingsView), "Settings");
+            Navigate(typeof(SettingsView));
             if (!(DisplayMode == SplitViewDisplayMode.Inline))
                 IsPaneOpen = false;
         }

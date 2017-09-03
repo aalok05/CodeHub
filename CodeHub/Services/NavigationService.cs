@@ -179,6 +179,10 @@ namespace CodeHub.Services
             {
                 return "Search";
             }
+            else if (type == typeof(SettingsView))
+            {
+                return "Settings";
+            }
 
             throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
