@@ -215,13 +215,9 @@
                              IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                              Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                              Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
-                    <TextBox x:Uid="body"
-                             Height="200"
-                             Margin="8"
-                             AcceptsReturn="True"
-                             IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                             Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                             Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
+
+                    <userControls:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
+                                                       IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
 
                     <StackPanel Margin="8,8,8,16"
                                 Orientation="Horizontal">

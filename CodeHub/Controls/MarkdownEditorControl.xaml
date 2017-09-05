@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="CodeHub.Controls.MarkdownEditorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:CodeHub.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+
+    <Pivot Style="{StaticResource CustomPivotStyle}">
+        <PivotItem Height="200" Margin="0">
+            <PivotItem.Header>
+                <TextBlock Margin="0,0,8,0"
+                           FontSize="15"
+                           Text="Write" />
+            </PivotItem.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <toolkitControl:TextToolbar x:Name="Toolbar"
+                                            Grid.Row="0"
+                                            Background="#4C4F4F4F"
+                                            Editor="{Binding ElementName=EditZone}"
+                                            Format="MarkDown"
+                                            IsEnabled="True" />
+                <RichEditBox x:Name="EditZone"
+                             Grid.Row="1"
+                             MinHeight="150"
+                             BorderThickness="0"
+                             TextChanged="EditZone_TextChanged"
+                             TextWrapping="Wrap" />
+            </Grid>
+
+        </PivotItem>
+        <PivotItem Height="200" Margin="0">
+            <PivotItem.Header>
+                <TextBlock FontSize="15" 
+                           Text="Preview" />
+            </PivotItem.Header>
+            <toolkitControl:MarkdownTextBlock x:Name="Previewer"
+                                              LinkClicked="{x:Bind MarkdownTextBlock_LinkClicked}"/>
+        </PivotItem>
+    </Pivot>
+</UserControl>
