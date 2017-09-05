@@ -211,30 +211,24 @@
                                Margin="8"
                                FontWeight="SemiBold"/>
                     <TextBox x:Uid="title"
-                             Margin="8"
+                             Margin="8 8 8 0"
                              IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                              Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                              Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
-                    <TextBox x:Uid="body"
-                             Height="200"
-                             Margin="8"
-                             AcceptsReturn="True"
-                             IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                             Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                             Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
 
-                    <StackPanel Margin="8,8,8,16"
-                                Orientation="Horizontal">
-                        <Button x:Uid="create"
-                                MinWidth="158"
-                                Margin="0,0,4,0"
-                                Background="{StaticResource AppPrimaryColorBrush}"
-                                Command="{x:Bind ViewModel.CreateIssue}" />
-                        <Button x:Uid="cancel"
-                                MinWidth="158"
-                                Margin="4,0,0,0"
-                                Tapped="CancelNewIssueButton_Tapped" />
-                    </StackPanel>
+                    <userControls:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
+                                                        IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
+                    <Button x:Uid="create"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Command="{x:Bind ViewModel.CreateIssue}" />
+                    <Button x:Uid="cancel"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CancelNewIssueButton_Tapped" />
                 </StackPanel>
 
             </toolkitControl:DropShadowPanel>
