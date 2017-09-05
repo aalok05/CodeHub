@@ -47,7 +47,7 @@ namespace CodeHub.Views
 
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
+            base.OnNavigatedFrom(e);
 
             if (e.NavigationMode == NavigationMode.Back)
             {

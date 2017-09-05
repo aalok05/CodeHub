@@ -299,25 +299,24 @@
                                FontWeight="SemiBold"
                                Text="Edit Issue" />
                     <TextBox x:Uid="title"
-                             Margin="8"
+                             Margin="8 8 8 0"
                              IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                              Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                              Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
 
                     <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
                                                        IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
-                    
-                    <StackPanel Margin="8,8,8,16" Orientation="Horizontal">
-                        <Button x:Uid="save"
-                                Width="158"
-                                Margin="0,0,4,0"
-                                Background="{StaticResource AppPrimaryColorBrush}"
-                                Tapped="EditIssueSaved_Tapped" />
-                        <Button x:Uid="cancel"
-                                Width="158"
-                                Margin="4,0,0,0"
-                                Tapped="CancelEditIssue_Tapped" />
-                    </StackPanel>
+                    <Button x:Uid="save"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Tapped="EditIssueSaved_Tapped" />
+                    <Button x:Uid="cancel"
+                            Height="40"
+                            Style="{StaticResource ActionButtonStyle}"
+                            HorizontalAlignment="Stretch"
+                            Tapped="CancelEditIssue_Tapped" />
                 </StackPanel>
             </toolkitControl:DropShadowPanel>
         </Grid>
@@ -350,14 +349,14 @@
                     <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.CommentText, Mode=TwoWay}"/>
                     <Button Height="40"
                             HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
                             Background="{StaticResource AppPrimaryColorBrush}"
                             Content="Comment"
-                            Style="{StaticResource ActionButtonStyle}"
                             Tapped="Comment_Tapped" />
                     <Button Height="40"
                             HorizontalAlignment="Stretch"
-                            Content="Cancel"
                             Style="{StaticResource ActionButtonStyle}"
+                            Content="Cancel"
                             Tapped="CancelComment_Tapped" />
                 </StackPanel>
             </toolkitControl:DropShadowPanel>

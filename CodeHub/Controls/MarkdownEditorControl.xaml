@@ -41,8 +41,12 @@
                 <TextBlock FontSize="15" 
                            Text="Preview" />
             </PivotItem.Header>
-            <toolkitControl:MarkdownTextBlock x:Name="Previewer"
-                                              LinkClicked="{x:Bind MarkdownTextBlock_LinkClicked}"/>
+            <ScrollViewer VerticalScrollMode="Enabled">
+                <toolkitControl:MarkdownTextBlock x:Name="Previewer"
+                                                  Padding="8"
+                                                  LinkClicked="{x:Bind MarkdownTextBlock_LinkClicked}"/>
+            </ScrollViewer>
+            
         </PivotItem>
     </Pivot>
 </UserControl>

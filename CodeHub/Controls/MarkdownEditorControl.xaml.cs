@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,13 +23,21 @@ namespace CodeHub.Controls
         {
             this.InitializeComponent();
 
-            EditZone.Focus(FocusState.Programmatic);
         }
 
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            EditZone.Focus(FocusState.Programmatic);
+            base.OnGotFocus(e);
+        }
         public string MarkdownText
         {
             get { return (string)GetValue(MarkdownTextProperty); }
-            set { SetValue(MarkdownTextProperty, value); }
+            set
+            {
+                SetValue(MarkdownTextProperty, value);
+                EditZone.Document.SetText(TextSetOptions.ApplyRtfDocumentDefaults, (string)GetValue(MarkdownTextProperty));
+            }
         }
 
         public static readonly DependencyProperty MarkdownTextProperty =
@@ -36,8 +45,7 @@ namespace CodeHub.Controls
 
         private void EditZone_TextChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MarkdownText = Toolbar.Formatter?.Text;
-            Previewer.Text = string.IsNullOrWhiteSpace(MarkdownText) ? "Nothing to Preview" : MarkdownText;
+            Previewer.Text = string.IsNullOrWhiteSpace(MarkdownText) ? "Nothing to Preview" : Toolbar.Formatter?.Text;
         }
 
         public async void MarkdownTextBlock_LinkClicked(object sender, LinkClickedEventArgs e)
