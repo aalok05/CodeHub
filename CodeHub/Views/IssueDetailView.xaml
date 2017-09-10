@@ -304,7 +304,8 @@
                              Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                              Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
 
-                    <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
+                    <usercontrol:MarkdownEditorControl x:Name="EditIssueMarkdownEditorControl"
+                                                       MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
                                                        IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
                     <Button x:Uid="save"
                             Height="40"
