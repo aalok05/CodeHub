@@ -465,4 +465,7 @@
   <data name="pageTitle_TrendingView" xml:space="preserve">
     <value>Trending</value>
   </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Organization</value>
+  </data>
 </root>

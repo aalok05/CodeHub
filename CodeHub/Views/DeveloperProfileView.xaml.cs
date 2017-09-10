@@ -21,13 +21,15 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await ViewModel.Load(e.Parameter);
+            await ViewModel.Load(e.Parameter as Octokit.User);
 
             if(ViewModel.Developer!= null)
             {
                 if (ViewModel.Developer.Type == Octokit.AccountType.Organization)
                 {
-                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Organization" });
+                    var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
+                    Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = languageLoader.GetString("pageTitle_OrganizationView") });
                     Pivot.Items.Remove(FollowersPivotItem);
                     Pivot.Items.Remove(FollowingPivotItem);
                 }

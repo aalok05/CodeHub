@@ -22,13 +22,6 @@ namespace CodeHub.Services
         Task<bool> NavigateAsync(Type pageType, object parameter);
 
         /// <summary>
-        /// Navigates to the target page
-        /// </summary>
-        /// <param name="pageType">The type of the target page</param>
-        /// <param name="pageTitle">The page title</param>
-        Task<bool> NavigateAsync(Type pageType, String pageTitle);
-
-        /// <summary>
         /// Navigates to the target page with a given parameter
         /// </summary>
         /// <param name="pageType">The type of the target page</param>

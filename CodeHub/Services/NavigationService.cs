@@ -64,7 +64,7 @@ namespace CodeHub.Services
         {
             string pageTitle = ChoosePageTitleByPageType(pageType);
 
-            return NavigateAsync(pageType, pageTitle);
+            return NavigateCoreAsync(pageType, pageTitle, null);
         }
 
         /// <summary>
@@ -76,11 +76,8 @@ namespace CodeHub.Services
         {
             string pageTitle = ChoosePageTitleByPageType(pageType);
 
-            return NavigateAsync(pageType, pageTitle, parameter);
+            return NavigateCoreAsync(pageType, pageTitle, parameter);
         }
-
-        // Navigation without parameters
-        public Task<bool> NavigateAsync(Type type, String pageTitle) => NavigateCoreAsync(type, pageTitle, null);
 
         // Navigation with parameters
         public Task<bool> NavigateAsync(Type type, String pageTitle, object parameter) => NavigateCoreAsync(type, pageTitle, parameter);

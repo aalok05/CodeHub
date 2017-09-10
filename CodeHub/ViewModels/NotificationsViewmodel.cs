@@ -302,7 +302,7 @@ namespace CodeHub.ViewModels
         public async void NotificationsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Notification notif = e.ClickedItem as Notification;
-            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), notif.Repository.FullName);
+            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), notif.Repository);
             if (notif.Unread)
             {
                 await NotificationsService.MarkNotificationAsRead(notif.Id);

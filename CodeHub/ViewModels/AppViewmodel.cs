@@ -112,14 +112,9 @@ namespace CodeHub.ViewModels
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(pageType, User);
         }
 
-        public void Navigate(Type pageType, string pageTitle)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(pageType, pageTitle, User);
-        }
-
         public void GoBack()
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().GoBackAsync();
         }
 
         public void UpdateUnreadNotificationIndicator(bool IsUnread)

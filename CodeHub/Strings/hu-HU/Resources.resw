@@ -460,4 +460,7 @@
   <data name="pageTitle_TrendingView" xml:space="preserve">
     <value>Felkapottak</value>
   </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Szervezet</value>
+  </data>
 </root>

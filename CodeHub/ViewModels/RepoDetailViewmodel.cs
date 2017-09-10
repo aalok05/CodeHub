@@ -171,7 +171,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(object repo)
+        public async Task Load(Repository repo)
         {
             if (!GlobalHelper.IsInternet())
             {
@@ -182,12 +182,10 @@ namespace CodeHub.ViewModels
             {
                 isLoading = true;
 
-                string s = repo as string;
-                if (s != null)
+                // this is an organization's Repo
+                if (repo.Owner == null)
                 {
-                    //Splitting repository name and owner name
-                    var names = s.Split('/');
-                    Repository = await RepositoryUtility.GetRepository(names[0], names[1]);
+                    Repository = await RepositoryUtility.GetRepository(repo.Id);
                 }
                 else
                 {
@@ -214,7 +212,7 @@ namespace CodeHub.ViewModels
                     ?? (_sourceCodeNavigate = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
 
                                           }));
             }
@@ -229,7 +227,7 @@ namespace CodeHub.ViewModels
                     ?? (_profileTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), Repository.Owner.Login);
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), Repository.Owner);
                                           }));
             }
         }
@@ -243,7 +241,7 @@ namespace CodeHub.ViewModels
                     ?? (_issuesTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(IssuesView), Repository);
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssuesView), Repository);
                                           }));
             }
         }
@@ -379,9 +377,11 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public void UserTapped(object sender, ItemClickEventArgs e)
+        public async void UserTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), ((RepositoryContributor)e.ClickedItem).Login);
+            User user = await UserUtility.GetUserInfo((e.ClickedItem as RepositoryContributor).Login);
+
+            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), user);
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

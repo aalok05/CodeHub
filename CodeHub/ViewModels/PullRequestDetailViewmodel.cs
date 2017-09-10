@@ -129,7 +129,7 @@ namespace CodeHub.ViewModels
                     ?? (_userTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), PullRequest.User.Login);
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), PullRequest.User);
                                           }));
             }
         }
