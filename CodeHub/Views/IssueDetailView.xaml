@@ -299,28 +299,25 @@
                                FontWeight="SemiBold"
                                Text="Edit Issue" />
                     <TextBox x:Uid="title"
-                             Margin="8"
+                             Margin="8 8 8 0"
                              IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                              Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
                              Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
-                    <TextBox x:Uid="body"
-                             Height="200"
-                             Margin="8"
-                             AcceptsReturn="True"
-                             IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                             Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                             Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
-                    <StackPanel Margin="8,8,8,16" Orientation="Horizontal">
-                        <Button x:Uid="save"
-                                Width="158"
-                                Margin="0,0,4,0"
-                                Background="{StaticResource AppPrimaryColorBrush}"
-                                Tapped="EditIssueSaved_Tapped" />
-                        <Button x:Uid="cancel"
-                                Width="158"
-                                Margin="4,0,0,0"
-                                Tapped="CancelEditIssue_Tapped" />
-                    </StackPanel>
+
+                    <usercontrol:MarkdownEditorControl x:Name="EditIssueMarkdownEditorControl"
+                                                       MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
+                                                       IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
+                    <Button x:Uid="save"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Tapped="EditIssueSaved_Tapped" />
+                    <Button x:Uid="cancel"
+                            Height="40"
+                            Style="{StaticResource ActionButtonStyle}"
+                            HorizontalAlignment="Stretch"
+                            Tapped="CancelEditIssue_Tapped" />
                 </StackPanel>
             </toolkitControl:DropShadowPanel>
         </Grid>
@@ -349,52 +346,18 @@
                 <StackPanel x:Name="CommentDialogPanel"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                             Orientation="Vertical">
-                    <Pivot Style="{StaticResource CustomPivotStyle}">
-                        <PivotItem Height="200" Margin="0">
-                            <PivotItem.Header>
-                                <TextBlock Margin="0 0 8 0"
-                                           FontSize="15"
-                                           Text="Write" />
-                            </PivotItem.Header>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <toolkitControl:TextToolbar x:Name="Toolbar"
-                                                            Grid.Row="0"
-                                                            Background="#4C4F4F4F"
-                                                            Editor="{Binding ElementName=EditZone}"
-                                                            Format="MarkDown"
-                                                            IsEnabled="True" />
-                                <RichEditBox x:Name="EditZone"
-                                             Grid.Row="1"
-                                             MinHeight="150"
-                                             BorderThickness="0"
-                                             TextChanged="EditZone_TextChanged"
-                                             TextWrapping="Wrap" />
-                            </Grid>
-
-                        </PivotItem>
-                        <PivotItem Height="200" Margin="0">
-                            <PivotItem.Header>
-                                <TextBlock FontSize="15" Text="Preview" />
-                            </PivotItem.Header>
-                            <toolkitControl:MarkdownTextBlock x:Name="Previewer"
-                                                              LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
-                                                              Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
-                        </PivotItem>
-                    </Pivot>
+                    
+                    <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.CommentText, Mode=TwoWay}"/>
                     <Button Height="40"
                             HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
                             Background="{StaticResource AppPrimaryColorBrush}"
                             Content="Comment"
-                            Style="{StaticResource ActionButtonStyle}"
                             Tapped="Comment_Tapped" />
                     <Button Height="40"
                             HorizontalAlignment="Stretch"
-                            Content="Cancel"
                             Style="{StaticResource ActionButtonStyle}"
+                            Content="Cancel"
                             Tapped="CancelComment_Tapped" />
                 </StackPanel>
             </toolkitControl:DropShadowPanel>

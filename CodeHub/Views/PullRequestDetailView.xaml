@@ -308,42 +308,8 @@
                 <StackPanel x:Name="CommentDialogPanel"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                             Orientation="Vertical">
-                    <Pivot Style="{StaticResource CustomPivotStyle}">
-                        <PivotItem Height="200" Margin="0">
-                            <PivotItem.Header>
-                                <TextBlock Margin="0 0 8 0"
-                                           FontSize="15"
-                                           Text="Write" />
-                            </PivotItem.Header>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <controls:TextToolbar x:Name="Toolbar"
-                                                      Grid.Row="0"
-                                                      Background="#4C4F4F4F"
-                                                      Editor="{Binding ElementName=EditZone}"
-                                                      Format="MarkDown"
-                                                      IsEnabled="True" />
-                                <RichEditBox x:Name="EditZone"
-                                             Grid.Row="1"
-                                             MinHeight="150"
-                                             BorderThickness="0"
-                                             TextChanged="EditZone_TextChanged"
-                                             TextWrapping="Wrap" />
-                            </Grid>
 
-                        </PivotItem>
-                        <PivotItem Height="200" Margin="0">
-                            <PivotItem.Header>
-                                <TextBlock FontSize="15" Text="Preview" />
-                            </PivotItem.Header>
-                            <controls:MarkdownTextBlock x:Name="Previewer"
-                                                        LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
-                                                        Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
-                        </PivotItem>
-                    </Pivot>
+                    <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.CommentText, Mode=TwoWay}"/>
                     <Button Height="40"
                             HorizontalAlignment="Stretch"
                             Background="{StaticResource AppPrimaryColorBrush}"

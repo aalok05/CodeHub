@@ -145,9 +145,9 @@ namespace CodeHub.Views
             await HeaderAnimationSemaphore.WaitAsync();
             if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
             {
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(0.7f, 0, TranslationAxis.Y, 0, -24, 160, null, null, EasingFunctionNames.Linear);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(0.7f, 0, TranslationAxis.Y, 0, -24, 150, null, null, EasingFunctionNames.Linear);
                 ViewModel.HeaderText = pageName.ToUpper();
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 0.7f, TranslationAxis.Y, 24, 0, 160, null, null, EasingFunctionNames.Linear);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 0.7f, TranslationAxis.Y, 24, 0, 150, null, null, EasingFunctionNames.Linear);
             }
             HeaderAnimationSemaphore.Release();
         }

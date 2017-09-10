@@ -44,7 +44,12 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <ListView x:Name="UnreadFeedListView"
+                              Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -125,14 +130,17 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
+                                  Grid.RowSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingUnread, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
+                               Grid.RowSpan="2"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Visibility="{x:Bind ViewModel.ZeroUnreadCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <CommandBar VerticalAlignment="Bottom"
+                                Grid.Row="1"
                                 DefaultLabelPosition="Right">
                         <AppBarButton x:Uid="refreshAppBarButton"
                                       Icon="Refresh"
@@ -157,7 +165,12 @@
                                Text="participating" />
                 </PivotItem.Header>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <ListView x:Name="ParticipatingFeedListView"
+                              Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
@@ -240,14 +253,17 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
+                                  Grid.RowSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsloadingParticipating, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
+                               Grid.RowSpan="2"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Visibility="{x:Bind ViewModel.ZeroParticipatingCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <CommandBar DefaultLabelPosition="Right"
+                                Grid.Row="1"
                                 VerticalAlignment="Bottom">
                         <AppBarButton x:Uid="refreshAppBarButton"
                                       Icon="Refresh"
@@ -265,8 +281,13 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <ListView x:Name="AllFeedListView"
                               IsItemClickEnabled="True"
+                              Grid.Row="0"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.AllNotifications, Mode=OneWay}"
@@ -348,15 +369,20 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
+                                  Grid.RowSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingAll, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
+                               Grid.RowSpan="2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
                                Visibility="{x:Bind ViewModel.ZeroAllCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <CommandBar DefaultLabelPosition="Right"
-                                VerticalAlignment="Bottom">
+                                VerticalAlignment="Bottom"
+                                Grid.Row="1">
                         <AppBarButton x:Uid="refreshAppBarButton"
                                       Icon="Refresh"
                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"

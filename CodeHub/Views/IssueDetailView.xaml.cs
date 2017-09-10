@@ -59,6 +59,8 @@ namespace CodeHub.Views
                 NavigationCacheMode = NavigationCacheMode.Disabled;
             }
 
+            ViewModel.NewIssueBodyText = ViewModel.NewIssueTitleText = string.Empty;
+
             await ToggleEditIssuePanelVisibility(false);
             await ToggleCommentDialogVisibility(false);
         }
@@ -122,11 +124,6 @@ namespace CodeHub.Views
             await ToggleCommentDialogVisibility(true);
         }
 
-        private void EditZone_TextChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            ViewModel.CommentText = Toolbar.Formatter?.Text;
-        }
-
         private async void CancelComment_Tapped(object sender, TappedRoutedEventArgs e)
         {
             await ToggleCommentDialogVisibility(false);
@@ -147,6 +144,7 @@ namespace CodeHub.Views
             {
                 ViewModel.NewIssueBodyText = ViewModel.Issue.Body;
                 ViewModel.NewIssueTitleText = ViewModel.Issue.Title;
+                EditIssueMarkdownEditorControl.SetMarkdowntext(ViewModel.NewIssueBodyText);
                 EditIssueDialog.SetVisualOpacity(0);
                 EditIssueDialog.Visibility = Visibility.Visible;
                 await EditIssueDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
@@ -165,7 +163,6 @@ namespace CodeHub.Views
                 CommentDialog.SetVisualOpacity(0);
                 CommentDialog.Visibility = Visibility.Visible;
                 await CommentDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-                EditZone.Focus(FocusState.Programmatic);
             }
             else
             {
