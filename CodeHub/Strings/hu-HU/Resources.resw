@@ -177,7 +177,7 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
-    <value>Load commit messages for files</value>
+    <value>Kommit szöveg megjelenítése fájloknál</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
     <value>Nincsenek hírek</value>
@@ -521,5 +521,69 @@
   </data>
   <data name="search_Reset.Text" xml:space="preserve">
     <value>Töröl</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>Általános</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>Alkalmazás preferenciák</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>Megjelenés</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>UI testreszabása</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>Fejlesztőről információ és kapcsolatteremtés vele</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value>Adományozás</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>Alkalmazás és a fejlesztő támogatása</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>Köszönöm a közreműködésed!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>Közreműködők</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>Névjegy</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>Újdonságok:</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Message" xml:space="preserve">
+    <value>Verzió  2.2.7
+
+• Dizájn javítás a Felkapottak menüpontban
+• Markdown támogatás hozzászólásokban és PR-okban
+• Hibajavítások és háttérbeli fejlesztések</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>Ha szeretnéd lefordítani a CodeHub-ot az anyanyelvedre, küldj nekem egy e-mailt!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>Kérlek támogass engem, illetve egyben tüntesd el a reklámokat (menj a Beállítások -&gt; Adományozás menüpontba)</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>Hozzászólás</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>Bezár</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>Nincs mit megjeleníteni</value>
   </data>
 </root>

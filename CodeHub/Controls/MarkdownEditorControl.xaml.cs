@@ -25,7 +25,7 @@ namespace CodeHub.Controls
         private void EditZone_TextChanged(object sender, RoutedEventArgs e)
         {
             MarkdownText = Toolbar.Formatter?.Text;
-            Previewer.Text = string.IsNullOrWhiteSpace(Toolbar.Formatter?.Text) ? "Nothing to Preview" : Toolbar.Formatter?.Text;
+            Previewer.Text = string.IsNullOrWhiteSpace(Toolbar.Formatter?.Text) ? new Windows.ApplicationModel.Resources.ResourceLoader().GetString("markdownComment_NoContent") : Toolbar.Formatter?.Text;
         }
 
         public async void MarkdownTextBlock_LinkClicked(object sender, LinkClickedEventArgs e)

@@ -224,12 +224,12 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button Grid.Row="2"
+                    <Button x:Uid="function_CommentCreate"
+                            Grid.Row="2"
                             Height="40"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
                             Background="{StaticResource AppPrimaryColorBrush}"
-                            Content="Comment"
                             Style="{StaticResource ActionButtonStyle}"
                             Tapped="CommentDialogOpen_Tapped" />
                     <ProgressRing Grid.Row="0"
@@ -348,16 +348,16 @@
                             Orientation="Vertical">
                     
                     <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.CommentText, Mode=TwoWay}"/>
-                    <Button Height="40"
+                    <Button x:Uid="function_CommentCreate"
+                            Height="40"
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource ActionButtonStyle}"
                             Background="{StaticResource AppPrimaryColorBrush}"
-                            Content="Comment"
                             Tapped="Comment_Tapped" />
-                    <Button Height="40"
+                    <Button x:Uid="function_CommentCancel"
+                            Height="40"
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource ActionButtonStyle}"
-                            Content="Cancel"
                             Tapped="CancelComment_Tapped" />
                 </StackPanel>
             </toolkitControl:DropShadowPanel>
