@@ -423,4 +423,49 @@
   <data name="newIssue.Text" xml:space="preserve">
     <value>Neues Problem</value>
   </data>
+  <data name="pageTitle_CommentView" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="pageTitle_FeedView" xml:space="preserve">
+    <value>News Feed</value>
+  </data>
+  <data name="pageTitle_IssueDetailView" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="pageTitle_IssuesView" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
+    <value>My Organizations</value>
+  </data>
+  <data name="pageTitle_MyReposView" xml:space="preserve">
+    <value>My Repositories</value>
+  </data>
+  <data name="pageTitle_NotificationsView" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
+    <value>Pull Request</value>
+  </data>
+  <data name="pageTitle_PullRequestsView" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="pageTitle_RepoDetailView" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="pageTitle_SearchView" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="pageTitle_SettingsView" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="pageTitle_TrendingView" xml:space="preserve">
+    <value>Trending</value>
+  </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Organization</value>
+  </data>
 </root>

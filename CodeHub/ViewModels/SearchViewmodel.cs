@@ -353,11 +353,11 @@ namespace CodeHub.ViewModels
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", e.ClickedItem as Repository);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), e.ClickedItem as Repository);
         }
         public void UserDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (e.ClickedItem as User).Login);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), e.ClickedItem as User);
         }
         public void CodeNavigate(object sender, ItemClickEventArgs e)
         {
@@ -378,7 +378,7 @@ namespace CodeHub.ViewModels
             string owner = array[3];
             string repo = array[4];
 
-            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView),"Issues", new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
         }
         private void ChangeVisibilityOfListViews(int selectedSearchItemIndex)
         {
