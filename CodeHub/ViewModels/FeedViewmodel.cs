@@ -196,6 +196,10 @@ namespace CodeHub.ViewModels
                     SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
                     break;
 
+                case "ForkEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), ((ForkEventPayload)activity.Payload).Forkee);
+                    break;
+
                 default:
                     SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), activity.Repo);
                     break;
