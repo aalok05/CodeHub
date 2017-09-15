@@ -34,9 +34,7 @@ namespace CodeHub.Views
         {
             ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
 
-            var repository = e.Parameter as Repository;
-
-            await ViewModel.Load(repository);
+            await ViewModel.Load(e.Parameter);
 
             MainPivot.SelectedItem = MainPivot.Items[0];
             ReadmeLoadingRing.IsActive = true;

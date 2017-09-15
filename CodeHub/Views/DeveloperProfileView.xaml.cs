@@ -21,7 +21,7 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await ViewModel.Load(e.Parameter as Octokit.User);
+            await ViewModel.Load(e.Parameter);
 
             if(ViewModel.Developer!= null)
             {

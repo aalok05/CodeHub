@@ -171,21 +171,22 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(Repository repo)
+        public async Task Load(object repo)
         {
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
             }
             else
             {
                 isLoading = true;
 
-                // this is an organization's Repo
-                if (repo.Owner == null)
+                if (repo is string s)
                 {
-                    Repository = await RepositoryUtility.GetRepository(repo.Id);
+                    //Splitting repository name and owner name
+                    var names = s.Split('/');
+                    Repository = await RepositoryUtility.GetRepository(names[0], names[1]);
                 }
                 else
                 {
@@ -198,7 +199,7 @@ namespace CodeHub.ViewModels
 
                 if (Repository.SubscribersCount == 0)
                     WatchersCount = (await RepositoryUtility.GetRepository(Repository.Id)).SubscribersCount;
-                
+
                 isLoading = false;
             }
         }
@@ -377,11 +378,9 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void UserTapped(object sender, ItemClickEventArgs e)
+        public void UserTapped(object sender, ItemClickEventArgs e)
         {
-            User user = await UserUtility.GetUserInfo((e.ClickedItem as RepositoryContributor).Login);
-
-            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), user);
+             SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), ((RepositoryContributor)e.ClickedItem).Login);
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

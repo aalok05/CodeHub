@@ -138,7 +138,7 @@ namespace CodeHub.Services
         {
             var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
-                 if (type == typeof(CommentView))
+            if (type == typeof(CommentView))
             {
                 return languageLoader.GetString("pageTitle_CommentView");
             }

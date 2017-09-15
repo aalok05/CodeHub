@@ -173,7 +173,7 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
-        public async Task Load(User user)
+        public async Task Load(object user)
         {
             if (!GlobalHelper.IsInternet())
             {
@@ -183,28 +183,38 @@ namespace CodeHub.ViewModels
             else
             {
                 isLoading = true;
-
-                Developer = user;
-
-                if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
+                if (user is string login)
                 {
-                    CanFollow = false;
+                    if (!string.IsNullOrWhiteSpace(login))
+                    {
+                        Developer = await UserUtility.GetUserInfo(login);
+                    }
                 }
                 else
                 {
-                    CanFollow = true;
-                    FollowProgress = true;
-                    if (await UserUtility.CheckFollow(Developer.Login))
-                    {
-                        IsFollowing = true;
-                    }
-                    FollowProgress = false;
+                    Developer = user as User;
                 }
+                if (Developer != null)
+                {
+                    if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
+                    {
+                        CanFollow = false;
+                    }
+                    else
+                    {
+                        CanFollow = true;
+                        FollowProgress = true;
+                        if (await UserUtility.CheckFollow(Developer.Login))
+                        {
+                            IsFollowing = true;
+                        }
+                        FollowProgress = false;
+                    }
 
-                IsEventsLoading = true;
-                Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
-                IsEventsLoading = false;
-
+                    IsEventsLoading = true;
+                    Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
+                    IsEventsLoading = false;
+                }
                 isLoading = false;
             }
         }
