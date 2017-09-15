@@ -222,6 +222,9 @@
     <Compile Include="Controls\LabelListItem.xaml.cs">
       <DependentUpon>LabelListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MarkdownEditorControl.xaml.cs">
+      <DependentUpon>MarkdownEditorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OrganizationListItem.xaml.cs">
       <DependentUpon>OrganizationListItem.xaml</DependentUpon>
     </Compile>
@@ -459,6 +462,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LabelListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MarkdownEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

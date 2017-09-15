@@ -90,7 +90,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all,\nHere's the changelog for v 2.2.5\n\n\x2022 Design improvements \n\x2022 Implemented infinite scrolling in News Feed, Issues, PRs and Trending \n\x2022 Reduced network usage ";
+                return "Hi all,\nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs \n\x2022 Bug fixes and under the hood improvements";
             }
         }
         #endregion
@@ -107,13 +107,14 @@ namespace CodeHub.ViewModels
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
-        public void Navigate(Type pageType, string pageTitle)
+        public void Navigate(Type pageType)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(pageType, pageTitle, User);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(pageType, User);
         }
+
         public void GoBack()
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().GoBackAsync();
         }
 
         public void UpdateUnreadNotificationIndicator(bool IsUnread)
@@ -137,26 +138,36 @@ namespace CodeHub.ViewModels
         {
             try
             {
-                StoreContext WindowsStore = StoreContext.GetDefault();
-
-                string[] productKinds = { "Durable" };
-                List<String> filterList = new List<string>(productKinds);
-
-                StoreProductQueryResult queryResult = await WindowsStore.GetUserCollectionAsync(filterList);
-
-                if (queryResult.ExtendedError != null)
+                if (SettingsService.Get<bool>(SettingsKeys.HasUserDonated))
                 {
-                    return false;
+                    return true;
                 }
-
-                foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
+                else
                 {
-                    if (item.Value != null)
+                    StoreContext WindowsStore = StoreContext.GetDefault();
+
+                    string[] productKinds = { "Durable" };
+                    List<String> filterList = new List<string>(productKinds);
+
+                    StoreProductQueryResult queryResult = await WindowsStore.GetUserCollectionAsync(filterList);
+
+                    if (queryResult.ExtendedError != null)
                     {
-                        if (item.Value.IsInUserCollection)
-                            return true;
+                        return false;
                     }
-                    return false;
+
+                    foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
+                    {
+                        if (item.Value != null)
+                        {
+                            if (item.Value.IsInUserCollection)
+                            {
+                                SettingsService.Save(SettingsKeys.HasUserDonated, true, true);
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
                 }
 
                 return false;

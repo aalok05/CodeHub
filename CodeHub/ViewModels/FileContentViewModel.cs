@@ -260,7 +260,7 @@ namespace CodeHub.ViewModels
                     ?? (_repoDetailNavigateCommand = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", Repository);
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), Repository);
                                           }));
             }
         }
