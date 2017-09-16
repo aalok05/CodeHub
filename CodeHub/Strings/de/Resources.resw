@@ -547,7 +547,7 @@
     <value>Developer info and contacts</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
-    <value> Donate</value>
+    <value>Donate</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
     <value>Support the app and the developer</value>

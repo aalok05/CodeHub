@@ -541,7 +541,7 @@
     <value>UI customization</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
-    <value> Donate</value>
+    <value>Donate</value>
   </data>
   <data name="menu_Settings_SubMenu_About" xml:space="preserve">
     <value>About</value>
