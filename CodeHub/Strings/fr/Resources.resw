@@ -423,4 +423,58 @@
   <data name="newIssue.Text" xml:space="preserve">
     <value>Nouveau Problème</value>
   </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>a second ago</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>seconds ago</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>a minute ago</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>hours ago</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>a day ago</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>days ago</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>a month ago</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>months ago</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>a year ago</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>years ago</value>
+  </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>Quoi de neuf dans cette version ?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>Developpé by Aalok Singh</value>
+  </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Faites n'importe quel don pour activer l'option permettant de desactiver les pubs.</value>
+  </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>Faire un don à CodeHub sur Patreon</value>
+  </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>Toutes les langues</value>
+    </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Reset</value>
+  </data>
 </root>
