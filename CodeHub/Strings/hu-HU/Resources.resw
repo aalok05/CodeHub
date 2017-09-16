@@ -579,4 +579,7 @@
   <data name="markdownComment_NoContent" xml:space="preserve">
     <value>Nincs mit megjeleníteni</value>
   </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>Nincs internetkapcsolat</value>
+  </data>
 </root>

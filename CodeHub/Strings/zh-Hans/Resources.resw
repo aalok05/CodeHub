@@ -579,4 +579,7 @@
   <data name="markdownComment_Write.Text" xml:space="preserve">
     <value>Write</value>
   </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>No Internet</value>
+  </data>
 </root>

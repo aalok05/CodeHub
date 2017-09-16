@@ -579,4 +579,7 @@
   <data name="markdownComment_NoContent" xml:space="preserve">
     <value>Nothing to Preview</value>
   </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>No Internet</value>
+  </data>
 </root>
