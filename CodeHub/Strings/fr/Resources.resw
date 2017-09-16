@@ -163,6 +163,17 @@
     <value>Donner 0.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>What's new?</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Message" xml:space="preserve">
+    <value>Hi all,
+Here's the changelog for v 2.2.7
+
+• Design improvements in Trending Page
+• Added full Markdown support for commenting on Issues and PRs
+• Bug fixes and under the hood improvements</value>
+  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>S'abonner</value>
   </data>
@@ -423,6 +434,60 @@
   <data name="newIssue.Text" xml:space="preserve">
     <value>Nouveau Problème</value>
   </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>one second ago</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>seconds ago</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>a minute ago</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>hours ago</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>a day ago</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>days ago</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>one month ago</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>months ago</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>one year ago</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>years ago</value>
+  </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>What's new in this version?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>Developed by Aalok Singh</value>
+  </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Make any donation to enable the option to disable ads.</value>
+  </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>Donate to CodeHub on Patreon</value>
+  </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Reset</value>
+  </data>
   <data name="pageTitle_CommentView" xml:space="preserve">
     <value>Comment</value>
   </data>
@@ -467,5 +532,59 @@
   </data>
   <data name="pageTitle_OrganizationView" xml:space="preserve">
     <value>Organization</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>App preferences</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>UI customization</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value> Donate</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>Thanks for your contributions!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>Support the app and the developer</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>Developer info and contacts</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>If you'd like to translate CodeHub into your language, be sure to send me an email!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>Please make a donation to help me support myself, by going to Settings -&gt; Donate. Also get rid of the ads!</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>Commenter</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>Nothing to Preview</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>Write</value>
   </data>
 </root>

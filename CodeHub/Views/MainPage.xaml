@@ -303,11 +303,11 @@
                                             <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
                                                         Symbol="Setting" />
                                         </Viewbox>
-                                        <TextBlock Margin="24 0 0 0"
+                                        <TextBlock x:Uid="menuName_Settings"
+                                                   Margin="24 0 0 0"
                                                    FontSize="13"
                                                    VerticalAlignment="Center"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                   Text="Settings" />
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>
@@ -481,7 +481,7 @@
                          FontSize="18"
                          FontWeight="SemiBold"
                          Foreground="{StaticResource AppPrimaryColorBrush}"/> 
-                    <Run Text="What's new?"
+                    <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew"
                          FontSize="20"
                          FontWeight="SemiBold"/>
                 </TextBlock>
@@ -505,12 +505,12 @@
                              Text="&#x0a;&#x0a;&#xE775; "
                              FontSize="17"
                              Foreground="Green"/> 
-                        <Run Text="If you'd like to translate CodeHub into your language, be sure to send me an email!"/>
+                        <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew_TranslateApp"/>
                         <Run FontFamily="Segoe MDL2 Assets"
                              Text="&#x0a;&#x0a;&#xE170; "
                              FontSize="17"
                              Foreground="Yellow"/> 
-                        <Run Text="Please make a donation to help me support myself, by going to Settings -> Donate. Also get rid of the ads!"/>
+                        <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew_Donate"/>
                     </TextBlock>
                 </ScrollViewer>
             </Grid>
