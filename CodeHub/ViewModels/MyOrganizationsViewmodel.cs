@@ -48,12 +48,7 @@ namespace CodeHub.ViewModels
 
         public async Task Load()
         {
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 if (User != null)
                 {

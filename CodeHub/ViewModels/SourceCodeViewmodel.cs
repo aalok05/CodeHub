@@ -77,12 +77,7 @@ namespace CodeHub.ViewModels
         public async Task Load(Repository repo)
         {
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
                 if (repo != Repository)

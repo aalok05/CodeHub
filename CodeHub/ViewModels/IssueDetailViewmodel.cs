@@ -171,12 +171,7 @@ namespace CodeHub.ViewModels
                 }
             }
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 if (Repository != null)
                 {

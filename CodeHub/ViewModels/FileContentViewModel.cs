@@ -156,12 +156,7 @@ namespace CodeHub.ViewModels
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
 

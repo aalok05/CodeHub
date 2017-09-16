@@ -175,12 +175,7 @@ namespace CodeHub.ViewModels
 
         public async Task Load(object user)
         {
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
                 if (user is string login)

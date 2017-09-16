@@ -31,12 +31,6 @@ namespace CodeHub.ViewModels
         public void Load(IssueComment comment)
         {
             Comment = comment;
-
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-            }
         }
 
         private RelayCommand _userTapped;
