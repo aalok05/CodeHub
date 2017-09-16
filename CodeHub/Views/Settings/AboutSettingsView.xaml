@@ -51,12 +51,12 @@
                 <Run Text="{x:Bind ViewModel.Version}" />
             </TextBlock>
             <TextBlock x:Name="creatorText"
+                       x:Uid="creatorText"
                        Margin="0,0,0,12"
                        FontSize="16"
                        FontWeight="Light"
                        RelativePanel.Below="versionText"
-                       RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       Text="Developed by Aalok Singh" />
+                       RelativePanel.AlignHorizontalCenterWithPanel="True" />
             <TextBlock x:Name="disclaimerText"
                        x:Uid="disclaimer"
                        Margin="0,0,0,12"
@@ -67,9 +67,9 @@
                        RelativePanel.Below="creatorText" />
 
             <Button x:Name="WhatsNewButton"
+                    x:Uid="WhatsNewButton"
                     Padding="8"
                     Command="{x:Bind ViewModel.ShoWWhatsNewCommand}"
-                    Content="What's new in this version?"
                     FontSize="15"
                     RelativePanel.AlignHorizontalCenterWithPanel="True"
                     RelativePanel.Below="disclaimerText"

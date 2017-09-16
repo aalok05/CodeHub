@@ -56,7 +56,8 @@
                          Margin="0 0 4 0">
                     <SymbolIcon Symbol="Refresh" Opacity="0.7"/>
                 </Viewbox>
-                <TextBlock Text="Reset" Opacity="0.7"/>
+                <TextBlock x:Uid="search_Reset"
+                           Opacity="0.7"/>
             </StackPanel>
         </Button>
         <StackPanel Grid.Row="1"
@@ -67,7 +68,7 @@
             <control:AnimatedComboBox ItemsSource="{x:Bind ViewModel.AvailableLanguages,Mode=OneWay}"
                                       FontSize="13"
                                       Margin="0 0 8 0"
-                                      PlaceholderText="All Languages"
+                                      x:Uid="search_FilterByLanguage"
                                       Opacity="0.7"
                                       SelectionChanged="{x:Bind ViewModel.Language_SelectionChanged}"
                                       SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex,Mode=TwoWay}"

@@ -90,7 +90,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all,\nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs \n\x2022 Bug fixes and under the hood improvements";
+                return "Hi all! \nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs ";
             }
         }
         #endregion

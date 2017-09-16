@@ -12,9 +12,9 @@
     <Pivot Style="{StaticResource CustomPivotStyle}">
         <PivotItem Height="200" Margin="0">
             <PivotItem.Header>
-                <TextBlock Margin="0,0,8,0"
-                           FontSize="15"
-                           Text="Write" />
+                <TextBlock x:Uid="markdownComment_Write"
+                           Margin="0,0,8,0"
+                           FontSize="15" />
             </PivotItem.Header>
             <Grid>
                 <Grid.RowDefinitions>
@@ -38,8 +38,8 @@
         </PivotItem>
         <PivotItem Height="200" Margin="0">
             <PivotItem.Header>
-                <TextBlock FontSize="15" 
-                           Text="Preview" />
+                <TextBlock x:Uid="markdownComment_Preview"
+                           FontSize="15" />
             </PivotItem.Header>
             <ScrollViewer VerticalScrollMode="Enabled">
                 <toolkitControl:MarkdownTextBlock x:Name="Previewer"

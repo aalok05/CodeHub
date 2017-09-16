@@ -44,7 +44,7 @@
                        Foreground="Gray"
                        TextWrapping="Wrap"
                        Visibility="{x:Bind ViewModel.CanDisableAds,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
-                       Text="Make any donation to enable the option to disable ads."/>
+                       x:Uid="addDisable" />
             
             <ToggleSwitch Margin="0,8,0,0"
                           IsEnabled="{x:Bind ViewModel.CanDisableAds,Mode=OneWay}"
