@@ -582,4 +582,52 @@
   <data name="notification_NoInternetConnection" xml:space="preserve">
     <value>No Internet</value>
   </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>commented on issue #{0} in</value>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>commented on PR #{0}</value>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>commented on commit in</value>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>pushed {0} commits to</value>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>deleted in</value>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>created in</value>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>forked</value>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>starred</value>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>acted on</value>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>published a release to</value>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>open sourced</value>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>opened</value>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} PR #{1}</value>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>closed</value>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>reopened</value>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} issue #{1} in</value>
+  </data>
 </root>

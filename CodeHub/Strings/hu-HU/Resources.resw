@@ -161,7 +161,7 @@
   </data>
   <data name="firstDonateTierAmount.Content" xml:space="preserve">
     <value>Adományozz $0.99-t</value>
-    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+    <comment>Maradjon az érték $-ban, mert az IAP felugró ablak már a felhasználó helyi valutáját fogja mutatni.</comment>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Követés</value>
@@ -174,7 +174,7 @@
   </data>
   <data name="fourthDonateTierAmount.Content" xml:space="preserve">
     <value>Adományozz $9.99-t</value>
-    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+    <comment>Maradjon az érték $-ban, mert az IAP felugró ablak már a felhasználó helyi valutáját fogja mutatni.</comment>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
     <value>Kommit szöveg megjelenítése fájloknál</value>
@@ -193,7 +193,7 @@
   </data>
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
     <value>Adományozz $2.99-t</value>
-    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+    <comment>Maradjon az érték $-ban, mert az IAP felugró ablak már a felhasználó helyi valutáját fogja mutatni.</comment>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
     <value>Sorszámozás bekapcsolása</value>
@@ -206,7 +206,7 @@
   </data>
   <data name="thirdDonateTierAmount.Content" xml:space="preserve">
     <value>Adományozz $4.99-t</value>
-    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+    <comment>Maradjon az érték $-ban, mert az IAP felugró ablak már a felhasználó helyi valutáját fogja mutatni.</comment>
   </data>
   <data name="unfollowButton.Content" xml:space="preserve">
     <value>Leiratkozás</value>
@@ -241,16 +241,16 @@
     <value>Hírek</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>Nincs lezárt Probléma</value>
+    <value>Nincs lezárt Issue</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>Nincsenek Problémák</value>
+    <value>Nincsenek Issue-k</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
     <value>Nincs új értesítés</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>Nincs probléma</value>
+    <value>Nincs Issue</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
     <value>Még nincsenek szervezetek. Titlsa le a 3. féltől származó alkalmazásokat korlátozó beállítást.</value>
@@ -270,7 +270,7 @@
     <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="organizations.Text" xml:space="preserve">
-    <value>Organizations</value>
+    <value>Szervezetek</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
     <value>fontos</value>
@@ -337,7 +337,7 @@
   </data>
   <data name="creator.Text" xml:space="preserve">
     <value>Fejlesztő</value>
-    <comment>Maker of the app</comment>
+    <comment>Az alkalmazás készítője</comment>
   </data>
   <data name="translator.Text" xml:space="preserve">
     <value>Fordítók</value>
@@ -373,7 +373,7 @@
     <value>előzményei</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
-    <value>Pull Requests</value>
+    <value>Pull Request-ek</value>
   </data>
   <data name="readme.Text" xml:space="preserve">
     <value>README</value>
@@ -382,7 +382,7 @@
     <value>KÖZREMŰKÖDŐK</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>RELEAS-ek</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
     <value>Nincs lezárt Pull Request</value>
@@ -391,10 +391,10 @@
     <value>Nincs nyitott Pull Request</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
-    <value>commited</value>
+    <value>Kommit-olt</value>
   </data>
   <data name="commits.Text" xml:space="preserve">
-    <value>Commits</value>
+    <value>Kommit-ok</value>
   </data>
   <data name="contacts.Text" xml:space="preserve">
     <value>Kapcsolat</value>
@@ -421,7 +421,7 @@
     <value>Értesítések gyakori keresése</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
-    <value>Új Probléma</value>
+    <value>Új Issue</value>
   </data>
   <data name="pageTitle_CommentView" xml:space="preserve">
     <value>Hozzászólás</value>
@@ -433,10 +433,10 @@
     <value>Hírfolyam</value>
   </data>
   <data name="pageTitle_IssueDetailView" xml:space="preserve">
-    <value>Probléma</value>
+    <value>Issue</value>
   </data>
   <data name="pageTitle_IssuesView" xml:space="preserve">
-    <value>Problémák</value>
+    <value>Issue-k</value>
   </data>
   <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
     <value>Saját Szervezeteim</value>
@@ -470,39 +470,51 @@
   </data>
   <data name="aSecondAgo" xml:space="preserve">
     <value>egy másodperccel ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="secondsAgo" xml:space="preserve">
     <value>másodperccel ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="aMinuteAgo" xml:space="preserve">
     <value>egy perccel ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="minutesAgo" xml:space="preserve">
     <value>perccel ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="anHourAgo" xml:space="preserve">
     <value>egy órával ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="hoursAgo" xml:space="preserve">
     <value>órával ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="aDayAgo" xml:space="preserve">
     <value>egy nappal ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="daysAgo" xml:space="preserve">
     <value>nappal ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
     <value>egy hónappal ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="monthsAgo" xml:space="preserve">
     <value>hónappal ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="aYearAgo" xml:space="preserve">
     <value>egy évvel ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="yearsAgo" xml:space="preserve">
     <value>évvel ezelőtt</value>
+    <comment>TimeAgoConverter fordítása.</comment>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
     <value>Verzió újdonságainak megtekintése</value>
@@ -581,5 +593,69 @@
   </data>
   <data name="notification_NoInternetConnection" xml:space="preserve">
     <value>Nincs internetkapcsolat</value>
+  </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>hozzászólt egy Issue-hoz (#{0}) az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>hozzászólt az alábbi PR-hoz: #{0}</value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>hozzászólt egy Kommit-hoz az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>törölt egy Branch-et az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>hozzáadott {0} Kommit-ot az alábbi Repository-hoz: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>létrehozott egy Branch-et az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>Fork-olta az alábbi Repository-t: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>megcsillagozta az alábbi Repository-t: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>tevékenykedett az alábbi Repository-n: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>publikált egy Release-t az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>nyílt forráskódúvá tette az alábbi Repository-ját: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>újranyitott</value>
+    <comment>GitHub felhasználó előzményeinek segéd fordítása.</comment>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>elindított</value>
+    <comment>GitHub felhasználó előzményeinek segéd fordítása.</comment>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>lezárt</value>
+    <comment>GitHub felhasználó előzményeinek segéd fordítása.</comment>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} egy Issue-t ( #{1}) az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} egy PR-t (#{1}) az alábbi Repository-ban: </value>
+    <comment>GitHub felhasználó előzményeinek fordítása.</comment>
   </data>
 </root>
