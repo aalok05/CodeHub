@@ -166,14 +166,6 @@
   <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
     <value>What's new?</value>
   </data>
-  <data name="menu_Settings_SubMenu_About_WhatsNew_Message" xml:space="preserve">
-    <value>Hi all,
-Here's the changelog for v 2.2.7
-
-• Design improvements in Trending Page
-• Added full Markdown support for commenting on Issues and PRs
-• Bug fixes and under the hood improvements</value>
-  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>关注TA</value>
   </data>

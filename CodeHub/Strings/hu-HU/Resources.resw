@@ -558,13 +558,6 @@
   <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
     <value>Újdonságok:</value>
   </data>
-  <data name="menu_Settings_SubMenu_About_WhatsNew_Message" xml:space="preserve">
-    <value>Verzió  2.2.7
-
-• Dizájn javítás a Felkapottak menüpontban
-• Markdown támogatás hozzászólásokban és PR-okban
-• Hibajavítások és háttérbeli fejlesztések</value>
-  </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
     <value>Ha szeretnéd lefordítani a CodeHub-ot az anyanyelvedre, küldj nekem egy e-mailt!</value>
   </data>

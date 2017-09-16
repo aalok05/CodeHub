@@ -90,8 +90,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-
-                return new Windows.ApplicationModel.Resources.ResourceLoader().GetString("menu_Settings_SubMenu_About_WhatsNew_Message");
+                return "Hi all! \nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs ";
             }
         }
         #endregion
