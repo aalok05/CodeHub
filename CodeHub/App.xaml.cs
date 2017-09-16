@@ -1,5 +1,4 @@
 ﻿using CodeHub.Views;
-using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -12,6 +11,7 @@ using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
+using Windows.System;
 
 namespace CodeHub
 {
@@ -81,13 +81,48 @@ namespace CodeHub
             }
         }
 
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected async override void OnActivated(IActivatedEventArgs args)
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                // TODO: Handle URI activation
-                // The received URI is eventArgs.Uri.AbsoluteUri
+                if(await AuthService.checkAuth())
+                {
+                    ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+                    if (eventArgs.PreviousExecutionState == ApplicationExecutionState.Running)
+                    {
+                        switch (eventArgs.Uri.Host)
+                        {
+                            case "repository":
+                                await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+                                break;
+
+                            case "user":
+                                break;
+
+                            case "issue":
+                                break;
+                        }
+
+                    }
+                    else if (eventArgs.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: Activate window
+
+                        switch (eventArgs.Uri.Host)
+                        {
+                            case "repository":
+                                await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+                                break;
+
+                            case "user":
+                                break;
+
+                            case "issue":
+                                break;
+                        }
+                    }
+                }
             }
         }
 
