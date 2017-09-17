@@ -64,6 +64,11 @@
                        VerticalAlignment="Center"
                        FontSize="13"
                        Text="PoLáKoSz Tom" />
+            <TextBlock x:Name="contributorName7"
+                       Margin="0 4 8 0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Darkpingouin"/>
             <TextBlock x:Name="translatorsText"
                        x:Uid="translator"
                        Margin="0,12,0,4"
