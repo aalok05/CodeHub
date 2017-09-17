@@ -93,7 +93,9 @@ namespace CodeHub.ViewModels
         }
         public void OrganizationDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Organization", (e.ClickedItem as Organization).Login);
+            var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), languageLoader.GetString("pageTitle_OrganizationView"), (e.ClickedItem as Organization).Login);
         }
 
         public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)

@@ -145,41 +145,79 @@ namespace CodeHub.Helpers
             var ts = new TimeSpan(DateTime.Now.Ticks - dt.Ticks);
             double delta = Math.Abs(ts.TotalSeconds);
 
+            var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        
             if (delta < 60)
             {
-                return ts.Seconds == 1 ? "one second ago" : ts.Seconds + " seconds ago";
+                if (ts.Seconds == 1)
+                {
+                    return languageLoader.GetString("aSecondAgo");
+                }
+                else
+                {
+                    return string.Format("{0} {1}",
+                         ts.Seconds,
+                         languageLoader.GetString("secondsAgo"));
+                }
             }
             if (delta < 120)
             {
-                return "a minute ago";
+                return languageLoader.GetString("aMinuteAgo");
             }
             if (delta < 2700) // 45 * 60
             {
-                return ts.Minutes + " minutes ago";
+                return string.Format("{0} {1}",
+                    ts.Minutes,
+                    languageLoader.GetString("minutesAgo"));
             }
             if (delta < 5400) // 90 * 60
             {
-                return "an hour ago";
+                return languageLoader.GetString("anHourAgo");
             }
             if (delta < 86400) // 24 * 60 * 60
             {
-                return ts.Hours + " hours ago";
+                return string.Format("{0} {1}",
+                    ts.Hours,
+                    languageLoader.GetString("hoursAgo"));
             }
             if (delta < 172800) // 48 * 60 * 60
             {
-                return "a day ago";
+                return languageLoader.GetString("aDayAgo");
             }
             if (delta < 2592000) // 30 * 24 * 60 * 60
             {
-                return ts.Days + " days ago";
+                return string.Format("{0} {1}",
+                    ts.Days,
+                    languageLoader.GetString("daysAgo"));
             }
             if (delta < 31104000) // 12 * 30 * 24 * 60 * 60
             {
                 int months = System.Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                return months <= 1 ? "one month ago" : months + " months ago";
+
+                if (months <= 1)
+                {
+                    return languageLoader.GetString("oneMonthAgo");
+                }
+                else
+                {
+                    return string.Format("{0} {1}",
+                        months,
+                        languageLoader.GetString("monthsAgo"));
+                }
             }
+
             int years = System.Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-            return years <= 1 ? "one year ago" : years + " years ago";
+
+            if (years <= 1)
+            {
+                return languageLoader.GetString("oneYearAgo");
+            }
+            else
+            {
+                return string.Format("{0} {1}",
+                    years,
+                    languageLoader.GetString("yearsAgo"));
+            }
         }
     }
 

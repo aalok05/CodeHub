@@ -201,40 +201,42 @@ namespace CodeHub.ViewModels
 
         public SettingsViewModel()
         {
+            var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
             Settings = new ObservableCollection<SettingsItem>()
             {
                 new SettingsItem()
                 {
-                    MainText = "General",
-                    SubText = "App preferences",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_General"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_General_SubText"),
                     GlyphString = "\xEC7A",
                     DestPage = typeof(GeneralSettingsView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "Appearance",
-                    SubText = "UI customization",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_Appearance"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_Appearance_SubText"),
                     GlyphString = "\xE7F4",
                     DestPage = typeof(AppearanceView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "About",
-                    SubText = "Developer info and contacts",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_About"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_About_SubText"),
                     GlyphString = "\xE7BE",
                     DestPage = typeof(AboutSettingsView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "Donate",
-                    SubText = "Support the app and the developer",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_Donate"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_Donate_SubText"),
                     GlyphString = "\xE170",
                     DestPage = typeof(DonateView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "Credits",
-                    SubText = "Thanks for your contributions!",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_Credits"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_Credits_SubText"),
                     GlyphString = "\xE006",
                     DestPage = typeof(CreditSettingsView)
                 }

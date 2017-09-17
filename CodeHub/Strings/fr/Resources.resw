@@ -163,6 +163,9 @@
     <value>Donner 0.99$</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>What's new?</value>
+  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>S'abonner</value>
   </data>
@@ -424,7 +427,7 @@
     <value>Nouveau Problème</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
-    <value>a second ago</value>
+    <value>one second ago</value>
   </data>
   <data name="secondsAgo" xml:space="preserve">
     <value>seconds ago</value>
@@ -448,13 +451,13 @@
     <value>days ago</value>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
-    <value>a month ago</value>
+    <value>one month ago</value>
   </data>
   <data name="monthsAgo" xml:space="preserve">
     <value>months ago</value>
   </data>
   <data name="aYearAgo" xml:space="preserve">
-    <value>a year ago</value>
+    <value>one year ago</value>
   </data>
   <data name="yearsAgo" xml:space="preserve">
     <value>years ago</value>
@@ -476,5 +479,104 @@
     </data>
   <data name="search_Reset.Text" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="pageTitle_CommentView" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="pageTitle_FeedView" xml:space="preserve">
+    <value>News Feed</value>
+  </data>
+  <data name="pageTitle_IssueDetailView" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="pageTitle_IssuesView" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
+    <value>My Organizations</value>
+  </data>
+  <data name="pageTitle_MyReposView" xml:space="preserve">
+    <value>My Repositories</value>
+  </data>
+  <data name="pageTitle_NotificationsView" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
+    <value>Pull Request</value>
+  </data>
+  <data name="pageTitle_PullRequestsView" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="pageTitle_RepoDetailView" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="pageTitle_SearchView" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="pageTitle_SettingsView" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="pageTitle_TrendingView" xml:space="preserve">
+    <value>Trending</value>
+  </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>App preferences</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>UI customization</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>Thanks for your contributions!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>Support the app and the developer</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>Developer info and contacts</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>If you'd like to translate CodeHub into your language, be sure to send me an email!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>Please make a donation to help me support myself, by going to Settings -&gt; Donate. Also get rid of the ads!</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>Commenter</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>Nothing to Preview</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>Write</value>
   </data>
 </root>
