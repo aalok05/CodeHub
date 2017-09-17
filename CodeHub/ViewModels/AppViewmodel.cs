@@ -90,7 +90,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs ";
+                return "Hi all! \nHere's the changelog for v 2.3.0\n\n\x2022 Improved Translation in German, French, Portuguese and Hungarian throughout the app. Thanks to all the Translators! \n\x2022 Tapping on a Fork event in News Feed now takes you to the fork and not the parent repo \n\x2022 You can now launch CodeHub using custom URIs in Edge \n\nExample: \ncodehub://repository/owner_name/repo_name \ncodehub://user/user_login";
             }
         }
         #endregion
