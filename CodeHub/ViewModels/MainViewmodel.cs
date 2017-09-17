@@ -16,12 +16,14 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using CodeHub.Controls;
+using Windows.ApplicationModel.Activation;
 
 namespace CodeHub.ViewModels
 {
     public class MainViewmodel : AppViewmodel 
     {
         #region properties
+        public IActivatedEventArgs activatedEventArgs;
 
         private string _headerText;
         public string HeaderText
@@ -81,8 +83,9 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
-        public MainViewmodel()
+        public MainViewmodel(IActivatedEventArgs args)
         {
+            activatedEventArgs = args;
             var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
             var trendingSymbol = "<Geometry xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">F0 M12,16z M0,0z M5.05,0.31C5.86,2.48 5.46,3.69 4.53,4.62 3.55,5.67 1.98,6.45 0.9,7.98 -0.55,10.03 -0.8,14.51 4.43,15.68 2.23,14.52 1.76,11.16 4.13,9.07 3.52,11.1 4.66,12.4 6.07,11.93 7.46,11.46 8.37,12.46 8.34,13.6 8.32,14.38 8.03,15.04 7.21,15.41 10.63,14.82 11.99,11.99 11.99,9.85 11.99,7.01 9.46,6.63 10.74,4.24 9.22,4.37 8.71,5.37 8.85,6.99 8.94,8.07 7.83,8.79 6.99,8.32 6.32,7.91 6.33,7.13 6.93,6.54 8.18,5.31 8.68,2.45 5.05,0.32L5.03,0.3 5.05,0.31z</Geometry>";
@@ -170,20 +173,44 @@ namespace CodeHub.ViewModels
 
         #endregion
 
-        public async Task Initialize(CustomFrame frame)
+        public async Task Initialize()
         {
-            SimpleIoc.Default.Register<IAsyncNavigationService>(() => { return new NavigationService(frame); });
-            SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
-
             isLoggedin = await AuthService.checkAuth();
             await Load();
+
+            if (isLoggedin)
+            {
+                if(activatedEventArgs != null)
+                {
+                    ProtocolActivatedEventArgs eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
+
+                    switch (eventArgs.Uri.Host.ToLower())
+                    {
+                        case "repository":
+                            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+                            break;
+
+                        case "user":
+                            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
+                            break;
+
+                    }
+                }
+                else
+                {
+                    await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView));
+                }
+
+                if (IsInternet())
+                    await CheckForUnreadNotifications();
+            }
 
             await ConfigureAdsVisibility();
         }
 
         public async Task Load()
         {
-            GlobalHelper.GithubClient = await UserUtility.GetAuthenticatedClient();
+            GithubClient = await UserUtility.GetAuthenticatedClient();
 
             if (IsInternet())
             {
@@ -203,7 +230,7 @@ namespace CodeHub.ViewModels
             {
                 isLoggedin = false;
                 User = null;
-                Messenger.Default.Send<GlobalHelper.SignOutMessageType>(new SignOutMessageType());
+                Messenger.Default.Send(new SignOutMessageType());
                 HamItemClicked(HamItems[0]);
             }
             isLoading = false;
@@ -319,16 +346,6 @@ namespace CodeHub.ViewModels
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(FeedView))
             {
                 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView));
-            }
-        }
-
-        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
-            if (service != null && !e.Handled)
-            {
-                e.Handled = true;
-                service.GoBackAsync();
             }
         }
     }

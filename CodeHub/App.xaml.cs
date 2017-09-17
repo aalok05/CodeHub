@@ -12,6 +12,7 @@ using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
 using Windows.System;
+using System.Threading.Tasks;
 
 namespace CodeHub
 {
@@ -54,7 +55,7 @@ namespace CodeHub
             {
                 if (Window.Current.Content == null)
                 {
-                    Window.Current.Content = new MainPage();
+                    Window.Current.Content = new MainPage(null);
                 }
 
                 if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
@@ -72,7 +73,6 @@ namespace CodeHub
                         (Color)App.Current.Resources["SystemChromeLowColor"];
                          
                         titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
-                        
                     }
                 }
 
@@ -85,46 +85,61 @@ namespace CodeHub
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                if(await AuthService.checkAuth())
+                if(args.PreviousExecutionState == ApplicationExecutionState.Running)
                 {
-                    ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                    await HandleProtocolActivationArguments(args);
+                }
+                else
+                {
+                    if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
+                        XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
 
-                    if (eventArgs.PreviousExecutionState == ApplicationExecutionState.Running)
+                    if (Window.Current.Content == null)
                     {
-                        switch (eventArgs.Uri.Host)
-                        {
-                            case "repository":
-                                await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
-                                break;
-
-                            case "user":
-                                break;
-
-                            case "issue":
-                                break;
-                        }
-
+                        Window.Current.Content = new MainPage(args);
                     }
-                    else if (eventArgs.PreviousExecutionState == ApplicationExecutionState.Terminated)
+
+                    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
                     {
-                        //TODO: Activate window
+                        var view = ApplicationView.GetForCurrentView();
+                        view.SetPreferredMinSize(new Size(width: 800, height: 600));
 
-                        switch (eventArgs.Uri.Host)
+                        var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                        if (titleBar != null)
                         {
-                            case "repository":
-                                await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
-                                break;
+                            titleBar.BackgroundColor =
+                            titleBar.ButtonBackgroundColor =
+                            titleBar.InactiveBackgroundColor =
+                            titleBar.ButtonInactiveBackgroundColor =
+                            (Color)App.Current.Resources["SystemChromeLowColor"];
 
-                            case "user":
-                                break;
+                            titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
 
-                            case "issue":
-                                break;
                         }
                     }
+                    Window.Current.Activate();
                 }
             }
         }
 
+        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        {
+            if (await AuthService.checkAuth())
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+                switch (eventArgs.Uri.Host.ToLower())
+                {
+                    case "repository":
+                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+                        break;
+
+                    case "user":
+                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
+                        break;
+
+                }
+            }
+        }
     }
 }
