@@ -192,14 +192,15 @@ namespace CodeHub.ViewModels
                 {
                     Repository = repo as Repository;
                 }
+                if(Repository != null)
+                {
+                    WatchersCount = Repository.SubscribersCount;
+                    IsStar = await RepositoryUtility.CheckStarred(Repository);
+                    IsWatching = await RepositoryUtility.CheckWatched(Repository);
 
-                WatchersCount = Repository.SubscribersCount;
-                IsStar = await RepositoryUtility.CheckStarred(Repository);
-                IsWatching = await RepositoryUtility.CheckWatched(Repository);
-
-                if (Repository.SubscribersCount == 0)
-                    WatchersCount = (await RepositoryUtility.GetRepository(Repository.Id)).SubscribersCount;
-
+                    if (Repository.SubscribersCount == 0)
+                        WatchersCount = (await RepositoryUtility.GetRepository(Repository.Id)).SubscribersCount;
+                }
                 isLoading = false;
             }
         }

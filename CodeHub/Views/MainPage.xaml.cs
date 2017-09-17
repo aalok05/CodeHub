@@ -24,6 +24,7 @@ using UICompositionAnimations.Brushes;
 using UICompositionAnimations.Helpers;
 using Windows.UI.Xaml.Controls;
 using CodeHub.Models;
+using Windows.ApplicationModel.Activation;
 
 namespace CodeHub.Views
 {
@@ -34,11 +35,11 @@ namespace CodeHub.Views
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
 
-        public MainPage()
+        public MainPage(IActivatedEventArgs args)
         {
             this.InitializeComponent();
 
-            ViewModel = new MainViewmodel();
+            ViewModel = new MainViewmodel(args);
             this.DataContext = ViewModel;
 
             #region registering for messages
@@ -55,7 +56,10 @@ namespace CodeHub.Views
 
             Loaded += MainPage_Loaded;
             SizeChanged += MainPage_SizeChanged;
-            
+
+            SimpleIoc.Default.Register<IAsyncNavigationService>(() => { return new NavigationService(AppFrame); });
+            SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
+
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
@@ -88,18 +92,10 @@ namespace CodeHub.Views
             ConfigureWindowBlur();
             await ConfigureHamburgerMenuBlur();
 
-            await ViewModel.Initialize(AppFrame);
+            await ViewModel.Initialize();
 
-            if (ViewModel.isLoggedin)
-            {
-                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView));
-
-                if(IsInternet())
-                    await ViewModel.CheckForUnreadNotifications();
-
-                if (WhatsNewDisplayService.IsNewVersion())
-                    await ShowWhatsNewPopup();
-            }
+            if (WhatsNewDisplayService.IsNewVersion() && ViewModel.isLoggedin)
+                await ShowWhatsNewPopup();
         }
 
         #region click events
@@ -183,6 +179,16 @@ namespace CodeHub.Views
             WhatsNewPopup.Visibility = Visibility.Visible;
             ViewModel.isLoading = true;
             await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
+        }
+
+        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
+            if (service != null && !e.Handled)
+            {
+                e.Handled = true;
+                service.GoBackAsync();
+            }
         }
         #endregion
     }
