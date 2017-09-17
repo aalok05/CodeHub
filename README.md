@@ -12,7 +12,7 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 * News Feed
 * View code (with syntax highlighting), issues and comments. 
 * Create Issues
-* Comment on Issues
+* Comment on Issues and PRs
 * Choose from 9 different syntax highlighting styles
 * Search repositories, users, issues and code
 * Star, Watch and Fork repositories
@@ -31,6 +31,12 @@ Do you want to contribute? Here are our [contribution guidelines](https://github
 ## Setting up the project 
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
 
+## URI Schemes
+You can launch CodeHub and navigate to repositories and user profiles using custom URI schemes
+
+Examples:
+- _codehub://repository/aalok05/codehub_
+- _codehub://user/aalok05_
 
 ## Troubleshooting
 
