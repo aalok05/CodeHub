@@ -50,10 +50,7 @@ I thank the makers of these libraries
 * [UICompositionAnimations](https://github.com/Sergio0694/UICompositionAnimations)
 * [MVVM Light](https://www.nuget.org/packages/MvvmLightLibs/)
 * [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit)
-* [MarkdownSharp.UWP](https://www.nuget.org/packages/MarkdownSharp.UWP/)
 * [HTML Agility Pack](https://www.nuget.org/packages/HtmlAgilityPack)
-* [JetBrains ReSharper Annotations](https://www.nuget.org/packages/JetBrains.Annotations)
-* [Lumia Imaging SDK UWP](https://www.nuget.org/packages/LumiaImagingSDK.UWP/)
 * [LocalNotifications](https://github.com/RavinduL/LocalNotifications)
 
 ## Gitter chat
