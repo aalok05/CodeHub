@@ -472,11 +472,17 @@ namespace CodeHub.Services
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        public static async Task<ObservableCollection<Repository>> GetRepositoriesForUser(string login)
+        public static async Task<ObservableCollection<Repository>> GetRepositoriesForUser(string login, int pageIndex)
         {
             try
             {
-                var result = await GlobalHelper.GithubClient.Repository.GetAllForUser(login);
+                var options = new ApiOptions
+                {
+                    PageSize = 5,
+                    PageCount = 1,
+                    StartPage = pageIndex
+                };
+                var result = await GlobalHelper.GithubClient.Repository.GetAllForUser(login, options);
                 return new ObservableCollection<Repository>(result);
             }
             catch
