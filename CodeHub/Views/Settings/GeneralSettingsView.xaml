@@ -35,12 +35,11 @@
             <TextBlock x:Uid="adSetting"
                        HorizontalAlignment="Left"
                        FontSize="20"
-                       FontWeight="SemiLight" />
+                       FontWeight="SemiBold" />
             
             <TextBlock Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="15"
-                       FontWeight="SemiLight"
                        Foreground="Gray"
                        TextWrapping="Wrap"
                        Visibility="{x:Bind ViewModel.CanDisableAds,Converter={StaticResource ReverseBooleanToVisibilityConverter},Mode=OneWay}"
@@ -55,7 +54,7 @@
                        Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="20"
-                       FontWeight="SemiLight"
+                       FontWeight="SemiBold"
                        TextWrapping="Wrap" />
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
 
@@ -78,8 +77,8 @@
             <TextBlock x:Uid="syntaxHightlignting"
                        Margin="0,20,0,0"
                        HorizontalAlignment="Left"
-                       FontSize="22"
-                       FontWeight="SemiLight" />
+                       FontSize="20"
+                       FontWeight="SemiBold" />
 
             <!--  Style  -->
             <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
@@ -103,7 +102,7 @@
                        Margin="0,20,0,0"
                        HorizontalAlignment="Left"
                        FontSize="18"
-                       FontWeight="SemiLight"/>
+                       FontWeight="SemiBold"/>
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
 
         </StackPanel>
