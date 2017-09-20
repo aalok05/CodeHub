@@ -26,9 +26,9 @@
                         <AdaptiveTrigger MinWindowWidth="320" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="OwnernameTextBlock.FontSize" Value="16" />
-                        <Setter Target="RepoNameTextBlock.FontSize" Value="16" />
-                        <Setter Target="slash.FontSize" Value="16" />
+                        <Setter Target="OwnernameTextBlock.FontSize" Value="18" />
+                        <Setter Target="RepoNameTextBlock.FontSize" Value="18" />
+                        <Setter Target="slash.FontSize" Value="18" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Normal">
@@ -36,9 +36,9 @@
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="OwnernameTextBlock.FontSize" Value="18" />
-                        <Setter Target="RepoNameTextBlock.FontSize" Value="18" />
-                        <Setter Target="slash.FontSize" Value="18" />
+                        <Setter Target="OwnernameTextBlock.FontSize" Value="20" />
+                        <Setter Target="RepoNameTextBlock.FontSize" Value="20" />
+                        <Setter Target="slash.FontSize" Value="20" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Wide">
@@ -46,9 +46,9 @@
                         <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="OwnernameTextBlock.FontSize" Value="20" />
-                        <Setter Target="RepoNameTextBlock.FontSize" Value="20" />
-                        <Setter Target="slash.FontSize" Value="20" />
+                        <Setter Target="OwnernameTextBlock.FontSize" Value="22" />
+                        <Setter Target="RepoNameTextBlock.FontSize" Value="22" />
+                        <Setter Target="slash.FontSize" Value="22" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -84,21 +84,22 @@
                 </Viewbox>
                 <TextBlock Margin="0 2 4 0"
                            FontSize="14"
-                           FontWeight="SemiLight"
+                           FontWeight="SemiBold"
                            Text="Forked" />
             </StackPanel>
             <TextBlock x:Name="OwnernameTextBlock"
                        Margin="4,0,0,0"
-                       FontWeight="SemiLight"
+                       FontWeight="SemiBold"
                        Style="{StaticResource RepoNameTextBlockStyle}"
                        Text="{Binding Owner.Login, Mode=OneWay}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="slash"
                        Style="{StaticResource RepoNameTextBlockStyle}"
                        Text="/"
+                       FontWeight="SemiBold"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="RepoNameTextBlock"
-                       Margin="0,0,0,0"
+                       FontWeight="SemiBold"
                        Style="{StaticResource RepoNameTextBlockStyle}"
                        Text="{Binding Name}"
                        TextWrapping="Wrap" />
