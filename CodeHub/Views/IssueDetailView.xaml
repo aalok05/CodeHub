@@ -213,7 +213,7 @@
                               Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.CommentTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
