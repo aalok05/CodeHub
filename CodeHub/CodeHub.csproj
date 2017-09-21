@@ -258,6 +258,8 @@
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
     <Compile Include="Converters\ForegroundFromBackgroundConverter.cs" />
     <Compile Include="Converters\IssueDetailStringConverter.cs" />
+    <Compile Include="Converters\IssueStateToColorConverter.cs" />
+    <Compile Include="Converters\IssueToSymbolConverter.cs" />
     <Compile Include="Converters\NotifTypeToSymbolConverter.cs" />
     <Compile Include="Converters\PullRequestDetailStringConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />

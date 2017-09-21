@@ -17,6 +17,8 @@
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
+        <converters:IssueStateToColorConverter x:Key="IssueStateToColorConverter" x:Name="IssueStateToColorConverter" />
+        <converters:IssueToSymbolConverter x:Key="IssueToSymbolConverter" x:Name="IssueToSymbolConverter"/>
     </Page.Resources>
     <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
@@ -90,8 +92,7 @@
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
                        FontSize="20"
-                       FontWeight="SemiLight"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       FontWeight="SemiBold"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
                        Text="{x:Bind ViewModel.Issue.Title, Mode=OneWay}"
@@ -99,13 +100,11 @@
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
                        FontSize="20"
-                       FontWeight="Light"
                        Foreground="Gray"
                        Text="#" />
             <TextBlock x:Name="NumberBlock"
-                       Margin="0,8,0,4"
+                       Margin="0,8,4,4"
                        FontSize="20"
-                       FontWeight="Light"
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="numbersymbol"
@@ -119,7 +118,6 @@
                            Margin="8,0,3,0"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           FontWeight="SemiLight"
                            Foreground="Gray" />
 
                 <HyperlinkButton Margin="0,0,3,0"
@@ -138,25 +136,31 @@
                 <TextBlock Margin="0,0,3,0"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           FontWeight="SemiLight"
                            Foreground="Gray"
                            Text="{x:Bind ViewModel.Issue.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </StackPanel>
 
-            <StackPanel x:Name="statePanel"
-                        Margin="8,8,0,0"
-                        Padding="6"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="TitleBlock">
-                <Path x:Name="stateSymbol"
-                      Margin="0,0,4,0"
-                      Fill="White" />
-                <TextBlock FontSize="12"
-                           FontWeight="SemiBold"
-                           Foreground="White"
-                           Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
-            </StackPanel>
+            <Border x:Name="statePanel"
+                    Margin="8,8,0,0"
+                    BorderThickness="4"
+                    BorderBrush="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.Below="TitleBlock"
+                    CornerRadius="1">
+                <StackPanel Background="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
+                            Padding="4"
+                            Orientation="Horizontal">
+                    <Path x:Name="stateSymbol"
+                          Margin="0,0,4,0"
+                          Fill="White" 
+                          Data="{x:Bind ViewModel.Issue, Converter={StaticResource IssueToSymbolConverter}, Mode=OneWay}"/>
+                    <TextBlock FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
+
             <Button Width="40"
                     Height="40"
                     Margin="0 8 8 0"
