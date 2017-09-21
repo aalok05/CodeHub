@@ -15,6 +15,7 @@
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
+        <converters:PullRequestStateToColorConverter x:Key="PullRequestStateToColorConverter" x:Name="PullRequestStateToColorConverter"/>
     </Page.Resources>
     <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
@@ -81,8 +82,7 @@
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
                        FontSize="20"
-                       FontWeight="SemiLight"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       FontWeight="SemiBold"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
                        Text="{x:Bind ViewModel.PullRequest.Title, Mode=OneWay}"
@@ -90,32 +90,37 @@
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
                        FontSize="20"
-                       FontWeight="Light"
                        Foreground="Gray"
                        Text="#" />
             <TextBlock x:Name="NumberBlock"
-                       Margin="0,8,0,4"
+                       Margin="0,8,4,4"
                        FontSize="20"
-                       FontWeight="Light"
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="numbersymbol"
                        Text="{x:Bind ViewModel.PullRequest.Number, Mode=OneWay}" />
 
-            <StackPanel x:Name="statePanel"
-                        Margin="8,8,0,0"
-                        Padding="6"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="TitleBlock">
-                <Path x:Name="stateSymbol"
-                      Margin="0,0,4,0"
-                      Fill="White" />
-                <TextBlock FontSize="12"
-                           FontWeight="SemiBold"
-                           Foreground="White"
-                           Text="{x:Bind ViewModel.PullRequest.State, Mode=OneWay}" />
-            </StackPanel>
+            <Border x:Name="statePanel"
+                    Margin="8,8,0,0"
+                    BorderThickness="4"
+                    BorderBrush="{x:Bind ViewModel.PullRequest, Converter={StaticResource PullRequestStateToColorConverter}, Mode=OneWay}"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.Below="TitleBlock"
+                    CornerRadius="1">
+                <StackPanel Background="{x:Bind ViewModel.PullRequest, Converter={StaticResource PullRequestStateToColorConverter}, Mode=OneWay}"
+                            Padding="4"
+                            Orientation="Horizontal">
+                    <Path x:Name="stateSymbol"
+                          Margin="0,0,4,0"
+                          Fill="White" 
+                          Data="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/>
+                    <TextBlock FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               Text="{x:Bind ViewModel.PullRequest.State, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
+            
 
             <StackPanel x:Name="UserBlock"
                         Margin="8,8,4,0"
@@ -125,7 +130,6 @@
                 <TextBlock x:Uid="openedBy"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           FontWeight="SemiLight"
                            Foreground="Gray" />
 
                 <HyperlinkButton Margin="4,0,4,0"
@@ -144,7 +148,6 @@
                 <TextBlock Margin="0,0,4,0"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           FontWeight="SemiLight"
                            Foreground="Gray"
                            Text="{x:Bind ViewModel.PullRequest.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </StackPanel>

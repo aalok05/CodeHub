@@ -24,7 +24,6 @@ namespace CodeHub.Views
 
             this.DataContext = ViewModel;
 
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -32,25 +31,12 @@ namespace CodeHub.Views
 
             ViewModel.CommentText = string.Empty;
 
-            if (e.NavigationMode != NavigationMode.Back)
-            {
-                if (ViewModel.Comments != null)
-                {
-                    ViewModel.Comments.Clear();
-                }
-
-                await ViewModel.Load(e.Parameter);
-                CommentsPivot.SelectedItem = CommentsPivot.Items[0];
-            }
+            await ViewModel.Load(e.Parameter);
+            CommentsPivot.SelectedItem = CommentsPivot.Items[0];
         }
 
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            if (e.NavigationMode == NavigationMode.Back)
-            {
-                NavigationCacheMode = NavigationCacheMode.Disabled;
-            }
-
             ViewModel.NewIssueBodyText = ViewModel.NewIssueTitleText = string.Empty;
 
             await ToggleEditIssuePanelVisibility(false);
