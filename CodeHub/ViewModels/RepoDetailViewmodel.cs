@@ -190,7 +190,14 @@ namespace CodeHub.ViewModels
                 }
                 else
                 {
-                    Repository = repo as Repository;
+                    if((repo as Repository).FullName == null)
+                    {
+                        Repository = await RepositoryUtility.GetRepository((repo as Repository).Id);
+                    }
+                    else
+                    {
+                        Repository = repo as Repository;
+                    }
                 }
                 if(Repository != null)
                 {

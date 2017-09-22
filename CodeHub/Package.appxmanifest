@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="62814AalokSingh.262074CAB5E6B" Publisher="CN=aalok" Version="2.3.0.0" />
+  <Identity Name="62814AalokSingh.262074CAB5E6B" Publisher="CN=aalok" Version="2.3.1.0" />
   <mp:PhoneIdentity PhoneProductId="7b2acdd5-6992-4f72-87df-d983cb05bba1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CodeHub - A Client for Github</DisplayName>

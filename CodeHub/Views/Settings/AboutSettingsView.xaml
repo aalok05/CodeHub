@@ -36,6 +36,7 @@
             <TextBlock x:Name="DisplayNameTextBlock"
                        Margin="0,0,0,12"
                        FontSize="24"
+                       FontWeight="SemiBold"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.Below="LogoImage"
                        Text="{x:Bind ViewModel.DisplayName}"
@@ -43,7 +44,6 @@
             <TextBlock x:Name="versionText"
                        Margin="0,0,0,12"
                        FontSize="16"
-                       FontWeight="Light"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.Below="DisplayNameTextBlock">
 
@@ -54,14 +54,12 @@
                        x:Uid="creatorText"
                        Margin="0,0,0,12"
                        FontSize="16"
-                       FontWeight="Light"
                        RelativePanel.Below="versionText"
                        RelativePanel.AlignHorizontalCenterWithPanel="True" />
             <TextBlock x:Name="disclaimerText"
                        x:Uid="disclaimer"
                        Margin="0,0,0,12"
                        FontSize="14"
-                       FontWeight="SemiLight"
                        Foreground="Gray"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.Below="creatorText" />

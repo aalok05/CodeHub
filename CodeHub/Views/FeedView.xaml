@@ -61,6 +61,9 @@
                                             <Setter Target="userText.Margin" Value="4 0 8 0" />
                                             <Setter Target="notifSymbolScale.ScaleX" Value="1.6" />
                                             <Setter Target="notifSymbolScale.ScaleY" Value="1.6" />
+                                            <Setter Target="userText.FontSize" Value="14"/>
+                                            <Setter Target="actionText.FontSize" Value="14"/>
+                                            <Setter Target="RepoText.FontSize" Value="14"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState>
@@ -71,6 +74,9 @@
                                             <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
                                             <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
                                             <Setter Target="commentText.(RelativePanel.Below)" Value="RepoText" />
+                                            <Setter Target="userText.FontSize" Value="15"/>
+                                            <Setter Target="actionText.FontSize" Value="15"/>
+                                            <Setter Target="RepoText.FontSize" Value="15"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState>
@@ -80,6 +86,9 @@
                                         <VisualState.Setters>
                                             <Setter Target="MainPanel.MaxWidth" Value="600" />
                                             <Setter Target="RepoText.Margin" Value="4 0 0 8" />
+                                            <Setter Target="userText.FontSize" Value="16"/>
+                                            <Setter Target="actionText.FontSize" Value="16"/>
+                                            <Setter Target="RepoText.FontSize" Value="16"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -120,7 +129,6 @@
 
                             <TextBlock x:Name="userText"
                                        Margin="0,0,4,4"
-                                       FontSize="13.5"
                                        FontWeight="SemiBold"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
@@ -129,13 +137,11 @@
 
                             <TextBlock x:Name="actionText"
                                        Margin="0,0,0,4"
-                                       FontSize="13"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="userText"
                                        Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
 
                             <TextBlock x:Name="RepoText"
-                                       FontSize="13.5"
                                        FontWeight="SemiBold"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"

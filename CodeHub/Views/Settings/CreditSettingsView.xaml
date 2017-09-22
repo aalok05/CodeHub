@@ -34,7 +34,8 @@
                            FontFamily="Segoe UI Symbol"
                            Margin="0 0 8 0"/>
                 <TextBlock Text="Special Thanks!"
-                           FontSize="22"/>
+                           FontSize="22"
+                           FontWeight="SemiBold"/>
             </StackPanel>
             <TextBlock x:Uid="contributor"
                        Margin="0,16,0,4"

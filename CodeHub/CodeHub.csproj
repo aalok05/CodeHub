@@ -194,6 +194,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ActivityListItem.xaml.cs">
+      <DependentUpon>ActivityListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AnimatedComboBox.cs" />
     <Compile Include="Controls\AutoHideGrid.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
@@ -255,8 +258,11 @@
     <Compile Include="Converters\EventTypeToSymbolConverter.cs" />
     <Compile Include="Converters\ForegroundFromBackgroundConverter.cs" />
     <Compile Include="Converters\IssueDetailStringConverter.cs" />
+    <Compile Include="Converters\IssueStateToColorConverter.cs" />
+    <Compile Include="Converters\IssueToSymbolConverter.cs" />
     <Compile Include="Converters\NotifTypeToSymbolConverter.cs" />
     <Compile Include="Converters\PullRequestDetailStringConverter.cs" />
+    <Compile Include="Converters\PullRequestStateToColorConverter.cs" />
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\RepositoryContentToFileIconConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
@@ -433,6 +439,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ActivityListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\BusyScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
