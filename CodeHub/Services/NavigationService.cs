@@ -194,8 +194,28 @@ namespace CodeHub.Services
             {
                 return languageLoader.GetString("pageTitle_TrendingView");
             }
+            else if (type == typeof(AboutSettingsView))
+            {
+                return "About";
+            }
+            else if (type == typeof(AppearanceView))
+            {
+                return "Appearance";
+            }
+            else if (type == typeof(DonateView))
+            {
+                return "Donate";
+            }
+            else if (type == typeof(CreditSettingsView))
+            {
+                return "Credits";
+            }
+            else
+            {
+                return "";
+            }
 
-            throw new Exception("Page Title not found for the given (Page) type: " + type);
+            //throw new Exception("Page Title not found for the given (Page) type: " + type);
         }
     }
 }
