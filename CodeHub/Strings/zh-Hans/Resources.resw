@@ -164,7 +164,7 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
-    <value>What's new?</value>
+    <value>最新功能</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>关注TA</value>
@@ -352,28 +352,28 @@
     <value>Clone</value>
   </data>
   <data name="share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>分享</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
-    <value>Labels</value>
+    <value>标签</value>
   </data>
   <data name="comment.PlaceholderText" xml:space="preserve">
-    <value>Comment</value>
+    <value>评论</value>
   </data>
   <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Title</value>
+    <value>标题</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Body</value>
+    <value>正文</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Create</value>
+    <value>新建</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>活动</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -382,16 +382,16 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>贡献者</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>版本</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>没有已关闭的Pull Requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>没有进行中的Pull Requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -403,7 +403,7 @@
     <value>往来</value>
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Blur content behind window</value>
+    <value>模糊背景内容</value>
   </data>
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>捐赠14.99美元</value>
@@ -412,19 +412,19 @@
     <value>捐赠19.99美元</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>拥有</value>
   </data>
   <data name="save.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
+    <value>全部标为已读</value>
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
-    <value>Check for Notifications frequently</value>
+    <value>频繁检查通知</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
-    <value>New Issue</value>
+    <value>新问题</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
     <value>一秒前</value>
@@ -463,7 +463,7 @@
     <value>几年前</value>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
-    <value>此版本新功能</value>
+    <value>此版本最新功能</value>
   </data>
   <data name="creatorText.Text" xml:space="preserve">
     <value>由Aalok Singh开发</value>
