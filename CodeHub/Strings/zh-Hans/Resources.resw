@@ -427,58 +427,58 @@
     <value>New Issue</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
-    <value>one second ago</value>
+    <value>一秒前</value>
   </data>
   <data name="secondsAgo" xml:space="preserve">
-    <value>seconds ago</value>
+    <value>几秒前</value>
   </data>
   <data name="aMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>一分钟前</value>
   </data>
   <data name="minutesAgo" xml:space="preserve">
-    <value>minutes ago</value>
+    <value>几分钟前</value>
   </data>
   <data name="anHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>一小时前</value>
   </data>
   <data name="hoursAgo" xml:space="preserve">
-    <value>hours ago</value>
+    <value>几小时前</value>
   </data>
   <data name="aDayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>一天前</value>
   </data>
   <data name="daysAgo" xml:space="preserve">
-    <value>days ago</value>
+    <value>几天前</value>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
-    <value>one month ago</value>
+    <value>一个月前</value>
   </data>
   <data name="monthsAgo" xml:space="preserve">
-    <value>months ago</value>
+    <value>几个月前</value>
   </data>
   <data name="aYearAgo" xml:space="preserve">
-    <value>one year ago</value>
+    <value>一年前</value>
   </data>
   <data name="yearsAgo" xml:space="preserve">
-    <value>years ago</value>
+    <value>几年前</value>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
-    <value>What's new in this version?</value>
+    <value>此版本新功能</value>
   </data>
   <data name="creatorText.Text" xml:space="preserve">
-    <value>Developed by Aalok Singh</value>
+    <value>由Aalok Singh开发</value>
   </data>
   <data name="addDisable.Text" xml:space="preserve">
-    <value>Make any donation to enable the option to disable ads.</value>
+    <value>进行捐赠来激活禁用广告的选项</value>
   </data>
   <data name="donatePatreonBtn.Content" xml:space="preserve">
-    <value>Donate to CodeHub on Patreon</value>
+    <value>通过Patreon向CodeHub捐赠</value>
   </data>
   <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
-    <value>All Languages</value>
+    <value>全部语言</value>
   </data>
   <data name="search_Reset.Text" xml:space="preserve">
-    <value>Reset</value>
+    <value>重置</value>
   </data>
   <data name="pageTitle_CommentView" xml:space="preserve">
     <value>Comment</value>
