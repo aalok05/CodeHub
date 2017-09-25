@@ -81,6 +81,11 @@
                        VerticalAlignment="Center"
                        FontSize="13"
                        Text="Von Hohenheim - Chinese" />
+            <TextBlock x:Name="translatorName8"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Gary Lu - Chinese" />
             <TextBlock x:Name="translatorName2"
                        Margin="0,4,8,0"
                        VerticalAlignment="Center"
