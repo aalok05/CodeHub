@@ -112,8 +112,9 @@
 
             <StackPanel x:Name="UserBlock"
                         Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="statePanel">
+                        Margin="0 8 0 0"
+                        RelativePanel.AlignVerticalCenterWith="statePanel"
+                        RelativePanel.RightOf="statePanel">
                 <TextBlock x:Uid="openedBy"
                            Margin="8,0,3,0"
                            VerticalAlignment="Center"
