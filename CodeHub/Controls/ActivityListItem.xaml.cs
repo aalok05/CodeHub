@@ -1,8 +1,4 @@
-﻿using CodeHub.Views;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using Octokit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,19 +13,15 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace CodeHub.Controls
 {
-    public sealed partial class CommentListItem : UserControl
+    public sealed partial class ActivityListItem : UserControl
     {
-        public CommentListItem()
+        public ActivityListItem()
         {
             this.InitializeComponent();
-        }
-
-        public void User_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), (DataContext as IssueComment).User);
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Services.Store;
 using Windows.System.Profile;
+using Windows.UI.Popups;
 
 namespace CodeHub.ViewModels
 {
@@ -90,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v 2.2.7\n\n\x2022 Design improvements in Trending Page \n\x2022 Added full Markdown support for commenting on Issues and PRs ";
+                return "Hi all! \nHere's the changelog for v 2.3.1\n\n\x2022 Lots of bug fixes \n\x2022 Design improvements throughout the app";
             }
         }
         #endregion
@@ -104,7 +105,15 @@ namespace CodeHub.ViewModels
 
         public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
+            try
+            {
+                await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
+            }
+            catch(UriFormatException)
+            {
+                MessageDialog dialog = new MessageDialog("Incorrect URI Format");
+                await dialog.ShowAsync();
+            }
         }
 
         public void Navigate(Type pageType)

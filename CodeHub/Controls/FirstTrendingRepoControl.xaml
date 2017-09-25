@@ -108,7 +108,7 @@
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <TextBlock Margin="0,12,0,12"
+            <TextBlock Margin="8,12,8,12"
                        HorizontalAlignment="Center"
                        FontSize="16"
                        FontWeight="SemiLight"

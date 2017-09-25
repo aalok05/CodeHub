@@ -32,19 +32,5 @@ namespace CodeHub.ViewModels
         {
             Comment = comment;
         }
-
-        private RelayCommand _userTapped;
-        public RelayCommand UserTapped
-        {
-            get
-            {
-                return _userTapped
-                    ?? (_userTapped = new RelayCommand(
-                                          () =>
-                                          {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), Comment.User);
-                                          }));
-            }
-        }
     }
 }

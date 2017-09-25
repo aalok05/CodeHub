@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="CodeHub.Controls.ActivityListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:CodeHub.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="using:CodeHub.Converters"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
+        <converters:EventTypeToActionStringConverter x:Key="EventTypeToActionStringConverter" x:Name="EventTypeToActionStringConverter" />
+        <converters:EventTypeToSymbolConverter x:Key="EventTypeToSymbolConverter" x:Name="EventTypeToSymbolConverter" />
+    </UserControl.Resources>
+    <RelativePanel Padding="8"
+                   Margin="0 4 0 0">
+        <RelativePanel.Background>
+            <SolidColorBrush Color="{ThemeResource SystemChromeLowColor}"
+                             Opacity="0.7"/>
+        </RelativePanel.Background>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
+                        <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="620" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepoText.Margin" Value="4 12 0 4" />
+                        <Setter Target="RepoText.(RelativePanel.Below)" Value="timeText" />
+                        <Setter Target="RepoText.(RelativePanel.RightOf)" Value="actionText" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Path x:Name="notifSymbol"
+              Margin="8,12,8,4"
+              Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
+              Fill="Gray"
+              RelativePanel.AlignLeftWithPanel="True"
+              RelativePanel.AlignTopWithPanel="True"
+              StrokeThickness="0">
+            <Path.RenderTransform>
+                <CompositeTransform x:Name="notifSymbolScale"
+                                    ScaleX="1.3"
+                                    ScaleY="1.3" />
+            </Path.RenderTransform>
+        </Path>
+        <TextBlock x:Name="timeText"
+                   Margin="8,12,0,0"
+                   FontSize="12"
+                   Foreground="Gray"
+                   RelativePanel.RightOf="notifSymbol"
+                   Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
+
+        <TextBlock x:Name="userText"
+                   Margin="4,12,4,4"
+                   FontSize="13.5"
+                   FontWeight="SemiBold"
+                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                   RelativePanel.Below="timeText"
+                   RelativePanel.RightOf="notifSymbol"
+                   Text="{Binding Actor.Login}" />
+
+        <TextBlock x:Name="actionText"
+                   Margin="0,12,0,4"
+                   FontSize="13"
+                   RelativePanel.Below="timeText"
+                   RelativePanel.RightOf="userText"
+                   Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
+
+        <TextBlock x:Name="RepoText"
+                   Margin="4 8 0 4"
+                   FontSize="13.5"
+                   FontWeight="SemiBold"
+                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                   Text="{Binding Repo.Name}" />
+        
+    </RelativePanel>
+</UserControl>

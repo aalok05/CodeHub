@@ -104,7 +104,6 @@
                                FontFamily="Segoe UI"
                                FontSize="16"
                                FontWeight="Bold"
-                               Opacity="0.7"
                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                Text="{x:Bind ViewModel.HeaderText, Mode=OneWay}"
                                TextTrimming="CharacterEllipsis" />

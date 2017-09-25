@@ -1,5 +1,4 @@
 ﻿using CodeHub.Views;
-using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -12,6 +11,8 @@ using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
+using Windows.System;
+using System.Threading.Tasks;
 
 namespace CodeHub
 {
@@ -54,7 +55,7 @@ namespace CodeHub
             {
                 if (Window.Current.Content == null)
                 {
-                    Window.Current.Content = new MainPage();
+                    Window.Current.Content = new MainPage(null);
                 }
 
                 if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
@@ -72,12 +73,72 @@ namespace CodeHub
                         (Color)App.Current.Resources["SystemChromeLowColor"];
                          
                         titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
-                        
                     }
                 }
 
                 // Ensure the current window is active
                 Window.Current.Activate();
+            }
+        }
+
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                if(args.PreviousExecutionState == ApplicationExecutionState.Running)
+                {
+                    await HandleProtocolActivationArguments(args);
+                }
+                else
+                {
+                    if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
+                        XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
+
+                    if (Window.Current.Content == null)
+                    {
+                        Window.Current.Content = new MainPage(args);
+                    }
+
+                    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                    {
+                        var view = ApplicationView.GetForCurrentView();
+                        view.SetPreferredMinSize(new Size(width: 800, height: 600));
+
+                        var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                        if (titleBar != null)
+                        {
+                            titleBar.BackgroundColor =
+                            titleBar.ButtonBackgroundColor =
+                            titleBar.InactiveBackgroundColor =
+                            titleBar.ButtonInactiveBackgroundColor =
+                            (Color)App.Current.Resources["SystemChromeLowColor"];
+
+                            titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
+
+                        }
+                    }
+                    Window.Current.Activate();
+                }
+            }
+        }
+
+        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        {
+            if (await AuthService.checkAuth())
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+                switch (eventArgs.Uri.Host.ToLower())
+                {
+                    case "repository":
+                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+                        break;
+
+                    case "user":
+                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
+                        break;
+
+                }
             }
         }
     }

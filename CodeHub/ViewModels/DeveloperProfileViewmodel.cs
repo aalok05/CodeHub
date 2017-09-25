@@ -15,6 +15,10 @@ namespace CodeHub.ViewModels
     public class DeveloperProfileViewmodel : AppViewmodel
     {
         #region properties
+
+        public int PaginationIndex { get; set; }
+        public double MaxScrollViewerOffset { get; set; }
+
         public ObservableCollection<Activity> _events;
         public ObservableCollection<Activity> Events
         {
@@ -188,6 +192,10 @@ namespace CodeHub.ViewModels
                 else
                 {
                     Developer = user as User;
+                    if(Developer.Name == null)
+                    {
+                        Developer = await UserUtility.GetUserInfo(Developer.Login);
+                    }
                 }
                 if (Developer != null)
                 {
@@ -265,7 +273,7 @@ namespace CodeHub.ViewModels
             else if (p.SelectedIndex == 1)
             {
                 IsReposLoading = true;
-                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login);
+                await LoadRepos();
                 IsReposLoading = false;
             }
             else if (p.SelectedIndex == 2)
@@ -279,6 +287,34 @@ namespace CodeHub.ViewModels
                 IsFollowingLoading = true;
                 Following = await UserUtility.GetAllFollowing(Developer.Login);
                 IsFollowingLoading = false;
+            }
+        }
+
+        public async Task LoadRepos()
+        {
+            PaginationIndex++;
+            if (PaginationIndex > 1)
+            {
+                var repos = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, PaginationIndex);
+                if (repos != null)
+                {
+                    if (repos.Count > 0)
+                    {
+                        foreach (var i in repos)
+                        {
+                            Repositories.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        //no more repos to load
+                        PaginationIndex = -1;
+                    }
+                }
+            }
+            else if (PaginationIndex == 1)
+            {
+                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, PaginationIndex);
             }
         }
 

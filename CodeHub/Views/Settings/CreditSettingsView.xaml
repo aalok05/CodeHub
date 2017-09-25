@@ -34,7 +34,8 @@
                            FontFamily="Segoe UI Symbol"
                            Margin="0 0 8 0"/>
                 <TextBlock Text="Special Thanks!"
-                           FontSize="22"/>
+                           FontSize="22"
+                           FontWeight="SemiBold"/>
             </StackPanel>
             <TextBlock x:Uid="contributor"
                        Margin="0,16,0,4"
@@ -64,6 +65,11 @@
                        VerticalAlignment="Center"
                        FontSize="13"
                        Text="PoLáKoSz Tom" />
+            <TextBlock x:Name="contributorName7"
+                       Margin="0 4 8 0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Darkpingouin"/>
             <TextBlock x:Name="translatorsText"
                        x:Uid="translator"
                        Margin="0,12,0,4"
@@ -75,6 +81,11 @@
                        VerticalAlignment="Center"
                        FontSize="13"
                        Text="Von Hohenheim - Chinese" />
+            <TextBlock x:Name="translatorName8"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Gary Lu - Chinese" />
             <TextBlock x:Name="translatorName2"
                        Margin="0,4,8,0"
                        VerticalAlignment="Center"

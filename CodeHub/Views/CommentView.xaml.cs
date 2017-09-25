@@ -30,16 +30,12 @@ namespace CodeHub.Views
             ViewModel = new CommentViewmodel();
             this.DataContext = ViewModel;
            
-            NavigationCacheMode = NavigationCacheMode.Required;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.NavigationMode != NavigationMode.Back)
-            {
-                 ViewModel.Load((e.Parameter as IssueComment));
-            }
+            ViewModel.Load((e.Parameter as IssueComment));
         }
     }
 }
