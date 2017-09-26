@@ -35,6 +35,19 @@ namespace CodeHub.Helpers
             public string Message { get; set; }
             public string Glyph { get; set; }
         }
+
+        public class NoInternet
+        {
+            public LocalNotificationMessageType SendMessage()
+            {
+                return new LocalNotificationMessageType()
+                {
+                    Message = new Windows.ApplicationModel.Resources.ResourceLoader().GetString("notification_NoInternetConnection"),
+                    Glyph   = "\uE704",
+                };
+            }
+        }
+
         public class SetHeaderTextMessageType
         {
             public string PageName { get; set; }

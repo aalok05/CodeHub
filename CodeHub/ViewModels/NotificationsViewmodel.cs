@@ -148,7 +148,7 @@ namespace CodeHub.ViewModels
                                               if (!GlobalHelper.IsInternet())
                                               {
                                                   //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                                                  Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
                                               }
                                               else
                                               {
@@ -165,7 +165,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -181,7 +181,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -197,7 +197,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -213,7 +213,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {

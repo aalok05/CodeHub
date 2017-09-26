@@ -101,12 +101,7 @@ namespace CodeHub.ViewModels
             PullRequest = tuple.Item2;
             Repository = tuple.Item1;
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
                 PullRequest = await PullRequestUtility.GetPullRequest(Repository.Id,PullRequest.Number);

@@ -53,6 +53,13 @@ namespace CodeHub.Services
             GlobalHelper.NavigationStack.Push(pageTitle);
 
             NavigationSemaphore.Release();
+
+            if (!GlobalHelper.IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
+            }
+
             return result;
         }
 
