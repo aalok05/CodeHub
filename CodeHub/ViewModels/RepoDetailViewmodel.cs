@@ -298,6 +298,7 @@ namespace CodeHub.ViewModels
                                                       GlobalHelper.NewStarActivity = true;
                                                   }
                                               }
+                                              await RefreshRepository();
                                           }));
             }
         }
@@ -329,6 +330,9 @@ namespace CodeHub.ViewModels
                                                       IsWatching = false;
                                                   }
                                               }
+                                              WatchersCount = Repository.SubscribersCount;
+                                              if (Repository.SubscribersCount == 0)
+                                                  WatchersCount = (await RepositoryUtility.GetRepository(Repository.Id)).SubscribersCount;
                                           }));
             }
         }
@@ -413,6 +417,11 @@ namespace CodeHub.ViewModels
                     IsReleasesLoading = false;
                 }
             }
+        }
+
+        public async Task RefreshRepository()
+        {
+            Repository = await RepositoryUtility.GetRepository(Repository.Id);
         }
     }
 }
