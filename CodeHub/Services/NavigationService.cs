@@ -210,6 +210,10 @@ namespace CodeHub.Services
             {
                 return "Credits";
             }
+            else if(type == typeof(CommitDetailView))
+            {
+                return "Commit";
+            }
             else
             {
                 return "";

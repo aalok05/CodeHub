@@ -266,6 +266,7 @@
                 </PivotItem.Header>
                 <Grid>
                     <ListView IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.CommitTapped}"
                           ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
                           ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"

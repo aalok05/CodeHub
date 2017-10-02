@@ -1,0 +1,101 @@
+﻿<Page x:Class="CodeHub.Services.CommitDetailView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:CodeHub.Converters"
+      xmlns:userControl="using:CodeHub.Controls"
+      xmlns:octo="using:Octokit"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
+    <RelativePanel Background="Transparent">
+        <Grid x:Name="ShaText"
+              Margin="8,8,0,8"
+              Background="{ThemeResource SystemChromeLowColor}">
+            <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind ViewModel.Commit.Sha, Mode=OneWay}" />
+
+        </Grid>
+
+        <TextBlock x:Name="TitleBlock"
+                   Margin="8,4,0,0"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   RelativePanel.Below="ShaText"
+                   Text="{x:Bind ViewModel.Commit.Commit.Message, Mode=OneWay}"
+                   TextWrapping="Wrap" />
+
+        <StackPanel x:Name="UserBlock"
+                    Margin="8,0,0,0"
+                    Orientation="Horizontal"
+                    RelativePanel.AlignLeftWith="TitleBlock"
+                    RelativePanel.Below="TitleBlock">
+            <TextBlock Margin="0,0,3,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Foreground="Gray"
+                       Text="commited by" />
+
+            <TextBlock Margin="0,0,3,0"
+                       FontSize="13"
+                       FontWeight="SemiBold"
+                       Foreground="Gray"
+                       Text="{x:Bind ViewModel.Commit.Commit.Committer.Name, Mode=OneWay}" />
+
+            <TextBlock Margin="0,0,3,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Foreground="Gray"
+                       Text="{x:Bind ViewModel.Commit.Commit.Committer.Date, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel x:Name="AdditionsPanel"
+                    Margin="8,8,0,0"
+                    Orientation="Horizontal"
+                    RelativePanel.Below="UserBlock">
+            <TextBlock FontSize="22"
+                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       Text="+" />
+            <TextBlock Margin="0,0,4,0"
+                       FontSize="22"
+                       FontWeight="SemiLight"
+                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       Text="{x:Bind ViewModel.Commit.Stats.Additions, Mode=OneWay}" />
+            <TextBlock FontSize="22"
+                       Foreground="Brown"
+                       Text="-" />
+            <TextBlock FontSize="22"
+                       FontWeight="SemiLight"
+                       Foreground="Brown"
+                       Text="{x:Bind ViewModel.Commit.Stats.Deletions, Mode=OneWay}" />
+        </StackPanel>
+        <ListView Margin="0 12 0 0"
+                  RelativePanel.Below="AdditionsPanel"
+                  RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
+                  ItemsSource="{x:Bind ViewModel.Files, Mode=OneWay}"
+                  ScrollViewer.HorizontalScrollMode="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollMode="Enabled"
+                  SelectionMode="None"
+                  IsItemClickEnabled="False">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="octo:GitHubCommitFile" >
+                    <userControl:CommitFileListItem/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ProgressRing Width="40"
+                      Height="40"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"
+                      RelativePanel.AlignVerticalCenterWithPanel="True" />
+
+    </RelativePanel>
+</Page>
