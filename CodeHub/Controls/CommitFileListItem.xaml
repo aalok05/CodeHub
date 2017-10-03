@@ -24,13 +24,13 @@
 
         <StackPanel x:Name="statsPanel"
                     Orientation="Horizontal"
-                    RelativePanel.AlignRightWithPanel="True">
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.Below="Filename">
             <TextBlock FontSize="22"
                        Foreground="{StaticResource AppPrimaryColorBrush}"
                        Text="+" />
             <TextBlock Margin="0,0,4,0"
                        FontSize="22"
-                       FontWeight="SemiLight"
                        Foreground="{StaticResource AppPrimaryColorBrush}"
                        Text="{Binding Additions, Mode=OneWay}" />
             <TextBlock FontSize="22"
@@ -38,7 +38,6 @@
                        Text="-" />
             <TextBlock Margin="0,0,8,0"
                        FontSize="22"
-                       FontWeight="SemiLight"
                        Foreground="Brown"
                        Text="{Binding Deletions, Mode=OneWay}" />
         </StackPanel>
