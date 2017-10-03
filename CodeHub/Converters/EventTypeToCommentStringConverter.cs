@@ -25,6 +25,9 @@ namespace CodeHub.Converters
                 case "PushEvent":
                     return ((PushEventPayload)activity.Payload).Ref;
 
+                case "CommitCommentEvent":
+                    return ((CommitCommentPayload)activity.Payload).Comment.Body;
+
                 default: return string.Empty;
             }
         }
