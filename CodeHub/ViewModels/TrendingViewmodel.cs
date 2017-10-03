@@ -307,18 +307,12 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if (!GlobalHelper.IsInternet())
-                                              {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-                                              }
-                                              else
+                                              if (GlobalHelper.IsInternet())
                                               {
                                                   if (TrendingReposToday == null)
                                                   {
                                                       await LoadTrendingRepos(TimeRange.TODAY);
                                                   }
-
                                               }
 
                                           }));

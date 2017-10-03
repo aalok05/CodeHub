@@ -71,15 +71,10 @@ namespace CodeHub.ViewModels
                                           async () =>
                                           {
                                              
-                                              if (!GlobalHelper.IsInternet())
+                                              if (GlobalHelper.IsInternet())
                                               {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-                                              }
-                                              else
-                                              {
-                                                  if(Events == null)
-                                                  {   
+                                                  if (Events == null)
+                                                  {
                                                       isLoading = true;
                                                       await LoadEvents();
                                                       isLoading = false;
