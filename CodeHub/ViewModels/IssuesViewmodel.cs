@@ -237,11 +237,7 @@ namespace CodeHub.ViewModels
 
         public async Task Load(Repository repository)
         {
-            if (!GlobalHelper.IsInternet())
-            {
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 Repository = repository;
                 OpenPaginationIndex = ClosedPaginationIndex = 0;
