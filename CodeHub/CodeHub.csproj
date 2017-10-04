@@ -285,6 +285,7 @@
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\CommitService.cs" />
     <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
+    <Compile Include="ViewModels\CommitsViewmodel.cs" />
     <Compile Include="Views\CommitDetailView.xaml.cs">
       <DependentUpon>CommitDetailView.xaml</DependentUpon>
     </Compile>
@@ -317,6 +318,9 @@
     <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
+    <Compile Include="Views\CommitsView.xaml.cs">
+      <DependentUpon>CommitsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
     </Compile>
@@ -545,6 +549,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\CommitsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\AboutSettingsView.xaml">
       <SubType>Designer</SubType>
