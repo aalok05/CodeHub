@@ -29,7 +29,7 @@
                                               IsPullToRefreshWithMouseEnabled="True"
                                               Loaded="FeedListView_Loaded"
                                               ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
-                                              ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
+                                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                                               OverscrollLimit="0.4"
                                               PullProgressChanged="Feed_PullProgressChanged"

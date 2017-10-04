@@ -386,7 +386,7 @@
                     <Grid>
                         <ListView IsItemClickEnabled="True"
                                   ItemClick="{x:Bind ViewModel.UserTapped}"
-                                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                                   ItemsSource="{x:Bind ViewModel.Contributors, Mode=OneWay}"
                                   ScrollViewer.HorizontalScrollMode="Disabled"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -434,7 +434,7 @@
                     <Grid>
                         <ListView IsItemClickEnabled="True"
                                   ItemClick="ReleasesList_ItemClick"
-                                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                                   ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}"
                                   ScrollViewer.HorizontalScrollMode="Disabled"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"

@@ -148,7 +148,7 @@
                 </PivotItem.Header>
                 <ListView Margin="0 12 0 0"
                           IsItemClickEnabled="False"
-                          ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                           ItemsSource="{x:Bind ViewModel.Files, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"

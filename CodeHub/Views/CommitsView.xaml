@@ -11,7 +11,7 @@
     <Grid Background="Transparent">
         <ListView IsItemClickEnabled="True"
                   ItemClick="{x:Bind ViewModel.CommitList_ItemClick}"
-                  ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                   ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
                   SelectionMode="None">
             <ListView.ItemTemplate>

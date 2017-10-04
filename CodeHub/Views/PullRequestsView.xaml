@@ -37,7 +37,7 @@
                     <ListView x:Name="openPRListView"
                               IsItemClickEnabled="True"
                               Loaded="openPRListView_Loaded"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.PullRequestTapped}"
                               ItemsSource="{x:Bind ViewModel.OpenPullRequests, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
@@ -78,7 +78,7 @@
                     <ListView x:Name="closedPRListView"
                               IsItemClickEnabled="True"
                               Loaded="closedPRListView_Loaded"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.PullRequestTapped}"
                               ItemsSource="{x:Bind ViewModel.ClosedPullRequests, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">

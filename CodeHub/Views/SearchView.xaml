@@ -91,7 +91,7 @@
                 ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
                 ItemsSource="{x:Bind ViewModel.Repositories,Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsSearchingRepo,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                ItemContainerStyle="{StaticResource CustomListViewItemStyle}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:Repository">
@@ -107,7 +107,7 @@
                 ItemClick="{x:Bind ViewModel.UserDetailNavigateCommand}"
                 ItemsSource="{x:Bind ViewModel.Users,Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsSearchingUsers,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                ItemContainerStyle="{StaticResource CustomListViewItemStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:User">
                         <userControls:UserListItem />
@@ -121,7 +121,7 @@
                 ItemClick="{x:Bind ViewModel.CodeNavigate}"
                 ItemsSource="{x:Bind ViewModel.SearchCodes,Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsSearchingCode,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                ItemContainerStyle="{StaticResource CustomListViewItemStyle}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:SearchCode">
@@ -136,7 +136,7 @@
                 ItemClick="{x:Bind ViewModel.IssueNavigate}"
                 ItemsSource="{x:Bind ViewModel.Issues,Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.IsSearchingIssues,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                ItemContainerStyle="{StaticResource RepoListViewItemStyle}">
+                ItemContainerStyle="{StaticResource CustomListViewItemStyle}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="octo:Issue">

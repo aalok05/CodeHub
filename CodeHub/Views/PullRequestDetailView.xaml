@@ -267,11 +267,11 @@
                 <Grid>
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.CommitTapped}"
-                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                          ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.VerticalScrollMode="Enabled">
+                              ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:PullRequestCommit">
                                 <usercontrol:CommitListItem />
