@@ -63,7 +63,7 @@
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
 
                             <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem ManipulationMode="System" />
+                                <userControls:RepoListItem/>
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
                         <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
@@ -124,7 +124,7 @@
 
                         <toolkitControl:PullToRefreshListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem ManipulationMode="System" />
+                                <userControls:RepoListItem />
                             </DataTemplate>
                         </toolkitControl:PullToRefreshListView.ItemTemplate>
                         <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>

@@ -218,7 +218,7 @@
                               Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.CommentTapped}"
-                              ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -261,7 +261,7 @@
                     </StackPanel>
                 </PivotItem.Header>
                 <ListView IsItemClickEnabled="True"
-                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                           ItemsSource="{x:Bind ViewModel.Issue.Labels, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
