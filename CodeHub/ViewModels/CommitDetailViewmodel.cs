@@ -65,6 +65,11 @@ namespace CodeHub.ViewModels
                 Commit = await CommitService.GetCommit(tuple.Item1, tuple.Item2);
                 Files = new ObservableCollection<GitHubCommitFile>(Commit.Files);
             }
+            else
+            {
+                Commit = param as GitHubCommit;
+                Files = new ObservableCollection<GitHubCommitFile>(Commit.Files);
+            }
             isLoading = false;
         }
     }

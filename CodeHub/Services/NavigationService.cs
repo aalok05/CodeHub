@@ -221,6 +221,10 @@ namespace CodeHub.Services
             {
                 return "Commit";
             }
+            else if (type == typeof(CommitsView))
+            {
+                return "Commits";
+            }
             else
             {
                 return "";
