@@ -1,4 +1,5 @@
-﻿using CodeHub.Services;
+﻿using CodeHub.Helpers;
+using CodeHub.Services;
 using GalaSoft.MvvmLight.Ioc;
 using Octokit;
 using System;
@@ -30,19 +31,23 @@ namespace CodeHub.ViewModels
 
         public async Task Load(object param)
         {
-            isLoading = true;
-            Commits = new ObservableCollection<GitHubCommit>();
-            if (param as Tuple<long, IReadOnlyList<Commit>> != null)
+            if (GlobalHelper.IsInternet())
             {
-                var tuple = param as Tuple<long, IReadOnlyList<Commit>>;
-
-                foreach (var commit in tuple.Item2)
+                isLoading = true;
+                Commits = new ObservableCollection<GitHubCommit>();
+                if (param as Tuple<long, IReadOnlyList<Commit>> != null)
                 {
-                    var githubCommit = await CommitService.GetCommit(tuple.Item1, commit.Sha);
-                    Commits.Add(githubCommit);
+                    var tuple = param as Tuple<long, IReadOnlyList<Commit>>;
+
+                    foreach (var commit in tuple.Item2)
+                    {
+                        var githubCommit = await CommitService.GetCommit(tuple.Item1, commit.Sha);
+                        Commits.Add(githubCommit);
+                    }
                 }
+                isLoading = false;
             }
-            isLoading = false;
+
         }
         public void CommitList_ItemClick(object sender, ItemClickEventArgs e)
         {
