@@ -14,12 +14,11 @@
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" x:Name="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Border Margin="4,4,4,0"
-            BorderBrush="{ThemeResource SystemChromeLowColor}"
-            BorderThickness="8"
-            CornerRadius="8">
-        <Border.Background>
+            BorderThickness="6"
+            CornerRadius="6">
+        <Border.BorderBrush>
             <SolidColorBrush Opacity="0.7" Color="{ThemeResource SystemChromeLowColor}" />
-        </Border.Background>
+        </Border.BorderBrush>
         <RelativePanel Padding="12">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup>
