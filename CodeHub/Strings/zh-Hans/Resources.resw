@@ -164,7 +164,7 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
-    <value>What's new?</value>
+    <value>最新功能</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>关注TA</value>
@@ -352,28 +352,28 @@
     <value>Clone</value>
   </data>
   <data name="share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>分享</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
-    <value>Labels</value>
+    <value>标签</value>
   </data>
   <data name="comment.PlaceholderText" xml:space="preserve">
-    <value>Comment</value>
+    <value>评论</value>
   </data>
   <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Title</value>
+    <value>标题</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Body</value>
+    <value>正文</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Create</value>
+    <value>新建</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>活动</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -382,16 +382,16 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>贡献者</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>版本</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>没有已关闭的Pull Requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>没有进行中的Pull Requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -403,7 +403,7 @@
     <value>往来</value>
   </data>
   <data name="blurContentBehindWindow.Text" xml:space="preserve">
-    <value>Blur content behind window</value>
+    <value>模糊背景内容</value>
   </data>
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>捐赠14.99美元</value>
@@ -412,73 +412,73 @@
     <value>捐赠19.99美元</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>拥有</value>
   </data>
   <data name="save.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
+    <value>全部标为已读</value>
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
-    <value>Check for Notifications frequently</value>
+    <value>频繁检查通知</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
-    <value>New Issue</value>
+    <value>新问题</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
-    <value>one second ago</value>
+    <value>一秒前</value>
   </data>
   <data name="secondsAgo" xml:space="preserve">
-    <value>seconds ago</value>
+    <value>几秒前</value>
   </data>
   <data name="aMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>一分钟前</value>
   </data>
   <data name="minutesAgo" xml:space="preserve">
-    <value>minutes ago</value>
+    <value>几分钟前</value>
   </data>
   <data name="anHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>一小时前</value>
   </data>
   <data name="hoursAgo" xml:space="preserve">
-    <value>hours ago</value>
+    <value>几小时前</value>
   </data>
   <data name="aDayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>一天前</value>
   </data>
   <data name="daysAgo" xml:space="preserve">
-    <value>days ago</value>
+    <value>几天前</value>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
-    <value>one month ago</value>
+    <value>一个月前</value>
   </data>
   <data name="monthsAgo" xml:space="preserve">
-    <value>months ago</value>
+    <value>几个月前</value>
   </data>
   <data name="aYearAgo" xml:space="preserve">
-    <value>one year ago</value>
+    <value>一年前</value>
   </data>
   <data name="yearsAgo" xml:space="preserve">
-    <value>years ago</value>
+    <value>几年前</value>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
-    <value>What's new in this version?</value>
+    <value>此版本最新功能</value>
   </data>
   <data name="creatorText.Text" xml:space="preserve">
-    <value>Developed by Aalok Singh</value>
+    <value>由Aalok Singh开发</value>
   </data>
   <data name="addDisable.Text" xml:space="preserve">
-    <value>Make any donation to enable the option to disable ads.</value>
+    <value>进行捐赠来激活禁用广告的选项</value>
   </data>
   <data name="donatePatreonBtn.Content" xml:space="preserve">
-    <value>Donate to CodeHub on Patreon</value>
+    <value>通过Patreon向CodeHub捐赠</value>
   </data>
   <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
-    <value>All Languages</value>
+    <value>全部语言</value>
   </data>
   <data name="search_Reset.Text" xml:space="preserve">
-    <value>Reset</value>
+    <value>重置</value>
   </data>
   <data name="pageTitle_CommentView" xml:space="preserve">
     <value>Comment</value>
@@ -578,5 +578,56 @@
   </data>
   <data name="markdownComment_Write.Text" xml:space="preserve">
     <value>Write</value>
+  </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>No Internet</value>
+  </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>commented on issue #{0} in</value>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>commented on PR #{0}</value>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>commented on commit in</value>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>pushed {0} commits to</value>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>deleted in</value>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>created in</value>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>forked</value>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>starred</value>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>acted on</value>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>published a release to</value>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>open sourced</value>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>opened</value>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} PR #{1}</value>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>closed</value>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>reopened</value>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} issue #{1} in</value>
   </data>
 </root>

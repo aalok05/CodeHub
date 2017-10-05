@@ -193,7 +193,7 @@
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -227,7 +227,7 @@
                               IsItemClickEnabled="True"
                               Loaded="RepositoryListView_Loaded"
                               ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -259,7 +259,7 @@
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.UserTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -290,7 +290,7 @@
                 <Grid ManipulationMode="System">
                     <ListView IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.UserTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"

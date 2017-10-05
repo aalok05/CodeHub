@@ -28,11 +28,8 @@ namespace CodeHub.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
             ViewModel.CommentText = string.Empty;
-
             await ViewModel.Load((e.Parameter as Tuple<Repository, PullRequest>));
-            CommentsPivot.SelectedItem = CommentsPivot.Items[0];
         }
 
         protected async override void OnNavigatedFrom(NavigationEventArgs e)

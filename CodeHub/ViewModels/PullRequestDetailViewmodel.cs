@@ -101,12 +101,7 @@ namespace CodeHub.ViewModels
             PullRequest = tuple.Item2;
             Repository = tuple.Item1;
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
                 PullRequest = await PullRequestUtility.GetPullRequest(Repository.Id,PullRequest.Number);
@@ -117,7 +112,11 @@ namespace CodeHub.ViewModels
 
         public void CommentTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(CommentView), e.ClickedItem as IssueComment);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommentView), e.ClickedItem as IssueComment);
+        }
+        public void CommitTapped(object sender, ItemClickEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitDetailView), new Tuple<long, string>(Repository.Id,(e.ClickedItem as PullRequestCommit).Sha));
         }
 
         private RelayCommand _userTapped;

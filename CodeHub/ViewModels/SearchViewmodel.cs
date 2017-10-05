@@ -223,12 +223,6 @@ namespace CodeHub.ViewModels
                                               SelectedLanguageIndex = -1;
                                               ChangeVisibilityOfListViews(SelectedSearchItemIndex);
 
-                                              if (!GlobalHelper.IsInternet())
-                                              {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
-                                              }
-
                                           }));
             }
         }

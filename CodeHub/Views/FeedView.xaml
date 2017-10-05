@@ -6,12 +6,9 @@
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:local="using:CodeHub.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
-      xmlns:usercontrols="using:CodeHub.Controls"
-      xmlns:xaml="using:Microsoft.Toolkit.Uwp.UI"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -32,7 +29,7 @@
                                               IsPullToRefreshWithMouseEnabled="True"
                                               Loaded="FeedListView_Loaded"
                                               ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
-                                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                                               ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                                               OverscrollLimit="0.4"
                                               PullProgressChanged="Feed_PullProgressChanged"

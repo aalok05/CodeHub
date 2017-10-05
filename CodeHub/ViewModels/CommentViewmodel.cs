@@ -31,26 +31,6 @@ namespace CodeHub.ViewModels
         public void Load(IssueComment comment)
         {
             Comment = comment;
-
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
-            }
-        }
-
-        private RelayCommand _userTapped;
-        public RelayCommand UserTapped
-        {
-            get
-            {
-                return _userTapped
-                    ?? (_userTapped = new RelayCommand(
-                                          () =>
-                                          {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), Comment.User);
-                                          }));
-            }
         }
     }
 }

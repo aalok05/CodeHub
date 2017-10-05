@@ -173,12 +173,7 @@ namespace CodeHub.ViewModels
 
         public async Task Load(object repo)
         {
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
 
@@ -298,6 +293,7 @@ namespace CodeHub.ViewModels
                                                       GlobalHelper.NewStarActivity = true;
                                                   }
                                               }
+                                              await RefreshRepository();
                                           }));
             }
         }
@@ -329,6 +325,9 @@ namespace CodeHub.ViewModels
                                                       IsWatching = false;
                                                   }
                                               }
+                                              WatchersCount = Repository.SubscribersCount;
+                                              if (Repository.SubscribersCount == 0)
+                                                  WatchersCount = (await RepositoryUtility.GetRepository(Repository.Id)).SubscribersCount;
                                           }));
             }
         }
@@ -413,6 +412,11 @@ namespace CodeHub.ViewModels
                     IsReleasesLoading = false;
                 }
             }
+        }
+
+        public async Task RefreshRepository()
+        {
+            Repository = await RepositoryUtility.GetRepository(Repository.Id);
         }
     }
 }

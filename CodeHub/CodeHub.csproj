@@ -208,6 +208,9 @@
     <Compile Include="Controls\CommentListItem.xaml.cs">
       <DependentUpon>CommentListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CommitFileListItem.xaml.cs">
+      <DependentUpon>CommitFileListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CommitListItem.xaml.cs">
       <DependentUpon>CommitListItem.xaml</DependentUpon>
     </Compile>
@@ -280,6 +283,12 @@
     <Compile Include="Models\WrappedWebResult.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
+    <Compile Include="Services\CommitService.cs" />
+    <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
+    <Compile Include="ViewModels\CommitsViewmodel.cs" />
+    <Compile Include="Views\CommitDetailView.xaml.cs">
+      <DependentUpon>CommitDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\GistUtility.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
@@ -309,6 +318,9 @@
     <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
+    <Compile Include="Views\CommitsView.xaml.cs">
+      <DependentUpon>CommitsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
     </Compile>
@@ -455,6 +467,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\CommitFileListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CommitListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -516,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Views\CommitDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\MiscStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -529,6 +549,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\CommitsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\AboutSettingsView.xaml">
       <SubType>Designer</SubType>

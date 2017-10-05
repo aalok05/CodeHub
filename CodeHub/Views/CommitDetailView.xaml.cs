@@ -1,7 +1,4 @@
-﻿using CodeHub.Views;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using Octokit;
+﻿using CodeHub.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,18 +15,26 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
-namespace CodeHub.Controls
+namespace CodeHub.Services
 {
-    public sealed partial class CommentListItem : UserControl
+
+    public sealed partial class CommitDetailView : Page
     {
-        public CommentListItem()
+        public CommitDetailViewmodel ViewModel;
+
+        public CommitDetailView()
         {
             this.InitializeComponent();
+            ViewModel = new CommitDetailViewmodel();
+
+            this.DataContext = ViewModel;
         }
 
-        public void User_Tapped(object sender, TappedRoutedEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), (DataContext as IssueComment).User);
+            base.OnNavigatedTo(e);
+
+            await ViewModel.Load(e.Parameter);
         }
     }
 }

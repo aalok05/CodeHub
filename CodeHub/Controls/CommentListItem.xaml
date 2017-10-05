@@ -14,28 +14,30 @@
     </UserControl.Resources>
     <Border BorderBrush="{ThemeResource SystemChromeLowColor}" 
             BorderThickness="8" 
-            Margin="8 0 8 8"
+            Margin="4 0 4 8"
             CornerRadius="8">
 
         <RelativePanel Background="{ThemeResource SystemChromeLowColor}">
             <toolkitControls:RoundImageEx x:Name="avatar"
-                                      Width="35"
-                                      Height="35"
-                                      Margin="12,12,12,0"
-                                      CornerRadius="999"
-                                      DecodePixelHeight="35"
-                                      DecodePixelType="Logical"
-                                      DecodePixelWidth="35"
-                                      IsCacheEnabled="True"
-                                      Stretch="UniformToFill"
-                                      Source="{Binding User.AvatarUrl, Mode=OneWay}"/>
+                                          Width="35"
+                                          Height="35"
+                                          Margin="12,12,12,0"
+                                          CornerRadius="999"
+                                          DecodePixelHeight="35"
+                                          DecodePixelType="Logical"
+                                          DecodePixelWidth="35"
+                                          IsCacheEnabled="True"
+                                          Stretch="UniformToFill"
+                                          Tapped="User_Tapped"
+                                          Source="{Binding User.AvatarUrl, Mode=OneWay}"/>
             <TextBlock x:Name="login"
-                   FontSize="15"
-                   Foreground="Gray"
-                   Margin="0,12,0,12"
-                   RelativePanel.AlignRightWithPanel="True"
-                   RelativePanel.RightOf="avatar"
-                   Text="{Binding User.Login, Mode=OneWay}" />
+                       FontSize="15"
+                       Foreground="Gray"
+                       Margin="0,12,0,12"
+                       RelativePanel.AlignRightWithPanel="True"
+                       RelativePanel.RightOf="avatar"
+                       Tapped="User_Tapped"
+                       Text="{Binding User.Login, Mode=OneWay}" />
             <TextBlock x:Name="body"
                    Margin="0,0,0,12"
                    VerticalAlignment="Center"

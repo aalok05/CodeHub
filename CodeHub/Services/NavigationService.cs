@@ -53,6 +53,13 @@ namespace CodeHub.Services
             GlobalHelper.NavigationStack.Push(pageTitle);
 
             NavigationSemaphore.Release();
+
+            if (!GlobalHelper.IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
+            }
+
             return result;
         }
 
@@ -209,6 +216,14 @@ namespace CodeHub.Services
             else if (type == typeof(CreditSettingsView))
             {
                 return "Credits";
+            }
+            else if(type == typeof(CommitDetailView))
+            {
+                return "Commit";
+            }
+            else if (type == typeof(CommitsView))
+            {
+                return "Commits";
             }
             else
             {

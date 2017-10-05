@@ -71,15 +71,10 @@ namespace CodeHub.ViewModels
                                           async () =>
                                           {
                                              
-                                              if (!GlobalHelper.IsInternet())
+                                              if (GlobalHelper.IsInternet())
                                               {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-                                              }
-                                              else
-                                              {
-                                                  if(Events == null)
-                                                  {   
+                                                  if (Events == null)
+                                                  {
                                                       isLoading = true;
                                                       await LoadEvents();
                                                       isLoading = false;
@@ -93,7 +88,8 @@ namespace CodeHub.ViewModels
             
             if (!GlobalHelper.IsInternet())
             {
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -199,6 +195,14 @@ namespace CodeHub.ViewModels
                 case "ForkEvent":
                     SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), ((ForkEventPayload)activity.Payload).Forkee);
                     break;
+                case "CommitCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitDetailView), new Tuple<long, string>(activity.Repo.Id,((CommitCommentPayload)activity.Payload).Comment.CommitId));
+                    break;
+
+                case "PushEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitsView), new Tuple<long, IReadOnlyList<Commit>>(activity.Repo.Id, ((PushEventPayload)activity.Payload).Commits));
+                    break;
+
 
                 default:
                     SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), activity.Repo);

@@ -16,7 +16,7 @@
     <Border BorderBrush="{Binding Color, Converter={StaticResource ColorStringToColorBrushConverter},Mode=OneWay}"
             BorderThickness="4"
             CornerRadius="4"
-            Margin="0 0 0 4">
+            Margin="8 0 8 4">
         <Grid Background="{Binding Color, Converter={StaticResource ColorStringToColorBrushConverter},Mode=OneWay}">
             <TextBlock Text="{Binding Name,Mode=OneWay}"
                        Foreground="{Binding Color, Converter={StaticResource ForegroundFromBackgroundConverter},Mode=OneWay}"

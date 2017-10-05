@@ -422,25 +422,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ListViewItem" x:Key="RepoListViewItemStyle">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ListViewItem">
-                    <ListViewItemPresenter
-                                         PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
-                                         SelectedBackground="{ThemeResource SystemControlHighlightListLowBrush}"
-                                         SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
-                                         PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
-                                         SelectedPressedBackground="{ThemeResource SystemControlHighlightListLowBrush}"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="ListViewItem" x:Key="CommentListViewItemStyle">
+    <Style TargetType="ListViewItem" x:Key="CustomListViewItemStyle">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>

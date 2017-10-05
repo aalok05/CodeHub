@@ -220,7 +220,7 @@
                     <ListView x:Name="commentsListView"
                               Grid.Row="0"
                               IsItemClickEnabled="True"
-                              ItemContainerStyle="{StaticResource CommentListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemClick="{x:Bind ViewModel.CommentTapped}"
                               ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
@@ -266,11 +266,12 @@
                 </PivotItem.Header>
                 <Grid>
                     <ListView IsItemClickEnabled="True"
-                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
-                          ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.VerticalScrollMode="Enabled">
+                              ItemClick="{x:Bind ViewModel.CommitTapped}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.Commits, Mode=OneWay}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollMode="Enabled">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:PullRequestCommit">
                                 <usercontrol:CommitListItem />
