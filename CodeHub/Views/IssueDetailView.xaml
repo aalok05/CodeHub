@@ -91,7 +91,7 @@
         <RelativePanel x:Name="DetailGrid">
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
-                       FontSize="20"
+                       FontSize="18"
                        FontWeight="SemiBold"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
@@ -99,12 +99,12 @@
                        TextWrapping="Wrap" />
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
-                       FontSize="20"
+                       FontSize="18"
                        Foreground="Gray"
                        Text="#" />
             <TextBlock x:Name="NumberBlock"
                        Margin="0,8,4,4"
-                       FontSize="20"
+                       FontSize="18"
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="numbersymbol"
@@ -143,13 +143,13 @@
 
             <Border x:Name="statePanel"
                     Margin="8,8,0,0"
-                    BorderThickness="4"
+                    BorderThickness="2"
                     BorderBrush="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.Below="TitleBlock"
                     CornerRadius="1">
                 <StackPanel Background="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
-                            Padding="4"
+                            Padding="4 2 4 2"
                             Orientation="Horizontal">
                     <Path x:Name="stateSymbol"
                           Margin="0,0,4,0"
@@ -261,7 +261,7 @@
                     </StackPanel>
                 </PivotItem.Header>
                 <ListView IsItemClickEnabled="True"
-                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                           ItemsSource="{x:Bind ViewModel.Issue.Labels, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
