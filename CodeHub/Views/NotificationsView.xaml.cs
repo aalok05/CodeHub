@@ -30,11 +30,11 @@ namespace CodeHub.Views
         {
             this.InitializeComponent();
 
-            Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
-            Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage);
-
             ViewModel = new NotificationsViewmodel();
             this.DataContext = ViewModel;
+
+            Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
+            Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage);
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
