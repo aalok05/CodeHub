@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
 
 namespace CodeHub.ViewModels
 {
@@ -349,6 +350,17 @@ namespace CodeHub.ViewModels
                 case "PullRequestEvent":
                 case "PullRequestReviewEvent":
                     SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+                    break;
+
+                case "ForkEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), ((ForkEventPayload)activity.Payload).Forkee);
+                    break;
+                case "CommitCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitDetailView), new Tuple<long, string>(activity.Repo.Id, ((CommitCommentPayload)activity.Payload).Comment.CommitId));
+                    break;
+
+                case "PushEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitsView), new Tuple<long, IReadOnlyList<Commit>>(activity.Repo.Id, ((PushEventPayload)activity.Payload).Commits));
                     break;
 
                 default:
