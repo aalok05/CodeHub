@@ -70,7 +70,7 @@
                               IsItemClickEnabled="True"
                               Loaded="openIssueListView_Loaded"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.OpenIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
                         <ListView.ItemTemplate>
@@ -111,7 +111,7 @@
                               IsItemClickEnabled="True"
                               Loaded="closedIssueListView_Loaded"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.ClosedIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
                         <ListView.ItemTemplate>
@@ -150,7 +150,7 @@
                     <ListView x:Name="mineIssueListView"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.MyIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
                         <ListView.ItemTemplate>
