@@ -183,7 +183,7 @@
     <value>Load commit messages for files</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>You have no Events yet</value>
+    <value>You have no events yet</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
     <value>Pick an option to support the developer</value>
@@ -241,13 +241,13 @@
     <value>My Repos</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>News Feed</value>
+    <value>News feed</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>No closed Issues</value>
+    <value>No closed issues</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>No Issues</value>
+    <value>No issues</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
     <value>No new notifications</value>
@@ -256,13 +256,13 @@
     <value>No open Issues</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>No organizations yet. Disable third-party application restrictions for your organization</value>
+    <value>No organizations yet. Disable third-party app restrictions for your organization</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>No Repositories yet</value>
+    <value>No repositories yet</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>No starred Repositories yet</value>
+    <value>No starred repositories yet</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>opened by</value>
@@ -321,10 +321,10 @@
     <value>Issues</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>No Repositories</value>
+    <value>No repositories</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>No Results</value>
+    <value>No results</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>search</value>
@@ -388,10 +388,10 @@
     <value>RELEASES</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>No closed pull requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>No open pull requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -424,7 +424,7 @@
     <value>Check for Notifications frequently</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
-    <value>New Issue</value>
+    <value>New issue</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
     <value>one second ago</value>
@@ -580,7 +580,7 @@
     <value>Nothing to Preview</value>
   </data>
   <data name="notification_NoInternetConnection" xml:space="preserve">
-    <value>No Internet</value>
+    <value>No internet</value>
   </data>
   <data name="activity_CommentedIssue" xml:space="preserve">
     <value>commented on issue #{0} in</value>

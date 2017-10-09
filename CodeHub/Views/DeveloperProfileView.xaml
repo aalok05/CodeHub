@@ -23,7 +23,11 @@
         <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
     </Page.Resources>
-    <Grid Background="Transparent">
+
+    <Pivot x:Name="Pivot"
+           Grid.Row="1"
+           SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}"
+           Style="{StaticResource CustomPivotStyle}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">
@@ -59,255 +63,246 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="TopRow" Height="290" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.6*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
-            <toolkitControl:ImageEx Grid.Row="0"
-                                    IsCacheEnabled="True"
-                                    Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
-                                    Stretch="UniformToFill">
-                <i:Interaction.Behaviors>
-                    <behaviors:Blur AutomaticallyStart="True"
-                                    Delay="0"
-                                    Value="100"
-                                    Duration="0" />
-                </i:Interaction.Behaviors>
-            </toolkitControl:ImageEx>
-            <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-        </Grid>
-        <ScrollViewer Grid.Row="0"
-                      HorizontalScrollBarVisibility="Disabled"
-                      HorizontalScrollMode="Disabled"
-                      VerticalScrollBarVisibility="Hidden"
-                      VerticalScrollMode="Enabled">
-            <RelativePanel Background="Transparent">
-                <toolkitControl:DropShadowPanel x:Name="UserPicShadow"
-                                                Margin="0 10 0 0"
-                                                BlurRadius="8"
-                                                ShadowOpacity="0.7"
-                                                OffsetX="2"
-                                                OffsetY="2"
-                                                Color="Black"
+
+        <Pivot.Resources>
+            <Style BasedOn="{StaticResource CustomPivotHeaderItemStyle}" TargetType="PivotHeaderItem" />
+        </Pivot.Resources>
+        <PivotItem Margin="0">
+            <PivotItem.Header>
+                <TextBlock x:Uid="activity" FontSize="15" />
+            </PivotItem.Header>
+            <Grid ManipulationMode="System">
+                <ListView x:Name="activityListView"
+                          IsItemClickEnabled="True"
+                          ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled"
+                          SelectionMode="None">
+                    <ListView.Header>
+                        <toolkitControl:ScrollHeader Mode="Fade" TargetListViewBase="{x:Bind activityListView}">
+                            <Grid Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition x:Name="TopRow" Height="290" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.6*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+                                    <toolkitControl:ImageEx Grid.Row="0"
+                                                            IsCacheEnabled="True"
+                                                            Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
+                                                            Stretch="UniformToFill">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:Blur AutomaticallyStart="True"
+                                                            Delay="0"
+                                                            Value="100"
+                                                            Duration="0" />
+                                        </i:Interaction.Behaviors>
+                                    </toolkitControl:ImageEx>
+                                    <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                                </Grid>
+                                <RelativePanel Background="Transparent">
+                                    <toolkitControl:DropShadowPanel x:Name="UserPicShadow"
+                                                                    Margin="0 10 0 0"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    BlurRadius="8"
+                                                                    OffsetX="2"
+                                                                    OffsetY="2"
+                                                                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                                                    ShadowOpacity="0.7"
+                                                                    Color="Black">
+                                        <toolkitControl:RoundImageEx x:Name="UserPic"
+                                                                     Width="125"
+                                                                     Height="125"
+                                                                     CornerRadius="999"
+                                                                     DecodePixelHeight="125"
+                                                                     DecodePixelType="Logical"
+                                                                     DecodePixelWidth="125"
+                                                                     IsCacheEnabled="True"
+                                                                     Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
+                                                                     Stretch="UniformToFill" />
+                                    </toolkitControl:DropShadowPanel>
+
+                                    <TextBlock x:Name="UserNameText"
+                                               FontSize="22"
+                                               FontWeight="SemiBold"
+                                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                               RelativePanel.Below="UserPicShadow"
+                                               Text="{x:Bind ViewModel.Developer.Name, Mode=OneWay}"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock x:Name="LoginText"
+                                               Grid.Row="2"
+                                               FontSize="13"
+                                               FontWeight="SemiBold"
+                                               Foreground="Gray"
+                                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                               RelativePanel.Below="UserNameText"
+                                               Text="{x:Bind ViewModel.Developer.Login, Mode=OneWay}"
+                                               TextWrapping="Wrap" />
+                                    <StackPanel x:Name="UserInfoPanel"
+                                                Margin="0 8 0 10"
+                                                Orientation="Horizontal"
                                                 RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center">
-                    <toolkitControl:RoundImageEx x:Name="UserPic"
-                                                 Width="125"
-                                                 Height="125"
-                                                 CornerRadius="999"
-                                                 Source="{x:Bind ViewModel.Developer.AvatarUrl, Mode=OneWay}"
-                                                 DecodePixelHeight="125"
-                                                 DecodePixelWidth="125"
-                                                 DecodePixelType="Logical"
-                                                 IsCacheEnabled="True"
-                                                 Stretch="UniformToFill"/>
-                </toolkitControl:DropShadowPanel>
+                                                RelativePanel.Below="LoginText">
+                                        <TextBlock Margin="0 0 10 0"
+                                                   FontSize="12"
+                                                   Foreground="Gray"
+                                                   Text="{x:Bind ViewModel.Developer.Location, Mode=OneWay}"
+                                                   Visibility="{x:Bind ViewModel.Developer.Location, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                                        <TextBlock FontSize="12"
+                                                   Foreground="Gray"
+                                                   Text="{x:Bind ViewModel.Developer.Email, Mode=OneWay}"
+                                                   Visibility="{x:Bind ViewModel.Developer.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <Grid x:Name="ButtonGrid"
+                                          RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                          RelativePanel.Below="UserInfoPanel"
+                                          Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 
-                <TextBlock x:Name="UserNameText"
-                           FontSize="22"
-                           FontWeight="SemiBold"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="UserPicShadow"
-                           Text="{x:Bind ViewModel.Developer.Name, Mode=OneWay}"
-                           TextWrapping="Wrap" />
-                <TextBlock x:Name="LoginText"
-                           Grid.Row="2"
-                           FontSize="13"
-                           FontWeight="SemiBold"
-                           Foreground="Gray"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="UserNameText"
-                           Text="{x:Bind ViewModel.Developer.Login, Mode=OneWay}"
-                           TextWrapping="Wrap" />
-                <StackPanel x:Name="UserInfoPanel"
-                            Margin="0 8 0 10"
-                            Orientation="Horizontal"
-                            RelativePanel.AlignHorizontalCenterWithPanel="True"
-                            RelativePanel.Below="LoginText">
-                    <TextBlock Margin="0 0 10 0"
-                               FontSize="12"
-                               Foreground="Gray"
-                               Text="{x:Bind ViewModel.Developer.Location, Mode=OneWay}"
-                               Visibility="{x:Bind ViewModel.Developer.Location, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-                    <TextBlock FontSize="12"
-                               Foreground="Gray"
-                               Text="{x:Bind ViewModel.Developer.Email, Mode=OneWay}"
-                               Visibility="{x:Bind ViewModel.Developer.Email, Converter={StaticResource StringVisibilityConverter}, Mode=OneWay}" />
-                </StackPanel>
-                <Grid x:Name="ButtonGrid"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True"
-                      RelativePanel.Below="UserInfoPanel"
-                      Visibility="{x:Bind ViewModel.CanFollow, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                                        <!--  Follow button  -->
+                                        <Button x:Uid="followButton"
+                                                Width="90"
+                                                Height="30"
+                                                Background="{ThemeResource SystemChromeLowColor}"
+                                                Command="{x:Bind ViewModel.FollowCommand}"
+                                                IsEnabled="{x:Bind ViewModel.FollowProgress, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                                                Style="{StaticResource ActionButtonStyle}"
+                                                Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
 
-                    <!--  Follow button  -->
-                    <Button x:Uid="followButton"
-                            Width="90"
-                            Height="30"
-                            Background="{ThemeResource SystemChromeLowColor}"
-                            Command="{x:Bind ViewModel.FollowCommand}"
-                            IsEnabled="{x:Bind ViewModel.FollowProgress, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                            Style="{StaticResource ActionButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
-
-                    <!--  Unfollow button  -->
-                    <Button x:Uid="unfollowButton"
-                            Width="90"
-                            Height="30"
-                            Background="{ThemeResource SystemChromeLowColor}"
-                            Command="{x:Bind ViewModel.UnfollowCommand}"
-                            IsEnabled="{x:Bind ViewModel.FollowProgress, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                            Style="{StaticResource ActionButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-                </Grid>
-                <TextBlock x:Name="BioText"
-                           Margin="4 10 4 4"
-                           FontSize="12"
-                           Foreground="Gray"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           RelativePanel.Below="ButtonGrid"
-                           Text="{x:Bind ViewModel.Developer.Bio, Mode=OneWay}"
-                           TextAlignment="Center"
-                           TextTrimming="CharacterEllipsis"
-                           TextWrapping="Wrap" />
-            </RelativePanel>
-        </ScrollViewer>
-
-        <Pivot x:Name="Pivot"
-               Grid.Row="1"
-               Style="{StaticResource CustomPivotStyle}"
-               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
-            <Pivot.Resources>
-                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
-            </Pivot.Resources>
-            <PivotItem Margin="0">
-                <PivotItem.Header>
-                    <TextBlock x:Uid="activity"
+                                        <!--  Unfollow button  -->
+                                        <Button x:Uid="unfollowButton"
+                                                Width="90"
+                                                Height="30"
+                                                Background="{ThemeResource SystemChromeLowColor}"
+                                                Command="{x:Bind ViewModel.UnfollowCommand}"
+                                                IsEnabled="{x:Bind ViewModel.FollowProgress, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                                                Style="{StaticResource ActionButtonStyle}"
+                                                Visibility="{x:Bind ViewModel.IsFollowing, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                                    </Grid>
+                                    <TextBlock x:Name="BioText"
+                                               Margin="4 10 4 4"
+                                               FontSize="12"
+                                               Foreground="Gray"
+                                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                               RelativePanel.Below="ButtonGrid"
+                                               Text="{x:Bind ViewModel.Developer.Bio, Mode=OneWay}"
+                                               TextAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap" />
+                                </RelativePanel>
+                            </Grid>
+                        </toolkitControl:ScrollHeader>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:Activity">
+                            <usercontrol:ActivityListItem />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ProgressRing Width="20"
+                              Height="20"
+                              HorizontalAlignment="Center"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              IsActive="{x:Bind ViewModel.IsEventsLoading, Mode=OneWay}" />
+            </Grid>
+        </PivotItem>
+        <PivotItem Margin="0">
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Uid="repositories"
+                               Margin="0 0 8 0"
                                FontSize="15" />
-                </PivotItem.Header>
-                <Grid ManipulationMode="System">
-                    <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
-                              ScrollViewer.HorizontalScrollMode="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollMode="Enabled"
-                              SelectionMode="None">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:Activity">
-                                <usercontrol:ActivityListItem/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ProgressRing Width="20"
-                                  Height="20"
-                                  HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.IsEventsLoading, Mode=OneWay}" />
-                </Grid>
-            </PivotItem>
-            <PivotItem Margin="0">
-                <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Uid="repositories"
-                                   Margin="0 0 8 0"
-                                   FontSize="15" />
-                        <TextBlock Style="{StaticResource FollowerCountStyle}" 
-                                   Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay}" />
-                    </StackPanel>
-                </PivotItem.Header>
-                <Grid ManipulationMode="System">
-                    <ListView x:Name="RepositoryListView"
-                              IsItemClickEnabled="True"
-                              Loaded="RepositoryListView_Loaded"
-                              ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
-                              ScrollViewer.HorizontalScrollMode="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollMode="Enabled"
-                              >
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:Repository">
-                                <usercontrol:RepoListItem />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ProgressRing Width="20"
-                                  Height="20"
-                                  HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
-                </Grid>
-            </PivotItem>
-            <PivotItem x:Name="FollowersPivotItem"
-                       Margin="0">
-                <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Uid="followers"
-                                   Margin="0 0 10 0"
-                                   FontSize="15"/>
-                        <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Followers, Mode=OneWay}" />
-                    </StackPanel>
-                </PivotItem.Header>
-                <Grid ManipulationMode="System">
-                    <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.UserTapped}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
-                              ScrollViewer.HorizontalScrollMode="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollMode="Enabled">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:User">
-                                <usercontrol:UserListItem />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ProgressRing Width="20"
-                                  Height="20"
-                                  HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.IsFollowersLoading, Mode=OneWay}" />
-                </Grid>
-            </PivotItem>
-            <PivotItem x:Name="FollowingPivotItem"
-                       Margin="0">
-                <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Uid="following"
-                                   Margin="0 0 8 0"
-                                   FontSize="15"/>
-                        <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Following, Mode=OneWay}" />
-                    </StackPanel>
-                </PivotItem.Header>
-                <Grid ManipulationMode="System">
-                    <ListView IsItemClickEnabled="True"
-                              ItemClick="{x:Bind ViewModel.UserTapped}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
-                              ScrollViewer.HorizontalScrollMode="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollMode="Enabled">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:User">
-                                <usercontrol:UserListItem />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ProgressRing Width="20"
-                                  Height="20"
-                                  HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
-                                  IsActive="{x:Bind ViewModel.IsFollowingLoading, Mode=OneWay}" />
-                </Grid>
-            </PivotItem>
-        </Pivot>
-    </Grid>
+                    <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.PublicRepos, Mode=OneWay}" />
+                </StackPanel>
+            </PivotItem.Header>
+            <Grid ManipulationMode="System">
+                <ListView x:Name="RepositoryListView"
+                          IsItemClickEnabled="True"
+                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
+                          Loaded="RepositoryListView_Loaded"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:Repository">
+                            <usercontrol:RepoListItem />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ProgressRing Width="20"
+                              Height="20"
+                              HorizontalAlignment="Center"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
+            </Grid>
+        </PivotItem>
+        <PivotItem x:Name="FollowersPivotItem" Margin="0">
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Uid="followers"
+                               Margin="0 0 10 0"
+                               FontSize="15" />
+                    <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Followers, Mode=OneWay}" />
+                </StackPanel>
+            </PivotItem.Header>
+            <Grid ManipulationMode="System">
+                <ListView IsItemClickEnabled="True"
+                          ItemClick="{x:Bind ViewModel.UserTapped}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.Followers, Mode=OneWay}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:User">
+                            <usercontrol:UserListItem />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ProgressRing Width="20"
+                              Height="20"
+                              HorizontalAlignment="Center"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              IsActive="{x:Bind ViewModel.IsFollowersLoading, Mode=OneWay}" />
+            </Grid>
+        </PivotItem>
+        <PivotItem x:Name="FollowingPivotItem" Margin="0">
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Uid="following"
+                               Margin="0 0 8 0"
+                               FontSize="15" />
+                    <TextBlock Style="{StaticResource FollowerCountStyle}" Text="{x:Bind ViewModel.Developer.Following, Mode=OneWay}" />
+                </StackPanel>
+            </PivotItem.Header>
+            <Grid ManipulationMode="System">
+                <ListView IsItemClickEnabled="True"
+                          ItemClick="{x:Bind ViewModel.UserTapped}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.Following, Mode=OneWay}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:User">
+                            <usercontrol:UserListItem />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ProgressRing Width="20"
+                              Height="20"
+                              HorizontalAlignment="Center"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              IsActive="{x:Bind ViewModel.IsFollowingLoading, Mode=OneWay}" />
+            </Grid>
+        </PivotItem>
+    </Pivot>
 </Page>

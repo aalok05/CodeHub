@@ -135,21 +135,12 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
-        public RelayCommand _loadCommand;
-        public RelayCommand LoadCommand
+        public async Task Load()
         {
-            get
+            if (GlobalHelper.IsInternet())
             {
-                return _loadCommand
-                    ?? (_loadCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if (GlobalHelper.IsInternet())
-                                              {
-                                                  IsLoadingUnread = true;
-                                                  await LoadUnreadNotifications();
-                                              }
-                                          }));
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
             }
         }
 
@@ -223,13 +214,13 @@ namespace CodeHub.ViewModels
             User = null;
             AllNotifications = UnreadNotifications = ParticipatingNotifications = null;
         }
-        public void RecieveSignInMessage(User user)
+        public async void RecieveSignInMessage(User user)
         {
             if (user != null)
             {
                 isLoggedin = true;
                 User = user;
-                LoadCommand.Execute(null);
+                await Load();
             }
         }
 

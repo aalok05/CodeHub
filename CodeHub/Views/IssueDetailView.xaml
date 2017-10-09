@@ -22,7 +22,7 @@
     </Page.Resources>
     <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
+            <VisualStateGroup CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="320" />
@@ -40,6 +40,7 @@
                         <Setter Target="EditIssuePanel.Width" Value="340" />
                         <Setter Target="CommentDialogShadow.Width" Value="340" />
                         <Setter Target="CommentDialogPanel.Width" Value="340" />
+                        <Setter Target="DetailPanel.MaxHeight" Value="180"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Normal">
@@ -57,6 +58,7 @@
                         <Setter Target="EditIssuePanel.Width" Value="600" />
                         <Setter Target="CommentDialogShadow.Width" Value="600" />
                         <Setter Target="CommentDialogPanel.Width" Value="600" />
+                        <Setter Target="ExpanderButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
 
                 </VisualState>
@@ -75,12 +77,13 @@
                         <Setter Target="EditIssuePanel.Width" Value="600" />
                         <Setter Target="CommentDialogShadow.Width" Value="600" />
                         <Setter Target="CommentDialogPanel.Width" Value="600" />
+                        <Setter Target="ExpanderButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.1*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -91,7 +94,7 @@
         <RelativePanel x:Name="DetailGrid">
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
-                       FontSize="20"
+                       FontSize="18"
                        FontWeight="SemiBold"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
@@ -99,12 +102,12 @@
                        TextWrapping="Wrap" />
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
-                       FontSize="20"
+                       FontSize="18"
                        Foreground="Gray"
                        Text="#" />
             <TextBlock x:Name="NumberBlock"
                        Margin="0,8,4,4"
-                       FontSize="20"
+                       FontSize="18"
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="numbersymbol"
@@ -143,13 +146,13 @@
 
             <Border x:Name="statePanel"
                     Margin="8,8,0,0"
-                    BorderThickness="4"
+                    BorderThickness="2"
                     BorderBrush="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.Below="TitleBlock"
                     CornerRadius="1">
                 <StackPanel Background="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
-                            Padding="4"
+                            Padding="4 2 4 2"
                             Orientation="Horizontal">
                     <Path x:Name="stateSymbol"
                           Margin="0,0,4,0"
@@ -173,7 +176,8 @@
                     Visibility="{x:Bind ViewModel.CanEditIssue, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                 <SymbolIcon Symbol="Edit" />
             </Button>
-            <ScrollViewer Margin="8 8 4 8"
+            <ScrollViewer x:Name="DetailPanel"
+                          Margin="0 0 0 8"
                           HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
                           RelativePanel.AlignLeftWithPanel="True"
@@ -181,15 +185,29 @@
                           RelativePanel.Below="UserBlock"
                           VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Enabled">
-
-                <toolkitControl:MarkdownTextBlock Padding="8"
+                <toolkitControl:MarkdownTextBlock Padding="8 28 8 8"
                                                   FontSize="13"
                                                   ImageStretch="Fill"
                                                   LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
                                                   Text="{x:Bind ViewModel.Issue.Body, Mode=OneWay}"
                                                   TextWrapping="Wrap" />
-
             </ScrollViewer>
+
+            <Button x:Name="ExpanderButton" 
+                    MinHeight="28"
+                    Click="Expander_Click"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    HorizontalAlignment="Stretch"
+                    RelativePanel.Below="UserBlock"
+                    Background="{ThemeResource SystemChromeLowColor}"
+                    Opacity="0.8"
+                    Style="{StaticResource ActionButtonStyle}">
+                <FontIcon x:Name="ExpanderIcon"
+                          FontFamily="Segoe MDL2 Assets"
+                          FontSize="14"
+                          Glyph="&#xE0E4;" />
+            </Button>
         </RelativePanel>
         <Pivot x:Name="CommentsPivot" Style="{StaticResource CustomPivotStyle}">
             <Pivot.Resources>
@@ -261,7 +279,7 @@
                     </StackPanel>
                 </PivotItem.Header>
                 <ListView IsItemClickEnabled="True"
-                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                           ItemsSource="{x:Bind ViewModel.Issue.Labels, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"

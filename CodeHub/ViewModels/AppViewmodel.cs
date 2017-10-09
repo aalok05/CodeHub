@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v 2.3.3\n\n\x2022 Added Commits and Commit Detail pages \n\x2022 Feed Events related to commits will now lead you to the new commit pages \n\x2022 More rounded corners! \n\x2022 Better translation throughout the app \n\x2022 FIXED: App was crashing on clicking a URI of incorrect format \n\x2022 Bug Fixes and design improvements!";
+                return "Hi all! \nHere's the changelog for v 2.3.4\n\n\x2022 Redesigned profile view for better experience in small screens \n\x2022 Added collapse button in issue and PR views for better experience in small screens \n\x2022 UI improvements \n\x2022 Handled fork and commit related click events for activities in profile view";
             }
         }
         #endregion

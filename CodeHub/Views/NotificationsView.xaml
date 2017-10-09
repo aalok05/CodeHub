@@ -13,11 +13,6 @@
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       x:Name="Page"
       mc:Ignorable="d">
-    <i:Interaction.Behaviors>
-        <core:EventTriggerBehavior EventName="Loaded">
-            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}" />
-        </core:EventTriggerBehavior>
-    </i:Interaction.Behaviors>
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -52,7 +47,7 @@
                               Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.UnreadNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -173,7 +168,7 @@
                               Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.ParticipatingNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -289,7 +284,7 @@
                               IsItemClickEnabled="True"
                               Grid.Row="0"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.AllNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
