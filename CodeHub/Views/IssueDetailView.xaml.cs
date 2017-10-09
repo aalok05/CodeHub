@@ -113,5 +113,33 @@ namespace CodeHub.Views
                 CommentDialog.Visibility = Visibility.Collapsed;
             }
         }
+
+        private async void Expander_Click(object sender, RoutedEventArgs e)
+        {
+            if (DetailPanel.Visibility == Visibility.Visible)
+            {
+                ExpanderIcon.Glyph = "\uE0E5";
+                await DetailPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                DetailPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ExpanderIcon.Glyph = "\uE0E4";
+                DetailPanel.SetVisualOpacity(0);
+                DetailPanel.Visibility = Visibility.Visible;
+                await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+        }
+
+        private async void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            if (e.NewState.Name.Equals("Wide") || e.NewState.Name.Equals("Normal"))
+            {
+                ExpanderIcon.Glyph = "\uE0E4";
+                DetailPanel.SetVisualOpacity(0);
+                DetailPanel.Visibility = Visibility.Visible;
+                await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+        }
     }
 }
