@@ -115,6 +115,11 @@
                        Margin="0,4,8,0"
                        VerticalAlignment="Center"
                        FontSize="13"
+                       Text="IkerGarcia - Spanish" />
+            <TextBlock x:Name="translatorName9"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
                        Text="Darkpingouin - French" /> 
         </StackPanel>
 
