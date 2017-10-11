@@ -183,7 +183,7 @@
     <value>Commit-Meldungen für Dateien laden</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>Du hast noch keine Veranstaltungen</value>
+    <value>Du hast noch keine veranstaltungen</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
     <value>Wähle den Betrag, mit dem du die Entwickler unterstützen möchtest.</value>
@@ -247,22 +247,22 @@
     <value>Keine Probleme behoben</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>Keine Probleme</value>
+    <value>Keine probleme</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
-    <value>Keine neuen Benachrichtigungen</value>
+    <value>Keine neuen benachrichtigungen</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>Keine ungelösten Probleme</value>
+    <value>Keine ungelösten probleme</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
     <value>Noch keine Organisationen. Deaktiviere die Drittanbieter-Beschränkungen für deine Organisation.</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>Noch keine Repositories</value>
+    <value>Noch keine repositories</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>Noch keine favorisierten Repositories</value>
+    <value>Noch keine favorisierten repositories</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>wurde gemeldet von</value>
@@ -321,10 +321,10 @@
     <value>Probleme</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>Keine Repositories</value>
+    <value>Keine repositories</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>Keine Ergebnisse</value>
+    <value>Keine ergebnisse</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>Suchen</value>
@@ -391,7 +391,7 @@
     <value>Keine angenommenen Pull Requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>Keine offenen Pull Requests</value>
+    <value>Keine offenen pull requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>brachte den Commit</value>
