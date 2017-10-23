@@ -14,8 +14,8 @@
     </UserControl.Resources>
     <Border Margin="4,4,4,0"
             BorderBrush="{ThemeResource SystemChromeLowColor}"
-            BorderThickness="8"
-            CornerRadius="8">
+            BorderThickness="4"
+            CornerRadius="4">
         <StackPanel Padding="8,8,0,8"
                     Background="{ThemeResource SystemChromeLowColor}"
                     Orientation="Vertical">

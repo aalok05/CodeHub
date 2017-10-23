@@ -440,6 +440,7 @@
 
     <Style TargetType="ListViewItem" x:Key="CustomListViewItemStyle">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">

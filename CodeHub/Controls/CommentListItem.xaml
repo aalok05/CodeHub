@@ -13,9 +13,9 @@
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
     </UserControl.Resources>
     <Border BorderBrush="{ThemeResource SystemChromeLowColor}" 
-            BorderThickness="8" 
+            BorderThickness="4" 
             Margin="4 0 4 8"
-            CornerRadius="8">
+            CornerRadius="4">
 
         <RelativePanel Background="{ThemeResource SystemChromeLowColor}">
             <toolkitControls:RoundImageEx x:Name="avatar"

@@ -81,7 +81,7 @@
                                             <AdaptiveTrigger MinWindowWidth="720" />
                                         </VisualState.StateTriggers>
                                         <VisualState.Setters>
-                                            <Setter Target="MainPanel.MaxWidth" Value="600" />
+                                            <Setter Target="MainPanel.MaxWidth" Value="700" />
                                             <Setter Target="RepoText.Margin" Value="4 0 0 8" />
                                             <Setter Target="userText.FontSize" Value="16"/>
                                             <Setter Target="actionText.FontSize" Value="16"/>
@@ -126,7 +126,6 @@
 
                             <TextBlock x:Name="userText"
                                        Margin="0,0,4,4"
-                                       FontWeight="SemiBold"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="avatar"
@@ -139,7 +138,6 @@
                                        Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
 
                             <TextBlock x:Name="RepoText"
-                                       FontWeight="SemiBold"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="actionText"
