@@ -124,7 +124,7 @@ namespace CodeHub
 
         private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
         {
-            if (await AuthService.checkAuth())
+            if (await AuthService.CheckAuth())
             {
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
 

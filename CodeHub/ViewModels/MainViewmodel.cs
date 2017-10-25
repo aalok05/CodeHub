@@ -161,7 +161,6 @@ namespace CodeHub.ViewModels
 
                                               if (await service.Authenticate())
                                               {
-                                                  GlobalHelper.GithubClient = await UserUtility.GetAuthenticatedClient();
                                                   var user = await UserUtility.GetCurrentUserInfo();
                                                   await LoadUser(user);
                                               }
@@ -175,7 +174,7 @@ namespace CodeHub.ViewModels
 
         public async Task Initialize()
         {
-            isLoggedin = await AuthService.checkAuth();
+            isLoggedin = await AuthService.CheckAuth();
             await Load();
 
             if (isLoggedin)
@@ -226,7 +225,7 @@ namespace CodeHub.ViewModels
         {
             isLoading = true;
 
-            if (await AuthService.signOut())
+            if (await AuthService.SignOut())
             {
                 isLoggedin = false;
                 User = null;

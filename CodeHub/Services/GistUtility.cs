@@ -38,8 +38,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Gist.Create(newGist);
+                return await GlobalHelper.GithubClient.Gist.Create(newGist);
             }
             catch
             {

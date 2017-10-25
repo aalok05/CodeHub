@@ -94,6 +94,19 @@ namespace CodeHub.Services
         }
 
         /// <summary>
+        /// Gets the authenticated GithubClient
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static GitHubClient GetAuthenticatedClient(string token)
+        {
+            return new GitHubClient(new ProductHeaderValue("CodeHub"))
+            {
+                Credentials = new Credentials(token)
+            };
+        }
+
+        /// <summary>
         /// Gets the current user info
         /// </summary>
         /// <returns></returns>
