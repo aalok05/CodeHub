@@ -26,18 +26,9 @@
         <StackPanel VerticalAlignment="Center"
                     Background="Transparent"
                     Orientation="Vertical">
-            <toolkitControl:DropShadowPanel HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            BlurRadius="8"
-                                            OffsetX="2"
-                                            OffsetY="2"
-                                            ShadowOpacity="0.7"
-                                            Color="Black">
-                <Image x:Name="AppLogoImage"
-                       Width="90"
-                       VerticalAlignment="Bottom"
-                       Source="/Assets/Images/appLogoPurple.png" />
-            </toolkitControl:DropShadowPanel>
+            <Image x:Name="AppLogoImage"
+                   Width="90"
+                   Source="/Assets/Images/appLogoPurple.png" />
             <toolkitControl:DropShadowPanel HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             BlurRadius="8"

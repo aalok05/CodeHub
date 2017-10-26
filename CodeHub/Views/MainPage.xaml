@@ -162,7 +162,7 @@
                         Padding="12 0 12 0">
                     <Button.Flyout>
                         <Flyout LightDismissOverlayMode="On">
-                            <Button Style="{StaticResource ActionButtonStyle}"
+                            <!--<Button Style="{StaticResource ActionButtonStyle}"
                                     Margin="-7"
                                     Tapped="SignOutFlyout_Tapped">
                                 <RelativePanel>
@@ -190,7 +190,15 @@
                                            RelativePanel.AlignLeftWith="email"
                                            RelativePanel.Below="email" />
                                 </RelativePanel>
-                            </Button>
+                            </Button>-->
+                            <ListView ItemsSource="{x:Bind ViewModel.Accounts,Mode=OneWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Account">
+                                        <control:AccountListItem />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                
+                            </ListView>
                         </Flyout>
                     </Button.Flyout>
                     <SymbolIcon Symbol="More" 
@@ -444,9 +452,9 @@
             </Grid>
         </Grid>
 
-        <control:SignInPage x:Name="SignInPage"
+        <!--<control:SignInPage x:Name="SignInPage"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
-                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />-->
 
         <control:BusyScreen x:Name="busyScreen"
                             Grid.RowSpan="2"

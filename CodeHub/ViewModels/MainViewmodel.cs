@@ -62,6 +62,16 @@ namespace CodeHub.ViewModels
                 Set(() => HamItems, ref _HamItems, value);
             }
         }
+        private ObservableCollection<Models.Account> _Accounts = new ObservableCollection<Models.Account>();
+        public ObservableCollection<Models.Account> Accounts
+        {
+
+            get { return _Accounts; }
+            set
+            {
+                Set(() => Accounts, ref _Accounts, value);
+            }
+        }
         private bool _isPaneOpen;
         public bool IsPaneOpen
         {
@@ -177,10 +187,10 @@ namespace CodeHub.ViewModels
         {
             var adsTask = Task.Factory.StartNew(async() => await ConfigureAdsVisibility());
 
-            ObservableCollection<Models.Account> accounts = await AccountsService.GetAllUsers();
-            if(accounts != null)
+            Accounts = await AccountsService.GetAllUsers();
+            if(Accounts != null)
             {
-                Models.Account activeAccount = accounts.Where(x => x.IsActive = true).First();
+                Models.Account activeAccount = Accounts.Where(x => x.IsActive = true).First();
                 isLoggedin = AuthService.CheckAuth(activeAccount.Id.ToString());
                 await Load(activeAccount.Id.ToString());
             }
