@@ -13,7 +13,6 @@ namespace CodeHub.Services
     public class AccountsService
     {
         private const string SETTINGS_FILENAME = "Settings.json";
-        private static StorageFolder _settingsFolder = ApplicationData.Current.LocalFolder;
 
         /// <summary>
         /// Get all authenticated GitHub users
@@ -23,7 +22,7 @@ namespace CodeHub.Services
         {
             try
             {
-                StorageFile sf = await _settingsFolder.GetFileAsync(SETTINGS_FILENAME);
+                StorageFile sf = await ApplicationData.Current.LocalFolder.GetFileAsync(SETTINGS_FILENAME);
                 if (sf == null) return null;
 
                 string content = await FileIO.ReadTextAsync(sf);
@@ -42,17 +41,55 @@ namespace CodeHub.Services
         {
             try
             {
-                StorageFile file = await _settingsFolder.CreateFileAsync(SETTINGS_FILENAME, CreationCollisionOption.ReplaceExisting);
+                try
+                {
+                    await ApplicationData.Current.LocalFolder.CreateFileAsync(SETTINGS_FILENAME, CreationCollisionOption.FailIfExists);
+                }
+                catch{ }
+                
+                StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(SETTINGS_FILENAME);
                 string content = await FileIO.ReadTextAsync(file);
                 ObservableCollection<Account> allUsers = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
-                allUsers.Add(user);
-                await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(allUsers));
+                if(allUsers != null)
+                {
+                    var sameUser = allUsers.Where(x => x.Id == user.Id);
+                    if (sameUser.Count() == 0)
+                    {
+                        allUsers.Add(user);
+                        await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(allUsers));
+
+                    }
+                    else
+                    {
+                        sameUser.First().IsActive = true;
+                    }
+                }
+                else
+                {
+                    await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(new ObservableCollection<Account> { user }));
+                }
+
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+        
+        public async static Task<bool> RemoveUser(string userId)
+        {
+            try
+            {
+                StorageFile sf = await ApplicationData.Current.LocalFolder.GetFileAsync(SETTINGS_FILENAME);
+                if (sf == null) return false;
+
+                string content = await FileIO.ReadTextAsync(sf);
+                var users = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
+                return users.Remove(users.Where(x => x.Id.ToString() == userId).First());
+            }
+            catch
+            { return false; }
         }
     }
 }

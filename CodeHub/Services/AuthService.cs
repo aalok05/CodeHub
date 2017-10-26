@@ -115,7 +115,8 @@ namespace CodeHub.Services
 
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(clientId, user.Id.ToString(), token));
-                await AccountsService.AddUser(new Models.Account {Id = user.Id, AvatarUrl = user.AvatarUrl, IsLoggedIn = true, Login = user.Login });
+                
+                await AccountsService.AddUser(new Models.Account {Id = user.Id, AvatarUrl = user.AvatarUrl, IsLoggedIn = true, Login = user.Login, IsActive = true });
 
                 return true;
             }
@@ -129,15 +130,12 @@ namespace CodeHub.Services
         /// Gets Access token if stored in device
         /// </summary>
         /// <returns></returns>
-        public static async Task<string> GetToken()
+        public static string GetToken(string userId)
         {
             try
             {
-                string clientId = await AppCredentials.getAppKey();
                 var vault = new PasswordVault();
-
-                var credentialList = vault.FindAllByResource(clientId);
-
+                var credentialList = vault.FindAllByUserName(userId);
                 if (credentialList.Count > 0)
                 {
                     credentialList[0].RetrievePassword();
@@ -158,11 +156,11 @@ namespace CodeHub.Services
         /// Checks if user's device has an access token
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> CheckAuth()
+        public static bool CheckAuth(string userId)
         {
             try
             {
-                var token = await GetToken();
+                var token = GetToken(userId);
                     if (token != null)
                         return true;
                     else

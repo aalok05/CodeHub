@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using CodeHub.Controls;
 using Windows.ApplicationModel.Activation;
+using System.Linq;
 
 namespace CodeHub.ViewModels
 {
@@ -174,8 +175,19 @@ namespace CodeHub.ViewModels
 
         public async Task Initialize()
         {
-            isLoggedin = await AuthService.CheckAuth();
-            await Load();
+            var adsTask = Task.Factory.StartNew(async() => await ConfigureAdsVisibility());
+
+            ObservableCollection<Models.Account> accounts = await AccountsService.GetAllUsers();
+            if(accounts != null)
+            {
+                Models.Account activeAccount = accounts.Where(x => x.IsActive = true).First();
+                isLoggedin = AuthService.CheckAuth(activeAccount.Id.ToString());
+                await Load(activeAccount.Id.ToString());
+            }
+            else
+            {
+                isLoggedin = false;
+            }
 
             if (isLoggedin)
             {
@@ -204,12 +216,12 @@ namespace CodeHub.ViewModels
                     await CheckForUnreadNotifications();
             }
 
-            await ConfigureAdsVisibility();
+            await adsTask;
         }
 
-        public async Task Load()
+        public async Task Load(string userId)
         {
-            GithubClient = await UserUtility.GetAuthenticatedClient();
+            GlobalHelper.GithubClient = UserUtility.GetAuthenticatedClient(AuthService.GetToken(userId));
 
             if (IsInternet())
             {

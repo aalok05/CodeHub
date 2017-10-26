@@ -72,30 +72,6 @@ namespace CodeHub.Services
         /// <summary>
         /// Gets the authenticated GithubClient
         /// </summary>
-        /// <returns></returns>
-        public static async Task<GitHubClient> GetAuthenticatedClient()
-        {
-            try
-            {
-                var token = await AuthService.GetToken();
-                GitHubClient client = new GitHubClient(new ProductHeaderValue("CodeHub"));
-                if (token != null)
-                {
-                    client.Credentials = new Credentials(token);
-                }
-                return client;
-            }
-            catch
-            {
-                GitHubClient client = new GitHubClient(new ProductHeaderValue("CodeHub"));
-                return client;
-            }
-
-        }
-
-        /// <summary>
-        /// Gets the authenticated GithubClient
-        /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
         public static GitHubClient GetAuthenticatedClient(string token)
@@ -117,7 +93,7 @@ namespace CodeHub.Services
                 var user = await GlobalHelper.GithubClient.User.Current();
                 return user;
             }
-            catch
+            catch(Exception e)
             {
                 return null;
             }
