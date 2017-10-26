@@ -120,7 +120,12 @@
                        Margin="0,4,8,0"
                        VerticalAlignment="Center"
                        FontSize="13"
-                       Text="Darkpingouin - French" /> 
+                       Text="Darkpingouin - French" />
+            <TextBlock x:Name="translatorName10"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Francesco Bosso - Italian" />
         </StackPanel>
 
     </ScrollViewer>
