@@ -72,6 +72,16 @@ namespace CodeHub.ViewModels
                 Set(() => Accounts, ref _Accounts, value);
             }
         }
+        private Models.Account _activeAccount = new Models.Account();
+        public Models.Account ActiveAccount
+        {
+
+            get { return _activeAccount; }
+            set
+            {
+                Set(() => ActiveAccount, ref _activeAccount, value);
+            }
+        }
         private bool _isPaneOpen;
         public bool IsPaneOpen
         {
@@ -174,6 +184,7 @@ namespace CodeHub.ViewModels
                                               {
                                                   var user = await UserUtility.GetCurrentUserInfo();
                                                   await LoadUser(user);
+                                                  Accounts = await AccountsService.GetAllUsers();
                                               }
                                               isLoading = false;
                                              
@@ -186,13 +197,15 @@ namespace CodeHub.ViewModels
         public async Task Initialize()
         {
             var adsTask = Task.Factory.StartNew(async() => await ConfigureAdsVisibility());
-
+            
             Accounts = await AccountsService.GetAllUsers();
-            if(Accounts != null)
+            //await AccountsService.RemoveUser(Accounts.First().Id.ToString());
+
+            if (Accounts != null && Accounts.Count > 0)
             {
-                Models.Account activeAccount = Accounts.Where(x => x.IsActive = true).First();
-                isLoggedin = AuthService.CheckAuth(activeAccount.Id.ToString());
-                await Load(activeAccount.Id.ToString());
+                ActiveAccount = Accounts.Where(x => x.IsActive = true).First();
+                isLoggedin = AuthService.CheckAuth(ActiveAccount.Id.ToString());
+                await Load(ActiveAccount.Id.ToString());
             }
             else
             {
@@ -247,12 +260,13 @@ namespace CodeHub.ViewModels
         {
             isLoading = true;
 
-            if (await AuthService.SignOut())
+            if (await AuthService.SignOut(ActiveAccount.Id.ToString()))
             {
                 isLoggedin = false;
                 User = null;
                 Messenger.Default.Send(new SignOutMessageType());
                 HamItemClicked(HamItems[0]);
+                ActiveAccount = null;
             }
             isLoading = false;
         }

@@ -177,20 +177,18 @@ namespace CodeHub.Services
         /// Deletes the access token from user's device
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> SignOut()
+        public async static Task<bool> SignOut(string userId)
         {
             try
             {
-                string clientId = await AppCredentials.getAppKey();
                 var vault = new PasswordVault();
-
-                var credentialList = vault.FindAllByResource(clientId);
+                var credentialList = vault.FindAllByUserName(userId);
 
                 if (credentialList.Count > 0)
                 {
                     vault.Remove(credentialList[0]);
                 }
-
+                await AccountsService.SignOutOfAccount(userId);
                 return true;
             }
             catch

@@ -86,7 +86,31 @@ namespace CodeHub.Services
 
                 string content = await FileIO.ReadTextAsync(sf);
                 var users = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
-                return users.Remove(users.Where(x => x.Id.ToString() == userId).First());
+                users.Remove(users.Where(x => x.Id.ToString() == userId).First());
+                await FileIO.WriteTextAsync(sf, JsonConvert.SerializeObject(users));
+                return true;
+            }
+            catch
+            { return false; }
+        }
+
+        /// <summary>
+        /// Marks an account as Inactive
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async static Task<bool> SignOutOfAccount(string userId)
+        {
+            try
+            {
+                StorageFile sf = await ApplicationData.Current.LocalFolder.GetFileAsync(SETTINGS_FILENAME);
+                if (sf == null) return false;
+
+                string content = await FileIO.ReadTextAsync(sf);
+                var users = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
+                (users.Where(x => x.Id.ToString() == userId).First()).IsActive = false;
+                await FileIO.WriteTextAsync(sf, JsonConvert.SerializeObject(users));
+                return true;
             }
             catch
             { return false; }
