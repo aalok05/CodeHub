@@ -430,37 +430,37 @@
     <value>一秒前</value>
   </data>
   <data name="secondsAgo" xml:space="preserve">
-    <value>几秒前</value>
+    <value>秒前</value>
   </data>
   <data name="aMinuteAgo" xml:space="preserve">
     <value>一分钟前</value>
   </data>
   <data name="minutesAgo" xml:space="preserve">
-    <value>几分钟前</value>
+    <value>分钟前</value>
   </data>
   <data name="anHourAgo" xml:space="preserve">
     <value>一小时前</value>
   </data>
   <data name="hoursAgo" xml:space="preserve">
-    <value>几小时前</value>
+    <value>小时前</value>
   </data>
   <data name="aDayAgo" xml:space="preserve">
     <value>一天前</value>
   </data>
   <data name="daysAgo" xml:space="preserve">
-    <value>几天前</value>
+    <value>天前</value>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
     <value>一个月前</value>
   </data>
   <data name="monthsAgo" xml:space="preserve">
-    <value>几个月前</value>
+    <value>个月前</value>
   </data>
   <data name="aYearAgo" xml:space="preserve">
     <value>一年前</value>
   </data>
   <data name="yearsAgo" xml:space="preserve">
-    <value>几年前</value>
+    <value>年前</value>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
     <value>此版本最新功能</value>
