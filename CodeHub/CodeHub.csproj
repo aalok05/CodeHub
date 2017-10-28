@@ -181,6 +181,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="CodeHub_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\el\Resources.resw" />
     <PRIResource Include="Strings\it\Resources.resw" />
     <PRIResource Include="Strings\fr\Resources.resw" />
     <PRIResource Include="Strings\es\Resources.resw" />
