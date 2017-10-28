@@ -86,6 +86,11 @@
                        VerticalAlignment="Center"
                        FontSize="13"
                        Text="Gary Lu - Chinese" />
+            <TextBlock x:Name="translatorName11"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Tobiichi Amane - Chinese" />
             <TextBlock x:Name="translatorName2"
                        Margin="0,4,8,0"
                        VerticalAlignment="Center"
@@ -126,6 +131,11 @@
                        VerticalAlignment="Center"
                        FontSize="13"
                        Text="Francesco Bosso - Italian" />
+            <TextBlock x:Name="translatorName12"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Panagiotis Bakos - Greek" />
         </StackPanel>
 
     </ScrollViewer>
