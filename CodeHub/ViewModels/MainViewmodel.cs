@@ -203,7 +203,7 @@ namespace CodeHub.ViewModels
 
             if (Accounts != null && Accounts.Count > 0)
             {
-                ActiveAccount = Accounts.Where(x => x.IsActive = true).First();
+                ActiveAccount = Accounts.Where(x => x.IsActive == true).First();
                 isLoggedin = AuthService.CheckAuth(ActiveAccount.Id.ToString());
                 await Load(ActiveAccount.Id.ToString());
             }
