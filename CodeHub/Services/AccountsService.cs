@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using CodeHub.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
-using System.Collections.ObjectModel;
-using CodeHub.Models;
 
 namespace CodeHub.Services
 {
@@ -41,26 +41,30 @@ namespace CodeHub.Services
         {
             try
             {
-                try
-                {
-                    await ApplicationData.Current.LocalFolder.CreateFileAsync(SETTINGS_FILENAME, CreationCollisionOption.FailIfExists);
-                }
-                catch{ }
-                
+                //Try to create a Settings.json file, fail if it already exists
+                try{await ApplicationData.Current.LocalFolder.CreateFileAsync(SETTINGS_FILENAME, CreationCollisionOption.FailIfExists);}
+                catch { }
+
                 StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(SETTINGS_FILENAME);
                 string content = await FileIO.ReadTextAsync(file);
                 ObservableCollection<Account> allUsers = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
-                if(allUsers != null)
+                if (allUsers != null)
                 {
                     var sameUser = allUsers.Where(x => x.Id == user.Id);
                     if (sameUser.Count() == 0)
                     {
+                        //mark all existing users as inactive and add new active user
+                        foreach(var u in allUsers)
+                        {
+                            u.IsActive = false;
+                        }
                         allUsers.Add(user);
                         await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(allUsers));
 
                     }
                     else
                     {
+                        //The user already exists
                         sameUser.First().IsActive = true;
                     }
                 }
@@ -76,7 +80,7 @@ namespace CodeHub.Services
                 return false;
             }
         }
-        
+
         public async static Task<bool> RemoveUser(string userId)
         {
             try
