@@ -12,36 +12,34 @@
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal">
-        <Button IsEnabled="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" Style="{StaticResource ActionButtonStyle}"
-                Padding="0">
-            <StackPanel Orientation="Horizontal"
-                        Margin="0 0 8 0">
-                <toolkitControl:RoundImageEx Width="30"
-                                             Height="30"
-                                             Margin="0 8 8 8"
-                                             CornerRadius="999"
-                                             DecodePixelHeight="30"
-                                             DecodePixelType="Logical"
-                                             DecodePixelWidth="30"
-                                             IsCacheEnabled="True"
-                                             Source="{Binding AvatarUrl, Mode=OneWay}"
-                                             Stretch="UniformToFill" />
+    <RelativePanel>
+        <toolkitControl:RoundImageEx x:Name="profilePic"
+                                     Width="30"
+                                     Height="30"
+                                     Margin="8"
+                                     CornerRadius="999"
+                                     DecodePixelHeight="30"
+                                     DecodePixelType="Logical"
+                                     DecodePixelWidth="30"
+                                     IsCacheEnabled="True"
+                                     Source="{Binding AvatarUrl, Mode=OneWay}"
+                                     Stretch="UniformToFill"
+                                     RelativePanel.AlignVerticalCenterWithPanel="True"/>
 
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="14"
-                           Text="{Binding Login, Mode=OneWay}" />
-            </StackPanel>
-        </Button>
-
-        <Button Style="{StaticResource ActionButtonStyle}" ToolTipService.ToolTip="Delete Account"
+        <TextBlock VerticalAlignment="Center"
+                   FontSize="14"
+                   Text="{Binding Login, Mode=OneWay}"
+                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                   RelativePanel.RightOf="profilePic"/>
+        <Button Width="46"
                 Height="46"
-                Width="46">
-            <Viewbox MaxHeight="12"
-                     MaxWidth="12">
-                <SymbolIcon Symbol="Clear"/>
+                Style="{StaticResource ActionButtonStyle}"
+                ToolTipService.ToolTip="Delete Account"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True">
+            <Viewbox MaxWidth="14" MaxHeight="14">
+                <SymbolIcon Symbol="Delete" />
             </Viewbox>
-            
         </Button>
-    </StackPanel>
+    </RelativePanel>
 </UserControl>

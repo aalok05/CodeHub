@@ -197,6 +197,9 @@
     <Compile Include="Controls\AccountListItem.xaml.cs">
       <DependentUpon>AccountListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AccountsPanelControl.xaml.cs">
+      <DependentUpon>AccountsPanelControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ActivityListItem.xaml.cs">
       <DependentUpon>ActivityListItem.xaml</DependentUpon>
     </Compile>
@@ -461,6 +464,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\AccountListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AccountsPanelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

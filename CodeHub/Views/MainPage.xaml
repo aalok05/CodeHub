@@ -416,40 +416,10 @@
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
-        <StackPanel x:Name="AccountsPanel"
-                    Grid.Row="1"
-                    Margin="12"
-                    MinWidth="250"
-                    Canvas.ZIndex="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Orientation="Vertical"
-                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    Visibility="Collapsed">
-            <ListView ItemsSource="{x:Bind ViewModel.Accounts,Mode=OneWay}"
-                      ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                      SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Account">
-                        <control:AccountListItem />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-            </ListView>
-            <Button Style="{StaticResource ActionButtonStyle}"
-                    Command="{x:Bind ViewModel.SignInCommand}"
-                    Height="50">
-                <StackPanel Orientation="Horizontal">
-                    <Viewbox MaxWidth="20"
-                             MaxHeight="20"
-                             Margin="0 0 8 0">
-                        <SymbolIcon Symbol="Add"/>
-                    </Viewbox>
-                    <TextBlock Text="Add account"
-                                FontSize="15"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+        <control:AccountsPanelControl x:Name="AccountsPanel"
+                                      Accounts="{x:Bind ViewModel.Accounts,Mode=OneWay}"
+                                      SignInCommand="{x:Bind ViewModel.SignInCommand,Mode=OneWay}"
+                                      Visibility="Collapsed"/>
 
         <control:WhatsNewPopupControl x:Name="WhatsNewPopup"
                                       Visibility="Collapsed"

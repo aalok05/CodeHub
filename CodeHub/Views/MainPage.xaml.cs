@@ -105,7 +105,7 @@ namespace CodeHub.Views
         }
         private async void AccountsButton_Click(object sender, RoutedEventArgs e)
         {
-            await ToggleAccountsPanelVisiblity(true);
+            await ShowAccountsPanel();
         }
         #endregion
 
@@ -175,21 +175,11 @@ namespace CodeHub.Views
                 service.GoBackAsync();
             }
         }
-        private async Task ToggleAccountsPanelVisiblity(bool show)
+        private async Task ShowAccountsPanel()
         {
-            if (show)
-            {
-                AccountsPanel.SetVisualOpacity(0);
-                AccountsPanel.Visibility = Visibility.Visible;
-                ViewModel.isLoading = true;
-                await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-            }
-            else
-            {
-                await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-                ViewModel.isLoading = false;
-                AccountsPanel.Visibility = Visibility.Collapsed;
-            }
+            AccountsPanel.SetVisualOpacity(0);
+            AccountsPanel.Visibility = Visibility.Visible;
+            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
         }
         private async Task ShowWhatsNewPopupVisiblity()
         {

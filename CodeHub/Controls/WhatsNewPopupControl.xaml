@@ -92,7 +92,7 @@
                     <TextBlock Margin="12"
                                Opacity="0.8"
                                TextWrapping="WrapWholeWords">
-                        <Run Text="{Binding WhatsNewText, Mode=OneWay}" />
+                        <Run Text="{x:Bind WhatsNewText, Mode=OneWay}" />
                         <Run FontFamily="Segoe MDL2 Assets"
                              FontSize="17"
                              Foreground="Green"
