@@ -32,8 +32,7 @@
                         <Setter Target="SearchSymbol.MaxWidth" Value="19" />
                         <Setter Target="HeaderText.MaxWidth" Value="195" />
                         <Setter Target="profileEllipse.Visibility" Value="Visible" />
-                        <Setter Target="moreButton.Visibility" Value="Visible"/>
-                        <Setter Target="WhatsNewPopupGrid.Width" Value="340"/>
+                        <Setter Target="AccountsButton.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -44,8 +43,7 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
-                        <Setter Target="moreButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="WhatsNewPopupGrid.Width" Value="480"/>
+                        <Setter Target="AccountsButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -56,8 +54,7 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
-                        <Setter Target="moreButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="WhatsNewPopupGrid.Width" Value="480"/>
+                        <Setter Target="AccountsButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -128,7 +125,7 @@
                 <Button x:Name="notifButton"
                         Width="50"
                         Height="48"
-                        RelativePanel.LeftOf="moreButton"
+                        RelativePanel.LeftOf="AccountsButton"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource ActionButtonStyle}"
                         Tapped="{x:Bind ViewModel.NavigateToNotifications}">
@@ -142,7 +139,7 @@
                 </Button>
                 <Grid x:Name="UnreadNotifIndicator"
                       Margin="0 12 12 0"
-                      RelativePanel.LeftOf="moreButton"
+                      RelativePanel.LeftOf="AccountsButton"
                       RelativePanel.AlignTopWith="notifButton"
                       Visibility="{x:Bind ViewModel.IsNotificationsUnread,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                     <Ellipse Width="12"
@@ -152,77 +149,17 @@
                              Height="10"
                              Fill="{StaticResource AppPrimaryColorBrush}"/>
                 </Grid>
-                <Button x:Name="moreButton"
+                <Button x:Name="AccountsButton"
                         Width="50"
                         Height="48"
                         Opacity="0.7"
                         RelativePanel.AlignRightWithPanel="True"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource ActionButtonStyle}"
-                        Padding="12 0 12 0">
-                    <Button.Flyout>
-                        <Flyout LightDismissOverlayMode="On">
-                            <!--<Button Style="{StaticResource ActionButtonStyle}"
-                                    Margin="-7"
-                                    Tapped="SignOutFlyout_Tapped">
-                                <RelativePanel>
-                                    <toolkitControl:RoundImageEx x:Name="avatar"
-                                                                 Width="30"
-                                                                 Height="30"
-                                                                 Margin="0 0 12 0"
-                                                                 CornerRadius="999"
-                                                                 DecodePixelHeight="30"
-                                                                 DecodePixelType="Logical"
-                                                                 DecodePixelWidth="30"
-                                                                 IsCacheEnabled="True"
-                                                                 Stretch="UniformToFill"
-                                                                 Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
-                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"/>
-
-                                    <TextBlock x:Name="email"
-                                           FontSize="10"
-                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                           RelativePanel.RightOf="avatar"
-                                           Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' '}" />
-                                    <TextBlock x:Name="signout"
-                                           x:Uid="signOut"
-                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                           RelativePanel.AlignLeftWith="email"
-                                           RelativePanel.Below="email" />
-                                </RelativePanel>
-                            </Button>-->
-                            <StackPanel Orientation="Vertical">
-                                <ListView ItemsSource="{x:Bind ViewModel.Accounts,Mode=OneWay}"
-                                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                          SelectionMode="None">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="model:Account">
-                                            <control:AccountListItem />
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-
-                                </ListView>
-                                <Button Style="{StaticResource ActionButtonStyle}"
-                                        Height="50">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Viewbox MaxWidth="20"
-                                                 MaxHeight="20"
-                                                 Margin="0 0 8 0">
-                                            <SymbolIcon Symbol="Add"/>
-                                        </Viewbox>
-                                        <TextBlock Text="Add account"
-                                                   FontSize="15"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                           
-                        </Flyout>
-                    </Button.Flyout>
-                    <SymbolIcon Symbol="More" 
-                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
+                        Click="AccountsButton_Click">
+                    <SymbolIcon Symbol="Contact"/>
                 </Button>
             </RelativePanel>
-
             <SplitView x:Name="HamSplitView"
                        Grid.Row="1"
                        IsPaneOpen="{x:Bind ViewModel.IsPaneOpen,Mode=TwoWay}"
@@ -467,6 +404,7 @@
 
                 </Button>
             </Grid>
+            
         </Grid>
 
         <control:SignInPage x:Name="SignInPage"
@@ -478,67 +416,44 @@
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
-        <toolkitControl:DropShadowPanel x:Name="WhatsNewPopup"
-                                        BlurRadius="8"
-                                        ShadowOpacity="0.7"
-                                        OffsetX="2"
-                                        OffsetY="2"
-                                        Color="Black"
-                                        Grid.RowSpan="3"
-                                        Canvas.ZIndex="1"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Visibility="Collapsed">
-            <Grid x:Name="WhatsNewPopupGrid"
-                  Height="600"
-                  BorderBrush="{StaticResource AppPrimaryColorBrush}"
-                  BorderThickness="0.8"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="48"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center"
-                           Margin="8">
-                    <Run FontFamily="Segoe MDL2 Assets"
-                         Text="&#xE8BD; "
-                         FontSize="18"
-                         FontWeight="SemiBold"
-                         Foreground="{StaticResource AppPrimaryColorBrush}"/> 
-                    <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew"
-                         FontSize="20"
-                         FontWeight="SemiBold"/>
-                </TextBlock>
-                <Button Style="{StaticResource ActionButtonStyle}"
-                        Tapped="CloseWhatsNew_Tapped"
-                        MinWidth="50"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Stretch">
-                    <SymbolIcon Symbol="Clear"/>
-                </Button>
-                <ScrollViewer Grid.Row="1"
-                              HorizontalScrollMode="Disabled"
-                              VerticalScrollBarVisibility="Hidden"
-                              VerticalScrollMode="Auto"
-                              Background="{ThemeResource SystemChromeLowColor}">
-                    <TextBlock Margin="12"
-                               Opacity="0.8"
-                               TextWrapping="WrapWholeWords">
-                        <Run Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"/>
-                        <Run FontFamily="Segoe MDL2 Assets" 
-                             Text="&#x0a;&#x0a;&#xE775; "
-                             FontSize="17"
-                             Foreground="Green"/> 
-                        <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew_TranslateApp"/>
-                        <Run FontFamily="Segoe MDL2 Assets"
-                             Text="&#x0a;&#x0a;&#xE170; "
-                             FontSize="17"
-                             Foreground="Yellow"/> 
-                        <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew_Donate"/>
-                    </TextBlock>
-                </ScrollViewer>
-            </Grid>
-        </toolkitControl:DropShadowPanel>
+        <StackPanel x:Name="AccountsPanel"
+                    Grid.Row="1"
+                    Margin="12"
+                    MinWidth="250"
+                    Canvas.ZIndex="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Visibility="Collapsed">
+            <ListView ItemsSource="{x:Bind ViewModel.Accounts,Mode=OneWay}"
+                      ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Account">
+                        <control:AccountListItem />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+            <Button Style="{StaticResource ActionButtonStyle}"
+                    Command="{x:Bind ViewModel.SignInCommand}"
+                    Height="50">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox MaxWidth="20"
+                             MaxHeight="20"
+                             Margin="0 0 8 0">
+                        <SymbolIcon Symbol="Add"/>
+                    </Viewbox>
+                    <TextBlock Text="Add account"
+                                FontSize="15"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <control:WhatsNewPopupControl x:Name="WhatsNewPopup"
+                                      Visibility="Collapsed"
+                                      WhatsNewText="{x:Bind ViewModel.WhatsNewText, Mode=OneWay}"/>
 
         <Grid x:Name="NotificationGrid" />
     </Grid>
