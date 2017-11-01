@@ -39,19 +39,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        private string _email;
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                Set(() => Email, ref _email, value);
-            }
-        }
-
         private ObservableCollection<HamItem> _HamItems = new ObservableCollection<HamItem>();
         public ObservableCollection<HamItem> HamItems
         {
@@ -193,7 +180,7 @@ namespace CodeHub.ViewModels
                                               {
                                                   
                                                   var user = await UserUtility.GetCurrentUserInfo();
-                                                  await LoadUser(user);
+                                                  LoadUser(user);
                                                   await InitializeAccounts();
                                               }
                                               IsAccountsPanelVisible = false;
@@ -216,12 +203,34 @@ namespace CodeHub.ViewModels
 
                                               if (await AuthService.SignOut(ActiveAccount.Id.ToString()))
                                               {
-                                                  isLoggedin = false;
                                                   User = null;
-                                                  Messenger.Default.Send(new SignOutMessageType());
                                                   HamItemClicked(HamItems[0]);
-                                                  ActiveAccount = null;
+
+                                                  InactiveAccounts = await AccountsService.GetAllUsers();
+                                                  if (InactiveAccounts != null && InactiveAccounts.Count > 0)
+                                                  {
+                                                      var availableAccounts = InactiveAccounts.Where(x => x.Id != ActiveAccount.Id);
+                                                      if(availableAccounts.Count() > 0)
+                                                      {
+                                                          ActiveAccount = availableAccounts.First();
+                                                          await AccountsService.MakeAccountActive(ActiveAccount.Id.ToString());
+                                                          await InitializeAccounts();
+                                                      }
+                                                      else
+                                                      {
+                                                          ActiveAccount = null;
+                                                          isLoggedin = false;
+                                                          Messenger.Default.Send(new SignOutMessageType());
+                                                      }
+                                                  }
+                                                  else
+                                                  {
+                                                      ActiveAccount = null;
+                                                      isLoggedin = false;
+                                                      Messenger.Default.Send(new SignOutMessageType());
+                                                  }
                                               }
+
                                               IsAccountsPanelVisible = false;
                                               isLoading = false;
 
@@ -301,29 +310,19 @@ namespace CodeHub.ViewModels
                 if (isLoggedin)
                 {
                     var user = await UserUtility.GetCurrentUserInfo();
-                    await LoadUser(user);
+                    LoadUser(user);
                 }
             }
         }
 
-        public async Task LoadUser(User user)
+        public void LoadUser(User user)
         {
             if (user != null)
             {
                 GlobalHelper.UserLogin = user.Login;
-                if (!isLoggedin)
-                {
-                    isLoggedin = true;
-                    Messenger.Default.Send<User>(user);
-                }
+                isLoggedin = true;
+                Messenger.Default.Send<User>(user);
                 User = user;
-                if (user.Email == null)
-                {
-                    // If User's email is not visible publicly, the email field will return null
-                    // In this case we have to get the email separately
-                    this.Email = await UserUtility.GetUserEmail();
-                }
-                else Email = user.Email;
             }
         }
 

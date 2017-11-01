@@ -227,32 +227,22 @@
                                       RelativePanel.AlignHorizontalCenterWithPanel="True"
                                       SelectionMode="Single">
 
-                                <ListViewItem Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-                                    <RelativePanel Width="270">
-                                        <toolkitControl:RoundImageEx x:Name="smallAvatarEllipse"
-                                                                     CornerRadius="999"
-                                                                     Margin="12 0 16 0"
-                                                                     Width="27"
-                                                                     Height="27"
-                                                                     DecodePixelHeight="27"
-                                                                     DecodePixelType="Logical"
-                                                                     DecodePixelWidth="27"
-                                                                     IsCacheEnabled="True"
-                                                                     Stretch="UniformToFill"
-                                                                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                                                                     Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"/>
-                                        <TextBlock x:Name="EmailText"
-                                                   FontSize="10"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                   RelativePanel.RightOf="smallAvatarEllipse"
-                                                   Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}" />
-                                        <TextBlock x:Name="SignoutText"
-                                                   x:Uid="signOut"
+                                <ListViewItem Tapped="AccountsButton_Click">
+                                    <StackPanel HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
+                                        <Viewbox MaxHeight="18"
+                                                 MaxWidth="18"
+                                                 Margin="12 0 0 0">
+                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                                        Symbol="Contact" />
+                                        </Viewbox>
+                                        <TextBlock Margin="24 0 0 0"
                                                    FontSize="13"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                   RelativePanel.AlignLeftWith="EmailText"
-                                                   RelativePanel.Below="EmailText" />
-                                    </RelativePanel>
+                                                   Text="Accounts"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                    </StackPanel>
                                 </ListViewItem>
                                 <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
                                     <StackPanel HorizontalAlignment="Left"
@@ -417,6 +407,7 @@
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
         <Grid x:Name="AccountsPanel"
+              Background="Transparent"
               Visibility="{x:Bind ViewModel.IsAccountsPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <Grid>
                 <i:Interaction.Behaviors>
@@ -426,75 +417,86 @@
                                     Duration="0" />
                 </i:Interaction.Behaviors>
             </Grid>
-            <RelativePanel MaxHeight="400"
-                           MaxWidth="340"
-                           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                           Canvas.ZIndex="1">
-                <Button x:Name="closeButton"
-                        MinWidth="50"
-                        MinHeight="50"
-                        RelativePanel.AlignRightWithPanel="True"
-                        Style="{StaticResource ActionButtonStyle}"
-                        Tapped="CloseAccountsPanel_Tapped">
-                    <SymbolIcon Symbol="Clear" />
-                </Button>
-                <StackPanel Orientation="Vertical"
-                            RelativePanel.Above="accountsList"
-                            RelativePanel.AlignLeftWithPanel="True"
-                            RelativePanel.AlignRightWithPanel="True">
-                    <toolkitControl:RoundImageEx Width="50"
-                                                 Height="50"
-                                                 Margin="8"
-                                                 CornerRadius="999"
-                                                 DecodePixelHeight="50"
-                                                 DecodePixelType="Logical"
-                                                 DecodePixelWidth="50"
-                                                 IsCacheEnabled="True"
-                                                 Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
-                                                 Stretch="UniformToFill"/>
-
-                    <TextBlock FontSize="18"
-                               HorizontalAlignment="Center"
-                               Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}"/>
-                    <Button Height="40"
-                            Padding="12 0 12 0"
-                            HorizontalAlignment="Center"
-                            Command="{x:Bind ViewModel.SignOutCommand}"
-                            Content="Sign out"
-                            Style="{StaticResource ActionButtonStyle}">
+            <toolkitControl:DropShadowPanel BlurRadius="8"
+                                            Canvas.ZIndex="1"
+                                            OffsetX="2"
+                                            OffsetY="2"
+                                            ShadowOpacity="0.7"
+                                            Color="Black"
+                                            Height="400"
+                                            Width="340">
+                <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                               Canvas.ZIndex="1"
+                               Height="400"
+                               Width="340">
+                    <Button x:Name="closeButton"
+                            MinWidth="50"
+                            MinHeight="50"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CloseAccountsPanel_Tapped">
+                        <SymbolIcon Symbol="Clear" />
                     </Button>
-                </StackPanel>
-                <ListView x:Name="accountsList"
-                          IsItemClickEnabled="True"
-                          ItemClick="{x:Bind ViewModel.SwitchUser_Click}"
-                          ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
-                          ItemsSource="{x:Bind ViewModel.InactiveAccounts, Mode=OneWay}"
-                          RelativePanel.AlignLeftWithPanel="True"
-                          RelativePanel.AlignRightWithPanel="True"
-                          RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Account">
-                            <control:AccountListItem />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Button Height="50"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.AlignRightWithPanel="True"
-                        HorizontalAlignment="Stretch"
-                        RelativePanel.Below="accountsList"
-                        Command="{x:Bind ViewModel.SignInCommand,Mode=OneWay}"
-                        Style="{StaticResource ActionButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <Viewbox MaxWidth="20"
+                    <StackPanel Orientation="Vertical"
+                                RelativePanel.Above="accountsList"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True">
+                        <toolkitControl:RoundImageEx Width="70"
+                                                     Height="70"
+                                                     Margin="8"
+                                                     CornerRadius="999"
+                                                     DecodePixelHeight="70"
+                                                     DecodePixelType="Logical"
+                                                     DecodePixelWidth="70"
+                                                     IsCacheEnabled="True"
+                                                     Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
+                                                     Stretch="UniformToFill"/>
+
+                        <TextBlock FontSize="19"
+                                   HorizontalAlignment="Center"
+                                   Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}"/>
+                        <Button Height="38"
+                                Padding="16 0 16 0"
+                                Margin="8"
+                                HorizontalAlignment="Center"
+                                Command="{x:Bind ViewModel.SignOutCommand}"
+                                Content="Sign out"
+                                Style="{StaticResource ActionButtonStyle}">
+                        </Button>
+                    </StackPanel>
+                    <ListView x:Name="accountsList"
+                              IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.SwitchUser_Click}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.InactiveAccounts, Mode=OneWay}"
+                              RelativePanel.AlignLeftWithPanel="True"
+                              RelativePanel.AlignRightWithPanel="True"
+                              RelativePanel.AlignVerticalCenterWithPanel="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Account">
+                                <control:AccountListItem />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Height="50"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            HorizontalAlignment="Stretch"
+                            RelativePanel.AlignBottomWithPanel="True"
+                            Command="{x:Bind ViewModel.SignInCommand,Mode=OneWay}"
+                            Style="{StaticResource ActionButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox MaxWidth="20"
                                  MaxHeight="20"
                                  Margin="0,0,8,0">
-                            <SymbolIcon Symbol="Add" />
-                        </Viewbox>
-                        <TextBlock FontSize="15" Text="Add account" />
-                    </StackPanel>
-                </Button>
-            </RelativePanel>
+                                <SymbolIcon Symbol="Add" />
+                            </Viewbox>
+                            <TextBlock FontSize="15" Text="Add account" />
+                        </StackPanel>
+                    </Button>
+                </RelativePanel>
+            </toolkitControl:DropShadowPanel>
+           
         </Grid>
         
 

@@ -181,13 +181,13 @@ namespace CodeHub.Services
         {
             try
             {
-                var vault = new PasswordVault();
-                var credentialList = vault.FindAllByUserName(userId);
+                //var vault = new PasswordVault();
+                //var credentialList = vault.FindAllByUserName(userId);
 
-                if (credentialList.Count > 0)
-                {
-                    vault.Remove(credentialList[0]);
-                }
+                //if (credentialList.Count > 0)
+                //{
+                //    vault.Remove(credentialList[0]);
+                //}
                 await AccountsService.SignOutOfAccount(userId);
                 return true;
             }
