@@ -107,6 +107,11 @@ namespace CodeHub.Views
         {
             await ShowAccountsPanel();
         }
+        private async void CloseAccountsPanel_Tapped(object sender, RoutedEventArgs e)
+        {
+            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            ViewModel.IsAccountsPanelVisible = false;
+        }
         #endregion
 
         #region Messaging
@@ -178,7 +183,7 @@ namespace CodeHub.Views
         private async Task ShowAccountsPanel()
         {
             AccountsPanel.SetVisualOpacity(0);
-            AccountsPanel.Visibility = Visibility.Visible;
+            ViewModel.IsAccountsPanelVisible = true;
             await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
         }
         private async Task ShowWhatsNewPopupVisiblity()

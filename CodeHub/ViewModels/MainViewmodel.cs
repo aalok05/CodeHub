@@ -62,14 +62,14 @@ namespace CodeHub.ViewModels
                 Set(() => HamItems, ref _HamItems, value);
             }
         }
-        private ObservableCollection<Models.Account> _Accounts = new ObservableCollection<Models.Account>();
-        public ObservableCollection<Models.Account> Accounts
+        private ObservableCollection<Models.Account> _InactiveAccounts = new ObservableCollection<Models.Account>();
+        public ObservableCollection<Models.Account> InactiveAccounts
         {
 
-            get { return _Accounts; }
+            get { return _InactiveAccounts; }
             set
             {
-                Set(() => Accounts, ref _Accounts, value);
+                Set(() => InactiveAccounts, ref _InactiveAccounts, value);
             }
         }
         private Models.Account _activeAccount = new Models.Account();
@@ -89,6 +89,15 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => IsPaneOpen, ref _isPaneOpen, value);
+            }
+        }
+        private bool _isAccountsPanelVisible;
+        public bool IsAccountsPanelVisible
+        {
+            get { return _isAccountsPanelVisible; }
+            set
+            {
+                Set(() => IsAccountsPanelVisible, ref _isAccountsPanelVisible, value);
             }
         }
 
@@ -182,35 +191,50 @@ namespace CodeHub.ViewModels
 
                                               if (await service.Authenticate())
                                               {
+                                                  
                                                   var user = await UserUtility.GetCurrentUserInfo();
                                                   await LoadUser(user);
-                                                  Accounts = await AccountsService.GetAllUsers();
+                                                  await InitializeAccounts();
                                               }
+                                              IsAccountsPanelVisible = false;
                                               isLoading = false;
                                              
                                           }));
             }
         }
 
+        private RelayCommand _signOutCommand;
+        public RelayCommand SignOutCommand
+        {
+            get
+            {
+                return _signOutCommand
+                    ?? (_signOutCommand = new RelayCommand(
+                                          async () =>
+                                          {
+                                              isLoading = true;
+
+                                              if (await AuthService.SignOut(ActiveAccount.Id.ToString()))
+                                              {
+                                                  isLoggedin = false;
+                                                  User = null;
+                                                  Messenger.Default.Send(new SignOutMessageType());
+                                                  HamItemClicked(HamItems[0]);
+                                                  ActiveAccount = null;
+                                              }
+                                              IsAccountsPanelVisible = false;
+                                              isLoading = false;
+
+                                          }));
+            }
+        }
         #endregion
 
         public async Task Initialize()
         {
             var adsTask = Task.Factory.StartNew(async() => await ConfigureAdsVisibility());
-            
-            Accounts = await AccountsService.GetAllUsers();
-            //await AccountsService.RemoveUser(Accounts.First().Id.ToString());
 
-            if (Accounts != null && Accounts.Count > 0)
-            {
-                ActiveAccount = Accounts.Where(x => x.IsActive == true).First();
-                isLoggedin = AuthService.CheckAuth(ActiveAccount.Id.ToString());
-                await Load(ActiveAccount.Id.ToString());
-            }
-            else
-            {
-                isLoggedin = false;
-            }
+            await InitializeAccounts();
 
             if (isLoggedin)
             {
@@ -242,6 +266,32 @@ namespace CodeHub.ViewModels
             await adsTask;
         }
 
+        public async Task InitializeAccounts()
+        {
+            InactiveAccounts = await AccountsService.GetAllUsers();
+
+            if (InactiveAccounts != null && InactiveAccounts.Count > 0)
+            {
+                var activeAccounts = InactiveAccounts.Where(x => x.IsActive == true);
+                if (activeAccounts.Count() != 0)
+                {
+                    ActiveAccount = activeAccounts.First();
+
+                    InactiveAccounts.Remove(ActiveAccount);
+                    isLoggedin = AuthService.CheckAuth(ActiveAccount.Id.ToString());
+                    await Load(ActiveAccount.Id.ToString());
+                }
+                else
+                {
+                    isLoggedin = false;
+                }
+            }
+            else
+            {
+                isLoggedin = false;
+            }
+        }
+
         public async Task Load(string userId)
         {
             GlobalHelper.GithubClient = UserUtility.GetAuthenticatedClient(AuthService.GetToken(userId));
@@ -251,25 +301,11 @@ namespace CodeHub.ViewModels
                 if (isLoggedin)
                 {
                     var user = await UserUtility.GetCurrentUserInfo();
-
                     await LoadUser(user);
                 }
             }
         }
-        public async Task SignOut()
-        {
-            isLoading = true;
 
-            if (await AuthService.SignOut(ActiveAccount.Id.ToString()))
-            {
-                isLoggedin = false;
-                User = null;
-                Messenger.Default.Send(new SignOutMessageType());
-                HamItemClicked(HamItems[0]);
-                ActiveAccount = null;
-            }
-            isLoading = false;
-        }
         public async Task LoadUser(User user)
         {
             if (user != null)
@@ -302,6 +338,12 @@ namespace CodeHub.ViewModels
 
             if (!(DisplayMode == SplitViewDisplayMode.Inline))
                 IsPaneOpen = false;
+        }
+        public async void SwitchUser_Click(object sender, ItemClickEventArgs e)
+        {
+            await AccountsService.MakeAccountActive((e.ClickedItem as Models.Account).Id.ToString());
+            await InitializeAccounts();
+            IsAccountsPanelVisible = false;
         }
         public void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {

@@ -65,7 +65,8 @@ namespace CodeHub.Services
                     else
                     {
                         //The user already exists
-                        sameUser.First().IsActive = true;
+                        allUsers.Where(x => x.Id == user.Id).First().IsActive = true;
+                        await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(allUsers));
                     }
                 }
                 else
@@ -113,6 +114,29 @@ namespace CodeHub.Services
                 string content = await FileIO.ReadTextAsync(sf);
                 var users = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
                 (users.Where(x => x.Id.ToString() == userId).First()).IsActive = false;
+                await FileIO.WriteTextAsync(sf, JsonConvert.SerializeObject(users));
+                return true;
+            }
+            catch
+            { return false; }
+        }
+
+        public async static Task<bool> MakeAccountActive(string userId)
+        {
+            try
+            {
+                StorageFile sf = await ApplicationData.Current.LocalFolder.GetFileAsync(SETTINGS_FILENAME);
+                if (sf == null) return false;
+
+                string content = await FileIO.ReadTextAsync(sf);
+                var users = JsonConvert.DeserializeObject<ObservableCollection<Account>>(content);
+                foreach (var u in users)
+                {
+                    if (u.Id.ToString() == userId)
+                        u.IsActive = true;
+                    else
+                        u.IsActive = false;
+                }
                 await FileIO.WriteTextAsync(sf, JsonConvert.SerializeObject(users));
                 return true;
             }
