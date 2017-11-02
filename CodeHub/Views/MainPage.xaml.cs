@@ -48,7 +48,7 @@ namespace CodeHub.Views
             Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ViewModel.ToggleAdsVisiblity(); });
             Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
             Messenger.Default.Register(this, delegate (UpdateUnreadNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
-            Messenger.Default.Register(this, delegate (ShowWhatsNewPopupMessageType m) { ShowWhatsNewPopup(); });
+            Messenger.Default.Register(this, async delegate (ShowWhatsNewPopupMessageType m) {await ShowWhatsNewPopupVisiblity(); });
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
             #endregion
 
@@ -95,7 +95,7 @@ namespace CodeHub.Views
             await ViewModel.Initialize();
 
             if (WhatsNewDisplayService.IsNewVersion() && ViewModel.isLoggedin)
-                await ShowWhatsNewPopup();
+                await ShowWhatsNewPopupVisiblity();
         }
 
         #region click events
@@ -103,16 +103,18 @@ namespace CodeHub.Views
         {
             ViewModel.HamItemClicked(e.ClickedItem as HamItem);
         }
-        private async void SignOutFlyout_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void AccountsButton_Click(object sender, RoutedEventArgs e)
         {
-            moreButton.Flyout.Hide();
-            await ViewModel.SignOut();
+            await ShowAccountsPanel();
         }
-        private async void CloseWhatsNew_Tapped(object sender, RoutedEventArgs e)
+        private async void CloseAccountsPanel_Tapped(object sender, RoutedEventArgs e)
         {
-            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-            ViewModel.isLoading = false;
-            WhatsNewPopup.Visibility = Visibility.Collapsed;
+            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            ViewModel.IsAccountsPanelVisible = false;
+        }
+        private async void DeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DeleteAccount(((Button)sender).Tag.ToString());
         }
         #endregion
 
@@ -173,14 +175,6 @@ namespace CodeHub.Views
             else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
         }
 
-        private async Task ShowWhatsNewPopup()
-        {
-            WhatsNewPopup.SetVisualOpacity(0);
-            WhatsNewPopup.Visibility = Visibility.Visible;
-            ViewModel.isLoading = true;
-            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
-        }
-
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
@@ -189,6 +183,18 @@ namespace CodeHub.Views
                 e.Handled = true;
                 service.GoBackAsync();
             }
+        }
+        private async Task ShowAccountsPanel()
+        {
+            AccountsPanel.SetVisualOpacity(0);
+            ViewModel.IsAccountsPanelVisible = true;
+            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+        }
+        private async Task ShowWhatsNewPopupVisiblity()
+        {
+            WhatsNewPopup.SetVisualOpacity(0);
+            WhatsNewPopup.Visibility = Visibility.Visible;
+            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
         }
         #endregion
     }

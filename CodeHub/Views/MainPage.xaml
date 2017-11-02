@@ -6,6 +6,7 @@
       xmlns:converters="using:CodeHub.Converters"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:CodeHub.Models"
@@ -32,8 +33,7 @@
                         <Setter Target="SearchSymbol.MaxWidth" Value="19" />
                         <Setter Target="HeaderText.MaxWidth" Value="195" />
                         <Setter Target="profileEllipse.Visibility" Value="Visible" />
-                        <Setter Target="moreButton.Visibility" Value="Visible"/>
-                        <Setter Target="WhatsNewPopupGrid.Width" Value="340"/>
+                        <Setter Target="AccountsButton.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
@@ -44,8 +44,7 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
-                        <Setter Target="moreButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="WhatsNewPopupGrid.Width" Value="480"/>
+                        <Setter Target="AccountsButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopEx">
@@ -56,8 +55,7 @@
                         <Setter Target="BottomAppBar.Visibility" Value="Collapsed" />
                         <Setter Target="HamButton.Visibility" Value="Visible" />
                         <Setter Target="profileEllipse.Visibility" Value="Collapsed" />
-                        <Setter Target="moreButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="WhatsNewPopupGrid.Width" Value="480"/>
+                        <Setter Target="AccountsButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -128,7 +126,7 @@
                 <Button x:Name="notifButton"
                         Width="50"
                         Height="48"
-                        RelativePanel.LeftOf="moreButton"
+                        RelativePanel.LeftOf="AccountsButton"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource ActionButtonStyle}"
                         Tapped="{x:Bind ViewModel.NavigateToNotifications}">
@@ -142,7 +140,7 @@
                 </Button>
                 <Grid x:Name="UnreadNotifIndicator"
                       Margin="0 12 12 0"
-                      RelativePanel.LeftOf="moreButton"
+                      RelativePanel.LeftOf="AccountsButton"
                       RelativePanel.AlignTopWith="notifButton"
                       Visibility="{x:Bind ViewModel.IsNotificationsUnread,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                     <Ellipse Width="12"
@@ -152,52 +150,17 @@
                              Height="10"
                              Fill="{StaticResource AppPrimaryColorBrush}"/>
                 </Grid>
-                <Button x:Name="moreButton"
+                <Button x:Name="AccountsButton"
                         Width="50"
                         Height="48"
                         Opacity="0.7"
                         RelativePanel.AlignRightWithPanel="True"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Style="{StaticResource ActionButtonStyle}"
-                        Padding="12 0 12 0">
-                    <Button.Flyout>
-                        <Flyout LightDismissOverlayMode="On">
-                            <Button Style="{StaticResource ActionButtonStyle}"
-                                    Margin="-7"
-                                    Tapped="SignOutFlyout_Tapped">
-                                <RelativePanel>
-                                    <toolkitControl:RoundImageEx x:Name="avatar"
-                                                                 Width="30"
-                                                                 Height="30"
-                                                                 Margin="0 0 12 0"
-                                                                 CornerRadius="999"
-                                                                 DecodePixelHeight="30"
-                                                                 DecodePixelType="Logical"
-                                                                 DecodePixelWidth="30"
-                                                                 IsCacheEnabled="True"
-                                                                 Stretch="UniformToFill"
-                                                                 Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
-                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"/>
-
-                                    <TextBlock x:Name="email"
-                                           FontSize="10"
-                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                           RelativePanel.RightOf="avatar"
-                                           Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' '}" />
-                                    <TextBlock x:Name="signout"
-                                           x:Uid="signOut"
-                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                           RelativePanel.AlignLeftWith="email"
-                                           RelativePanel.Below="email" />
-                                </RelativePanel>
-                            </Button>
-                        </Flyout>
-                    </Button.Flyout>
-                    <SymbolIcon Symbol="More" 
-                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
+                        Click="AccountsButton_Click">
+                    <SymbolIcon Symbol="Contact"/>
                 </Button>
             </RelativePanel>
-
             <SplitView x:Name="HamSplitView"
                        Grid.Row="1"
                        IsPaneOpen="{x:Bind ViewModel.IsPaneOpen,Mode=TwoWay}"
@@ -264,33 +227,22 @@
                                       RelativePanel.AlignHorizontalCenterWithPanel="True"
                                       SelectionMode="Single">
 
-                                <ListViewItem Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-                                              Tapped="{x:Bind ViewModel.SignOut}">
-                                    <RelativePanel Width="270">
-                                        <toolkitControl:RoundImageEx x:Name="smallAvatarEllipse"
-                                                                     CornerRadius="999"
-                                                                     Margin="12 0 16 0"
-                                                                     Width="27"
-                                                                     Height="27"
-                                                                     DecodePixelHeight="27"
-                                                                     DecodePixelType="Logical"
-                                                                     DecodePixelWidth="27"
-                                                                     IsCacheEnabled="True"
-                                                                     Stretch="UniformToFill"
-                                                                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                                                                     Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"/>
-                                        <TextBlock x:Name="EmailText"
-                                                   FontSize="10"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                   RelativePanel.RightOf="smallAvatarEllipse"
-                                                   Text="{x:Bind ViewModel.Email, Mode=OneWay, FallbackValue=' ', TargetNullValue=' '}" />
-                                        <TextBlock x:Name="SignoutText"
-                                                   x:Uid="signOut"
+                                <ListViewItem Tapped="AccountsButton_Click">
+                                    <StackPanel HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
+                                        <Viewbox MaxHeight="18"
+                                                 MaxWidth="18"
+                                                 Margin="12 0 0 0">
+                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                                        Symbol="Contact" />
+                                        </Viewbox>
+                                        <TextBlock Margin="24 0 0 0"
                                                    FontSize="13"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                   RelativePanel.AlignLeftWith="EmailText"
-                                                   RelativePanel.Below="EmailText" />
-                                    </RelativePanel>
+                                                   Text="Accounts"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                    </StackPanel>
                                 </ListViewItem>
                                 <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
                                     <StackPanel HorizontalAlignment="Left"
@@ -442,6 +394,7 @@
 
                 </Button>
             </Grid>
+            
         </Grid>
 
         <control:SignInPage x:Name="SignInPage"
@@ -453,67 +406,134 @@
                             IsBusy="True"
                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
-        <toolkitControl:DropShadowPanel x:Name="WhatsNewPopup"
-                                        BlurRadius="8"
-                                        ShadowOpacity="0.7"
-                                        OffsetX="2"
-                                        OffsetY="2"
-                                        Color="Black"
-                                        Grid.RowSpan="3"
-                                        Canvas.ZIndex="1"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Visibility="Collapsed">
-            <Grid x:Name="WhatsNewPopupGrid"
-                  Height="600"
-                  BorderBrush="{StaticResource AppPrimaryColorBrush}"
-                  BorderThickness="0.8"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="48"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center"
-                           Margin="8">
-                    <Run FontFamily="Segoe MDL2 Assets"
-                         Text="&#xE8BD; "
-                         FontSize="18"
-                         FontWeight="SemiBold"
-                         Foreground="{StaticResource AppPrimaryColorBrush}"/> 
-                    <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew"
-                         FontSize="20"
-                         FontWeight="SemiBold"/>
-                </TextBlock>
-                <Button Style="{StaticResource ActionButtonStyle}"
-                        Tapped="CloseWhatsNew_Tapped"
-                        MinWidth="50"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Stretch">
-                    <SymbolIcon Symbol="Clear"/>
-                </Button>
-                <ScrollViewer Grid.Row="1"
-                              HorizontalScrollMode="Disabled"
-                              VerticalScrollBarVisibility="Hidden"
-                              VerticalScrollMode="Auto"
-                              Background="{ThemeResource SystemChromeLowColor}">
-                    <TextBlock Margin="12"
-                               Opacity="0.8"
-                               TextWrapping="WrapWholeWords">
-                        <Run Text="{x:Bind ViewModel.WhatsNewText,Mode=OneWay}"/>
-                        <Run FontFamily="Segoe MDL2 Assets" 
-                             Text="&#x0a;&#x0a;&#xE775; "
-                             FontSize="17"
-                             Foreground="Green"/> 
-                        <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew_TranslateApp"/>
-                        <Run FontFamily="Segoe MDL2 Assets"
-                             Text="&#x0a;&#x0a;&#xE170; "
-                             FontSize="17"
-                             Foreground="Yellow"/> 
-                        <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew_Donate"/>
-                    </TextBlock>
-                </ScrollViewer>
+        <Grid x:Name="AccountsPanel"
+              Background="Transparent"
+              Visibility="{x:Bind ViewModel.IsAccountsPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+            <Grid>
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur AutomaticallyStart="True"
+                                    Delay="0"
+                                    Value="20"
+                                    Duration="0" />
+                </i:Interaction.Behaviors>
             </Grid>
-        </toolkitControl:DropShadowPanel>
+            <toolkitControl:DropShadowPanel BlurRadius="8"
+                                            Canvas.ZIndex="1"
+                                            OffsetX="2"
+                                            OffsetY="2"
+                                            ShadowOpacity="0.7"
+                                            Color="Black"
+                                            Height="400"
+                                            Width="340">
+                <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                               Canvas.ZIndex="1"
+                               Height="400"
+                               Width="340">
+                    <Button x:Name="closeButton"
+                            MinWidth="50"
+                            MinHeight="50"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CloseAccountsPanel_Tapped">
+                        <SymbolIcon Symbol="Clear" />
+                    </Button>
+                    <StackPanel Orientation="Vertical"
+                                RelativePanel.Above="accountsList"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True">
+                        <toolkitControl:RoundImageEx Width="70"
+                                                     Height="70"
+                                                     Margin="8"
+                                                     CornerRadius="999"
+                                                     DecodePixelHeight="70"
+                                                     DecodePixelType="Logical"
+                                                     DecodePixelWidth="70"
+                                                     IsCacheEnabled="True"
+                                                     Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
+                                                     Stretch="UniformToFill"/>
+
+                        <TextBlock FontSize="19"
+                                   HorizontalAlignment="Center"
+                                   Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}"/>
+                        <Button Height="38"
+                                Padding="16 0 16 0"
+                                Margin="8"
+                                HorizontalAlignment="Center"
+                                Command="{x:Bind ViewModel.SignOutCommand}"
+                                Content="Sign out"
+                                Style="{StaticResource ActionButtonStyle}">
+                        </Button>
+                    </StackPanel>
+                    <ListView x:Name="accountsList"
+                              IsItemClickEnabled="True"
+                              ItemClick="{x:Bind ViewModel.SwitchUser_Click}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
+                              ItemsSource="{x:Bind ViewModel.InactiveAccounts, Mode=OneWay}"
+                              RelativePanel.AlignLeftWithPanel="True"
+                              RelativePanel.AlignRightWithPanel="True"
+                              RelativePanel.AlignVerticalCenterWithPanel="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Account">
+                                <RelativePanel>
+                                    <toolkitControl:RoundImageEx x:Name="profilePic"
+                                                                 Width="30"
+                                                                 Height="30"
+                                                                 Margin="8"
+                                                                 CornerRadius="999"
+                                                                 DecodePixelHeight="30"
+                                                                 DecodePixelType="Logical"
+                                                                 DecodePixelWidth="30"
+                                                                 IsCacheEnabled="True"
+                                                                 Source="{Binding AvatarUrl, Mode=OneWay}"
+                                                                 Stretch="UniformToFill"
+                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"/>
+
+                                    <TextBlock VerticalAlignment="Center"
+                                               FontSize="14"
+                                               Text="{Binding Login, Mode=OneWay}"
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               RelativePanel.RightOf="profilePic"/>
+                                    <Button Width="46"
+                                            Height="46"
+                                            Tag="{Binding Id,Mode=OneWay}"
+                                            Click="DeleteAccount_Click"
+                                            Style="{StaticResource ActionButtonStyle}"
+                                            ToolTipService.ToolTip="Delete Account"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignVerticalCenterWithPanel="True">
+                                        <Viewbox MaxWidth="14" MaxHeight="14">
+                                            <SymbolIcon Symbol="Delete" />
+                                        </Viewbox>
+                                    </Button>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Height="50"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            HorizontalAlignment="Stretch"
+                            RelativePanel.AlignBottomWithPanel="True"
+                            Command="{x:Bind ViewModel.SignInCommand,Mode=OneWay}"
+                            Style="{StaticResource ActionButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox MaxWidth="20"
+                                 MaxHeight="20"
+                                 Margin="0,0,8,0">
+                                <SymbolIcon Symbol="Add" />
+                            </Viewbox>
+                            <TextBlock FontSize="15" Text="Add account" />
+                        </StackPanel>
+                    </Button>
+                </RelativePanel>
+            </toolkitControl:DropShadowPanel>
+           
+        </Grid>
+        
+
+        <control:WhatsNewPopupControl x:Name="WhatsNewPopup"
+                                      Visibility="Collapsed"
+                                      WhatsNewText="{x:Bind ViewModel.WhatsNewText, Mode=OneWay}"/>
 
         <Grid x:Name="NotificationGrid" />
     </Grid>

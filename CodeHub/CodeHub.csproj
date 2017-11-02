@@ -257,6 +257,9 @@
     <Compile Include="Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WhatsNewPopupControl.xaml.cs">
+      <DependentUpon>WhatsNewPopupControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ColorStringToColorBrushConverter.cs" />
     <Compile Include="Converters\EventTypeToActionStringConverter.cs" />
     <Compile Include="Converters\EventTypeToCommentStringConverter.cs" />
@@ -279,11 +282,13 @@
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Models\SyntaxHighlightStyle.cs" />
     <Compile Include="Models\WrappedWebResult.cs" />
+    <Compile Include="Services\AccountsService.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\CommitService.cs" />
@@ -527,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\UserListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WhatsNewPopupControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

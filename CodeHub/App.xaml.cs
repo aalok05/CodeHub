@@ -13,6 +13,9 @@ using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
 using Windows.System;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using CodeHub.Models;
+using System.Linq;
 
 namespace CodeHub
 {
@@ -81,65 +84,68 @@ namespace CodeHub
             }
         }
 
-        protected async override void OnActivated(IActivatedEventArgs args)
-        {
-            if (args.Kind == ActivationKind.Protocol)
-            {
-                if(args.PreviousExecutionState == ApplicationExecutionState.Running)
-                {
-                    await HandleProtocolActivationArguments(args);
-                }
-                else
-                {
-                    if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
-                        XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
+        //protected async override void OnActivated(IActivatedEventArgs args)
+        //{
+        //    if (args.Kind == ActivationKind.Protocol)
+        //    {
+        //        if(args.PreviousExecutionState == ApplicationExecutionState.Running)
+        //        {
+        //            await HandleProtocolActivationArguments(args);
+        //        }
+        //        else
+        //        {
+        //            if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
+        //                XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
 
-                    if (Window.Current.Content == null)
-                    {
-                        Window.Current.Content = new MainPage(args);
-                    }
+        //            if (Window.Current.Content == null)
+        //            {
+        //                Window.Current.Content = new MainPage(args);
+        //            }
 
-                    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-                    {
-                        var view = ApplicationView.GetForCurrentView();
-                        view.SetPreferredMinSize(new Size(width: 800, height: 600));
+        //            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+        //            {
+        //                var view = ApplicationView.GetForCurrentView();
+        //                view.SetPreferredMinSize(new Size(width: 800, height: 600));
 
-                        var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                        if (titleBar != null)
-                        {
-                            titleBar.BackgroundColor =
-                            titleBar.ButtonBackgroundColor =
-                            titleBar.InactiveBackgroundColor =
-                            titleBar.ButtonInactiveBackgroundColor =
-                            (Color)App.Current.Resources["SystemChromeLowColor"];
+        //                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+        //                if (titleBar != null)
+        //                {
+        //                    titleBar.BackgroundColor =
+        //                    titleBar.ButtonBackgroundColor =
+        //                    titleBar.InactiveBackgroundColor =
+        //                    titleBar.ButtonInactiveBackgroundColor =
+        //                    (Color)App.Current.Resources["SystemChromeLowColor"];
 
-                            titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
+        //                    titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
 
-                        }
-                    }
-                    Window.Current.Activate();
-                }
-            }
-        }
+        //                }
+        //            }
+        //            Window.Current.Activate();
+        //        }
+        //    }
+        //}
 
-        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
-        {
-            if (await AuthService.checkAuth())
-            {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+        //private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        //{
+        //    ObservableCollection<Account> accounts = await AccountsService.GetAllUsers();
+        //    Account activeAccount = accounts.Where(x => x.IsActive = true).First();
 
-                switch (eventArgs.Uri.Host.ToLower())
-                {
-                    case "repository":
-                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
-                        break;
+        //    if (AuthService.CheckAuth(activeAccount.Id.ToString()))
+        //    {
+        //        ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
 
-                    case "user":
-                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
-                        break;
+        //        switch (eventArgs.Uri.Host.ToLower())
+        //        {
+        //            case "repository":
+        //                await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+        //                break;
 
-                }
-            }
-        }
+        //            case "user":
+        //                await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
+        //                break;
+
+        //        }
+        //    }
+        //}
     }
 }
