@@ -474,7 +474,38 @@
                               RelativePanel.AlignVerticalCenterWithPanel="True">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:Account">
-                                <control:AccountListItem />
+                                <RelativePanel>
+                                    <toolkitControl:RoundImageEx x:Name="profilePic"
+                                                                 Width="30"
+                                                                 Height="30"
+                                                                 Margin="8"
+                                                                 CornerRadius="999"
+                                                                 DecodePixelHeight="30"
+                                                                 DecodePixelType="Logical"
+                                                                 DecodePixelWidth="30"
+                                                                 IsCacheEnabled="True"
+                                                                 Source="{Binding AvatarUrl, Mode=OneWay}"
+                                                                 Stretch="UniformToFill"
+                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"/>
+
+                                    <TextBlock VerticalAlignment="Center"
+                                               FontSize="14"
+                                               Text="{Binding Login, Mode=OneWay}"
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               RelativePanel.RightOf="profilePic"/>
+                                    <Button Width="46"
+                                            Height="46"
+                                            Tag="{Binding Id,Mode=OneWay}"
+                                            Click="DeleteAccount_Click"
+                                            Style="{StaticResource ActionButtonStyle}"
+                                            ToolTipService.ToolTip="Delete Account"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignVerticalCenterWithPanel="True">
+                                        <Viewbox MaxWidth="14" MaxHeight="14">
+                                            <SymbolIcon Symbol="Delete" />
+                                        </Viewbox>
+                                    </Button>
+                                </RelativePanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

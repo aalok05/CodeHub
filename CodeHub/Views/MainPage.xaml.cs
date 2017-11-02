@@ -112,6 +112,10 @@ namespace CodeHub.Views
             await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             ViewModel.IsAccountsPanelVisible = false;
         }
+        private async void DeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DeleteAccount(((Button)sender).Tag.ToString());
+        }
         #endregion
 
         #region Messaging

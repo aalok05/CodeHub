@@ -274,7 +274,6 @@ namespace CodeHub.ViewModels
 
             await adsTask;
         }
-
         public async Task InitializeAccounts()
         {
             InactiveAccounts = await AccountsService.GetAllUsers();
@@ -300,7 +299,6 @@ namespace CodeHub.ViewModels
                 isLoggedin = false;
             }
         }
-
         public async Task Load(string userId)
         {
             GlobalHelper.GithubClient = UserUtility.GetAuthenticatedClient(AuthService.GetToken(userId));
@@ -314,7 +312,6 @@ namespace CodeHub.ViewModels
                 }
             }
         }
-
         public void LoadUser(User user)
         {
             if (user != null)
@@ -324,6 +321,13 @@ namespace CodeHub.ViewModels
                 Messenger.Default.Send<User>(user);
                 User = user;
             }
+        }
+        public async Task DeleteAccount(string userId)
+        {
+            isLoading = true;
+            await AccountsService.RemoveUser(userId);
+            await InitializeAccounts();
+            isLoading = false;
         }
 
         public void HamItemClicked(HamItem item)

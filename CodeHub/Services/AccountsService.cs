@@ -15,7 +15,7 @@ namespace CodeHub.Services
         private const string SETTINGS_FILENAME = "Settings.json";
 
         /// <summary>
-        /// Get all authenticated GitHub users
+        /// Get all available accounts
         /// </summary>
         /// <returns></returns>
         public async static Task<ObservableCollection<Account>> GetAllUsers()
@@ -33,7 +33,7 @@ namespace CodeHub.Services
         }
 
         /// <summary>
-        /// Add a GitHub user to list of authenticated users
+        /// Adds an account to list of available accounts
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -82,6 +82,11 @@ namespace CodeHub.Services
             }
         }
 
+        /// <summary>
+        /// Deletes an account from list of available accounts
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async static Task<bool> RemoveUser(string userId)
         {
             try
@@ -121,6 +126,11 @@ namespace CodeHub.Services
             { return false; }
         }
 
+        /// <summary>
+        /// Marks an account as active
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async static Task<bool> MakeAccountActive(string userId)
         {
             try
