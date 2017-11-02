@@ -93,7 +93,7 @@ namespace CodeHub.Services
                 var user = await GlobalHelper.GithubClient.User.Current();
                 return user;
             }
-            catch(Exception e)
+            catch
             {
                 return null;
             }

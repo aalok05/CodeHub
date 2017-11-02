@@ -18,7 +18,7 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:Blur AutomaticallyStart="True"
                                 Delay="0"
-                                Value="40"
+                                Value="50"
                                 Duration="0" />
             </interactivity:Interaction.Behaviors>
         </Grid>
@@ -27,8 +27,9 @@
                     Background="Transparent"
                     Orientation="Vertical">
             <Image x:Name="AppLogoImage"
-                   Width="90"
+                   Width="70"
                    Source="/Assets/Images/appLogoPurple.png" />
+            
             <toolkitControl:DropShadowPanel HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             BlurRadius="8"
@@ -55,22 +56,15 @@
                        FontSize="15"
                        Foreground="White"
                        TextAlignment="Center" />
-            <toolkitControl:DropShadowPanel HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            BlurRadius="8"
-                                            OffsetX="2"
-                                            OffsetY="2"
-                                            ShadowOpacity="0.7"
-                                            Color="Black">
-                <Button x:Uid="signIn"
-                        Width="140"
-                        Padding="8"
-                        HorizontalAlignment="Center"
-                        Command="{Binding SignInCommand}"
-                        FontSize="12"
-                        FontWeight="SemiBold"
-                        Style="{StaticResource SignInButtonStyle}" />
-            </toolkitControl:DropShadowPanel>
+            <Button x:Uid="signIn"
+                    Padding="8"
+                    Margin="12 0 12 0"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding SignInCommand}"
+                    FontSize="12"
+                    Background="White"
+                    Foreground="Black"
+                    FontWeight="SemiBold" />
 
         </StackPanel>
 
