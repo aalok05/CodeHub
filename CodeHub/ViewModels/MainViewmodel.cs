@@ -221,6 +221,7 @@ namespace CodeHub.ViewModels
                                                           ActiveAccount = null;
                                                           isLoggedin = false;
                                                           Messenger.Default.Send(new SignOutMessageType());
+                                                          GlobalHelper.UserLogin = string.Empty;
                                                       }
                                                   }
                                                   else
@@ -228,6 +229,7 @@ namespace CodeHub.ViewModels
                                                       ActiveAccount = null;
                                                       isLoggedin = false;
                                                       Messenger.Default.Send(new SignOutMessageType());
+                                                      GlobalHelper.UserLogin = string.Empty;
                                                   }
                                               }
 
