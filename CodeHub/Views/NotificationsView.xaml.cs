@@ -32,29 +32,16 @@ namespace CodeHub.Views
 
             ViewModel = new NotificationsViewmodel();
             this.DataContext = ViewModel;
-            Loading += NotificationsView_Loading;
 
-            NavigationCacheMode = NavigationCacheMode.Required;
-        }
-
-        private void NotificationsView_Loading(FrameworkElement sender, object args)
-        {
-            //Listening for Sign In message
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
-            //listen for sign out message
-            Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage); 
+            Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Notifications" });
-
-            if (e.NavigationMode != NavigationMode.Back)
-            {
-                NotifPivot.SelectedItem = NotifPivot.Items[0];
-            }
+            await ViewModel.Load();
         }
 
         public RelayCommand<Notification> _MarkasReadAllNotifCommand;

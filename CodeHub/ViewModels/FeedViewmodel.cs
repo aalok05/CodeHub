@@ -31,6 +31,9 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public int PaginationIndex { get; set; }
+        public double MaxScrollViewerOffset { get; set; }
+
         public bool _zeroEventCount;
         public bool ZeroEventCount
         {
@@ -44,6 +47,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _isIncrementalLoading;
+        public bool IsIncrementalLoading
+        {
+            get
+            {
+                return _isIncrementalLoading;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoading, ref _isIncrementalLoading, value);
+
+            }
+        }
+
         public RelayCommand _loadCommand;
         public RelayCommand LoadCommand
         {
@@ -54,25 +71,14 @@ namespace CodeHub.ViewModels
                                           async () =>
                                           {
                                              
-                                              if (!GlobalHelper.IsInternet())
+                                              if (GlobalHelper.IsInternet())
                                               {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-                                              }
-                                              else
-                                              {
-                                                  if(Events == null)
-                                                  {   
+                                                  if (Events == null)
+                                                  {
                                                       isLoading = true;
                                                       await LoadEvents();
                                                       isLoading = false;
                                                   }
-                                                  else
-                                                  {
-                                                      /*Silent loading */
-                                                      await LoadEvents();
-                                                  }
-
                                               }
                                           }));
             }
@@ -83,14 +89,17 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
-               
                 Messenger.Default.Send(new GlobalHelper.HasInternetMessageType()); //Sending Internet available message to all viewModels
                 isLoading = true;
+
+                PaginationIndex = 0;
                 await LoadEvents();
+                MaxScrollViewerOffset = 0;
+
                 isLoading = false;
             }
         }
@@ -109,20 +118,57 @@ namespace CodeHub.ViewModels
             {
                 isLoggedin = true;
                 User = user;
+                PaginationIndex = 0;
                 await LoadEvents();
             }
             isLoading = false;
 
         }
 
-        private async Task LoadEvents()
+        public async Task LoadEvents()
         {
-            Events = await UserUtility.GetUserActivity();
-            if(Events!=null)
+            PaginationIndex++;
+            if(PaginationIndex > 1)
             {
-                ZeroEventCount = (Events.Count == 0) ? true : false;
+                IsIncrementalLoading = true;
+
+                var events = await UserUtility.GetUserActivity(PaginationIndex);
+                if (events != null)
+                {
+                    if(events.Count > 0)
+                    {
+                        foreach (var i in events)
+                        {
+                            Events.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        //no more feed items left to load
+                        PaginationIndex = -1;
+                    }
+
+                }
+                IsIncrementalLoading = false;
+            }
+            else if(PaginationIndex == 1)
+            {
+                Events = await UserUtility.GetUserActivity(PaginationIndex);
+                if (Events != null)
+                {
+                    if(Events.Count == 0)
+                    {
+                        PaginationIndex = 0;
+                        ZeroEventCount = true;
+                    }
+                    else
+                    {
+                        ZeroEventCount = false;
+                    }
+                }
             }
         }
+
         public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Activity activity = e.ClickedItem as Activity;
@@ -130,24 +176,36 @@ namespace CodeHub.ViewModels
             switch (activity.Type)
             {
                 case "IssueCommentEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
                     break;
 
                 case "IssuesEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
                     break;
 
                 case "PullRequestReviewCommentEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
                     break;
 
                 case "PullRequestEvent":
                 case "PullRequestReviewEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
                     break;
 
+                case "ForkEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), ((ForkEventPayload)activity.Payload).Forkee);
+                    break;
+                case "CommitCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitDetailView), new Tuple<long, string>(activity.Repo.Id,((CommitCommentPayload)activity.Payload).Comment.CommitId));
+                    break;
+
+                case "PushEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitsView), new Tuple<long, IReadOnlyList<Commit>>(activity.Repo.Id, ((PushEventPayload)activity.Payload).Commits));
+                    break;
+
+
                 default:
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", activity.Repo.Name);
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), activity.Repo);
                     break;
             }
             

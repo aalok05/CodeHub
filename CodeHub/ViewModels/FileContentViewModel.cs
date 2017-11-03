@@ -156,12 +156,7 @@ namespace CodeHub.ViewModels
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
 
@@ -201,9 +196,9 @@ namespace CodeHub.ViewModels
                     */
 
                     IsImage = true;
-                    Uri uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.DownloadUrl;
-                    if(uri != null)
-                        ImageFile = new BitmapImage(uri);
+                    String uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.DownloadUrl;
+                    if(!string.IsNullOrWhiteSpace(uri))
+                        ImageFile = new BitmapImage(new Uri(uri));
                     isLoading = false;
                     return;
                 }
@@ -228,7 +223,7 @@ namespace CodeHub.ViewModels
                     isLoading = false;
                     return;
                 }
-                SyntaxHighlightStyle style = (SyntaxHighlightStyle)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
+                SyntaxHighlightStyleEnum style = (SyntaxHighlightStyleEnum)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
                 bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
                 HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
 
@@ -260,7 +255,7 @@ namespace CodeHub.ViewModels
                     ?? (_repoDetailNavigateCommand = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", Repository);
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), Repository);
                                           }));
             }
         }

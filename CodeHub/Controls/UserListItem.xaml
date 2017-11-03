@@ -3,27 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:CodeHub.Controls"
+             xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
 
     <StackPanel Margin="8,4,0,4" Orientation="Horizontal">
-        <Border Width="40"
-                Height="40"
-                Margin="0,0,8,0"
-                CornerRadius="8,8,8,8">
-            <Border.Background>
-                <ImageBrush>
-                    <ImageBrush.ImageSource>
-                        <BitmapImage UriSource="{Binding AvatarUrl, Mode=OneWay}" 
-                                     DecodePixelHeight="40" 
+        <toolkitControl:RoundImageEx Width="40"
+                                     Height="40"
+                                     Margin="0,0,8,0"
+                                     CornerRadius="999"
+                                     DecodePixelHeight="40"
+                                     DecodePixelType="Logical"
                                      DecodePixelWidth="40"
-                                     DecodePixelType="Logical"/>
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Border.Background>
-        </Border>
+                                     IsCacheEnabled="True"
+                                     Source="{Binding AvatarUrl, Mode=OneWay}" 
+                                     Stretch="UniformToFill" />
 
         <TextBlock VerticalAlignment="Center"
                    FontSize="14"

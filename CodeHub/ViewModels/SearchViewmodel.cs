@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 
 namespace CodeHub.ViewModels
 {
@@ -162,6 +163,7 @@ namespace CodeHub.ViewModels
                 Set(() => IsSearchingUsers, ref _isSearchingUsers, value);
             }
         }
+
         public enum SearchItems
         {
             Repositories,
@@ -169,7 +171,7 @@ namespace CodeHub.ViewModels
             Issues,
             Code
         }
-
+        
         /// <summary>
         /// Gets the collection of the available search items
         /// </summary>
@@ -187,6 +189,24 @@ namespace CodeHub.ViewModels
                 Set(() => SelectedSearchItemIndex, ref _SelectedSearchItemIndex, value);
             }
         }
+
+        /// <summary>
+        /// All Languages in GitHub
+        /// </summary>
+        public IEnumerable<Language> AvailableLanguages { get; } = Enum.GetValues(typeof(Language)).Cast<Language>();
+        
+        public int _SelectedLanguageIndex;
+        public int SelectedLanguageIndex
+        {
+            get
+            {
+                return _SelectedLanguageIndex;
+            }
+            set
+            {
+                Set(() => SelectedLanguageIndex, ref _SelectedLanguageIndex, value);
+            }
+        }
         #endregion
 
         public RelayCommand _loadCommand;
@@ -200,188 +220,138 @@ namespace CodeHub.ViewModels
                                           {
                                               ZeroResultCount = true;
                                               SelectedSearchItemIndex = 0;
+                                              SelectedLanguageIndex = -1;
                                               ChangeVisibilityOfListViews(SelectedSearchItemIndex);
 
-                                              if (!GlobalHelper.IsInternet())
-                                              {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
-                                              }
-
                                           }));
             }
         }
 
-        public RelayCommand _searchRepoCommand;
-        public RelayCommand SearchRepoCommand
+        public async Task SearchRepos()
         {
-            get
+            if (!string.IsNullOrWhiteSpace(QueryString))
             {
-                return _searchRepoCommand
-                    ?? (_searchRepoCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if (!string.IsNullOrWhiteSpace(QueryString))
-                                              {
 
-                                                  isLoading = true;
-                                                  Repositories = await SearchUtility.SearchRepos(QueryString);
-                                                  if (Repositories != null)
-                                                  {
-                                                      ZeroResultCount = Repositories.Count == 0 ? true : false;
-                                                  }
-                                                  else
-                                                  {
-                                                      ZeroResultCount = true;
-                                                  }
-                                                  
-                                                  isLoading = false;
+                isLoading = true;
 
-                                              }
+                if (SelectedLanguageIndex != -1)
+                    Repositories = await SearchUtility.SearchRepos(QueryString, (Language)SelectedLanguageIndex);
+                else Repositories = await SearchUtility.SearchRepos(QueryString);
 
-                                          }));
+                if (Repositories != null)
+                {
+                    ZeroResultCount = Repositories.Count == 0 ? true : false;
+                }
+                else
+                {
+                    ZeroResultCount = true;
+                }
+
+                isLoading = false;
+
             }
         }
-
-        public RelayCommand _searchUsersCommand;
-        public RelayCommand SearchUsersCommand
+        public async Task SearchUsers()
         {
-            get
+            if (!string.IsNullOrWhiteSpace(QueryString))
             {
-                return _searchUsersCommand
-                    ?? (_searchUsersCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if (!string.IsNullOrWhiteSpace(QueryString))
-                                              {
-                                                  isLoading = true;
-                                                  Users = await SearchUtility.SearchUsers(QueryString);
-                                                  if (Users != null)
-                                                  {
-                                                       ZeroResultCount = Users.Count == 0 ? true : false;
-                                                  }
-                                                  else
-                                                  {
-                                                      ZeroResultCount = true;
-                                                  }
-                                                 
-                                                  isLoading = false;
-                                              }
+                isLoading = true;
 
-                                          }));
+                if (SelectedLanguageIndex != -1)
+                    Users = await SearchUtility.SearchUsers(QueryString, (Language)SelectedLanguageIndex);
+                else Users = await SearchUtility.SearchUsers(QueryString);
+
+                if (Users != null)
+                {
+                    ZeroResultCount = Users.Count == 0 ? true : false;
+                }
+                else
+                {
+                    ZeroResultCount = true;
+                }
+
+                isLoading = false;
             }
         }
-
-        public RelayCommand _searchCodeCommand;
-        public RelayCommand SearchCodeCommand
+        public async Task SearchCode()
         {
-            get
+            if (!string.IsNullOrWhiteSpace(QueryString))
             {
-                return _searchCodeCommand
-                    ?? (_searchCodeCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if (!string.IsNullOrWhiteSpace(QueryString))
-                                              {
-                                                  isLoading = true;
-                                                  SearchCodes = await SearchUtility.SearchCode(QueryString);
-                                                  if (SearchCodes != null)
-                                                  {
-                                                      ZeroResultCount = SearchCodes.Count == 0 ? true : false;
-                                                  }
-                                                  else
-                                                  {
-                                                      ZeroResultCount = true;
-                                                  }
-                                                  
-                                                  isLoading = false;
-                                              }
+                isLoading = true;
 
-                                          }));
+                if (SelectedLanguageIndex != -1)
+                    SearchCodes = await SearchUtility.SearchCode(QueryString, (Language)SelectedLanguageIndex);
+                else SearchCodes = await SearchUtility.SearchCode(QueryString);
+
+                if (SearchCodes != null)
+                {
+                    ZeroResultCount = SearchCodes.Count == 0 ? true : false;
+                }
+                else
+                {
+                    ZeroResultCount = true;
+                }
+
+                isLoading = false;
             }
         }
-
-        public RelayCommand _searchIssuesCommand;
-        public RelayCommand SearchIssuesCommand
+        public async Task SearchIssues()
         {
-            get
+            if (!string.IsNullOrWhiteSpace(QueryString))
             {
-                return _searchIssuesCommand
-                    ?? (_searchIssuesCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              if (!string.IsNullOrWhiteSpace(QueryString))
-                                              {
-                                                  isLoading = true;
-                                                  Issues = await SearchUtility.SearchIssues(QueryString);
-                                                  if(Issues!=null)
-                                                  {
-                                                      ZeroResultCount = Issues.Count == 0 ? true : false;
-                                                  }
-                                                  else
-                                                  {
-                                                      ZeroResultCount = true;
-                                                  }
-                                                  
-                                                  isLoading = false;
-                                              }
+                isLoading = true;
 
-                                          }));
+                if (SelectedLanguageIndex != -1)
+                    Issues = await SearchUtility.SearchIssues(QueryString, (Language)SelectedLanguageIndex);
+                else Issues = await SearchUtility.SearchIssues(QueryString);
+
+                if (Issues != null)
+                {
+                    ZeroResultCount = Issues.Count == 0 ? true : false;
+                }
+                else
+                {
+                    ZeroResultCount = true;
+                }
+
+                isLoading = false;
             }
         }
 
-        public void SearchItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public async void SearchItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(e.AddedItems.Count != 0)
             {
                 ChangeVisibilityOfListViews((int)e.AddedItems.First());
                 switch ((int)e.AddedItems.First())
                 {
-                    case 0:
-                        if(Repositories == null)
-                            SearchRepoCommand.Execute(null);
-                        break;
-                    case 1:
-                        if (Users == null)
-                            SearchUsersCommand.Execute(null);
-                        break;
-                    case 2:
-                        if (Issues == null)
-                            SearchIssuesCommand.Execute(null);
-                        break;
-                    case 3:
-                        if (SearchCodes == null)
-                            SearchCodeCommand.Execute(null);
-                        break;
+                    case 0: await SearchRepos();
+                    break;
+                    case 1: await SearchUsers();
+                    break;
+                    case 2: await SearchIssues();
+                    break;
+                    case 3: await SearchCode();
+                    break;
                 }
             }
         }
-        public void QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        public async void Language_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await SearchResultsReload();
+        }
+        public async void QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             ChangeVisibilityOfListViews(SelectedSearchItemIndex);
-            switch (SelectedSearchItemIndex)
-            {
-                case 0:
-                    SearchRepoCommand.Execute(null);
-                    break;
-                case 1:
-                    SearchUsersCommand.Execute(null);
-                    break;
-                case 2:
-                    SearchIssuesCommand.Execute(null);
-                    break;
-                case 3:
-                    SearchCodeCommand.Execute(null);
-                    break;
-            }
+            await SearchResultsReload();
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView),"Repository", e.ClickedItem as Repository);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), e.ClickedItem as Repository);
         }
         public void UserDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", (e.ClickedItem as User).Login);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), e.ClickedItem as User);
         }
         public void CodeNavigate(object sender, ItemClickEventArgs e)
         {
@@ -393,17 +363,17 @@ namespace CodeHub.ViewModels
         }
         public void IssueNavigate(object sender, ItemClickEventArgs e)
         {
-            var issue = e.ClickedItem as Issue;
-
+            Issue issue = e.ClickedItem as Issue;
+            
             /* The 'Repository' field of the Issue is null (Octokit API returns null), 
              * so we have to extract Owner Login and Repository name from the Html Url
              */
-            string owner = (issue.HtmlUrl.Segments[1]).Replace("/", "");
-            string repo = issue.HtmlUrl.Segments[2].Replace("/", "");
+            string[] array = issue.HtmlUrl.Split('/');
+            string owner = array[3];
+            string repo = array[4];
 
-            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView),"Issues", new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<string, string, Issue>(owner, repo, e.ClickedItem as Issue));
         }
-
         private void ChangeVisibilityOfListViews(int selectedSearchItemIndex)
         {
             IsSearchingRepo = IsSearchingUsers = IsSearchingIssues = IsSearchingCode = false;
@@ -424,5 +394,29 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public async void ResetFilters(object sender, RoutedEventArgs e)
+        {
+            SelectedLanguageIndex = -1;
+            await SearchResultsReload();
+        }
+
+        private async Task SearchResultsReload()
+        {
+            switch (SelectedSearchItemIndex)
+            {
+                case 0:
+                    await SearchRepos();
+                    break;
+                case 1:
+                    await SearchUsers();
+                    break;
+                case 2:
+                    await SearchIssues();
+                    break;
+                case 3:
+                    await SearchCode();
+                    break;
+            }
+        }
     }
 }

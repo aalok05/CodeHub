@@ -3,7 +3,12 @@ using CodeHub.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
+using System.Threading.Tasks;
+using UICompositionAnimations;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml;
+using UICompositionAnimations.Enums;
 
 namespace CodeHub.Views
 {
@@ -18,56 +23,80 @@ namespace CodeHub.Views
 
             this.DataContext = ViewModel;
 
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Pull Request" });
-
             ViewModel.CommentText = string.Empty;
+            await ViewModel.Load((e.Parameter as Tuple<Repository, PullRequest>));
+        }
 
-            if (e.NavigationMode != NavigationMode.Back)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            await ToggleCommentDialogVisibility(false);
+        }
+
+        private async void CommentDialogOpen_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ToggleCommentDialogVisibility(true);
+        }
+
+        private async void CancelComment_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ToggleCommentDialogVisibility(false);
+        }
+
+        private async void Comment_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ViewModel.CommentText))
             {
-                if (ViewModel.Comments != null)
-                {
-                    ViewModel.Comments.Clear();
-                }
-
-                ConfigureStateSymbol((e.Parameter as Tuple<Repository, PullRequest>).Item2);
-                await ViewModel.Load((e.Parameter as Tuple<Repository, PullRequest>));
-                CommentsPivot.SelectedItem = CommentsPivot.Items[0];
+                await ToggleCommentDialogVisibility(false);
+                ViewModel.CommentCommand.Execute(null);
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        private async Task ToggleCommentDialogVisibility(bool visible)
         {
-            if (e.NavigationMode == NavigationMode.Back)
+            if (visible)
             {
-                NavigationCacheMode = NavigationCacheMode.Disabled;
-            }
-
-            base.OnNavigatedTo(e);
-        }
-
-        public void ConfigureStateSymbol(PullRequest pr)
-        {
-            if (pr.State == ItemState.Open)
-            {
-                statePanel.Background = GlobalHelper.GetSolidColorBrush("2CBE4EFF");
-
-                //open PR
-                stateSymbol.Data = GlobalHelper.GetGeomtery("M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z");
+                CommentDialog.SetVisualOpacity(0);
+                CommentDialog.Visibility = Visibility.Visible;
+                await CommentDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             }
             else
             {
-                statePanel.Background = GlobalHelper.GetSolidColorBrush("CB2431FF");
-
-                //closed PR
-                stateSymbol.Data = GlobalHelper.GetGeomtery("M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z");
+                await CommentDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                CommentDialog.Visibility = Visibility.Collapsed;
             }
         }
+        private async void Expander_Click(object sender, RoutedEventArgs e)
+        {
+            if (DetailPanel.Visibility == Visibility.Visible)
+            {
+                ExpanderIcon.Glyph = "\uE0E5";
+                await DetailPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                DetailPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ExpanderIcon.Glyph = "\uE0E4";
+                DetailPanel.SetVisualOpacity(0);
+                DetailPanel.Visibility = Visibility.Visible;
+                await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+        }
+        private async void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            if (e.NewState.Name.Equals("Wide") || e.NewState.Name.Equals("Normal"))
+            {
+                ExpanderIcon.Glyph = "\uE0E4";
+                DetailPanel.SetVisualOpacity(0);
+                DetailPanel.Visibility = Visibility.Visible;
+                await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+            }
+        }
+
     }
 }

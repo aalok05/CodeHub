@@ -59,7 +59,7 @@ namespace CodeHub.Services.Hilite_me
         /// <param name="token">The cancellation token for the operation</param>
         [ItemCanBeNull]
         public static async Task<String> TryGetHighlightedCodeAsync([NotNull] String code, [NotNull] String path, 
-            SyntaxHighlightStyle style, bool lineNumbers, CancellationToken token)
+            SyntaxHighlightStyleEnum style, bool lineNumbers, CancellationToken token)
         {
             // Check if the code is possibly invalid
             const int threshold = 50, length = 1000;

@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using CodeHub.Helpers;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,24 @@ namespace CodeHub.Services
     class IssueUtility
     {
         /// <summary>
+        /// Gets an Issue
+        /// </summary>
+        /// <param name="repoId"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static async Task<Issue> GetIssue(long repoId, int number)
+        {
+            try
+            {
+                return await GlobalHelper.GithubClient.Issue.Get(repoId, number);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Creates a new Issue for a repository
         /// </summary>
         /// <param name="repoId"></param>
@@ -20,8 +39,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Issue.Create(repoId, newIssue);
+                return await GlobalHelper.GithubClient.Issue.Create(repoId, newIssue);
             }
             catch
             {
@@ -40,8 +58,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Issue.Comment.Create(repoId, number, comment);
+                return await GlobalHelper.GithubClient.Issue.Comment.Create(repoId, number, comment);
             }
             catch
             {
@@ -59,8 +76,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var comments = await client.Issue.Comment.GetAllForIssue(repoId, number);
+                var comments = await GlobalHelper.GithubClient.Issue.Comment.GetAllForIssue(repoId, number);
                 return new ObservableCollection<IssueComment>(comments);
             }
             catch
@@ -80,8 +96,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Issue.Labels.Create(repoId, newLabel);
+                return await GlobalHelper.GithubClient.Issue.Labels.Create(repoId, newLabel);
             }
             catch
             {
@@ -98,8 +113,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                var labels = await client.Issue.Labels.GetAllForRepository(repoId);
+                var labels = await GlobalHelper.GithubClient.Issue.Labels.GetAllForRepository(repoId);
                 return new ObservableCollection<Label>(labels);
             }
             catch
@@ -117,8 +131,7 @@ namespace CodeHub.Services
         /// <returns></returns>
         public static async Task RemoveLabelFromIssue(long repoId, int number, string labelName)
         {
-            var client = await UserUtility.GetAuthenticatedClient();
-            await client.Issue.Labels.RemoveFromIssue(repoId, number, labelName);
+            await GlobalHelper.GithubClient.Issue.Labels.RemoveFromIssue(repoId, number, labelName);
         }
 
         /// <summary>
@@ -132,8 +145,7 @@ namespace CodeHub.Services
         {
             try
             {
-                var client = await UserUtility.GetAuthenticatedClient();
-                return await client.Issue.Update(repoId, number, issueUpdate);
+                return await GlobalHelper.GithubClient.Issue.Update(repoId, number, issueUpdate);
             }
             catch
             {

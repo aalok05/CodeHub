@@ -71,9 +71,7 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _CanLoadMoreToday;
-        /// <summary>
-        /// Indicates whether Load more button is visible or not
-        /// </summary>
+
         public bool CanLoadMoreToday
         {
             get
@@ -86,9 +84,7 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _CanLoadMoreWeek;
-        /// <summary>
-        /// Indicates whether Load more button is visible or not
-        /// </summary>
+
         public bool CanLoadMoreWeek
         {
             get
@@ -101,9 +97,7 @@ namespace CodeHub.ViewModels
             }
         }
         public bool _CanLoadMoreMonth;
-        /// <summary>
-        /// Indicates whether Load more button is visible or not
-        /// </summary>
+
         public bool CanLoadMoreMonth
         {
             get
@@ -113,6 +107,45 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => CanLoadMoreMonth, ref _CanLoadMoreMonth, value);
+            }
+        }
+
+        public Repository _firstTrendingReposToday;
+        public Repository FirstTrendingReposToday
+        {
+            get
+            {
+                return _firstTrendingReposToday;
+            }
+            set
+            {
+                Set(() => FirstTrendingReposToday, ref _firstTrendingReposToday, value);
+
+            }
+        }
+        public Repository _firstTrendingReposWeek;
+        public Repository FirstTrendingReposWeek
+        {
+            get
+            {
+                return _firstTrendingReposWeek;
+            }
+            set
+            {
+                Set(() => FirstTrendingReposWeek, ref _firstTrendingReposWeek, value);
+
+            }
+        }
+        public Repository _firstTrendingReposMonth;
+        public Repository FirstTrendingReposMonth
+        {
+            get
+            {
+                return _firstTrendingReposMonth;
+            }
+            set
+            {
+                Set(() => FirstTrendingReposMonth, ref _firstTrendingReposMonth, value);
             }
         }
 
@@ -274,18 +307,12 @@ namespace CodeHub.ViewModels
                     ?? (_loadCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if (!GlobalHelper.IsInternet())
-                                              {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
-                                              }
-                                              else
+                                              if (GlobalHelper.IsInternet())
                                               {
                                                   if (TrendingReposToday == null)
                                                   {
                                                       await LoadTrendingRepos(TimeRange.TODAY);
                                                   }
-
                                               }
 
                                           }));
@@ -297,7 +324,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -311,7 +338,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -326,7 +353,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -337,7 +364,23 @@ namespace CodeHub.ViewModels
         }
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), e.ClickedItem as Repository);
+        }
+
+        public void FirstRepoTodayNavigate(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if(FirstTrendingReposToday!=null)
+                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), FirstTrendingReposToday);
+        }
+        public void FirstRepoWeekNavigate(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (FirstTrendingReposWeek != null)
+                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), FirstTrendingReposWeek);
+        }
+        public void FirstRepoMonthNavigate(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (FirstTrendingReposMonth != null)
+                SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), FirstTrendingReposMonth);
         }
 
         private async Task LoadTrendingRepos(TimeRange range)
@@ -351,7 +394,10 @@ namespace CodeHub.ViewModels
                 if (repos != null)
                 {
                     ZeroTodayCount = false;
+                    FirstTrendingReposToday = repos[0];
+                    repos.RemoveAt(0);
                     TrendingReposToday = repos;
+                    
                 }
                 else
                 {
@@ -370,7 +416,10 @@ namespace CodeHub.ViewModels
                 if (repos != null)
                 {
                     ZeroWeeklyCount = false;
+                    FirstTrendingReposWeek = repos[0];
+                    repos.RemoveAt(0);
                     TrendingReposWeek = repos;
+                    
                 }
                 else
                 {
@@ -388,6 +437,8 @@ namespace CodeHub.ViewModels
                 if (repos != null)
                 {
                     ZeroMonthlyCount = false;
+                    FirstTrendingReposMonth = repos[0];
+                    repos.RemoveAt(0);
                     TrendingReposMonth = repos;
                 }
                 else
@@ -399,7 +450,7 @@ namespace CodeHub.ViewModels
             }
 
         }
-        public async void TodayIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async Task TodayIncrementalLoad()
         {
             IsIncrementalLoadingToday = true;
             CanLoadMoreToday = false;
@@ -415,7 +466,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void WeekIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async Task WeekIncrementalLoad()
         {
             IsIncrementalLoadingWeek = true;
             CanLoadMoreWeek = false;
@@ -431,7 +482,7 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void MonthIncrementalLoad(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        public async Task MonthIncrementalLoad()
         {
             IsIncrementalLoadingMonth = true;
             CanLoadMoreMonth = false;

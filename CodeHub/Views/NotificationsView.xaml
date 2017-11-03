@@ -13,11 +13,6 @@
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       x:Name="Page"
       mc:Ignorable="d">
-    <i:Interaction.Behaviors>
-        <core:EventTriggerBehavior EventName="Loaded">
-            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}" />
-        </core:EventTriggerBehavior>
-    </i:Interaction.Behaviors>
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -45,29 +40,14 @@
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="48"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <CommandBar Grid.Row="0"
-                                DefaultLabelPosition="Right">
-                        <AppBarButton x:Uid="refreshAppBarButton"
-                                      Icon="Refresh"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.RefreshUnread}">
-
-                        </AppBarButton>
-                        <AppBarButton x:Uid="markAllAsRead"
-                                      Icon="Accept"
-                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
-
-                        </AppBarButton>
-                    </CommandBar>
                     <ListView x:Name="UnreadFeedListView"
-                              Grid.Row="1"
+                              Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.UnreadNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -85,7 +65,7 @@
                                                                  LeftForeground="White"
                                                                  LeftIcon="Mute"
                                                                  MouseSlidingEnabled="True"
-                                                                 RightBackground="#60B53B"
+                                                                 RightBackground="{StaticResource AppPrimaryColorBrush}"
                                                                  RightCommand="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
                                                                  RightCommandParameter="{Binding}"
                                                                  RightForeground="White"
@@ -121,7 +101,7 @@
                                                    RelativePanel.RightOf="notifSymbol"
                                                    Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
                                         <TextBlock x:Name="titleText"
-                                                   Margin="12,0,0,0"
+                                                   Margin="12,8,0,0"
                                                    FontSize="13"
                                                    TextWrapping="Wrap"
                                                    RelativePanel.AlignRightWithPanel="True"
@@ -130,7 +110,7 @@
                                                    Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                         <TextBlock x:Name="RepoText"
-                                                   Margin="12 4 0 4"
+                                                   Margin="12 8 0 8"
                                                    Text="{Binding Repository.FullName}"
                                                    FontSize="13.5"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -145,15 +125,31 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingUnread, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
+                               Grid.RowSpan="2"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Grid.Row="1"
                                Visibility="{x:Bind ViewModel.ZeroUnreadCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <CommandBar VerticalAlignment="Bottom"
+                                Grid.Row="1"
+                                DefaultLabelPosition="Right">
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                      Tapped="{x:Bind ViewModel.RefreshUnread}">
+
+                        </AppBarButton>
+                        <AppBarButton x:Uid="markAllAsRead"
+                                      Icon="Accept"
+                                      Tapped="{x:Bind ViewModel.MarkAllNotificationsAsRead}"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
+
+                        </AppBarButton>
+                    </CommandBar>
                 </Grid>
             </PivotItem>
             <PivotItem Margin="0">
@@ -165,23 +161,14 @@
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="48"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <CommandBar Grid.Row="0"
-                                DefaultLabelPosition="Right">
-                        <AppBarButton x:Uid="refreshAppBarButton"
-                                      Icon="Refresh"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.RefreshParticipating}">
-
-                        </AppBarButton>
-                    </CommandBar>
                     <ListView x:Name="ParticipatingFeedListView"
-                              Grid.Row="1"
+                              Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.ParticipatingNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -200,7 +187,7 @@
                                                                      LeftForeground="White"
                                                                      LeftIcon="Mute"
                                                                      MouseSlidingEnabled="True"
-                                                                     RightBackground="#60B53B"
+                                                                     RightBackground="{StaticResource AppPrimaryColorBrush}"
                                                                      RightCommand="{Binding MarkasReadParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
                                                                      RightCommandParameter="{Binding}"
                                                                      RightForeground="White"
@@ -236,7 +223,7 @@
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
                                             <TextBlock x:Name="titleText"
-                                                       Margin="12,0,0,0"
+                                                       Margin="12,8,0,0"
                                                        FontSize="13"
                                                        TextWrapping="Wrap"
                                                        RelativePanel.AlignRightWithPanel="True"
@@ -245,7 +232,7 @@
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                             <TextBlock x:Name="RepoText"
-                                                       Margin="12 4 0 4"
+                                                       Margin="12 8 0 8"
                                                        Text="{Binding Repository.FullName}"
                                                        FontSize="13.5"
                                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -261,15 +248,25 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsloadingParticipating, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
+                               Grid.RowSpan="2"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Grid.Row="1"
                                Visibility="{x:Bind ViewModel.ZeroParticipatingCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <CommandBar DefaultLabelPosition="Right"
+                                Grid.Row="1"
+                                VerticalAlignment="Bottom">
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                      Tapped="{x:Bind ViewModel.RefreshParticipating}">
+
+                        </AppBarButton>
+                    </CommandBar>
                 </Grid>
             </PivotItem>
             <PivotItem Margin="0">
@@ -280,23 +277,14 @@
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="46"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <CommandBar Grid.Row="0"
-                                DefaultLabelPosition="Right">
-                        <AppBarButton x:Uid="refreshAppBarButton"
-                                      Icon="Refresh"
-                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                      Tapped="{x:Bind ViewModel.RefreshAll}">
-
-                        </AppBarButton>
-                    </CommandBar>
                     <ListView x:Name="AllFeedListView"
-                              Grid.Row="1"
                               IsItemClickEnabled="True"
+                              Grid.Row="0"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.AllNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -315,7 +303,7 @@
                                                                      LeftForeground="White"
                                                                      LeftIcon="Mute"
                                                                      MouseSlidingEnabled="True"
-                                                                     RightBackground="#60B53B"
+                                                                     RightBackground="{StaticResource AppPrimaryColorBrush}"
                                                                      RightCommand="{Binding MarkasReadAllNotifCommand, ElementName=Page, Mode=OneWay}"
                                                                      RightCommandParameter="{Binding}"
                                                                      RightForeground="White"
@@ -351,7 +339,7 @@
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{Binding UpdatedAt, Converter={StaticResource TimeAgoConverter}}" />
                                             <TextBlock x:Name="titleText"
-                                                       Margin="12,0,0,0"
+                                                       Margin="12,8,0,0"
                                                        FontSize="13"
                                                        TextWrapping="Wrap"
                                                        RelativePanel.AlignRightWithPanel="True"
@@ -360,7 +348,7 @@
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                             <TextBlock x:Name="RepoText"
-                                                       Margin="12 4 0 4"
+                                                       Margin="12 8 0 8"
                                                        Text="{Binding Repository.FullName}"
                                                        FontSize="13.5"
                                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -376,15 +364,27 @@
                     </ListView>
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingAll, Mode=OneWay}" />
                     <TextBlock x:Uid="noNewNotification"
+                               Grid.RowSpan="2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
-                               Grid.Row="1"
                                Visibility="{x:Bind ViewModel.ZeroAllCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    <CommandBar DefaultLabelPosition="Right"
+                                VerticalAlignment="Bottom"
+                                Grid.Row="1">
+                        <AppBarButton x:Uid="refreshAppBarButton"
+                                      Icon="Refresh"
+                                      Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                      Tapped="{x:Bind ViewModel.RefreshAll}">
+
+                        </AppBarButton>
+                    </CommandBar>
                 </Grid>
 
             </PivotItem>

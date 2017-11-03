@@ -1,5 +1,4 @@
 ﻿using CodeHub.Views;
-using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -12,6 +11,11 @@ using Windows.UI.Xaml.Media;
 using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
+using Windows.System;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using CodeHub.Models;
+using System.Linq;
 
 namespace CodeHub
 {
@@ -30,12 +34,13 @@ namespace CodeHub
           
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
-            SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyle.Monokai, false);
+            SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyleEnum.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
             SettingsService.Save(SettingsKeys.IsAdsEnabled, false, false);
             SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, false, false);
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
+            SettingsService.Save(SettingsKeys.HasUserDonated, false, false);
         }
 
         /// <summary>
@@ -43,48 +48,17 @@ namespace CodeHub
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Set the right theme-depending color for the alternating rows
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
                 XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
 
-            CustomFrame rootFrame = Window.Current.Content as CustomFrame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+            if (!e.PrelaunchActivated)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new CustomFrame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (Window.Current.Content == null)
                 {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing a boolean as navigation parameter,
-                    // indicating whether the user is logged in or not
-
-                    if (await AuthService.checkAuth())
-                    {
-                       await rootFrame.Navigate(typeof(MainPage), true);
-                    }
-                    else
-                    {
-                       await rootFrame.Navigate(typeof(MainPage), false);
-                    }
+                    Window.Current.Content = new MainPage(null);
                 }
 
                 if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
@@ -95,7 +69,13 @@ namespace CodeHub
                     var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                     if (titleBar != null)
                     {
-                        titleBar.BackgroundColor = titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["SystemAltHighColor"];
+                        titleBar.BackgroundColor = 
+                        titleBar.ButtonBackgroundColor = 
+                        titleBar.InactiveBackgroundColor = 
+                        titleBar.ButtonInactiveBackgroundColor =
+                        (Color)App.Current.Resources["SystemChromeLowColor"];
+                         
+                        titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
                     }
                 }
 
@@ -104,14 +84,65 @@ namespace CodeHub
             }
         }
 
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        protected async override void OnActivated(IActivatedEventArgs args)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                if (args.PreviousExecutionState == ApplicationExecutionState.Running)
+                {
+                    await HandleProtocolActivationArguments(args);
+                }
+                else
+                {
+                    if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
+                        XAMLHelper.AssignValueToXAMLResource("OddAlternatingRowsBrush", new SolidColorBrush { Color = Color.FromArgb(0x08, 0, 0, 0) });
+
+                    if (Window.Current.Content == null)
+                    {
+                        Window.Current.Content = new MainPage(args);
+                    }
+
+                    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                    {
+                        var view = ApplicationView.GetForCurrentView();
+                        view.SetPreferredMinSize(new Size(width: 800, height: 600));
+
+                        var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                        if (titleBar != null)
+                        {
+                            titleBar.BackgroundColor =
+                            titleBar.ButtonBackgroundColor =
+                            titleBar.InactiveBackgroundColor =
+                            titleBar.ButtonInactiveBackgroundColor =
+                            (Color)App.Current.Resources["SystemChromeLowColor"];
+
+                            titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
+
+                        }
+                    }
+                    Window.Current.Activate();
+                }
+            }
+        }
+
+        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(GlobalHelper.UserLogin))
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+                switch (eventArgs.Uri.Host.ToLower())
+                {
+                    case "repository":
+                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+                        break;
+
+                    case "user":
+                        await GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
+                        break;
+
+                }
+            }
         }
     }
 }

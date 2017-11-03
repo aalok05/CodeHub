@@ -81,7 +81,7 @@
             IsItemClickEnabled="True"
             SelectionMode="Single"
             ItemClick="SettingsListView_ItemClick"
-            ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+            ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
             ItemTemplate="{StaticResource SettingsListItemTemplate}"
             ItemsSource="{x:Bind ViewModel.Settings, Mode=OneWay}" />
 

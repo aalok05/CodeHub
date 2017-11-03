@@ -131,7 +131,7 @@
     <value>Privacy Policy</value>
   </data>
   <data name="rateButtonContent.Text" xml:space="preserve">
-    <value>Rate in the store</value>
+    <value>Rate in Store</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
     <value>Theme</value>
@@ -163,6 +163,9 @@
     <value>Donate $0.99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>What's new?</value>
+  </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Follow</value>
   </data>
@@ -180,7 +183,7 @@
     <value>Load commit messages for files</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>You have no Events yet</value>
+    <value>You have no events yet</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
     <value>Pick an option to support the developer</value>
@@ -238,13 +241,13 @@
     <value>My Repos</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>News Feed</value>
+    <value>News feed</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>No closed Issues</value>
+    <value>No closed issues</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>No Issues</value>
+    <value>No issues</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
     <value>No new notifications</value>
@@ -253,13 +256,13 @@
     <value>No open Issues</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>No organizations yet. Disable third-party application restrictions for your organization</value>
+    <value>No organizations yet. Disable third-party app restrictions for your organization</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>No Repositories yet</value>
+    <value>No repositories yet</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>No starred Repositories yet</value>
+    <value>No starred repositories yet</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>opened by</value>
@@ -318,13 +321,13 @@
     <value>Issues</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>No Repositories</value>
+    <value>No repositories</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>No Results</value>
+    <value>No results</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>search away!</value>
+    <value>search</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Sign in</value>
@@ -357,9 +360,6 @@
   <data name="comment.PlaceholderText" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="newIssue.Label" xml:space="preserve">
-    <value>New Issue</value>
-  </data>
   <data name="title.PlaceholderText" xml:space="preserve">
     <value>Title</value>
   </data>
@@ -388,10 +388,10 @@
     <value>RELEASES</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>No closed pull requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>No open pull requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>commited</value>
@@ -422,5 +422,212 @@
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
     <value>Check for Notifications frequently</value>
+  </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>New issue</value>
+  </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>one second ago</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>seconds ago</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>a minute ago</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>hours ago</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>a day ago</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>days ago</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>one month ago</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>months ago</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>one year ago</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>years ago</value>
+  </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>What's new in this version?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>Developed by Aalok Singh</value>
+  </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Make any donation to enable the option to disable ads.</value>
+  </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>Donate to CodeHub on Patreon</value>
+  </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="pageTitle_CommentView" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="pageTitle_FeedView" xml:space="preserve">
+    <value>News Feed</value>
+  </data>
+  <data name="pageTitle_IssueDetailView" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="pageTitle_IssuesView" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
+    <value>My Organizations</value>
+  </data>
+  <data name="pageTitle_MyReposView" xml:space="preserve">
+    <value>My Repositories</value>
+  </data>
+  <data name="pageTitle_NotificationsView" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
+    <value>Pull Request</value>
+  </data>
+  <data name="pageTitle_PullRequestsView" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="pageTitle_RepoDetailView" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="pageTitle_SearchView" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="pageTitle_SettingsView" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="pageTitle_TrendingView" xml:space="preserve">
+    <value>Trending</value>
+  </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>App preferences</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>UI customization</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>Developer info and contacts</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>Thanks for your contributions!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>Support the app and the developer</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>If you'd like to translate CodeHub into your language, be sure to send me an email!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>Please make a donation to help me support myself, by going to Settings -&gt; Donate. Also get rid of the ads!</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>Nothing to Preview</value>
+  </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>No internet</value>
+  </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>commented on issue #{0} in</value>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>commented on PR #{0}</value>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>commented on commit in</value>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>pushed {0} commits to</value>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>deleted in</value>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>created in</value>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>forked</value>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>starred</value>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>acted on</value>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>published a release to</value>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>open sourced</value>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>opened</value>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} PR #{1}</value>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>closed</value>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>reopened</value>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} issue #{1} in</value>
   </data>
 </root>

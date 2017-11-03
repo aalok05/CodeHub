@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CodeHub.Views;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using Octokit;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +25,11 @@ namespace CodeHub.Controls
         public CommentListItem()
         {
             this.InitializeComponent();
+        }
+
+        public void User_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), (DataContext as IssueComment).User);
         }
     }
 }

@@ -13,12 +13,18 @@
         <converter:ColorStringToColorBrushConverter x:Key="ColorStringToColorBrushConverter" x:Name="ColorStringToColorBrushConverter"/>
         <converter:ForegroundFromBackgroundConverter x:Key="ForegroundFromBackgroundConverter" x:Name="ForegroundFromBackgroundConverter"/>
     </UserControl.Resources>
-    <Grid Background="{Binding Color, Converter={StaticResource ColorStringToColorBrushConverter},Mode=OneWay}">
-        <TextBlock Text="{Binding Name,Mode=OneWay}"
-                   Foreground="{Binding Color, Converter={StaticResource ForegroundFromBackgroundConverter},Mode=OneWay}"
-                   FontSize="15"
-                   TextAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontWeight="SemiBold"/>
-    </Grid>
+    <Border BorderBrush="{Binding Color, Converter={StaticResource ColorStringToColorBrushConverter},Mode=OneWay}"
+            BorderThickness="4"
+            CornerRadius="4"
+            Margin="8 0 8 4">
+        <Grid Background="{Binding Color, Converter={StaticResource ColorStringToColorBrushConverter},Mode=OneWay}">
+            <TextBlock Text="{Binding Name,Mode=OneWay}"
+                       Foreground="{Binding Color, Converter={StaticResource ForegroundFromBackgroundConverter},Mode=OneWay}"
+                       FontSize="15"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"/>
+        </Grid>
+    </Border>
+
 </UserControl>

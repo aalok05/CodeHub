@@ -24,6 +24,9 @@ namespace CodeHub.Views
     {
         public PullRequestsViewmodel ViewModel { get; set; }
 
+        private ScrollViewer OpenScrollViewer;
+        private ScrollViewer ClosedScrollViewer;
+
         public PullRequestsView()
         {
             this.InitializeComponent();
@@ -31,20 +34,90 @@ namespace CodeHub.Views
 
             this.DataContext = ViewModel;
 
+            Unloaded += PullRequestsView_Unloaded;
+
             NavigationCacheMode = NavigationCacheMode.Required;
+        }
+
+        private void PullRequestsView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (OpenScrollViewer != null)
+                OpenScrollViewer.ViewChanged -= OnOpenScrollViewerViewChanged;
+
+            if (ClosedScrollViewer != null)
+                ClosedScrollViewer.ViewChanged -= OnClosedScrollViewerViewChanged;
+
+            OpenScrollViewer = ClosedScrollViewer = null;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Pull Requests" });
-
             if (e.NavigationMode != NavigationMode.Back)
             {
                 await ViewModel.Load((Repository)e.Parameter);
                 PullRequestPivot.SelectedItem = PullRequestPivot.Items[0];
             }
+        }
+
+        private async void OnOpenScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (ViewModel.OpenPaginationIndex != -1)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && verticalOffset > ViewModel.MaxOpenScrollViewerVerticalffset)
+                {
+                    ViewModel.MaxOpenScrollViewerVerticalffset = maxVerticalOffset;
+
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.OpenIncrementalLoad();
+                }
+            }
+
+
+        }
+        private async void OnClosedScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (ViewModel.ClosedPaginationIndex != -1)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if (maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset && verticalOffset > ViewModel.MaxClosedScrollViewerVerticalffset)
+                {
+                    ViewModel.MaxClosedScrollViewerVerticalffset = maxVerticalOffset;
+
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                        await ViewModel.ClosedIncrementalLoad();
+                }
+            }
+        }
+
+        private void openPRListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (OpenScrollViewer != null)
+                OpenScrollViewer.ViewChanged -= OnOpenScrollViewerViewChanged;
+
+            OpenScrollViewer = openPRListView.FindChild<ScrollViewer>();
+            OpenScrollViewer.ViewChanged += OnOpenScrollViewerViewChanged;
+        }
+
+        private void closedPRListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ClosedScrollViewer != null)
+                ClosedScrollViewer.ViewChanged -= OnClosedScrollViewerViewChanged;
+
+            ClosedScrollViewer = closedPRListView.FindChild<ScrollViewer>();
+            ClosedScrollViewer.ViewChanged += OnClosedScrollViewerViewChanged;
         }
     }
 }

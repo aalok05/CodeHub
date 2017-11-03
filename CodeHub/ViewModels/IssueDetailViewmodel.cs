@@ -122,6 +122,20 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _isEditingIssue;
+        public bool IsEditingIssue
+        {
+            get
+            {
+                return _isEditingIssue;
+            }
+            set
+            {
+                Set(() => IsEditingIssue, ref _isEditingIssue, value);
+
+            }
+        }
+
         public ObservableCollection<Label> _AllLabels;
         /// <summary>
         /// All available labels in the repository
@@ -139,35 +153,46 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async Task Load(Tuple<Repository, Issue> tuple)
+        public async Task Load(object param)
         {
-            Issue = tuple.Item2;
-            Repository = tuple.Item1;
-
-            if (!GlobalHelper.IsInternet())
+            if (param as Tuple<Repository, Issue> != null)
             {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
+                var tuple = param as Tuple<Repository, Issue>;
+                Issue = tuple.Item2;
+                Repository = tuple.Item1;
             }
             else
             {
-                isLoading = true;
-                Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
-                isLoading = false;
+                var tuple = (param as Tuple<string, string, Issue>);
+                if(tuple != null)
+                {
+                    Issue = tuple.Item3;
+                    Repository = await RepositoryUtility.GetRepository(tuple.Item1, tuple.Item2);
+                }
+            }
 
-                if(Repository.Owner == null) 
-                    Repository = await RepositoryUtility.GetRepository(Repository.Id);
+            if (GlobalHelper.IsInternet())
+            {
+                if (Repository != null)
+                {
+                    isLoading = true;
+                    Comments = await IssueUtility.GetAllCommentsForIssue(Repository.Id, Issue.Number);
+                    isLoading = false;
 
-                if (Repository.Owner.Login == GlobalHelper.UserLogin || Issue.User.Login == GlobalHelper.UserLogin)
-                    CanEditIssue = true;
-                if (Repository.Owner.Login == GlobalHelper.UserLogin)
-                    IsMyRepo = true;
+                    if (Repository.Owner == null)
+                        Repository = await RepositoryUtility.GetRepository(Repository.Id);
+
+                    if (Repository.Owner.Login == GlobalHelper.UserLogin || Issue.User.Login == GlobalHelper.UserLogin)
+                        CanEditIssue = true;
+                    if (Repository.Owner.Login == GlobalHelper.UserLogin)
+                        IsMyRepo = true;
+                }
             }
         }
 
         public void CommentTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(CommentsView), "Comments", e.ClickedItem as IssueComment);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(CommentView), e.ClickedItem as IssueComment);
         }
         private RelayCommand _userTapped;
         public RelayCommand UserTapped
@@ -178,7 +203,7 @@ namespace CodeHub.ViewModels
                     ?? (_userTapped = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", Issue.User.Login);
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), Issue.User);
                                           }));
             }
         }
@@ -192,18 +217,14 @@ namespace CodeHub.ViewModels
                     ?? (_CommentCommand = new RelayCommand(
                                           async () =>
                                           {
-                                              if(!string.IsNullOrWhiteSpace(CommentText))
-                                              {
-                                                   isLoading = true;
-                                                   IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
-                                                   isLoading = false;
-                                                   if(newComment != null)
-                                                   {
-                                                      Comments.Add(newComment);
-                                                      CommentText = string.Empty;
-                                                   }
-
-                                              }
+                                               isLoading = true;
+                                               IssueComment newComment = await IssueUtility.CommentOnIssue(Repository.Id, Issue.Number, CommentText);
+                                               isLoading = false;
+                                               if(newComment != null)
+                                               {
+                                                  Comments.Add(newComment);
+                                                  CommentText = string.Empty;
+                                               }
                                           }));
             }
         }
@@ -213,9 +234,9 @@ namespace CodeHub.ViewModels
             IssueUpdate updatedIssue = new IssueUpdate();
             updatedIssue.Title = NewIssueTitleText;
             updatedIssue.Body = NewIssueBodyText;
-            isLoading = true;
+            IsEditingIssue = true;
             Issue issue = await IssueUtility.EditIssue(Repository.Id, Issue.Number, updatedIssue);
-            isLoading = false;
+            IsEditingIssue = false;
             if (issue != null)
             {
                 Issue = issue;

@@ -118,18 +118,47 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _isIncrementalLoadingOpen;
+        public bool IsIncrementalLoadingOpen
+        {
+            get
+            {
+                return _isIncrementalLoadingOpen;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoadingOpen, ref _isIncrementalLoadingOpen, value);
+
+            }
+        }
+        public bool _isIncrementalLoadingClosed;
+        public bool IsIncrementalLoadingClosed
+        {
+            get
+            {
+                return _isIncrementalLoadingClosed;
+            }
+            set
+            {
+                Set(() => IsIncrementalLoadingClosed, ref _isIncrementalLoadingClosed, value);
+
+            }
+        }
+
+        public int OpenPaginationIndex{ get; set; }
+        public int ClosedPaginationIndex{ get; set; }
+
+        public double MaxOpenScrollViewerVerticalffset { get; set; }
+        public double MaxClosedScrollViewerVerticalffset { get; set; }
+
         #endregion
 
         public async Task Load(Repository repository)
         {
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 Repository = repository;
+                OpenPaginationIndex = ClosedPaginationIndex = 0;
 
                 /*Clear off Pull Requests of the previous repository*/
                 if (OpenPullRequests != null)
@@ -138,10 +167,12 @@ namespace CodeHub.ViewModels
                     ClosedPullRequests.Clear();
 
                 IsLoadingOpen = true;
+                OpenPaginationIndex++;
                 OpenPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
                 {
                     State = ItemStateFilter.Open
-                });
+                },
+                OpenPaginationIndex);
                 IsLoadingOpen = false;
 
                 ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
@@ -152,7 +183,7 @@ namespace CodeHub.ViewModels
         public void PullRequestTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>()
-                            .NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(Repository, e.ClickedItem as PullRequest));
+                            .NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(Repository, e.ClickedItem as PullRequest));
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -165,10 +196,12 @@ namespace CodeHub.ViewModels
                 OpenPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
                 {
                     State = ItemStateFilter.Open
-                });
+                },
+                OpenPaginationIndex = 1);
                 IsLoadingOpen = false;
 
                 ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
+                MaxOpenScrollViewerVerticalffset = 0;
             }
             else if (p.SelectedIndex == 1)
             {
@@ -177,10 +210,72 @@ namespace CodeHub.ViewModels
                 ClosedPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
                 {
                     State = ItemStateFilter.Closed
-                });
+                },
+                ClosedPaginationIndex = 1);
                 IsLoadingClosed = false;
 
                 ZeroClosedPullRequests = ClosedPullRequests.Count == 0 ? true : false;
+                MaxClosedScrollViewerVerticalffset = 0;
+            }
+        }
+
+        public async Task OpenIncrementalLoad()
+        {
+            OpenPaginationIndex++;
+            IsIncrementalLoadingOpen = true;
+            var PRs = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+            {
+                State = ItemStateFilter.Open
+            },
+            OpenPaginationIndex);
+
+            IsIncrementalLoadingOpen = false;
+
+            if (PRs != null)
+            {
+                if (PRs.Count > 0)
+                {
+                    foreach (var i in PRs)
+                    {
+                        OpenPullRequests.Add(i);
+                    }
+                }
+                else
+                {
+                    //no more issues left to load
+                    OpenPaginationIndex = -1;
+                }
+
+            }
+        }
+
+        public async Task ClosedIncrementalLoad()
+        {
+            ClosedPaginationIndex++;
+            IsIncrementalLoadingClosed = true;
+            var PRs = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+            {
+                State = ItemStateFilter.Closed
+            },
+            ClosedPaginationIndex);
+
+            IsIncrementalLoadingClosed = false;
+
+            if (PRs != null)
+            {
+                if (PRs.Count > 0)
+                {
+                    foreach (var i in PRs)
+                    {
+                        ClosedPullRequests.Add(i);
+                    }
+                }
+                else
+                {
+                    //no more issues left to load
+                    ClosedPaginationIndex = -1;
+                }
+
             }
         }
     }

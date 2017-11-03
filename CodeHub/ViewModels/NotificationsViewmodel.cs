@@ -135,27 +135,12 @@ namespace CodeHub.ViewModels
         }
         #endregion
 
-        public RelayCommand _loadCommand;
-        public RelayCommand LoadCommand
+        public async Task Load()
         {
-            get
+            if (GlobalHelper.IsInternet())
             {
-                return _loadCommand
-                    ?? (_loadCommand = new RelayCommand(
-                                          async () =>
-                                          {
-
-                                              if (!GlobalHelper.IsInternet())
-                                              {
-                                                  //Sending NoInternet message to all viewModels
-                                                  Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-                                              }
-                                              else
-                                              {
-                                                  IsLoadingUnread = true;
-                                                  await LoadUnreadNotifications();
-                                              }
-                                          }));
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
             }
         }
 
@@ -165,7 +150,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -181,7 +166,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -197,7 +182,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -213,7 +198,7 @@ namespace CodeHub.ViewModels
             if (!GlobalHelper.IsInternet())
             {
                 //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
+                Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
             }
             else
             {
@@ -229,13 +214,13 @@ namespace CodeHub.ViewModels
             User = null;
             AllNotifications = UnreadNotifications = ParticipatingNotifications = null;
         }
-        public void RecieveSignInMessage(User user)
+        public async void RecieveSignInMessage(User user)
         {
             if (user != null)
             {
                 isLoggedin = true;
                 User = user;
-                LoadCommand.Execute(null);
+                await Load();
             }
         }
 
@@ -302,7 +287,7 @@ namespace CodeHub.ViewModels
         public async void NotificationsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Notification notif = e.ClickedItem as Notification;
-            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", notif.Repository.FullName);
+            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), notif.Repository);
             if (notif.Unread)
             {
                 await NotificationsService.MarkNotificationAsRead(notif.Id);

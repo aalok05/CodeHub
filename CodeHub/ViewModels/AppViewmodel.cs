@@ -1,14 +1,20 @@
-﻿using CodeHub.Services;
+﻿using CodeHub.Helpers;
+using CodeHub.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Octokit;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.Services.Store;
+using Windows.System.Profile;
+using Windows.UI.Popups;
 
 namespace CodeHub.ViewModels
 {
     public class AppViewmodel : ViewModelBase
     {
+        #region properties
         public bool _isLoggedin;
         public bool isLoggedin
         {
@@ -61,18 +67,63 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
+        private bool _isDesktopAdsVisible;
+        public bool IsDesktopAdsVisible
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
+            get { return _isDesktopAdsVisible; }
+            set
+            {
+                Set(() => IsDesktopAdsVisible, ref _isDesktopAdsVisible, value);
+            }
         }
 
-        public void Navigate(Type pageType, string pageTitle)
+        private bool _isMobileAdsVisible;
+        public bool IsMobileAdsVisible
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(pageType, pageTitle, User);
+            get { return _isMobileAdsVisible; }
+            set
+            {
+                Set(() => IsMobileAdsVisible, ref _isMobileAdsVisible, value);
+            }
         }
+
+        public string WhatsNewText
+        {
+            get
+            {
+                return "Hi all! \nHere's the changelog for v 2.4.0\n\n\x2022 Now you can sign in from multiple accounts and switch accounts \n\x2022 Added Italian translation \n\x2022 Added Greek translation \n\x2022 Better Chinese translation\nCodeHub is now available in 10 languages. Thanks to all the translators!";
+            }
+        }
+        #endregion
+
+        private const string donateFirstAddOnId = "9pd0r1dxkt8j";
+        private const string donateSecondAddOnId = "9msvqcz4pbws";
+        private const string donateThirdAddOnId = "9n571g3nr2cs";
+        private const string donateFourthAddOnId = "9nsmgzx3p43x";
+        private const string donateFifthAddOnId = "9phrhpvhscdv";
+        private const string donateSixthAddOnId = "9nnqdq0kq21j";
+
+        public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
+        {
+            try
+            {
+                await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
+            }
+            catch(UriFormatException)
+            {
+                MessageDialog dialog = new MessageDialog("Incorrect URI Format");
+                await dialog.ShowAsync();
+            }
+        }
+
+        public void Navigate(Type pageType)
+        {
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(pageType, User);
+        }
+
         public void GoBack()
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().GoBackAsync();
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().GoBackAsync();
         }
 
         public void UpdateUnreadNotificationIndicator(bool IsUnread)
@@ -90,6 +141,92 @@ namespace CodeHub.ViewModels
                 else
                     UpdateUnreadNotificationIndicator(false);
             }
+        }
+
+        public async Task<bool> HasAlreadyDonated()
+        {
+            try
+            {
+                if (SettingsService.Get<bool>(SettingsKeys.HasUserDonated))
+                {
+                    return true;
+                }
+                else
+                {
+                    StoreContext WindowsStore = StoreContext.GetDefault();
+
+                    string[] productKinds = { "Durable" };
+                    List<String> filterList = new List<string>(productKinds);
+
+                    StoreProductQueryResult queryResult = await WindowsStore.GetUserCollectionAsync(filterList);
+
+                    if (queryResult.ExtendedError != null)
+                    {
+                        return false;
+                    }
+
+                    foreach (KeyValuePair<string, StoreProduct> item in queryResult.Products)
+                    {
+                        if (item.Value != null)
+                        {
+                            if (item.Value.IsInUserCollection)
+                            {
+                                SettingsService.Save(SettingsKeys.HasUserDonated, true, true);
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task ConfigureAdsVisibility()
+        {
+            if (await HasAlreadyDonated())
+            {
+                GlobalHelper.HasAlreadyDonated = true;
+                ToggleAdsVisiblity();
+            }
+            else
+            {
+                SettingsService.Save<bool>(SettingsKeys.IsAdsEnabled, true);
+
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                {
+                    IsMobileAdsVisible = true;
+                    IsDesktopAdsVisible = false;
+                }
+                else
+                {
+                    IsDesktopAdsVisible = true;
+                    IsMobileAdsVisible = false;
+                }
+            }
+        }
+
+        public void ToggleAdsVisiblity()
+        {
+            if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
+            {
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                {
+                    IsMobileAdsVisible = true;
+                    IsDesktopAdsVisible = false;
+                }
+                else
+                {
+                    IsDesktopAdsVisible = true;
+                    IsMobileAdsVisible = false;
+                }
+            }
+            else IsMobileAdsVisible = IsDesktopAdsVisible = false;
         }
     }
 }

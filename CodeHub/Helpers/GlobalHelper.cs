@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,39 +20,59 @@ namespace CodeHub.Helpers
         */
         #region Message Types
 
-        public class AdsEnabledMessageType
-        {
-        }
-        public class SignOutMessageType
-        {
+        public class AdsEnabledMessageType {}
 
-        }
-        public class HasInternetMessageType
-        {
+        public class SignOutMessageType {}
 
-        }
+        public class HasInternetMessageType {}
+
+        public class HostWindowBlurMessageType {}
+
+        public class ShowWhatsNewPopupMessageType {}
+
         public class LocalNotificationMessageType
         {
             public string Message { get; set; }
             public string Glyph { get; set; }
-
         }
+
+        public class NoInternet
+        {
+            public LocalNotificationMessageType SendMessage()
+            {
+                return new LocalNotificationMessageType()
+                {
+                    Message = new Windows.ApplicationModel.Resources.ResourceLoader().GetString("notification_NoInternetConnection"),
+                    Glyph   = "\uE704",
+                };
+            }
+        }
+
         public class SetHeaderTextMessageType
         {
             public string PageName { get; set; }
         }
-        public class FollowActivityMessageType
-        {
 
-        }
-        public class HostWindowBlurMessageType
-        {
-        }
         public class UpdateUnreadNotificationMessageType
         {
             public bool IsUnread { get; set; }
         }
         #endregion
+
+        /// <summary>
+        /// Client for GitHub client
+        /// </summary>
+        public static GitHubClient GithubClient { get; set; }
+
+        /// <summary>
+        /// Indicates if Ads are visible
+        /// </summary>
+        public static bool HasAlreadyDonated { get; set; }
+
+        /// <summary>
+        /// Maintains a stack of page titles
+        /// </summary>
+        public static Stack<string> NavigationStack { get; set; } =  new Stack<string>();
 
         /// <summary>
         /// Username of the Authenticated user 
@@ -62,11 +83,6 @@ namespace CodeHub.Helpers
         /// Indicates whether user has performed a new Star/Unstar action. Used to update starred repositories
         /// </summary>
         public static bool NewStarActivity { get; set; }
-
-        /// <summary>
-        /// Indicates whether user has performed a new Follow/UnFollow action. Used to update followers
-        /// </summary>
-        public static bool NewFollowActivity { get; set; }
 
         /// <summary>
         /// List of names and owner names of Trending repositories
@@ -142,41 +158,79 @@ namespace CodeHub.Helpers
             var ts = new TimeSpan(DateTime.Now.Ticks - dt.Ticks);
             double delta = Math.Abs(ts.TotalSeconds);
 
+            var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        
             if (delta < 60)
             {
-                return ts.Seconds == 1 ? "one second ago" : ts.Seconds + " seconds ago";
+                if (ts.Seconds == 1)
+                {
+                    return languageLoader.GetString("aSecondAgo");
+                }
+                else
+                {
+                    return string.Format("{0} {1}",
+                         ts.Seconds,
+                         languageLoader.GetString("secondsAgo"));
+                }
             }
             if (delta < 120)
             {
-                return "a minute ago";
+                return languageLoader.GetString("aMinuteAgo");
             }
             if (delta < 2700) // 45 * 60
             {
-                return ts.Minutes + " minutes ago";
+                return string.Format("{0} {1}",
+                    ts.Minutes,
+                    languageLoader.GetString("minutesAgo"));
             }
             if (delta < 5400) // 90 * 60
             {
-                return "an hour ago";
+                return languageLoader.GetString("anHourAgo");
             }
             if (delta < 86400) // 24 * 60 * 60
             {
-                return ts.Hours + " hours ago";
+                return string.Format("{0} {1}",
+                    ts.Hours,
+                    languageLoader.GetString("hoursAgo"));
             }
             if (delta < 172800) // 48 * 60 * 60
             {
-                return "a day ago";
+                return languageLoader.GetString("aDayAgo");
             }
             if (delta < 2592000) // 30 * 24 * 60 * 60
             {
-                return ts.Days + " days ago";
+                return string.Format("{0} {1}",
+                    ts.Days,
+                    languageLoader.GetString("daysAgo"));
             }
             if (delta < 31104000) // 12 * 30 * 24 * 60 * 60
             {
                 int months = System.Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                return months <= 1 ? "one month ago" : months + " months ago";
+
+                if (months <= 1)
+                {
+                    return languageLoader.GetString("oneMonthAgo");
+                }
+                else
+                {
+                    return string.Format("{0} {1}",
+                        months,
+                        languageLoader.GetString("monthsAgo"));
+                }
             }
+
             int years = System.Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-            return years <= 1 ? "one year ago" : years + " years ago";
+
+            if (years <= 1)
+            {
+                return languageLoader.GetString("oneYearAgo");
+            }
+            else
+            {
+                return string.Format("{0} {1}",
+                    years,
+                    languageLoader.GetString("yearsAgo"));
+            }
         }
     }
 

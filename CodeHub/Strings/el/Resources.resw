@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="commented.Text" xml:space="preserve">
+    <value>σχολίασε</value>
+    <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
+  </data>
+  <data name="credits.Header" xml:space="preserve">
+    <value>Συντελεστές</value>
+  </data>
+  <data name="disclaimer.Text" xml:space="preserve">
+    <value>Αυτή η εφαρμογή δεν σχετίζεται με κανέναν τρόπο με το GitHub.</value>
+  </data>
+  <data name="privacyLink.Content" xml:space="preserve">
+    <value>Πολιτική Απορρήτου</value>
+  </data>
+  <data name="rateButtonContent.Text" xml:space="preserve">
+    <value>Αξιολογήστε στο Store</value>
+  </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>Θέμα</value>
+  </data>
+  <data name="themeTip.Text" xml:space="preserve">
+    <value>Οι αλλαγές στο θέμα απαιτούν επανεκκίνηση της εφαρμογής</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>Σκούρο Θέμα</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>Ανοιχτό Θέμα</value>
+  </data>
+  <data name="version.Text" xml:space="preserve">
+    <value>Έκδοση</value>
+    <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
+  </data>
+  <data name="adSetting.Text" xml:space="preserve">
+    <value>Υποστηρίξτε τους δημιουργούς, Ενεργοποιήστε τις διαφημίσεις</value>
+  </data>
+  <data name="busyScreen.BusyText" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε...</value>
+    <comment>preserve ellipsis here</comment>
+  </data>
+  <data name="donate.Text" xml:space="preserve">
+    <value>Προσφέρετε για να υποστηρίξετε το CodeHub</value>
+  </data>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>Προσφέρετε $0.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>Τι νέο υπάρχει?</value>
+  </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>Ακολούθησε</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>ακόλουθοι</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>ακολουθώ</value>
+  </data>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>Προσφέρετε $9.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="loadCommitMessage.Text" xml:space="preserve">
+    <value>Φόρτωση μηνυμάτων καταθέσεων για αρχεία</value>
+  </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>Δεν έχετε κανένα συμβάν ακόμα</value>
+  </data>
+  <data name="pickDonateOption.Text" xml:space="preserve">
+    <value>Επιλέξτε μια επιλογή για να υποστηρίξετε τον δημιουργό</value>
+  </data>
+  <data name="preview.Text" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="repositories.Text" xml:space="preserve">
+    <value>repositories</value>
+  </data>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>Προσφέρετε $2.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="showLineNumber.Text" xml:space="preserve">
+    <value>Επισύμανση γραμμων στον κώδικα</value>
+  </data>
+  <data name="showReadMe.Text" xml:space="preserve">
+    <value>Να φαίνεται το README στη σελίδα του Αποθετηρίου</value>
+  </data>
+  <data name="syntaxHightlignting.Text" xml:space="preserve">
+    <value>Στυλ Επισήμανσης της Σύνταξης</value>
+  </data>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>Προσφέρετε $4.99</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>Να μην ακολουθώ</value>
+  </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>Αυτός ο τύπος αρχείου δεν υποστηρίζεται</value>
+  </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>όλα</value>
+    <comment>Context: all repositories</comment>
+  </data>
+  <data name="closed.Text" xml:space="preserve">
+    <value>κλεισμένο</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
+  <data name="comments.Text" xml:space="preserve">
+    <value>Σχόλια</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>Φόρτωση περισσότερων...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>δικά μου</value>
+    <comment>Context: My Issues, i.e. issues opened by me</comment>
+  </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>Τα Αποθετήρια μου</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>Νέα</value>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>Δεν υπάρχουν κλεισμένα θέματα</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>Δεν υπάρχουν θέματα</value>
+  </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>Δεν υπάρχουν νέες ειδοποιήσεις</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>Δεν υπάρχουν ανοιχτά θέματα</value>
+  </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>Δεν υπάρχουν οργανισμοί ακόμα. Απενεργοποιήστε τους περιορισμούς για εφαρμογές απο τρίτους για τον οργανισμό σας.</value>
+  </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>Κανένα Αποθετήριο ακόμα</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>Κανένα Αποθετήριο με αστέρι ακόμα</value>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>ανοίχτηκε απο</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="open.Text" xml:space="preserve">
+    <value>ανοιχτό</value>
+    <comment>Context: status of Issue #1 is open</comment>
+  </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>Οργανισμοί</value>
+  </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>συμμετοχής</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>Ανανέωση</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>Αποσύνδεση</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>Ξεγραφτείτε απο αυτό το νήμα</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>Σημείωση ως αναγνωσμένο</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>με αστέρι</value>
+    <comment>Context: starred repositories</comment>
+  </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>αυτό το μήνα</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>αυτή την εβδομάδα</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>σήμερα</value>
+  </data>
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>Τα δημοφιλή Αποθετήρια ενημερώνονται απο το GitHub.</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>πρόσφατα δημοφιλή</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>μη αναγνωσμένα</value>
+    <comment>Context: unread notifications</comment>
+  </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>Κώδικας</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>Θέματα</value>
+  </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>Κανένα Αποθετήριο</value>
+  </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>Δεν υπάρχουν αποτελέσματα</value>
+  </data>
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>αναζήτηση</value>
+  </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>Σύνδεση</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>Συνδεθείτε με τον GitHub λογαριασμό σας για να συνεχίσετε</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>Καλωσήρθατε στο CodeHub</value>
+  </data>
+  <data name="creator.Text" xml:space="preserve">
+    <value>Δημιουργός</value>
+    <comment>Maker of the app</comment>
+  </data>
+  <data name="translator.Text" xml:space="preserve">
+    <value>Μεταφραστές</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Συνεισφέροντες</value>
+  </data>
+  <data name="clone.Text" xml:space="preserve">
+    <value>Κλωνοποίηση</value>
+  </data>
+  <data name="share.Text" xml:space="preserve">
+    <value>Μοιράσου</value>
+  </data>
+  <data name="labels.Text" xml:space="preserve">
+    <value>Ετικέτες</value>
+  </data>
+  <data name="comment.PlaceholderText" xml:space="preserve">
+    <value>Σχόλιο</value>
+  </data>
+  <data name="title.PlaceholderText" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="body.PlaceholderText" xml:space="preserve">
+    <value>Σώμα</value>
+  </data>
+  <data name="create.Content" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="cancel.Content" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="activity.Text" xml:space="preserve">
+    <value>δραστηριότητα</value>
+  </data>
+  <data name="pullRequests.Text" xml:space="preserve">
+    <value>Αιτήματα Ενσωμάτωσης</value>
+  </data>
+  <data name="readme.Text" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="contributors.Text" xml:space="preserve">
+    <value>ΣΥΝΕΙΣΦΕΡΟΝΤΕΣ</value>
+  </data>
+  <data name="releases.Text" xml:space="preserve">
+    <value>ΕΚΔΟΣΕΙΣ</value>
+  </data>
+  <data name="noClosedPullRequests.Text" xml:space="preserve">
+    <value>Κανένα κλεισμένο Αίτημα Ενσωμάτωσης</value>
+  </data>
+  <data name="noOpenPullRequests.Text" xml:space="preserve">
+    <value>Κανένα ανοιχτό Αίτημα Ενσωμάτωσης</value>
+  </data>
+  <data name="commited.Text" xml:space="preserve">
+    <value>κατατεθειμένο</value>
+  </data>
+  <data name="commits.Text" xml:space="preserve">
+    <value>Καταθέσεις</value>
+  </data>
+  <data name="contacts.Text" xml:space="preserve">
+    <value>Επαφές</value>
+  </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Θάμπωμα του περιεχομένου πίσω απ το παράθυρο</value>
+  </data>
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
+    <value>Προσφέρετε $14.99</value>
+  </data>
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
+    <value>Προσφέρετε $19.99</value>
+  </data>
+  <data name="owned.Text" xml:space="preserve">
+    <value>ανήκουν</value>
+  </data>
+  <data name="save.Content" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>Σημείωση όλων ως αναγνωσμένα</value>
+  </data>
+  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
+    <value>Ελέγξτε συχνά για ειδοποιήσεις</value>
+  </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>Νέο Θέμα</value>
+  </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>πρίν ένα δευτερόλεπτο</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>δευτερόλεπτα πριν</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>πριν ένα λεπτό</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>λεπτά πριν</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>πρίν μια ώρα</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>ώρες πριν</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>πριν μια ημέρα</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>ημέρες πριν</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>πρίν ένα μήνα</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>μήνες πριν</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>πρίν ένα χρόνο</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>χρόνια πριν</value>
+  </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>Τι νέο υπάρχει σε αυτή την έκδοση?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>Δημιουργήθηκε από τον Aalok Singh</value>
+  </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Κάντε οποιαδήποτε δωρεά για να έχετε την επιλογή απενεργοποίησης διαφημίσεων.</value>
+  </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>Προσφέρετε για το CodeHub μέσω Patreon</value>
+  </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>Όλες οι γλώσσες</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Εκκαθάριση</value>
+  </data>
+  <data name="pageTitle_CommentView" xml:space="preserve">
+    <value>Σχόλιο</value>
+  </data>
+  <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
+    <value>Προφίλ</value>
+  </data>
+  <data name="pageTitle_FeedView" xml:space="preserve">
+    <value>Ροή Ειδήσεων</value>
+  </data>
+  <data name="pageTitle_IssueDetailView" xml:space="preserve">
+    <value>Θέμα</value>
+  </data>
+  <data name="pageTitle_IssuesView" xml:space="preserve">
+    <value>Θέματα</value>
+  </data>
+  <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
+    <value>Οι Οργανισμοί μου</value>
+  </data>
+  <data name="pageTitle_MyReposView" xml:space="preserve">
+    <value>Τα Αποθετήρια μου</value>
+  </data>
+  <data name="pageTitle_NotificationsView" xml:space="preserve">
+    <value>Ειδοποιήσεις</value>
+  </data>
+  <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
+    <value>Αίτημα Ενσωμάτωσης</value>
+  </data>
+  <data name="pageTitle_PullRequestsView" xml:space="preserve">
+    <value>Αιτήματα Ενσωμάτωσης</value>
+  </data>
+  <data name="pageTitle_RepoDetailView" xml:space="preserve">
+    <value>Αποθετήριο</value>
+  </data>
+  <data name="pageTitle_SearchView" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="pageTitle_SettingsView" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="pageTitle_TrendingView" xml:space="preserve">
+    <value>Δημοφιλή</value>
+  </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Οργανισμός</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>Γενικά</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>Προτιμήσεις της εφαρμογής</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>Εμφάνιση</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>προσαρμογή της διεπαφής</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>Σχετικά με</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>Πληροφορίες και επικοινωνία με τον δημιουργό</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value>Προσφέρετε</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>Συντελεστές</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>Ευχαριστούμε για τις συνεισφορές σας!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>Υποστηρίξτε την εφαρμογή και τον δημιουργό</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>Αν θα ήθελες να μεταφράσεις το CodeHub στη γλώσσα σου στείλε μου ένα e-mail! </value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>Κάντε μια δωρεά για να με υποστηρίξετε πηγαίνοντας στις Ρυθμίσεις -&gt; Προσφέρετε. Επίσης θα απαλαχθείτε απο τις διαφημίσεις!</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>Σχολιάστε</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>Γράψε</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>Δεν υπάρχει κάτι για προεπισκόπηση</value>
+  </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>No internet</value>
+  </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>commented on issue #{0} in</value>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>commented on PR #{0}</value>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>commented on commit in</value>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>pushed {0} commits to</value>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>deleted in</value>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>created in</value>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>forked</value>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>starred</value>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>acted on</value>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>published a release to</value>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>open sourced</value>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>opened</value>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} PR #{1}</value>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>closed</value>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>reopened</value>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} issue #{1} in</value>
+  </data>
+</root>

@@ -55,5 +55,7 @@ namespace CodeHub.Services
         public const String IsAdsEnabled = nameof(IsAdsEnabled);
         public const String IsAcrylicBlurEnabled = nameof(IsAcrylicBlurEnabled);
         public const String IsNotificationCheckEnabled = nameof(IsNotificationCheckEnabled);
+        public const String CurrentVersion = nameof(CurrentVersion);
+        public const String HasUserDonated = nameof(HasUserDonated);
     }
 }

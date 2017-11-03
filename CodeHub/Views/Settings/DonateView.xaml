@@ -33,15 +33,15 @@
                        Margin="0 8 0 12"
                        HorizontalAlignment="Left"
                        FontSize="20"
-                       FontWeight="SemiLight" />
+                       FontWeight="SemiBold" />
 
             <Button Padding="12"
-                    FontSize="20"
+                    FontSize="19"
                     FontWeight="Light"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                    Content="Donate to CodeHub on Patreon"
+                    x:Uid="donatePatreonBtn"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="PatreonButton_Tapped"/>
 

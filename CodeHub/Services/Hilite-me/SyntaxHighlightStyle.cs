@@ -3,7 +3,7 @@
     /// <summary>
     /// Indicates the syntax highlight style to use
     /// </summary>
-    public enum SyntaxHighlightStyle
+    public enum SyntaxHighlightStyleEnum
     {
         Borland,
         Colorful,

@@ -9,12 +9,17 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
 
 namespace CodeHub.ViewModels
 {
     public class DeveloperProfileViewmodel : AppViewmodel
     {
         #region properties
+
+        public int PaginationIndex { get; set; }
+        public double MaxScrollViewerOffset { get; set; }
+
         public ObservableCollection<Activity> _events;
         public ObservableCollection<Activity> Events
         {
@@ -133,19 +138,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _IsOrganization;
-        public bool IsOrganization
-        {
-            get
-            {
-                return _IsOrganization;
-            }
-            set
-            {
-                Set(() => IsOrganization, ref _IsOrganization, value);
-            }
-        }
-
         public bool _IsReposLoading;
         public bool IsReposLoading
         {
@@ -188,16 +180,10 @@ namespace CodeHub.ViewModels
 
         public async Task Load(object user)
         {
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = "No Internet", Glyph = "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
-                string login = user as string;
-                if(login != null)
+                if (user is string login)
                 {
                     if (!string.IsNullOrWhiteSpace(login))
                     {
@@ -207,31 +193,28 @@ namespace CodeHub.ViewModels
                 else
                 {
                     Developer = user as User;
+                    if(Developer.Name == null)
+                    {
+                        Developer = await UserUtility.GetUserInfo(Developer.Login);
+                    }
                 }
                 if (Developer != null)
                 {
-                    if (Developer.Type == AccountType.Organization)
+                    if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
                     {
                         CanFollow = false;
-                        IsOrganization = true;
                     }
                     else
                     {
-                        if (Developer.Login == GlobalHelper.UserLogin)
+                        CanFollow = true;
+                        FollowProgress = true;
+                        if (await UserUtility.CheckFollow(Developer.Login))
                         {
-                            CanFollow = false;
+                            IsFollowing = true;
                         }
-                        else
-                        {
-                            CanFollow = true;
-                            FollowProgress = true;
-                            if (await UserUtility.CheckFollow(Developer.Login))
-                            {
-                                IsFollowing = true;
-                            }
-                            FollowProgress = false;
-                        }
+                        FollowProgress = false;
                     }
+
                     IsEventsLoading = true;
                     Events = await ActivityService.GetUserPerformedActivity(Developer.Login);
                     IsEventsLoading = false;
@@ -253,10 +236,6 @@ namespace CodeHub.ViewModels
                                               if (await UserUtility.FollowUser(Developer.Login))
                                               {
                                                   IsFollowing = true;
-
-                                                  Messenger.Default.Send(new GlobalHelper.FollowActivityMessageType());
-                                                  GlobalHelper.NewFollowActivity = true;
-
                                               }
                                               FollowProgress = false;
                                           }));
@@ -276,16 +255,8 @@ namespace CodeHub.ViewModels
                                               await UserUtility.UnFollowUser(Developer.Login);
                                               IsFollowing = false;
                                               FollowProgress = false;
-
-                                              Messenger.Default.Send(new GlobalHelper.FollowActivityMessageType());
-                                              GlobalHelper.NewFollowActivity = true;
                                           }));
             }
-        }
-
-        public async void FollowActivity(GlobalHelper.FollowActivityMessageType empty)
-        {
-            Developer = await UserUtility.GetUserInfo(Developer.Login);
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -303,7 +274,7 @@ namespace CodeHub.ViewModels
             else if (p.SelectedIndex == 1)
             {
                 IsReposLoading = true;
-                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login);
+                await LoadRepos();
                 IsReposLoading = false;
             }
             else if (p.SelectedIndex == 2)
@@ -320,14 +291,42 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public async Task LoadRepos()
+        {
+            PaginationIndex++;
+            if (PaginationIndex > 1)
+            {
+                var repos = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, PaginationIndex);
+                if (repos != null)
+                {
+                    if (repos.Count > 0)
+                    {
+                        foreach (var i in repos)
+                        {
+                            Repositories.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        //no more repos to load
+                        PaginationIndex = -1;
+                    }
+                }
+            }
+            else if (PaginationIndex == 1)
+            {
+                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, PaginationIndex);
+            }
+        }
+
         public void RepoDetailNavigateCommand(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", e.ClickedItem as Repository);
+            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), e.ClickedItem as Repository);
         }
 
         public void UserTapped(object sender, ItemClickEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), "Profile", ((User)e.ClickedItem).Login);
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), e.ClickedItem as User);
         }
 
         public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -337,24 +336,35 @@ namespace CodeHub.ViewModels
             switch (activity.Type)
             {
                 case "IssueCommentEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
                     break;
 
                 case "IssuesEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), "Issue", new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
                     break;
 
                 case "PullRequestReviewCommentEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
                     break;
 
                 case "PullRequestEvent":
                 case "PullRequestReviewEvent":
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), "Pull Request", new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+                    break;
+
+                case "ForkEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), ((ForkEventPayload)activity.Payload).Forkee);
+                    break;
+                case "CommitCommentEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitDetailView), new Tuple<long, string>(activity.Repo.Id, ((CommitCommentPayload)activity.Payload).Comment.CommitId));
+                    break;
+
+                case "PushEvent":
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(CommitsView), new Tuple<long, IReadOnlyList<Commit>>(activity.Repo.Id, ((PushEventPayload)activity.Payload).Commits));
                     break;
 
                 default:
-                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", activity.Repo.Name);
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), activity.Repo);
                     break;
             }
 

@@ -10,16 +10,19 @@
       xmlns:local="using:CodeHub.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
+      xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:usercontrol="using:CodeHub.Controls"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:TimeAgoConverter x:Key="TimeAgoConverter" x:Name="TimeAgoConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
+        <converters:IssueStateToColorConverter x:Key="IssueStateToColorConverter" x:Name="IssueStateToColorConverter" />
+        <converters:IssueToSymbolConverter x:Key="IssueToSymbolConverter" x:Name="IssueToSymbolConverter"/>
     </Page.Resources>
     <Grid Background="Transparent">
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
+            <VisualStateGroup CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="320" />
@@ -33,6 +36,11 @@
                         <Setter Target="CommentsPivot.(Grid.Column)" Value="0" />
                         <Setter Target="CommentsPivot.(Grid.ColumnSpan)" Value="2" />
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="1" />
+                        <Setter Target="EditIssueShadow.Width" Value="340" />
+                        <Setter Target="EditIssuePanel.Width" Value="340" />
+                        <Setter Target="CommentDialogShadow.Width" Value="340" />
+                        <Setter Target="CommentDialogPanel.Width" Value="340" />
+                        <Setter Target="DetailPanel.MaxHeight" Value="180"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Normal">
@@ -46,7 +54,11 @@
                         <Setter Target="CommentsPivot.(Grid.Row)" Value="0" />
                         <Setter Target="CommentsPivot.(Grid.Column)" Value="1" />
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
-
+                        <Setter Target="EditIssueShadow.Width" Value="600" />
+                        <Setter Target="EditIssuePanel.Width" Value="600" />
+                        <Setter Target="CommentDialogShadow.Width" Value="600" />
+                        <Setter Target="CommentDialogPanel.Width" Value="600" />
+                        <Setter Target="ExpanderButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
 
                 </VisualState>
@@ -61,14 +73,17 @@
                         <Setter Target="CommentsPivot.(Grid.Row)" Value="0" />
                         <Setter Target="CommentsPivot.(Grid.Column)" Value="1" />
                         <Setter Target="CommentsPivot.(Grid.RowSpan)" Value="2" />
-
+                        <Setter Target="EditIssueShadow.Width" Value="600" />
+                        <Setter Target="EditIssuePanel.Width" Value="600" />
+                        <Setter Target="CommentDialogShadow.Width" Value="600" />
+                        <Setter Target="CommentDialogPanel.Width" Value="600" />
+                        <Setter Target="ExpanderButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.1*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -79,23 +94,20 @@
         <RelativePanel x:Name="DetailGrid">
             <TextBlock x:Name="TitleBlock"
                        Margin="4,8,0,4"
-                       FontSize="20"
-                       FontWeight="SemiLight"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       FontSize="18"
+                       FontWeight="SemiBold"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="NumberBlock"
                        Text="{x:Bind ViewModel.Issue.Title, Mode=OneWay}"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="numbersymbol"
                        Margin="8,8,0,4"
-                       FontSize="20"
-                       FontWeight="Light"
+                       FontSize="18"
                        Foreground="Gray"
                        Text="#" />
             <TextBlock x:Name="NumberBlock"
-                       Margin="0,8,0,4"
-                       FontSize="20"
-                       FontWeight="Light"
+                       Margin="0,8,4,4"
+                       FontSize="18"
                        Foreground="Gray"
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.RightOf="numbersymbol"
@@ -103,13 +115,13 @@
 
             <StackPanel x:Name="UserBlock"
                         Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="statePanel">
+                        Margin="0 8 0 0"
+                        RelativePanel.AlignVerticalCenterWith="statePanel"
+                        RelativePanel.RightOf="statePanel">
                 <TextBlock x:Uid="openedBy"
                            Margin="8,0,3,0"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           FontWeight="SemiLight"
                            Foreground="Gray" />
 
                 <HyperlinkButton Margin="0,0,3,0"
@@ -128,37 +140,44 @@
                 <TextBlock Margin="0,0,3,0"
                            VerticalAlignment="Center"
                            FontSize="13"
-                           FontWeight="SemiLight"
                            Foreground="Gray"
                            Text="{x:Bind ViewModel.Issue.UpdatedAt, Converter={StaticResource TimeAgoConverter}, Mode=OneWay}" />
             </StackPanel>
 
-            <StackPanel x:Name="statePanel"
-                        Margin="8,8,0,0"
-                        Padding="6"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.Below="TitleBlock">
-                <Path x:Name="stateSymbol"
-                      Margin="0,0,4,0"
-                      Fill="White" />
-                <TextBlock FontSize="12"
-                           FontWeight="SemiBold"
-                           Foreground="White"
-                           Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
-            </StackPanel>
-            <Button Margin="0 8 8 0"
-                    Width="40"
+            <Border x:Name="statePanel"
+                    Margin="8,8,0,0"
+                    BorderThickness="2"
+                    BorderBrush="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.Below="TitleBlock"
+                    CornerRadius="1">
+                <StackPanel Background="{x:Bind ViewModel.Issue, Converter={StaticResource IssueStateToColorConverter}, Mode=OneWay}"
+                            Padding="4 2 4 2"
+                            Orientation="Horizontal">
+                    <Path x:Name="stateSymbol"
+                          Margin="0,0,4,0"
+                          Fill="White" 
+                          Data="{x:Bind ViewModel.Issue, Converter={StaticResource IssueToSymbolConverter}, Mode=OneWay}"/>
+                    <TextBlock FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               Text="{x:Bind ViewModel.Issue.State, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
+
+            <Button Width="40"
                     Height="40"
+                    Margin="0 8 8 0"
                     Background="{ThemeResource SystemChromeLowColor}"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignVerticalCenterWith="statePanel"
                     Style="{StaticResource RoundedButtonStyle}"
-                    Visibility="{x:Bind ViewModel.CanEditIssue, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-                    Tapped="EditIssue_Tapped">
-                <SymbolIcon Symbol="Edit"/>
+                    Tapped="EditIssue_Tapped"
+                    Visibility="{x:Bind ViewModel.CanEditIssue, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                <SymbolIcon Symbol="Edit" />
             </Button>
-            <ScrollViewer Margin="8 8 4 8"
+            <ScrollViewer x:Name="DetailPanel"
+                          Margin="0 0 0 8"
                           HorizontalScrollBarVisibility="Disabled"
                           HorizontalScrollMode="Disabled"
                           RelativePanel.AlignLeftWithPanel="True"
@@ -166,20 +185,33 @@
                           RelativePanel.Below="UserBlock"
                           VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Enabled">
-
-                <controls:MarkdownTextBlock Padding="8"
-                                            FontSize="13"
-                                            ImageStretch="Fill"
-                                            LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
-                                            Text="{x:Bind ViewModel.Issue.Body, Mode=OneWay}"
-                                            TextWrapping="Wrap" />
-
+                <toolkitControl:MarkdownTextBlock Padding="8 28 8 8"
+                                                  FontSize="13"
+                                                  ImageStretch="Fill"
+                                                  LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
+                                                  Text="{x:Bind ViewModel.Issue.Body, Mode=OneWay}"
+                                                  TextWrapping="Wrap" />
             </ScrollViewer>
+
+            <Button x:Name="ExpanderButton" 
+                    MinHeight="28"
+                    Click="Expander_Click"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    HorizontalAlignment="Stretch"
+                    RelativePanel.Below="UserBlock"
+                    Background="{ThemeResource SystemChromeLowColor}"
+                    Opacity="0.8"
+                    Style="{StaticResource ActionButtonStyle}">
+                <FontIcon x:Name="ExpanderIcon"
+                          FontFamily="Segoe MDL2 Assets"
+                          FontSize="14"
+                          Glyph="&#xE0E4;" />
+            </Button>
         </RelativePanel>
-        <Pivot x:Name="CommentsPivot"
-               Style="{StaticResource CustomPivotStyle}">
+        <Pivot x:Name="CommentsPivot" Style="{StaticResource CustomPivotStyle}">
             <Pivot.Resources>
-                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+                <Style BasedOn="{StaticResource CustomPivotHeaderItemStyle}" TargetType="PivotHeaderItem" />
             </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -204,7 +236,7 @@
                               Grid.Row="0"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.CommentTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -215,33 +247,19 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Grid Grid.Row="2" VerticalAlignment="Bottom">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Uid="comment"
-                                 Grid.Column="0"
-                                 AcceptsReturn="True"
-                                 Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                                 Text="{x:Bind ViewModel.CommentText, Mode=TwoWay}" />
-                        <Button Grid.Column="1"
-                                Width="40"
-                                Height="40"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Background="{StaticResource AppPrimaryColorBrush}"
-                                Command="{x:Bind ViewModel.CommentCommand}"
-                                Style="{StaticResource ActionButtonStyle}">
-                            <SymbolIcon Symbol="Send" />
-                        </Button>
-                    </Grid>
-
+                    <Button x:Uid="function_CommentCreate"
+                            Grid.Row="2"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CommentDialogOpen_Tapped" />
                     <ProgressRing Grid.Row="0"
                                   Width="20"
                                   Height="20"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   HorizontalAlignment="Center"
+                                  Foreground="{StaticResource AppPrimaryColorBrush}"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
 
@@ -261,7 +279,7 @@
                     </StackPanel>
                 </PivotItem.Header>
                 <ListView IsItemClickEnabled="True"
-                          ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                          ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                           ItemsSource="{x:Bind ViewModel.Issue.Labels, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -274,20 +292,13 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        <RelativePanel x:Name="EditLabelsPanel"
-                       Grid.RowSpan="2"
-                       Grid.ColumnSpan="2">
-            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    Opacity="0.1"
-                    RelativePanel.AlignBottomWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True"/>
 
-            <Border RelativePanel.AlignBottomWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True">
+        <Grid x:Name="EditIssueDialog"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="Transparent"
+              Visibility="Collapsed">
+            <Border>
                 <i:Interaction.Behaviors>
                     <behaviors:Blur AutomaticallyStart="True"
                                     Delay="0"
@@ -295,48 +306,94 @@
                                     Duration="0" />
                 </i:Interaction.Behaviors>
             </Border>
-            
-            <TextBox x:Name="issueTitle"
-                     x:Uid="title"
-                     Margin="8,16,8,8"
-                     RelativePanel.Above="issueBody"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     RelativePanel.AlignRightWithPanel="True"
-                     IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                     Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                     Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
-            <TextBox x:Name="issueBody"
-                     x:Uid="body"
-                     Height="200"
-                     Margin="8,0,8,0"
-                     AcceptsReturn="True"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     RelativePanel.AlignRightWithPanel="True"
-                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                     IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                     Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                     Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
-            <StackPanel Margin="8,16,8,0"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.AlignRightWithPanel="True"
-                        RelativePanel.Below="issueBody">
-                <Button x:Uid="save"
-                        Width="148"
-                        Margin="0,0,4,0"
-                        Tapped="EditIssueSaved_Tapped"
-                        Background="{StaticResource AppPrimaryColorBrush}" />
-                <Button x:Uid="cancel"
-                        Width="148"
-                        Tapped="CancelEditIssue_Tapped"
-                        Margin="4,0,0,0" />
-            </StackPanel>
+            <toolkitControl:DropShadowPanel x:Name="EditIssueShadow"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            BlurRadius="8"
+                                            OffsetX="2"
+                                            OffsetY="2"
+                                            ShadowOpacity="0.7"
+                                            Color="Black">
+                <StackPanel x:Name="EditIssuePanel"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Orientation="Vertical">
+                    <TextBlock Margin="8"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Text="Edit Issue" />
+                    <TextBox x:Uid="title"
+                             Margin="8 8 8 0"
+                             IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                             Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
+                             Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
 
-            <usercontrol:BusyScreen BusyText="Loading..."
-                                    IsBusy="True"
-                                    RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                                    Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-        </RelativePanel>
+                    <usercontrol:MarkdownEditorControl x:Name="EditIssueMarkdownEditorControl"
+                                                       MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
+                                                       IsEnabled="{x:Bind ViewModel.IsEditingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
+                    <Button x:Uid="save"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Tapped="EditIssueSaved_Tapped" />
+                    <Button x:Uid="cancel"
+                            Height="40"
+                            Style="{StaticResource ActionButtonStyle}"
+                            HorizontalAlignment="Stretch"
+                            Tapped="CancelEditIssue_Tapped" />
+                </StackPanel>
+            </toolkitControl:DropShadowPanel>
+        </Grid>
+
+        <Grid x:Name="CommentDialog"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="Transparent"
+              Visibility="Collapsed">
+            <Border>
+                <i:Interaction.Behaviors>
+                    <behaviors:Blur AutomaticallyStart="True"
+                                    Delay="0"
+                                    Value="30"
+                                    Duration="0" />
+                </i:Interaction.Behaviors>
+            </Border>
+            <toolkitControl:DropShadowPanel x:Name="CommentDialogShadow"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            BlurRadius="8"
+                                            OffsetX="2"
+                                            OffsetY="2"
+                                            ShadowOpacity="0.7"
+                                            Color="Black">
+                <StackPanel x:Name="CommentDialogPanel"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Orientation="Vertical">
+                    
+                    <usercontrol:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.CommentText, Mode=TwoWay}"/>
+                    <Button x:Uid="function_CommentCreate"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Tapped="Comment_Tapped" />
+                    <Button x:Uid="function_CommentCancel"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CancelComment_Tapped" />
+                </StackPanel>
+            </toolkitControl:DropShadowPanel>
+
+
+        </Grid>
+
+        <ProgressRing Grid.RowSpan="2"
+                      Grid.ColumnSpan="2"
+                      Width="40"
+                      Height="40"
+                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      IsActive="{x:Bind ViewModel.IsEditingIssue, Mode=OneWay}" />
+        
     </Grid>
 </Page>

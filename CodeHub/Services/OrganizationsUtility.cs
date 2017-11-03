@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Octokit;
 using CodeHub.Services;
 using System.Collections.ObjectModel;
+using CodeHub.Helpers;
 
 namespace CodeHub.Services
 {
@@ -15,8 +16,7 @@ namespace CodeHub.Services
         {
             try
             {
-                GitHubClient client = await UserUtility.GetAuthenticatedClient();
-                return await client.Organization.Get(login);
+                return await GlobalHelper.GithubClient.Organization.Get(login);
             }
             catch
             {

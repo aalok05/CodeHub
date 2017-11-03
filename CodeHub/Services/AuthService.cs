@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using CodeHub.Helpers;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.Security.Authentication.Web;
 using Windows.Security.Credentials;
 using Windows.Storage;
+
 
 namespace CodeHub.Services
 {
@@ -88,7 +90,7 @@ namespace CodeHub.Services
                 if (token != null)
                 {
                     client.Credentials = new Credentials(token.AccessToken);
-                    SaveToken(token.AccessToken, clientId);
+                    await SaveToken(token.AccessToken, clientId);
                 }
                 return true;
             }
@@ -104,13 +106,17 @@ namespace CodeHub.Services
         /// <param name="token"></param>
         /// <param name="clientId">Client Id is used as resource string for PasswordCredential</param>
         /// <returns></returns>
-        private bool SaveToken(string token, string clientId)
+        private async Task<bool> SaveToken(string token, string clientId)
         {
             try
             {
+                GlobalHelper.GithubClient = UserUtility.GetAuthenticatedClient(token);
+                User user = await UserUtility.GetCurrentUserInfo();
+
                 var vault = new PasswordVault();
-                vault.Add(new PasswordCredential(
-                   clientId, clientId, token));
+                vault.Add(new PasswordCredential(clientId, user.Id.ToString(), token));
+                
+                await AccountsService.AddUser(new Models.Account {Id = user.Id, AvatarUrl = user.AvatarUrl, IsLoggedIn = true, Login = user.Login, IsActive = true });
 
                 return true;
             }
@@ -124,15 +130,12 @@ namespace CodeHub.Services
         /// Gets Access token if stored in device
         /// </summary>
         /// <returns></returns>
-        public static async Task<string> GetToken()
+        public static string GetToken(string userId)
         {
             try
             {
-                string clientId = await AppCredentials.getAppKey();
                 var vault = new PasswordVault();
-
-                var credentialList = vault.FindAllByResource(clientId);
-
+                var credentialList = vault.FindAllByUserName(userId);
                 if (credentialList.Count > 0)
                 {
                     credentialList[0].RetrievePassword();
@@ -153,11 +156,11 @@ namespace CodeHub.Services
         /// Checks if user's device has an access token
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> checkAuth()
+        public static bool CheckAuth(string userId)
         {
             try
             {
-                var token = await GetToken();
+                var token = GetToken(userId);
                     if (token != null)
                         return true;
                     else
@@ -174,20 +177,18 @@ namespace CodeHub.Services
         /// Deletes the access token from user's device
         /// </summary>
         /// <returns></returns>
-        public static async Task<bool> signOut()
+        public async static Task<bool> SignOut(string userId)
         {
             try
             {
-                string clientId = await AppCredentials.getAppKey();
-                var vault = new PasswordVault();
+                //var vault = new PasswordVault();
+                //var credentialList = vault.FindAllByUserName(userId);
 
-                var credentialList = vault.FindAllByResource(clientId);
-
-                if (credentialList.Count > 0)
-                {
-                    vault.Remove(credentialList[0]);
-                }
-
+                //if (credentialList.Count > 0)
+                //{
+                //    vault.Remove(credentialList[0]);
+                //}
+                await AccountsService.SignOutOfAccount(userId);
                 return true;
             }
             catch

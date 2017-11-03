@@ -36,8 +36,6 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "My Organizations" });
-
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage); //Listening for Sign In message
             Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage); //listen for sign out message
 

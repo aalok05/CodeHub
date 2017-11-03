@@ -16,6 +16,37 @@
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" x:Name="InverseBooleanConverter" />
     </Page.Resources>
     <Grid Background="Transparent">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="createIssuePanel.Width" Value="340" />
+                        <Setter Target="createIssueShadow.Width" Value="340" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="createIssuePanel.Width" Value="600" />
+                        <Setter Target="createIssueShadow.Width" Value="600" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopEx">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="createIssuePanel.Width" Value="600" />
+                        <Setter Target="createIssueShadow.Width" Value="600" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <!--  Empty grid to provide grey background to pivot headers  -->
         <Grid Height="48"
@@ -23,10 +54,10 @@
               Background="{ThemeResource SystemChromeLowColor}" />
 
         <Pivot x:Name="IssuesPivot"
-               Style="{StaticResource CustomPivotStyle}"
-               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}">
+               SelectionChanged="{x:Bind ViewModel.Pivot_SelectionChanged}"
+               Style="{StaticResource CustomPivotStyle}">
             <Pivot.Resources>
-                <Style TargetType="PivotHeaderItem" BasedOn="{StaticResource CustomPivotHeaderItemStyle}" />
+                <Style BasedOn="{StaticResource CustomPivotHeaderItemStyle}" TargetType="PivotHeaderItem" />
             </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
@@ -37,8 +68,9 @@
                 <Grid>
                     <ListView x:Name="openIssueListView"
                               IsItemClickEnabled="True"
+                              Loaded="openIssueListView_Loaded"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.OpenIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
                         <ListView.ItemTemplate>
@@ -48,6 +80,14 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+                    <ProgressBar IsIndeterminate="True" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Bottom" 
+                                 Margin="0 0 0 10"
+                                 MaxHeight="5"
+                                 MaxWidth="2000"
+                                 Visibility="{x:Bind ViewModel.IsIncrementalLoadingOpen,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Uid="noOpenIssue"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -69,8 +109,9 @@
                 <Grid>
                     <ListView x:Name="closedIssueListView"
                               IsItemClickEnabled="True"
+                              Loaded="closedIssueListView_Loaded"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.ClosedIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
                         <ListView.ItemTemplate>
@@ -80,6 +121,14 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+                    <ProgressBar IsIndeterminate="True" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Bottom" 
+                                 Margin="0 0 0 10"
+                                 MaxHeight="5"
+                                 MaxWidth="2000"
+                                 Visibility="{x:Bind ViewModel.IsIncrementalLoadingClosed,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
+                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
                     <TextBlock x:Uid="noClosedIssue"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -101,7 +150,7 @@
                     <ListView x:Name="mineIssueListView"
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.IssueTapped}"
-                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                              ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
                               ItemsSource="{x:Bind ViewModel.MyIssues, Mode=OneWay}"
                               ScrollViewer.HorizontalScrollMode="Disabled">
                         <ListView.ItemTemplate>
@@ -111,6 +160,7 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+
                     <TextBlock x:Uid="noIssues"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -123,27 +173,21 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        <Button Margin="0,0,16,16"
-                Width="50"
+        <Button Width="50"
                 Height="50"
+                Margin="0,0,16,16"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Tapped="AddIssueButton_Tapped"
                 Background="{StaticResource AppPrimaryColorBrush}"
-                Style="{StaticResource RoundedButtonStyle}">
-            <SymbolIcon Symbol="Add" Foreground="White"/>
+                Style="{StaticResource RoundedButtonStyle}"
+                Tapped="AddIssueButton_Tapped">
+            <SymbolIcon Foreground="White" Symbol="Add" />
         </Button>
-        <RelativePanel x:Name="createIssuePanel">
-            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    Opacity="0.1"
-                    RelativePanel.AlignBottomWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True"/>
-            <Border RelativePanel.AlignBottomWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True">
+
+        <Grid x:Name="createIssueDialog"
+              Background="Transparent"
+              Visibility="Collapsed">
+            <Border>
                 <i:Interaction.Behaviors>
                     <behaviors:Blur AutomaticallyStart="True"
                                     Delay="0"
@@ -151,53 +195,48 @@
                                     Duration="0" />
                 </i:Interaction.Behaviors>
             </Border>
+            <toolkitControl:DropShadowPanel x:Name="createIssueShadow"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            BlurRadius="8"
+                                            OffsetX="2"
+                                            OffsetY="2"
+                                            ShadowOpacity="0.7"
+                                            Color="Black">
+                <StackPanel x:Name="createIssuePanel"
+                            Orientation="Vertical"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <TextBlock x:Uid="newIssue"
+                               FontSize="20"
+                               Margin="8"
+                               FontWeight="SemiBold"/>
+                    <TextBox x:Uid="title"
+                             Margin="8 8 8 0"
+                             IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                             Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
+                             Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
 
-            <TextBox x:Name="issueTitle"
-                     x:Uid="title"
-                     Margin="8,0,8,8"
-                     IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                     RelativePanel.Above="issueBody"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     RelativePanel.AlignRightWithPanel="True"
-                     Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                     Text="{x:Bind ViewModel.NewIssueTitleText, Mode=TwoWay}" />
-            <TextBox x:Name="issueBody"
-                     x:Uid="body"
-                     Height="200"
-                     Margin="8,0,8,0"
-                     AcceptsReturn="True"
-                     IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     RelativePanel.AlignRightWithPanel="True"
-                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                     Style="{StaticResource AutoSuggestBoxTextBoxStyle}"
-                     Text="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}" />
+                    <userControls:MarkdownEditorControl MarkdownText="{x:Bind ViewModel.NewIssueBodyText, Mode=TwoWay}"
+                                                        IsEnabled="{x:Bind ViewModel.IsCreatingIssue, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"/>
+                    <Button x:Uid="create"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Command="{x:Bind ViewModel.CreateIssue}" />
+                    <Button x:Uid="cancel"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource ActionButtonStyle}"
+                            Tapped="CancelNewIssueButton_Tapped" />
+                </StackPanel>
 
-            <StackPanel Margin="8,16,8,0"
-                        Orientation="Horizontal"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        RelativePanel.AlignRightWithPanel="True"
-                        RelativePanel.Below="issueBody">
-                <Button x:Name="createIssueButton"
-                        x:Uid="create"
-                        Width="148"
-                        Margin="0,0,4,0"
-                        Background="{StaticResource AppPrimaryColorBrush}"
-                        Command="{x:Bind ViewModel.CreateIssue}" />
-                <Button x:Name="cancelNewIssueButton"
-                        x:Uid="cancel"
-                        Width="148"
-                        Margin="4,0,0,0"
-                        Tapped="CancelNewIssueButton_Tapped" />
-            </StackPanel>
+            </toolkitControl:DropShadowPanel>
+        </Grid>
 
-            <userControls:BusyScreen x:Name="busyScreen"
-                                     BusyText="Creating..."
-                                     IsBusy="True"
-                                     RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                                     Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-
-        </RelativePanel>
+        <ProgressRing Width="40"
+                      Height="40"
+                      IsActive="{x:Bind ViewModel.IsCreatingIssue,Mode=OneWay}"
+                      Foreground="{StaticResource AppPrimaryColorBrush}" />
     </Grid>
 </Page>

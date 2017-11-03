@@ -79,12 +79,7 @@ namespace CodeHub.ViewModels
             Repository = repoPath.Item1;
             Path = repoPath.Item2;
 
-            if (!GlobalHelper.IsInternet())
-            {
-                //Sending NoInternet message to all viewModels
-                Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message="No Internet", Glyph= "\uE704" });
-            }
-            else
+            if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
                 if (string.IsNullOrWhiteSpace(repoPath.Item3))
@@ -127,7 +122,7 @@ namespace CodeHub.ViewModels
                     ?? (_repoDetailNavigateCommand = new RelayCommand(
                                           () =>
                                           {
-                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), "Repository", Repository);
+                                              SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), Repository);
                                           }));
             }
         }

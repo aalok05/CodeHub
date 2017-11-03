@@ -19,7 +19,7 @@
                                               IsItemClickEnabled="True"
                                               ItemClick="{x:Bind ViewModel.OrganizationDetailNavigateCommand}"
                                               IsPullToRefreshWithMouseEnabled="True"
-                                              ItemContainerStyle="{StaticResource RepoListViewItemStyle}"
+                                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
                                               ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}"
                                               OverscrollLimit="0.4"
                                               PullProgressChanged="OrganizationsList_PullProgressChanged"

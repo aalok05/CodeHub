@@ -1,0 +1,142 @@
+﻿<local:SettingsDetailPageBase x:Class="CodeHub.Views.CreditSettingsView"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:local="using:CodeHub.Views"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              mc:Ignorable="d">
+
+    <ScrollViewer Background="Transparent"
+                  HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  VerticalScrollMode="Auto">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <StackPanel Orientation="Vertical"
+                    Margin="8 12 0 0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#xE006;"
+                           FontSize="24"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           FontFamily="Segoe UI Symbol"
+                           Margin="0 0 8 0"/>
+                <TextBlock Text="Special Thanks!"
+                           FontSize="22"
+                           FontWeight="SemiBold"/>
+            </StackPanel>
+            <TextBlock x:Uid="contributor"
+                       Margin="0,16,0,4"
+                       FontSize="19"
+                       FontWeight="Light" />
+            <TextBlock x:Name="contributorName2"
+                       Margin="0,4,8,0"
+                       FontSize="13"
+                       Text="Sergio Pedri" />
+            <TextBlock x:Name="contributorName3"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Glenn Versweyveld" />
+            <TextBlock x:Name="contributorName4"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Giacomo Lawrance" />
+            <TextBlock x:Name="contributorName5"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Von Hohenheim" />
+            <TextBlock x:Name="contributorName6"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="PoLáKoSz Tom" />
+            <TextBlock x:Name="contributorName7"
+                       Margin="0 4 8 0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Darkpingouin"/>
+            <TextBlock x:Name="translatorsText"
+                       x:Uid="translator"
+                       Margin="0,12,0,4"
+                       FontSize="19"
+                       FontWeight="Light"
+                       RelativePanel.AlignLeftWithPanel="True" />
+            <TextBlock x:Name="translatorName1"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Von Hohenheim - Chinese" />
+            <TextBlock x:Name="translatorName8"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Gary Lu - Chinese" />
+            <TextBlock x:Name="translatorName11"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Tobiichi Amane - Chinese" />
+            <TextBlock x:Name="translatorName2"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Liêm Nguyễn - Vietnamese" />
+            <TextBlock x:Name="translatorName3"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Jakob Hermann Preusker - German" />
+            <TextBlock x:Name="translatorName4"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="JN Marcos - Portuguese" />
+            <TextBlock x:Name="translatorName5"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="PoLáKoSz Tom - Hungarian" />
+            <TextBlock x:Name="translatorName6"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Angel Careaga - Spanish" />
+            <TextBlock x:Name="translatorName7"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="IkerGarcia - Spanish" />
+            <TextBlock x:Name="translatorName9"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Darkpingouin - French" />
+            <TextBlock x:Name="translatorName10"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Francesco Bosso - Italian" />
+            <TextBlock x:Name="translatorName12"
+                       Margin="0,4,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Text="Panagiotis Bakos - Greek" />
+        </StackPanel>
+
+    </ScrollViewer>
+</local:SettingsDetailPageBase>

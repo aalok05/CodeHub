@@ -1,0 +1,16 @@
+﻿<Page x:Class="CodeHub.Views.CommentView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:convertes="using:CodeHub.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:CodeHub.Views"
+      xmlns:userControl="using:CodeHub.Controls"
+      xmlns:octo="using:Octokit"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <userControl:CommentListItem DataContext="{x:Bind ViewModel.Comment}"
+                                 Margin="8"
+                                 VerticalAlignment="Top"/>
+</Page>

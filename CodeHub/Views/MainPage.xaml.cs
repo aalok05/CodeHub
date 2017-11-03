@@ -2,12 +2,10 @@
 using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.ViewModels;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
@@ -18,13 +16,15 @@ using UICompositionAnimations.Enums;
 using RavinduL.LocalNotifications;
 using RavinduL.LocalNotifications.Presenters;
 using Windows.UI.Popups;
-using Windows.System.Profile;
 using UICompositionAnimations.Behaviours;
 using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
 using CodeHub.Helpers;
 using UICompositionAnimations.Brushes;
 using UICompositionAnimations.Helpers;
+using Windows.UI.Xaml.Controls;
+using CodeHub.Models;
+using Windows.ApplicationModel.Activation;
 
 namespace CodeHub.Views
 {
@@ -35,78 +35,86 @@ namespace CodeHub.Views
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
 
-        public MainPage()
+        public MainPage(IActivatedEventArgs args)
         {
             this.InitializeComponent();
 
-            ViewModel = new MainViewmodel();
+            ViewModel = new MainViewmodel(args);
             this.DataContext = ViewModel;
 
             #region registering for messages
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
-            Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ConfigureAdsVisibility(); });
+            Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ViewModel.ToggleAdsVisiblity(); });
             Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
             Messenger.Default.Register(this, delegate (UpdateUnreadNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
-            Messenger.Default.Register<User>(this, RecieveSignInMessage);
+            Messenger.Default.Register(this, async delegate (ShowWhatsNewPopupMessageType m) {await ShowWhatsNewPopupVisiblity(); });
+            Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
             #endregion
 
-            SimpleIoc.Default.Register<IAsyncNavigationService>(() =>
-            { return new NavigationService(mainFrame); });
-            
-            NavigationCacheMode = NavigationCacheMode.Enabled;
+            notifManager = new LocalNotificationManager(NotificationGrid);
+
+            Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
+
+            SimpleIoc.Default.Register<IAsyncNavigationService>(() => { return new NavigationService(AppFrame); });
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
-            ConfigureAdsVisibility();
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        private async void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
-            await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
-        }
-        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (AppFrame == null) return;
-            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
-            if (service != null && AppFrame.CanGoBack && !e.Handled) // The base CanGoBack is synchronous and not reliable here
+            if (Window.Current.Bounds.Width < 1024)
             {
-                e.Handled = true;
-                service.GoBackAsync(); // Use the navigation service to make sure the navigation is possible
+                ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
+                ViewModel.IsPaneOpen = false;
+
+                if (ApiInformationHelper.IsCreatorsUpdateOrLater)
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
+                }
             }
+            else
+            {
+                ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
+                ViewModel.IsPaneOpen = true;
+
+                if (ApiInformationHelper.IsCreatorsUpdateOrLater && !ApiInformationHelper.IsMobileDevice)
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HamburgerBackdropAcrylicBrush");
+                }
+            }
+        }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ConfigureWindowBlur();
+            await ConfigureHamburgerMenuBlur();
+
+            await ViewModel.Initialize();
+
+            if (WhatsNewDisplayService.IsNewVersion() && ViewModel.isLoggedin)
+                await ShowWhatsNewPopupVisiblity();
         }
 
         #region click events
-        private void HamButton_Click(object sender, RoutedEventArgs e)
-        {
-            //Toggle Hamburger menu
-            HamSplitView.IsPaneOpen = !HamSplitView.IsPaneOpen;
-        }
         private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != (e.ClickedItem as HamItem).DestPage)
-            {
-                ViewModel.HamItemClicked(e.ClickedItem as HamItem);
-
-                //Don't close the Hamburger menu if visual state is DesktopEx
-                if (!(HamSplitView.DisplayMode == SplitViewDisplayMode.Inline))
-                    HamSplitView.IsPaneOpen = false;
-            }
+            ViewModel.HamItemClicked(e.ClickedItem as HamItem);
         }
-        private void SettingsItem_ItemClick(object sender, TappedRoutedEventArgs e)
+        private async void AccountsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(SettingsView))
-            {
-                ViewModel.NavigateToSettings();
-
-                //Don't close the Hamburger menu if visual state is DesktopEx
-                if (!(HamSplitView.DisplayMode == SplitViewDisplayMode.Inline))
-                    HamSplitView.IsPaneOpen = false;
-            }
+            await ShowAccountsPanel();
         }
-        private void SignOutFlyout_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void CloseAccountsPanel_Tapped(object sender, RoutedEventArgs e)
         {
-            moreButton.Flyout.Hide();
-            ViewModel.SignOutCommand.Execute(null);
+            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            ViewModel.IsAccountsPanelVisible = false;
+        }
+        private async void DeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DeleteAccount(((Button)sender).Tag.ToString());
         }
         #endregion
 
@@ -126,98 +134,67 @@ namespace CodeHub.Views
             },
             LocalNotificationCollisionBehaviour.Replace);
         }
-        public void RecieveSignInMessage(User user)
-        {
-            if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(FeedView))
-            {
-                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
-            }
-        }
         #endregion
-
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.isLoggedin = (bool)e.Parameter;
-
-            if (ViewModel.isLoggedin)
-            {
-                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView), "News Feed");
-                await ViewModel.CheckForUnreadNotifications();
-            }
-
-            notifManager = new LocalNotificationManager(NotificationGrid);
-
-            ConfigureWindowBlur();
-            await ConfigureHamburgerMenuBlur();
-        }
-
+ 
         #region other methods
-        /// <summary>
-        /// Sets the Header Text to pageName
-        /// </summary>
-        /// <param name="pageName"></param>
+
         public async void SetHeadertext(string pageName)
         {
             await HeaderAnimationSemaphore.WaitAsync();
             if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
             {
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.X, 0, 24, 150, null, null, EasingFunctionNames.Linear);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.Y, 0, -24, 150, null, null, EasingFunctionNames.Linear);
                 ViewModel.HeaderText = pageName.ToUpper();
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.X, 24, 0, 150, null, null, EasingFunctionNames.Linear);
+                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.Y, 24, 0, 150, null, null, EasingFunctionNames.Linear);
             }
             HeaderAnimationSemaphore.Release();
         }
 
-        /// <summary>
-        /// Sets the visibility of Ad units according to the app settings
-        /// </summary>
-        public void ConfigureAdsVisibility()
-        {
-            if (SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled))
-            {
-                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-                {
-                    adControlDesktop.Visibility = Visibility.Collapsed;
-                    adControlMobile.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    adControlMobile.Visibility = Visibility.Collapsed;
-                    adControlDesktop.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                adControlMobile.Visibility = adControlDesktop.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        /// <summary>
-        /// Sets Acrylic blur effect for host window
-        /// </summary>
-        /// <returns></returns>
         public void ConfigureWindowBlur()
         {
-            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled) &&
-                ApiInformationHelper.IsCreatorsUpdateOrLater &&
-                !ApiInformationHelper.IsMobileDevice)
+            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled) && ApiInformationHelper.IsCreatorsUpdateOrLater && !ApiInformationHelper.IsMobileDevice)
             {
                 BlurBorder.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HostBackdropAcrylicBrush");
             }
             else BlurBorder.Background = (Brush)XAMLHelper.GetGenericResourceValue("ApplicationPageBackgroundThemeBrush");
         }
 
-        /// <summary>
-        ///  Sets blur effect for hamburger menu pane
-        /// </summary>
-        /// <returns></returns>
         public async Task ConfigureHamburgerMenuBlur()
         {
             if (ApiInformationHelper.IsCreatorsUpdateOrLater)
             {
-                BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
+                if (!ApiInformationHelper.IsMobileDevice && HamSplitView.DisplayMode == SplitViewDisplayMode.Inline)
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HamburgerBackdropAcrylicBrush");
+                }
+                else
+                {
+                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
+                }
             }
             else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
+        }
+
+        private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            IAsyncNavigationService service = SimpleIoc.Default.GetInstance<IAsyncNavigationService>();
+            if (service != null && !e.Handled)
+            {
+                e.Handled = true;
+                service.GoBackAsync();
+            }
+        }
+        private async Task ShowAccountsPanel()
+        {
+            AccountsPanel.SetVisualOpacity(0);
+            ViewModel.IsAccountsPanelVisible = true;
+            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+        }
+        private async Task ShowWhatsNewPopupVisiblity()
+        {
+            WhatsNewPopup.SetVisualOpacity(0);
+            WhatsNewPopup.Visibility = Visibility.Visible;
+            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
         }
         #endregion
     }

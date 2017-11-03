@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls;
 using CodeHub.Views;
 using CodeHub.Services.Hilite_me;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -57,6 +58,20 @@ namespace CodeHub.ViewModels
                 return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
             }
         }
+
+        private ICommand _shoWWhatsNewCommand;
+        public ICommand ShoWWhatsNewCommand
+        {
+            get
+            {
+                if (_shoWWhatsNewCommand == null)
+                {
+                    _shoWWhatsNewCommand = new RelayCommand(() => Messenger.Default.Send(new GlobalHelper.ShowWhatsNewPopupMessageType()));
+                }
+
+                return _shoWWhatsNewCommand;
+            }
+        }
         #endregion
 
         #region general settings properties
@@ -64,7 +79,7 @@ namespace CodeHub.ViewModels
         /// <summary>
         /// Gets the collection of the available highlight styles
         /// </summary>
-        public IEnumerable<SyntaxHighlightStyle> AvailableHighlightStyles { get; } = Enum.GetValues(typeof(SyntaxHighlightStyle)).Cast<SyntaxHighlightStyle>();
+        public IEnumerable<SyntaxHighlightStyle> AvailableHighlightStyles { get; set; }
 
         public int _SelectedHighlightStyleIndex = SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
 
@@ -144,6 +159,19 @@ namespace CodeHub.ViewModels
             }
         }
 
+        public bool _CanDisableAds = GlobalHelper.HasAlreadyDonated;
+        public bool CanDisableAds
+        {
+            get
+            {
+                return _CanDisableAds;
+            }
+            set
+            {
+                Set(() => CanDisableAds, ref _CanDisableAds, value);
+            }
+        }
+
         public bool _IsNotificationCheckEnabled = SettingsService.Get<bool>(SettingsKeys.IsNotificationCheckEnabled);
 
         /// <summary>
@@ -166,43 +194,110 @@ namespace CodeHub.ViewModels
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>
-        public SyntaxHighlightStyle HighlightStyle => (SyntaxHighlightStyle)SelectedHighlightStyleIndex;
+        public SyntaxHighlightStyleEnum HighlightStyle => (SyntaxHighlightStyleEnum)SelectedHighlightStyleIndex;
 
 
         #endregion
 
         public SettingsViewModel()
         {
+            var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
             Settings = new ObservableCollection<SettingsItem>()
             {
                 new SettingsItem()
                 {
-                    MainText = "General",
-                    SubText = "App preferences",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_General"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_General_SubText"),
                     GlyphString = "\xEC7A",
                     DestPage = typeof(GeneralSettingsView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "Appearance",
-                    SubText = "UI customization",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_Appearance"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_Appearance_SubText"),
                     GlyphString = "\xE7F4",
                     DestPage = typeof(AppearanceView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "About",
-                    SubText = "Developer info and contacts",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_About"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_About_SubText"),
                     GlyphString = "\xE7BE",
                     DestPage = typeof(AboutSettingsView)
                 },
                 new SettingsItem()
                 {
-                    MainText = "Donate",
-                    SubText = "Support the app and the developer",
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_Donate"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_Donate_SubText"),
                     GlyphString = "\xE170",
                     DestPage = typeof(DonateView)
+                },
+                new SettingsItem()
+                {
+                    MainText = languageLoader.GetString("menu_Settings_SubMenu_Credits"),
+                    SubText = languageLoader.GetString("menu_Settings_SubMenu_Credits_SubText"),
+                    GlyphString = "\xE006",
+                    DestPage = typeof(CreditSettingsView)
                 }
+            };
+
+            AvailableHighlightStyles = new ObservableCollection<SyntaxHighlightStyle>
+            {
+                new SyntaxHighlightStyle{Name = "Borland",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("000080FF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("000000FF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("008800FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("000000FF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("FFFFFFFF") },
+                new SyntaxHighlightStyle{Name = "Colorful",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("008800FF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("0e84b5FF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("888888FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("BB0066FF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("FFFFFFFF") },
+                new SyntaxHighlightStyle{Name = "Emacs",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("AA22FFFF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("0000FFFF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("008800FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("0000FFFF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("f8f8f8FF") },
+                new SyntaxHighlightStyle{Name = "Fruity",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("fb660aFF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("ffffffFF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("008800FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("ffffffFF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("111111FF") },
+                new SyntaxHighlightStyle{Name = "Monokai",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("66d9efFF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("f8f8f2FF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("75715eFF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("a6e22eFF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("272822FF") },
+                new SyntaxHighlightStyle{Name = "Native",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("6ab825FF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("447fcfFF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("999999FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("447fcfFF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("202020FF") },
+                new SyntaxHighlightStyle{Name = "Perldoc",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("8B008BFF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("008b45FF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("228B22FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("008b45FF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("eeeeddFF") },
+                new SyntaxHighlightStyle{Name = "Vim",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("cdcd00FF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("ccccccFF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("000080FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("00cdcdFF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("000000FF") },
+                new SyntaxHighlightStyle{Name = "VS",
+                    ColorOne = GlobalHelper.GetSolidColorBrush("0000ffFF"),
+                    ColorTwo = GlobalHelper.GetSolidColorBrush("000000FF"),
+                    ColorThree = GlobalHelper.GetSolidColorBrush("008000FF"),
+                    ColorFour = GlobalHelper.GetSolidColorBrush("2b91afFF"),
+                    BackgroundColor = GlobalHelper.GetSolidColorBrush("ffffffFF") },
             };
         }
 

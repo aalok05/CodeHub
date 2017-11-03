@@ -5,14 +5,14 @@
 
 CodeHub is a Universal Windows GitHub client that helps you keep up with the open source world.
 
-<a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a>
+<p align="center"><a href="https://www.microsoft.com/store/apps/9nblggh52tbd?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" alt="Get it from Microsoft" width='200' /></a></p>
 
 ## Features
 * Trending repositories
 * News Feed
 * View code (with syntax highlighting), issues and comments. 
 * Create Issues
-* Comment on Issues
+* Comment on Issues and PRs
 * Choose from 9 different syntax highlighting styles
 * Search repositories, users, issues and code
 * Star, Watch and Fork repositories
@@ -20,16 +20,23 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 
 ## Screenshots
 
-| Notifications        			                               | Trending           				  | News Feed  				          |
-| ----------------------------------------------------------------- |:----------------------------------------------------------------:| :---------------------------------------------------------------:|
-| ![screenshot](https://preview.ibb.co/jvsU35/mob1.png)      | ![screenshot](https://preview.ibb.co/ekXJwQ/mob4.png) | ![screenshot](https://preview.ibb.co/fEesO5/mob5.png) |
+|               |                   |
+|:-------------:| :----------------:|
+| ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/repoView.PNG)  | ![screenshot](https://raw.githubusercontent.com/aalok05/CodeHub/master/Screenshots/trending.PNG) |
 
-## Contributions
-Pull requests are welcome in the `dev` branch!
+
+## Contributing
+Do you want to contribute? Here are our [contribution guidelines](https://github.com/aalok05/CodeHub/blob/master/CONTRIBUTING.md).
 
 ## Setting up the project 
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
 
+## URI Schemes
+You can launch CodeHub and navigate to repositories and user profiles using custom URI schemes
+
+Examples:
+- _codehub://repository/aalok05/codehub_
+- _codehub://user/aalok05_
 
 ## Troubleshooting
 
@@ -43,10 +50,7 @@ I thank the makers of these libraries
 * [UICompositionAnimations](https://github.com/Sergio0694/UICompositionAnimations)
 * [MVVM Light](https://www.nuget.org/packages/MvvmLightLibs/)
 * [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit)
-* [MarkdownSharp.UWP](https://www.nuget.org/packages/MarkdownSharp.UWP/)
 * [HTML Agility Pack](https://www.nuget.org/packages/HtmlAgilityPack)
-* [JetBrains ReSharper Annotations](https://www.nuget.org/packages/JetBrains.Annotations)
-* [Lumia Imaging SDK UWP](https://www.nuget.org/packages/LumiaImagingSDK.UWP/)
 * [LocalNotifications](https://github.com/RavinduL/LocalNotifications)
 
 ## Gitter chat

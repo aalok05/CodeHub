@@ -17,6 +17,8 @@ namespace CodeHub.Views
     public sealed partial class FeedView : Windows.UI.Xaml.Controls.Page
     {
         public FeedViewmodel ViewModel;
+        private ScrollViewer FeedScrollViewer;
+
         public FeedView()
         {
             this.InitializeComponent();
@@ -24,7 +26,17 @@ namespace CodeHub.Views
             this.DataContext = ViewModel;
             Loading += FeedView_Loading;
 
+            Unloaded += FeedView_Unloaded;
+
             NavigationCacheMode = NavigationCacheMode.Required;
+        }
+
+        private void FeedView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (FeedScrollViewer != null)
+                FeedScrollViewer.ViewChanged -= OnScrollViewerViewChanged;
+
+            FeedScrollViewer = null;
         }
 
         private void FeedView_Loading(FrameworkElement sender, object args)
@@ -33,12 +45,6 @@ namespace CodeHub.Views
             Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage); //listen for sign out message
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "News Feed" });
-        }
         private void Feed_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
         {
             refreshindicator.Opacity = e.PullProgress;
@@ -47,6 +53,37 @@ namespace CodeHub.Views
         private async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
+        }
+
+        private void FeedListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (FeedScrollViewer != null)
+                FeedScrollViewer.ViewChanged -= OnScrollViewerViewChanged;
+
+            FeedScrollViewer = FeedListView.FindChild<ScrollViewer>();
+            FeedScrollViewer.ViewChanged += OnScrollViewerViewChanged;
+        }
+
+        private async void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (ViewModel.PaginationIndex != -1)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && verticalOffset > ViewModel.MaxScrollViewerOffset)
+                {
+                    ViewModel.MaxScrollViewerOffset = maxVerticalOffset;
+
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                    {
+                        await ViewModel.LoadEvents();
+                    }
+                }
+            }
         }
     }
 }

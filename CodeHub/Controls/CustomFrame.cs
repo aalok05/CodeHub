@@ -19,7 +19,7 @@ namespace CodeHub.Controls
         /// <summary>
         /// The duration of each navigation animation, in milliseconds
         /// </summary>
-        private const int ContentAnimationDuration = 200;
+        private const int ContentAnimationDuration = 150;
 
         /// <summary>
         /// Raised when the CustomFrame contains at least one page, and when it gets empty
@@ -40,7 +40,7 @@ namespace CodeHub.Controls
         /// </summary>
         private Task GetContentForwardOutStoryboard()
         {
-            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, ContentAnimationDuration, null, 0, EasingFunctionNames.SineEaseInOut);
+            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.02f, ContentAnimationDuration, null, 0, EasingFunctionNames.CircleEaseIn);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace CodeHub.Controls
         /// </summary>
         private Task GetContentForwardInStoryboard()
         {
-            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(0, 1, 0.9f, 1, ContentAnimationDuration, null, 0, EasingFunctionNames.SineEaseInOut);
+            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, ContentAnimationDuration, null, 0, EasingFunctionNames.CircleEaseOut);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace CodeHub.Controls
         /// </summary>
         private Task GetContentBackOutStoryboard()
         {
-            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.9f, ContentAnimationDuration, null, 0, EasingFunctionNames.SineEaseInOut);
+            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, ContentAnimationDuration, null, 0, EasingFunctionNames.CircleEaseIn);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace CodeHub.Controls
         /// </summary>
         private Task GetContentBackInStoryboard()
         {
-            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, ContentAnimationDuration, null, 0, EasingFunctionNames.SineEaseInOut);
+            return FrameworkContent.StartCompositionFadeScaleAnimationAsync(0, 1, 1.02f, 1, ContentAnimationDuration, null, 0, EasingFunctionNames.CircleEaseOut);
         }
 
         #endregion

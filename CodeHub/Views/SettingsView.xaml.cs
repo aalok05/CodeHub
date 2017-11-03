@@ -42,7 +42,6 @@ namespace CodeHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Settings" });
 
             if (Window.Current.Bounds.Width < 720)
             {
@@ -61,7 +60,7 @@ namespace CodeHub.Views
 
             if (ViewModel.CurrentState == "Mobile")
             {
-                await SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateAsync(setting.DestPage, "Settings");
+                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(setting.DestPage);
 
                 //Loading the page in settingsFrame also so that the page is visible in Desktop mode.
                 await settingsFrame.Navigate(setting.DestPage);
