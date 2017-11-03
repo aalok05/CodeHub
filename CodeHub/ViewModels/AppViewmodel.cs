@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v 2.3.5\n\n\x2022 Design improvements and bug fixes \n\x2022 Target UWP version incremented to Fall Creator's update. New Fluent Design UI coming soon \n\x2022 Better Spanish translation";
+                return "Hi all! \nHere's the changelog for v 2.4.0\n\n\x2022 Now you can sign in from multiple accounts and switch accounts \n\x2022 Added Italian translation \n\x2022 Added Greek translation \n\x2022 Better Chinese translation\nCodeHub is now available in 10 languages. Thanks to all the translators!";
             }
         }
         #endregion
