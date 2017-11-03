@@ -562,7 +562,7 @@
     <value>如果您想要翻译CodeHub，请先给我发送邮件！</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
-    <value>请向我捐赠以维持开发，捐赠选项位于“设置”-&gt;“捐赠”，万分感谢！</value>
+    <value>请向我捐赠以维持开发，捐赠选项位于“设置”-&amp;gt;“捐赠”，万分感谢！</value>
   </data>
   <data name="function_CommentCreate.Content" xml:space="preserve">
     <value>评论</value>
@@ -616,7 +616,7 @@
     <value>已开源</value>
   </data>
   <data name="activity_ActionOpened" xml:space="preserve">
-    <val已开启</value>
+    <value>已开启</value>
   </data>
   <data name="activity_ActivityWithPR" xml:space="preserve">
     <value>{0} PR #{1}</value>
