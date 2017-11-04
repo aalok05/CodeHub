@@ -18,6 +18,7 @@ using Windows.UI.Core;
 using CodeHub.Controls;
 using Windows.ApplicationModel.Activation;
 using System.Linq;
+using Windows.ApplicationModel.Core;
 
 namespace CodeHub.ViewModels
 {
@@ -243,7 +244,8 @@ namespace CodeHub.ViewModels
 
         public async Task Initialize()
         {
-            var adsTask = Task.Factory.StartNew(async() => await ConfigureAdsVisibility());
+            var adstask = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            async () => { await ConfigureAdsVisibility(); });
 
             await InitializeAccounts();
 
@@ -274,7 +276,6 @@ namespace CodeHub.ViewModels
                     await CheckForUnreadNotifications();
             }
 
-            await adsTask;
         }
         public async Task InitializeAccounts()
         {
