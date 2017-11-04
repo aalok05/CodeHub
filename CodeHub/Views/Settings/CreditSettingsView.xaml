@@ -94,17 +94,17 @@
             <TextBlock Margin="0,2,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Von Hohenheim" />
             <TextBlock Margin="0,2,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Gary Lu" />
             <TextBlock Margin="0,2,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Tobiichi Amane" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -115,7 +115,7 @@
             <TextBlock Margin="0,2,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Liêm Nguyễn" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -126,7 +126,7 @@
             <TextBlock Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Jakob Hermann Preusker" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -137,7 +137,7 @@
             <TextBlock Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="JN Marcos"/>
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -148,7 +148,7 @@
             <TextBlock Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="PoLáKoSz Tom" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -159,12 +159,12 @@
             <TextBlock Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Angel Careaga" />
             <TextBlock Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="IkerGarcia" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -175,7 +175,7 @@
             <TextBlock Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Darkpingouin" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -187,7 +187,7 @@
                        Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Francesco Bosso" />
             <TextBlock Margin="0,8,8,0"
                        TextAlignment="Center"
@@ -199,7 +199,7 @@
                        Margin="0,4,8,0"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="15"
                        Text="Panagiotis Bako " />
         </StackPanel>
 
