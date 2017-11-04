@@ -164,7 +164,7 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
-    <value>What's new?</value>
+    <value>Was ist neu?</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Folgen</value>
@@ -183,10 +183,10 @@
     <value>Commit-Meldungen für Dateien laden</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>Du hast noch keine veranstaltungen</value>
+    <value>Du hast noch keine Veranstaltungen</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
-    <value>Wähle den Betrag, mit dem du die Entwickler unterstützen möchtest.</value>
+    <value>Wähle den Betrag, mit dem du den Entwickler unterstützen möchtest.</value>
   </data>
   <data name="preview.Text" xml:space="preserve">
     <value>Vorschau</value>
@@ -247,22 +247,22 @@
     <value>Keine Probleme behoben</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>Keine probleme</value>
+    <value>Keine Probleme</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
-    <value>Keine neuen benachrichtigungen</value>
+    <value>Keine neuen Benachrichtigungen</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>Keine ungelösten probleme</value>
+    <value>Keine ungelösten Probleme</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
     <value>Noch keine Organisationen. Deaktiviere die Drittanbieter-Beschränkungen für deine Organisation.</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>Noch keine repositories</value>
+    <value>Noch keine Repositories</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>Noch keine favorisierten repositories</value>
+    <value>Noch keine favorisierten Repositories</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>wurde gemeldet von</value>
@@ -324,7 +324,7 @@
     <value>Keine repositories</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>Keine ergebnisse</value>
+    <value>Keine Ergebnisse</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>Suchen</value>
@@ -391,7 +391,7 @@
     <value>Keine angenommenen Pull Requests</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>Keine offenen pull requests</value>
+    <value>Keine offenen Pull Requests</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
     <value>brachte den Commit</value>
@@ -481,28 +481,28 @@
     <value>Zurücksetzen</value>
   </data>
   <data name="pageTitle_CommentView" xml:space="preserve">
-    <value>Comment</value>
+    <value>Kommentar</value>
   </data>
   <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="pageTitle_FeedView" xml:space="preserve">
-    <value>News Feed</value>
+    <value>News-Feed</value>
   </data>
   <data name="pageTitle_IssueDetailView" xml:space="preserve">
-    <value>Issue</value>
+    <value>Problem</value>
   </data>
   <data name="pageTitle_IssuesView" xml:space="preserve">
-    <value>Issues</value>
+    <value>Probleme</value>
   </data>
   <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
-    <value>My Organizations</value>
+    <value>Organisationen</value>
   </data>
   <data name="pageTitle_MyReposView" xml:space="preserve">
-    <value>My Repositories</value>
+    <value>Repositories</value>
   </data>
   <data name="pageTitle_NotificationsView" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Benachrichtigungen</value>
   </data>
   <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
     <value>Pull Request</value>
@@ -514,120 +514,120 @@
     <value>Repository</value>
   </data>
   <data name="pageTitle_SearchView" xml:space="preserve">
-    <value>Search</value>
+    <value>Suche</value>
   </data>
   <data name="pageTitle_SettingsView" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="pageTitle_TrendingView" xml:space="preserve">
-    <value>Trending</value>
+    <value>Trends</value>
   </data>
   <data name="pageTitle_OrganizationView" xml:space="preserve">
-    <value>Organization</value>
+    <value>Organisation</value>
   </data>
   <data name="menuName_Settings.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="menu_Settings_SubMenu_General" xml:space="preserve">
-    <value>General</value>
+    <value>Allgemeines</value>
   </data>
   <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
-    <value>App preferences</value>
+    <value>App-Einstellungen</value>
   </data>
   <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Erscheinungsbild</value>
   </data>
   <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
-    <value>UI customization</value>
+    <value>UI-Anpassungen</value>
   </data>
   <data name="menu_Settings_SubMenu_About" xml:space="preserve">
-    <value>About</value>
+    <value>Über</value>
   </data>
   <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
-    <value>Developer info and contacts</value>
+    <value>Entwicklerinfo und Kontakt</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
-    <value>Donate</value>
+    <value>Spenden</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
-    <value>Support the app and the developer</value>
+    <value>App und Entwickler unterstützen</value>
   </data>
   <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
     <value>Credits</value>
   </data>
   <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
-    <value>Thanks for your contributions!</value>
+    <value>Danke für eure Mithilfe!</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
-    <value>If you'd like to translate CodeHub into your language, be sure to send me an email!</value>
+    <value>Wenn du CodeHub in deine Sprache übersetzen möchtest, kannst du mir gerne eine E-Mail senden!</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
-    <value>Please make a donation to help me support myself, by going to Settings -&gt; Donate. Also get rid of the ads!</value>
+    <value>Bitte unterstütze mich mit einer Spende, indem du zu Einstellungen -&gt; Spenden gehst. Dadurch wirst du auch die Werbung los!</value>
   </data>
   <data name="function_CommentCreate.Content" xml:space="preserve">
     <value>Kommentieren</value>
   </data>
   <data name="function_CommentCancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Abbrechen</value>
   </data>
   <data name="markdownComment_Preview.Text" xml:space="preserve">
-    <value>Preview</value>
+    <value>Vorschau</value>
   </data>
   <data name="markdownComment_Write.Text" xml:space="preserve">
-    <value>Write</value>
+    <value>Schreibe</value>
   </data>
   <data name="markdownComment_NoContent" xml:space="preserve">
-    <value>Nothing to Preview</value>
+    <value>Keine Vorschau vorhanden</value>
   </data>
   <data name="notification_NoInternetConnection" xml:space="preserve">
-    <value>No Internet</value>
+    <value>Kein Internet</value>
   </data>
   <data name="activity_CommentedIssue" xml:space="preserve">
-    <value>commented on issue #{0} in</value>
+    <value>kommentierte das Problem #{0} in</value>
   </data>
   <data name="activity_CommentedPR" xml:space="preserve">
-    <value>commented on PR #{0}</value>
+    <value>kommentierte den PR #{0}</value>
   </data>
   <data name="activity_CommentedCommit" xml:space="preserve">
-    <value>commented on commit in</value>
+    <value>kommentierte den Commit in</value>
   </data>
   <data name="activity_PushedCommits" xml:space="preserve">
-    <value>pushed {0} commits to</value>
+    <value>brachte {0} Commits in</value>
   </data>
   <data name="activity_DeletedBranch" xml:space="preserve">
-    <value>deleted in</value>
+    <value>löschte in</value>
   </data>
   <data name="activity_CreatedBranch" xml:space="preserve">
-    <value>created in</value>
+    <value>erstellte in</value>
   </data>
   <data name="activity_ForkedRepository" xml:space="preserve">
-    <value>forked</value>
+    <value>übernahm</value>
   </data>
   <data name="activity_StarredRepository" xml:space="preserve">
-    <value>starred</value>
+    <value>favorisierte</value>
   </data>
   <data name="activity_DefaultAction" xml:space="preserve">
-    <value>acted on</value>
+    <value>agierte auf</value>
   </data>
   <data name="activity_PublishedRelease" xml:space="preserve">
-    <value>published a release to</value>
+    <value>veröffentlichte eine neue Version von</value>
   </data>
   <data name="activity_PublishedRepository" xml:space="preserve">
-    <value>open sourced</value>
+    <value>erstellte die Repo</value>
   </data>
   <data name="activity_ActionOpened" xml:space="preserve">
-    <value>opened</value>
+    <value>öffnete</value>
   </data>
   <data name="activity_ActionReOpened" xml:space="preserve">
-    <value>reopened</value>
+    <value>erneuerte</value>
   </data>
   <data name="activity_ActionClosed" xml:space="preserve">
-    <value>closed</value>
+    <value>schloss</value>
   </data>
   <data name="activity_ActivityWithPR" xml:space="preserve">
     <value>{0} PR #{1}</value>
   </data>
   <data name="activity_ActivityWithIssues" xml:space="preserve">
-    <value>{0} issue #{1} in</value>
+    <value>{0} Problem #{1} in</value>
   </data>
 </root>
