@@ -437,17 +437,18 @@
                             Tapped="CloseAccountsPanel_Tapped">
                         <SymbolIcon Symbol="Clear" />
                     </Button>
-                    <StackPanel Orientation="Vertical"
-                                RelativePanel.Above="accountsList"
+                    <StackPanel x:Name="activeAccountPanel"
+                                Orientation="Vertical"
+                                RelativePanel.AlignTopWithPanel="True"
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignRightWithPanel="True">
-                        <toolkitControl:RoundImageEx Width="70"
-                                                     Height="70"
+                        <toolkitControl:RoundImageEx Width="80"
+                                                     Height="80"
                                                      Margin="8"
                                                      CornerRadius="999"
-                                                     DecodePixelHeight="70"
+                                                     DecodePixelHeight="80"
                                                      DecodePixelType="Logical"
-                                                     DecodePixelWidth="70"
+                                                     DecodePixelWidth="80"
                                                      IsCacheEnabled="True"
                                                      Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
                                                      Stretch="UniformToFill"/>
@@ -456,7 +457,7 @@
                                    HorizontalAlignment="Center"
                                    Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}"/>
                         <Button Height="38"
-                                Padding="16 0 16 0"
+                                Padding="28 0 28 0"
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 Command="{x:Bind ViewModel.SignOutCommand}"
@@ -471,7 +472,7 @@
                               ItemsSource="{x:Bind ViewModel.InactiveAccounts, Mode=OneWay}"
                               RelativePanel.AlignLeftWithPanel="True"
                               RelativePanel.AlignRightWithPanel="True"
-                              RelativePanel.AlignVerticalCenterWithPanel="True">
+                              RelativePanel.Below="activeAccountPanel">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:Account">
                                 <RelativePanel>
