@@ -43,7 +43,7 @@ namespace CodeHub.Views
         private async void EmailButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(
-               new Uri("mailto:contact@devnextdoor.com"));
+               new Uri("mailto:aalok_2@live.com"));
         }
     }
 }
