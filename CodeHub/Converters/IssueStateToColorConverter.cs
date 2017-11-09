@@ -13,15 +13,18 @@ namespace CodeHub.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (((Issue)value).State.TryParse(out ItemState state))
+            var issue = (Issue)value;
+            if(issue != null)
             {
-                switch (state)
+                if (issue.State.TryParse(out ItemState state))
                 {
-                    case ItemState.Open:
-                        return GlobalHelper.GetSolidColorBrush("2CBE4EFF");
+                    switch (state)
+                    {
+                        case ItemState.Open:
+                            return GlobalHelper.GetSolidColorBrush("2CBE4EFF");
+                    }
                 }
             }
-
             return GlobalHelper.GetSolidColorBrush("CB2431FF");
         }
 

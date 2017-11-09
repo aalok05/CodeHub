@@ -399,7 +399,8 @@ namespace CodeHub.ViewModels
                 if (GlobalHelper.IsInternet())
                 {
                     IsContributorsLoading = true;
-                    Contributors = await RepositoryUtility.GetContributorsForRepository(Repository.Id);
+                    if(Repository != null)
+                        Contributors = await RepositoryUtility.GetContributorsForRepository(Repository.Id);
                     IsContributorsLoading = false;
                 }
             }
@@ -408,7 +409,8 @@ namespace CodeHub.ViewModels
                 if (GlobalHelper.IsInternet())
                 {
                     IsReleasesLoading = true;
-                    Releases = await RepositoryUtility.GetReleasesForRepository(Repository.Id);
+                    if (Repository != null)
+                        Releases = await RepositoryUtility.GetReleasesForRepository(Repository.Id);
                     IsReleasesLoading = false;
                 }
             }

@@ -293,6 +293,10 @@ namespace CodeHub.ViewModels
 
         public async Task LoadRepos()
         {
+            if(Repositories == null)
+            {
+                Repositories = new ObservableCollection<Repository>();
+            }
             PaginationIndex++;
             if (PaginationIndex > 1)
             {
