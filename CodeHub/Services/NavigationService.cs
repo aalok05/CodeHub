@@ -201,6 +201,10 @@ namespace CodeHub.Services
             {
                 return languageLoader.GetString("pageTitle_TrendingView");
             }
+            else if (type == typeof(GeneralSettingsView))
+            {
+                return "General";
+            }
             else if (type == typeof(AboutSettingsView))
             {
                 return "About";

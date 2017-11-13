@@ -34,6 +34,9 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="320" />
                     </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BioText.FontSize" Value="13" />
+                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Desktop">
                     <VisualState.StateTriggers>
@@ -187,7 +190,6 @@
                                     </Grid>
                                     <TextBlock x:Name="BioText"
                                                Margin="4 10 4 4"
-                                               FontSize="12"
                                                Foreground="Gray"
                                                RelativePanel.AlignHorizontalCenterWithPanel="True"
                                                RelativePanel.Below="ButtonGrid"
@@ -205,11 +207,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <ProgressRing Width="20"
-                              Height="20"
-                              HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
-                              IsActive="{x:Bind ViewModel.IsEventsLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
         <PivotItem Margin="0">
