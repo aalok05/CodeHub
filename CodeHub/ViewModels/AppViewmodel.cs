@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v 2.4.0\n\n\x2022 Now you can sign in from multiple accounts and switch accounts \n\x2022 Added Italian translation \n\x2022 Added Greek translation \n\x2022 Better Chinese translation\nCodeHub is now available in 10 languages. Thanks to all the translators!";
+                return "Hi all! \nHere's the changelog for v2.4.2\n\n\x2022 Bug fixes to reduce unexpected crashes. \n\x2022 CodeHub is now available in 10 languages. Thanks to all the translators!";
             }
         }
         #endregion
