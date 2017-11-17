@@ -275,6 +275,15 @@
                         <control:CustomFrame x:Name="mainFrame"
                                              Grid.Row="0"
                                              Navigated="{x:Bind ViewModel.MainFrame_Navigated}" />
+                        <Grid Height="30"
+                              VerticalAlignment="Bottom">
+                            <Grid.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#00000000" Offset="0"/>
+                                    <GradientStop Color="#FF000000" Offset="2"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                        </Grid>
                         <AD:AdControl x:Name="adControlDesktop"
                                       Grid.Row="1"
                                       Visibility="{x:Bind ViewModel.IsDesktopAdsVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
