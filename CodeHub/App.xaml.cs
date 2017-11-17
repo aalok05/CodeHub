@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using CodeHub.Models;
 using System.Linq;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 
 namespace CodeHub
 {
@@ -41,6 +43,8 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, false, false);
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
             SettingsService.Save(SettingsKeys.HasUserDonated, false, false);
+
+            AppCenter.Start("4c8deb54-8947-45cb-9c75-98c3489a7ed6", typeof(Analytics));
         }
 
         /// <summary>
