@@ -276,7 +276,8 @@
                                              Grid.Row="0"
                                              Navigated="{x:Bind ViewModel.MainFrame_Navigated}" />
                         <Grid Height="30"
-                              VerticalAlignment="Bottom">
+                              VerticalAlignment="Bottom"
+                              IsHitTestVisible="False">
                             <Grid.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Color="#00000000" Offset="0"/>
