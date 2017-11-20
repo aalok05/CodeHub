@@ -283,7 +283,6 @@
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
-    <Compile Include="Helpers\SystemTrayManager.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Models\SyntaxHighlightStyle.cs" />
     <Compile Include="Models\WrappedWebResult.cs" />
