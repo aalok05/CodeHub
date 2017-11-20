@@ -200,7 +200,6 @@
       <DependentUpon>ActivityListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AnimatedComboBox.cs" />
-    <Compile Include="Controls\AutoHideGrid.cs" />
     <Compile Include="Controls\BusyScreen.xaml.cs">
       <DependentUpon>BusyScreen.xaml</DependentUpon>
     </Compile>

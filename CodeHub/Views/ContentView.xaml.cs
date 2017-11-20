@@ -16,7 +16,6 @@ namespace CodeHub.Views
         {
             this.Loaded += (s, e) =>
             {
-                Header.InitializeScrollViewer(ContentListView);
                 TopScroller.InitializeScrollViewer(ContentListView);
             };
             this.InitializeComponent();
@@ -24,7 +23,6 @@ namespace CodeHub.Views
             this.DataContext = ViewModel;
             this.Unloaded += (s, e) =>
             {
-                Header.Dispose();
                 TopScroller.Dispose();
             };
         }
