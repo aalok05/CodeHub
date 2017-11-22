@@ -25,6 +25,7 @@ using UICompositionAnimations.Helpers;
 using Windows.UI.Xaml.Controls;
 using CodeHub.Models;
 using Windows.ApplicationModel.Activation;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace CodeHub.Views
 {
@@ -94,7 +95,7 @@ namespace CodeHub.Views
 
             await ViewModel.Initialize();
 
-            if (WhatsNewDisplayService.IsNewVersion() && ViewModel.isLoggedin)
+            if (SystemInformation.IsAppUpdated && ViewModel.isLoggedin)
                 await ShowWhatsNewPopupVisiblity();
         }
 

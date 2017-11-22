@@ -4,6 +4,7 @@ using Windows.ApplicationModel;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace CodeHub.Views
 {
@@ -25,8 +26,7 @@ namespace CodeHub.Views
 
         private async void RateButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(
-                new Uri($"ms-windows-store://review/?PFN={Package.Current.Id.FamilyName}"));
+            await SystemInformation.LaunchStoreForReviewAsync();
         }
 
         private async void TwitterButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

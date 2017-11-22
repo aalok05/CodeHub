@@ -310,7 +310,6 @@
     <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
       <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\WhatsNewDisplayService.cs" />
     <Compile Include="ViewModels\CommentViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
