@@ -69,7 +69,8 @@
                                                                  RightCommand="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
                                                                  RightCommandParameter="{Binding}"
                                                                  RightForeground="White"
-                                                                 RightIcon="Accept">
+                                                                 RightIcon="Accept"
+                                                                 UseSwipeControlWhenPossible="False">
                                     <i:Interaction.Behaviors>
                                         <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
                                             <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
@@ -191,7 +192,8 @@
                                                                      RightCommand="{Binding MarkasReadParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
                                                                      RightCommandParameter="{Binding}"
                                                                      RightForeground="White"
-                                                                     RightIcon="Accept">
+                                                                     RightIcon="Accept"
+                                                                     UseSwipeControlWhenPossible="False">
                                         <i:Interaction.Behaviors>
                                             <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
                                                 <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
@@ -307,7 +309,8 @@
                                                                      RightCommand="{Binding MarkasReadAllNotifCommand, ElementName=Page, Mode=OneWay}"
                                                                      RightCommandParameter="{Binding}"
                                                                      RightForeground="White"
-                                                                     RightIcon="Accept">
+                                                                     RightIcon="Accept"
+                                                                     UseSwipeControlWhenPossible="False">
                                         <i:Interaction.Behaviors>
                                             <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
                                                 <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />

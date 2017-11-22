@@ -193,7 +193,7 @@ namespace CodeHub.ViewModels
                 else
                 {
                     Developer = user as User;
-                    if(Developer.Name == null)
+                    if(Developer != null && Developer.Name == null)
                     {
                         Developer = await UserUtility.GetUserInfo(Developer.Login);
                     }
