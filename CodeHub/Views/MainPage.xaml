@@ -312,13 +312,8 @@
             </SplitView>
             <Grid x:Name="BottomAppBar"
                   Grid.Row="2"
-                  Height="44">
-                <Grid.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="{ThemeResource SystemChromeAltHighColor}" Offset="0.5"/>
-                        <GradientStop Color="{ThemeResource SystemChromeLowColor}" Offset="1"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
+                  Height="44"
+                  Background="#FF060606">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
