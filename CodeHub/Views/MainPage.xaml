@@ -73,7 +73,7 @@
             <RelativePanel x:Name="HeaderPanel"
                            Grid.Row="0"
                            Height="52"
-                           Background="{ThemeResource SystemChromeLowColor}"
+                           Background="#06060606"
                            Canvas.ZIndex="1">
 
                 <toolkitControl:RoundImageEx x:Name="profileEllipse"
@@ -313,7 +313,7 @@
             <Grid x:Name="BottomAppBar"
                   Grid.Row="2"
                   Height="44"
-                  Background="#FF060606">
+                  Background="#06060606">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
