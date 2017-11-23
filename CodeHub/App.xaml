@@ -21,6 +21,7 @@
             <Color x:Key="AppPrimaryColorDark">#519932</Color>
 
             <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="Black" Opacity="0.2"/>
+            <SolidColorBrush x:Key="AppGrayColor" Color="{ThemeResource SystemChromeLowColor}"/>
 
             <brushes:CustomAcrylicBrush x:Key="InAppAcrylicBrush"
                                         Mode="InAppBlur"

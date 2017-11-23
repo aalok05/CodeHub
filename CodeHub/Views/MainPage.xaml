@@ -73,7 +73,7 @@
             <RelativePanel x:Name="HeaderPanel"
                            Grid.Row="0"
                            Height="52"
-                           Background="#06060606"
+                           Background="{StaticResource AppGrayColor}"
                            Canvas.ZIndex="1">
 
                 <toolkitControl:RoundImageEx x:Name="profileEllipse"
@@ -145,7 +145,7 @@
                       Visibility="{x:Bind ViewModel.IsNotificationsUnread,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                     <Ellipse Width="12"
                              Height="12"
-                             Fill="{ThemeResource SystemChromeLowColor}"/>
+                             Fill="{StaticResource AppGrayColor}"/>
                     <Ellipse Width="10"
                              Height="10"
                              Fill="{StaticResource AppPrimaryColorBrush}"/>
