@@ -12,6 +12,7 @@
       xmlns:model="using:CodeHub.Models"
       xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -314,6 +315,10 @@
                   Grid.Row="2"
                   Height="44"
                   Background="#06060606">
+                <animations:Implicit.ShowAnimations>
+                    <animations:TranslationAnimation Duration="0:0:0.8" From="0, 50, 0" To="0" ></animations:TranslationAnimation>
+                    <animations:OpacityAnimation Duration="0:0:0.8" From="0" To="1.0"></animations:OpacityAnimation>
+                </animations:Implicit.ShowAnimations>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
