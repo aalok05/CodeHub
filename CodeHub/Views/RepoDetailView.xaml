@@ -11,6 +11,7 @@
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
+      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
       xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
     <Page.Resources>
@@ -367,7 +368,11 @@
                                        Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                             <WebView x:Name="ReadmeWebView"
                                      NavigationCompleted="WebView_NavigationCompleted"
-                                     Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+                                     Visibility="{x:Bind ViewModel.NoReadme, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" >
+                                <animations:Implicit.ShowAnimations>
+                                    <animations:OpacityAnimation Duration="0:0:0.8" From="0" To="1.0"></animations:OpacityAnimation>
+                                </animations:Implicit.ShowAnimations>
+                            </WebView>
 
                             <ProgressRing x:Name="ReadmeLoadingRing"
                                           Width="40"
