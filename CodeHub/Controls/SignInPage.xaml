@@ -6,6 +6,7 @@
              xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
              d:DesignHeight="400"
              d:DesignWidth="400"
              mc:Ignorable="d">
@@ -26,6 +27,9 @@
         <StackPanel VerticalAlignment="Center"
                     Background="Transparent"
                     Orientation="Vertical">
+            <animations:Implicit.ShowAnimations>
+                <animations:OpacityAnimation Duration="0:0:0.8" From="0" To="1.0"></animations:OpacityAnimation>
+            </animations:Implicit.ShowAnimations>
             <Image x:Name="AppLogoImage"
                    Width="70"
                    Source="/Assets/Images/appLogoPurple.png" />
