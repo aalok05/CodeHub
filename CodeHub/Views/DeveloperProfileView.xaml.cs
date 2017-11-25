@@ -11,23 +11,26 @@ namespace CodeHub.Views
     {
         public DeveloperProfileViewmodel ViewModel;
         private ScrollViewer RepoScrollViewer;
+        private ScrollViewer StarredRepoScrollViewer;
 
         public DeveloperProfileView()
         {
             this.InitializeComponent();
             ViewModel = new DeveloperProfileViewmodel();
+            this.DataContext = ViewModel;
 
             Unloaded += DeveloperProfileView_Unloaded;
-           
-            this.DataContext = ViewModel;
         }
 
         private void DeveloperProfileView_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (RepoScrollViewer != null)
                 RepoScrollViewer.ViewChanged -= OnRepoScrollViewerViewChanged;
+            if (StarredRepoScrollViewer != null)
+                StarredRepoScrollViewer.ViewChanged -= OnStarredRepoScrollViewerViewChanged;
 
             RepoScrollViewer = null;
+            StarredRepoScrollViewer = null;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -57,24 +60,54 @@ namespace CodeHub.Views
             RepoScrollViewer = RepositoryListView.FindChild<ScrollViewer>();
             RepoScrollViewer.ViewChanged += OnRepoScrollViewerViewChanged;
         }
+        private void StarredRepositoryListView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (StarredRepoScrollViewer != null)
+                StarredRepoScrollViewer.ViewChanged -= OnStarredRepoScrollViewerViewChanged;
+
+            StarredRepoScrollViewer = StarredRepositoryListView.FindChild<ScrollViewer>();
+            StarredRepoScrollViewer.ViewChanged += OnStarredRepoScrollViewerViewChanged;
+        }
 
         private async void OnRepoScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (ViewModel.PaginationIndex != -1)
+            if (ViewModel.ReposPaginationIndex != -1)
             {
                 ScrollViewer sv = (ScrollViewer)sender;
 
                 var verticalOffset = sv.VerticalOffset;
                 var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
 
-                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && verticalOffset > ViewModel.MaxScrollViewerOffset)
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && verticalOffset > ViewModel.ReposMaxScrollViewerOffset)
                 {
-                    ViewModel.MaxScrollViewerOffset = maxVerticalOffset;
+                    ViewModel.ReposMaxScrollViewerOffset = maxVerticalOffset;
 
                     // Scrolled to bottom
                     if (GlobalHelper.IsInternet())
                     {
                         await ViewModel.LoadRepos();
+                    }
+                }
+            }
+        }
+
+        private async void OnStarredRepoScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (ViewModel.StarredReposPaginationIndex != -1)
+            {
+                ScrollViewer sv = (ScrollViewer)sender;
+
+                var verticalOffset = sv.VerticalOffset;
+                var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
+
+                if ((maxVerticalOffset < 0 || verticalOffset == maxVerticalOffset) && verticalOffset > ViewModel.StarredReposMaxScrollViewerOffset)
+                {
+                    ViewModel.StarredReposMaxScrollViewerOffset = maxVerticalOffset;
+
+                    // Scrolled to bottom
+                    if (GlobalHelper.IsInternet())
+                    {
+                        await ViewModel.LoadStarredRepos();
                     }
                 }
             }

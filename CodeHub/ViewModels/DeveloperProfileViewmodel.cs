@@ -17,8 +17,10 @@ namespace CodeHub.ViewModels
     {
         #region properties
 
-        public int PaginationIndex { get; set; }
-        public double MaxScrollViewerOffset { get; set; }
+        public int ReposPaginationIndex { get; set; }
+        public int StarredReposPaginationIndex { get; set; }
+        public double ReposMaxScrollViewerOffset { get; set; }
+        public double StarredReposMaxScrollViewerOffset { get; set; }
 
         public ObservableCollection<Activity> _events;
         public ObservableCollection<Activity> Events
@@ -43,6 +45,19 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => Repositories, ref _repositories, value);
+            }
+
+        }
+        public ObservableCollection<Repository> _starredRepositories;
+        public ObservableCollection<Repository> StarredRepositories
+        {
+            get
+            {
+                return _starredRepositories;
+            }
+            set
+            {
+                Set(() => StarredRepositories, ref _starredRepositories, value);
             }
 
         }
@@ -148,6 +163,19 @@ namespace CodeHub.ViewModels
             set
             {
                 Set(() => IsReposLoading, ref _IsReposLoading, value);
+            }
+        }
+
+        public bool _IsStarredReposLoading;
+        public bool IsStarredReposLoading
+        {
+            get
+            {
+                return _IsStarredReposLoading;
+            }
+            set
+            {
+                Set(() => IsStarredReposLoading, ref _IsStarredReposLoading, value);
             }
         }
 
@@ -279,11 +307,17 @@ namespace CodeHub.ViewModels
             }
             else if (p.SelectedIndex == 2)
             {
+                IsStarredReposLoading = true;
+                await LoadStarredRepos();
+                IsStarredReposLoading = false;
+            }
+            else if (p.SelectedIndex == 3)
+            {
                 IsFollowersLoading = true;
                 Followers = await UserUtility.GetAllFollowers(Developer.Login);
                 IsFollowersLoading = false;
             }
-            else if (p.SelectedIndex == 3)
+            else if (p.SelectedIndex == 4)
             {
                 IsFollowingLoading = true;
                 Following = await UserUtility.GetAllFollowing(Developer.Login);
@@ -297,10 +331,10 @@ namespace CodeHub.ViewModels
             {
                 Repositories = new ObservableCollection<Repository>();
             }
-            PaginationIndex++;
-            if (PaginationIndex > 1)
+            ReposPaginationIndex++;
+            if (ReposPaginationIndex > 1)
             {
-                var repos = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, PaginationIndex);
+                var repos = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, ReposPaginationIndex);
                 if (repos != null)
                 {
                     if (repos.Count > 0)
@@ -313,13 +347,45 @@ namespace CodeHub.ViewModels
                     else
                     {
                         //no more repos to load
-                        PaginationIndex = -1;
+                        ReposPaginationIndex = -1;
                     }
                 }
             }
-            else if (PaginationIndex == 1)
+            else if (ReposPaginationIndex == 1)
             {
-                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, PaginationIndex);
+                Repositories = await RepositoryUtility.GetRepositoriesForUser(Developer.Login, ReposPaginationIndex);
+            }
+        }
+
+        public async Task LoadStarredRepos()
+        {
+            if (StarredRepositories == null)
+            {
+                StarredRepositories = new ObservableCollection<Repository>();
+            }
+            StarredReposPaginationIndex++;
+            if (StarredReposPaginationIndex > 1)
+            {
+                var repos = await RepositoryUtility.GetStarredRepositoriesForUser(Developer.Login, StarredReposPaginationIndex);
+                if (repos != null)
+                {
+                    if (repos.Count > 0)
+                    {
+                        foreach (var i in repos)
+                        {
+                            StarredRepositories.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        //no more repos to load
+                        StarredReposPaginationIndex = -1;
+                    }
+                }
+            }
+            else if (StarredReposPaginationIndex == 1)
+            {
+                StarredRepositories = await RepositoryUtility.GetStarredRepositoriesForUser(Developer.Login, StarredReposPaginationIndex);
             }
         }
 

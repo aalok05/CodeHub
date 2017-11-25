@@ -241,6 +241,34 @@
                               IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
+        <PivotItem Margin="0">
+            <PivotItem.Header>
+                <TextBlock x:Uid="starred"
+                           FontSize="15" />
+            </PivotItem.Header>
+            <Grid ManipulationMode="System">
+                <ListView x:Name="StarredRepositoryListView"
+                          IsItemClickEnabled="True"
+                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                          ItemsSource="{x:Bind ViewModel.StarredRepositories, Mode=OneWay}"
+                          Loaded="StarredRepositoryListView_Loaded"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollMode="Enabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="octo:Repository">
+                            <usercontrol:RepoListItem />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ProgressRing Width="20"
+                              Height="20"
+                              HorizontalAlignment="Center"
+                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              IsActive="{x:Bind ViewModel.IsStarredReposLoading, Mode=OneWay}" />
+            </Grid>
+        </PivotItem>
         <PivotItem x:Name="FollowersPivotItem" Margin="0">
             <PivotItem.Header>
                 <StackPanel Orientation="Horizontal">

@@ -471,6 +471,7 @@ namespace CodeHub.Services
         /// Gets all repositories owned by a given user
         /// </summary>
         /// <param name="login"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
         public static async Task<ObservableCollection<Repository>> GetRepositoriesForUser(string login, int pageIndex)
         {
@@ -490,6 +491,31 @@ namespace CodeHub.Services
                 return null;
             }
 
+        }
+
+        /// <summary>
+        /// Gets all repositories starred by a given user
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<Repository>> GetStarredRepositoriesForUser(string login, int pageIndex)
+        {
+            try
+            {
+                var options = new ApiOptions
+                {
+                    PageSize = 5,
+                    PageCount = 1,
+                    StartPage = pageIndex
+                };
+                var result = await GlobalHelper.GithubClient.Activity.Starring.GetAllForUser(login, options);
+                return new ObservableCollection<Repository>(result);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
