@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v2.4.2\n\n\x2022 Bug fixes to reduce unexpected crashes. \n\x2022 CodeHub is now available in 10 languages. Thanks to all the translators!";
+                return "Hi all! \nHere's the changelog for v2.4.4\n\n\x2022 UI improvements and new animations. \n\x2022 Now you can see starred repositories in the profile page ";
             }
         }
         #endregion
