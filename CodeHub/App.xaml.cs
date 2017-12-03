@@ -1,21 +1,15 @@
 ﻿using CodeHub.Views;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
 using CodeHub.Services;
 using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
 using Windows.UI.Xaml.Media;
-using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Services.Hilite_me;
-using Windows.System;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using CodeHub.Models;
-using System.Linq;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 
@@ -38,7 +32,7 @@ namespace CodeHub
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyleEnum.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
-            SettingsService.Save(SettingsKeys.LoadCommitsInfo, true, false);
+            SettingsService.Save(SettingsKeys.LoadCommitsInfo, false, false);
             SettingsService.Save(SettingsKeys.IsAdsEnabled, false, false);
             SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, false, false);
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
