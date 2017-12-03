@@ -92,7 +92,7 @@ namespace CodeHub.Views
         {
             if(DataTransferManager.IsSupported())
             {
-                if (!string.IsNullOrEmpty(ViewModel.Repository.HtmlUrl))
+                if (ViewModel.Repository != null && !string.IsNullOrEmpty(ViewModel.Repository.HtmlUrl))
                 {
                     args.Request.Data.SetText(ViewModel.Repository.HtmlUrl);
                     args.Request.Data.Properties.Title = Windows.ApplicationModel.Package.Current.DisplayName;
