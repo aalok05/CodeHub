@@ -56,3 +56,9 @@ I thank the makers of these libraries
 ## Gitter chat
 * https://gitter.im/CodehubUWP/Bugs
 * https://gitter.im/CodehubUWP/FeatureRequests
+
+## Patrons
+* Ian Rasmussen
+
+Special thanks to my patrons for supporting me in making UWP apps :)
+You can also become a patron [here](https://www.patreon.com/aalok05).
