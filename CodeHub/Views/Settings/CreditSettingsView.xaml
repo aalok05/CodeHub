@@ -39,6 +39,16 @@
                            FontSize="24"
                            FontWeight="Bold"/>
             </StackPanel>
+            <TextBlock Text="Patrons"
+                       Margin="0,16,0,4"
+                       FontSize="19"
+                       TextAlignment="Center"
+                       FontWeight="Bold" />
+            <TextBlock x:Name="patronName1"
+                       Text="Ian Rasmussen"
+                       Margin="0,4,8,0"
+                       FontSize="14"
+                       TextAlignment="Center"/>
             <TextBlock x:Uid="contributor"
                        Margin="0,16,0,4"
                        FontSize="19"
