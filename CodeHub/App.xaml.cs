@@ -12,6 +12,8 @@ using CodeHub.Services.Hilite_me;
 using System.Threading.Tasks;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using XamlBrewer.Uwp.Controls;
+using Windows.UI.Xaml.Controls;
 
 namespace CodeHub
 {
@@ -57,6 +59,7 @@ namespace CodeHub
                 if (Window.Current.Content == null)
                 {
                     Window.Current.Content = new MainPage(null);
+                    (Window.Current.Content as Page).OpenFromSplashScreen(e.SplashScreen.ImageLocation);
                 }
 
                 if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
@@ -67,12 +70,12 @@ namespace CodeHub
                     var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                     if (titleBar != null)
                     {
-                        titleBar.BackgroundColor = 
-                        titleBar.ButtonBackgroundColor = 
-                        titleBar.InactiveBackgroundColor = 
+                        titleBar.BackgroundColor =
+                        titleBar.ButtonBackgroundColor =
+                        titleBar.InactiveBackgroundColor =
                         titleBar.ButtonInactiveBackgroundColor =
                         (Color)App.Current.Resources["SystemChromeLowColor"];
-                         
+
                         titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
                     }
                 }
