@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v2.4.4\n\n\x2022 UI improvements and new animations. \n\x2022 Now you can see starred repositories in the profile page ";
+                return "Hi all! \nChangelog for v2.4.5\n\n\x2022 Added names of Patrons in Credits page. \n\x2022 Removed unnecessary app permission. \n\x2022 Added animated splahscreen. \n\x2022 Bug fixes and cleanup";
             }
         }
         #endregion
