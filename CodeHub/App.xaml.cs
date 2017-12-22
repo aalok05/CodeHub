@@ -12,6 +12,7 @@ using CodeHub.Services.Hilite_me;
 using System.Threading.Tasks;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using XamlBrewer.Uwp.Controls;
 using Windows.UI.Xaml.Controls;
 
@@ -40,7 +41,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
             SettingsService.Save(SettingsKeys.HasUserDonated, false, false);
 
-            AppCenter.Start("4c8deb54-8947-45cb-9c75-98c3489a7ed6", typeof(Analytics));
+            AppCenter.Start("4c8deb54-8947-45cb-9c75-98c3489a7ed6", typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>
