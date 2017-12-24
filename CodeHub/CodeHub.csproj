@@ -672,7 +672,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.6.7</Version>
+      <Version>1.6.10</Version>
     </PackageReference>
     <PackageReference Include="JetBrains.Annotations">
       <Version>11.1.0</Version>
