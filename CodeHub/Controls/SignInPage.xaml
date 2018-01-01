@@ -31,7 +31,8 @@
                 <animations:OpacityAnimation Duration="0:0:0.8" From="0" To="1.0"></animations:OpacityAnimation>
             </animations:Implicit.ShowAnimations>
             <Image x:Name="AppLogoImage"
-                   Width="70"
+                   Width="80"
+                   Height="80"
                    Source="/Assets/Images/appLogoPurple.png" />
             
             <toolkitControl:DropShadowPanel HorizontalAlignment="Center"
@@ -42,26 +43,22 @@
                                             ShadowOpacity="0.7"
                                             Color="Black">
                 <TextBlock Margin="0,0,0,8"
-                           FontSize="30"
+                           FontSize="32"
                            FontWeight="SemiBold"
                            Foreground="White"
                            Text="CodeHub"
                            TextAlignment="Center" />
             </toolkitControl:DropShadowPanel>
 
-            <TextBlock Margin="0,0,0,40"
+            <TextBlock Margin="0,0,0,30"
                        FontSize="18"
                        Foreground="White"
                        Text="A Client for GitHub"
                        TextAlignment="Center" />
 
-            <TextBlock x:Uid="signInTips"
-                       Margin="0,8,0,20"
-                       FontSize="15"
-                       Foreground="White"
-                       TextAlignment="Center" />
             <Button x:Uid="signIn"
                     Padding="8"
+                    MaxWidth="400"
                     Margin="12 0 12 0"
                     HorizontalAlignment="Stretch"
                     Command="{Binding SignInCommand}"
