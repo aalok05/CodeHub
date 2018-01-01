@@ -234,6 +234,7 @@ namespace CodeHub.ViewModels
                                                   }
                                               }
 
+                                              SimpleIoc.Default.GetInstance<IAsyncNavigationService>().ClearBackStack();
                                               IsAccountsPanelVisible = false;
                                               isLoading = false;
 
