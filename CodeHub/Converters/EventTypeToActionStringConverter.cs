@@ -20,48 +20,55 @@ namespace CodeHub.Converters
             Activity activity = value as Activity;
 
             var languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            
-            switch (activity.Type)
+
+            try
             {
-                case "IssueCommentEvent":
-                    return string.Format(languageLoader.GetString("activity_CommentedIssue"), ((IssueCommentPayload)activity.Payload).Issue.Number);
+                switch (activity.Type)
+                {
+                    case "IssueCommentEvent":
+                        return string.Format(languageLoader.GetString("activity_CommentedIssue"), ((IssueCommentPayload)activity.Payload).Issue.Number);
 
-                case "PullRequestReviewCommentEvent":
-                    return string.Format(languageLoader.GetString("activity_CommentedPR"), ((PullRequestCommentPayload)activity.Payload).PullRequest.Number);
+                    case "PullRequestReviewCommentEvent":
+                        return string.Format(languageLoader.GetString("activity_CommentedPR"), ((PullRequestCommentPayload)activity.Payload).PullRequest.Number);
 
-                case "PullRequestEvent":
-                case "PullRequestReviewEvent":
-                    return string.Format(languageLoader.GetString("activity_ActivityWithPR"), ActionConverter(((PullRequestEventPayload)activity.Payload).Action), ((PullRequestEventPayload)activity.Payload).PullRequest.Number);
+                    case "PullRequestEvent":
+                    case "PullRequestReviewEvent":
+                        return string.Format(languageLoader.GetString("activity_ActivityWithPR"), ActionConverter(((PullRequestEventPayload)activity.Payload).Action), ((PullRequestEventPayload)activity.Payload).PullRequest.Number);
 
-                case "CommitCommentEvent":
-                    return languageLoader.GetString("activity_CommentedCommit");
-  
-                case "PushEvent":
-                    return string.Format(languageLoader.GetString("activity_PushedCommits"), ((PushEventPayload)activity.Payload).Commits.Count);
+                    case "CommitCommentEvent":
+                        return languageLoader.GetString("activity_CommentedCommit");
 
-                case "IssuesEvent":
-                    return string.Format(languageLoader.GetString("activity_ActivityWithIssues"), ActionConverter(((IssueEventPayload)activity.Payload).Action), ((IssueEventPayload)activity.Payload).Issue.Number);
+                    case "PushEvent":
+                        return string.Format(languageLoader.GetString("activity_PushedCommits"), ((PushEventPayload)activity.Payload).Commits.Count);
 
-                case "CreateEvent":
-                    return languageLoader.GetString("activity_CreatedBranch");
-                   
-                case "DeleteEvent":
-                    return languageLoader.GetString("activity_DeletedBranch");
+                    case "IssuesEvent":
+                        return string.Format(languageLoader.GetString("activity_ActivityWithIssues"), ActionConverter(((IssueEventPayload)activity.Payload).Action), ((IssueEventPayload)activity.Payload).Issue.Number);
 
-                case "ForkEvent":
-                    return languageLoader.GetString("activity_ForkedRepository");
+                    case "CreateEvent":
+                        return languageLoader.GetString("activity_CreatedBranch");
 
-                case "WatchEvent":
-                    return languageLoader.GetString("activity_StarredRepository");
+                    case "DeleteEvent":
+                        return languageLoader.GetString("activity_DeletedBranch");
 
-                case "PublicEvent":
-                    return languageLoader.GetString("activity_PublishedRepository");
+                    case "ForkEvent":
+                        return languageLoader.GetString("activity_ForkedRepository");
 
-                case "ReleaseEvent":
-                    return languageLoader.GetString("activity_PublishedRelease");
+                    case "WatchEvent":
+                        return languageLoader.GetString("activity_StarredRepository");
 
-                default:
-                    return languageLoader.GetString("activity_DefaultAction");
+                    case "PublicEvent":
+                        return languageLoader.GetString("activity_PublishedRepository");
+
+                    case "ReleaseEvent":
+                        return languageLoader.GetString("activity_PublishedRelease");
+
+                    default:
+                        return languageLoader.GetString("activity_DefaultAction");
+                }
+            }
+            catch
+            {
+                return languageLoader.GetString("activity_DefaultAction");
             }
         }
 
