@@ -59,6 +59,11 @@ namespace CodeHub.Services
         Task<bool> CanGoBackAsync();
 
         /// <summary>
+        /// Clears the navigation history of the frame
+        /// </summary>
+        void ClearBackStack();
+
+        /// <summary>
         /// Search for the Page Title with the given Menu type
         /// </summary>
         /// <param name="type">type of the Menu</param>
