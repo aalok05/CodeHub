@@ -6,7 +6,6 @@ using CodeHub.Services;
 using CodeHub.ViewModels;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
 using Octokit;
@@ -14,7 +13,7 @@ using CodeHub.Controls;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
 using RavinduL.LocalNotifications;
-using RavinduL.LocalNotifications.Presenters;
+using RavinduL.LocalNotifications.Notifications;
 using Windows.UI.Popups;
 using UICompositionAnimations.Behaviours;
 using Windows.UI.Xaml.Media;
@@ -122,18 +121,17 @@ namespace CodeHub.Views
         #region Messaging
         public void RecieveLocalNotificationMessage(LocalNotificationMessageType notif)
         {
-            notifManager.Show(new SimpleNotificationPresenter
-            (
-                TimeSpan.FromSeconds(3),
-                text: notif.Message,
-                action: async () => await new MessageDialog(notif.Message).ShowAsync(),
-                glyph: notif.Glyph
-            )
+            notifManager.Show(new SimpleNotification
             {
+                TimeSpan = TimeSpan.FromSeconds(3),
+                Text = notif.Message,
+                Glyph = notif.Glyph,
+                Action = async () => await new MessageDialog(notif.Message).ShowAsync(),
                 Background = GetSolidColorBrush("60B53BFF"),
-                Foreground = GetSolidColorBrush("FAFBFCFF"),
+                Foreground = GetSolidColorBrush("FAFBFCFF")
             },
-            LocalNotificationCollisionBehaviour.Replace);
+            LocalNotificationCollisionBehaviour.Replace
+            );
         }
         #endregion
  
