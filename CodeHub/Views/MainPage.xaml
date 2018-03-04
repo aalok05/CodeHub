@@ -177,100 +177,97 @@
                        LightDismissOverlayMode="On"
                        PaneBackground="Transparent">
                 <SplitView.Pane>
-                    <Grid>
-                        <Border x:Name="BlurBorderHamburger"/>
-                        <RelativePanel Name="HamRelative"
-                                       Padding="0 10 0 0"
-                                       Background="Transparent">
+                    <RelativePanel Name="HamRelative"
+                                   Padding="0 10 0 0"
+                                   Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush }">
 
-                            <toolkitControl:ImageEx x:Name="avatarEllipse"
-                                                    Margin="16 12 12 12"
-                                                    CornerRadius="999"
-                                                    Width="85"
-                                                    Height="85"
-                                                    DecodePixelHeight="85"
-                                                    DecodePixelType="Logical"
-                                                    DecodePixelWidth="85"
-                                                    IsCacheEnabled="True"
-                                                    Stretch="UniformToFill"
-                                                    Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
-                                                    Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
-                            <StackPanel Orientation="Vertical"
-                                        RelativePanel.AlignVerticalCenterWith="avatarEllipse"
-                                        RelativePanel.RightOf="avatarEllipse"
-                                        Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock Margin="0 0 0 4"
-                                           FontSize="14"
-                                           Opacity="0.7"
-                                           FontWeight="Medium"
-                                           Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
-                                <TextBlock Margin="0 0 0 10"
-                                           FontSize="11.5"
-                                           Opacity="0.7"
-                                           FontWeight="SemiBold"
-                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                           Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
-                            </StackPanel>
+                        <toolkitControl:ImageEx x:Name="avatarEllipse"
+                                                Margin="16 12 12 12"
+                                                CornerRadius="999"
+                                                Width="85"
+                                                Height="85"
+                                                DecodePixelHeight="85"
+                                                DecodePixelType="Logical"
+                                                DecodePixelWidth="85"
+                                                IsCacheEnabled="True"
+                                                Stretch="UniformToFill"
+                                                Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                                                Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
+                        <StackPanel Orientation="Vertical"
+                                    RelativePanel.AlignVerticalCenterWith="avatarEllipse"
+                                    RelativePanel.RightOf="avatarEllipse"
+                                    Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock Margin="0 0 0 4"
+                                        FontSize="14"
+                                        Opacity="0.7"
+                                        FontWeight="Medium"
+                                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                            <TextBlock Margin="0 0 0 10"
+                                        FontSize="11.5"
+                                        Opacity="0.7"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                        Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
+                        </StackPanel>
 
-                            <ListView Name="HamListView"
-                                      Width="320"
-                                      ItemClick="HamListView_ItemClick"
-                                      IsItemClickEnabled="True"
-                                      ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                      ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
-                                      RelativePanel.Below="avatarEllipse"
-                                      SelectionMode="Single">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:HamItem">
-                                        <control:HamMenuListItem/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                        <ListView Name="HamListView"
+                                    Width="320"
+                                    ItemClick="HamListView_ItemClick"
+                                    IsItemClickEnabled="True"
+                                    ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                    ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
+                                    RelativePanel.Below="avatarEllipse"
+                                    SelectionMode="Single">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="model:HamItem">
+                                    <control:HamMenuListItem/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
-                            <ListView x:Name="HamListViewBottom"
-                                      Width="320"
-                                      ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                      RelativePanel.AlignBottomWithPanel="True"
-                                      RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                      SelectionMode="Single">
+                        <ListView x:Name="HamListViewBottom"
+                                    Width="320"
+                                    ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                    RelativePanel.AlignBottomWithPanel="True"
+                                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                    SelectionMode="Single">
 
-                                <ListViewItem Tapped="AccountsButton_Click">
-                                    <StackPanel HorizontalAlignment="Left"
+                            <ListViewItem Tapped="AccountsButton_Click">
+                                <StackPanel HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <Viewbox MaxHeight="18"
+                                                MaxWidth="18"
+                                                Margin="12 0 0 0">
+                                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                                    Symbol="Contact" />
+                                    </Viewbox>
+                                    <TextBlock Margin="24 0 0 0"
+                                                FontSize="13"
+                                                Text="Accounts"
                                                 VerticalAlignment="Center"
-                                                Orientation="Horizontal">
-                                        <Viewbox MaxHeight="18"
-                                                 MaxWidth="18"
-                                                 Margin="12 0 0 0">
-                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
-                                                        Symbol="Contact" />
-                                        </Viewbox>
-                                        <TextBlock Margin="24 0 0 0"
-                                                   FontSize="13"
-                                                   Text="Accounts"
-                                                   VerticalAlignment="Center"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
-                                    <StackPanel HorizontalAlignment="Left"
+                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
+                                <StackPanel HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <Viewbox MaxHeight="18"
+                                                MaxWidth="18"
+                                                Margin="12 0 0 0">
+                                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                                    Symbol="Setting" />
+                                    </Viewbox>
+                                    <TextBlock x:Uid="menuName_Settings"
+                                                Margin="24 0 0 0"
+                                                FontSize="13"
                                                 VerticalAlignment="Center"
-                                                Orientation="Horizontal">
-                                        <Viewbox MaxHeight="18"
-                                                 MaxWidth="18"
-                                                 Margin="12 0 0 0">
-                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
-                                                        Symbol="Setting" />
-                                        </Viewbox>
-                                        <TextBlock x:Uid="menuName_Settings"
-                                                   Margin="24 0 0 0"
-                                                   FontSize="13"
-                                                   VerticalAlignment="Center"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                    </StackPanel>
-                                </ListViewItem>
-                            </ListView>
-                        </RelativePanel>
-                    </Grid>
+                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                    </RelativePanel>
                 </SplitView.Pane>
                 <SplitView.Content>
                     <Grid>
@@ -415,7 +412,7 @@
 
                 </Button>
             </Grid>
-            
+
         </Grid>
 
         <control:SignInPage x:Name="SignInPage"
@@ -549,9 +546,8 @@
                     </Button>
                 </RelativePanel>
             </toolkitControl:DropShadowPanel>
-           
         </Grid>
-        
+
 
         <control:WhatsNewPopupControl x:Name="WhatsNewPopup"
                                       Visibility="Collapsed"
