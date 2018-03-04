@@ -10,16 +10,7 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
-    <Grid Background="Transparent">
-        <Grid>
-            <i:Interaction.Behaviors>
-                <behaviors:Blur AutomaticallyStart="True"
-                                Delay="0"
-                                Value="20"
-                                Duration="0" />
-            </i:Interaction.Behaviors>
-        </Grid>
-
+    <Grid Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush }">
         <ProgressRing Width="40"
                       Height="40"
                       HorizontalAlignment="Center"
