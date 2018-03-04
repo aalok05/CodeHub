@@ -285,10 +285,10 @@
   <data name="signOut.Text" xml:space="preserve">
     <value>Αποσύνδεση</value>
   </data>
-  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+  <data name="LeftSlidableNotificationListItem.Text" xml:space="preserve">
     <value>Ξεγραφτείτε απο αυτό το νήμα</value>
   </data>
-  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+  <data name="RightSlidableNotificationListItem.Text" xml:space="preserve">
     <value>Σημείωση ως αναγνωσμένο</value>
   </data>
   <data name="starred.Text" xml:space="preserve">

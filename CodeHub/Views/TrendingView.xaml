@@ -58,8 +58,7 @@
                                                           ScrollViewer.HorizontalScrollMode="Disabled">
 
                         <toolkitControl:PullToRefreshListView.Header>
-                            <toolkitControl:ScrollHeader Mode="Fade" 
-                                                         TargetListViewBase="{x:Bind todayListView}">
+                            <toolkitControl:ScrollHeader Mode="Fade">
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
                                         HorizontalContentAlignment="Stretch"
@@ -127,8 +126,7 @@
                                                           RefreshRequested="{x:Bind ViewModel.RefreshWeekCommand}"
                                                           ScrollViewer.HorizontalScrollMode="Disabled">
                         <toolkitControl:PullToRefreshListView.Header>
-                            <toolkitControl:ScrollHeader Mode="Fade" 
-                                                         TargetListViewBase="{x:Bind weekListView}">
+                            <toolkitControl:ScrollHeader Mode="Fade">
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
                                         Tapped="{x:Bind ViewModel.FirstRepoWeekNavigate}"
@@ -195,8 +193,7 @@
                                                           ScrollViewer.HorizontalScrollMode="Disabled">
 
                         <toolkitControl:PullToRefreshListView.Header>
-                            <toolkitControl:ScrollHeader Mode="Fade" 
-                                                         TargetListViewBase="{x:Bind monthListView}">
+                            <toolkitControl:ScrollHeader Mode="Fade">
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
                                         Tapped="{x:Bind ViewModel.FirstRepoMonthNavigate}"

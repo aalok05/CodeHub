@@ -10,7 +10,7 @@
       xmlns:octo="using:Octokit"
       xmlns:resources="using:CodeHub.Resources"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
-      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI.Extensions"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -24,14 +24,14 @@
         <ListView x:Name="ContentListView"
                   HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch"
-                  ui:ListViewBaseExtensions.AlternateColor="{StaticResource OddAlternatingRowsBrush}"
+                  ui:ListViewExtensions.AlternateColor="{StaticResource OddAlternatingRowsBrush}"
                   IsItemClickEnabled="True"
                   ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
                   ItemTemplate="{StaticResource RepositoryEntryTemplate}"
                   ItemsSource="{x:Bind ViewModel.Content, Mode=OneWay}"
                   SelectionMode="Single">
             <ListView.Header>
-                <toolkitControl:ScrollHeader Mode="QuickReturn" TargetListViewBase="{x:Bind ContentListView}">
+                <toolkitControl:ScrollHeader Mode="QuickReturn">
                     <Grid Height="48" 
                           VerticalAlignment="Top"
                           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

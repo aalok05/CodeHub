@@ -282,10 +282,10 @@
   <data name="signOut.Text" xml:space="preserve">
     <value>Esci</value>
   </data>
-  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+  <data name="LeftSlidableNotificationListItem.Text" xml:space="preserve">
     <value>Disiscriviti da questo thread</value>
   </data>
-  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+  <data name="RightSlidableNotificationListItem.Text" xml:space="preserve">
     <value>Imposta come letto</value>
   </data>
   <data name="starred.Text" xml:space="preserve">

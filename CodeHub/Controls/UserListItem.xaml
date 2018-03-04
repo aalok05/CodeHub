@@ -10,16 +10,16 @@
              mc:Ignorable="d">
 
     <StackPanel Margin="8,4,0,4" Orientation="Horizontal">
-        <toolkitControl:RoundImageEx Width="40"
-                                     Height="40"
-                                     Margin="0,0,8,0"
-                                     CornerRadius="999"
-                                     DecodePixelHeight="40"
-                                     DecodePixelType="Logical"
-                                     DecodePixelWidth="40"
-                                     IsCacheEnabled="True"
-                                     Source="{Binding AvatarUrl, Mode=OneWay}" 
-                                     Stretch="UniformToFill" />
+        <toolkitControl:ImageEx Width="40"
+                                Height="40"
+                                Margin="0,0,8,0"
+                                CornerRadius="999"
+                                DecodePixelHeight="40"
+                                DecodePixelType="Logical"
+                                DecodePixelWidth="40"
+                                IsCacheEnabled="True"
+                                Source="{Binding AvatarUrl, Mode=OneWay}" 
+                                Stretch="UniformToFill" />
 
         <TextBlock VerticalAlignment="Center"
                    FontSize="14"
