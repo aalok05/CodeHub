@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "New Year New Update! \nChangelog for v2.4.6\n\x2022 Bug fixes and various improvements under the hood";
+                return "Hi all! \nHere's the changelog for v2.4.8\n\n\x2022 Under the hood improvements for upcoming updates.";
             }
         }
         #endregion

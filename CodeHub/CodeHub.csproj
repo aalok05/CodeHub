@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>E4AD229B6D0AA11D7800578B69A6E7900D9A22BA</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>BA67786C48841670BA9F840127DD8DE6F1E5EFFA</PackageCertificateThumbprint>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -126,6 +126,8 @@
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\transparent.png" />
+    <None Include="CodeHub_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Services\Hilite-me\Samples\Borland.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
