@@ -282,10 +282,10 @@
   <data name="signOut.Text" xml:space="preserve">
     <value>Kijelentkezés</value>
   </data>
-  <data name="LeftSlidableNotificationListItem.Text" xml:space="preserve">
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
     <value>Leiratkozás</value>
   </data>
-  <data name="RightSlidableNotificationListItem.Text" xml:space="preserve">
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
     <value>Olvasottnak jelöl</value>
   </data>
   <data name="starred.Text" xml:space="preserve">

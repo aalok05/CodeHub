@@ -285,10 +285,10 @@
   <data name="signOut.Text" xml:space="preserve">
     <value>Đăng xuất</value>
   </data>
-  <data name="LeftSlidableNotificationListItem.Text" xml:space="preserve">
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
     <value>Hủy đăng ký chủ đề này</value>
   </data>
-  <data name="RightSlidableNotificationListItem.Text" xml:space="preserve">
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
     <value>Đánh dấu Đã đọc</value>
   </data>
   <data name="starred.Text" xml:space="preserve">
