@@ -77,35 +77,22 @@
                       VerticalScrollBarVisibility="Auto"
                       VerticalScrollMode="Enabled">
             <Grid>
-                <WebView controls:HtmlToRtfConverter.HtmlString="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
-                         DefaultBackgroundColor="{x:Bind ViewModel.HTMLBackgroundColor, Mode=OneWay}"
-                         Visibility="{x:Bind ViewModel.HTMLContent, Converter={StaticResource StringVisibilityConverter},Mode=OneWay}"
-                         Margin="-8,-8,-12,-8"/>
+                <control:MarkdownTextBlock Text="{x:Bind ViewModel.HTMLContent,Mode=OneWay}"
+                                           Padding="8"
+                                           IsTextSelectionEnabled="False"
+                                           LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
+                                           ImageStretch="Fill"
+                                           TextWrapping="Wrap"
+                                           FontSize="13"/>
 
                 <control:ImageEx HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
                                  Source="{x:Bind ViewModel.ImageFile,Mode=OneWay}"
                                  Visibility="{x:Bind ViewModel.IsImage,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
-                
+
             </Grid>
-
         </ScrollViewer>
-        <ScrollViewer Grid.Row="1"
-                      HorizontalScrollBarVisibility="Disabled"
-                      HorizontalScrollMode="Disabled"
-                      VerticalScrollBarVisibility="Hidden"
-                      VerticalScrollMode="Enabled"
-                      Visibility="{x:Bind ViewModel.TextContent,Converter={StaticResource StringVisibilityConverter},Mode=OneWay}">
 
-            <control:MarkdownTextBlock Text="{x:Bind ViewModel.TextContent,Mode=OneWay}"
-                                       Padding="8"
-                                       IsTextSelectionEnabled="False"
-                                       LinkClicked="{x:Bind ViewModel.MarkdownTextBlock_LinkClicked}"
-                                       ImageStretch="Fill"
-                                       TextWrapping="Wrap"
-                                       FontSize="13"/>
-
-        </ScrollViewer>
         <TextBlock x:Uid="unsupportedFileType"
                    Grid.Row="1"
                    HorizontalAlignment="Center"

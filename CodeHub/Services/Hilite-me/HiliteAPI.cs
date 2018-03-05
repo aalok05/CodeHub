@@ -46,7 +46,8 @@ namespace CodeHub.Services.Hilite_me
             { ".babelrc", "json" },
             { ".bowerrc", "json" },
             { ".editorconfig", "c" },
-            { ".eslintignore", "c" }
+            { ".eslintignore", "c" },
+            { ".ejs", "javascript" }
         });
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace CodeHub.Services.Hilite_me
         /// <param name="lineNumbers">Indicates whether or not to show line numbers in the result HTML</param>
         /// <param name="token">The cancellation token for the operation</param>
         [ItemCanBeNull]
-        public static async Task<String> TryGetHighlightedCodeAsync([NotNull] String code, [NotNull] String path, 
+        public static async Task<String> TryGetHighlightedCodeAsync([NotNull] String code, [NotNull] String path,
             SyntaxHighlightStyleEnum style, bool lineNumbers, CancellationToken token)
         {
             // Check if the code is possibly invalid
@@ -69,14 +70,10 @@ namespace CodeHub.Services.Hilite_me
                 return null;
             }
 
-            // Try to extract the code language
-            Match match = Regex.Match(path, @".*([.]\w+)");
-            if (!match.Success || match.Groups.Count != 2) return null;
-            String
-                extension = match.Groups[1].Value.ToLowerInvariant(),
-                lexer = UncommonExtensions.ContainsKey(extension)
-                    ? UncommonExtensions[extension]
-                    : extension.Substring(1); // Remove the leading '.'
+            string lexer = GetLexer(path);
+
+            if (string.IsNullOrWhiteSpace(lexer))
+                return null;
 
             // Prepare the POST request content
             Dictionary<String, String> values = new Dictionary<String, String>
@@ -94,10 +91,6 @@ namespace CodeHub.Services.Hilite_me
             // Check if the lexer is unsupported
             if (result.StatusCode == HttpStatusCode.InternalServerError)
             {
-#if DEBUG
-                //For debugging, inform if an unsupported extesion is found
-                System.Diagnostics.Debug.WriteLine($"Possible unsupported extension: {extension} > {lexer}");
-#endif
                 // Retry with the fallback lexer
                 values["lexer"] = FallbackLexer;
                 return (await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token)).Result;
@@ -105,6 +98,24 @@ namespace CodeHub.Services.Hilite_me
 
             // Return the result
             return result.Result;
+        }
+
+        /// <summary>
+        /// Gets the language lexer of a given code file
+        /// </summary>
+        /// <param name="path">Path of the file containing code</param>
+        /// <returns></returns>
+        public static string GetLexer(string path)
+        {
+            Match match = Regex.Match(path, @".*([.]\w+)");
+            if (!match.Success || match.Groups.Count != 2) return null;
+            String
+                extension = match.Groups[1].Value.ToLowerInvariant(),
+                lexer = UncommonExtensions.ContainsKey(extension)
+                    ? UncommonExtensions[extension]
+                    : extension.Substring(1); // Remove the leading '.'
+
+            return lexer;
         }
     }
 }

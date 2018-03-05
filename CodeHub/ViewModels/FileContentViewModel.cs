@@ -12,6 +12,7 @@ using CodeHub.Services.Hilite_me;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using CodeHub.Views;
+using System.Text.RegularExpressions;
 
 namespace CodeHub.ViewModels
 {
@@ -140,7 +141,7 @@ namespace CodeHub.ViewModels
         {
             get { return _HTMLBackgroundColor; }
             private set
-            { 
+            {
                 Set(() => HTMLBackgroundColor, ref _HTMLBackgroundColor, value);
             }
         }
@@ -197,24 +198,21 @@ namespace CodeHub.ViewModels
 
                     IsImage = true;
                     String uri = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.DownloadUrl;
-                    if(!string.IsNullOrWhiteSpace(uri))
+                    if (!string.IsNullOrWhiteSpace(uri))
                         ImageFile = new BitmapImage(new Uri(uri));
                     isLoading = false;
                     return;
                 }
-                if ((Path.ToLower()).EndsWith(".md"))
+                if ((Path.ToLower()).EndsWith(".md") || (Path.ToLower()).EndsWith(".gitignore") || (Path.ToLower()).EndsWith(".gitattributes"))
                 {
-                    /*
-                     *  Files with .md extension
-                     */
-                    TextContent = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.Content;
+                    HTMLContent = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.Content;
                     isLoading = false;
                     return;
                 }
 
-                    /*
-                    *  Code files
-                    */
+                /*
+                *  Code files
+                */
 
                 String content = (await RepositoryUtility.GetRepositoryContentByPath(Repository, Path, SelectedBranch))?[0].Content.Content;
                 if (content == null)
@@ -223,26 +221,10 @@ namespace CodeHub.ViewModels
                     isLoading = false;
                     return;
                 }
-                SyntaxHighlightStyleEnum style = (SyntaxHighlightStyleEnum)SettingsService.Get<int>(SettingsKeys.HighlightStyleIndex);
-                bool lineNumbers = SettingsService.Get<bool>(SettingsKeys.ShowLineNumbers);
-                HTMLContent = await HiliteAPI.TryGetHighlightedCodeAsync(content, Path, style, lineNumbers, CancellationToken.None);
 
-                if (HTMLContent == null)
-                {
-                    /*
-                    *  Plain text files (Getting HTML for syntax highlighting failed)
-                    */
-
-                    RepositoryContent result = await RepositoryUtility.GetRepositoryContentTextByPath(Repository, Path, SelectedBranch);
-                    if(result != null)
-                        TextContent = result.Content;
-                }
-
-                if (HTMLContent == null && TextContent == null)
-                    IsSupportedFile = false;
-
+                string lexer = HiliteAPI.GetLexer(Path);
+                HTMLContent = string.IsNullOrWhiteSpace(lexer) ? content : $"```{lexer} \n{content}\n```";
                 isLoading = false;
-
             }
         }
 
