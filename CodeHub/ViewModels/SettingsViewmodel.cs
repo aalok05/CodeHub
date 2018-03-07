@@ -12,6 +12,7 @@ using CodeHub.Views;
 using CodeHub.Services.Hilite_me;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
+using Windows.Globalization;
 
 namespace CodeHub.ViewModels
 {
@@ -196,6 +197,22 @@ namespace CodeHub.ViewModels
         /// </summary>
         public SyntaxHighlightStyleEnum HighlightStyle => (SyntaxHighlightStyleEnum)SelectedHighlightStyleIndex;
 
+        public List<Language> AvailableUiLanguages { get; private set; } = new List<Language>();
+
+        private int _selectedUiLanguageIndex;
+        public int SelectedUiLanguageIndex
+        {
+            get { return _selectedUiLanguageIndex; }
+            set
+            {
+                Set(() => SelectedUiLanguageIndex, ref _selectedUiLanguageIndex, value);
+
+                var language = AvailableUiLanguages[value];
+
+                ApplicationLanguages.PrimaryLanguageOverride = language.LanguageTag;
+            }
+        }
+        
 
         #endregion
 
@@ -299,7 +316,22 @@ namespace CodeHub.ViewModels
                     ColorFour = GlobalHelper.GetSolidColorBrush("2b91afFF"),
                     BackgroundColor = GlobalHelper.GetSolidColorBrush("ffffffFF") },
             };
+
+            foreach (var languageTag in ApplicationLanguages.ManifestLanguages)
+                AvailableUiLanguages.Add(new Language(languageTag));
+
+            SelectedUiLanguageIndex = GetDefaultLanguageIndex();
         }
 
+        private int GetDefaultLanguageIndex()
+        {
+            var topUserLanguage = ApplicationLanguages.PrimaryLanguageOverride;
+
+            var language = new Language(topUserLanguage);
+
+            int index = AvailableUiLanguages.FindIndex(l => l.NativeName.Equals(language.NativeName));
+
+            return index;
+        }
     }
 }

@@ -112,6 +112,31 @@
                        FontWeight="SemiBold"/>
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
 
+            <!--  Language selector  -->
+            <TextBlock Margin="0,20,0,0"
+                       x:Uid="general_Settings_UiLanguage_Title"
+                       HorizontalAlignment="Left"
+                       FontSize="18"
+                       FontWeight="SemiBold"/>
+            <TextBlock Margin="0,12,0,0"
+                       x:Uid="general_Settings_UiLanguage_Comment"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"/>
+            <ComboBox ItemsSource="{x:Bind ViewModel.AvailableUiLanguages}"
+                      SelectedIndex="{x:Bind ViewModel.SelectedUiLanguageIndex, Mode=TwoWay}">
+                <ComboBox.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding NativeName}"/>
+                    </DataTemplate>
+                </ComboBox.HeaderTemplate>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding NativeName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
     </ScrollViewer>
 </local:SettingsDetailPageBase>
