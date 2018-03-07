@@ -292,6 +292,8 @@
     <Compile Include="Services\CommitService.cs" />
     <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
     <Compile Include="ViewModels\CommitsViewmodel.cs" />
+    <Compile Include="ViewModels\Settings\AboutSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\GeneralSettingsViewModel.cs" />
     <Compile Include="Views\CommitDetailView.xaml.cs">
       <DependentUpon>CommitDetailView.xaml</DependentUpon>
     </Compile>

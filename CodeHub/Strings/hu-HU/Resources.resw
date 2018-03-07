@@ -664,4 +664,10 @@
   <data name="general_Settings_UiLanguage_Comment.Text" xml:space="preserve">
     <value>A változtatások életbelépéséhez az alkalmazás újraindítása szükséges</value>
   </data>
+  <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Kikapcsolva</value>
+  </data>
+  <data name="default_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>Bekapcsolva</value>
+  </data>
 </root>

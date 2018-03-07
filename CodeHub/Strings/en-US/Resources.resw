@@ -636,4 +636,10 @@
   <data name="general_Settings_UiLanguage_Comment.Text" xml:space="preserve">
     <value>The action require the app restart</value>
   </data>
+  <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="default_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>On</value>
+  </data>
 </root>

@@ -46,6 +46,7 @@
                        x:Uid="addDisable" />
             
             <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="default_ToggleSwitch"
                           IsEnabled="{x:Bind ViewModel.CanDisableAds,Mode=OneWay}"
                           IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
 
@@ -62,7 +63,8 @@
                        Foreground="Gray"
                        TextWrapping="Wrap"
                        Text="Repository content takes more time to load if this is enabled"/>
-            <ToggleSwitch Margin="0,8,0,0" 
+            <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="default_ToggleSwitch"
                           IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
 
             <!--  Check for notifications frequently  -->
@@ -110,7 +112,9 @@
                        HorizontalAlignment="Left"
                        FontSize="18"
                        FontWeight="SemiBold"/>
-            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
+            <ToggleSwitch Margin="0,4,0,0"
+                          x:Uid="default_ToggleSwitch"
+                          IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
 
             <!--  Language selector  -->
             <TextBlock Margin="0,20,0,0"
