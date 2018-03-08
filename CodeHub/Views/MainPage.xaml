@@ -245,8 +245,8 @@
                                                         Symbol="Contact" />
                                         </Viewbox>
                                         <TextBlock Margin="24 0 0 0"
+                                                   x:Uid="main_window_Accounts_Window"
                                                    FontSize="13"
-                                                   Text="Accounts"
                                                    VerticalAlignment="Center"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
                                     </StackPanel>
@@ -478,11 +478,11 @@
                                    HorizontalAlignment="Center"
                                    Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}"/>
                         <Button Height="38"
+                                x:Uid="main_window_Sign_Out_From_Account"
                                 Padding="28 0 28 0"
                                 Margin="8"
                                 HorizontalAlignment="Center"
                                 Command="{x:Bind ViewModel.SignOutCommand}"
-                                Content="Sign out"
                                 Style="{StaticResource ActionButtonStyle}">
                         </Button>
                     </StackPanel>
@@ -544,7 +544,8 @@
                                  Margin="0,0,8,0">
                                 <SymbolIcon Symbol="Add" />
                             </Viewbox>
-                            <TextBlock FontSize="15" Text="Add account" />
+                            <TextBlock FontSize="15"
+                                       x:Uid="main_window_Add_Account"/>
                         </StackPanel>
                     </Button>
                 </RelativePanel>

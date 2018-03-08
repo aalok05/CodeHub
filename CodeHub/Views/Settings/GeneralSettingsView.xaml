@@ -58,11 +58,11 @@
                        FontWeight="SemiBold"
                        TextWrapping="Wrap" />
             <TextBlock Margin="0,12,0,0"
+                       x:Uid="general_Settings_Load_Commit_Message_Comment"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        Foreground="Gray"
-                       TextWrapping="Wrap"
-                       Text="Repository content takes more time to load if this is enabled"/>
+                       TextWrapping="Wrap"/>
             <ToggleSwitch Margin="0,8,0,0"
                           x:Uid="default_ToggleSwitch"
                           IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
