@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.Globalization;
+using System.Globalization;
 
 namespace CodeHub.ViewModels.Settings
 {
@@ -132,6 +133,9 @@ namespace CodeHub.ViewModels.Settings
         /// </summary>
         public SyntaxHighlightStyleEnum HighlightStyle => (SyntaxHighlightStyleEnum)SelectedHighlightStyleIndex;
 
+        /// <summary>
+        /// Gets or sets the list of app's supported languages
+        /// </summary>
         public List<Language> AvailableUiLanguages { get; private set; } = new List<Language>();
 
         private int _selectedUiLanguageIndex;
@@ -216,12 +220,9 @@ namespace CodeHub.ViewModels.Settings
 
         private int GetDefaultLanguageIndex()
         {
-            var topUserLanguage = ApplicationLanguages.PrimaryLanguageOverride;
-
+            var topUserLanguage = CultureInfo.CurrentUICulture.Name;
             var language = new Language(topUserLanguage);
-
             int index = AvailableUiLanguages.FindIndex(l => l.NativeName.Equals(language.NativeName));
-
             return index;
         }
     }
