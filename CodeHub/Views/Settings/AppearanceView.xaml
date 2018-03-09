@@ -51,6 +51,7 @@
                        FontSize="20"
                        FontWeight="SemiBold"/>
             <ToggleSwitch x:Name="AcrylicBlurToggleSwitch"
+                          x:Uid="default_ToggleSwitch"
                           IsOn="{x:Bind ViewModel.IsAcrylicBlurEnabled, Mode=TwoWay}"
                           Margin="0,8,0,0"/>
         </StackPanel>

@@ -5,17 +5,20 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Toolkit.Uwp.Helpers;
+using CodeHub.ViewModels.Settings;
 
 namespace CodeHub.Views
 {
     public sealed partial class AboutSettingsView : SettingsDetailPageBase
     {
-        private SettingsViewModel ViewModel;
+        private AboutSettingsViewModel ViewModel;
+
         public AboutSettingsView()
         {
             this.InitializeComponent();
 
-            ViewModel = new SettingsViewModel();
+            ViewModel = new AboutSettingsViewModel();
+
             this.DataContext = ViewModel;
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)

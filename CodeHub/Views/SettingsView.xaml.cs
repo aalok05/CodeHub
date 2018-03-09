@@ -1,11 +1,7 @@
 ﻿using Windows.Foundation;
-using GalaSoft.MvvmLight.Messaging;
-using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.ViewModels;
-using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,10 +12,13 @@ namespace CodeHub.Views
     public sealed partial class SettingsView : Page
     {
         public SettingsViewModel ViewModel;
+
         public SettingsView()
         {
             this.InitializeComponent();
+
             ViewModel = new SettingsViewModel();
+
             this.DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
@@ -35,7 +34,7 @@ namespace CodeHub.Views
             {
                 if(SettingsListView.SelectedIndex != -1)
                 {
-                    SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateWithoutAnimations(ViewModel.Settings[SettingsListView.SelectedIndex].DestPage, "Settings");
+                    SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateWithoutAnimations(ViewModel.SubMenus[SettingsListView.SelectedIndex].DestPage, "Settings");
                 }
             }
         }
