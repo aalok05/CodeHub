@@ -188,34 +188,37 @@ namespace CodeHub.ViewModels
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Pivot p = sender as Pivot;
-
-            if (p.SelectedIndex == 0)
+            if (Repository != null)
             {
-                IsLoadingOpen = true;
-                OpenPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+                Pivot p = sender as Pivot;
+
+                if (p.SelectedIndex == 0)
                 {
-                    State = ItemStateFilter.Open
-                },
-                OpenPaginationIndex = 1);
-                IsLoadingOpen = false;
+                    IsLoadingOpen = true;
+                    OpenPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+                    {
+                        State = ItemStateFilter.Open
+                    },
+                    OpenPaginationIndex = 1);
+                    IsLoadingOpen = false;
 
-                ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
-                MaxOpenScrollViewerVerticalffset = 0;
-            }
-            else if (p.SelectedIndex == 1)
-            {
-                IsLoadingClosed = true;
-
-                ClosedPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+                    ZeroOpenPullRequests = OpenPullRequests.Count == 0 ? true : false;
+                    MaxOpenScrollViewerVerticalffset = 0;
+                }
+                else if (p.SelectedIndex == 1)
                 {
-                    State = ItemStateFilter.Closed
-                },
-                ClosedPaginationIndex = 1);
-                IsLoadingClosed = false;
+                    IsLoadingClosed = true;
 
-                ZeroClosedPullRequests = ClosedPullRequests.Count == 0 ? true : false;
-                MaxClosedScrollViewerVerticalffset = 0;
+                    ClosedPullRequests = await RepositoryUtility.GetAllPullRequestsForRepo(Repository.Id, new PullRequestRequest
+                    {
+                        State = ItemStateFilter.Closed
+                    },
+                    ClosedPaginationIndex = 1);
+                    IsLoadingClosed = false;
+
+                    ZeroClosedPullRequests = ClosedPullRequests.Count == 0 ? true : false;
+                    MaxClosedScrollViewerVerticalffset = 0;
+                }
             }
         }
 

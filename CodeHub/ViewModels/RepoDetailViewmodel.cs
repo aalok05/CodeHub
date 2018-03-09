@@ -377,8 +377,10 @@ namespace CodeHub.ViewModels
                     ?? (_CloneCommand = new RelayCommand(
                                           () =>
                                           {
-                                              DataPackage dataPackage = new DataPackage();
-                                              dataPackage.RequestedOperation = DataPackageOperation.Copy;
+                                              DataPackage dataPackage = new DataPackage
+                                              {
+                                                  RequestedOperation = DataPackageOperation.Copy
+                                              };
                                               dataPackage.SetText(Repository.CloneUrl);
                                               Clipboard.SetContent(dataPackage);
                                               Messenger.Default.Send(new GlobalHelper.LocalNotificationMessageType { Message = Repository.CloneUrl+" copied to clipboard", Glyph = "\uE16F" });

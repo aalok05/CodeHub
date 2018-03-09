@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Chủ đề</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>Khởi động lại ứng dụng để thay đổi chủ đề</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">

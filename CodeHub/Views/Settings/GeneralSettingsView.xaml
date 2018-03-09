@@ -46,9 +46,32 @@
                        x:Uid="addDisable" />
             
             <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="default_ToggleSwitch"
                           IsEnabled="{x:Bind ViewModel.CanDisableAds,Mode=OneWay}"
                           IsOn="{x:Bind ViewModel.IsAdsEnabled, Mode=TwoWay}" />
 
+            <!--  Language selector  -->
+            <TextBlock Margin="0,20,0,0"
+                       x:Uid="general_Settings_UiLanguage_Title"
+                       HorizontalAlignment="Left"
+                       FontSize="18"
+                       FontWeight="SemiBold"/>
+            <TextBlock Margin="0,12,0,12"
+                       x:Uid="AppRestartTip"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"/>
+            <ComboBox Margin="0 0 0 12"
+                      ItemsSource="{x:Bind ViewModel.AvailableUiLanguages}"
+                      SelectedIndex="{x:Bind ViewModel.SelectedUiLanguageIndex, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding NativeName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
             <!--  Load commit messages  -->
             <TextBlock x:Uid="loadCommitMessage"
                        Margin="0,12,0,0"
@@ -57,12 +80,13 @@
                        FontWeight="SemiBold"
                        TextWrapping="Wrap" />
             <TextBlock Margin="0,12,0,0"
+                       x:Uid="general_Settings_Load_Commit_Message_Comment"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        Foreground="Gray"
-                       TextWrapping="Wrap"
-                       Text="Repository content takes more time to load if this is enabled"/>
-            <ToggleSwitch Margin="0,8,0,0" 
+                       TextWrapping="Wrap"/>
+            <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="default_ToggleSwitch"
                           IsOn="{x:Bind ViewModel.LoadCommitsInfo, Mode=TwoWay}" />
 
             <!--  Check for notifications frequently  -->
@@ -80,38 +104,6 @@
                        Text="Turning this on will consume more data"
                        TextWrapping="Wrap" />
             <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.IsNotificationCheckEnabled, Mode=TwoWay}" />-->
-
-            <TextBlock x:Uid="syntaxHightlignting"
-                       Margin="0,20,0,0"
-                       HorizontalAlignment="Left"
-                       FontSize="20"
-                       FontWeight="SemiBold" />
-
-            <!--  Style  -->
-            <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
-                                       Margin="0,12,0,0"
-                                       MinWidth="340"
-                                       Padding="0"
-                                       FontSize="13"
-                                       ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
-                                       SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
-                                       Style="{StaticResource AnimatedComboBoxStyle}"
-                                       ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
-                <controls:AnimatedComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="model:SyntaxHighlightStyle">
-                        <controls:SyntaxHighlightPreviewControl/>
-                    </DataTemplate>
-                </controls:AnimatedComboBox.ItemTemplate>
-            </controls:AnimatedComboBox>
-
-            <!--  Line numbers  -->
-            <TextBlock x:Uid="showLineNumber"
-                       Margin="0,20,0,0"
-                       HorizontalAlignment="Left"
-                       FontSize="18"
-                       FontWeight="SemiBold"/>
-            <ToggleSwitch Margin="0,4,0,0" IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
-
         </StackPanel>
     </ScrollViewer>
 </local:SettingsDetailPageBase>
