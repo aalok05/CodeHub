@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Tema</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>Alterações no tema exigem a reinicialização do aplicativo</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">

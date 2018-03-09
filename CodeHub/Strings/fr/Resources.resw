@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Thème</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>L'application doit redémarrer pour prendre en compte les changements de thèmes</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
@@ -476,7 +476,7 @@
   </data>
   <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
     <value>Toutes les langues</value>
-    </data>
+  </data>
   <data name="search_Reset.Text" xml:space="preserve">
     <value>Reset</value>
   </data>

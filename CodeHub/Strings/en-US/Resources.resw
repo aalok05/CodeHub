@@ -136,8 +136,8 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Theme</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
-    <value>Theme changes require app restart</value>
+  <data name="AppRestartTip.Text" xml:space="preserve">
+    <value>Requires app restart</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
     <value>Dark Theme</value>
@@ -632,9 +632,6 @@
   </data>
   <data name="general_Settings_UiLanguage_Title.Text" xml:space="preserve">
     <value>Display language</value>
-  </data>
-  <data name="general_Settings_UiLanguage_Comment.Text" xml:space="preserve">
-    <value>The action require the app restart</value>
   </data>
   <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
     <value>Off</value>

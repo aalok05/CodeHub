@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>主题</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>重新启动应用使主题更改生效</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">

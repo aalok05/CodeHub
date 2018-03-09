@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Kinézet</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>Kinézetváltás életbelépéséhez az alkalmazás újraindítása szükséges</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
@@ -660,9 +660,6 @@
   </data>
   <data name="general_Settings_UiLanguage_Title.Text" xml:space="preserve">
     <value>Felhasználói felület nyelve</value>
-  </data>
-  <data name="general_Settings_UiLanguage_Comment.Text" xml:space="preserve">
-    <value>A változtatások életbelépéséhez az alkalmazás újraindítása szükséges</value>
   </data>
   <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
     <value>Kikapcsolva</value>

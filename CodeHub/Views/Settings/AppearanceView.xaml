@@ -4,14 +4,15 @@
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                               xmlns:local="using:CodeHub.Views"
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:controls="using:CodeHub.Controls"
+                              xmlns:model="using:CodeHub.Models"
                               mc:Ignorable="d">
 
-    <Grid Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer Background="Transparent"
+                  HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  VerticalScrollMode="Enabled">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
                 <VisualState x:Name="Mobile">
@@ -26,35 +27,61 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <StackPanel Grid.Row="0"
-                    Orientation="Vertical"
-                    Margin="12,12,0,0">
+        <StackPanel Margin="12">
             <TextBlock x:Uid="theme"
                        HorizontalAlignment="Left"
                        FontSize="20"
                        FontWeight="SemiBold" />
-            <TextBlock x:Uid="themeTip"
+            <TextBlock x:Uid="AppRestartTip"
                        Margin="0,12,0,0"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        Foreground="Gray"
                        TextWrapping="Wrap" />
             <ToggleSwitch x:Uid="ThemeToggleSwitch" IsOn="{x:Bind ViewModel.AppLightThemeEnabled, Mode=TwoWay}"
-                          Margin="0,8,0,0"/>
-        </StackPanel>
-        <StackPanel x:Name="AcrylicBlurPanel"
-                    Grid.Row="1"
-                    Orientation="Vertical"
-                    Margin="12,12,0,0">
+                          Margin="0,8,0,12"/>
             <TextBlock x:Uid="blurContentBehindWindow"
+                       Margin="0 12 0 0"
                        HorizontalAlignment="Left"
                        FontSize="20"
                        FontWeight="SemiBold"/>
             <ToggleSwitch x:Name="AcrylicBlurToggleSwitch"
                           x:Uid="default_ToggleSwitch"
                           IsOn="{x:Bind ViewModel.IsAcrylicBlurEnabled, Mode=TwoWay}"
-                          Margin="0,8,0,0"/>
+                          Margin="0,8,0,12"/>
+            <TextBlock x:Uid="syntaxHightlignting"
+                       Margin="0 12 0 8"
+                       HorizontalAlignment="Left"
+                       FontSize="20"
+                       FontWeight="SemiBold" />
+
+            <!--  Style  -->
+            <controls:AnimatedComboBox x:Name="SyntaxStyleCombobox"
+                                       Margin="0,12,0,12"
+                                       MinWidth="340"
+                                       Padding="0"
+                                       FontSize="13"
+                                       ItemsSource="{x:Bind ViewModel.AvailableHighlightStyles}"
+                                       SelectedIndex="{x:Bind ViewModel.SelectedHighlightStyleIndex, Mode=TwoWay}"
+                                       Style="{StaticResource AnimatedComboBoxStyle}"
+                                       ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
+                <controls:AnimatedComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="model:SyntaxHighlightStyle">
+                        <controls:SyntaxHighlightPreviewControl/>
+                    </DataTemplate>
+                </controls:AnimatedComboBox.ItemTemplate>
+            </controls:AnimatedComboBox>
+
+            <!--  Line numbers  -->
+            <TextBlock x:Uid="showLineNumber"
+                       Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="18"
+                       FontWeight="SemiBold"/>
+            <ToggleSwitch Margin="0,4,0,0"
+                          x:Uid="default_ToggleSwitch"
+                          IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 
 </local:SettingsDetailPageBase>
