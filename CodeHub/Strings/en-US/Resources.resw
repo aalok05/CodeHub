@@ -642,10 +642,10 @@
   <data name="general_Settings_Load_Commit_Message_Comment.Text" xml:space="preserve">
     <value>Repository content takes more time to load if this is enabled</value>
   </data>
-  <data name="main_window_Add_Account.Text" xml:space="preserve">
+  <data name="Add_Account.Text" xml:space="preserve">
     <value>Add account</value>
   </data>
-  <data name="main_window_Accounts_Window.Text" xml:space="preserve">
+  <data name="Accounts.Text" xml:space="preserve">
     <value>Accounts</value>
   </data>
   <data name="Sign_Out.Content" xml:space="preserve">

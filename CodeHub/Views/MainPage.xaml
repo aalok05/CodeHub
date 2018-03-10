@@ -243,10 +243,10 @@
                                                     Symbol="Contact" />
                                     </Viewbox>
                                     <TextBlock Margin="24 0 0 0"
-                                                   x:Uid="main_window_Accounts_Window"
-                                                   FontSize="13"
-                                                   VerticalAlignment="Center"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                               x:Uid="Accounts"
+                                               FontSize="13"
+                                               VerticalAlignment="Center"
+                                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
                                 </StackPanel>
                             </ListViewItem>
                             <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">

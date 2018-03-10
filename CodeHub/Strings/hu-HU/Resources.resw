@@ -670,10 +670,10 @@
   <data name="general_Settings_Load_Commit_Message_Comment.Text" xml:space="preserve">
     <value>A Repository betöltési idejét megnöveli, ha az opció engedélyezve van</value>
   </data>
-  <data name="main_window_Add_Account.Text" xml:space="preserve">
+  <data name="Add_Account.Text" xml:space="preserve">
     <value>Profil hozzáadása</value>
   </data>
-  <data name="main_window_Accounts_Window.Text" xml:space="preserve">
+  <data name="Accounts.Text" xml:space="preserve">
     <value>Profilok</value>
   </data>
   <data name="Sign_Out.Content" xml:space="preserve">
