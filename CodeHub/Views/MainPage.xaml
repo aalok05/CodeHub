@@ -542,7 +542,7 @@
                                 <SymbolIcon Symbol="Add" />
                             </Viewbox>
                             <TextBlock FontSize="15"
-                                       x:Uid="main_window_Add_Account"/>
+                                       x:Uid="Add_Account"/>
                         </StackPanel>
                     </Button>
                 </RelativePanel>
