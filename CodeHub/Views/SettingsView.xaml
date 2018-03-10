@@ -83,7 +83,7 @@
             ItemClick="SettingsListView_ItemClick"
             ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
             ItemTemplate="{StaticResource SettingsListItemTemplate}"
-            ItemsSource="{x:Bind ViewModel.Settings, Mode=OneWay}" />
+            ItemsSource="{x:Bind ViewModel.SubMenus, Mode=OneWay}" />
 
         <!--Secondary frame-->
         <control:CustomFrame x:Name="settingsFrame" 
