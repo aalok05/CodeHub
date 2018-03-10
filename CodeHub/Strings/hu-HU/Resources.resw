@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Kinézet</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>Kinézetváltás életbelépéséhez az alkalmazás újraindítása szükséges</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
@@ -657,5 +657,26 @@
   <data name="activity_ActivityWithPR" xml:space="preserve">
     <value>{0} egy PR-t (#{1}) az alábbi Repository-ban: </value>
     <comment>GitHub felhasználó előzményeinek fordítása.</comment>
+  </data>
+  <data name="general_Settings_UiLanguage_Title.Text" xml:space="preserve">
+    <value>Felhasználói felület nyelve</value>
+  </data>
+  <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Kikapcsolva</value>
+  </data>
+  <data name="default_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>Bekapcsolva</value>
+  </data>
+  <data name="general_Settings_Load_Commit_Message_Comment.Text" xml:space="preserve">
+    <value>A Repository betöltési idejét megnöveli, ha az opció engedélyezve van</value>
+  </data>
+  <data name="main_window_Add_Account.Text" xml:space="preserve">
+    <value>Profil hozzáadása</value>
+  </data>
+  <data name="main_window_Accounts_Window.Text" xml:space="preserve">
+    <value>Profilok</value>
+  </data>
+  <data name="Sign_Out.Content" xml:space="preserve">
+    <value>Kijelentkezés</value>
   </data>
 </root>

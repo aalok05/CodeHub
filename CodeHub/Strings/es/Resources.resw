@@ -136,7 +136,7 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Tema</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
+  <data name="AppRestartTip.Text" xml:space="preserve">
     <value>Cambios en el tema requieren reinicio</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
@@ -629,5 +629,8 @@
   </data>
   <data name="activity_ActivityWithIssues" xml:space="preserve">
     <value>{0} Problema #{1} en</value>
+  </data>
+  <data name="Sign_Out.Content" xml:space="preserve">
+    <value>Sign Out</value>
   </data>
 </root>

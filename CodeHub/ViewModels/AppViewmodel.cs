@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v2.4.8\n\n\x2022 Under the hood improvements for upcoming updates.";
+                return "Hi all! \nHere's the changelog for v2.4.9\n\n\x2022 Added a setting to change the app language\n\x2022 Moved syntax highlighting settings to Appearance settings";
             }
         }
         #endregion

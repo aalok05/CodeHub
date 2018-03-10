@@ -136,8 +136,8 @@
   <data name="theme.Text" xml:space="preserve">
     <value>Theme</value>
   </data>
-  <data name="themeTip.Text" xml:space="preserve">
-    <value>Theme changes require app restart</value>
+  <data name="AppRestartTip.Text" xml:space="preserve">
+    <value>Requires app restart</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
     <value>Dark Theme</value>
@@ -629,5 +629,26 @@
   </data>
   <data name="activity_ActivityWithIssues" xml:space="preserve">
     <value>{0} issue #{1} in</value>
+  </data>
+  <data name="general_Settings_UiLanguage_Title.Text" xml:space="preserve">
+    <value>Display language</value>
+  </data>
+  <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="default_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="general_Settings_Load_Commit_Message_Comment.Text" xml:space="preserve">
+    <value>Repository content takes more time to load if this is enabled</value>
+  </data>
+  <data name="main_window_Add_Account.Text" xml:space="preserve">
+    <value>Add account</value>
+  </data>
+  <data name="main_window_Accounts_Window.Text" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="Sign_Out.Content" xml:space="preserve">
+    <value>Sign Out</value>
   </data>
 </root>
