@@ -40,15 +40,7 @@
                        TextWrapping="Wrap" />
             <ToggleSwitch x:Uid="ThemeToggleSwitch" IsOn="{x:Bind ViewModel.AppLightThemeEnabled, Mode=TwoWay}"
                           Margin="0,8,0,12"/>
-            <TextBlock x:Uid="blurContentBehindWindow"
-                       Margin="0 12 0 0"
-                       HorizontalAlignment="Left"
-                       FontSize="20"
-                       FontWeight="SemiBold"/>
-            <ToggleSwitch x:Name="AcrylicBlurToggleSwitch"
-                          x:Uid="default_ToggleSwitch"
-                          IsOn="{x:Bind ViewModel.IsAcrylicBlurEnabled, Mode=TwoWay}"
-                          Margin="0,8,0,12"/>
+
             <TextBlock x:Uid="syntaxHightlignting"
                        Margin="0 12 0 8"
                        HorizontalAlignment="Left"
@@ -83,5 +75,4 @@
                           IsOn="{x:Bind ViewModel.ShowLineNumbers, Mode=TwoWay}" />
         </StackPanel>
     </ScrollViewer>
-
 </local:SettingsDetailPageBase>

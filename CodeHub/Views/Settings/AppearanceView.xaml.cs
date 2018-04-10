@@ -23,12 +23,5 @@ namespace CodeHub.Views
             if (e.NewState != null)
                 TryNavigateBackForDesktopState(e.NewState.Name);
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (SystemInformation.OperatingSystemVersion.Build < 15063 || AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-            {
-                AcrylicBlurToggleSwitch.IsEnabled = false; 
-            }
-        }
     }
 }

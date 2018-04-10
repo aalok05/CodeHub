@@ -97,9 +97,13 @@ namespace CodeHub.ViewModels.Settings
             {
                 Set(() => SelectedUiLanguageIndex, ref _selectedUiLanguageIndex, value);
 
-                var language = AvailableUiLanguages[value];
-
-                ApplicationLanguages.PrimaryLanguageOverride = language.LanguageTag;
+                try
+                {
+                    var language = AvailableUiLanguages[value];
+                    ApplicationLanguages.PrimaryLanguageOverride = language.LanguageTag;
+                }
+                catch
+                {   }
             }
         }
 

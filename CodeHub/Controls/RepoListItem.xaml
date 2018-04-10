@@ -59,17 +59,17 @@
                 <SolidColorBrush Opacity="0.7" Color="{ThemeResource SystemChromeLowColor}" />
             </RelativePanel.Background>
 
-            <toolkitControl:RoundImageEx x:Name="OwnerAvatarEllipse"
-                                         Width="60"
-                                         Height="60"
-                                         Margin="0,0,0,8"
-                                         CornerRadius="999"
-                                         DecodePixelHeight="60"
-                                         DecodePixelType="Logical"
-                                         DecodePixelWidth="60"
-                                         IsCacheEnabled="True"
-                                         Source="{Binding Owner.AvatarUrl, Mode=OneWay}"
-                                         Stretch="UniformToFill" />
+            <toolkitControl:ImageEx x:Name="OwnerAvatarEllipse"
+                                    Width="60"
+                                    Height="60"
+                                    Margin="0,0,0,8"
+                                    CornerRadius="999"
+                                    DecodePixelHeight="60"
+                                    DecodePixelType="Logical"
+                                    DecodePixelWidth="60"
+                                    IsCacheEnabled="True"
+                                    Source="{Binding Owner.AvatarUrl, Mode=OneWay}"
+                                    Stretch="UniformToFill" />
 
             <StackPanel x:Name="RepoNamePanel"
                         Margin="12,0,0,4"

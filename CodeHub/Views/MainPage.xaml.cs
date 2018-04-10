@@ -46,7 +46,6 @@ namespace CodeHub.Views
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             Messenger.Default.Register(this, delegate(SetHeaderTextMessageType m) {  SetHeadertext(m.PageName); });
             Messenger.Default.Register(this, delegate (AdsEnabledMessageType m) { ViewModel.ToggleAdsVisiblity(); });
-            Messenger.Default.Register(this, delegate (HostWindowBlurMessageType m) { ConfigureWindowBlur(); });
             Messenger.Default.Register(this, delegate (UpdateUnreadNotificationMessageType m) { ViewModel.UpdateUnreadNotificationIndicator(m.IsUnread); });
             Messenger.Default.Register(this, async delegate (ShowWhatsNewPopupMessageType m) {await ShowWhatsNewPopupVisiblity(); });
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
@@ -69,29 +68,16 @@ namespace CodeHub.Views
             {
                 ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
                 ViewModel.IsPaneOpen = false;
-
-                if (ApiInformationHelper.IsCreatorsUpdateOrLater)
-                {
-                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
-                }
             }
             else
             {
                 ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
                 ViewModel.IsPaneOpen = true;
-
-                if (ApiInformationHelper.IsCreatorsUpdateOrLater && !ApiInformationHelper.IsMobileDevice)
-                {
-                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HamburgerBackdropAcrylicBrush");
-                }
             }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ConfigureWindowBlur();
-            await ConfigureHamburgerMenuBlur();
-
             await ViewModel.Initialize();
 
             if (SystemInformation.IsAppUpdated && ViewModel.isLoggedin)
@@ -147,31 +133,6 @@ namespace CodeHub.Views
                 await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.Y, 24, 0, 150, null, null, EasingFunctionNames.Linear);
             }
             HeaderAnimationSemaphore.Release();
-        }
-
-        public void ConfigureWindowBlur()
-        {
-            if (SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled) && ApiInformationHelper.IsCreatorsUpdateOrLater && !ApiInformationHelper.IsMobileDevice)
-            {
-                BlurBorder.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HostBackdropAcrylicBrush");
-            }
-            else BlurBorder.Background = (Brush)XAMLHelper.GetGenericResourceValue("ApplicationPageBackgroundThemeBrush");
-        }
-
-        public async Task ConfigureHamburgerMenuBlur()
-        {
-            if (ApiInformationHelper.IsCreatorsUpdateOrLater)
-            {
-                if (!ApiInformationHelper.IsMobileDevice && HamSplitView.DisplayMode == SplitViewDisplayMode.Inline)
-                {
-                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("HamburgerBackdropAcrylicBrush");
-                }
-                else
-                {
-                    BlurBorderHamburger.Background = XAMLHelper.GetResourceValue<CustomAcrylicBrush>("InAppAcrylicBrush");
-                }
-            }
-            else await BlurBorderHamburger.AttachCompositionBlurEffect(20, 100, true);
         }
 
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
