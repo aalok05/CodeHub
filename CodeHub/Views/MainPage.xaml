@@ -83,20 +83,20 @@
                            Background="{StaticResource AppGrayColor}"
                            Canvas.ZIndex="1">
 
-                <toolkitControl:RoundImageEx x:Name="profileEllipse"
-                                             Width="30"
-                                             Height="30"
-                                             Margin="12 4 0 4"
-                                             RelativePanel.AlignVerticalCenterWith="HamButton"
-                                             RelativePanel.RightOf="HamButton"
-                                             CornerRadius="999"
-                                             DecodePixelHeight="30"
-                                             DecodePixelType="Logical"
-                                             DecodePixelWidth="30"
-                                             IsCacheEnabled="True"
-                                             Stretch="UniformToFill"
-                                             Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
-                                             Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
+                <toolkitControl:ImageEx x:Name="profileEllipse"
+                                        Width="30"
+                                        Height="30"
+                                        Margin="12 4 0 4"
+                                        RelativePanel.AlignVerticalCenterWith="HamButton"
+                                        RelativePanel.RightOf="HamButton"
+                                        CornerRadius="999"
+                                        DecodePixelHeight="30"
+                                        DecodePixelType="Logical"
+                                        DecodePixelWidth="30"
+                                        IsCacheEnabled="True"
+                                        Stretch="UniformToFill"
+                                        Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                                        Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
                 <Button Name="HamButton"
                         Command="{x:Bind ViewModel.OpenPaneCommand}"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -177,100 +177,97 @@
                        LightDismissOverlayMode="On"
                        PaneBackground="Transparent">
                 <SplitView.Pane>
-                    <Grid>
-                        <Border x:Name="BlurBorderHamburger"/>
-                        <RelativePanel Name="HamRelative"
-                                       Padding="0 10 0 0"
-                                       Background="Transparent">
+                    <RelativePanel Name="HamRelative"
+                                   Padding="0 10 0 0"
+                                   Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush }">
 
-                            <toolkitControl:RoundImageEx x:Name="avatarEllipse"
-                                                         Margin="16 12 12 12"
-                                                         CornerRadius="999"
-                                                         Width="85"
-                                                         Height="85"
-                                                         DecodePixelHeight="85"
-                                                         DecodePixelType="Logical"
-                                                         DecodePixelWidth="85"
-                                                         IsCacheEnabled="True"
-                                                         Stretch="UniformToFill"
-                                                         Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
-                                                         Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
-                            <StackPanel Orientation="Vertical"
-                                        RelativePanel.AlignVerticalCenterWith="avatarEllipse"
-                                        RelativePanel.RightOf="avatarEllipse"
-                                        Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock Margin="0 0 0 4"
-                                           FontSize="14"
-                                           Opacity="0.7"
-                                           FontWeight="Medium"
-                                           Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
-                                <TextBlock Margin="0 0 0 10"
-                                           FontSize="11.5"
-                                           Opacity="0.7"
-                                           FontWeight="SemiBold"
-                                           Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                           Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
-                            </StackPanel>
+                        <toolkitControl:ImageEx x:Name="avatarEllipse"
+                                                Margin="16 12 12 12"
+                                                CornerRadius="999"
+                                                Width="85"
+                                                Height="85"
+                                                DecodePixelHeight="85"
+                                                DecodePixelType="Logical"
+                                                DecodePixelWidth="85"
+                                                IsCacheEnabled="True"
+                                                Stretch="UniformToFill"
+                                                Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+                                                Tapped="{x:Bind ViewModel.AppBarProfile_Tapped}"/>
+                        <StackPanel Orientation="Vertical"
+                                    RelativePanel.AlignVerticalCenterWith="avatarEllipse"
+                                    RelativePanel.RightOf="avatarEllipse"
+                                    Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock Margin="0 0 0 4"
+                                        FontSize="14"
+                                        Opacity="0.7"
+                                        FontWeight="Medium"
+                                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
+                            <TextBlock Margin="0 0 0 10"
+                                        FontSize="11.5"
+                                        Opacity="0.7"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                        Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
+                        </StackPanel>
 
-                            <ListView Name="HamListView"
-                                      Width="320"
-                                      ItemClick="HamListView_ItemClick"
-                                      IsItemClickEnabled="True"
-                                      ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                      ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
-                                      RelativePanel.Below="avatarEllipse"
-                                      SelectionMode="Single">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:HamItem">
-                                        <control:HamMenuListItem/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                        <ListView Name="HamListView"
+                                    Width="320"
+                                    ItemClick="HamListView_ItemClick"
+                                    IsItemClickEnabled="True"
+                                    ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                    ItemsSource="{x:Bind ViewModel.HamItems, Mode=OneWay}"
+                                    RelativePanel.Below="avatarEllipse"
+                                    SelectionMode="Single">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="model:HamItem">
+                                    <control:HamMenuListItem/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
-                            <ListView x:Name="HamListViewBottom"
-                                      Width="320"
-                                      ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                      RelativePanel.AlignBottomWithPanel="True"
-                                      RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                      SelectionMode="Single">
+                        <ListView x:Name="HamListViewBottom"
+                                    Width="320"
+                                    ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                    RelativePanel.AlignBottomWithPanel="True"
+                                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                    SelectionMode="Single">
 
-                                <ListViewItem Tapped="AccountsButton_Click">
-                                    <StackPanel HorizontalAlignment="Left"
+                            <ListViewItem Tapped="AccountsButton_Click">
+                                <StackPanel HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <Viewbox MaxHeight="18"
+                                                MaxWidth="18"
+                                                Margin="12 0 0 0">
+                                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                                    Symbol="Contact" />
+                                    </Viewbox>
+                                    <TextBlock Margin="24 0 0 0"
+                                               x:Uid="Accounts"
+                                               FontSize="13"
+                                               VerticalAlignment="Center"
+                                               Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
+                                <StackPanel HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Orientation="Horizontal">
-                                        <Viewbox MaxHeight="18"
+                                    <Viewbox MaxHeight="18"
                                                  MaxWidth="18"
                                                  Margin="12 0 0 0">
-                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
-                                                        Symbol="Contact" />
-                                        </Viewbox>
-                                        <TextBlock Margin="24 0 0 0"
-                                                   x:Uid="main_window_Accounts_Window"
-                                                   FontSize="13"
-                                                   VerticalAlignment="Center"
-                                                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem Tapped="{x:Bind ViewModel.NavigateToSettings}">
-                                    <StackPanel HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                Orientation="Horizontal">
-                                        <Viewbox MaxHeight="18"
-                                                 MaxWidth="18"
-                                                 Margin="12 0 0 0">
-                                            <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                                        <SymbolIcon Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
                                                         Symbol="Setting" />
-                                        </Viewbox>
-                                        <TextBlock x:Uid="menuName_Settings"
+                                    </Viewbox>
+                                    <TextBlock x:Uid="menuName_Settings"
                                                    Margin="24 0 0 0"
                                                    FontSize="13"
                                                    VerticalAlignment="Center"
                                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                    </StackPanel>
-                                </ListViewItem>
-                            </ListView>
-                        </RelativePanel>
-                    </Grid>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                    </RelativePanel>
                 </SplitView.Pane>
                 <SplitView.Content>
                     <Grid>
@@ -415,7 +412,7 @@
 
                 </Button>
             </Grid>
-            
+
         </Grid>
 
         <control:SignInPage x:Name="SignInPage"
@@ -463,22 +460,22 @@
                                 RelativePanel.AlignTopWithPanel="True"
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignRightWithPanel="True">
-                        <toolkitControl:RoundImageEx Width="80"
-                                                     Height="80"
-                                                     Margin="8"
-                                                     CornerRadius="999"
-                                                     DecodePixelHeight="80"
-                                                     DecodePixelType="Logical"
-                                                     DecodePixelWidth="80"
-                                                     IsCacheEnabled="True"
-                                                     Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
-                                                     Stretch="UniformToFill"/>
+                        <toolkitControl:ImageEx Width="80"
+                                                Height="80"
+                                                Margin="8"
+                                                CornerRadius="999"
+                                                DecodePixelHeight="80"
+                                                DecodePixelType="Logical"
+                                                DecodePixelWidth="80"
+                                                IsCacheEnabled="True"
+                                                Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
+                                                Stretch="UniformToFill"/>
 
                         <TextBlock FontSize="19"
                                    HorizontalAlignment="Center"
                                    Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}"/>
                         <Button Height="38"
-                                x:Uid="main_window_Sign_Out_From_Account"
+                                x:Uid="Sign_Out"
                                 Padding="28 0 28 0"
                                 Margin="8"
                                 HorizontalAlignment="Center"
@@ -497,18 +494,18 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:Account">
                                 <RelativePanel>
-                                    <toolkitControl:RoundImageEx x:Name="profilePic"
-                                                                 Width="30"
-                                                                 Height="30"
-                                                                 Margin="8"
-                                                                 CornerRadius="999"
-                                                                 DecodePixelHeight="30"
-                                                                 DecodePixelType="Logical"
-                                                                 DecodePixelWidth="30"
-                                                                 IsCacheEnabled="True"
-                                                                 Source="{Binding AvatarUrl, Mode=OneWay}"
-                                                                 Stretch="UniformToFill"
-                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                                    <toolkitControl:ImageEx x:Name="profilePic"
+                                                            Width="30"
+                                                            Height="30"
+                                                            Margin="8"
+                                                            CornerRadius="999"
+                                                            DecodePixelHeight="30"
+                                                            DecodePixelType="Logical"
+                                                            DecodePixelWidth="30"
+                                                            IsCacheEnabled="True"
+                                                            Source="{Binding AvatarUrl, Mode=OneWay}"
+                                                            Stretch="UniformToFill"
+                                                            RelativePanel.AlignVerticalCenterWithPanel="True"/>
 
                                     <TextBlock VerticalAlignment="Center"
                                                FontSize="14"
@@ -545,14 +542,13 @@
                                 <SymbolIcon Symbol="Add" />
                             </Viewbox>
                             <TextBlock FontSize="15"
-                                       x:Uid="main_window_Add_Account"/>
+                                       x:Uid="Add_Account"/>
                         </StackPanel>
                     </Button>
                 </RelativePanel>
             </toolkitControl:DropShadowPanel>
-           
         </Grid>
-        
+
 
         <control:WhatsNewPopupControl x:Name="WhatsNewPopup"
                                       Visibility="Collapsed"

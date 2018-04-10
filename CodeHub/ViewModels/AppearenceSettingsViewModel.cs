@@ -92,26 +92,6 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public bool _IsAcrylicBlurEnabled = SettingsService.Get<bool>(SettingsKeys.IsAcrylicBlurEnabled);
-
-        /// <summary>
-        /// Gets or sets if Acrylic blur is enabled
-        /// </summary>
-        public bool IsAcrylicBlurEnabled
-        {
-            get { return _IsAcrylicBlurEnabled; }
-            set
-            {
-                if (_IsAcrylicBlurEnabled != value)
-                {
-                    _IsAcrylicBlurEnabled = value;
-                    SettingsService.Save(SettingsKeys.IsAcrylicBlurEnabled, value);
-                    Messenger.Default.Send(new GlobalHelper.HostWindowBlurMessageType());
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
         /// <summary>
         /// Gets the currently selected highlight style
         /// </summary>

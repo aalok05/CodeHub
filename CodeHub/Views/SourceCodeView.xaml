@@ -8,7 +8,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="using:CodeHub.Models"
       xmlns:octo="using:Octokit"
-      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI.Extensions"
       xmlns:resources="using:CodeHub.Resources"
       mc:Ignorable="d">
     <Page.Resources>
@@ -43,7 +43,7 @@
                   ItemClick="{x:Bind ViewModel.RepoContentDrillNavigate}"
                   ItemTemplate="{StaticResource RepositoryEntryTemplate}"
                   ItemsSource="{x:Bind ViewModel.Content, Mode=OneWay}"
-                  ui:ListViewBaseExtensions.AlternateColor="{StaticResource OddAlternatingRowsBrush}"
+                  ui:ListViewExtensions.AlternateColor="{StaticResource OddAlternatingRowsBrush}"
                   SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

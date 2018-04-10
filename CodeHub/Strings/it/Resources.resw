@@ -573,4 +573,13 @@
   <data name="activity_ActivityWithIssues" xml:space="preserve">
     <value>{0} problema #{1} in</value>
   </data>
+  <data name="Sign_Out.Content" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Accounts.Text" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="Add_Account.Text" xml:space="preserve">
+    <value>Add Account</value>
+  </data>
 </root>

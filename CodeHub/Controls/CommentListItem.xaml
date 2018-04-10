@@ -18,18 +18,18 @@
             CornerRadius="4">
 
         <RelativePanel Background="{ThemeResource SystemChromeLowColor}">
-            <toolkitControls:RoundImageEx x:Name="avatar"
-                                          Width="35"
-                                          Height="35"
-                                          Margin="12,12,12,0"
-                                          CornerRadius="999"
-                                          DecodePixelHeight="35"
-                                          DecodePixelType="Logical"
-                                          DecodePixelWidth="35"
-                                          IsCacheEnabled="True"
-                                          Stretch="UniformToFill"
-                                          Tapped="User_Tapped"
-                                          Source="{Binding User.AvatarUrl, Mode=OneWay}"/>
+            <toolkitControls:ImageEx x:Name="avatar"
+                                     Width="35"
+                                     Height="35"
+                                     Margin="12,12,12,0"
+                                     CornerRadius="999"
+                                     DecodePixelHeight="35"
+                                     DecodePixelType="Logical"
+                                     DecodePixelWidth="35"
+                                     IsCacheEnabled="True"
+                                     Stretch="UniformToFill"
+                                     Tapped="User_Tapped"
+                                     Source="{Binding User.AvatarUrl, Mode=OneWay}"/>
             <TextBlock x:Name="login"
                        FontSize="15"
                        Foreground="Gray"
