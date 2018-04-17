@@ -103,5 +103,27 @@ namespace CodeHub.Services
             }
 
         }
+
+        //public static async Task SearchInRepo(string query)
+        //{
+        //    try
+        //    {
+        //        try
+        //        {
+        //            var request = new SearchIssuesRequest(query);
+                    
+        //            var result = await GlobalHelper.GithubClient.Search.
+        //            return new ObservableCollection<Issue>(result.Items);
+        //        }
+        //        catch
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
     }
 }
