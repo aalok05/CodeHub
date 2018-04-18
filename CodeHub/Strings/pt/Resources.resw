@@ -469,7 +469,7 @@
     <value>Desenvolvido por Aalok Singh</value>
   </data>
   <data name="addDisable.Text" xml:space="preserve">
-    <value>Fazer uma doação para ativar a opção de desligar a publicidade.</value>
+    <value>Fazer uma doação para habilitar a opção de desativar os anúncios.</value>
   </data>
   <data name="donatePatreonBtn.Content" xml:space="preserve">
     <value>Faça uma doação para o CodeHub pelo Patreon</value>
@@ -562,7 +562,7 @@
     <value>Se você gostaria de traduzir CodeHub para sua língua, envie-me um e-mail!</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
-    <value>Por favor, faça uma doação para me ajudar, indo em Congifurações > Doar. Também livre-se dos anúncios!</value>
+    <value>Por favor, faça uma doação para me ajudar, indo em Congifurações > Doação. Com isso, também livre-se dos anúncios!</value>
   </data>
   <data name="function_CommentCreate.Content" xml:space="preserve">
     <value>Comentar</value>
