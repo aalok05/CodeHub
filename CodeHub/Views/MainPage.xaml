@@ -299,8 +299,8 @@
                                       Height="90"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Bottom"
-                                      AdUnitId="test"
-                                      ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"
+                                      AdUnitId="11650563"
+                                      ApplicationId="9nblggh52tbd"
                                       AutoRefreshIntervalInSeconds="60"
                                       IsAutoRefreshEnabled="True" />
                         <AD:AdControl x:Name="adControlMobile"
@@ -310,8 +310,8 @@
                                       Height="50"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Bottom"
-                                      AdUnitId="test"
-                                      ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"
+                                      AdUnitId="11650562"
+                                      ApplicationId="9nblggh52tbd"
                                       AutoRefreshIntervalInSeconds="60"
                                       IsAutoRefreshEnabled="True" />
                     </Grid>
