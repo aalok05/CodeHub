@@ -40,7 +40,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
             SettingsService.Save(SettingsKeys.HasUserDonated, false, false);
 
-            AppCenter.Start("4c8deb54-8947-45cb-9c75-98c3489a7ed6", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("ecd96e4c-b301-48f3-b640-166a040f1d86", typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>
