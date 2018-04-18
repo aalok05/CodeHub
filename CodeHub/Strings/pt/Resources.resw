@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -122,22 +122,22 @@
     <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
   </data>
   <data name="credits.Header" xml:space="preserve">
-    <value>CrÃ©ditos</value>
+    <value>Créditos</value>
   </data>
   <data name="disclaimer.Text" xml:space="preserve">
-    <value>Este app de nenhuma maneira Ã© afiliado ao GitHub.</value>
+    <value>Este app não é de nenhuma maneira vinculado ao GitHub.</value>
   </data>
   <data name="privacyLink.Content" xml:space="preserve">
-    <value>PolÃ­tica de Privacidade</value>
+    <value>Política de Privacidade</value>
   </data>
   <data name="rateButtonContent.Text" xml:space="preserve">
-    <value>Classifique o app</value>
+    <value>Avalie o app</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
     <value>Tema</value>
   </data>
   <data name="AppRestartTip.Text" xml:space="preserve">
-    <value>AlteraÃ§Ãµes no tema exigem a reinicializaÃ§Ã£o do aplicativo</value>
+    <value>Alterações exigem a reinicialização do aplicativo</value>
   </data>
   <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
     <value>Tema escuro</value>
@@ -146,11 +146,11 @@
     <value>Tema claro</value>
   </data>
   <data name="version.Text" xml:space="preserve">
-    <value>VersÃ£o</value>
+    <value>Versão</value>
     <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
   </data>
   <data name="adSetting.Text" xml:space="preserve">
-    <value>Apoiar o desenvolvimento, permitir anÃºncios</value>
+    <value>Apoiar o desenvolvimento ao permitir anúncios</value>
   </data>
   <data name="busyScreen.BusyText" xml:space="preserve">
     <value>Aguarde...</value>
@@ -164,7 +164,7 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
-    <value>What's new?</value>
+    <value>O que há de novo?</value>
   </data>
   <data name="followButton.Content" xml:space="preserve">
     <value>Seguir</value>
@@ -180,29 +180,29 @@
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="loadCommitMessage.Text" xml:space="preserve">
-    <value>Mensagens de confirmaÃ§Ã£o de commit para arquivos</value>
+    <value>Mensagens de confirmação de commit para arquivos</value>
   </data>
   <data name="noEvent.Text" xml:space="preserve">
-    <value>Ainda nÃ£o hÃ¡ eventos</value>
+    <value>Ainda não há eventos</value>
   </data>
   <data name="pickDonateOption.Text" xml:space="preserve">
-    <value>Escolha uma opÃ§Ã£o para oferecer suporte ao desenvolvedor</value>
+    <value>Escolha uma opção para oferecer suporte ao desenvolvedor</value>
   </data>
   <data name="preview.Text" xml:space="preserve">
-    <value>VisualizaÃ§Ã£o</value>
+    <value>Visualização</value>
   </data>
   <data name="repositories.Text" xml:space="preserve">
-    <value>repositÃ³rios</value>
+    <value>repositórios</value>
   </data>
   <data name="secondDonateTierAmount.Content" xml:space="preserve">
     <value>Doar US $2,99</value>
     <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
   </data>
   <data name="showLineNumber.Text" xml:space="preserve">
-    <value>Mostrar nÃºmero das linhas</value>
+    <value>Mostrar número das linhas</value>
   </data>
   <data name="showReadMe.Text" xml:space="preserve">
-    <value>Mostrar a pÃ¡gina README do repositÃ³rio</value>
+    <value>Mostrar a página README do repositório</value>
   </data>
   <data name="syntaxHightlignting.Text" xml:space="preserve">
     <value>Estilo de realce de sintaxe</value>
@@ -215,10 +215,10 @@
     <value>Deixar de Seguir</value>
   </data>
   <data name="unsupportedFileType.Text" xml:space="preserve">
-    <value>Tipo de arquivo nÃ£o suportado</value>
+    <value>Tipo de arquivo não suportado</value>
   </data>
   <data name="all.Text" xml:space="preserve">
-    <value>tudo</value>
+    <value>todos</value>
     <comment>Context: all repositories</comment>
   </data>
   <data name="closed.Text" xml:space="preserve">
@@ -226,7 +226,7 @@
     <comment>Context: status of Issue #1 is closed</comment>
   </data>
   <data name="comments.Text" xml:space="preserve">
-    <value>ComentÃ¡rios</value>
+    <value>Comentários</value>
     <comment>Context: Your commit received 5 comments</comment>
   </data>
   <data name="loadMoreButton.Content" xml:space="preserve">
@@ -234,49 +234,49 @@
     <comment>preserve ellipsis when translating</comment>
   </data>
   <data name="mineIssue.Text" xml:space="preserve">
-    <value>Meu</value>
+    <value>abertos por mim</value>
     <comment>Context: My Issues, i.e. issues opened by me</comment>
   </data>
   <data name="myRepos.Text" xml:space="preserve">
-    <value>Meus RepositÃ³rios</value>
+    <value>Meus Repositórios</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>Feed de notÃ­cias</value>
+    <value>Feed de notícias</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
-    <value>NÃ£o hÃ¡ problemas resolvidos</value>
+    <value>Não há questões resolvidas</value>
   </data>
   <data name="noIssue.Text" xml:space="preserve">
-    <value>Sem problemas</value>
+    <value>Sem questões</value>
   </data>
   <data name="noNewNotification.Text" xml:space="preserve">
-    <value>NÃ£o hÃ¡ novas notificaÃ§Ãµes</value>
+    <value>Não há novas notificações</value>
   </data>
   <data name="noOpenIssue.Text" xml:space="preserve">
-    <value>NÃ£o hÃ¡ problemas em aberto</value>
+    <value>Não há questões em aberto</value>
   </data>
   <data name="noOrganizationTip.Text" xml:space="preserve">
-    <value>Ainda nÃ£o hÃ¡ organizaÃ§Ãµes. Desativar as restriÃ§Ãµes de aplicativo de terceiros para a sua organizaÃ§Ã£o</value>
+    <value>Ainda não há organizações. Desativar as restrições de aplicativo de terceiros para a sua organização</value>
   </data>
   <data name="noRepositoryTip.Text" xml:space="preserve">
-    <value>Ainda nÃ£o hÃ¡ repositÃ³rios</value>
+    <value>Ainda não há repositórios</value>
   </data>
   <data name="noStarredRepositoryTip.Text" xml:space="preserve">
-    <value>Nenhum repositÃ³rio estrelou ainda</value>
+    <value>Nenhum repositório favoritado ainda</value>
   </data>
   <data name="openedBy.Text" xml:space="preserve">
     <value>aberto por</value>
     <comment>Context: Issue #1 is opened by XXX</comment>
   </data>
   <data name="open.Text" xml:space="preserve">
-    <value>abrir</value>
+    <value>abertos</value>
     <comment>Context: status of Issue #1 is open</comment>
   </data>
   <data name="organizations.Text" xml:space="preserve">
-    <value>OrganizaÃ§Ãµes</value>
+    <value>Organizações</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>participando</value>
+    <value>está envolvido</value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
@@ -286,7 +286,7 @@
     <value>Sair</value>
   </data>
   <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
-    <value>Cancelar a inscriÃ§Ã£o desta lista de discussÃ£o</value>
+    <value>Cancelar a inscrição desta lista de discussão</value>
   </data>
   <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
     <value>Marcar como lido</value>
@@ -296,7 +296,7 @@
     <comment>Context: starred repositories</comment>
   </data>
   <data name="thisMonth.Text" xml:space="preserve">
-    <value>este mÃªs</value>
+    <value>este mês</value>
   </data>
   <data name="thisWeek.Text" xml:space="preserve">
     <value>esta semana</value>
@@ -305,29 +305,29 @@
     <value>hoje</value>
   </data>
   <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
-    <value>TendÃªncias de repositÃ³rios que estÃ£o sendo atualizados pelo Github</value>
+    <value>Tendências de repositórios que estão sendo atualizados pelo GitHub</value>
   </data>
   <data name="trending.Text" xml:space="preserve">
-    <value>TendÃªncias</value>
+    <value>Tendências</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
-    <value>nÃ£o lido</value>
+    <value>não lido</value>
     <comment>Context: unread notifications</comment>
   </data>
   <data name="code.Text" xml:space="preserve">
-    <value>CÃ³digo</value>
+    <value>Código</value>
   </data>
   <data name="issues.Text" xml:space="preserve">
-    <value>Problemas</value>
+    <value>Questões</value>
   </data>
   <data name="noRepositoriy.Text" xml:space="preserve">
-    <value>Sem RepositÃ³rios</value>
+    <value>Sem Repositórios</value>
   </data>
   <data name="noResult.Text" xml:space="preserve">
-    <value>Nenhum Resultado</value>
+    <value>Nada foi encontrado</value>
   </data>
   <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
-    <value>pesquise</value>
+    <value>busque</value>
   </data>
   <data name="signIn.Content" xml:space="preserve">
     <value>Fazer Logon</value>
@@ -339,7 +339,7 @@
     <value>Bem-vindo ao CodeHub</value>
   </data>
   <data name="contributor.Text" xml:space="preserve">
-    <value>Colaboradores</value>
+    <value>Contribuidores</value>
   </data>
   <data name="creator.Text" xml:space="preserve">
     <value>O Criador</value>
@@ -349,31 +349,31 @@
     <value>Tradutores</value>
   </data>
   <data name="clone.Text" xml:space="preserve">
-    <value>Clone</value>
+    <value>Clonar</value>
   </data>
   <data name="share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>Compartilhar</value>
   </data>
   <data name="labels.Text" xml:space="preserve">
-    <value>Labels</value>
+    <value>Rótulos</value>
   </data>
   <data name="comment.PlaceholderText" xml:space="preserve">
-    <value>Comment</value>
+    <value>Comentar</value>
   </data>
   <data name="title.PlaceholderText" xml:space="preserve">
-    <value>Title</value>
+    <value>Título</value>
   </data>
   <data name="body.PlaceholderText" xml:space="preserve">
-    <value>Body</value>
+    <value>Corpo</value>
   </data>
   <data name="create.Content" xml:space="preserve">
-    <value>Create</value>
+    <value>Criar</value>
   </data>
   <data name="cancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="activity.Text" xml:space="preserve">
-    <value>activity</value>
+    <value>atividade</value>
   </data>
   <data name="pullRequests.Text" xml:space="preserve">
     <value>Pull Requests</value>
@@ -382,19 +382,19 @@
     <value>README</value>
   </data>
   <data name="contributors.Text" xml:space="preserve">
-    <value>CONTRIBUTORS</value>
+    <value>Contribuidores</value>
   </data>
   <data name="releases.Text" xml:space="preserve">
-    <value>RELEASES</value>
+    <value>Lançamentos</value>
   </data>
   <data name="noClosedPullRequests.Text" xml:space="preserve">
-    <value>No closed Pull Requests</value>
+    <value>Nenhum Pull Request fechado</value>
   </data>
   <data name="noOpenPullRequests.Text" xml:space="preserve">
-    <value>No open Pull Requests</value>
+    <value>Nenhum Pull Request aberto</value>
   </data>
   <data name="commited.Text" xml:space="preserve">
-    <value>commited</value>
+    <value>comitado</value>
   </data>
   <data name="commits.Text" xml:space="preserve">
     <value>Commits</value>
@@ -409,100 +409,100 @@
     <value>Doar US $19,99</value>
   </data>
   <data name="owned.Text" xml:space="preserve">
-    <value>owned</value>
+    <value>próprios</value>
   </data>
   <data name="save.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Salvar</value>
   </data>
   <data name="markAllAsRead.Label" xml:space="preserve">
-    <value>Mark all as read</value>
+    <value>Marcar todas como lida</value>
   </data>
   <data name="checkNotificationsFrequently.Text" xml:space="preserve">
-    <value>Check for Notifications frequently</value>
+    <value>Checar frequentemente por notificações</value>
   </data>
   <data name="fifthDonateTierAmount.Content" xml:space="preserve">
     <value>Doar US $14,99</value>
   </data>
   <data name="newIssue.Text" xml:space="preserve">
-    <value>New Issue</value>
+    <value>Nova Questão</value>
   </data>
   <data name="aSecondAgo" xml:space="preserve">
-    <value>hÃ¡ um segundo atrÃ¡s</value>
+    <value>um segundo atrás</value>
   </data>
   <data name="secondsAgo" xml:space="preserve">
-    <value>hÃ¡ uns segundos atrÃ¡s</value>
+    <value>segundos atrás</value>
   </data>
   <data name="aMinuteAgo" xml:space="preserve">
-    <value>hÃ¡ um minuto atrÃ¡s</value>
+    <value>um minuto atrás</value>
   </data>
   <data name="minutesAgo" xml:space="preserve">
-    <value>hÃ¡ minutos atrÃ¡s</value>
+    <value>minutos atrás</value>
   </data>
   <data name="anHourAgo" xml:space="preserve">
-    <value>hÃ¡ uma hora atrÃ¡s</value>
+    <value>uma hora atrás</value>
   </data>
   <data name="hoursAgo" xml:space="preserve">
-    <value>hÃ¡ horas atrÃ¡s</value>
+    <value>horas atrás</value>
   </data>
   <data name="aDayAgo" xml:space="preserve">
-    <value>hÃ¡ um dia atrÃ¡s</value>
+    <value>um dia atrás</value>
   </data>
   <data name="daysAgo" xml:space="preserve">
-    <value>hÃ¡ dias atrÃ¡s</value>
+    <value>dias atrás</value>
   </data>
   <data name="aMonthAgo" xml:space="preserve">
-    <value>hÃ¡ um mÃªs atrÃ¡s</value>
+    <value>um mês atrás</value>
   </data>
   <data name="monthsAgo" xml:space="preserve">
-    <value>hÃ¡ meses atrÃ¡s</value>
+    <value>meses atrás</value>
   </data>
   <data name="aYearAgo" xml:space="preserve">
-    <value>hÃ¡ um ano atrÃ¡s</value>
+    <value>um ano atrás</value>
   </data>
   <data name="yearsAgo" xml:space="preserve">
-    <value>hÃ¡ anos atrÃ¡s</value>
+    <value>anos atrás</value>
   </data>
   <data name="WhatsNewButton.Content" xml:space="preserve">
-    <value>Novidades nesta versÃ£o</value>
+    <value>Novidades nesta versão</value>
   </data>
   <data name="creatorText.Text" xml:space="preserve">
     <value>Desenvolvido por Aalok Singh</value>
   </data>
   <data name="addDisable.Text" xml:space="preserve">
-    <value>Faz uma doaÃ§Ã£o para ativar a opÃ§Ã£o de desligar a publicidade.</value>
+    <value>Fazer uma doação para ativar a opção de desligar a publicidade.</value>
   </data>
   <data name="donatePatreonBtn.Content" xml:space="preserve">
-    <value>Fazer uma doaÃ§Ã£o para o CodeHube no Patreon</value>
+    <value>Faça uma doação para o CodeHub pelo Patreon</value>
   </data>
   <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
-    <value>Todas as lÃ­nguas</value>
+    <value>Todas as línguas</value>
   </data>
   <data name="search_Reset.Text" xml:space="preserve">
-    <value>Repor</value>
+    <value>Limpar</value>
   </data>
   <data name="pageTitle_CommentView" xml:space="preserve">
-    <value>Comment</value>
+    <value>Comentar</value>
   </data>
   <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
-    <value>Profile</value>
+    <value>Perfil</value>
   </data>
   <data name="pageTitle_FeedView" xml:space="preserve">
-    <value>News Feed</value>
+    <value>Novas Notícias</value>
   </data>
   <data name="pageTitle_IssueDetailView" xml:space="preserve">
-    <value>Issue</value>
+    <value>Questão</value>
   </data>
   <data name="pageTitle_IssuesView" xml:space="preserve">
-    <value>Issues</value>
+    <value>Questões</value>
   </data>
   <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
-    <value>My Organizations</value>
+    <value>Minhas Organizações</value>
   </data>
   <data name="pageTitle_MyReposView" xml:space="preserve">
-    <value>My Repositories</value>
+    <value>Meus Repositórios</value>
   </data>
   <data name="pageTitle_NotificationsView" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notificações</value>
   </data>
   <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
     <value>Pull Request</value>
@@ -511,132 +511,132 @@
     <value>Pull Requests</value>
   </data>
   <data name="pageTitle_RepoDetailView" xml:space="preserve">
-    <value>Repository</value>
+    <value>Repositório</value>
   </data>
   <data name="pageTitle_SearchView" xml:space="preserve">
-    <value>Search</value>
+    <value>Buscar</value>
   </data>
   <data name="pageTitle_SettingsView" xml:space="preserve">
-    <value>Settings</value>
+    <value>Configurações</value>
   </data>
   <data name="pageTitle_TrendingView" xml:space="preserve">
-    <value>Trending</value>
+    <value>Tendências</value>
   </data>
   <data name="pageTitle_OrganizationView" xml:space="preserve">
-    <value>Organization</value>
+    <value>Organização</value>
   </data>
   <data name="menuName_Settings.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Configurações</value>
   </data>
   <data name="menu_Settings_SubMenu_General" xml:space="preserve">
-    <value>General</value>
+    <value>Geral</value>
   </data>
   <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
-    <value>App preferences</value>
+    <value>Preferências do App</value>
   </data>
   <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Aparência</value>
   </data>
   <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
-    <value> UI customization</value>
+    <value>Personalização da UI</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
-    <value>Donate</value>
+    <value>Doação</value>
   </data>
   <data name="menu_Settings_SubMenu_About" xml:space="preserve">
-    <value>About</value>
+    <value>Sobre</value>
   </data>
   <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
-    <value>CrÃ©ditos</value>
+    <value>Créditos</value>
   </data>
   <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
-    <value>Thanks for your contributions!</value>
+    <value>Obrigado pela sua contribuição!</value>
   </data>
   <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
-    <value>Support the app and the developer</value>
+    <value>Apoiar o app e o desenvolvedor</value>
   </data>
   <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
-    <value>Developer info and contacts</value>
+    <value>Contatos e informações sobre o desenvolvedor</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
-    <value>If you'd like to translate CodeHub into your language, be sure to send me an email!</value>
+    <value>Se você gostaria de traduzir CodeHub para sua língua, envie-me um e-mail!</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
-    <value>Please make a donation to help me support myself, by going to Settings -&gt; Donate. Also get rid of the ads!</value>
+    <value>Por favor, faça uma doação para me ajudar, indo em Congifurações > Doar. Também livre-se dos anúncios!</value>
   </data>
   <data name="function_CommentCreate.Content" xml:space="preserve">
-    <value>Comment</value>
+    <value>Comentar</value>
   </data>
   <data name="function_CommentCancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="markdownComment_NoContent" xml:space="preserve">
-    <value>Nothing to Preview</value>
+    <value>Nada a ver</value>
   </data>
   <data name="markdownComment_Preview.Text" xml:space="preserve">
-    <value>Preview</value>
+    <value>Prévia</value>
   </data>
   <data name="markdownComment_Write.Text" xml:space="preserve">
-    <value>Write</value>
+    <value>Escrever</value>
   </data>
   <data name="notification_NoInternetConnection" xml:space="preserve">
-    <value>No Internet</value>
+    <value>Sem Internet</value>
   </data>
   <data name="activity_CommentedIssue" xml:space="preserve">
-    <value>commented on issue #{0} in</value>
+    <value>comentou na questão #{0} em</value>
   </data>
   <data name="activity_CommentedPR" xml:space="preserve">
-    <value>commented on PR #{0}</value>
+    <value>comentou no PR #{0}</value>
   </data>
   <data name="activity_CommentedCommit" xml:space="preserve">
-    <value>commented on commit in</value>
+    <value>comentou no commit em</value>
   </data>
   <data name="activity_PushedCommits" xml:space="preserve">
-    <value>pushed {0} commits to</value>
+    <value>fez {0} commits para</value>
   </data>
   <data name="activity_DeletedBranch" xml:space="preserve">
-    <value>deleted in</value>
+    <value>deletado em</value>
   </data>
   <data name="activity_CreatedBranch" xml:space="preserve">
-    <value>created in</value>
+    <value>criado em</value>
   </data>
   <data name="activity_ForkedRepository" xml:space="preserve">
-    <value>forked</value>
+    <value>fez um fork</value>
   </data>
   <data name="activity_StarredRepository" xml:space="preserve">
-    <value>starred</value>
+    <value>favoritado</value>
   </data>
   <data name="activity_DefaultAction" xml:space="preserve">
-    <value>acted on</value>
+    <value>agiu em</value>
   </data>
   <data name="activity_PublishedRelease" xml:space="preserve">
-    <value>published a release to</value>
+    <value>liberou uma nova versão estável para</value>
   </data>
   <data name="activity_PublishedRepository" xml:space="preserve">
-    <value>open sourced</value>
+    <value>código aberto</value>
   </data>
   <data name="activity_ActionOpened" xml:space="preserve">
-    <value>opened</value>
+    <value>aberto</value>
   </data>
   <data name="activity_ActivityWithPR" xml:space="preserve">
     <value>{0} PR #{1}</value>
   </data>
   <data name="activity_ActionClosed" xml:space="preserve">
-    <value>closed</value>
+    <value>fechado</value>
   </data>
   <data name="activity_ActionReOpened" xml:space="preserve">
-    <value>reopened</value>
+    <value>reaberto</value>
   </data>
   <data name="activity_ActivityWithIssues" xml:space="preserve">
-    <value>{0} issue #{1} in</value>
+    <value>{0} questões #{1} em</value>
   </data>
   <data name="Sign_Out.Content" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Sair</value>
   </data>
   <data name="Accounts.Text" xml:space="preserve">
-    <value>Accounts</value>
+    <value>Contas</value>
   </data>
   <data name="Add_Account.Text" xml:space="preserve">
-    <value>Add Account</value>
+    <value>Adicionar Conta</value>
   </data>
 </root>
