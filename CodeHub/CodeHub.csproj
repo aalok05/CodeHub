@@ -126,6 +126,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\transparent.png" />
+    <None Include="Package.xml" />
     <Content Include="Services\Hilite-me\Samples\Borland.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
