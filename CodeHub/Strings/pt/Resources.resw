@@ -241,7 +241,7 @@
     <value>Meus Repositórios</value>
   </data>
   <data name="newsFeed.Text" xml:space="preserve">
-    <value>Feed de notícias</value>
+    <value>Feed de Notícias</value>
   </data>
   <data name="noClosedIssue.Text" xml:space="preserve">
     <value>Não há questões resolvidas</value>
@@ -487,7 +487,7 @@
     <value>Perfil</value>
   </data>
   <data name="pageTitle_FeedView" xml:space="preserve">
-    <value>Novas Notícias</value>
+    <value>Feed de Notícias</value>
   </data>
   <data name="pageTitle_IssueDetailView" xml:space="preserve">
     <value>Questão</value>
