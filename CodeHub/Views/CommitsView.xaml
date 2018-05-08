@@ -25,7 +25,7 @@
                       Height="40"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
 
     </Grid>
 </Page>

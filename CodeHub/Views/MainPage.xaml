@@ -155,7 +155,7 @@
                              Fill="{StaticResource AppGrayColor}"/>
                     <Ellipse Width="10"
                              Height="10"
-                             Fill="{StaticResource AppPrimaryColorBrush}"/>
+                             Fill="{StaticResource SystemControlBackgroundAccentBrush}"/>
                 </Grid>
                 <Button x:Name="AccountsButton"
                         Width="50"

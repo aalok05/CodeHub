@@ -227,7 +227,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
@@ -255,7 +255,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsStarredReposLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
@@ -285,7 +285,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsFollowersLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
@@ -315,7 +315,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsFollowingLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>

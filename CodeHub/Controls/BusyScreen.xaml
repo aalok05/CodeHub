@@ -15,7 +15,7 @@
                       Height="40"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                       IsActive="{x:Bind IsBusy, Mode=OneWay}" />
     </Grid>
 </UserControl>

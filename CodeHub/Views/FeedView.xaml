@@ -173,7 +173,7 @@
                       Height="40"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                       IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
         <ProgressBar IsIndeterminate="True" 
                      HorizontalAlignment="Stretch" 
@@ -182,7 +182,7 @@
                      MaxHeight="5"
                      MaxWidth="2000"
                      Visibility="{x:Bind ViewModel.IsIncrementalLoading,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                     Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                     Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
         <TextBlock x:Uid="noEvent"
                    Style="{StaticResource ZeroItemsTextBoxStyle}"
                    Visibility="{x:Bind ViewModel.ZeroEventCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />

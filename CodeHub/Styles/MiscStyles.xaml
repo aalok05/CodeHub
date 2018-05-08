@@ -253,7 +253,7 @@
 
     <Style x:Key="SplitViewTogglePaneButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource SystemControlBackgroundAccentBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -482,7 +482,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
                                                                        Storyboard.TargetName="RootGrid">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{StaticResource AppPrimaryColorBrush}" />
+                                                                    Value="{StaticResource SystemControlBackgroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
@@ -507,7 +507,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
                                                                        Storyboard.TargetName="RootGrid">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{StaticResource AppPrimaryColorBrush}" />
+                                                                    Value="{StaticResource SystemControlBackgroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
@@ -532,7 +532,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
                                                                        Storyboard.TargetName="RootGrid">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{StaticResource AppPrimaryColorBrush}" />
+                                                                    Value="{StaticResource SystemControlBackgroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" To="90.0"
@@ -768,7 +768,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppPrimaryColorBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SystemControlBackgroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotHeaderItemBackgroundSelected}" />
@@ -788,7 +788,7 @@
                                 <VisualState x:Name="SelectedPointerOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppPrimaryDarkColorBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotHeaderItemBackgroundSelectedPointerOver}" />
@@ -808,7 +808,7 @@
                                 <VisualState x:Name="SelectedPressed">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppPrimaryDarkColorBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotHeaderItemBackgroundSelectedPressed}" />

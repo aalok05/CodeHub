@@ -27,11 +27,11 @@
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.Below="Filename">
             <TextBlock FontSize="22"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                        Text="+" />
             <TextBlock Margin="0,0,4,0"
                        FontSize="22"
-                       Foreground="{StaticResource AppPrimaryColorBrush}"
+                       Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                        Text="{Binding Additions, Mode=OneWay}" />
             <TextBlock FontSize="22"
                        Foreground="Brown"

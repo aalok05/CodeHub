@@ -85,7 +85,7 @@
                                   Height="50"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
 
@@ -147,7 +147,7 @@
                                   Height="50"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsStarredLoading, Mode=OneWay}" />
                 </Grid>
 

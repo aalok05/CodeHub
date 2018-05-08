@@ -58,7 +58,7 @@
                            VerticalAlignment="Center"
                            Grid.Column="2"
                            FontSize="16"
-                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                            Margin="12,2,0,0"/>
             <TextBlock Text="{x:Bind ViewModel.Path, Mode=OneWay, FallbackValue=/}"
                            Margin="8,0,0,0"
@@ -116,7 +116,7 @@
         <ProgressRing Grid.Row="1"
                       Width="40"
                       Height="40"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
     </Grid>
 

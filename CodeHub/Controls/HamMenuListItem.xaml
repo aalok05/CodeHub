@@ -19,7 +19,7 @@
                    Margin="-12,0,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   Fill="{StaticResource AppPrimaryColorBrush}"
+                   Fill="{StaticResource SystemControlBackgroundAccentBrush}"
                    Visibility="{Binding SelectedVisual, Mode=TwoWay}" />
 
         <Viewbox Grid.Column="0"
