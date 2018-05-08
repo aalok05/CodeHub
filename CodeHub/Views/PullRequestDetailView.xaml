@@ -161,12 +161,12 @@
                         Orientation="Horizontal"
                         RelativePanel.Below="statePanel">
                 <TextBlock FontSize="22"
-                           Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
                            Text="+" />
                 <TextBlock Margin="0,0,4,0"
                            FontSize="22"
                            FontWeight="SemiLight"
-                           Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
+                           Foreground="{StaticResource AppPrimaryColorBrush}"
                            Text="{x:Bind ViewModel.PullRequest.Additions, Mode=OneWay}" />
                 <TextBlock FontSize="22"
                            Foreground="Brown"
