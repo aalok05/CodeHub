@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="CodeHub.Views.EditProfileView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CodeHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CodeHub.Controls"
+    xmlns:converters="using:CodeHub.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+    <ScrollViewer HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Hidden"
+                  VerticalScrollMode="Auto">
+        <Grid>
+            <StackPanel Orientation="Vertical" 
+                    Padding="12">
+                <TextBlock Text="Name"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       Margin="0 0 0 8"
+                       Grid.Column="0"/>
+                <TextBox Style="{StaticResource TextBoxNoBorderStyle}"
+                     Text="{x:Bind ViewModel.UserUpdate.Name,Mode=TwoWay}"
+                     VerticalAlignment="Center"
+                     Margin="0 0 0 24"/>
+
+                <TextBlock Text="Public Email"
+                       Margin="0 0 0 8"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"/>
+                <TextBox Margin="0 0 0 24"
+                     Style="{StaticResource TextBoxNoBorderStyle}"
+                     Text="{x:Bind ViewModel.UserUpdate.Email,Mode=TwoWay}"
+                     Grid.Column="1"/>
+
+                <TextBlock Text="Bio"
+                       FontWeight="Bold"
+                       Margin="0 0 0 8"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+                <TextBox BorderThickness="0.5"
+                     Margin="0 0 0 24"
+                     TextWrapping="Wrap"
+                     Height="80"
+                     Style="{StaticResource TextBoxNoBorderStyle}"
+                     Text="{x:Bind ViewModel.UserUpdate.Bio, Mode=TwoWay}"
+                     AcceptsReturn="True"/>
+
+                <TextBlock Text="URL"
+                       FontWeight="Bold"
+                       Margin="0 0 0 8"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+                <TextBox Style="{StaticResource TextBoxNoBorderStyle}"
+                     Margin="0 0 0 24"
+                     Text="{x:Bind ViewModel.UserUpdate.Blog, Mode=TwoWay}"
+                     AcceptsReturn="False"/>
+
+                <TextBlock Text="Company"
+                       FontWeight="Bold"
+                       Margin="0 0 0 12"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2"
+                     Margin="0 0 0 24"
+                     Style="{StaticResource TextBoxNoBorderStyle}"
+                     Text="{x:Bind ViewModel.UserUpdate.Company, Mode=TwoWay}"/>
+
+                <TextBlock Text="Location"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       Margin="0 0 0 8"
+                       Grid.Column="0"/>
+                <TextBox Style="{StaticResource TextBoxNoBorderStyle}"
+                     Text="{x:Bind ViewModel.UserUpdate.Location, Mode=TwoWay}"
+                     Margin="0 0 0 12"
+                     Grid.Column="1"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsThreeState="False"
+                          FontWeight="Bold"
+                          Content="Available for hire"
+                          IsChecked="{x:Bind ViewModel.UserUpdate.Hireable, Mode=TwoWay}"
+                          Margin="0 12 0 12"/>
+                </StackPanel>
+
+                <Button MinWidth="110"
+                    Margin="0 12 0 0"
+                    Command="{x:Bind ViewModel.UpdateProfileCommand}"
+                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Content="Save"/>
+            </StackPanel>
+            <controls:BusyScreen IsBusy="True"
+                                 Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
+        </Grid>
+    </ScrollViewer>
+</Page>

@@ -110,8 +110,8 @@ namespace CodeHub.Services
         {
             try
             {
-                GlobalHelper.GithubClient = UserUtility.GetAuthenticatedClient(token);
-                User user = await UserUtility.GetCurrentUserInfo();
+                GlobalHelper.GithubClient = UserService.GetAuthenticatedClient(token);
+                User user = await UserService.GetCurrentUserInfo();
 
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(clientId, user.Id.ToString(), token));

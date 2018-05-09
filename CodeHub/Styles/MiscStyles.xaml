@@ -1354,4 +1354,8 @@
         </Setter>
     </Style>
 
+    <Style TargetType="TextBox" x:Key="TextBoxNoBorderStyle">
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+
 </ResourceDictionary>

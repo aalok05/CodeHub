@@ -12,7 +12,7 @@ using System.Threading;
 namespace CodeHub.Services
 {
 
-    class UserUtility
+    class UserService
     {
         /// <summary>
         /// Gets info of a given user
@@ -275,6 +275,23 @@ namespace CodeHub.Services
                 });
 
                 return new ObservableCollection<Issue>(issues);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Updates a user's profile
+        /// </summary>
+        /// <param name="userUpdate"></param>
+        /// <returns></returns>
+        public static async Task<User> UpdateUserProfile(UserUpdate userUpdate)
+        {
+            try
+            {
+                return await GlobalHelper.GithubClient.User.Update(userUpdate);
             }
             catch
             {

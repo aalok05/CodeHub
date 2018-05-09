@@ -132,7 +132,7 @@ namespace CodeHub.ViewModels
             {
                 IsIncrementalLoading = true;
 
-                var events = await UserUtility.GetUserActivity(PaginationIndex);
+                var events = await UserService.GetUserActivity(PaginationIndex);
                 if (events != null)
                 {
                     if(events.Count > 0)
@@ -153,7 +153,7 @@ namespace CodeHub.ViewModels
             }
             else if(PaginationIndex == 1)
             {
-                Events = await UserUtility.GetUserActivity(PaginationIndex);
+                Events = await UserService.GetUserActivity(PaginationIndex);
                 if (Events != null)
                 {
                     if(Events.Count == 0)

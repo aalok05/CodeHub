@@ -180,7 +180,7 @@ namespace CodeHub.ViewModels
                                               if (await service.Authenticate())
                                               {
                                                   
-                                                  var user = await UserUtility.GetCurrentUserInfo();
+                                                  var user = await UserService.GetCurrentUserInfo();
                                                   LoadUser(user);
                                                   await InitializeAccounts();
                                               }
@@ -305,13 +305,13 @@ namespace CodeHub.ViewModels
         }
         public async Task Load(string userId)
         {
-            GlobalHelper.GithubClient = UserUtility.GetAuthenticatedClient(AuthService.GetToken(userId));
+            GlobalHelper.GithubClient = UserService.GetAuthenticatedClient(AuthService.GetToken(userId));
 
             if (IsInternet())
             {
                 if (isLoggedin)
                 {
-                    var user = await UserUtility.GetCurrentUserInfo();
+                    var user = await UserService.GetCurrentUserInfo();
                     LoadUser(user);
                 }
             }

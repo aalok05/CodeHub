@@ -113,7 +113,7 @@ namespace CodeHub.ViewModels
         }
         private async Task LoadOrganizations()
         {
-            var orgs = await UserUtility.GetAllOrganizations();
+            var orgs = await UserService.GetAllOrganizations();
             if (orgs == null || orgs.Count == 0)
             {
                 ZeroOrganizations = true;

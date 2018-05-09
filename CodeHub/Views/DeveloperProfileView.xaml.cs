@@ -3,6 +3,9 @@ using CodeHub.Helpers;
 using CodeHub.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Input;
+using GalaSoft.MvvmLight.Ioc;
+using CodeHub.Services;
 
 namespace CodeHub.Views
 {
