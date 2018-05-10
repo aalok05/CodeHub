@@ -15,6 +15,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using XamlBrewer.Uwp.Controls;
 using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel.Core;
 
 namespace CodeHub
 {
@@ -80,6 +81,8 @@ namespace CodeHub
                     }
                 }
 
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
+
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
@@ -121,6 +124,9 @@ namespace CodeHub
 
                         }
                     }
+
+                    CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
+
                     Window.Current.Activate();
                 }
             }
