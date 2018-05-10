@@ -21,6 +21,13 @@
 
             <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="Black" Opacity="0.2"/>
             <SolidColorBrush x:Key="AppGrayColor" Color="{ThemeResource SystemChromeLowColor}"/>
+
+            <AcrylicBrush x:Key="LowOpacityElementAcrylicBrush"
+                          BackgroundSource="Backdrop"
+                          TintColor="{ThemeResource SystemAltHighColor}"
+                          TintOpacity="0.2"
+                          FallbackColor="{ThemeResource SystemChromeLowColor}"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

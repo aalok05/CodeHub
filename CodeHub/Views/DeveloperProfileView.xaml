@@ -191,7 +191,7 @@
                                     <Button Width="42"
                                             Height="42"
                                             Margin="0 12 12 0"
-                                            Background="{ThemeResource SystemControlAltMediumLowAcrylicElementMediumBrush}"
+                                            Background="{ThemeResource LowOpacityElementAcrylicBrush}"
                                             RelativePanel.AlignRightWithPanel="True"
                                             RelativePanel.AlignTopWithPanel="True"
                                             Style="{StaticResource RoundedButtonStyle}"
