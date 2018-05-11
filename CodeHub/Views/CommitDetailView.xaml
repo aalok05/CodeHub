@@ -142,7 +142,7 @@
                                    Text="Files changed" />
                         <TextBlock FontSize="17"
                                    FontWeight="SemiLight"
-                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                    Text="{x:Bind ViewModel.Files.Count, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>

@@ -100,7 +100,7 @@
                         MinHeight="56"
                         MinWidth="60"
                         Margin="0 16 8 0"
-                        Background="{StaticResource AppPrimaryColorBrush}"
+                        Background="{StaticResource SystemControlBackgroundAccentBrush}"
                         Style="{StaticResource ActionButtonStyle}"
                         Tapped="RateButton_Tapped">
                     <StackPanel Orientation="Vertical">
@@ -164,7 +164,7 @@
                              x:Uid="privacyLink"
                              Margin="8 12 0 0"
                              FontSize="14"
-                             Foreground="{StaticResource AppPrimaryColorBrush}"
+                             Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                              NavigateUri="http://codehubapp.azurewebsites.net/"
                              RelativePanel.Below="TwitterButton" />-->
         </RelativePanel>

@@ -158,7 +158,7 @@
                       Grid.Row="2"
                       Width="50"
                       Height="50"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                       IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>

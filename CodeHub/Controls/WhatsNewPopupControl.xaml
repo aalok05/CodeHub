@@ -61,7 +61,7 @@
             <Grid x:Name="WhatsNewPopupGrid"
                   Height="600"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  BorderBrush="{StaticResource AppPrimaryColorBrush}"
+                  BorderBrush="{StaticResource SystemControlBackgroundAccentBrush}"
                   BorderThickness="0.8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="48" />
@@ -71,7 +71,7 @@
                     <Run FontFamily="Segoe MDL2 Assets"
                          FontSize="18"
                          FontWeight="SemiBold"
-                         Foreground="{StaticResource AppPrimaryColorBrush}"
+                         Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                          Text="&#xE8BD; " />
                     <Run x:Uid="menu_Settings_SubMenu_About_WhatsNew"
                          FontSize="20"

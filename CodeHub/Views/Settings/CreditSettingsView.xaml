@@ -32,7 +32,7 @@
                         HorizontalAlignment="Center">
                 <TextBlock Text="&#xE006;"
                            FontSize="24"
-                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                            FontFamily="Segoe UI Symbol"
                            Margin="0 0 8 0"/>
                 <TextBlock Text="Special Thanks!"

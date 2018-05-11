@@ -228,7 +228,7 @@
                                    Foreground="Gray" />
                         <TextBlock FontSize="17"
                                    FontWeight="SemiLight"
-                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                    Text="{x:Bind ViewModel.PullRequest.Comments, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
@@ -257,7 +257,7 @@
                             Height="40"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
-                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Background="{StaticResource SystemControlBackgroundAccentBrush}"
                             Style="{StaticResource ActionButtonStyle}"
                             Tapped="CommentDialogOpen_Tapped" />
 
@@ -265,7 +265,7 @@
                                   Width="20"
                                   Height="20"
                                   HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
 
@@ -280,7 +280,7 @@
                                    Foreground="Gray" />
                         <TextBlock FontSize="17"
                                    FontWeight="SemiLight"
-                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                    Text="{x:Bind ViewModel.PullRequest.Commits, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
@@ -301,7 +301,7 @@
                     <ProgressRing Width="20"
                                   Height="20"
                                   HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingCommits, Mode=OneWay}" />
                 </Grid>
 
@@ -337,7 +337,7 @@
                     <Button x:Uid="function_CommentCreate"
                             Height="40"
                             HorizontalAlignment="Stretch"
-                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Background="{StaticResource SystemControlBackgroundAccentBrush}"
                             Style="{StaticResource ActionButtonStyle}"
                             Tapped="Comment_Tapped" />
                     <Button x:Uid="function_CommentCancel"

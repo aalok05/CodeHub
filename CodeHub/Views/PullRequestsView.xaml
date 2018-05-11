@@ -55,7 +55,7 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingOpen,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
                     <TextBlock x:Uid="noOpenPullRequests"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -63,7 +63,7 @@
                                Visibility="{x:Bind ViewModel.ZeroOpenPullRequests, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingOpen, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
@@ -96,7 +96,7 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingClosed,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
                     <TextBlock x:Uid="noClosedPullRequests"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -104,7 +104,7 @@
                                Visibility="{x:Bind ViewModel.ZeroClosedPullRequests, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingClosed, Mode=OneWay}" />
                 </Grid>
             </PivotItem>

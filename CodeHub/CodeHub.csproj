@@ -295,6 +295,7 @@
     <Compile Include="Services\CommitService.cs" />
     <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
     <Compile Include="ViewModels\CommitsViewmodel.cs" />
+    <Compile Include="ViewModels\EditProfileViewmodel.cs" />
     <Compile Include="ViewModels\Settings\AboutSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\GeneralSettingsViewModel.cs" />
     <Compile Include="Views\CommitDetailView.xaml.cs">
@@ -311,7 +312,7 @@
     <Compile Include="Services\PullRequestUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Services\UserUtility.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
       <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
     </Compile>
@@ -330,6 +331,9 @@
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
     <Compile Include="Views\CommitsView.xaml.cs">
       <DependentUpon>CommitsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditProfileView.xaml.cs">
+      <DependentUpon>EditProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
       <DependentUpon>AboutSettingsView.xaml</DependentUpon>
@@ -565,6 +569,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\CommitsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

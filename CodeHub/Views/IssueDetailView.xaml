@@ -223,7 +223,7 @@
                                    Foreground="Gray" />
                         <TextBlock FontSize="17"
                                    FontWeight="SemiLight"
-                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                    Text="{x:Bind ViewModel.Issue.Comments, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
@@ -252,14 +252,14 @@
                             Height="40"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
-                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Background="{StaticResource SystemControlBackgroundAccentBrush}"
                             Style="{StaticResource ActionButtonStyle}"
                             Tapped="CommentDialogOpen_Tapped" />
                     <ProgressRing Grid.Row="0"
                                   Width="20"
                                   Height="20"
                                   HorizontalAlignment="Center"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
                 </Grid>
 
@@ -274,7 +274,7 @@
                                    Foreground="Gray" />
                         <TextBlock FontSize="17"
                                    FontWeight="SemiLight"
-                                   Foreground="{StaticResource AppPrimaryColorBrush}"
+                                   Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                    Text="{x:Bind ViewModel.Issue.Labels.Count, Mode=OneWay}" />
                     </StackPanel>
                 </PivotItem.Header>
@@ -334,7 +334,7 @@
                             Height="40"
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource ActionButtonStyle}"
-                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Background="{StaticResource SystemControlBackgroundAccentBrush}"
                             Tapped="EditIssueSaved_Tapped" />
                     <Button x:Uid="cancel"
                             Height="40"
@@ -375,7 +375,7 @@
                             Height="40"
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource ActionButtonStyle}"
-                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Background="{StaticResource SystemControlBackgroundAccentBrush}"
                             Tapped="Comment_Tapped" />
                     <Button x:Uid="function_CommentCancel"
                             Height="40"
@@ -392,7 +392,7 @@
                       Grid.ColumnSpan="2"
                       Width="40"
                       Height="40"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                       IsActive="{x:Bind ViewModel.IsEditingIssue, Mode=OneWay}" />
         
     </Grid>

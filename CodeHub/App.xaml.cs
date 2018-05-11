@@ -15,6 +15,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using XamlBrewer.Uwp.Controls;
 using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel.Core;
 
 namespace CodeHub
 {
@@ -30,7 +31,7 @@ namespace CodeHub
         public App()
         {
             this.InitializeComponent();
-          
+
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyleEnum.Monokai, false);
@@ -40,7 +41,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
             SettingsService.Save(SettingsKeys.HasUserDonated, false, false);
 
-            AppCenter.Start("4c8deb54-8947-45cb-9c75-98c3489a7ed6", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("ecd96e4c-b301-48f3-b640-166a040f1d86", typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>
@@ -70,13 +71,12 @@ namespace CodeHub
                     var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                     if (titleBar != null)
                     {
-                        titleBar.BackgroundColor =
-                        titleBar.ButtonBackgroundColor =
-                        titleBar.InactiveBackgroundColor =
-                        titleBar.ButtonInactiveBackgroundColor =
-                        (Color)App.Current.Resources["SystemChromeLowColor"];
+                        titleBar.ButtonBackgroundColor = titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-                        titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
+                        titleBar.ForegroundColor =
+                        titleBar.ButtonInactiveForegroundColor =
+                        titleBar.ButtonForegroundColor =
+                        Colors.White;
                     }
                 }
 
@@ -111,16 +111,16 @@ namespace CodeHub
                         var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                         if (titleBar != null)
                         {
-                            titleBar.BackgroundColor =
-                            titleBar.ButtonBackgroundColor =
-                            titleBar.InactiveBackgroundColor =
-                            titleBar.ButtonInactiveBackgroundColor =
-                            (Color)App.Current.Resources["SystemChromeLowColor"];
+                            titleBar.ButtonBackgroundColor = titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-                            titleBar.ForegroundColor = (Color)App.Current.Resources["SystemChromeHighColor"];
-
+                            titleBar.ForegroundColor = 
+                            titleBar.ButtonInactiveForegroundColor = 
+                            titleBar.ButtonForegroundColor =
+                            Colors.White;
+                            
                         }
                     }
+
                     Window.Current.Activate();
                 }
             }

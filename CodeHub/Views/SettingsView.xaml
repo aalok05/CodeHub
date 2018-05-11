@@ -21,7 +21,7 @@
                                FontFamily="Segoe MDL2 Assets"
                                FontSize="22"
                                Text="{x:Bind GlyphString}"
-                               Foreground="{StaticResource AppPrimaryColorBrush}"
+                               Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                x:Name="IconBlock"
                                RelativePanel.AlignTopWithPanel="True"
                                RelativePanel.AlignBottomWithPanel="True"/>

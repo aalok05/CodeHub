@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v2.4.10\n\n\x2022 FIXED: App was crashing on navigating to General settings for some users\n\x2022 Under the hood improvements";
+                return "Hi all! \nHere's the changelog for v2.4.12\n\n\x2022 Added ability to edit public profile\n\x2022 Instead of the iconic green primary color, we have switched to system accent color.\n\x2022 More fluent UI stuff.";
             }
         }
         #endregion

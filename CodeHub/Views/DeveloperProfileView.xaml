@@ -107,6 +107,7 @@
                                                             Duration="0" />
                                         </i:Interaction.Behaviors>
                                     </toolkitControl:ImageEx>
+
                                     <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                 </Grid>
                                 <RelativePanel Background="Transparent">
@@ -187,6 +188,17 @@
                                                TextAlignment="Center"
                                                TextTrimming="CharacterEllipsis"
                                                TextWrapping="Wrap" />
+                                    <Button Width="42"
+                                            Height="42"
+                                            Margin="0 12 12 0"
+                                            Background="{ThemeResource LowOpacityElementAcrylicBrush}"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            Style="{StaticResource RoundedButtonStyle}"
+                                            Tapped="{x:Bind ViewModel.ProfileEdit_Tapped}"
+                                            Visibility="{x:Bind ViewModel.IsUserEditable, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                                        <SymbolIcon Symbol="Edit" />
+                                    </Button>
                                 </RelativePanel>
                             </Grid>
                         </toolkitControl:ScrollHeader>
@@ -227,7 +239,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsReposLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
@@ -255,7 +267,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsStarredReposLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
@@ -285,7 +297,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsFollowersLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>
@@ -315,7 +327,7 @@
                 <ProgressRing Width="20"
                               Height="20"
                               HorizontalAlignment="Center"
-                              Foreground="{StaticResource AppPrimaryColorBrush}"
+                              Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                               IsActive="{x:Bind ViewModel.IsFollowingLoading, Mode=OneWay}" />
             </Grid>
         </PivotItem>

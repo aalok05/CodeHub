@@ -40,7 +40,7 @@
                 <DataTemplate x:DataType="octo:Activity">
                     <UserControl>
                         <RelativePanel x:Name="MainPanel"
-                                       Margin="0 0 0 8">
+                                       Margin="0 0 0 18">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
                                     <VisualState>
@@ -54,7 +54,6 @@
                                             <Setter Target="actionText.(RelativePanel.AlignLeftWith)" Value="userText" />
                                             <Setter Target="RepoText.(RelativePanel.Below)" Value="actionText" />
                                             <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="actionText" />
-                                            <Setter Target="commentText.(RelativePanel.Below)" Value="RepoText" />
                                             <Setter Target="userText.Margin" Value="4 0 8 0" />
                                             <Setter Target="notifSymbolScale.ScaleX" Value="1.6" />
                                             <Setter Target="notifSymbolScale.ScaleY" Value="1.6" />
@@ -70,7 +69,6 @@
                                         <VisualState.Setters>
                                             <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
                                             <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
-                                            <Setter Target="commentText.(RelativePanel.Below)" Value="RepoText" />
                                             <Setter Target="userText.FontSize" Value="15"/>
                                             <Setter Target="actionText.FontSize" Value="15"/>
                                             <Setter Target="RepoText.FontSize" Value="15"/>
@@ -110,9 +108,10 @@
                                        RelativePanel.RightOf="notifSymbol"
                                        Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
                             <toolkitControl:ImageEx x:Name="avatar"
-                                                    Width="27"
-                                                    Height="27"
-                                                    Margin="12,0,8,8"
+                                                    Width="30"
+                                                    Height="30"
+                                                    CornerRadius="4"
+                                                    Margin="12,0,12,0"
                                                     IsCacheEnabled="True"
                                                     RelativePanel.Below="timeText"
                                                     RelativePanel.RightOf="notifSymbol">
@@ -133,6 +132,7 @@
 
                             <TextBlock x:Name="actionText"
                                        Margin="0,0,0,4"
+                                       Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="userText"
                                        Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
@@ -144,11 +144,9 @@
                                        Text="{Binding Repo.Name}" />
 
                             <Border x:Name="commentText"
-                                    RelativePanel.AlignLeftWith="avatar"
-                                    RelativePanel.AlignRightWithPanel="True"
-                                    RelativePanel.Below="avatar">
-                                <toolkitControl:MarkdownTextBlock Padding="16"
-                                                                  FontSize="13"
+                                    RelativePanel.Below="RepoText">
+                                <toolkitControl:MarkdownTextBlock Padding="12"
+                                                                  FontSize="15"
                                                                   Foreground="Gray"
                                                                   ImageStretch="FIll"
                                                                   LinkClicked="MarkdownTextBlock_LinkClicked"
@@ -173,7 +171,7 @@
                       Height="40"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Foreground="{StaticResource AppPrimaryColorBrush}"
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                       IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
         <ProgressBar IsIndeterminate="True" 
                      HorizontalAlignment="Stretch" 
@@ -182,7 +180,7 @@
                      MaxHeight="5"
                      MaxWidth="2000"
                      Visibility="{x:Bind ViewModel.IsIncrementalLoading,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                     Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                     Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
         <TextBlock x:Uid="noEvent"
                    Style="{StaticResource ZeroItemsTextBoxStyle}"
                    Visibility="{x:Bind ViewModel.ZeroEventCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />

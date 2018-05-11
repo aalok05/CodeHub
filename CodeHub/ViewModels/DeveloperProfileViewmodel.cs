@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Input;
 
 namespace CodeHub.ViewModels
 {
@@ -204,6 +205,23 @@ namespace CodeHub.ViewModels
                 Set(() => FollowProgress, ref _followProgress, value);
             }
         }
+
+        public bool _isUserEditable;
+
+        /// <summary>
+        /// Indicates whether a profile can be edited by current user
+        /// </summary>
+        public bool IsUserEditable
+        {
+            get
+            {
+                return _isUserEditable;
+            }
+            set
+            {
+                Set(() => IsUserEditable, ref _isUserEditable, value);
+            }
+        }
         #endregion
 
         public async Task Load(object user)
@@ -211,11 +229,13 @@ namespace CodeHub.ViewModels
             if (GlobalHelper.IsInternet())
             {
                 isLoading = true;
+
+                // Get the user from login name
                 if (user is string login)
                 {
                     if (!string.IsNullOrWhiteSpace(login))
                     {
-                        Developer = await UserUtility.GetUserInfo(login);
+                        Developer = await UserService.GetUserInfo(login);
                     }
                 }
                 else
@@ -223,20 +243,27 @@ namespace CodeHub.ViewModels
                     Developer = user as User;
                     if(Developer != null && Developer.Name == null)
                     {
-                        Developer = await UserUtility.GetUserInfo(Developer.Login);
+                        // Get full details of the user
+                        Developer = await UserService.GetUserInfo(Developer.Login);
                     }
                 }
+
+
                 if (Developer != null)
                 {
                     if (Developer.Type == AccountType.Organization || Developer.Login == GlobalHelper.UserLogin)
                     {
+                        // Organisations can't be followed
                         CanFollow = false;
+
+                        // User can edit it's own profile
+                        IsUserEditable = Developer.Login == GlobalHelper.UserLogin;
                     }
                     else
                     {
                         CanFollow = true;
                         FollowProgress = true;
-                        if (await UserUtility.CheckFollow(Developer.Login))
+                        if (await UserService.CheckFollow(Developer.Login))
                         {
                             IsFollowing = true;
                         }
@@ -261,7 +288,7 @@ namespace CodeHub.ViewModels
                                           async () =>
                                           {
                                               FollowProgress = true;
-                                              if (await UserUtility.FollowUser(Developer.Login))
+                                              if (await UserService.FollowUser(Developer.Login))
                                               {
                                                   IsFollowing = true;
                                               }
@@ -280,7 +307,7 @@ namespace CodeHub.ViewModels
                                           async () =>
                                           {
                                               FollowProgress = true;
-                                              await UserUtility.UnFollowUser(Developer.Login);
+                                              await UserService.UnFollowUser(Developer.Login);
                                               IsFollowing = false;
                                               FollowProgress = false;
                                           }));
@@ -314,13 +341,13 @@ namespace CodeHub.ViewModels
             else if (p.SelectedIndex == 3)
             {
                 IsFollowersLoading = true;
-                Followers = await UserUtility.GetAllFollowers(Developer.Login);
+                Followers = await UserService.GetAllFollowers(Developer.Login);
                 IsFollowersLoading = false;
             }
             else if (p.SelectedIndex == 4)
             {
                 IsFollowingLoading = true;
-                Following = await UserUtility.GetAllFollowing(Developer.Login);
+                Following = await UserService.GetAllFollowing(Developer.Login);
                 IsFollowingLoading = false;
             }
         }
@@ -397,6 +424,11 @@ namespace CodeHub.ViewModels
         public void UserTapped(object sender, ItemClickEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), e.ClickedItem as User);
+        }
+
+        public void ProfileEdit_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(EditProfileView), this.Developer);
         }
 
         public void FeedListView_ItemClick(object sender, ItemClickEventArgs e)

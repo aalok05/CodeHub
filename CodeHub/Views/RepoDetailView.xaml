@@ -169,7 +169,7 @@
                             <SymbolIcon Symbol="Favorite">
                                 <i:Interaction.Behaviors>
                                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="True">
-                                        <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource AppPrimaryColorBrush}" />
+                                        <core:ChangePropertyAction PropertyName="Foreground" Value="{StaticResource SystemControlBackgroundAccentBrush}" />
                                     </core:DataTriggerBehavior>
                                     <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsStar, Mode=OneWay}" Value="False">
                                         <core:ChangePropertyAction PropertyName="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
@@ -203,7 +203,7 @@
                             </Path.RenderTransform>
                             <i:Interaction.Behaviors>
                                 <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsWatching, Mode=TwoWay}" Value="True">
-                                    <core:ChangePropertyAction PropertyName="Fill" Value="{StaticResource AppPrimaryColorBrush}" />
+                                    <core:ChangePropertyAction PropertyName="Fill" Value="{StaticResource SystemControlBackgroundAccentBrush}" />
                                 </core:DataTriggerBehavior>
                                 <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsWatching, Mode=TwoWay}" Value="False">
                                     <core:ChangePropertyAction PropertyName="Fill" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
@@ -377,7 +377,7 @@
                             <ProgressRing x:Name="ReadmeLoadingRing"
                                           Width="40"
                                           Height="40"
-                                          Foreground="{ThemeResource AppPrimaryColorBrush}" />
+                                          Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
                         </Grid>
 
                     </ScrollViewer>
@@ -425,7 +425,7 @@
 
                         <ProgressRing Width="40"
                                       Height="40"
-                                      Foreground="{ThemeResource AppPrimaryColorBrush}"
+                                      Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                       IsActive="{x:Bind ViewModel.IsContributorsLoading, Mode=OneWay}" />
                     </Grid>
 
@@ -453,7 +453,7 @@
 
                         <ProgressRing Width="40"
                                       Height="40"
-                                      Foreground="{ThemeResource AppPrimaryColorBrush}"
+                                      Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                       IsActive="{x:Bind ViewModel.IsReleasesLoading, Mode=OneWay}" />
                     </Grid>
                 </PivotItem>

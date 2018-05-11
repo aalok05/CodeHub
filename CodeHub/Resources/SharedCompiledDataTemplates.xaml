@@ -134,7 +134,7 @@
                            Margin="0,2,0,0"
                            FontFamily="Segoe MDL2 Assets"
                            FontSize="16"
-                           Foreground="{StaticResource AppPrimaryColorBrush}"
+                           Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                            IsTextScaleFactorEnabled="False"
                            Text="{x:Bind Content, Converter={StaticResource RepositoryContentToFileIconConverter}, FallbackValue=&#xE8C8;}" />
                 <TextBlock x:Name="NameTextBlock"

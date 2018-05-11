@@ -92,7 +92,7 @@
                                  Margin="0,0,0,10"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Bottom"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                  IsIndeterminate="True"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingToday, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
@@ -103,7 +103,7 @@
                     <ProgressRing Width="40"
                                   Height="40"
                                   FontSize="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingToday, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
@@ -159,7 +159,7 @@
                                  Margin="0,0,0,10"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Bottom"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                  IsIndeterminate="True"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingWeek, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
@@ -168,7 +168,7 @@
                                Visibility="{x:Bind ViewModel.ZeroWeeklyCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingWeek, Mode=OneWay}" />
                 </Grid>
 
@@ -226,7 +226,7 @@
                                  Margin="0,0,0,10"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Bottom"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                  IsIndeterminate="True"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingMonth, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
@@ -235,7 +235,7 @@
                                Visibility="{x:Bind ViewModel.ZeroMonthlyCount, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingMonth, Mode=OneWay}" />
                 </Grid>
 

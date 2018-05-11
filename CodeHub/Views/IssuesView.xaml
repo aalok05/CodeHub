@@ -87,7 +87,7 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingOpen,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
                     <TextBlock x:Uid="noOpenIssue"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -95,7 +95,7 @@
                                Visibility="{x:Bind ViewModel.ZeroOpenIssues, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingOpen, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
@@ -128,7 +128,7 @@
                                  MaxHeight="5"
                                  MaxWidth="2000"
                                  Visibility="{x:Bind ViewModel.IsIncrementalLoadingClosed,Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"
-                                 Foreground="{StaticResource AppPrimaryColorBrush}"/>
+                                 Foreground="{StaticResource SystemControlBackgroundAccentBrush}"/>
                     <TextBlock x:Uid="noClosedIssue"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -136,7 +136,7 @@
                                Visibility="{x:Bind ViewModel.ZeroClosedIssues, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingClosed, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
@@ -168,7 +168,7 @@
                                Visibility="{x:Bind ViewModel.ZeroMyIssues, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
                     <ProgressRing Width="40"
                                   Height="40"
-                                  Foreground="{StaticResource AppPrimaryColorBrush}"
+                                  Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
                                   IsActive="{x:Bind ViewModel.IsLoadingMine, Mode=OneWay}" />
                 </Grid>
             </PivotItem>
@@ -178,7 +178,7 @@
                 Margin="0,0,16,16"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Background="{StaticResource AppPrimaryColorBrush}"
+                Background="{StaticResource SystemControlBackgroundAccentBrush}"
                 Style="{StaticResource RoundedButtonStyle}"
                 Tapped="AddIssueButton_Tapped">
             <SymbolIcon Foreground="White" Symbol="Add" />
@@ -222,7 +222,7 @@
                             Height="40"
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource ActionButtonStyle}"
-                            Background="{StaticResource AppPrimaryColorBrush}"
+                            Background="{StaticResource SystemControlBackgroundAccentBrush}"
                             Command="{x:Bind ViewModel.CreateIssue}" />
                     <Button x:Uid="cancel"
                             Height="40"
@@ -237,6 +237,6 @@
         <ProgressRing Width="40"
                       Height="40"
                       IsActive="{x:Bind ViewModel.IsCreatingIssue,Mode=OneWay}"
-                      Foreground="{StaticResource AppPrimaryColorBrush}" />
+                      Foreground="{StaticResource SystemControlBackgroundAccentBrush}" />
     </Grid>
 </Page>

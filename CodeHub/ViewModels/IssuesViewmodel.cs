@@ -304,7 +304,7 @@ namespace CodeHub.ViewModels
             else if (p.SelectedIndex == 2)
             {
                 IsLoadingMine = true;
-                MyIssues = await UserUtility.GetAllIssuesForRepoByUser(Repository.Id);
+                MyIssues = await UserService.GetAllIssuesForRepoByUser(Repository.Id);
                 IsLoadingMine = false;
 
                 ZeroMyIssues = MyIssues.Count == 0 ? true : false;

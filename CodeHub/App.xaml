@@ -1,26 +1,34 @@
-﻿<Application
-    x:Class="CodeHub.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+﻿<Application x:Class="CodeHub.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Application.Resources>
         <ResourceDictionary>
 
-            <!--Style dictionaries-->
+            <!--  Style dictionaries  -->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/MiscStyles.xaml"/>
-                <ResourceDictionary Source="/Styles/TextStyles.xaml"/>
-                <ResourceDictionary Source="/Resources/SVGIconsDictionary.xaml"/>
+                <ResourceDictionary Source="/Styles/MiscStyles.xaml" />
+                <ResourceDictionary Source="/Styles/TextStyles.xaml" />
+                <ResourceDictionary Source="/Resources/SVGIconsDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--Resources-->
-            <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}"/>
+            <!--  Resources  -->
+            <SolidColorBrush x:Key="AppPrimaryColorBrush" Color="{StaticResource AppPrimaryColor}" />
             <Color x:Key="AppPrimaryColor">#60B53B</Color>
-            <SolidColorBrush x:Key="AppPrimaryDarkColorBrush" Color="{StaticResource AppPrimaryColorDark}"/>
+            <SolidColorBrush x:Key="AppPrimaryDarkColorBrush" Color="{StaticResource AppPrimaryColorDark}" />
             <Color x:Key="AppPrimaryColorDark">#519932</Color>
 
-            <SolidColorBrush x:Key="OddAlternatingRowsBrush" Color="Black" Opacity="0.2"/>
-            <SolidColorBrush x:Key="AppGrayColor" Color="{ThemeResource SystemChromeLowColor}"/>
+            <SolidColorBrush x:Key="OddAlternatingRowsBrush"
+                             Opacity="0.2"
+                             Color="Black" />
+            <SolidColorBrush x:Key="AppGrayColor" Color="{ThemeResource SystemChromeLowColor}" />
+
+            <AcrylicBrush x:Key="LowOpacityElementAcrylicBrush"
+                          BackgroundSource="Backdrop"
+                          FallbackColor="{ThemeResource SystemChromeLowColor}"
+                          TintColor="{ThemeResource SystemAltHighColor}"
+                          TintOpacity="0.2" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
