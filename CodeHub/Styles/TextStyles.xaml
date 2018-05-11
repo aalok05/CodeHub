@@ -6,7 +6,7 @@
     </Style>
     <Style x:Key="ZeroItemsTextBoxStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="TextAlignment" Value="Center" />
@@ -272,12 +272,12 @@
                                         IsHitTestVisible="False"
                                         IsTabStop="False" />
                         <Button x:Name="DeleteButton"
-                                x:DeferLoadStrategy="Lazy"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 MinWidth="34"
                                 Margin="{ThemeResource HelperButtonThemePadding}"
                                 VerticalAlignment="Stretch"
+                                x:DeferLoadStrategy="Lazy"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 FontSize="{TemplateBinding FontSize}"
                                 IsTabStop="False"

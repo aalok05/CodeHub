@@ -25,6 +25,7 @@ using Windows.UI.Xaml.Controls;
 using CodeHub.Models;
 using Windows.ApplicationModel.Activation;
 using Microsoft.Toolkit.Uwp.Helpers;
+using Windows.ApplicationModel.Core;
 
 namespace CodeHub.Views
 {
@@ -37,7 +38,18 @@ namespace CodeHub.Views
 
         public MainPage(IActivatedEventArgs args)
         {
-            this.InitializeComponent();
+            this.InitializeComponent();           
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            coreTitleBar.LayoutMetricsChanged += delegate
+            {
+                AppTitleBar.Height = coreTitleBar.Height;
+            };
+
+            // Set a XAML element as title bar
+            Window.Current.SetTitleBar(AppTitleBar);
 
             ViewModel = new MainViewmodel(args);
             this.DataContext = ViewModel;
@@ -68,11 +80,13 @@ namespace CodeHub.Views
             {
                 ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
                 ViewModel.IsPaneOpen = false;
+                HamRelative.Background = (AcrylicBrush)App.Current.Resources["LowOpacityElementAcrylicBrush"];
             }
             else
             {
                 ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
                 ViewModel.IsPaneOpen = true;
+                HamRelative.Background = (AcrylicBrush)App.Current.Resources["SystemControlChromeHighAcrylicWindowMediumBrush"];
             }
         }
 

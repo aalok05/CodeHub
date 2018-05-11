@@ -10,7 +10,7 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              mc:Ignorable="d">
-    <Grid Background="{ThemeResource LowOpacityElementAcrylicBrush }">
+    <Grid Background="{ThemeResource LowOpacityElementAcrylicBrush}">
         <ProgressRing Width="40"
                       Height="40"
                       HorizontalAlignment="Center"
