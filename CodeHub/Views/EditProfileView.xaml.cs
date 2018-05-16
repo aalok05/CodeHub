@@ -18,13 +18,12 @@ namespace CodeHub.Views
             this.DataContext = ViewModel;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = "Edit Profile" });
-            ViewModel.Load(e.Parameter);
-           
+            await ViewModel.Load(e.Parameter);          
         }
     }
 }
