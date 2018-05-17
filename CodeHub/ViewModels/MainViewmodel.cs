@@ -425,11 +425,12 @@ namespace CodeHub.ViewModels
             }
         }
 
-        public void RecieveSignInMessage(User user)
+        public async void RecieveSignInMessage(User user)
         {
             if (SimpleIoc.Default.GetInstance<IAsyncNavigationService>().CurrentSourcePageType != typeof(FeedView))
             {
-                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView));
+                await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(FeedView));
+                SimpleIoc.Default.GetInstance<IAsyncNavigationService>().ClearBackStack();
             }
         }
     }

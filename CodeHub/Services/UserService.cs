@@ -298,5 +298,22 @@ namespace CodeHub.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// Gets all email addresses of the current user
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<ObservableCollection<EmailAddress>> GetVerifiedEmails()
+        {
+            try
+            {
+                var emails = await GlobalHelper.GithubClient.User.Email.GetAll();
+                return new ObservableCollection<EmailAddress>(emails);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

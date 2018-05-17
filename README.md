@@ -16,6 +16,7 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 * Search repositories, users, issues and code
 * Star, Watch and Fork repositories
 * Follow users
+* Edit profile
 
 ## Screenshots
 
@@ -51,6 +52,7 @@ I thank the makers of these libraries
 * [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit)
 * [HTML Agility Pack](https://www.nuget.org/packages/HtmlAgilityPack)
 * [LocalNotifications](https://github.com/RavinduL/LocalNotifications)
+* [UWP-Animated-SplashScreen](https://github.com/XamlBrewer/UWP-Animated-SplashScreen)
 
 ## Gitter chat
 * https://gitter.im/CodehubUWP/Bugs

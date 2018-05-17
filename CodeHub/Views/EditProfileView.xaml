@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:CodeHub.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:octo="using:Octokit"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter" />
@@ -31,9 +32,18 @@
                            FontWeight="Bold"
                            Text="Public Email"
                            TextWrapping="Wrap" />
-                <TextBox Grid.Column="1"
-                         Margin="0,0,0,24"
-                         Text="{x:Bind ViewModel.UserUpdate.Email, Mode=TwoWay}" />
+
+                <controls:AnimatedComboBox Grid.Column="1"
+                                           Margin="0,0,0,24"
+                                           SelectedItem="{x:Bind ViewModel.SelectedPublicEmail, Mode=TwoWay}"
+                                           ItemsSource="{x:Bind ViewModel.EmailAddresses, Mode=OneWay}"
+                                           PlaceholderText="Select a verified email to display">
+                    <controls:AnimatedComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="octo:EmailAddress">
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </controls:AnimatedComboBox.ItemTemplate>
+                </controls:AnimatedComboBox>
 
                 <TextBlock Margin="0,0,0,8"
                            VerticalAlignment="Center"
@@ -81,15 +91,24 @@
                               IsChecked="{x:Bind ViewModel.UserUpdate.Hireable, Mode=TwoWay}"
                               IsThreeState="False" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button MinWidth="110"
+                            Margin="0,12,12,0"
+                            Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                            Command="{x:Bind ViewModel.UpdateProfileCommand}"
+                            Content="Save"
+                            Style="{StaticResource ActionButtonStyle}" />
+                    <Button MinWidth="110"
+                            Margin="0,12,0,0"
+                            Command="{x:Bind ViewModel.ResetFormCommand}"
+                            Background="{ThemeResource AppGrayColor}"
+                            Content="Reset"
+                            Style="{StaticResource ActionButtonStyle}" />
+                </StackPanel>
 
-                <Button MinWidth="110"
-                        Margin="0,12,0,0"
-                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                        Command="{x:Bind ViewModel.UpdateProfileCommand}"
-                        Content="Save"
-                        Style="{StaticResource ActionButtonStyle}" />
             </StackPanel>
-            <controls:BusyScreen IsBusy="True" Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+            <controls:BusyScreen IsBusy="True" 
+                                 Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
         </Grid>
     </ScrollViewer>
 </Page>
