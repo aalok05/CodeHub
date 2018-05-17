@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v2.4.12\n\n\x2022 Added ability to edit public profile\n\x2022 Instead of the iconic green primary color, we have switched to system accent color.\n\x2022 More fluent UI stuff.";
+                return "Hi all! \nHere's the changelog for v2.4.13\n\n\x2022 Made some changes to edit profile form to improve UX\n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
             }
         }
         #endregion
