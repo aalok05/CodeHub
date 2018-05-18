@@ -65,9 +65,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Canvas x:Name="AppTitleBar"
-                Grid.Row="0"
-                Background="{ThemeResource AccentWindowAcrylicBrush}" />
+                Grid.Row="0">
+            <i:Interaction.Behaviors>
+                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.isLoggedin, Mode=OneWay}" Value="True">
+                    <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}" />
+                </core:DataTriggerBehavior>
+                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.isLoggedin, Mode=OneWay}" Value="False">
+                    <core:ChangePropertyAction PropertyName="Background" Value="{StaticResource AccentWindowAcrylicBrush}" />
+                </core:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Canvas>
+        
         <Grid x:Name="MainGrid"
               Grid.Row="1"
               Background="Transparent"
@@ -467,24 +477,24 @@
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignTopWithPanel="True">
-                        <toolkitControl:ImageEx Width="80"
-                                                Height="80"
+                        <toolkitControl:ImageEx Width="100"
+                                                Height="100"
                                                 Margin="8"
                                                 CornerRadius="999"
-                                                DecodePixelHeight="80"
+                                                DecodePixelHeight="100"
                                                 DecodePixelType="Logical"
-                                                DecodePixelWidth="80"
+                                                DecodePixelWidth="100"
                                                 IsCacheEnabled="True"
                                                 Source="{x:Bind ViewModel.ActiveAccount.AvatarUrl, Mode=OneWay}"
                                                 Stretch="UniformToFill" />
 
                         <TextBlock HorizontalAlignment="Center"
-                                   FontSize="19"
+                                   FontSize="22"
                                    Text="{x:Bind ViewModel.ActiveAccount.Login, Mode=OneWay}" />
                         <Button x:Uid="Sign_Out"
-                                Height="38"
                                 Margin="8"
-                                Padding="28,0,28,0"
+                                FontSize="13"
+                                Padding="24 8 24 8"
                                 HorizontalAlignment="Center"
                                 Command="{x:Bind ViewModel.SignOutCommand}"
                                 Background="{ThemeResource SystemControlBackgroundAccentBrush}"

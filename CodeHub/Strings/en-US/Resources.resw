@@ -649,6 +649,6 @@
     <value>Accounts</value>
   </data>
   <data name="Sign_Out.Content" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Sign out</value>
   </data>
 </root>
