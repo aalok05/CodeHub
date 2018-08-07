@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="commented.Text" xml:space="preserve">
+    <value>yorum yaptı</value>
+    <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
+  </data>
+  <data name="credits.Header" xml:space="preserve">
+    <value>Emeği geçenler</value>
+  </data>
+  <data name="disclaimer.Text" xml:space="preserve">
+    <value>Bu uygulamanın GitHub ile hiçbir ilişiği bulunmaz.</value>
+  </data>
+  <data name="privacyLink.Content" xml:space="preserve">
+    <value>Gizlilik Politikası</value>
+  </data>
+  <data name="rateButtonContent.Text" xml:space="preserve">
+    <value>Mağazada değerlendirin</value>
+  </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>Arayüz</value>
+  </data>
+  <data name="AppRestartTip.Text" xml:space="preserve">
+    <value>Uygulamayı yeniden başlatmayı gerektirir.</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>Aydınlık</value>
+  </data>
+  <data name="version.Text" xml:space="preserve">
+    <value>Sürüm</value>
+    <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
+  </data>
+  <data name="adSetting.Text" xml:space="preserve">
+    <value>Geliştirmeyi destekle, Reklâmları etkinleştir</value>
+  </data>
+  <data name="busyScreen.BusyText" xml:space="preserve">
+    <value>Lütfen bekleyin...</value>
+    <comment>preserve ellipsis here</comment>
+  </data>
+  <data name="donate.Text" xml:space="preserve">
+    <value>CodeHub'ı desteklemek için bağışta bulunun</value>
+  </data>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>$0.99 bağışla</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>Yenilikler neler?</value>
+  </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>İzle</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>İzleyiciler</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>İzlenenler</value>
+  </data>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>$9.99 bağışla</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="loadCommitMessage.Text" xml:space="preserve">
+    <value>Dosyalar için değişiklik iletilerini yükle</value>
+  </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>Henüz hiçbir olayınız yok.</value>
+  </data>
+  <data name="pickDonateOption.Text" xml:space="preserve">
+    <value>Geliştiriciyi desteklemek için bir seçeneği seçin</value>
+  </data>
+  <data name="preview.Text" xml:space="preserve">
+    <value>Önceki</value>
+  </data>
+  <data name="repositories.Text" xml:space="preserve">
+    <value>Repolar</value>
+  </data>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>$2.99 bağışla</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="showLineNumber.Text" xml:space="preserve">
+    <value>Satır numaralarını göster</value>
+  </data>
+  <data name="showReadMe.Text" xml:space="preserve">
+    <value>Repo sayfalarında BENİOKUları (README) göster</value>
+  </data>
+  <data name="syntaxHightlignting.Text" xml:space="preserve">
+    <value>Sözdizimi vurgulama biçimi</value>
+  </data>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>$4.99 bağışla</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>İzlemeyi bırak</value>
+  </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>Dosya türü desteklenmiyor</value>
+  </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>tümü</value>
+    <comment>Context: all repositories</comment>
+  </data>
+  <data name="closed.Text" xml:space="preserve">
+    <value>kapalı</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
+  <data name="comments.Text" xml:space="preserve">
+    <value>Yorumlar</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>Daha fazla yükle...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>Benimki</value>
+    <comment>Context: My Issues, i.e. issues opened by me</comment>
+  </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>Repolarım</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>Haber beslemesi</value>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>Kapalı sorun yok</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>Sorun yok</value>
+  </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>Yeni bildirim yok</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>Açık sorun yok</value>
+  </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>Henüz örgüt yok. Örgütünüzün üçüncü parti uygulama kısıtlamalarını devre dışı bırakın.</value>
+  </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>Henüz repo yok</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>Henüz yıldızlanmış repo yok.</value>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>açan kişi</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="open.Text" xml:space="preserve">
+    <value>açık</value>
+    <comment>Context: status of Issue #1 is open</comment>
+  </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>Örgütler</value>
+  </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>katılınan</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>Oturumu kapat</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>Bu konuyu izlemekten vazgeç</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>Okundu olarak belirle</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>yıldızlanan</value>
+    <comment>Context: starred repositories</comment>
+  </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>bu ay</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>bu hafta</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>bugün</value>
+  </data>
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>Çok söz edilen repolar GitHub tarafından güncellenir</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>Treading</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>okunmamış</value>
+    <comment>Context: unread notifications</comment>
+  </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>Sorunlar</value>
+  </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>Repo yok</value>
+  </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>Sonuç yok</value>
+  </data>
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>ara</value>
+  </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>Giriş yap</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>İlerlemek için GitHub hesabınıza giriş yapın</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>CodeHub'a hoşgeldiniz</value>
+  </data>
+  <data name="creator.Text" xml:space="preserve">
+    <value>Geliştirici</value>
+    <comment>Maker of the app</comment>
+  </data>
+  <data name="translator.Text" xml:space="preserve">
+    <value>Translators</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>Katılımcılar</value>
+  </data>
+  <data name="clone.Text" xml:space="preserve">
+    <value>Çoğalt</value>
+  </data>
+  <data name="share.Text" xml:space="preserve">
+    <value>Paylaş</value>
+  </data>
+  <data name="labels.Text" xml:space="preserve">
+    <value>Etiketler</value>
+  </data>
+  <data name="comment.PlaceholderText" xml:space="preserve">
+    <value>Yorum</value>
+  </data>
+  <data name="title.PlaceholderText" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="body.PlaceholderText" xml:space="preserve">
+    <value>Gövde</value>
+  </data>
+  <data name="create.Content" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="cancel.Content" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="activity.Text" xml:space="preserve">
+    <value>Etkinlik</value>
+  </data>
+  <data name="pullRequests.Text" xml:space="preserve">
+    <value>Çekme İstekleri</value>
+  </data>
+  <data name="readme.Text" xml:space="preserve">
+    <value>BENİOKU</value>
+  </data>
+  <data name="contributors.Text" xml:space="preserve">
+    <value>KATILIMCILAR</value>
+  </data>
+  <data name="releases.Text" xml:space="preserve">
+    <value>YAYINLAR</value>
+  </data>
+  <data name="noClosedPullRequests.Text" xml:space="preserve">
+    <value>Kapanmış çekme isteği yok</value>
+  </data>
+  <data name="noOpenPullRequests.Text" xml:space="preserve">
+    <value>Açılmış çekme isteği yok</value>
+  </data>
+  <data name="commited.Text" xml:space="preserve">
+    <value>değişiklik uyguladı</value>
+  </data>
+  <data name="commits.Text" xml:space="preserve">
+    <value>Değişiklikler</value>
+  </data>
+  <data name="contacts.Text" xml:space="preserve">
+    <value>Kişiler</value>
+  </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>Pencere arkasındaki içeriği bulanıklaştır</value>
+  </data>
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
+    <value>$14.99 bağışla</value>
+  </data>
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
+    <value>$19.99 bağışla</value>
+  </data>
+  <data name="owned.Text" xml:space="preserve">
+    <value>sahip olundu</value>
+  </data>
+  <data name="save.Content" xml:space="preserve">
+    <value>Kayıtla</value>
+  </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>Tümünü okundu olarak işaretle</value>
+  </data>
+  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
+    <value>Sıkça bildirimleri denetle</value>
+  </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>Yeni sorun</value>
+  </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>Bir saniye önce</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>Birkaç saniye önce</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>Bir dakika önce</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>Birkaç dakika önce</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>Bir saat önce</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>Birkaç saat önce</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>Bir gün önce</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>Birkaç gün önce</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>Bir ay önce</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>Birkaç ay önce</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>Bir yıl önce</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>Birkaç yıl önce</value>
+  </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>Bu sürümdeki yenilikler neler?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>Aalok Singh tarafından geliştirildi</value>
+  </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>Reklâmları devre dışı bırakabilme seçeneğini etkinleştirmek için bağışta bulunun.</value>
+  </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>CodeHub'a Patreon üzerinden bağış yapı</value>
+  </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>Tüm diller</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>Sıfırla</value>
+  </data>
+  <data name="pageTitle_CommentView" xml:space="preserve">
+    <value>Yorum</value>
+  </data>
+  <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
+    <value>Geliştirici sayfası</value>
+  </data>
+  <data name="pageTitle_FeedView" xml:space="preserve">
+    <value>Haber beslemesi</value>
+  </data>
+  <data name="pageTitle_IssueDetailView" xml:space="preserve">
+    <value>Sorun</value>
+  </data>
+  <data name="pageTitle_IssuesView" xml:space="preserve">
+    <value>Sorunlar</value>
+  </data>
+  <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
+    <value>Örgütlerim</value>
+  </data>
+  <data name="pageTitle_MyReposView" xml:space="preserve">
+    <value>Repolarım</value>
+  </data>
+  <data name="pageTitle_NotificationsView" xml:space="preserve">
+    <value>Bildirimler</value>
+  </data>
+  <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
+    <value>Çekme istekleri</value>
+  </data>
+  <data name="pageTitle_PullRequestsView" xml:space="preserve">
+    <value>Çekme istekleri</value>
+  </data>
+  <data name="pageTitle_RepoDetailView" xml:space="preserve">
+    <value>Repo</value>
+  </data>
+  <data name="pageTitle_SearchView" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="pageTitle_SettingsView" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="pageTitle_TrendingView" xml:space="preserve">
+    <value>Yükselen</value>
+  </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>Örgüt</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>Uygulama tercihleri</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>Arayüz kişiselleştirmeleri</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>Geliştirici bilgisi ve kişiler</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value>Bağış</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>Emeği geçenler</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>Katılımlarınız için teşekkürler!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>Uygulamayı ve geliştiriciyi destekle</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>CodeHub'ı kendi dilinize çevirmek isterseniz, bana bir e-posta gönderdiğinizden emin olun!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>Lütfen kendimi destekleyebilmem için Ayarlar -&gt; Bağış aracılığı ile bağışta bulunun. Reklâmlardan da kurtulursunuz!</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>Yorum</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>Önizleme</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>Yaz</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>Önizlenecek bir şey yok</value>
+  </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>Bağlantı yok</value>
+  </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>commented on issue #{0} in</value>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>commented on PR #{0}</value>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>commented on commit in</value>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>pushed {0} commits to</value>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>deleted in</value>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>created in</value>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>Çatallandı</value>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>Yıldızlandı</value>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>acted on</value>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>published a release to</value>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>open sourced</value>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} PR #{1}</value>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>Yeniden açıldı</value>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} issue #{1} in</value>
+  </data>
+  <data name="general_Settings_UiLanguage_Title.Text" xml:space="preserve">
+    <value>Görüntüleme dili</value>
+  </data>
+  <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="default_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="general_Settings_Load_Commit_Message_Comment.Text" xml:space="preserve">
+    <value>Etkinleştirildiğinde, repo içeriğinin yüklenmesi daha uzun süre alır.</value>
+  </data>
+  <data name="Add_Account.Text" xml:space="preserve">
+    <value>Hesap ekle</value>
+  </data>
+  <data name="Accounts.Text" xml:space="preserve">
+    <value>Hesaplar</value>
+  </data>
+  <data name="Sign_Out.Content" xml:space="preserve">
+    <value>Oturumu kapat</value>
+  </data>
+</root>
