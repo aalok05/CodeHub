@@ -4,67 +4,56 @@ using Windows.Storage;
 
 namespace BackgroundTasks.Helpers
 {
-    public static class BackgroundTaskStorage
-    { 
-        private static IPropertySet Values = ApplicationData.Current.LocalSettings.CreateContainer("BackgroundTaskStorage", ApplicationDataCreateDisposition.Always).Values;
+	public static class BackgroundTaskStorage
+	{
+		private static IPropertySet Values = ApplicationData.Current.LocalSettings.CreateContainer("BackgroundTaskStorage", ApplicationDataCreateDisposition.Always).Values;
 
-        public static IPropertySet GetValues()
-        {
-            return Values;
-        }
+		public static IPropertySet GetValues() 
+			=> Values;
 
-        public static void PutError(string message)
-        {
-            Values["error"] = message;
-        }
+		public static void PutError(string message) 
+			=> Values["error"] = message;
 
-        public static string GetError()
-        {
-            if (Values.ContainsKey("error"))
-                return Values["error"] as string;
+		public static string GetError() 
+			=> Values.ContainsKey("error") ? Values["error"] as string : null;
 
-            return null;
-        }
+		public static void PutAnswer(object answer)
+		{
+			// Clear the message since it was successful
+			PutError(null);
 
-        public static void PutAnswer(object answer)
-        {
-            // Clear the message since it was successful
-            PutError(null);
+			Values["answer"] = answer;
+		}
 
-            Values["answer"] = answer;
-        }
+		public static object GetAnswer()
+		{
+			Values.TryGetValue("answer", out object obj);
 
-        public static object GetAnswer()
-        {
-            object obj;
+			return obj;
+		}
 
-            Values.TryGetValue("answer", out obj);
+		public static IDictionary<string, object> ConvertValueSetToDictionary(ValueSet valueSet)
+		{
+			var converted = new Dictionary<string, object>();
 
-            return obj;
-        }
+			foreach (var value in valueSet)
+			{
+				converted[value.Key] = value.Value;
+			}
 
-        public static IDictionary<string, object> ConvertValueSetToDictionary(ValueSet valueSet)
-        {
-            Dictionary<string, object> converted = new Dictionary<string, object>();
+			return converted;
+		}
 
-            foreach (var value in valueSet)
-            {
-                converted[value.Key] = value.Value;
-            }
+		public static ApplicationDataCompositeValue ConvertValueSetToApplicationDataCompositeValue(ValueSet valueSet)
+		{
+			var converted = new ApplicationDataCompositeValue();
 
-            return converted;
-        }
+			foreach (var value in valueSet)
+			{
+				converted[value.Key] = value.Value;
+			}
 
-        public static ApplicationDataCompositeValue ConvertValueSetToApplicationDataCompositeValue(ValueSet valueSet)
-        {
-            ApplicationDataCompositeValue converted = new ApplicationDataCompositeValue();
-
-            foreach (var value in valueSet)
-            {
-                converted[value.Key] = value.Value;
-            }
-
-            return converted;
-        }
-    }
+			return converted;
+		}
+	}
 }
