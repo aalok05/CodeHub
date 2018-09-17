@@ -22,9 +22,9 @@ namespace CodeHub.Views
 
         public TrendingView()
         { 
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new TrendingViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             Unloaded += TrendingView_Unloaded;
 

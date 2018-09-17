@@ -12,11 +12,11 @@ namespace CodeHub.Views
     {
         public AppearanceView()
         {
-            this.InitializeComponent();
-            this.DataContext = new AppearenceSettingsViewModel();
+            InitializeComponent();
+            DataContext = new AppearenceSettingsViewModel();
         }
 
-        public AppearenceSettingsViewModel ViewModel => this.DataContext.To<AppearenceSettingsViewModel>();
+        public AppearenceSettingsViewModel ViewModel => DataContext.To<AppearenceSettingsViewModel>();
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {

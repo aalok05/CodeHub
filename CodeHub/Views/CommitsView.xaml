@@ -20,7 +20,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ProgressRing IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}"
+        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
                       Width="40"
                       Height="40"
                       VerticalAlignment="Center"

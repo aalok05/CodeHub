@@ -15,11 +15,11 @@ namespace CodeHub.Views
 
         public AboutSettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             ViewModel = new AboutSettingsViewModel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {

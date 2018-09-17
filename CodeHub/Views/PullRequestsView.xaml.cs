@@ -29,10 +29,10 @@ namespace CodeHub.Views
 
         public PullRequestsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new PullRequestsViewmodel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             Unloaded += PullRequestsView_Unloaded;
 
