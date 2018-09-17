@@ -89,6 +89,12 @@
                        VerticalAlignment="Center"
                        FontSize="14"
                        Text="Darkpingouin"/>
+            <TextBlock x:Name="contributorName8"
+                       Margin="0 2 8 0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Text="Rafsanul Hasan"/>
             <TextBlock x:Name="translatorsText"
                        x:Uid="translator"
                        TextAlignment="Center"
