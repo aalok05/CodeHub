@@ -13,11 +13,11 @@ namespace CodeHub.Views
         public SourceCodeViewmodel ViewModel;
         public SourceCodeView()
         {
-            this.Loaded += (s, e) => TopScroller.InitializeScrollViewer(ContentListView);
-            this.InitializeComponent();
+            Loaded += (s, e) => TopScroller.InitializeScrollViewer(ContentListView);
+            InitializeComponent();
             ViewModel = new SourceCodeViewmodel();
-            this.DataContext = ViewModel;
-            this.Unloaded += (s, e) => TopScroller.Dispose();
+            DataContext = ViewModel;
+            Unloaded += (s, e) => TopScroller.Dispose();
             NavigationCacheMode = NavigationCacheMode.Required;
         }
 

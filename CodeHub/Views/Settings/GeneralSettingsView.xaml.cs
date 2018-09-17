@@ -10,11 +10,11 @@ namespace CodeHub.Views
 
         public GeneralSettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             ViewModel = new GeneralSettingsViewModel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {

@@ -10,9 +10,9 @@ namespace CodeHub.Views
 
         public CommitsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new CommitsViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

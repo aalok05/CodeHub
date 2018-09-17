@@ -7,7 +7,7 @@ namespace CodeHub.Views
     {
         public CreditSettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)

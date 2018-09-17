@@ -86,7 +86,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
-                                  IsActive="{x:Bind ViewModel.isLoading, Mode=OneWay}" />
+                                  IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
                 </Grid>
 
             </PivotItem>

@@ -51,7 +51,7 @@
                       Width="50"
                       Height="50"
                       Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
-                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"
+                      IsActive="{x:Bind ViewModel.IsLoading,Mode=OneWay}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>
     </Grid>

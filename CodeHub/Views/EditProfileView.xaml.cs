@@ -13,9 +13,9 @@ namespace CodeHub.Views
 
         public EditProfileView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new EditProfileViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

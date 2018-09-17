@@ -16,9 +16,9 @@ namespace CodeHub.Views
         public MyReposViewmodel ViewModel { get; set; }
         public MyReposView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new MyReposViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
            
             Loading += MyReposView_Loading;
 
