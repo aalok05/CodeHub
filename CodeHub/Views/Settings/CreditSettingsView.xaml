@@ -89,7 +89,13 @@
                        VerticalAlignment="Center"
                        FontSize="14"
                        Text="Darkpingouin"/>
-            <TextBlock x:Name="translatorsText"
+			<TextBlock x:Name="contributorName8"
+                       Margin="0 2 8 0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Text="Rafsanul Hasan"/>
+			<TextBlock x:Name="translatorsText"
                        x:Uid="translator"
                        TextAlignment="Center"
                        Margin="0,16,0,4"
@@ -223,7 +229,19 @@
                        VerticalAlignment="Center"
                        FontSize="14"
                        Text="Berkant Korkmaz" />
-        </StackPanel>
+			<TextBlock Margin="0,8,8,0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       FontSize="16"
+                       Text="Bangla" />
+			<TextBlock x:Name="translatorName14"
+                       Margin="0,4,8,0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Text="Rafsanul Hasan" />
+		</StackPanel>
 
     </ScrollViewer>
 </local:SettingsDetailPageBase>
