@@ -29,6 +29,12 @@
                           TintColor="{ThemeResource SystemAltHighColor}"
                           TintOpacity="0.2" />
 
+            <AcrylicBrush x:Key="AccentWindowAcrylicBrush"
+                          BackgroundSource="HostBackdrop"
+                          FallbackColor="{ThemeResource SystemChromeLowColor}"
+                          TintColor="{ThemeResource SystemAccentColor}"
+                          TintOpacity="0.4" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

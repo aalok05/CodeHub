@@ -399,21 +399,16 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="octo:RepositoryContributor">
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="40"
-                                                Height="40"
-                                                Margin="8,8,10,0"
-                                                CornerRadius="8,8,8,8">
-                                            <Border.Background>
-                                                <ImageBrush>
-                                                    <ImageBrush.ImageSource>
-                                                        <BitmapImage DecodePixelHeight="40"
-                                                                     DecodePixelType="Logical"
-                                                                     DecodePixelWidth="40"
-                                                                     UriSource="{x:Bind AvatarUrl, Mode=OneWay}" />
-                                                    </ImageBrush.ImageSource>
-                                                </ImageBrush>
-                                            </Border.Background>
-                                        </Border>
+                                        <toolkitControls:ImageEx Width="40"
+                                                                 Height="40"
+                                                                 Margin="8,8,10,0"
+                                                                 CornerRadius="8"
+                                                                 DecodePixelHeight="40"
+                                                                 DecodePixelType="Logical"
+                                                                 DecodePixelWidth="40"
+                                                                 Source="{x:Bind AvatarUrl, Mode=OneWay}">
+
+                                        </toolkitControls:ImageEx>
 
                                         <TextBlock VerticalAlignment="Center"
                                                    FontSize="13"
