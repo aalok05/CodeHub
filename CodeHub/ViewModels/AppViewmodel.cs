@@ -91,7 +91,7 @@ namespace CodeHub.ViewModels
         {
             get
             {
-                return "Hi all! \nHere's the changelog for v2.4.13\n\n\x2022 Made some changes to edit profile form to improve UX\n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
+                return "Hi all! \nHere's the changelog for v2.4.14\n\n\x2022 Added Turkish translations\n\x2022 Minor fluent UI improvements\n\x2022 Target build updated to 17134.0\n\x2022 Clicking on notifications now lands you on the specific issue or PR  \n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
             }
         }
         #endregion
