@@ -1,4 +1,4 @@
-﻿using CodeHub.Helpers;
+using CodeHub.Helpers;
 using CodeHub.Services;
 using CodeHub.Views;
 using GalaSoft.MvvmLight.Ioc;
@@ -7,6 +7,7 @@ using Octokit;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+
 
 namespace CodeHub.ViewModels
 {
