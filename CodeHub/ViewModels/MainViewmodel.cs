@@ -129,95 +129,77 @@ namespace CodeHub.ViewModels
 		#region commands
 
 		private RelayCommand _openPaneCommand;
-		public RelayCommand OpenPaneCommand
-		{
-			get
-			{
-				return _openPaneCommand
-				    ?? (_openPaneCommand = new RelayCommand(
-									 () =>
-									 {
-										 IsPaneOpen = !IsPaneOpen;
-									 }));
-			}
-		}
+		public RelayCommand OpenPaneCommand 
+			=> _openPaneCommand
+			?? (_openPaneCommand = new RelayCommand(() =>
+											 {
+												 IsPaneOpen = !IsPaneOpen;
+											 }));
 
 		private RelayCommand _signInCommand;
-		public RelayCommand SignInCommand
-		{
-			get
-			{
-				return _signInCommand
-				    ?? (_signInCommand = new RelayCommand(
-									 async () =>
-									 {
-										 AuthService service = new AuthService();
-										 IsLoading = true;
-
-										 if (await service.Authenticate())
-										 {
-
-											 var user = await UserService.GetCurrentUserInfo();
-											 LoadUser(user);
-											 await InitializeAccounts();
-										 }
-										 IsAccountsPanelVisible = false;
-										 IsLoading = false;
-
-									 }));
-			}
-		}
-
-		private RelayCommand _signOutCommand;
-		public RelayCommand SignOutCommand
-		{
-			get
-			{
-				return _signOutCommand
-				    ?? (_signOutCommand = new RelayCommand(
-									 async () =>
-									 {
-										 IsLoading = true;
-
-										 if (await AuthService.SignOut(ActiveAccount.Id.ToString()))
-										 {
-											 User = null;
-											 HamItemClicked(HamItems[0]);
-
-											 InactiveAccounts = await AccountsService.GetAllUsers();
-											 if (InactiveAccounts != null && InactiveAccounts.Count > 0)
+		public RelayCommand SignInCommand 
+			=> _signInCommand
+			?? (_signInCommand = new RelayCommand(async () =>
 											 {
-												 var availableAccounts = InactiveAccounts.Where(x => x.Id != ActiveAccount.Id);
-												 if (availableAccounts.Count() > 0)
+												 var service = new AuthService();
+												 IsLoading = true;
+
+												 if (await service.Authenticate())
 												 {
-													 ActiveAccount = availableAccounts.First();
-													 await AccountsService.MakeAccountActive(ActiveAccount.Id.ToString());
+
+													 var user = await UserService.GetCurrentUserInfo();
+													 LoadUser(user);
 													 await InitializeAccounts();
 												 }
-												 else
-												 {
-													 ActiveAccount = null;
-													 IsLoggedin = false;
-													 Messenger.Default.Send(new SignOutMessageType());
-													 UserLogin = string.Empty;
-												 }
-											 }
-											 else
+												 IsAccountsPanelVisible = false;
+												 IsLoading = false;
+
+											 }));
+
+		private RelayCommand _signOutCommand;
+		public RelayCommand SignOutCommand 
+			=> _signOutCommand
+			?? (_signOutCommand = new RelayCommand(async () =>
 											 {
-												 ActiveAccount = null;
-												 IsLoggedin = false;
-												 Messenger.Default.Send(new SignOutMessageType());
-												 UserLogin = string.Empty;
-											 }
-										 }
+												 IsLoading = true;
 
-										 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().ClearBackStack();
-										 IsAccountsPanelVisible = false;
-										 IsLoading = false;
+												 if (await AuthService.SignOut(ActiveAccount.Id.ToString()))
+												 {
+													 User = null;
+													 HamItemClicked(HamItems[0]);
 
-									 }));
-			}
-		}
+													 InactiveAccounts = await AccountsService.GetAllUsers();
+													 if (InactiveAccounts != null && InactiveAccounts.Count > 0)
+													 {
+														 var availableAccounts = InactiveAccounts.Where(x => x.Id != ActiveAccount.Id);
+														 if (availableAccounts.Count() > 0)
+														 {
+															 ActiveAccount = availableAccounts.First();
+															 await AccountsService.MakeAccountActive(ActiveAccount.Id.ToString());
+															 await InitializeAccounts();
+														 }
+														 else
+														 {
+															 ActiveAccount = null;
+															 IsLoggedin = false;
+															 Messenger.Default.Send(new SignOutMessageType());
+															 UserLogin = string.Empty;
+														 }
+													 }
+													 else
+													 {
+														 ActiveAccount = null;
+														 IsLoggedin = false;
+														 Messenger.Default.Send(new SignOutMessageType());
+														 UserLogin = string.Empty;
+													 }
+												 }
+
+												 SimpleIoc.Default.GetInstance<IAsyncNavigationService>().ClearBackStack();
+												 IsAccountsPanelVisible = false;
+												 IsLoading = false;
+
+											 }));
 		#endregion
 
 		public async Task Initialize()
@@ -231,16 +213,22 @@ namespace CodeHub.ViewModels
 			{
 				if (activatedEventArgs != null)
 				{
-					ProtocolActivatedEventArgs eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
+					var eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
 
 					switch (eventArgs.Uri.Host.ToLower())
 					{
 						case "repository":
-							await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
+							await SimpleIoc
+								.Default
+								.GetInstance<IAsyncNavigationService>()
+								.NavigateAsync(typeof(RepoDetailView), eventArgs.Uri.Segments[1] + eventArgs.Uri.Segments[2]);
 							break;
 
 						case "user":
-							await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
+							await SimpleIoc
+									.Default
+									.GetInstance<IAsyncNavigationService>()
+									.NavigateAsync(typeof(DeveloperProfileView), eventArgs.Uri.Segments[1]);
 							break;
 
 					}

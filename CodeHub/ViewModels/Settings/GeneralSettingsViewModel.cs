@@ -16,98 +16,92 @@ namespace CodeHub.ViewModels.Settings
         /// Gets or sets whether or not to load the additional commits info when browsing the contents of a repository
         /// </summary>
         public bool LoadCommitsInfo
-        {
-            get { return _LoadCommitsInfo; }
-            set
-            {
-                if (_LoadCommitsInfo != value)
-                {
-                    _LoadCommitsInfo = value;
-                    SettingsService.Save(SettingsKeys.LoadCommitsInfo, value);
-                    RaisePropertyChanged();
-                }
-            }
-        }
+		{
+			get => _LoadCommitsInfo;
+			set
+			{
+				if (_LoadCommitsInfo != value)
+				{
+					_LoadCommitsInfo = value;
+					SettingsService.Save(SettingsKeys.LoadCommitsInfo, value);
+					RaisePropertyChanged();
+				}
+			}
+		}
 
-        public bool _IsAdsEnabled = SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled);
+		public bool _IsAdsEnabled = SettingsService.Get<bool>(SettingsKeys.IsAdsEnabled);
 
         /// <summary>
         /// Gets or sets whether or not the Ads are enabled in the app
         /// </summary>
         public bool IsAdsEnabled
-        {
-            get { return _IsAdsEnabled; }
-            set
-            {
-                if (_IsAdsEnabled != value)
-                {
-                    _IsAdsEnabled = value;
-                    SettingsService.Save(SettingsKeys.IsAdsEnabled, value);
-                    Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType());
-                    RaisePropertyChanged();
-                }
-            }
-        }
+		{
+			get => _IsAdsEnabled;
+			set
+			{
+				if (_IsAdsEnabled != value)
+				{
+					_IsAdsEnabled = value;
+					SettingsService.Save(SettingsKeys.IsAdsEnabled, value);
+					Messenger.Default.Send(new GlobalHelper.AdsEnabledMessageType());
+					RaisePropertyChanged();
+				}
+			}
+		}
 
-        public bool _CanDisableAds = GlobalHelper.HasAlreadyDonated;
+		public bool _CanDisableAds = GlobalHelper.HasAlreadyDonated;
         public bool CanDisableAds
-        {
-            get
-            {
-                return _CanDisableAds;
-            }
-            set
-            {
-                Set(() => CanDisableAds, ref _CanDisableAds, value);
-            }
-        }
+	   {
+		  get => _CanDisableAds;
+		  set => Set(() => CanDisableAds, ref _CanDisableAds, value);
+	   }
 
-        public bool _IsNotificationCheckEnabled = SettingsService.Get<bool>(SettingsKeys.IsNotificationCheckEnabled);
+		public bool _IsNotificationCheckEnabled = SettingsService.Get<bool>(SettingsKeys.IsNotificationCheckEnabled);
 
         /// <summary>
         /// Gets or sets whether API calls for unread notifications will be frequently made
         /// </summary>
         public bool IsNotificationCheckEnabled
-        {
-            get { return _IsNotificationCheckEnabled; }
-            set
-            {
-                if (_IsNotificationCheckEnabled != value)
-                {
-                    _IsNotificationCheckEnabled = value;
-                    SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, value);
-                    RaisePropertyChanged();
-                }
-            }
-        }
+		{
+			get => _IsNotificationCheckEnabled;
+			set
+			{
+				if (_IsNotificationCheckEnabled != value)
+				{
+					_IsNotificationCheckEnabled = value;
+					SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, value);
+					RaisePropertyChanged();
+				}
+			}
+		}
 
-        /// <summary>
-        /// Gets or sets the list of app's supported languages
-        /// </summary>
-        public List<Language> AvailableUiLanguages { get; private set; } = new List<Language>();
+		/// <summary>
+		/// Gets or sets the list of app's supported languages
+		/// </summary>
+		public List<Language> AvailableUiLanguages { get; private set; } = new List<Language>();
 
         private int _selectedUiLanguageIndex;
         /// <summary>
         /// Gets or sets the index of the currently selected UI language
         /// </summary>
         public int SelectedUiLanguageIndex
-        {
-            get { return _selectedUiLanguageIndex; }
-            set
-            {
-                Set(() => SelectedUiLanguageIndex, ref _selectedUiLanguageIndex, value);
+		{
+			get => _selectedUiLanguageIndex;
+			set
+			{
+				Set(() => SelectedUiLanguageIndex, ref _selectedUiLanguageIndex, value);
 
-                try
-                {
-                    var language = AvailableUiLanguages[value];
-                    ApplicationLanguages.PrimaryLanguageOverride = language.LanguageTag;
-                }
-                catch
-                {   }
-            }
-        }
+				try
+				{
+					var language = AvailableUiLanguages[value];
+					ApplicationLanguages.PrimaryLanguageOverride = language.LanguageTag;
+				}
+				catch
+				{ }
+			}
+		}
 
-        public GeneralSettingsViewModel()
+		public GeneralSettingsViewModel()
         {
             foreach (var languageTag in ApplicationLanguages.ManifestLanguages)
                 AvailableUiLanguages.Add(new Language(languageTag));

@@ -5,18 +5,17 @@ using Windows.UI.Xaml.Controls;
 
 namespace CodeHub.Controls
 {
-    public sealed partial class SignInPage : UserControl
-    {
-        public SignInPage()
-        {
-            this.InitializeComponent();
-        }
+	public sealed partial class SignInPage : UserControl
+	{
+		public SignInPage() 
+			=> InitializeComponent();
 
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("SignInCommand", typeof(ICommand), typeof(SignInPage),null);
-        public ICommand SignInCommand
-        {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
-        }
-    }
+		public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("SignInCommand", typeof(ICommand), typeof(SignInPage), null);
+
+		public ICommand SignInCommand
+		{
+			get => (ICommand)GetValue(CommandProperty);
+			set => SetValue(CommandProperty, value);
+		}
+	}
 }
