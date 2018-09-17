@@ -12,6 +12,7 @@ using Octokit;
 using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight.Ioc;
 using CodeHub.Views;
+using Windows.UI.Popups;
 
 namespace CodeHub.ViewModels
 {
@@ -287,11 +288,22 @@ namespace CodeHub.ViewModels
         public async void NotificationsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Notification notif = e.ClickedItem as Notification;
-            await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), notif.Repository);
-            if (notif.Unread)
-            {
-                await NotificationsService.MarkNotificationAsRead(notif.Id);
-            }
+			
+		  if (int.TryParse(notif.Subject.Url.Split('/').Last().Split('?')[0], out int id))
+		  {
+			if (notif.Subject.Type.ToLower().Equals("issue"))
+			{
+				await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(notif.Repository, await IssueUtility.GetIssue(notif.Repository.Id, id)));
+			}
+			else if (notif.Subject.Type.ToLower().Equals("pullrequest"))
+			{ 
+				await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(notif.Repository, await PullRequestUtility.GetPullRequest(notif.Repository.Id, id)));
+			}
+		}
+		if (notif.Unread)
+		{
+               await NotificationsService.MarkNotificationAsRead(notif.Id);
+		}
         }
     }
 }
