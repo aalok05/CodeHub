@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Windows.System;
 using CodeHub.Services;
 
-namespace CodeHub.Views
+namespace CodeHub.Views.Settings
 {
     public sealed partial class DonateView : SettingsDetailPageBase
     {

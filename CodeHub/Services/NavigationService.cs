@@ -1,6 +1,7 @@
 ﻿using CodeHub.Controls;
 using CodeHub.Helpers;
 using CodeHub.Views;
+using CodeHub.Views.Settings;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Threading;

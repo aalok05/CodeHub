@@ -5,7 +5,7 @@ using CodeHub.Services.Hilite_me;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace CodeHub.ViewModels
+namespace CodeHub.ViewModels.Settings
 {
 	public class AppearenceSettingsViewModel : AppViewmodel
 	{
