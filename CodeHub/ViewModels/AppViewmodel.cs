@@ -62,7 +62,7 @@ namespace CodeHub.ViewModels
 		}
 
 		public string WhatsNewText
-			  => return "Hi all! \nHere's the changelog for v2.4.14\n\n\x2022 Added Turkish translations\n\x2022 Minor fluent UI improvements\n\x2022 Target build updated to 17134.0\n\x2022 Clicking on notifications now lands you on the specific issue or PR  \n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
+			  => "Hi all! \nHere's the changelog for v2.4.14\n\n\x2022 Added Turkish translations\n\x2022 Minor fluent UI improvements\n\x2022 Target build updated to 17134.0\n\x2022 Clicking on notifications now lands you on the specific issue or PR  \n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
 
 		private ObservableCollection<Octokit.Notification> _notifications;
 		public ObservableCollection<Octokit.Notification> UnreadNotifications
@@ -104,7 +104,10 @@ namespace CodeHub.ViewModels
 			{
 				foreach (Octokit.Notification item in e.NewItems)
 				{
-					await ShowToast(item, ToastNotificationScenario.Reminder);
+					if (SettingsService.Get<bool>(SettingsKeys.IsToastEnabled))
+					{
+						await ShowToast(item, ToastNotificationScenario.Reminder);
+					}
 				}
 			}
 		}
@@ -277,7 +280,8 @@ namespace CodeHub.ViewModels
 				var title = isIssue ? System.Security.SecurityElement.Escape(issue.Title) : System.Security.SecurityElement.Escape(pr.Title);
 				var subtitle = processedIssue?.Item4 ?? processedPR?.Item4;
 				var body = isIssue ? System.Security.SecurityElement.Escape(issue.Body) : System.Security.SecurityElement.Escape(pr.Body);
-				body = body.Substring(0, 50);
+				body = body
+					.Substring(0, body.Length >= 50 ? 49 : (body.Length == 0 ? 0 : body.Length - 1));
 				var status = issue?.State.StringValue ?? pr?.State.StringValue;
 
 				var icon = "";
