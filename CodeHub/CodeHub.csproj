@@ -307,6 +307,7 @@
     <Compile Include="ViewModels\EditProfileViewmodel.cs" />
     <Compile Include="ViewModels\Settings\AboutSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\GeneralSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\NofiticationSettingsViewModel.cs" />
     <Compile Include="Views\CommitDetailView.xaml.cs">
       <DependentUpon>CommitDetailView.xaml</DependentUpon>
     </Compile>
@@ -334,7 +335,7 @@
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
     <Compile Include="ViewModels\NotificationsViewmodel.cs" />
-    <Compile Include="ViewModels\AppearenceSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AppearenceSettingsViewModel.cs" />
     <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
@@ -396,6 +397,9 @@
     <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
     <Compile Include="ViewModels\SearchViewmodel.cs" />
     <Compile Include="ViewModels\SettingsViewmodel.cs" />
+    <Compile Include="Views\Settings\NotificationSettings.xaml.cs">
+      <DependentUpon>NotificationSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TrendingView.xaml.cs">
       <DependentUpon>TrendingView.xaml</DependentUpon>
     </Compile>
@@ -420,7 +424,7 @@
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsDetailPageBase.cs" />
+    <Compile Include="Views\Settings\SettingsDetailPageBase.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -636,6 +640,10 @@
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\NotificationSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TrendingView.xaml">
       <SubType>Designer</SubType>
