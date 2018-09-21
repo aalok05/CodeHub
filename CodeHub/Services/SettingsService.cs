@@ -62,5 +62,8 @@ namespace CodeHub.Services
 		public const string CurrentVersion = nameof(CurrentVersion);
 		public const string HasUserDonated = nameof(HasUserDonated);
 		public const string IsToastEnabled = nameof(IsToastEnabled);
-	}
+        public const string IsLiveTilesEnabled = nameof(IsLiveTilesEnabled);
+        public const string IsLiveTilesBadgeEnabled = nameof(IsLiveTilesBadgeEnabled);
+        public const string IsLiveTileUpdateAllBadgesEnabled = nameof(IsLiveTileUpdateAllBadgesEnabled);
+    }
 }
