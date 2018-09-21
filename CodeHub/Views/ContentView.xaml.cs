@@ -14,14 +14,14 @@ namespace CodeHub.Views
         public ContentViewmodel ViewModel;
         public ContentView()
         {
-            this.Loaded += (s, e) =>
+            Loaded += (s, e) =>
             {
                 TopScroller.InitializeScrollViewer(ContentListView);
             };
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new ContentViewmodel();
-            this.DataContext = ViewModel;
-            this.Unloaded += (s, e) =>
+            DataContext = ViewModel;
+            Unloaded += (s, e) =>
             {
                 TopScroller.Dispose();
             };

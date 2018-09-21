@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodeHub.Helpers;
 using Octokit;
-using CodeHub.Services;
-using System.Collections.ObjectModel;
-using CodeHub.Helpers;
+using System.Threading.Tasks;
 
 namespace CodeHub.Services
 {
-    class OrganizationsUtility
-    {
-        public static async Task<Organization> GetOrganizationInfo(string login)
-        {
-            try
-            {
-                return await GlobalHelper.GithubClient.Organization.Get(login);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-    }
+	class OrganizationsUtility
+	{
+		public static async Task<Organization> GetOrganizationInfo(string login)
+		{
+			try
+			{
+				return await GlobalHelper.GithubClient.Organization.Get(login);
+			}
+			catch
+			{
+				return null;
+			}
+		}
+	}
 }

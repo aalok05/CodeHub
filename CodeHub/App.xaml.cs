@@ -30,7 +30,7 @@ namespace CodeHub
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;

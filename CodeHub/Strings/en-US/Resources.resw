@@ -651,4 +651,13 @@
   <data name="Sign_Out.Content" xml:space="preserve">
     <value>Sign out</value>
   </data>
+  <data name="menu_Settings_SubMenu_Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Notifications_SubText" xml:space="preserve">
+    <value>Manage Notification Settings</value>
+  </data>
+  <data name="toastEnabled.Text" xml:space="preserve">
+    <value>Enable toast notification</value>
+  </data>
 </root>

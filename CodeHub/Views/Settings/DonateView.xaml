@@ -1,10 +1,10 @@
-﻿<local:SettingsDetailPageBase x:Class="CodeHub.Views.DonateView"
+﻿<local:SettingsDetailPageBase x:Class="CodeHub.Views.Settings.DonateView"
                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                               xmlns:controls="using:CodeHub.Controls"
                               xmlns:converters="using:CodeHub.Converters"
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                              xmlns:local="using:CodeHub.Views"
+                              xmlns:local="using:CodeHub.Views.Settings"
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               mc:Ignorable="d">
     <Page.Resources>
@@ -58,7 +58,7 @@
                     HorizontalContentAlignment="Left"
                     FontSize="20"
                     FontWeight="Light"
-                    IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="First_tier_Tapped" />
             <Button x:Uid="secondDonateTierAmount"
@@ -67,7 +67,7 @@
                     HorizontalContentAlignment="Left"
                     FontSize="20"
                     FontWeight="Light"
-                    IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Second_tier_Tapped" />
             <Button x:Uid="thirdDonateTierAmount"
@@ -76,7 +76,7 @@
                     HorizontalContentAlignment="Left"
                     FontSize="20"
                     FontWeight="Light"
-                    IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Third_tier_Tapped" />
             <Button x:Uid="fourthDonateTierAmount"
@@ -85,7 +85,7 @@
                     HorizontalContentAlignment="Left"
                     FontSize="20"
                     FontWeight="Light"
-                    IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Fourth_tier_Tapped" />
             <Button x:Uid="fifthDonateTierAmount"
@@ -94,7 +94,7 @@
                     HorizontalContentAlignment="Left"
                     FontSize="20"
                     FontWeight="Light"
-                    IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Fifth_tier_Tapped" />
             <Button x:Uid="sixthDonateTierAmount"
@@ -103,7 +103,7 @@
                     HorizontalContentAlignment="Left"
                     FontSize="20"
                     FontWeight="Light"
-                    IsEnabled="{x:Bind ViewModel.isLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource ActionButtonStyle}"
                     Tapped="Sixth_tier_Tapped" />
 
@@ -113,7 +113,7 @@
                              x:Uid="busyScreen"
                              Grid.RowSpan="2"
                              IsBusy="True"
-                             Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                             Visibility="{x:Bind ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
     </Grid>
 </local:SettingsDetailPageBase>

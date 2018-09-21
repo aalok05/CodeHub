@@ -117,7 +117,7 @@
                       Width="40"
                       Height="40"
                       Foreground="{StaticResource SystemControlBackgroundAccentBrush}"
-                      IsActive="{x:Bind ViewModel.isLoading,Mode=OneWay}"/>
+                      IsActive="{x:Bind ViewModel.IsLoading,Mode=OneWay}"/>
     </Grid>
 
 </Page>

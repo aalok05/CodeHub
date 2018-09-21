@@ -21,10 +21,10 @@ namespace CodeHub.Views
 
         public IssuesView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new IssuesViewmodel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             Unloaded += IssuesView_Unloaded;
 

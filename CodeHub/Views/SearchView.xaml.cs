@@ -13,9 +13,9 @@ namespace CodeHub.Views
         public SearchViewmodel ViewModel;
         public SearchView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new SearchViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
 

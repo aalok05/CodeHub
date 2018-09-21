@@ -16,9 +16,9 @@ namespace CodeHub.Views
         public FileContentViewmodel ViewModel;
         public FileContentView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new FileContentViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {

@@ -1,35 +1,21 @@
 ﻿using Octokit;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace CodeHub.Controls
 {
-    public sealed partial class FirstTrendingRepoControl : UserControl
-    {
-        public FirstTrendingRepoControl()
-        {
-            this.InitializeComponent();
-        }
+	public sealed partial class FirstTrendingRepoControl : UserControl
+	{
+		public FirstTrendingRepoControl() 
+			=> InitializeComponent();
 
-        public Repository Repository
-        {
-            get { return (Repository)GetValue(RepositoryProperty); }
-            set { SetValue(RepositoryProperty, value); }
-        }
+		public Repository Repository
+		{
+			get => (Repository)GetValue(RepositoryProperty);
+			set => SetValue(RepositoryProperty, value);
+		}
 
-        public static readonly DependencyProperty RepositoryProperty =
-            DependencyProperty.Register(nameof(Repository), typeof(Repository), typeof(FirstTrendingRepoControl), new PropertyMetadata(false));
-    }
+		public static readonly DependencyProperty RepositoryProperty =
+		  DependencyProperty.Register(nameof(Repository), typeof(Repository), typeof(FirstTrendingRepoControl), new PropertyMetadata(false));
+	}
 }

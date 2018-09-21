@@ -1,0 +1,51 @@
+﻿<local:SettingsDetailPageBase
+    x:Class="CodeHub.Views.Settings.NotificationSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CodeHub.Controls"
+    xmlns:model="using:CodeHub.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:CodeHub.Views.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:CodeHub.Converters"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<local:SettingsDetailPageBase.Resources>
+		<converter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter"/>
+	</local:SettingsDetailPageBase.Resources>
+
+	<ScrollViewer Background="Transparent"
+                  HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  VerticalScrollMode="Enabled">
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="OnCurrentStateChanged">
+				<VisualState x:Name="Mobile">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="320" />
+					</VisualState.StateTriggers>
+				</VisualState>
+				<VisualState x:Name="Desktop">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="720" />
+					</VisualState.StateTriggers>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<StackPanel Margin="12">
+			
+			<TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"                       
+                       x:Uid="toastEnabled" />
+
+			<ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="default_ToggleSwitch"
+                          IsOn="{x:Bind ViewModel.IsToastEnabled, Mode=TwoWay}" />
+		</StackPanel>
+	</ScrollViewer>
+
+</local:SettingsDetailPageBase>

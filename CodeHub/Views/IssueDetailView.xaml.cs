@@ -19,10 +19,10 @@ namespace CodeHub.Views
         public IssueDetailViewmodel ViewModel;
         public IssueDetailView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new IssueDetailViewmodel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)

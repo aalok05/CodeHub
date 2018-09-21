@@ -15,11 +15,11 @@ namespace CodeHub.Views
 
         public SettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             ViewModel = new SettingsViewModel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
 
