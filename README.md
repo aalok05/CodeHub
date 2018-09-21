@@ -9,7 +9,7 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 ## Features
 * Trending repositories
 * News Feed
-* View code (with syntax highlighting), issues and comments. 
+* View code (with syntax highlighting), issues and comments.
 * Create Issues
 * Comment on Issues and PRs
 * Choose from 9 different syntax highlighting styles
@@ -28,7 +28,7 @@ CodeHub is a Universal Windows GitHub client that helps you keep up with the ope
 ## Contributing
 Do you want to contribute? Here are our [contribution guidelines](https://github.com/aalok05/CodeHub/blob/master/CONTRIBUTING.md).
 
-## Setting up the project 
+## Setting up the project
 * [Register](https://github.com/settings/developers) your OAuth application and paste your key and secret in the `app.config` file in the root of the project.
 
 ## URI Schemes
@@ -53,6 +53,7 @@ I thank the makers of these libraries
 * [HTML Agility Pack](https://www.nuget.org/packages/HtmlAgilityPack)
 * [LocalNotifications](https://github.com/RavinduL/LocalNotifications)
 * [UWP-Animated-SplashScreen](https://github.com/XamlBrewer/UWP-Animated-SplashScreen)
+* [QueryString.Net](https://www.github.com/WindowsNotifications/QueryString.Net)
 
 ## Gitter chat
 * https://gitter.im/CodehubUWP/Bugs

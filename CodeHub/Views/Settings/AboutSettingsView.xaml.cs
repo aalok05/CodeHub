@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 using Microsoft.Toolkit.Uwp.Helpers;
 using CodeHub.ViewModels.Settings;
 
-namespace CodeHub.Views
+namespace CodeHub.Views.Settings
 {
     public sealed partial class AboutSettingsView : SettingsDetailPageBase
     {

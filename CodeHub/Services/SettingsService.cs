@@ -61,5 +61,6 @@ namespace CodeHub.Services
 		public const string IsNotificationCheckEnabled = nameof(IsNotificationCheckEnabled);
 		public const string CurrentVersion = nameof(CurrentVersion);
 		public const string HasUserDonated = nameof(HasUserDonated);
+		public const string IsToastEnabled = nameof(IsToastEnabled);
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using CodeHub.Models;
 using CodeHub.Views;
+using CodeHub.Views.Settings;
 using System.Collections.ObjectModel;
 using Windows.ApplicationModel.Resources;
 
@@ -40,6 +41,13 @@ namespace CodeHub.ViewModels
 					SubText = languageLoader.GetString("menu_Settings_SubMenu_Appearance_SubText"),
 					GlyphString = "\xE7F4",
 					DestPage = typeof(AppearanceView)
+				 },
+				 new SettingsItem()
+				 {
+					MainText = languageLoader.GetString("menu_Settings_SubMenu_Notifications"),
+					SubText = languageLoader.GetString("menu_Settings_SubMenu_Notifications_SubText"),
+					GlyphString = "\xe747",
+					DestPage = typeof(NotificationSettings)
 				 },
 				 new SettingsItem()
 				 {

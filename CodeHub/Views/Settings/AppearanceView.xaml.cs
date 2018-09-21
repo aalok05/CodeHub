@@ -5,8 +5,9 @@ using CodeHub.ViewModels;
 using Windows.UI.Xaml.Navigation;
 using Windows.System.Profile;
 using Microsoft.Toolkit.Uwp.Helpers;
+using CodeHub.ViewModels.Settings;
 
-namespace CodeHub.Views
+namespace CodeHub.Views.Settings
 {
     public sealed partial class AppearanceView : SettingsDetailPageBase
     {
