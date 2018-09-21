@@ -660,4 +660,13 @@
   <data name="toastEnabled.Text" xml:space="preserve">
     <value>Enable toast notification</value>
   </data>
+  <data name="liveTilesEnabled.Text" xml:space="preserve">
+    <value>Enable Live Tiles</value>
+  </data>
+  <data name="liveTilesAllBadgesUpdateEnabled.Text" xml:space="preserve">
+    <value>Enable all Badges on Live Tiles</value>
+  </data>
+  <data name="liveTilesBadgeEnabled.Text" xml:space="preserve">
+    <value>Enable Badge updates on Live Tiles</value>
+  </data>
 </root>
