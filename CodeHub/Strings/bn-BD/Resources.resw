@@ -1,0 +1,655 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="commented.Text" xml:space="preserve">
+    <value>মন্তব্য় করেছেন</value>
+    <comment>Context: SomeRandomGuy commented your commit ffde02rd at 11:11</comment>
+  </data>
+  <data name="credits.Header" xml:space="preserve">
+    <value>সম্মান</value>
+  </data>
+  <data name="disclaimer.Text" xml:space="preserve">
+    <value>এই অ্যাপ্লিকেশন কোন ভাবেই GitHub সঙ্গে অনুমোদিত হয়</value>
+  </data>
+  <data name="privacyLink.Content" xml:space="preserve">
+    <value>গোপনীয়তা নীতি</value>
+  </data>
+  <data name="rateButtonContent.Text" xml:space="preserve">
+    <value>অ্যাপ স্টোরে রেটিং করুন​</value>
+  </data>
+  <data name="theme.Text" xml:space="preserve">
+    <value>থিম</value>
+  </data>
+  <data name="AppRestartTip.Text" xml:space="preserve">
+    <value>অ্যাপ্লিকেশন পুনরায় আরম্ভ করা প্রয়োজন</value>
+  </data>
+  <data name="ThemeToggleSwitch.OffContent" xml:space="preserve">
+    <value>গাঢ় থিম</value>
+  </data>
+  <data name="ThemeToggleSwitch.OnContent" xml:space="preserve">
+    <value>হালকা থিম</value>
+    <comment>হালকা থিম</comment>
+  </data>
+  <data name="version.Text" xml:space="preserve">
+    <value>সংস্করণ</value>
+    <comment>used on versionText on AboutSettingsView.xaml on a Run. May be in some language they say X.X version instead of Version X.X. Consider using string.format. To be dertermined.</comment>
+  </data>
+  <data name="adSetting.Text" xml:space="preserve">
+    <value>উন্নয়নে সাহায্য করতে বিজ্ঞাপন সক্রিয় করুন</value>
+  </data>
+  <data name="busyScreen.BusyText" xml:space="preserve">
+    <value>অনুগ্রহপূর্বক অপেক্ষা করুন...</value>
+    <comment>preserve ellipsis here</comment>
+  </data>
+  <data name="donate.Text" xml:space="preserve">
+    <value>CodeHub সমর্থন করার জন্য দান করুন</value>
+  </data>
+  <data name="firstDonateTierAmount.Content" xml:space="preserve">
+    <value>০.৯৯ ডলার দান করুন</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew.Text" xml:space="preserve">
+    <value>নতুন কি?</value>
+  </data>
+  <data name="followButton.Content" xml:space="preserve">
+    <value>অনুসরণ করুন</value>
+  </data>
+  <data name="followers.Text" xml:space="preserve">
+    <value>অনুসারীগণ</value>
+  </data>
+  <data name="following.Text" xml:space="preserve">
+    <value>অনুসারী</value>
+  </data>
+  <data name="fourthDonateTierAmount.Content" xml:space="preserve">
+    <value>৯.৯৯ ডলার দান করুন</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="loadCommitMessage.Text" xml:space="preserve">
+    <value>ফাইলের জন্য় কমিট ম্য়াসেজ লোড করুন</value>
+  </data>
+  <data name="noEvent.Text" xml:space="preserve">
+    <value>আপনি এখনও কোন ইভেন্ট নেই</value>
+  </data>
+  <data name="pickDonateOption.Text" xml:space="preserve">
+    <value>ডেভেলপারকে সাহায্য়​ করার জন্য একটি বিকল্প চয়ন করুন</value>
+  </data>
+  <data name="preview.Text" xml:space="preserve">
+    <value>প্রাকদর্শন করুন</value>
+  </data>
+  <data name="repositories.Text" xml:space="preserve">
+    <value>রিপজিটরীসমূহ​</value>
+  </data>
+  <data name="secondDonateTierAmount.Content" xml:space="preserve">
+    <value>২.৯৯ ডলার দান করুন</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="showLineNumber.Text" xml:space="preserve">
+    <value>লাইন সংখ্যা প্রদর্শন করুন</value>
+  </data>
+  <data name="showReadMe.Text" xml:space="preserve">
+    <value>রিপোজিটরি পৃষ্ঠায়​ README দেখান</value>
+  </data>
+  <data name="syntaxHightlignting.Text" xml:space="preserve">
+    <value>সিনট্যাক্স হাইলাইটিং শৈলী</value>
+  </data>
+  <data name="thirdDonateTierAmount.Content" xml:space="preserve">
+    <value>৪.৯৯ ডলার দান করুন</value>
+    <comment>Just keep the currencies in USD. after user click donate the IAP popup will shown in user's local currency</comment>
+  </data>
+  <data name="unfollowButton.Content" xml:space="preserve">
+    <value>অনুসরণ করা বন্ধ করুন</value>
+  </data>
+  <data name="unsupportedFileType.Text" xml:space="preserve">
+    <value>ফাইল টাইপ সমর্থিত নয়</value>
+  </data>
+  <data name="all.Text" xml:space="preserve">
+    <value>সবগুলো</value>
+    <comment>Context: all repositories</comment>
+  </data>
+  <data name="closed.Text" xml:space="preserve">
+    <value>বন্ধ করা হয়েছে</value>
+    <comment>Context: status of Issue #1 is closed</comment>
+  </data>
+  <data name="comments.Text" xml:space="preserve">
+    <value>মন্তব্য়সমূহ​</value>
+    <comment>Context: Your commit received 5 comments</comment>
+  </data>
+  <data name="loadMoreButton.Content" xml:space="preserve">
+    <value>আরও লোড করুন...</value>
+    <comment>preserve ellipsis when translating</comment>
+  </data>
+  <data name="mineIssue.Text" xml:space="preserve">
+    <value>নিজের</value>
+    <comment>Context: My Issues, i.e. issues opened by me</comment>
+  </data>
+  <data name="myRepos.Text" xml:space="preserve">
+    <value>আমার রিপো সমূহ​</value>
+  </data>
+  <data name="newsFeed.Text" xml:space="preserve">
+    <value>ঘটনাচক্র</value>
+  </data>
+  <data name="noClosedIssue.Text" xml:space="preserve">
+    <value>কোন বন্ধ ইস্য়ু নেই</value>
+  </data>
+  <data name="noIssue.Text" xml:space="preserve">
+    <value>কোন ইস্য়ু নেই</value>
+  </data>
+  <data name="noNewNotification.Text" xml:space="preserve">
+    <value>কোন নতুন বিজ্ঞপ্তি নেই</value>
+  </data>
+  <data name="noOpenIssue.Text" xml:space="preserve">
+    <value>কোন খোলা ইস্য়ু নেই</value>
+  </data>
+  <data name="noOrganizationTip.Text" xml:space="preserve">
+    <value>এখনও কোন প্রতিষ্ঠান নেই, আপনার প্রতিষ্ঠানের জন্য তৃতীয় পক্ষের অ্যাপ্লিকেশন সীমাবদ্ধতা অক্ষম করুন</value>
+  </data>
+  <data name="noRepositoryTip.Text" xml:space="preserve">
+    <value>এখনো কোন রিপজিটরী নেই</value>
+  </data>
+  <data name="noStarredRepositoryTip.Text" xml:space="preserve">
+    <value>এখনো কোন তারকাচিহ্নিত রিপজিটরী নেই</value>
+  </data>
+  <data name="openedBy.Text" xml:space="preserve">
+    <value>খুলেছেন</value>
+    <comment>Context: Issue #1 is opened by XXX</comment>
+  </data>
+  <data name="open.Text" xml:space="preserve">
+    <value>খোলা</value>
+    <comment>Context: status of Issue #1 is open</comment>
+  </data>
+  <data name="organizations.Text" xml:space="preserve">
+    <value>প্রতিষ্ঠান​সমূহ​</value>
+  </data>
+  <data name="participating.Text" xml:space="preserve">
+    <value>অংশগ্রহণ</value>
+    <comment>Context: participating notifications</comment>
+  </data>
+  <data name="refreshAppBarButton.Label" xml:space="preserve">
+    <value>রিফ্রেশ করুন</value>
+  </data>
+  <data name="signOut.Text" xml:space="preserve">
+    <value>সাইন আউট করুন​</value>
+  </data>
+  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+    <value>এই থ্রেড থেকে আনসাবস্ক্রাইব করুন</value>
+  </data>
+  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+    <value>পঠিত হিসেবে চিহ্নিত করুন</value>
+  </data>
+  <data name="starred.Text" xml:space="preserve">
+    <value>তারকাচিহ্নিত</value>
+    <comment>Context: starred repositories</comment>
+  </data>
+  <data name="thisMonth.Text" xml:space="preserve">
+    <value>এই মাস</value>
+  </data>
+  <data name="thisWeek.Text" xml:space="preserve">
+    <value>এই সপ্তাহ</value>
+  </data>
+  <data name="today.Text" xml:space="preserve">
+    <value>আজ</value>
+  </data>
+  <data name="trendingUpdatePlaceholder.Text" xml:space="preserve">
+    <value>ট্রেন্ডীং রিপোজিটরিগুলি GitHub দ্বারা আপডেট করা হচ্ছে</value>
+  </data>
+  <data name="trending.Text" xml:space="preserve">
+    <value>ট্রেন্ডীং</value>
+  </data>
+  <data name="unread.Text" xml:space="preserve">
+    <value>অপঠিত</value>
+    <comment>Context: unread notifications</comment>
+  </data>
+  <data name="code.Text" xml:space="preserve">
+    <value>কোড</value>
+  </data>
+  <data name="issues.Text" xml:space="preserve">
+    <value>ইস্য়ুসমূহ​</value>
+  </data>
+  <data name="noRepositoriy.Text" xml:space="preserve">
+    <value>কোন রিপজিটরী নেই</value>
+  </data>
+  <data name="noResult.Text" xml:space="preserve">
+    <value>কোন ফলাফল নেই</value>
+  </data>
+  <data name="searchAutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>অনুসন্ধান করুন</value>
+  </data>
+  <data name="signIn.Content" xml:space="preserve">
+    <value>সাইন ইন</value>
+  </data>
+  <data name="signInTips.Text" xml:space="preserve">
+    <value>চালিয়ে যেতে আপনার GitHub অ্যাকাউন্টে সাইন ইন করুন</value>
+  </data>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>কোডহাব এ  স্বাগতম</value>
+  </data>
+  <data name="creator.Text" xml:space="preserve">
+    <value>উদ্ভাবক</value>
+    <comment>Maker of the app</comment>
+  </data>
+  <data name="translator.Text" xml:space="preserve">
+    <value>অনুবাদকগণ​</value>
+  </data>
+  <data name="contributor.Text" xml:space="preserve">
+    <value>অবদানকারী</value>
+  </data>
+  <data name="clone.Text" xml:space="preserve">
+    <value>ক্লোন করুন​</value>
+  </data>
+  <data name="share.Text" xml:space="preserve">
+    <value>শেয়ার করুন</value>
+  </data>
+  <data name="labels.Text" xml:space="preserve">
+    <value>আখ্য়াসমূহ​</value>
+  </data>
+  <data name="comment.PlaceholderText" xml:space="preserve">
+    <value>মন্তব্য করুন</value>
+  </data>
+  <data name="title.PlaceholderText" xml:space="preserve">
+    <value>খেতাব</value>
+  </data>
+  <data name="body.PlaceholderText" xml:space="preserve">
+    <value>মূল কাঠামো</value>
+  </data>
+  <data name="create.Content" xml:space="preserve">
+    <value>তৈরি করুন</value>
+  </data>
+  <data name="cancel.Content" xml:space="preserve">
+    <value>বাতিল করুন</value>
+  </data>
+  <data name="activity.Text" xml:space="preserve">
+    <value>কার্যকলাপ</value>
+  </data>
+  <data name="pullRequests.Text" xml:space="preserve">
+    <value>পুল রিকোয়েষ্টসমূহ​</value>
+  </data>
+  <data name="readme.Text" xml:space="preserve">
+    <value>রিড-মী</value>
+  </data>
+  <data name="contributors.Text" xml:space="preserve">
+    <value>অবদানকারীগণ</value>
+  </data>
+  <data name="releases.Text" xml:space="preserve">
+    <value>সঙ্করণসমূহ​</value>
+  </data>
+  <data name="noClosedPullRequests.Text" xml:space="preserve">
+    <value>কোন বন্ধ পূল রিকোয়েষ্ট নেই</value>
+  </data>
+  <data name="noOpenPullRequests.Text" xml:space="preserve">
+    <value>কোন খোলা পূল রিকোয়েষ্ট নেই</value>
+  </data>
+  <data name="commited.Text" xml:space="preserve">
+    <value>কমিট করেছেন</value>
+  </data>
+  <data name="commits.Text" xml:space="preserve">
+    <value>কমিটসমূহ​</value>
+  </data>
+  <data name="contacts.Text" xml:space="preserve">
+    <value>যোগাযোগ তালিকা</value>
+  </data>
+  <data name="blurContentBehindWindow.Text" xml:space="preserve">
+    <value>উইন্ডোর পিছনের অংশ ব্লার করুন</value>
+  </data>
+  <data name="fifthDonateTierAmount.Content" xml:space="preserve">
+    <value>১৪.৯৯ ডলার দান করুন</value>
+  </data>
+  <data name="sixthDonateTierAmount.Content" xml:space="preserve">
+    <value>১৯.৯৯ ডলার দান করুন</value>
+  </data>
+  <data name="owned.Text" xml:space="preserve">
+    <value>মালিকানাধীন</value>
+  </data>
+  <data name="save.Content" xml:space="preserve">
+    <value>সংরক্ষণ করুন</value>
+  </data>
+  <data name="markAllAsRead.Label" xml:space="preserve">
+    <value>সবগুলো পঠিত বলে সনাক্ত করুন</value>
+  </data>
+  <data name="checkNotificationsFrequently.Text" xml:space="preserve">
+    <value>বিজ্ঞপ্তি জন্য ঘন ঘন চেক করুন</value>
+  </data>
+  <data name="newIssue.Text" xml:space="preserve">
+    <value>নতুন ইস্য়ু খুলুন​</value>
+  </data>
+  <data name="aSecondAgo" xml:space="preserve">
+    <value>১ সেকেন্ড পূর্বে</value>
+  </data>
+  <data name="secondsAgo" xml:space="preserve">
+    <value>এই মাত্র</value>
+  </data>
+  <data name="aMinuteAgo" xml:space="preserve">
+    <value>১ মিনিট পূর্বে</value>
+  </data>
+  <data name="minutesAgo" xml:space="preserve">
+    <value>মিনিট পূর্বে</value>
+  </data>
+  <data name="anHourAgo" xml:space="preserve">
+    <value>১ ঘন্টা পূর্বে</value>
+  </data>
+  <data name="hoursAgo" xml:space="preserve">
+    <value>ঘন্টা পূর্বে</value>
+  </data>
+  <data name="aDayAgo" xml:space="preserve">
+    <value>১ দিন পূর্বে</value>
+  </data>
+  <data name="daysAgo" xml:space="preserve">
+    <value>দিন পূর্বে</value>
+  </data>
+  <data name="aMonthAgo" xml:space="preserve">
+    <value>১ মাস পূর্বে</value>
+  </data>
+  <data name="monthsAgo" xml:space="preserve">
+    <value>মাস পূর্বে</value>
+  </data>
+  <data name="aYearAgo" xml:space="preserve">
+    <value>১ বছর পূর্বে</value>
+  </data>
+  <data name="yearsAgo" xml:space="preserve">
+    <value>বছর আগে</value>
+  </data>
+  <data name="WhatsNewButton.Content" xml:space="preserve">
+    <value>এই সংস্করণে নতুন কি?</value>
+  </data>
+  <data name="creatorText.Text" xml:space="preserve">
+    <value>আলক সিং ডেভেলপ করেছেন</value>
+  </data>
+  <data name="addDisable.Text" xml:space="preserve">
+    <value>বিজ্ঞাপন নিষ্ক্রিয় করার অপশন সক্রিয় করতে দান করুন।</value>
+  </data>
+  <data name="donatePatreonBtn.Content" xml:space="preserve">
+    <value>CodeHub এ Patreon জন্য দান করুন</value>
+  </data>
+  <data name="search_FilterByLanguage.PlaceholderText" xml:space="preserve">
+    <value>সকল ভাষা</value>
+  </data>
+  <data name="search_Reset.Text" xml:space="preserve">
+    <value>রিসেট করুন</value>
+  </data>
+  <data name="pageTitle_CommentView" xml:space="preserve">
+    <value>মন্তব্য়​</value>
+  </data>
+  <data name="pageTitle_DeveloperProfileView" xml:space="preserve">
+    <value>প্রোফাইল​</value>
+  </data>
+  <data name="pageTitle_FeedView" xml:space="preserve">
+    <value>ঘটনাচক্র</value>
+  </data>
+  <data name="pageTitle_IssueDetailView" xml:space="preserve">
+    <value>ইস্য়ু</value>
+  </data>
+  <data name="pageTitle_IssuesView" xml:space="preserve">
+    <value>ইস্য়ু সমূহ​</value>
+  </data>
+  <data name="pageTitle_MyOrganizationsView" xml:space="preserve">
+    <value>আমার প্রতিষ্ঠান​সমূহ​</value>
+  </data>
+  <data name="pageTitle_MyReposView" xml:space="preserve">
+    <value>আমার রিপজিটরীসমূহ​</value>
+  </data>
+  <data name="pageTitle_NotificationsView" xml:space="preserve">
+    <value>বিজ্ঞপ্তিসমূহ​</value>
+  </data>
+  <data name="pageTitle_PullRequestDetailView" xml:space="preserve">
+    <value>পূল রিকোয়েষ্ট</value>
+  </data>
+  <data name="pageTitle_PullRequestsView" xml:space="preserve">
+    <value>পূল রিকোয়েষ্টসমূহ​</value>
+  </data>
+  <data name="pageTitle_RepoDetailView" xml:space="preserve">
+    <value>রিপজিটরী</value>
+  </data>
+  <data name="pageTitle_SearchView" xml:space="preserve">
+    <value>অনুসন্ধান করুন</value>
+  </data>
+  <data name="pageTitle_SettingsView" xml:space="preserve">
+    <value>সেটিংস</value>
+  </data>
+  <data name="pageTitle_TrendingView" xml:space="preserve">
+    <value>ট্রেন্ডীং</value>
+  </data>
+  <data name="pageTitle_OrganizationView" xml:space="preserve">
+    <value>প্রতিষ্ঠান​</value>
+  </data>
+  <data name="menuName_Settings.Text" xml:space="preserve">
+    <value>সেটিংস</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General" xml:space="preserve">
+    <value>সার্বিক</value>
+  </data>
+  <data name="menu_Settings_SubMenu_General_SubText" xml:space="preserve">
+    <value>এ্যাপ প্রিফারেন্স সমূহ​</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance" xml:space="preserve">
+    <value>দৃষ্টিগোচরতা</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Appearance_SubText" xml:space="preserve">
+    <value>UI কাস্টমাইজেশন</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About" xml:space="preserve">
+    <value>অ্যাপ্লিকেশন সম্পর্কে</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_SubText" xml:space="preserve">
+    <value>ডেভেলপার এর তথ্য এবং যোগাযোগ</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate" xml:space="preserve">
+    <value>দান করুন</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits" xml:space="preserve">
+    <value>সম্মানিতগণ</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Credits_SubText" xml:space="preserve">
+    <value>আপনার অবদানের জন্য ধন্যবাদ!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Donate_SubText" xml:space="preserve">
+    <value>অ্যাপ এবং এটির ডেভেলপারকে সহায়তা করুন</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_TranslateApp.Text" xml:space="preserve">
+    <value>আপনি যদি আপনার ভাষাতে কোডহাব অনুবাদ করতে চান, তবে আমাকে একটি ইমেল পাঠাতে ভুলবেন না!</value>
+  </data>
+  <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
+    <value>সেটিংস -&gt; দান করুন -এ গিয়ে আমাকে সহায়তা করার জন্য দয়া করে একটি দান করুন। এছাড়াও, বিজ্ঞাপন থেকে পরিত্রাণ পান!</value>
+  </data>
+  <data name="function_CommentCreate.Content" xml:space="preserve">
+    <value>মন্তব্য়​ করুন</value>
+  </data>
+  <data name="function_CommentCancel.Content" xml:space="preserve">
+    <value>বাতিল করুন</value>
+  </data>
+  <data name="markdownComment_Preview.Text" xml:space="preserve">
+    <value>প্রাক-প্রচার নিরিক্ষণ করুন</value>
+  </data>
+  <data name="markdownComment_Write.Text" xml:space="preserve">
+    <value>লিখুন</value>
+  </data>
+  <data name="markdownComment_NoContent" xml:space="preserve">
+    <value>পূর্বরূপ কিছুই নেই</value>
+  </data>
+  <data name="notification_NoInternetConnection" xml:space="preserve">
+    <value>ইন্টারনেট সংযোগ বিচ্ছিন্ন</value>
+  </data>
+  <data name="activity_CommentedIssue" xml:space="preserve">
+    <value>ইস্যু #{0} তে মন্তব্য করেছেন</value>
+  </data>
+  <data name="activity_CommentedPR" xml:space="preserve">
+    <value>পূল রিকোয়েষ্ট #{0} এ মন্তব্য করেছেন</value>
+  </data>
+  <data name="activity_CommentedCommit" xml:space="preserve">
+    <value>কমিটে মন্তব্য় করা হ​য়েছে</value>
+  </data>
+  <data name="activity_PushedCommits" xml:space="preserve">
+    <value>{0} টি কমিট পুশ করেছেন</value>
+  </data>
+  <data name="activity_DeletedBranch" xml:space="preserve">
+    <value>মুছে ফেলা হয়েছে</value>
+  </data>
+  <data name="activity_CreatedBranch" xml:space="preserve">
+    <value>ব্র্য়াঞ্চ তৈরী করেছেন</value>
+  </data>
+  <data name="activity_ForkedRepository" xml:space="preserve">
+    <value>ফোর্ক করা হ​য়েছে</value>
+  </data>
+  <data name="activity_StarredRepository" xml:space="preserve">
+    <value>তারকাচিহ্নিত করেছেন</value>
+  </data>
+  <data name="activity_DefaultAction" xml:space="preserve">
+    <value>ক্রিয়া করেছেন</value>
+  </data>
+  <data name="activity_PublishedRelease" xml:space="preserve">
+    <value>একটি রিলিজ প্রকাশিত করেছেন</value>
+  </data>
+  <data name="activity_PublishedRepository" xml:space="preserve">
+    <value>ওপেন সোর্সড</value>
+  </data>
+  <data name="activity_ActionOpened" xml:space="preserve">
+    <value>খোলা হ​য়েছে</value>
+  </data>
+  <data name="activity_ActivityWithPR" xml:space="preserve">
+    <value>{0} পূল রিকোয়েষ্ট #{1}</value>
+  </data>
+  <data name="activity_ActionClosed" xml:space="preserve">
+    <value>বন্ধ করা হয়েছে</value>
+  </data>
+  <data name="activity_ActionReOpened" xml:space="preserve">
+    <value>পুনরায় খোলা হ​য়েছে</value>
+  </data>
+  <data name="activity_ActivityWithIssues" xml:space="preserve">
+    <value>{0} ইস্যু #{1} in</value>
+  </data>
+  <data name="general_Settings_UiLanguage_Title.Text" xml:space="preserve">
+    <value>প্রদর্শিত ভাষা</value>
+  </data>
+  <data name="default_ToggleSwitch.OffContent" xml:space="preserve">
+    <value>বন্ধ</value>
+  </data>
+  <data name="default_ToggleSwitch.OnContent" xml:space="preserve">
+    <value>খোলা</value>
+  </data>
+  <data name="general_Settings_Load_Commit_Message_Comment.Text" xml:space="preserve">
+    <value>যদি এটি সক্রিয় থাকে, রেপোজিটরি সামগ্রীটি লোড করার জন্য আরো সময় লাগে</value>
+  </data>
+  <data name="Add_Account.Text" xml:space="preserve">
+    <value>অ্যাকাউন্ট যোগ করুন​</value>
+  </data>
+  <data name="Accounts.Text" xml:space="preserve">
+    <value>অ্যাকাউন্টস</value>
+  </data>
+  <data name="Sign_Out.Content" xml:space="preserve">
+    <value>সাইন আউট</value>
+  </data>
+</root>
