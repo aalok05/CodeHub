@@ -229,7 +229,19 @@
                        VerticalAlignment="Center"
                        FontSize="14"
                        Text="Berkant Korkmaz" />
-        </StackPanel>
+			<TextBlock Margin="0,8,8,0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       FontSize="16"
+                       Text="Bangla" />
+			<TextBlock x:Name="translatorName14"
+                       Margin="0,4,8,0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Text="Rafsanul Hasan" />
+		</StackPanel>
 
     </ScrollViewer>
 </local:SettingsDetailPageBase>
