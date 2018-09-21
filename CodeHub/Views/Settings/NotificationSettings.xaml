@@ -43,9 +43,46 @@
                        x:Uid="toastEnabled" />
 
 			<ToggleSwitch Margin="0,8,0,0"
-                          x:Uid="default_ToggleSwitch"
+                          x:Uid="toastEnabled_ToggleSwitch"
                           IsOn="{x:Bind ViewModel.IsToastEnabled, Mode=TwoWay}" />
-		</StackPanel>
+
+            <TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"                       
+                       x:Uid="liveTilesEnabled" />
+
+            <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="liveTilesEnabled_ToggleSwitch"
+                          IsOn="{x:Bind ViewModel.IsLiveTilesEnabled, Mode=TwoWay}" />
+
+            <TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"  
+                       Visibility="{x:Bind ViewModel.IsLiveTilesEnabled}"
+                       x:Uid="liveTilesBadgeEnabled" />
+
+            <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="liveTilesBadgeEnabled_ToggleSwitch"
+                          Visibility="{x:Bind ViewModel.IsLiveTilesEnabled}"
+                          IsOn="{x:Bind ViewModel.IsLiveTilesBadgeEnabled, Mode=TwoWay}" />
+
+            <TextBlock Margin="0,12,0,0"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"                       
+                       Visibility="{x:Bind ViewModel.IsLiveTilesBadgeEnabled}"
+                       x:Uid="liveTilesAllBadgesUpdateEnabled" />
+
+            <ToggleSwitch Margin="0,8,0,0"
+                          x:Uid="liveTilesAllBadgesUpdateEnabled_ToggleSwitch"
+                          Visibility="{x:Bind ViewModel.IsLiveTilesBadgeEnabled}"
+                          IsOn="{x:Bind ViewModel.IsAllBadgesUpdateEnabled, Mode=TwoWay}" />
+        </StackPanel>
 	</ScrollViewer>
 
 </local:SettingsDetailPageBase>
