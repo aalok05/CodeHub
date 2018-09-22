@@ -652,4 +652,22 @@
   <data name="Sign_Out.Content" xml:space="preserve">
     <value>সাইন আউট</value>
   </data>
+  <data name="menu_Settings_SubMenu_Notifications" xml:space="preserve">
+    <value>বিজ্ঞপ্তিসমূহ</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Notifications_SubText" xml:space="preserve">
+    <value>বিজ্ঞপ্তি সেটিংস পরিচালনা করুন</value>
+  </data>
+  <data name="toastEnabled.Text" xml:space="preserve">
+    <value>টোস্ট বিজ্ঞপ্তি সক্রিয় করুন</value>
+  </data>
+  <data name="liveTilesEnabled.Text" xml:space="preserve">
+    <value>লাইভ টাইল সক্রিয় করুন</value>
+  </data>
+  <data name="liveTilesAllBadgesUpdateEnabled.Text" xml:space="preserve">
+    <value>প্রতিটি লাইভ টাইল এর ব্যাজ সক্রিয় করুন</value>
+  </data>
+  <data name="liveTilesBadgeEnabled.Text" xml:space="preserve">
+    <value>লাইভ টাইলের ব্যাজ আপডেটগুলি সক্ষম করুন</value>
+  </data>
 </root>
