@@ -23,6 +23,7 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>774762BB9C5AE743120DB741AB4E691397B4092D</PackageCertificateThumbprint>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+      <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +35,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -46,6 +48,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -302,6 +305,9 @@
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\CommitService.cs" />
+    <Compile Include="Services\TilesBindingHintPresentation.cs" />
+    <Compile Include="Services\TilesTextStyles.cs" />
+    <Compile Include="Services\TilesVisualBrandings.cs" />
     <Compile Include="Services\ToastNotificationScenario.cs" />
     <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
     <Compile Include="ViewModels\CommitsViewmodel.cs" />
