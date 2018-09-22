@@ -562,7 +562,7 @@
     <value>Se você gostaria de traduzir CodeHub para sua língua, envie-me um e-mail!</value>
   </data>
   <data name="menu_Settings_SubMenu_About_WhatsNew_Donate.Text" xml:space="preserve">
-    <value>Por favor, faça uma doação para me ajudar, indo em Congifurações > Doação. Com isso, também livre-se dos anúncios!</value>
+    <value>Por favor, faça uma doação para me ajudar, indo em Congifurações &gt; Doação. Com isso, também livre-se dos anúncios!</value>
   </data>
   <data name="function_CommentCreate.Content" xml:space="preserve">
     <value>Comentar</value>
@@ -638,5 +638,23 @@
   </data>
   <data name="Add_Account.Text" xml:space="preserve">
     <value>Adicionar Conta</value>
+  </data>
+  <data name="liveTilesAllBadgesUpdateEnabled.Text" xml:space="preserve">
+    <value>Enable each Live Tile's Badges updates</value>
+  </data>
+  <data name="liveTilesBadgeEnabled.Text" xml:space="preserve">
+    <value>Enable Live Tile's Badge updates</value>
+  </data>
+  <data name="liveTilesEnabled.Text" xml:space="preserve">
+    <value>Enable Live Tiles</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="menu_Settings_SubMenu_Notifications_SubText" xml:space="preserve">
+    <value>Manage Notification Settings</value>
+  </data>
+  <data name="toastEnabled.Text" xml:space="preserve">
+    <value>Enable toast notification</value>
   </data>
 </root>
