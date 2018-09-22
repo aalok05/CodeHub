@@ -653,13 +653,13 @@
     <value>সাইন আউট</value>
   </data>
   <data name="menu_Settings_SubMenu_Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>বিজ্ঞপ্তিসমূহ</value>
   </data>
   <data name="menu_Settings_SubMenu_Notifications_SubText" xml:space="preserve">
-    <value>Manage Notification Settings</value>
+    <value>বিজ্ঞপ্তি সেটিংস পরিচালনা করুন</value>
   </data>
   <data name="toastEnabled.Text" xml:space="preserve">
-    <value>Enable toast notification</value>
+    <value>টোস্ট বিজ্ঞপ্তি সক্রিয় করুন</value>
   </data>
   <data name="liveTilesEnabled.Text" xml:space="preserve">
     <value>লাইভ টাইল সক্রিয় করুন</value>
