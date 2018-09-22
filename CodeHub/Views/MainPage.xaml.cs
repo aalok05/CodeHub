@@ -95,19 +95,7 @@ namespace CodeHub.Views
 			{
 				await ShowWhatsNewPopupVisiblity();
 			}
-			if (ViewModel.UnreadNotifications != null && ViewModel.UnreadNotifications.Count > 0)
-			{
-				ViewModel.UnreadNotifications.Add(ViewModel.UnreadNotifications.First());
-			}
-
-			//if (ViewModel.UnreadNotifications != null && ViewModel.UnreadNotifications.Count > 0)
-			//{
-			//	foreach (var n in ViewModel.UnreadNotifications.Reverse())
-			//	{
-			//		await ViewModel.ShowToast(n, Windows.UI.Notifications.ToastNotificationScenario.Reminder);
-			//	}
-			//}
-		}
+        }
 
 		#region click events
 		private void HamListView_ItemClick(object sender, ItemClickEventArgs e)
