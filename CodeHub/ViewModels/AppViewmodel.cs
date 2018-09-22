@@ -81,6 +81,24 @@ namespace CodeHub.ViewModels
         private const string donateFifthAddOnId = "9phrhpvhscdv";
         private const string donateSixthAddOnId = "9nnqdq0kq21j";
 
+        async Task<(long, int, Issue, string)> ProcessIssueNotification(Octokit.Notification notification)
+        {
+            var number = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
+            var repoId = notification.Repository.Id;
+            var issue = await IssueUtility.GetIssue(repoId, number);
+            var subtitle = $"Issue {number}";
+            return (repoId, number, issue, subtitle);
+        }
+
+        async Task<(long, int, PullRequest, string)> ProcessPullRequestNotification(Octokit.Notification notification)
+        {
+            var number = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
+            var repoId = notification.Repository.Id;
+            var pr = await PullRequestUtility.GetPullRequest(repoId, number);
+            var subtitle = $"Pull Request {number}";
+            return (repoId, number, pr, subtitle);
+        }
+
         public AppViewmodel()
         {
             UnreadNotifications = new ObservableCollection<Octokit.Notification>();
@@ -112,7 +130,7 @@ namespace CodeHub.ViewModels
                     }
                 }
             }
-            UpdateTiles(
+            await UpdateTiles(
                 SettingsService.Get<bool>(SettingsKeys.IsLiveTilesEnabled),
                 SettingsService.Get<bool>(SettingsKeys.IsLiveTilesBadgeEnabled),
                 SettingsService.Get<bool>(SettingsKeys.IsLiveTileUpdateAllBadgesEnabled)
@@ -245,8 +263,12 @@ namespace CodeHub.ViewModels
         }
 
 
-        public void UpdateTiles(bool updateTileEnabled, bool updateBadgeEnabled, bool updateAllBadgesEnabled)
+        public async Task UpdateTiles(bool updateTileEnabled, bool updateBadgeEnabled, bool updateAllBadgesEnabled)
         {
+            string GetStringFromEnum<T>(T @enum)
+                where T : Enum
+                => @enum.ToString().ToLower();
+
             XmlDocument GetBadgeUpdateXml()
             {
                 // Get the blank badge XML payload for a badge number
@@ -258,15 +280,59 @@ namespace CodeHub.ViewModels
                 return badgeXml;
             }
 
-            XmlDocument GetNotificationUpdateXml()
+            async Task<XmlDocument> GetNotificationUpdateXml(
+                TilesTextStyles titleStyle = TilesTextStyles.Title,
+                TilesTextStyles subTitleStyle = TilesTextStyles.BodySubtle,
+                TilesTextStyles bodyStyle = TilesTextStyles.Body,
+                TilesVisualBrandings visualBindings = TilesVisualBrandings.NameAndLogo,
+                TilesBindingHintPresentation? hintPresentation = null)
             {
                 var newIssuesCount = UnreadNotifications.Where(n => n.Subject.Type.ToLower().Equals("issue")).Count();
                 var newPrCount = UnreadNotifications.Where(n => n.Subject.Type.ToLower().Equals("pullrequest")).Count();
 
+                (long, int, Issue, string)? processedIssue = null;
+                (long, int, PullRequest, string)? processedPR = null;
+                var newNotification = UnreadNotifications.First();
+                var isIssue = newNotification.Subject.Type.ToLower().Equals("issue");
+                var isPR = newNotification.Subject.Type.ToLower().Equals("pullrequest");
+                if (isIssue)
+                {
+                    processedIssue = await ProcessIssueNotification(newNotification);
+                }
+                else if (isPR)
+                {
+                    processedPR = await ProcessPullRequestNotification(newNotification);
+                }
+
+                var issue = processedIssue?.Item3;
+                var pr = processedPR?.Item3;
+                var itemId = isIssue ? issue.Number : pr.Number;
+
+                var user = isIssue ? (issue.ClosedBy ?? issue.User) : (pr.MergedBy ?? pr.User);
+                var title = isIssue ? System.Security.SecurityElement.Escape(issue.Title) : System.Security.SecurityElement.Escape(pr.Title);
+                var subtitle = processedIssue?.Item4 ?? processedPR?.Item4;
+                var body = isIssue
+                         ? System.Security.SecurityElement.Escape(issue.Body)
+                         : System.Security.SecurityElement.Escape(pr.Body);
+                body = body
+                    .Substring(0, body.Length >= 50 ? 49 : (body.Length == 0 ? 0 : body.Length - 1));
+                var status = issue?.State.StringValue ?? pr?.State.StringValue;
+                var notificationType = isIssue ? "Issue" : "Pull Request";
+                var notificationId = isIssue ? issue.Number : pr.Number;
+
+                string titleStyleString = GetStringFromEnum(titleStyle),
+                       subTitleStyleString = GetStringFromEnum(subTitleStyle),
+                       bodyStyleString = GetStringFromEnum(bodyStyle),
+                       brandingsString = GetStringFromEnum(visualBindings),
+                       hintPresentationString = hintPresentation != null ? GetStringFromEnum(hintPresentation.Value) : null,
+                       hintPresentationAttr = hintPresentation != null ? $"hint-presentation='{hintPresentationString}'" : null;
+
+
+
                 var doc = new XmlDocument();
                 doc.LoadXml($@"
                 <tile version='3'>
-                    <visual branding='nameAndLogo'>
+                    <visual branding='{brandingsString}'>
 
                         <binding template='TileMedium'>
                             <text hint-wrap='true'>{newIssuesCount} new Issues</text>
@@ -278,9 +344,10 @@ namespace CodeHub.ViewModels
                             <text hint-wrap='true'>{newPrCount} new PRs</text>
                         </binding>
 
-                        <binding template='TileLarge'>
-                            <text hint-wrap='true'>{newIssuesCount} new Issues</text>
-                            <text hint-wrap='true'>{newPrCount} new PRs</text>
+                        <binding template='TileLarge' {hintPresentationAttr ?? ""}>                            
+                            <text hint-style='{titleStyleString}'>{title}</text>
+                            <text hint-style='{subTitleStyleString}' hint-wrap='true'>{notificationType} {notificationId} {status} by {user.Name ?? user.Login}</text>
+                            <text hint-style='{bodyStyleString}' hint-wrap='true'>{body}</text>
                         </binding>
 
                     </visual>
@@ -299,9 +366,9 @@ namespace CodeHub.ViewModels
                 badgeUpdater.Update(badge);
             }
 
-            void UpdateTileNotification()
+            async Task UpdateTileNotification()
             {
-                var notification = new TileNotification(GetNotificationUpdateXml());
+                var notification = new TileNotification(await GetNotificationUpdateXml());
                 TileUpdateManager.CreateTileUpdaterForApplication().Update(notification);
             }
 
@@ -311,30 +378,12 @@ namespace CodeHub.ViewModels
             }
             if (updateTileEnabled)
             {
-                UpdateTileNotification();
+                await UpdateTileNotification();
             }
         }
 
         public async Task ShowToast(Octokit.Notification notification, ToastNotificationScenario? scenario)
         {
-            async Task<(long, int, Issue, string)> ProcessIssueNotification()
-            {
-                var number = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
-                var repoId = notification.Repository.Id;
-                var issue = await IssueUtility.GetIssue(repoId, number);
-                var subtitle = $"Issue {number}";
-                return (repoId, number, issue, subtitle);
-            }
-
-            async Task<(long, int, PullRequest, string)> ProcessPullRequestNotification()
-            {
-                var number = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
-                var repoId = notification.Repository.Id;
-                var pr = await PullRequestUtility.GetPullRequest(repoId, number);
-                var subtitle = $"Pull Request {number}";
-                return (repoId, number, pr, subtitle);
-            }
-
             async Task<string> MakeToastNotificationXml(string scenarioInText = "default")
             {
                 (long, int, Issue, string)? processedIssue = null;
@@ -343,11 +392,11 @@ namespace CodeHub.ViewModels
                 var isPR = notification.Subject.Type.ToLower().Equals("pullrequest");
                 if (isIssue)
                 {
-                    processedIssue = await ProcessIssueNotification();
+                    processedIssue = await ProcessIssueNotification(notification);
                 }
                 else if (isPR)
                 {
-                    processedPR = await ProcessPullRequestNotification();
+                    processedPR = await ProcessPullRequestNotification(notification);
                 }
 
                 var issue = processedIssue?.Item3;
@@ -366,8 +415,8 @@ namespace CodeHub.ViewModels
                 if (isIssue)
                 {
                     icon = status.ToLower() == "closed"
-                                        ? "ms-appx:///Assets/Images/git/git-issue-closed.png"
-                                        : (status.ToLower() == "reopened" ? "ms-appx:///Assets/Images/git/git-issue-reopened.png" : "ms-appx:///Assets/Images/git/git-issue-opened.png");
+                         ? "ms-appx:///Assets/Images/git/git-issue-closed.png"
+                         : (status.ToLower() == "reopened" ? "ms-appx:///Assets/Images/git/git-issue-reopened.png" : "ms-appx:///Assets/Images/git/git-issue-opened.png");
                 }
                 else if (isPR)
                 {
