@@ -67,7 +67,7 @@
 
             <ToggleSwitch Margin="0,8,0,0"
                           x:Uid="liveTilesBadgeEnabled_ToggleSwitch"
-                          Visibility="{x:Bind ViewModel.IsLiveTilesEnabled}"
+                          Visibility="{x:Bind ViewModel.IsLiveTilesBadgeVisible}"
                           IsOn="{x:Bind ViewModel.IsLiveTilesBadgeEnabled, Mode=TwoWay}" />
 
             <TextBlock Margin="0,12,0,0"
