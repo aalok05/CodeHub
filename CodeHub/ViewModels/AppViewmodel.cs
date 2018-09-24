@@ -3,6 +3,7 @@ using CodeHub.Helpers;
 using CodeHub.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Notifications.Helpers;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using Windows.Services.Store;
 using Windows.System.Profile;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.StartScreen;
 using XmlDocument = Windows.Data.Xml.Dom.XmlDocument;
 using XmlElement = Windows.Data.Xml.Dom.XmlElement;
 
@@ -366,9 +368,9 @@ namespace CodeHub.ViewModels
                 badgeUpdater.Update(badge);
             }
 
-            async Task UpdateTileNotification()
+            void UpdateTileNotification(XmlDocument doc)
             {
-                var notification = new TileNotification(await GetNotificationUpdateXml());
+                var notification = new TileNotification(doc);
                 TileUpdateManager.CreateTileUpdaterForApplication().Update(notification);
             }
 
@@ -378,7 +380,21 @@ namespace CodeHub.ViewModels
             }
             if (updateTileEnabled)
             {
-                await UpdateTileNotification();
+                UpdateTileNotification(await GetNotificationUpdateXml());
+            }
+            if (updateAllBadgesEnabled)
+            {
+                var secondaryTiles = await SecondaryTile.FindAllAsync();
+                if (secondaryTiles != null && secondaryTiles.Count > 0)
+                {
+                    foreach (var secondaryTile in secondaryTiles)
+                    {
+                        if (updateTileEnabled)
+                        {
+                            await secondaryTile.UpdateAsync();
+                        }
+                    }
+                }
             }
         }
 
