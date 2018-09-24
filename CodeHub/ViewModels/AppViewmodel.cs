@@ -368,9 +368,9 @@ namespace CodeHub.ViewModels
                 badgeUpdater.Update(badge);
             }
 
-            void UpdateTileNotification(XmlDocument doc)
+            async Task UpdateTileNotification()
             {
-                var notification = new TileNotification(doc);
+                var notification = new TileNotification(await GetNotificationUpdateXml());
                 TileUpdateManager.CreateTileUpdaterForApplication().Update(notification);
             }
 
