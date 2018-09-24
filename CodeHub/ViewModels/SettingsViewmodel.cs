@@ -46,7 +46,7 @@ namespace CodeHub.ViewModels
 				 {
 					MainText = languageLoader.GetString("menu_Settings_SubMenu_Notifications"),
 					SubText = languageLoader.GetString("menu_Settings_SubMenu_Notifications_SubText"),
-					GlyphString = "\xe747",
+					GlyphString = "\xE7E7",
 					DestPage = typeof(NotificationSettings)
 				 },
 				 new SettingsItem()
