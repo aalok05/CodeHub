@@ -26,16 +26,16 @@ namespace CodeHub.Views
         public CommentViewmodel ViewModel;
         public CommentView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new CommentViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
            
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            ViewModel.Load((e.Parameter as IssueComment));
+            ViewModel.Load(e.Parameter as IssueComment);
         }
     }
 }

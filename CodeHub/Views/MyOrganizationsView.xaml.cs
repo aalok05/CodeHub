@@ -24,10 +24,10 @@ namespace CodeHub.Views
         public MyOrganizationsViewmodel ViewModel;
         public MyOrganizationsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             ViewModel = new MyOrganizationsViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
         }

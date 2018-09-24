@@ -29,7 +29,7 @@ namespace CodeHub.Services
         {
             try
             {
-                string clientId = await AppCredentials.getAppKey();
+                string clientId = await AppCredentials.GetAppKey();
                 OauthLoginRequest request = new OauthLoginRequest(clientId)
                 {
                     Scopes = { "user", "repo" },
@@ -82,8 +82,8 @@ namespace CodeHub.Services
                 string code = keyValPairs[1].Split('&')[0];
 
 
-                string clientId = await AppCredentials.getAppKey();
-                string appSecret = await AppCredentials.getAppSecret();
+                string clientId = await AppCredentials.GetAppKey();
+                string appSecret = await AppCredentials.GetAppSecret();
 
                 var request = new OauthTokenRequest(clientId, appSecret, code);
                 var token = await client.Oauth.CreateAccessToken(request);

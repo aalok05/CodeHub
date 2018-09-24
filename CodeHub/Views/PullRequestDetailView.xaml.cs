@@ -18,10 +18,10 @@ namespace CodeHub.Views
         public PullRequestDetailViewmodel ViewModel;
         public PullRequestDetailView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new PullRequestDetailViewmodel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
         }
 
@@ -29,7 +29,7 @@ namespace CodeHub.Views
         {
             base.OnNavigatedTo(e);
             ViewModel.CommentText = string.Empty;
-            await ViewModel.Load((e.Parameter as Tuple<Repository, PullRequest>));
+            await ViewModel.Load(e.Parameter as Tuple<Repository, PullRequest>);
         }
 
         protected async override void OnNavigatedFrom(NavigationEventArgs e)

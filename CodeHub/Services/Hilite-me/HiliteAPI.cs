@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CodeHub.Helpers;
+using CodeHub.Models;
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,105 +8,106 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Web.Http;
-using CodeHub.Helpers;
-using CodeHub.Models;
-using JetBrains.Annotations;
 
 namespace CodeHub.Services.Hilite_me
 {
-    /// <summary>
-    /// A static class that makes API calls to the Hilite.me web service
-    /// </summary>
-    public static class HiliteAPI
-    {
-        /// <summary>
-        /// Gets the web API URL
-        /// </summary>
-        public const String APIUrl = "http://hilite.me/api";
+	/// <summary>
+	/// A static class that makes API calls to the Hilite.me web service
+	/// </summary>
+	public static class HiliteAPI
+	{
+		/// <summary>
+		/// Gets the web API URL
+		/// </summary>
+		public const string APIUrl = "http://hilite.me/api";
 
-        /// <summary>
-        /// Gets the fallback lexer used for unknown file extensions
-        /// </summary>
-        private const String FallbackLexer = "c";
+		/// <summary>
+		/// Gets the fallback lexer used for unknown file extensions
+		/// </summary>
+		private const string FallbackLexer = "c";
 
-        /// <summary>
-        /// Gets a collection of lexers for less common source code files extensions
-        /// </summary>
-        public static readonly IReadOnlyDictionary<String, String> UncommonExtensions = new ReadOnlyDictionary<String, String>(new Dictionary<String, String>
-        {
-            { ".h", "c" },
-            { ".xaml", "xml" },
-            { ".cs", "csharp" },
-            { ".gitignore", "c" },
-            { ".gitattributes", "c" },
-            { ".jshintrc", "c" },
-            { ".yml", "c" },
-            { ".snyk", "c" },
-            { ".lock", "c" },
-            { ".sln", "c" },
-            { ".eslintrc", "json" },
-            { ".babelrc", "json" },
-            { ".bowerrc", "json" },
-            { ".editorconfig", "c" },
-            { ".eslintignore", "c" }
-        });
+		/// <summary>
+		/// Gets a collection of lexers for less common source code files extensions
+		/// </summary>
+		public static readonly IReadOnlyDictionary<string, string> UncommonExtensions = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>
+		{
+			  { ".h", "c" },
+			  { ".xaml", "xml" },
+			  { ".cs", "csharp" },
+			  { ".gitignore", "c" },
+			  { ".gitattributes", "c" },
+			  { ".jshintrc", "c" },
+			  { ".yml", "c" },
+			  { ".snyk", "c" },
+			  { ".lock", "c" },
+			  { ".sln", "c" },
+			  { ".eslintrc", "json" },
+			  { ".babelrc", "json" },
+			  { ".bowerrc", "json" },
+			  { ".editorconfig", "c" },
+			  { ".eslintignore", "c" }
+		});
 
-        /// <summary>
-        /// Tries to get the highlighted HTML code for a given source code
-        /// </summary>
-        /// <param name="code">The code to highlight</param>
-        /// <param name="path">The path of the file that contains the input code</param>
-        /// <param name="style">The requested highlight style</param>
-        /// <param name="lineNumbers">Indicates whether or not to show line numbers in the result HTML</param>
-        /// <param name="token">The cancellation token for the operation</param>
-        [ItemCanBeNull]
-        public static async Task<String> TryGetHighlightedCodeAsync([NotNull] String code, [NotNull] String path, 
-            SyntaxHighlightStyleEnum style, bool lineNumbers, CancellationToken token)
-        {
-            // Check if the code is possibly invalid
-            const int threshold = 50, length = 1000;
-            if (code.Substring(0, length > code.Length ? code.Length : length).Count(
-                c => char.IsControl(c) && c != '\n' && c != '\r' && c != '\t') > threshold)
-            {
-                return null;
-            }
+		/// <summary>
+		/// Tries to get the highlighted HTML code for a given source code
+		/// </summary>
+		/// <param name="code">The code to highlight</param>
+		/// <param name="path">The path of the file that contains the input code</param>
+		/// <param name="style">The requested highlight style</param>
+		/// <param name="lineNumbers">Indicates whether or not to show line numbers in the result HTML</param>
+		/// <param name="token">The cancellation token for the operation</param>
+		[ItemCanBeNull]
+		public static async Task<string> TryGetHighlightedCodeAsync([NotNull] string code, [NotNull] string path,
+		    SyntaxHighlightStyleEnum style, bool lineNumbers, CancellationToken token)
+		{
+			// Check if the code is possibly invalid
+			const int threshold = 50, length = 1000;
+			if (code.Substring(0, length > code.Length ? code.Length : length).Count(
+			    c => char.IsControl(c) && c != '\n' && c != '\r' && c != '\t') > threshold)
+			{
+				return null;
+			}
 
-            // Try to extract the code language
-            Match match = Regex.Match(path, @".*([.]\w+)");
-            if (!match.Success || match.Groups.Count != 2) return null;
-            String
-                extension = match.Groups[1].Value.ToLowerInvariant(),
-                lexer = UncommonExtensions.ContainsKey(extension)
-                    ? UncommonExtensions[extension]
-                    : extension.Substring(1); // Remove the leading '.'
+			// Try to extract the code language
+			var match = Regex.Match(path, @".*([.]\w+)");
+			if (!match.Success || match.Groups.Count != 2)
+			{
+				return null;
+			}
 
-            // Prepare the POST request content
-            Dictionary<String, String> values = new Dictionary<String, String>
-            {
-                { "code", code }, // The code to highlight
-                { "lexer", lexer }, // The code language
-                { "style", style.ToString().ToLowerInvariant() }, // The requested syntax highlight style
-                { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" }, // Default CSS properties
-                { "linenos", lineNumbers ? "pls" : String.Empty } // Includes the line numbers if not empty
-            };
+			string
+			    extension = match.Groups[1].Value.ToLowerInvariant(),
+			 lexer = UncommonExtensions.ContainsKey(extension)
+				? UncommonExtensions[extension]
+				: extension.Substring(1); // Remove the leading '.'
 
-            // Make the POST
-            WrappedHTTPWebResult<String> result = await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);
+			// Prepare the POST request content
+			var values = new Dictionary<string, string>
+			{
+				 { "code", code }, // The code to highlight
+				 { "lexer", lexer }, // The code language
+				 { "style", style.ToString().ToLowerInvariant() }, // The requested syntax highlight style
+				 { "divstyles", "border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;" }, // Default CSS properties
+				 { "linenos", lineNumbers ? "pls" : string.Empty } // Includes the line numbers if not empty
+			};
 
-            // Check if the lexer is unsupported
-            if (result.StatusCode == HttpStatusCode.InternalServerError)
-            {
+			// Make the POST
+			var result = await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token);
+
+			// Check if the lexer is unsupported
+			if (result.StatusCode == HttpStatusCode.InternalServerError)
+			{
 #if DEBUG
-                //For debugging, inform if an unsupported extesion is found
-                System.Diagnostics.Debug.WriteLine($"Possible unsupported extension: {extension} > {lexer}");
+				//For debugging, inform if an unsupported extesion is found
+				System.Diagnostics.Debug.WriteLine($"Possible unsupported extension: {extension} > {lexer}");
 #endif
-                // Retry with the fallback lexer
-                values["lexer"] = FallbackLexer;
-                return (await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token)).Result;
-            }
+				// Retry with the fallback lexer
+				values["lexer"] = FallbackLexer;
+				return (await HTTPHelper.POSTWithCacheSupportAsync(APIUrl, values, token)).Result;
+			}
 
-            // Return the result
-            return result.Result;
-        }
-    }
+			// Return the result
+			return result.Result;
+		}
+	}
 }

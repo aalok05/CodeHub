@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 
 
-namespace CodeHub.Views
+namespace CodeHub.Views.Settings
 {
     public sealed partial class GeneralSettingsView : SettingsDetailPageBase
     {
@@ -10,11 +10,11 @@ namespace CodeHub.Views
 
         public GeneralSettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             ViewModel = new GeneralSettingsViewModel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {

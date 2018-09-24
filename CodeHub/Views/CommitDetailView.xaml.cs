@@ -24,10 +24,10 @@ namespace CodeHub.Services
 
         public CommitDetailView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new CommitDetailViewmodel();
 
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

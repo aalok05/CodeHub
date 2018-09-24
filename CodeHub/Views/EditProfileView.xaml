@@ -108,7 +108,7 @@
 
             </StackPanel>
             <controls:BusyScreen IsBusy="True" 
-                                 Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                                 Visibility="{x:Bind ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
         </Grid>
     </ScrollViewer>
 </Page>

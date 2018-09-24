@@ -69,10 +69,10 @@
         <Canvas x:Name="AppTitleBar"
                 Grid.Row="0">
             <i:Interaction.Behaviors>
-                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.isLoggedin, Mode=OneWay}" Value="True">
+                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsLoggedin, Mode=OneWay}" Value="True">
                     <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}" />
                 </core:DataTriggerBehavior>
-                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.isLoggedin, Mode=OneWay}" Value="False">
+                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsLoggedin, Mode=OneWay}" Value="False">
                     <core:ChangePropertyAction PropertyName="Background" Value="{StaticResource AccentWindowAcrylicBrush}" />
                 </core:DataTriggerBehavior>
             </i:Interaction.Behaviors>
@@ -81,7 +81,7 @@
         <Grid x:Name="MainGrid"
               Grid.Row="1"
               Background="Transparent"
-              Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+              Visibility="{x:Bind ViewModel.IsLoggedin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <animations:Implicit.HideAnimations>
                 <animations:OpacityAnimation From="1.0"
                                              To="0"
@@ -217,7 +217,7 @@
                         <StackPanel Orientation="Vertical"
                                     RelativePanel.AlignVerticalCenterWith="avatarEllipse"
                                     RelativePanel.RightOf="avatarEllipse"
-                                    Visibility="{x:Bind ViewModel.isLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    Visibility="{x:Bind ViewModel.IsLoggedin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <TextBlock Margin="0,0,0,4"
                                        FontSize="14"
                                        FontWeight="Medium"
@@ -441,12 +441,12 @@
         <control:SignInPage x:Name="SignInPage"
                             Grid.Row="1"
                             SignInCommand="{x:Bind ViewModel.SignInCommand}"
-                            Visibility="{x:Bind ViewModel.isLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.IsLoggedin, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
 
         <control:BusyScreen x:Name="busyScreen"
                             Grid.Row="1"
                             IsBusy="True"
-                            Visibility="{x:Bind ViewModel.isLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
 
         <Grid x:Name="AccountsPanel"
               Grid.Row="1"

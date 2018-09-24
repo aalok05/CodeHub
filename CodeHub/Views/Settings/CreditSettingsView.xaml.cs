@@ -1,13 +1,13 @@
 ﻿using Windows.UI.Xaml;
 
 
-namespace CodeHub.Views 
+namespace CodeHub.Views.Settings 
 {
     public sealed partial class CreditSettingsView : SettingsDetailPageBase
     {
         public CreditSettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)

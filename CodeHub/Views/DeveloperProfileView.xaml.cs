@@ -18,9 +18,9 @@ namespace CodeHub.Views
 
         public DeveloperProfileView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new DeveloperProfileViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
 
             Unloaded += DeveloperProfileView_Unloaded;
         }

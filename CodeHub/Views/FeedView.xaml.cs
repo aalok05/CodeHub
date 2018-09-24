@@ -21,9 +21,9 @@ namespace CodeHub.Views
 
         public FeedView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new FeedViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
             Loading += FeedView_Loading;
 
             Unloaded += FeedView_Unloaded;

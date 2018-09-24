@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Windows.System;
 using CodeHub.Services;
 
-namespace CodeHub.Views
+namespace CodeHub.Views.Settings
 {
     public sealed partial class DonateView : SettingsDetailPageBase
     {
@@ -26,9 +26,9 @@ namespace CodeHub.Views
         private AppViewmodel ViewModel;
         public DonateView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new AppViewmodel();
-            this.DataContext = ViewModel;
+            DataContext = ViewModel;
         }
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
@@ -38,44 +38,44 @@ namespace CodeHub.Views
 
         private async void First_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.isLoading = true;
+            ViewModel.IsLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFirstAddOnId);
-            ViewModel.isLoading = false;
+            ViewModel.IsLoading = false;
             ReactToPurchaseResult(result);
         }
         private async void Second_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.isLoading = true;
+            ViewModel.IsLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateSecondAddOnId);
-            ViewModel.isLoading = false;
+            ViewModel.IsLoading = false;
             ReactToPurchaseResult(result);
         }
         private async void Third_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.isLoading = true;
+            ViewModel.IsLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateThirdAddOnId);
-            ViewModel.isLoading = false;
+            ViewModel.IsLoading = false;
             ReactToPurchaseResult(result);
         }
         private async void Fourth_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.isLoading = true;
+            ViewModel.IsLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFourthAddOnId);
-            ViewModel.isLoading = false;
+            ViewModel.IsLoading = false;
             ReactToPurchaseResult(result);
         }
         private async void Fifth_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.isLoading = true;
+            ViewModel.IsLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateFifthAddOnId);
-            ViewModel.isLoading = false;
+            ViewModel.IsLoading = false;
             ReactToPurchaseResult(result);
         }
         private async void Sixth_tier_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.isLoading = true;
+            ViewModel.IsLoading = true;
             StorePurchaseResult result = await WindowsStore.RequestPurchaseAsync(donateSixthAddOnId);
-            ViewModel.isLoading = false;
+            ViewModel.IsLoading = false;
             ReactToPurchaseResult(result);
         }
 
