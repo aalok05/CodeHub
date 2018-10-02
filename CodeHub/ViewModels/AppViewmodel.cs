@@ -158,20 +158,20 @@ namespace CodeHub.ViewModels
         public void UpdateAllNotificationIndicator(int count)
         {
             NumberOfAllNotifications = count;
-            AllString = $"all ({NumberOfAllNotifications})";
+            AllString = $" ({NumberOfAllNotifications})";
         }
 
         public void UpdateParticipatingNotificationIndicator(int count)
         {
             NumberOfParticipatingNotifications = count;
-            ParticipatingString = $"participating ({NumberOfParticipatingNotifications})";
+            ParticipatingString = $" ({NumberOfParticipatingNotifications})";
         }
 
         public async void UpdateUnreadNotificationIndicator(int count)
         {
             IsNotificationsUnread = count > 0;
             NumberOfUnreadNotifications = count;
-            UnreadString = $"unread ({NumberOfUnreadNotifications})";
+            UnreadString = $" ({NumberOfUnreadNotifications})";
             if (SettingsService.Get<bool>(nameof(SettingsKeys.IsToastEnabled)))
             {
                 if (SettingsService.Get<bool>(nameof(SettingsKeys.IsToastEnabled)))

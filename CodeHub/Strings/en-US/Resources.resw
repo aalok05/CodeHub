@@ -218,7 +218,7 @@
     <value>File type not supported</value>
   </data>
   <data name="all.Text" xml:space="preserve">
-    <value>all ({0})</value>
+    <value>all</value>
     <comment>Context: all repositories</comment>
   </data>
   <data name="closed.Text" xml:space="preserve">
@@ -276,7 +276,7 @@
     <value>Organizations</value>
   </data>
   <data name="participating.Text" xml:space="preserve">
-    <value>participating ({0})</value>
+    <value>participating</value>
     <comment>Context: participating notifications</comment>
   </data>
   <data name="refreshAppBarButton.Label" xml:space="preserve">
@@ -311,7 +311,7 @@
     <value>Treading</value>
   </data>
   <data name="unread.Text" xml:space="preserve">
-    <value>unread ({0})</value>
+    <value>unread</value>
     <comment>Context: unread notifications</comment>
   </data>
   <data name="code.Text" xml:space="preserve">

@@ -35,10 +35,14 @@
             </Pivot.Resources>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="unread"
-                               FontSize="15"
-                               FontWeight="Normal" 
-                               Text="{x:Bind ViewModel.UnreadString}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Uid="unread"
+                                   FontSize="15"
+                                   FontWeight="Normal" />
+                        <TextBlock FontSize="15"
+                                   FontWeight="Normal" 
+                                   Text="{x:Bind ViewModel.UnreadString}"/>
+                    </StackPanel>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -157,10 +161,14 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="participating"
-                               FontSize="15"
-                               FontWeight="Normal"
-                               Text="{x:Bind ViewModel.ParticipatingString}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Uid="participating"
+                                   FontSize="15"
+                                   FontWeight="Normal" />
+                        <TextBlock FontSize="15"
+                                   FontWeight="Normal"
+                                   Text="{x:Bind ViewModel.ParticipatingString}" />
+                    </StackPanel>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -275,10 +283,15 @@
             </PivotItem>
             <PivotItem Margin="0">
                 <PivotItem.Header>
-                    <TextBlock x:Uid="all" 
-                               FontSize="15"
-                               FontWeight="Normal" 
-                               Text="{x:Bind ViewModel.AllString}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Uid="all" 
+                                   FontSize="15"
+                                   FontWeight="Normal" />
+
+                        <TextBlock FontSize="15"
+                                   FontWeight="Normal" 
+                                   Text="{x:Bind ViewModel.AllString}" />
+                    </StackPanel>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
