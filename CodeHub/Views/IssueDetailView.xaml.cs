@@ -1,16 +1,10 @@
-﻿using CodeHub.Helpers;
-using CodeHub.ViewModels;
-using GalaSoft.MvvmLight.Messaging;
-using Octokit;
-using System;
+﻿using CodeHub.ViewModels;
+using System.Threading.Tasks;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
-using Windows.UI.Xaml.Markup;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
-using System.Threading.Tasks;
+using Windows.UI.Xaml.Navigation;
 
 namespace CodeHub.Views
 {
@@ -25,6 +19,7 @@ namespace CodeHub.Views
             DataContext = ViewModel;
 
         }
+
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

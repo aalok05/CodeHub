@@ -23,7 +23,10 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>774762BB9C5AE743120DB741AB4E691397B4092D</PackageCertificateThumbprint>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
-      <LangVersion>7.3</LangVersion>
+    <LangVersion>7.3</LangVersion>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -137,9 +140,6 @@
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\transparent.png" />
-    <None Include="CodeHub_StoreKey.pfx" />
-    <None Include="Package.StoreAssociation.xml" />
-    <None Include="Package.xml" />
     <Content Include="Services\Hilite-me\Samples\Borland.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -194,7 +194,10 @@
     <Content Include="Services\Hilite-me\Samples\VS.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="CodeHub_StoreKey.pfx" />
     <None Include="CodeHub_TemporaryKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
+    <None Include="Package.xml" />
     <PRIResource Include="Strings\bn-BD\Resources.resw" />
     <PRIResource Include="Strings\el\Resources.resw" />
     <PRIResource Include="Strings\it\Resources.resw" />
@@ -293,73 +296,78 @@
     <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\AnimatedGradientBrush.cs" />
+    <Compile Include="Helpers\BackgroundTaskHelper.cs" />
+    <Compile Include="Helpers\BadgeHelper.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
+    <Compile Include="Helpers\OctokitNotificationHelper.cs" />
+    <Compile Include="Helpers\TilesHelper.cs" />
+    <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\HamItem.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
     <Compile Include="Models\SettingsItem.cs" />
     <Compile Include="Models\SyntaxHighlightStyle.cs" />
     <Compile Include="Models\WrappedWebResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
+      <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AccountsService.cs" />
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CommitService.cs" />
-    <Compile Include="Services\TilesBindingHintPresentation.cs" />
-    <Compile Include="Services\TilesTextStyles.cs" />
-    <Compile Include="Services\TilesVisualBrandings.cs" />
-    <Compile Include="Services\ToastNotificationScenario.cs" />
-    <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
-    <Compile Include="ViewModels\CommitsViewmodel.cs" />
-    <Compile Include="ViewModels\EditProfileViewmodel.cs" />
-    <Compile Include="ViewModels\Settings\AboutSettingsViewModel.cs" />
-    <Compile Include="ViewModels\Settings\GeneralSettingsViewModel.cs" />
-    <Compile Include="ViewModels\Settings\NofiticationSettingsViewModel.cs" />
-    <Compile Include="Views\CommitDetailView.xaml.cs">
-      <DependentUpon>CommitDetailView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\GistUtility.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />
     <Compile Include="Services\HtmlParseService.cs" />
     <Compile Include="Services\IAsyncNavigationService.cs" />
     <Compile Include="Services\IssueUtility.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\OrganizationsUtility.cs" />
     <Compile Include="Services\PullRequestUtility.cs" />
+    <Compile Include="Services\RepositoryUtility.cs" />
     <Compile Include="Services\SearchUtility.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
-      <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\AppViewmodel.cs" />
     <Compile Include="ViewModels\CommentViewmodel.cs" />
+    <Compile Include="ViewModels\CommitDetailViewmodel.cs" />
+    <Compile Include="ViewModels\CommitsViewmodel.cs" />
     <Compile Include="ViewModels\ContentViewmodel.cs" />
     <Compile Include="ViewModels\DeveloperProfileViewmodel.cs" />
+    <Compile Include="ViewModels\EditProfileViewmodel.cs" />
     <Compile Include="ViewModels\FeedViewmodel.cs" />
-    <Compile Include="ViewModels\FileContentViewmodel.cs" />
+    <Compile Include="ViewModels\FileContentViewModel.cs" />
     <Compile Include="ViewModels\IssueDetailViewmodel.cs" />
     <Compile Include="ViewModels\IssuesViewmodel.cs" />
+    <Compile Include="ViewModels\MainViewmodel.cs" />
     <Compile Include="ViewModels\MyOrganizationsViewmodel.cs" />
+    <Compile Include="ViewModels\MyReposViewmodel.cs" />
     <Compile Include="ViewModels\NotificationsViewmodel.cs" />
-    <Compile Include="ViewModels\Settings\AppearenceSettingsViewModel.cs" />
     <Compile Include="ViewModels\PullRequestDetailViewmodel.cs" />
     <Compile Include="ViewModels\PullRequestsViewmodel.cs" />
+    <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
+    <Compile Include="ViewModels\SearchViewmodel.cs" />
+    <Compile Include="ViewModels\SettingsViewmodel.cs" />
+    <Compile Include="ViewModels\Settings\AboutSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AppearenceSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\GeneralSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\NofiticationSettingsViewModel.cs" />
     <Compile Include="ViewModels\SourceCodeViewmodel.cs" />
-    <Compile Include="Views\CommitsView.xaml.cs">
-      <DependentUpon>CommitsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditProfileView.xaml.cs">
-      <DependentUpon>EditProfileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
-      <DependentUpon>AboutSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\AppearanceView.xaml.cs">
-      <DependentUpon>AppearanceView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\TrendingViewmodel.cs" />
     <Compile Include="Views\CommentView.xaml.cs">
       <DependentUpon>CommentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommitDetailView.xaml.cs">
+      <DependentUpon>CommitDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommitsView.xaml.cs">
+      <DependentUpon>CommitsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ContentView.xaml.cs">
       <DependentUpon>ContentView.xaml</DependentUpon>
@@ -367,20 +375,14 @@
     <Compile Include="Views\DeveloperProfileView.xaml.cs">
       <DependentUpon>DeveloperProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings\CreditSettingsView.xaml.cs">
-      <DependentUpon>CreditSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\DonateView.xaml.cs">
-      <DependentUpon>DonateView.xaml</DependentUpon>
+    <Compile Include="Views\EditProfileView.xaml.cs">
+      <DependentUpon>EditProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FeedView.xaml.cs">
       <DependentUpon>FeedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FileContentView.xaml.cs">
       <DependentUpon>FileContentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\GeneralSettingsView.xaml.cs">
-      <DependentUpon>GeneralSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IssueDetailView.xaml.cs">
       <DependentUpon>IssueDetailView.xaml</DependentUpon>
@@ -390,25 +392,6 @@
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HamItem.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Helpers\GlobalHelper.cs" />
-    <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\RepositoryUtility.cs" />
-    <Compile Include="ViewModels\AppViewmodel.cs" />
-    <Compile Include="ViewModels\TrendingViewmodel.cs" />
-    <Compile Include="ViewModels\MainViewmodel.cs" />
-    <Compile Include="ViewModels\MyReposViewmodel.cs" />
-    <Compile Include="ViewModels\RepoDetailViewmodel.cs" />
-    <Compile Include="ViewModels\SearchViewmodel.cs" />
-    <Compile Include="ViewModels\SettingsViewmodel.cs" />
-    <Compile Include="Views\Settings\NotificationSettings.xaml.cs">
-      <DependentUpon>NotificationSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TrendingView.xaml.cs">
-      <DependentUpon>TrendingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MyOrganizationsView.xaml.cs">
       <DependentUpon>MyOrganizationsView.xaml</DependentUpon>
@@ -431,12 +414,33 @@
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings\SettingsDetailPageBase.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\AboutSettingsView.xaml.cs">
+      <DependentUpon>AboutSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\AppearanceView.xaml.cs">
+      <DependentUpon>AppearanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\CreditSettingsView.xaml.cs">
+      <DependentUpon>CreditSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\DonateView.xaml.cs">
+      <DependentUpon>DonateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\GeneralSettingsView.xaml.cs">
+      <DependentUpon>GeneralSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\NotificationSettings.xaml.cs">
+      <DependentUpon>NotificationSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SettingsDetailPageBase.cs" />
     <Compile Include="Views\SourceCodeView.xaml.cs">
       <DependentUpon>SourceCodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrendingView.xaml.cs">
+      <DependentUpon>TrendingView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -486,211 +490,211 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\ActivityListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\BusyScreen.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CodeListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CommentListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CommitFileListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CommitListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\FirstTrendingRepoControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\HamMenuListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\IssueListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\LabelListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MarkdownEditorControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\OrganizationListItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PullRequestListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ReleaseListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\RepoListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SignInPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SyntaxHighlightPreviewControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TopScrollerControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\UserListItem.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\WhatsNewPopupControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SharedCompiledDataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\SVGIconsDictionary.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Views\CommitDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\MiscStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Resources\SharedCompiledDataTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\TextStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\CommitsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditProfileView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\AboutSettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\AppearanceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\CommentView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CommitDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CommitsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ContentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeveloperProfileView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Settings\CreditSettingsView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\EditProfileView.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\DonateView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FeedView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FileContentView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\GeneralSettingsView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\IssueDetailView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\IssuesView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Settings\NotificationSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TrendingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MyOrganizationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MyReposView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NotificationsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PullRequestDetailView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PullRequestsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\RepoDetailView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SearchView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\AboutSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\AppearanceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\CreditSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\DonateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\GeneralSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\NotificationSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SourceCodeView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TrendingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -709,7 +713,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.5</Version>
+      <Version>1.8.8</Version>
     </PackageReference>
     <PackageReference Include="JetBrains.Annotations">
       <Version>2018.2.1</Version>
@@ -718,13 +722,13 @@
       <Version>10.1805.7001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>1.8.0</Version>
+      <Version>1.9.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>1.8.0</Version>
+      <Version>1.9.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.0-Preview1-26502-02</Version>
+      <Version>6.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.SDK">
       <Version>10.1705.16001</Version>
@@ -733,16 +737,16 @@
       <Version>4.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>3.0.0</Version>
+      <Version>4.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.0</Version>
     </PackageReference>
     <PackageReference Include="MvvmLightLibs">
-      <Version>5.4.1</Version>
+      <Version>5.4.1.1</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
-      <Version>0.31.0</Version>
+      <Version>0.32.0</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
@@ -754,7 +758,7 @@
       <Version>4.5.0</Version>
     </PackageReference>
     <PackageReference Include="UICompositionAnimations">
-      <Version>2.15.0</Version>
+      <Version>2.16.1</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
       <Version>1.23.0</Version>
@@ -762,12 +766,6 @@
     <PackageReference Include="XamlBrewer.Uwp.AnimatedSplashScreen">
       <Version>1.0.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BackgroundTasks\BackgroundTasks.csproj">
-      <Project>{76302c28-5add-5ba6-8f05-6169d69f3dea}</Project>
-      <Name>BackgroundTasks</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

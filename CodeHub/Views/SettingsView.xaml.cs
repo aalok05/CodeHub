@@ -34,7 +34,7 @@ namespace CodeHub.Views
             {
                 if(SettingsListView.SelectedIndex != -1)
                 {
-                    SimpleIoc.Default.GetInstance<Services.IAsyncNavigationService>().NavigateWithoutAnimations(ViewModel.SubMenus[SettingsListView.SelectedIndex].DestPage, "Settings");
+                    SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateWithoutAnimations(ViewModel.SubMenus[SettingsListView.SelectedIndex].DestPage, "Settings");
                 }
             }
         }

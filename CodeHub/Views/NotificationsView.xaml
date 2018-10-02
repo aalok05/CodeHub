@@ -8,6 +8,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:local="using:CodeHub.Views"
+      xmlns:ViewModels="using:CodeHub.ViewModels"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -36,7 +37,8 @@
                 <PivotItem.Header>
                     <TextBlock x:Uid="unread"
                                FontSize="15"
-                               FontWeight="Normal" />
+                               FontWeight="Normal" 
+                               Text="{x:Bind ViewModel.UnreadString}"/>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -48,7 +50,7 @@
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.UnreadNotifications, Mode=OneWay}"
+                              ItemsSource="{x:Bind ViewModels:AppViewmodel.UnreadNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
@@ -158,7 +160,7 @@
                     <TextBlock x:Uid="participating"
                                FontSize="15"
                                FontWeight="Normal"
-                               Text="participating" />
+                               Text="{x:Bind ViewModel.ParticipatingString}" />
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -170,7 +172,7 @@
                               IsItemClickEnabled="True"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.ParticipatingNotifications, Mode=OneWay}"
+                              ItemsSource="{x:Bind ViewModels:NotificationsViewmodel.ParticipatingNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
@@ -275,7 +277,8 @@
                 <PivotItem.Header>
                     <TextBlock x:Uid="all" 
                                FontSize="15"
-                               FontWeight="Normal" />
+                               FontWeight="Normal" 
+                               Text="{x:Bind ViewModel.AllString}"/>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -287,7 +290,7 @@
                               Grid.Row="0"
                               ItemClick="{x:Bind ViewModel.NotificationsListView_ItemClick}"
                               ItemContainerStyle="{StaticResource HoverListViewItemStyle}"
-                              ItemsSource="{x:Bind ViewModel.AllNotifications, Mode=OneWay}"
+                              ItemsSource="{x:Bind ViewModels:NotificationsViewmodel.AllNotifications, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">

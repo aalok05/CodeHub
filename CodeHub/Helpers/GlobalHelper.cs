@@ -48,16 +48,29 @@ namespace CodeHub.Helpers
 			public string PageName { get; set; }
 		}
 
-		public class UpdateUnreadNotificationMessageType
+		public abstract class UpdateNotificationsCountMessageType
 		{
-			public bool IsUnread { get; set; }
+            public int Count { get; set; } = 0;
 		}
-		#endregion
+        public class UpdateAllNotificationsCountMessageType
+            : UpdateNotificationsCountMessageType
+        {
+        }
+        public class UpdateParticipatingNotificationsCountMessageType
+            : UpdateNotificationsCountMessageType
+        {
+        }
+        public class UpdateUnreadNotificationsCountMessageType
+            : UpdateNotificationsCountMessageType
+        {
+        }
+        #endregion
 
-		/// <summary>
-		/// Client for GitHub client
-		/// </summary>
-		public static GitHubClient GithubClient { get; set; }
+        #region Properties
+        /// <summary>
+        /// Client for GitHub client
+        /// </summary>
+        public static GitHubClient GithubClient { get; set; }
 
 		/// <summary>
 		/// Indicates if Ads are visible
@@ -94,11 +107,14 @@ namespace CodeHub.Helpers
 		/// </summary>
 		public static List<(string, string)> TrendingMonthRepoNames { get; set; }
 
-		/// <summary>
-		/// Determines if internet connection is available to device
-		/// </summary>
-		/// <returns></returns>
-		public static bool IsInternet()
+        #endregion
+
+        #region static methods
+        /// <summary>
+        /// Determines if internet connection is available to device
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsInternet()
 		{
 			var connectionProfile = NetworkInformation.GetInternetConnectionProfile();
 			return connectionProfile != null &&
@@ -211,6 +227,7 @@ namespace CodeHub.Helpers
 				    languageLoader.GetString("yearsAgo"));
 			}
 		}
-	}
+        #endregion
+    }
 
 }
