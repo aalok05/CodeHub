@@ -200,10 +200,10 @@ namespace CodeHub.Views
 
             var syncBuilder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
                         "SyncNotifications",
-                        new SystemTrigger(SystemTriggerType.BackgroundWorkCostChange, false)//,
-                        //internetAvailableCondition//,
-                        //userPresentCondition,
-                        //sessionConnectedCondition
+                        new TimeTrigger(15, false),
+                        internetAvailableCondition,
+                        userPresentCondition,
+                        sessionConnectedCondition
                       );
             syncBuilder.Register();
         }
