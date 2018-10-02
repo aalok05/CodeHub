@@ -85,19 +85,19 @@ namespace CodeHub.ViewModels
         public string WhatsNewText
               => "Hi all! \nHere's the changelog for v2.4.14\n\n\x2022 Added Turkish translations\n\x2022 Minor fluent UI improvements\n\x2022 Target build updated to 17134.0\n\x2022 Clicking on notifications now lands you on the specific issue or PR  \n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
 
-        private string _AllString = $"all ({NotificationsViewmodel.AllNotifications?.Count ?? 0})";
+        private string _AllString = $" ({NotificationsViewmodel.AllNotifications?.Count ?? 0})";
         public string AllString
         {
             get => _AllString;
             set => Set(() => AllString, ref _AllString, value);
         }
-        public string _ParticipatingString = $"participating ({NotificationsViewmodel.ParticipatingNotifications?.Count ?? 0})";
+        public string _ParticipatingString = $" ({NotificationsViewmodel.ParticipatingNotifications?.Count ?? 0})";
         public string ParticipatingString
         {
             get => _ParticipatingString;
             set => Set(() => ParticipatingString, ref _ParticipatingString, value);
         }
-        public string _UnreadString = $"unread ({UnreadNotifications?.Count ?? 0})";
+        public string _UnreadString = $" ({UnreadNotifications?.Count ?? 0})";
         public string UnreadString
         {
             get => _UnreadString;
@@ -172,6 +172,7 @@ namespace CodeHub.ViewModels
             IsNotificationsUnread = count > 0;
             NumberOfUnreadNotifications = count;
             UnreadString = $" ({NumberOfUnreadNotifications})";
+            var unreadNitifications = UnreadNotifications.OrderBy(n => n.UpdatedAt);
             if (SettingsService.Get<bool>(nameof(SettingsKeys.IsToastEnabled)))
             {
                 if (SettingsService.Get<bool>(nameof(SettingsKeys.IsToastEnabled)))
@@ -186,7 +187,7 @@ namespace CodeHub.ViewModels
                         }
                     }
 
-                    foreach (var notification in UnreadNotifications.OrderByDescending(n => n.UpdatedAt))
+                    foreach (var notification in unreadNitifications)
                     {
                         var toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
                         var toastExistsForNotification = ToastNotificationManager.History.GetHistory().Any(t => t.Tag == toast.Tag && t.Group == toast.Group);
@@ -206,7 +207,7 @@ namespace CodeHub.ViewModels
                 }
                 if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesEnabled))
                 {
-                    await TilesHelper.UpdateTile(UnreadNotifications.Last());
+                    await TilesHelper.UpdateTile(unreadNitifications.Last());
                 }
             }
 
