@@ -150,21 +150,21 @@ namespace CodeHub.ViewModels
 					SimpleIoc
 						.Default
 						.GetInstance<IAsyncNavigationService>()
-						.NavigateAsync(typeof(IssueDetailView), (activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
+						.NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(activity.Repo, ((IssueCommentPayload)activity.Payload).Issue));
 					break;
 
 				case "IssuesEvent":
 					SimpleIoc
 						.Default
 						.GetInstance<IAsyncNavigationService>()
-						.NavigateAsync(typeof(IssueDetailView), (activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
+						.NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(activity.Repo, ((IssueEventPayload)activity.Payload).Issue));
 					break;
 
 				case "PullRequestReviewCommentEvent":
 					SimpleIoc
 						.Default
 						.GetInstance<IAsyncNavigationService>()
-						.NavigateAsync(typeof(PullRequestDetailView), (activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
+						.NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestCommentPayload)activity.Payload).PullRequest));
 					break;
 
 				case "PullRequestEvent":
@@ -172,7 +172,7 @@ namespace CodeHub.ViewModels
 					SimpleIoc
 						.Default
 						.GetInstance<IAsyncNavigationService>()
-						.NavigateAsync(typeof(PullRequestDetailView), (activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
+						.NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(activity.Repo, ((PullRequestEventPayload)activity.Payload).PullRequest));
 					break;
 
 				case "ForkEvent":
@@ -185,14 +185,14 @@ namespace CodeHub.ViewModels
 					SimpleIoc
 						.Default
 						.GetInstance<IAsyncNavigationService>()
-						.NavigateAsync(typeof(CommitDetailView), (activity.Repo.Id, ((CommitCommentPayload)activity.Payload).Comment.CommitId));
+						.NavigateAsync(typeof(CommitDetailView), new Tuple<long, string>(activity.Repo.Id, ((CommitCommentPayload)activity.Payload).Comment.CommitId));
 					break;
 
 				case "PushEvent":
 					SimpleIoc
 						.Default
 						.GetInstance<IAsyncNavigationService>()
-						.NavigateAsync(typeof(CommitsView), (activity.Repo.Id, ((PushEventPayload)activity.Payload).Commits));
+						.NavigateAsync(typeof(CommitsView), new Tuple<long, IReadOnlyList<Commit>>(activity.Repo.Id, ((PushEventPayload)activity.Payload).Commits));
 					break;
 
 
