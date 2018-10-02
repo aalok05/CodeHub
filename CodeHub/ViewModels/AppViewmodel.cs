@@ -2,6 +2,7 @@
 using CodeHub.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -195,6 +196,18 @@ namespace CodeHub.ViewModels
                         }
                     }
                 }
+                else
+                {
+                    ToastNotificationManager.History.Clear();
+                }
+                if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesBadgeEnabled))
+                {
+                    BadgeHelper.UpdateBadge(UnreadNotifications.Count);
+                }
+                if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesEnabled))
+                {
+                    await TilesHelper.UpdateTile(UnreadNotifications.Last());
+                }
             }
 
         }
@@ -204,6 +217,7 @@ namespace CodeHub.ViewModels
             if (GlobalHelper.IsInternet())
             {
                 UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications.Count });
             }
         }
 

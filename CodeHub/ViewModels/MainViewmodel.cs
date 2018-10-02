@@ -277,27 +277,7 @@ namespace CodeHub.ViewModels
 
                 if (IsInternet())
                 {
-                    //await CheckForUnreadNotifications();
-                    //ToastNotificationManager.History.Clear();
-                    //Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications.Count() });
-                    //if (UnreadNotifications != null && UnreadNotifications.Any())
-                    //{
-                    //    foreach (var item in UnreadNotifications.Reverse())
-                    //    {
-                    //        if (SettingsService.Get<bool>(SettingsKeys.IsToastEnabled))
-                    //        {
-                    //            await ToastHelper.PopCustomToast(item, ToastNotificationScenario.Reminder);
-                    //        }
-                    //    }
-                    //}
-                    //if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesBadgeEnabled))
-                    //{
-                    //    BadgeHelper.UpdateBadge(UnreadNotifications.Count);
-                    //}
-                    //if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesEnabled))
-                    //{
-                    //    await TilesHelper.UpdateTile(UnreadNotifications.Last());
-                    //}
+                    await CheckForUnreadNotifications();
                 }
             }
         }
