@@ -302,3 +302,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 CodeHub/Package.xml
+CodeHub/app.config
+CodeHub/Package.appxmanifest
