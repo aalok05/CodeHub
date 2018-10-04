@@ -5,232 +5,254 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
-
+using static CodeHub.Helpers.GlobalHelper;
+using Task = System.Threading.Tasks.Task;
+using ToastNotificationManager = Windows.UI.Notifications.ToastNotificationManager;
 
 namespace CodeHub.ViewModels
 {
-	public class NotificationsViewmodel : AppViewmodel
-	{
-		#region properties
-		public ObservableCollection<Notification> _AllNotifications;
-		public ObservableCollection<Notification> AllNotifications
-		{
-			get => _AllNotifications;
-			set => Set(() => AllNotifications, ref _AllNotifications, value);
-		}
-		public ObservableCollection<Notification> _UnreadNotifications;
-		public ObservableCollection<Notification> UnreadNotifications
-		{
-			get => _UnreadNotifications;
-			set => Set(() => UnreadNotifications, ref _UnreadNotifications, value);
-		}
-		public ObservableCollection<Notification> _ParticipatingNotifications;
-		public ObservableCollection<Notification> ParticipatingNotifications
-		{
-			get => _ParticipatingNotifications;
-			set => Set(() => ParticipatingNotifications, ref _ParticipatingNotifications, value);
-		}
+    public class NotificationsViewmodel : AppViewmodel
+    {
+        #region properties
+        public static ObservableCollection<Notification> AllNotifications { get; set; }
 
-		public bool _ZeroAllCount;
-		public bool ZeroAllCount
-		{
-			get => _ZeroAllCount;
-			set => Set(() => ZeroAllCount, ref _ZeroAllCount, value);
-		}
-		public bool _ZeroUnreadCount;
-		public bool ZeroUnreadCount
-		{
-			get => _ZeroUnreadCount;
-			set => Set(() => ZeroUnreadCount, ref _ZeroUnreadCount, value);
-		}
-		public bool _ZeroParticipatingCount;
-		public bool ZeroParticipatingCount
-		{
-			get => _ZeroParticipatingCount;
-			set => Set(() => ZeroParticipatingCount, ref _ZeroParticipatingCount, value);
-		}
+        public static ObservableCollection<Notification> ParticipatingNotifications { get; set; }
 
-		public bool _isloadingAll;
-		public bool IsLoadingAll
-		{
-			get => _isloadingAll;
-			set => Set(() => IsLoadingAll, ref _isloadingAll, value);
-		}
+        public bool _ZeroAllCount;
+        public bool ZeroAllCount
+        {
+            get => _ZeroAllCount;
+            set => Set(() => ZeroAllCount, ref _ZeroAllCount, value);
+        }
+        public bool _ZeroUnreadCount;
+        public bool ZeroUnreadCount
+        {
+            get => _ZeroUnreadCount;
+            set => Set(() => ZeroUnreadCount, ref _ZeroUnreadCount, value);
+        }
+        public bool _ZeroParticipatingCount;
+        public bool ZeroParticipatingCount
+        {
+            get => _ZeroParticipatingCount;
+            set => Set(() => ZeroParticipatingCount, ref _ZeroParticipatingCount, value);
+        }
 
-		public bool _isloadingUnread;
-		public bool IsLoadingUnread
-		{
-			get => _isloadingUnread;
-			set => Set(() => IsLoadingUnread, ref _isloadingUnread, value);
-		}
+        public bool _isloadingAll;
+        public bool IsLoadingAll
+        {
+            get => _isloadingAll;
+            set => Set(() => IsLoadingAll, ref _isloadingAll, value);
+        }
 
-		public bool _isloadingParticipating;
-		public bool IsloadingParticipating
-		{
-			get => _isloadingParticipating;
-			set => Set(() => IsloadingParticipating, ref _isloadingParticipating, value);
-		}
-		#endregion
+        public bool _isloadingUnread;
+        public bool IsLoadingUnread
+        {
+            get => _isloadingUnread;
+            set => Set(() => IsLoadingUnread, ref _isloadingUnread, value);
+        }
 
-		public async Task Load()
-		{
-			if (GlobalHelper.IsInternet())
-			{
-				IsLoadingUnread = true;
-				await LoadUnreadNotifications();
-			}
-		}
+        public bool _isloadingParticipating;
+        public bool IsloadingParticipating
+        {
+            get => _isloadingParticipating;
+            set => Set(() => IsloadingParticipating, ref _isloadingParticipating, value);
+        }
+        #endregion
 
-		public async void RefreshAll()
-		{
+        public NotificationsViewmodel()
+        {
+            UnreadNotifications = UnreadNotifications ?? new ObservableCollection<Notification>();
+            AllNotifications = AllNotifications ?? new ObservableCollection<Notification>();
+            ParticipatingNotifications = ParticipatingNotifications ?? new ObservableCollection<Notification>();
+        }
 
-			if (!GlobalHelper.IsInternet())
-			{
-				//Sending NoInternet message to all viewModels
-				Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-			}
-			else
-			{
+        public async Task Load()
+        {
+            if (!IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new NoInternet().SendMessage());
+            }
+            else
+            {
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
+                IsLoadingUnread = false;
+                IsLoadingAll = true;
+                await LoadAllNotifications();
+                IsLoadingAll = false;
+                IsloadingParticipating = true;
+                await LoadParticipatingNotifications();
+                IsloadingParticipating = false;
+            }
+        }
 
-				IsLoadingAll = true;
-				await LoadAllNotifications();
-				IsLoadingAll = false;
-			}
-		}
-		public async void RefreshUnread()
-		{
+        public async void RefreshAll()
+        {
+            if (!IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new NoInternet().SendMessage());
+            }
+            else
+            {
+                IsLoadingAll = true;
+                await LoadAllNotifications();
+                IsLoadingAll = false;
+            }
+        }
+        public async void RefreshUnread()
+        {
+            if (!IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new NoInternet().SendMessage());
+            }
+            else
+            {
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
+                IsLoadingUnread = false;
+            }
+        }
+        public async void RefreshParticipating()
+        {
 
-			if (!GlobalHelper.IsInternet())
-			{
-				//Sending NoInternet message to all viewModels
-				Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-			}
-			else
-			{
+            if (!IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new NoInternet().SendMessage());
+            }
+            else
+            {
 
-				IsLoadingUnread = true;
-				await LoadUnreadNotifications();
-				IsLoadingUnread = false;
-			}
-		}
-		public async void RefreshParticipating()
-		{
+                IsloadingParticipating = true;
+                await LoadParticipatingNotifications();
+                IsloadingParticipating = false;
+            }
+        }
 
-			if (!GlobalHelper.IsInternet())
-			{
-				//Sending NoInternet message to all viewModels
-				Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-			}
-			else
-			{
+        public async void MarkAllNotificationsAsRead()
+        {
+            if (!IsInternet())
+            {
+                //Sending NoInternet message to all viewModels
+                Messenger.Default.Send(new NoInternet().SendMessage());
+            }
+            else
+            {
+                IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
+                await NotificationsService.MarkAllNotificationsAsRead();
+                IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
+                await LoadUnreadNotifications();
+            }
+        }
 
-				IsloadingParticipating = true;
-				await LoadParticipatingNotifications();
-				IsloadingParticipating = false;
-			}
-		}
+        public void RecieveSignOutMessage(SignOutMessageType empty)
+        {
+            IsLoggedin = false;
+            User = null;
+            AllNotifications = UnreadNotifications = ParticipatingNotifications = null;
+        }
 
-		public async void MarkAllNotificationsAsRead()
-		{
-			if (!GlobalHelper.IsInternet())
-			{
-				//Sending NoInternet message to all viewModels
-				Messenger.Default.Send(new GlobalHelper.NoInternet().SendMessage());
-			}
-			else
-			{
-				IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
-				await NotificationsService.MarkAllNotificationsAsRead();
-				IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
-				await LoadUnreadNotifications();
-			}
-		}
-		public void RecieveSignOutMessage(GlobalHelper.SignOutMessageType empty)
-		{
-			IsLoggedin = false;
-			User = null;
-			AllNotifications = UnreadNotifications = ParticipatingNotifications = null;
-		}
-		public async void RecieveSignInMessage(User user)
-		{
-			if (user != null)
-			{
-				IsLoggedin = true;
-				User = user;
-				await Load();
-			}
-		}
+        public async void RecieveSignInMessage(User user)
+        {
+            if (user != null)
+            {
+                IsLoggedin = true;
+                User = user;
+                await Load();
+            }
+        }
 
-		private async Task LoadAllNotifications()
-		{
-			AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
-			IsLoadingAll = false;
-			if (AllNotifications != null)
-			{
-				ZeroAllCount = (AllNotifications.Count == 0) ? true : false;
-			}
-		}
-		private async Task LoadUnreadNotifications()
-		{
-			UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-			IsLoadingUnread = false;
-			if (UnreadNotifications != null)
-			{
-				if (UnreadNotifications.Count == 0)
-				{
-					ZeroUnreadCount = true;
-					Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationMessageType { IsUnread = false });
-				}
-				else
-				{
-					ZeroUnreadCount = false;
-					Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationMessageType { IsUnread = true });
-				}
-			}
-		}
-		private async Task LoadParticipatingNotifications()
-		{
-			ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
-			IsloadingParticipating = false;
-			if (ParticipatingNotifications != null)
-			{
-				ZeroParticipatingCount = (ParticipatingNotifications.Count == 0) ? true : false;
-			}
-		}
+        private async Task LoadAllNotifications()
+        {
+            AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
 
-		public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var p = sender as Pivot;
-			if (p.SelectedIndex == 0)
-			{
-				IsLoadingUnread = true;
-				await LoadUnreadNotifications();
-				IsLoadingUnread = false;
-			}
-			else if (p.SelectedIndex == 1)
-			{
-				IsloadingParticipating = true;
-				await LoadParticipatingNotifications();
-				IsloadingParticipating = false;
-			}
-			else if (p.SelectedIndex == 2)
-			{
-				IsLoadingAll = true;
-				await LoadAllNotifications();
-				IsLoadingAll = false;
-			}
-		}
+            var allCount = AllNotifications.Count;
+            ZeroAllCount = allCount == 0;
+            Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
+            {
+                Count = allCount
+            });
+        }
 
-		public async void NotificationsListView_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			var notif = e.ClickedItem as Notification;
-			await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), notif.Repository);
-			if (notif.Unread)
-			{
-				await NotificationsService.MarkNotificationAsRead(notif.Id);
-			}
-		}
-	}
+        private async Task LoadUnreadNotifications()
+        {
+            UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            var unreadCount = UnreadNotifications.Count;
+            ZeroUnreadCount = unreadCount == 0;
+            Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType
+            {
+                Count = unreadCount
+            });
+        }
+
+        private async Task LoadParticipatingNotifications()
+        {
+            ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
+            var participationCount = ParticipatingNotifications.Count();
+            ZeroParticipatingCount = participationCount == 0;
+            Messenger.Default.Send(new UpdateParticipatingNotificationsCountMessageType
+            {
+                Count = ParticipatingNotifications.Count
+            });
+        }
+
+        public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var p = sender as Pivot;
+            if (p.SelectedIndex == 0)
+            {
+                IsLoadingUnread = true;
+                await LoadUnreadNotifications();
+                IsLoadingUnread = false;
+            }
+            else if (p.SelectedIndex == 1)
+            {
+                IsloadingParticipating = true;
+                await LoadParticipatingNotifications();
+                IsloadingParticipating = false;
+            }
+            else if (p.SelectedIndex == 2)
+            {
+                IsLoadingAll = true;
+                await LoadAllNotifications();
+                IsLoadingAll = false;
+            }
+        }
+
+        public async void NotificationsListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var notif = e.ClickedItem as Notification;
+            var isIssue = notif.Subject.Type.ToLower().Equals("issue");
+            Issue issue = null;
+            PullRequest pr = null;
+            if (isIssue)
+            {
+                if (int.TryParse(notif.Subject.Url.Split('/').Last().Split('?')[0], out int id))
+                {
+                    issue = await IssueUtility.GetIssue(notif.Repository.Id, id);
+                    await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(IssueDetailView), new System.Tuple<Repository, Issue>(notif.Repository, issue));
+                }
+            }
+            else
+            {
+
+                if (int.TryParse(notif.Subject.Url.Split('/').Last().Split('?')[0], out int id))
+                {
+                    pr = await PullRequestUtility.GetPullRequest(notif.Repository.Id, id);
+                    await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(PullRequestDetailView), new System.Tuple<Repository, PullRequest>(notif.Repository, pr));
+                }
+            }
+            if (notif.Unread)
+            {
+                await NotificationsService.MarkNotificationAsRead(notif.Id);
+                var toast = await notif.BuildToast(ToastNotificationScenario.Reminder);
+                ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+            }
+        }
+    }
 }

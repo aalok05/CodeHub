@@ -15,13 +15,9 @@ namespace CodeHub.Views.Settings
             InitializeComponent();
 
             ViewModel = new NofiticationSettingsViewModel();
-            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             
             DataContext = ViewModel;
         }
-
-        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-            => Bindings.Update();
 
         private void OnCurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
