@@ -146,7 +146,9 @@ namespace CodeHub.ViewModels
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
                 await NotificationsService.MarkAllNotificationsAsRead();
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
+                IsLoadingUnread = true;
                 await LoadUnreadNotifications();
+                IsLoadingUnread = false;
             }
         }
 
