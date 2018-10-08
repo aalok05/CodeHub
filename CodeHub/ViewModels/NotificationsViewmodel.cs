@@ -184,6 +184,7 @@ namespace CodeHub.ViewModels
         private async Task LoadUnreadNotifications()
         {
             UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            await UnreadNotifications?.ShowToasts();
             var unreadCount = UnreadNotifications.Count;
             ZeroUnreadCount = unreadCount == 0;
             Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType

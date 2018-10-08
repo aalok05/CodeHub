@@ -61,7 +61,6 @@ namespace CodeHub.Views
             Messenger.Default.Register(this, async (UpdateUnreadNotificationsCountMessageType m) =>
             {
                 ViewModel.UpdateUnreadNotificationIndicator(m.Count);
-                await AppViewmodel.UnreadNotifications?.ShowToasts();
             });
             Messenger.Default.Register(this, async (ShowWhatsNewPopupMessageType m) => await ShowWhatsNewPopupVisiblity());
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);

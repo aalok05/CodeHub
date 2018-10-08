@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Windows.ApplicationModel.Background;
 
 namespace CodeHub.Helpers
@@ -11,13 +10,13 @@ namespace CodeHub.Helpers
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
-                if (task.Value.Name == "SyncNotifications" || task.Value.Name == "SyncNotifications" || task.Value.Name == "ToastNotificationBackgroundTask")
+                if (task.Value.Name == "SyncNotifications" || task.Value.Name == "SyncNotificationsApp" || task.Value.Name == "ToastNotificationBackgroundTask")
                 {
                     task.Value.Unregister(true);
-                    break;
                 }
             }
         }
+
         public static BackgroundTaskBuilder BuildBackgroundTask(string name, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)
         {
             // Specify the background task

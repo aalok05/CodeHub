@@ -41,6 +41,7 @@ namespace CodeHub
     sealed partial class App : Application
     {
         private BackgroundTaskDeferral _SyncDeferral;
+        private BackgroundTaskDeferral _SyncAppDeferral;
         private BackgroundTaskDeferral _ToastActionDeferral;
 
         /// <summary>
@@ -84,6 +85,7 @@ namespace CodeHub
 
         protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
+            base.OnBackgroundActivated(args);
             var taskInstance = args.TaskInstance;
             taskInstance.Canceled += TaskInstance_Canceled;
             taskInstance.Task.Completed += BackgroundTask_Completed;
@@ -92,13 +94,14 @@ namespace CodeHub
             {
                 case "SyncNotifications":
                 case "SyncNotificationsApp":
-                    _SyncDeferral = taskInstance.GetDeferral();
+                    _SyncDeferral = _SyncAppDeferral = taskInstance.GetDeferral();
+
                     //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                     //{
                     //await new MessageDialog("sync activated").ShowAsync();
 
                     AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                    await SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
+                    await AppViewmodel.UnreadNotifications?.ShowToasts();
                     //});
                     break;
                 case "ToastNotificationBackgroundTask":
@@ -120,18 +123,14 @@ namespace CodeHub
 
         private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-            //    CoreDispatcherPriority.High,
-            //    async () =>
-            //    {
-            //        await new MessageDialog(reason.ToString()).ShowAsync();
-            //    });
             BackgroundTaskStorage.PutError(reason.ToString());
             switch (sender.Task.Name)
             {
                 case "SyncNotifications":
-                case "SyncNotificationsApp":
                     _SyncDeferral?.Complete();
+                    break;
+                case "SyncNotificationsApp":
+                    _SyncAppDeferral?.Complete();
                     break;
                 case "ToastNotificationBackgroundTask":
                     _ToastActionDeferral?.Complete();
@@ -139,7 +138,7 @@ namespace CodeHub
             }
         }
 
-        private async Task SendMessage<T>(T messageType)
+        private async void SendMessage<T>(T messageType)
             where T : MessageTypeBase, new()
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -154,14 +153,17 @@ namespace CodeHub
             switch (sender.Name)
             {
                 case "SyncNotifications":
+                    _SyncDeferral.Complete();
+                    break;
                 case "SyncNotificationsApp":
-                    _SyncDeferral?.Complete();
+                    _SyncAppDeferral?.Complete();
+                    SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
                     break;
 
                 case "ToastNotificationBackgroundTask":
-                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                    await SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
                     _ToastActionDeferral?.Complete();
+                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                    SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
                     break;
             }
         }
@@ -346,6 +348,8 @@ namespace CodeHub
                 }
             }
             Window.Current.Activate();
+
+            BackgroundTaskHelper.UnregisterAllBackgroundTasks();
 
             IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
                                  userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
