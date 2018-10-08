@@ -40,7 +40,7 @@ namespace CodeHub.Services
 		/// </summary>
 		/// <typeparam name="T">The type of the setting to retrieve</typeparam>
 		/// <param name="key">The key of the setting to retrieve</param>
-		public static T Get<T>([NotNull] string key) => Settings.ContainsKey(key) ? Settings[key].To<T>() : default(T);
+		public static T Get<T>([NotNull] string key) => Settings.ContainsKey(key) ? Settings[key].To<T>() : default;
 	}
 
 	/// <summary>
