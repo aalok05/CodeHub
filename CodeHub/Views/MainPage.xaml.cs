@@ -201,6 +201,8 @@ namespace CodeHub.Views
 
         private void RegisterBackgroundTasks()
         {
+            Helpers.BackgroundTaskHelper.UnregisterAllBackgroundTasks();
+
             IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
                                  userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
                                  sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),

@@ -6,35 +6,22 @@ namespace CodeHub.Helpers
 {
     public static class BackgroundTaskHelper
     {
-        public static BackgroundTaskBuilder BuildBackgroundTask(string name, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)
+
+        public static void UnregisterAllBackgroundTasks()
         {
-            BackgroundTaskBuilder builder = null;
-
-            var taskExists = BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name == name);
-            TimeTrigger timeTrigger = null;
-            MaintenanceTrigger maintenanceTrigger = null;
-
-            if (taskExists)
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
-                if (trigger is TimeTrigger tTrigger)
+                if (task.Value.Name == "SyncNotifications" || task.Value.Name == "SyncNotifications" || task.Value.Name == "ToastNotificationBackgroundTask")
                 {
-                    timeTrigger = tTrigger;
-                }
-
-                if (trigger is MaintenanceTrigger mTrigger)
-                {
-                    maintenanceTrigger = mTrigger;
-                }
-
-                if (timeTrigger == null && maintenanceTrigger == null)
-                {
-                    var taskDic = BackgroundTaskRegistration.AllTasks.SingleOrDefault(i => i.Value.Name == name);
-                    taskDic.Value.Unregister(true);
+                    task.Value.Unregister(true);
+                    break;
                 }
             }
-
+        }
+        public static BackgroundTaskBuilder BuildBackgroundTask(string name, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)
+        {
             // Specify the background task
-            builder = new BackgroundTaskBuilder()
+            var builder = new BackgroundTaskBuilder()
             {
                 Name = name
             };
