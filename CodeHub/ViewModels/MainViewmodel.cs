@@ -207,7 +207,6 @@ namespace CodeHub.ViewModels
 
         public async Task Initialize()
         {
-            UnreadNotifications.CollectionChanged += UnreadNotifications_CollectionChanged;
             var adstask = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                 CoreDispatcherPriority.Normal,
                 async () =>
@@ -243,9 +242,10 @@ namespace CodeHub.ViewModels
                 }
                 else if (activatedEventArgs is ToastNotificationActivatedEventArgs toastEventArgs)
                 {
-                    //var eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
+                    var eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
                     var args = QueryString.Parse(toastEventArgs.Argument);
                     var repo = await RepositoryUtility.GetRepository(long.Parse(args["repoId"]));
+                    var notificationId = int.Parse(args["notificationId"]);
                     switch (args["action"])
                     {
                         case "showIssue":
@@ -255,7 +255,7 @@ namespace CodeHub.ViewModels
                                 .GetInstance<IAsyncNavigationService>()
                                 .NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(repo, issue));
 
-                            ToastNotificationManager.History.Remove($"I{issue.Id}+R{repo.Id}");
+                            ToastNotificationManager.History.Remove($"N{notificationId}+I{issue.Id}+R{repo.Id}");
                             break;
 
                         case "showPR":
@@ -265,7 +265,7 @@ namespace CodeHub.ViewModels
                                     .GetInstance<IAsyncNavigationService>()
                                     .NavigateAsync(typeof(DeveloperProfileView), new Tuple<Repository, PullRequest>(repo, pr));
 
-                            ToastNotificationManager.History.Remove($"P{pr.Id}+R{repo.Id}");
+                            ToastNotificationManager.History.Remove($"N{notificationId}+P{pr.Id}+R{repo.Id}");
                             break;
 
                     }
@@ -277,7 +277,7 @@ namespace CodeHub.ViewModels
 
                 if (IsInternet())
                 {
-                    await CheckForUnreadNotifications();
+                    await AppTrigger?.RequestAsync();
                 }
             }
         }
@@ -361,12 +361,6 @@ namespace CodeHub.ViewModels
             await AccountsService.MakeAccountActive((e.ClickedItem as Models.Account).Id.ToString());
             await InitializeAccounts();
             IsAccountsPanelVisible = false;
-        }
-
-        private void UnreadNotifications_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType { Count = e.NewItems.Count });
-            //UpdateUnreadNotificationIndicator(e.NewItems.Count);
         }
 
         public void MainFrame_Navigated(object sender, NavigationEventArgs e)
