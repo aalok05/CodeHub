@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" IgnorableNamespaces="uap mp uap3 uap4">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp uap3 uap4 uap5">
   <Identity Name="AalokSingh" Publisher="CN=aalok" Version="2.4.14.0" />
   <mp:PhoneIdentity PhoneProductId="7b2acdd5-6992-4f72-87df-d983cb05bba1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -26,6 +26,9 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="transparent" />
       </uap:VisualElements>
       <Extensions>
+        <uap5:Extension Category="windows.startupTask" Executable="bin\x64\Debug\CodeHub.exe" EntryPoint="CodeHub.App">
+          <uap5:StartupTask TaskId="CodeHubStartupTask" Enabled="true" DisplayName="CodeHub App" />
+        </uap5:Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="codehub" DesiredView="default">
             <uap:DisplayName>Codehub - A Client For GitHub</uap:DisplayName>
@@ -35,7 +38,7 @@
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
     <uap3:Capability Name="userNotificationListener" />
   </Capabilities>
 </Package>

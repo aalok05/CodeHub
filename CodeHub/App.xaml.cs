@@ -13,6 +13,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
@@ -26,9 +27,12 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using XamlBrewer.Uwp.Controls;
+using static CodeHub.Helpers.GlobalHelper;
+using static CodeHub.Helpers.StringHelper;
 using Issue = Octokit.Issue;
 using PullRequest = Octokit.PullRequest;
 using Repository = Octokit.Repository;
+
 
 namespace CodeHub
 {
@@ -37,6 +41,9 @@ namespace CodeHub
     /// </summary>
     sealed partial class App : Application
     {
+        private BackgroundTaskDeferral _SyncDeferral;
+        private BackgroundTaskDeferral _ToastActionDeferral;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -57,6 +64,7 @@ namespace CodeHub
             SettingsService.Save(SettingsKeys.IsNotificationCheckEnabled, true, false);
             SettingsService.Save(SettingsKeys.HasUserDonated, false, false);
 
+
             AppCenter.Start("ecd96e4c-b301-48f3-b640-166a040f1d86", typeof(Analytics), typeof(Crashes));
         }
 
@@ -64,7 +72,7 @@ namespace CodeHub
             object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            await CoreApplication.MainView?.CoreWindow?.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 await new MessageDialog(e.ToString(), e.Message).ShowAsync();
             });
@@ -77,65 +85,86 @@ namespace CodeHub
 
         protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
-            var deferral = args.TaskInstance.GetDeferral();
+            var taskInstance = args.TaskInstance;
+            taskInstance.Canceled += TaskInstance_Canceled;
+            taskInstance.Task.Completed += BackgroundTask_Completed;
             var taskName = args.TaskInstance.Task.Name;
-            args.TaskInstance.Task.Completed += BackgroundTask_Completed;
             switch (taskName)
             {
-                case "ToastNotificationBackgroundTask":
-                    var toastTriggerDetails = args.TaskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
-                    var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
-                    string notificationId = toastArgs["notificationId"],
-                           repoId = toastArgs["repoId"],
-                           action = toastArgs["action"];
-                    var issueOrPrId = action == "markIssueAsRead" ? toastArgs["issueId"] : toastArgs["prId"];
-
-                    await NotificationsService.MarkNotificationAsRead(notificationId);
-                    deferral.Complete();
-                    break;
                 case "SyncNotifications":
-                    //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                    //    CoreDispatcherPriority.High,
-                    //    async () =>
-                    //    {
-                    //        await new MessageDialog("sync started").ShowAsync();
-                    //    });
+                case "SyncNotificationsApp":
+                    _SyncDeferral = taskInstance.GetDeferral();
+                    //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    //{
+                    //await new MessageDialog("sync activated").ShowAsync();
+
                     AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                    NotificationsViewmodel.AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
-                    NotificationsViewmodel.ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
-                    deferral.Complete();
+                    await SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
+                    //});
+                    break;
+                case "ToastNotificationBackgroundTask":
+                    _ToastActionDeferral = taskInstance.GetDeferral();
+                    var toastTriggerDetails = taskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
+                    var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
+                    var notificationId = toastArgs["notificationId"];
+                    if (!string.IsNullOrEmpty(notificationId) && !string.IsNullOrWhiteSpace(notificationId))
+                    {
+                        await NotificationsService.MarkNotificationAsRead(notificationId);
+                        var toast = await (await NotificationsService.GetNotificationById(notificationId)).BuildToast(ToastNotificationScenario.Reminder);
+                        ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                    }
+
+                    break;
+            }
+            //deferral.Complete();
+        }
+
+        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+            //    CoreDispatcherPriority.High,
+            //    async () =>
+            //    {
+            //        await new MessageDialog(reason.ToString()).ShowAsync();
+            //    });
+            BackgroundTaskStorage.PutError(reason.ToString());
+            switch (sender.Task.Name)
+            {
+                case "SyncNotifications":
+                case "SyncNotificationsApp":
+                    _SyncDeferral?.Complete();
+                    break;
+                case "ToastNotificationBackgroundTask":
+                    _ToastActionDeferral?.Complete();
                     break;
             }
         }
 
-
-        private async void BackgroundTask_Completed(Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs args)
+        private async Task SendMessage<T>(T messageType)
+            where T : MessageTypeBase, new()
         {
-            //args.CheckResult();           
-            switch (sender.Name)
-            {
-                case "ToastNotificationBackgroundTask":
-                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                    NotificationsViewmodel.AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
-                    NotificationsViewmodel.ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
-                    break;
-            }
-
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                Messenger.Default.Send(new GlobalHelper.UpdateAllNotificationsCountMessageType
-                {
-                    Count = NotificationsViewmodel.AllNotifications.Count
-                });
-                Messenger.Default.Send(new GlobalHelper.UpdateParticipatingNotificationsCountMessageType
-                {
-                    Count = NotificationsViewmodel.ParticipatingNotifications.Count
-                });
-                Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationsCountMessageType
-                {
-                    Count = AppViewmodel.UnreadNotifications.Count
-                });
+                Messenger.Default?.Send(messageType);
             });
+        }
+
+        private async void BackgroundTask_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+        {
+            //args.CheckResult(); 
+            switch (sender.Name)
+            {
+                case "SyncNotifications":
+                case "SyncNotificationsApp":
+                    _SyncDeferral?.Complete();
+                    break;
+
+                case "ToastNotificationBackgroundTask":
+                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                    await SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
+                    _ToastActionDeferral?.Complete();
+                    break;
+            }
         }
 
         /// <summary>
@@ -194,7 +223,7 @@ namespace CodeHub
                 }
                 Activate();
             }
-            else if (args is ToastNotificationActivatedEventArgs toastArgs)
+            else if (args is ToastNotificationActivatedEventArgs toastActivatedEventArgs)
             {
                 if (args.Kind == ActivationKind.Protocol)
                 {
@@ -219,8 +248,19 @@ namespace CodeHub
                 }
                 else if (args.Kind == ActivationKind.ToastNotification)
                 {
-                    var openThreadArgs = QueryString.Parse(toastArgs.Argument);
-                    var repo = await RepositoryUtility.GetRepository(long.Parse(openThreadArgs["repoId"]));
+                    var toastArgs = QueryString.Parse(toastActivatedEventArgs.Argument);
+                    var repoIdFromArg = toastArgs["repoId"];
+                    if (repoIdFromArg.IsNulloremptyOrNullorwhitespace())
+                    {
+                        throw new ArgumentNullException("repoId");
+                    }
+
+                    if (!long.TryParse(repoIdFromArg, out long repoId))
+                    {
+                        throw new ArgumentException($"Invalid value passed in argument 'repoId'");
+                    }
+
+                    var repo = await RepositoryUtility.GetRepository(repoId);
 
                     if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
                     {
@@ -233,44 +273,95 @@ namespace CodeHub
                     }
                     else
                     {
-                        switch (openThreadArgs["action"])
+                        var notificationId = toastArgs["notificationId"];
+                        if (notificationId.IsNulloremptyOrNullorwhitespace())
+                        {
+                            throw new ArgumentNullException(nameof(notificationId));
+                        }
+
+                        var tag = $"N{notificationId}";
+                        switch (toastArgs["action"])
                         {
                             case "showIssue":
-                                var issue = await IssueUtility.GetIssue(repo.Id, int.Parse(openThreadArgs["issueId"]));
+                                var issueIdFromArg = toastArgs["issueId"];
+                                if (notificationId.IsNulloremptyOrNullorwhitespace())
+                                {
+                                    throw new ArgumentNullException("issueId");
+                                }
+
+                                if (!int.TryParse(issueIdFromArg, out int issueId))
+                                {
+                                    throw new ArgumentException($"Invalid value passed in argument {nameof(issueId)}");
+                                }
+
+                                var issue = await IssueUtility.GetIssue(repo.Id, issueId);
                                 await SimpleIoc
                                     .Default
                                     .GetInstance<IAsyncNavigationService>()
                                     .NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(repo, issue));
-                                ToastNotificationManager.History.Remove($"I{issue.Id}+R{repo.Id}");
+                                tag += $"+I{issue.Number}";
                                 break;
 
                             case "showPR":
-                                var pr = await PullRequestUtility.GetPullRequest(repo.Id, int.Parse(openThreadArgs["prId"]));
+                                var prIdFromArg = toastArgs["prId"];
+                                if (notificationId.IsNulloremptyOrNullorwhitespace())
+                                {
+                                    throw new ArgumentNullException("prId");
+                                }
+
+                                if (!int.TryParse(prIdFromArg, out int prId))
+                                {
+                                    throw new ArgumentException($"Invalid value passed in argument {nameof(prId)}");
+                                }
+
+                                var pr = await PullRequestUtility.GetPullRequest(repo.Id, prId);
                                 await SimpleIoc
                                         .Default
                                         .GetInstance<IAsyncNavigationService>()
                                         .NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(repo, pr));
-                                ToastNotificationManager.History.Remove($"P{pr.Id}+R{repo.Id}");
+                                tag += $"+P{pr.Number}";
                                 break;
 
                         }
-                        await NotificationsService.MarkNotificationAsRead(openThreadArgs["notificationId"]);
-
+                        tag += $"+R{repo.Id}";
+                        ToastNotificationManager.History.Remove(tag);
+                        if (!notificationId.IsNulloremptyOrNullorwhitespace())
+                        {
+                            await NotificationsService.MarkNotificationAsRead(notificationId);
+                        }
                     }
 
                     Activate();
-
-                    //try
-                    //{
-                    //    await NotificationsService.MarkNotificationAsRead(openThreadArgs["notificationId"]);
-                    //}
-                    //catch
-                    //{
-                    //    await NotificationsService.MarkNotificationAsRead(openThreadArgs["threadId"]);
-                    //}
+                }
+                else if (args.Kind == ActivationKind.StartupTask)
+                {
+                    var startupArgs = args as StartupTaskActivatedEventArgs;
+                    var payload = ActivationKind.StartupTask.ToString();
+                    if (Window.Current.Content == null)
+                    {
+                        Window.Current.Content = new MainPage(args);
+                    }
+                    Activate();
+                    (Window.Current.Content as Frame).Navigate(typeof(MainPage), payload);
+                    return;
                 }
             }
             Window.Current.Activate();
+
+            IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
+                                 userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
+                                 sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
+                                 backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
+
+            var syncBuilder = BackgroundTaskHelper.BuildBackgroundTask(
+                        "SyncNotificationsApp",
+                        AppViewmodel.AppTrigger,
+                        internetAvailableCondition,
+                        userPresentCondition,
+                        sessionConnectedCondition
+                      );
+            syncBuilder.IsNetworkRequested = true;
+            syncBuilder.Register();
         }
 
         /// <summary>
@@ -280,7 +371,7 @@ namespace CodeHub
         /// <param name="e">Details about the navigation failure</param>
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            //throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         /// <summary>
@@ -294,12 +385,13 @@ namespace CodeHub
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+
             deferral.Complete();
         }
 
         private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
         {
-            if (!string.IsNullOrWhiteSpace(GlobalHelper.UserLogin))
+            if (!string.IsNullOrWhiteSpace(UserLogin))
             {
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
 
