@@ -278,6 +278,7 @@ namespace CodeHub.ViewModels
                 if (IsInternet())
                 {
                     await AppTrigger?.RequestAsync();
+                    Messenger.Default?.Send(new UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications?.Count ?? 0 });
                 }
             }
         }

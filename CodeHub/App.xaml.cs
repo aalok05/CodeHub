@@ -87,35 +87,43 @@ namespace CodeHub
         {
             base.OnBackgroundActivated(args);
             var taskInstance = args.TaskInstance;
-            taskInstance.Canceled += TaskInstance_Canceled;
-            taskInstance.Task.Completed += BackgroundTask_Completed;
             var taskName = args.TaskInstance.Task.Name;
             switch (taskName)
             {
                 case "SyncNotifications":
                 case "SyncNotificationsApp":
                     _SyncDeferral = _SyncAppDeferral = taskInstance.GetDeferral();
-
+                    taskInstance.Canceled += TaskInstance_Canceled;
+                    taskInstance.Task.Completed += BackgroundTask_Completed;
                     //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                     //{
                     //await new MessageDialog("sync activated").ShowAsync();
 
                     AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                    SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
+
                     await AppViewmodel.UnreadNotifications?.ShowToasts();
                     //});
                     break;
                 case "ToastNotificationBackgroundTask":
                     _ToastActionDeferral = taskInstance.GetDeferral();
+                    taskInstance.Canceled += TaskInstance_Canceled;
+                    taskInstance.Task.Completed += BackgroundTask_Completed;
+                    //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    //{
                     var toastTriggerDetails = taskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
                     var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
                     var notificationId = toastArgs["notificationId"];
-                    if (!string.IsNullOrEmpty(notificationId) && !string.IsNullOrWhiteSpace(notificationId))
+                    if (!StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
                     {
                         await NotificationsService.MarkNotificationAsRead(notificationId);
-                        var toast = await (await NotificationsService.GetNotificationById(notificationId)).BuildToast(ToastNotificationScenario.Reminder);
-                        ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
-                    }
+                        AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                        SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
 
+                        //var toast = await (await NotificationsService.GetNotificationById(notificationId)).BuildToast(ToastNotificationScenario.Reminder);
+                        //ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                    }
+                    //});
                     break;
             }
             //deferral.Complete();
@@ -127,9 +135,8 @@ namespace CodeHub
             switch (sender.Task.Name)
             {
                 case "SyncNotifications":
-                    _SyncDeferral?.Complete();
-                    break;
                 case "SyncNotificationsApp":
+                    _SyncDeferral?.Complete();
                     _SyncAppDeferral?.Complete();
                     break;
                 case "ToastNotificationBackgroundTask":
@@ -138,32 +145,28 @@ namespace CodeHub
             }
         }
 
-        private async void SendMessage<T>(T messageType)
+        private void SendMessage<T>(T messageType)
             where T : MessageTypeBase, new()
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                Messenger.Default?.Send(messageType);
-            });
+            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //{
+            Messenger.Default.Send(messageType);
+            //});
         }
 
-        private async void BackgroundTask_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+        private void BackgroundTask_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
         {
             //args.CheckResult(); 
             switch (sender.Name)
             {
                 case "SyncNotifications":
-                    _SyncDeferral.Complete();
-                    break;
                 case "SyncNotificationsApp":
                     _SyncAppDeferral?.Complete();
-                    SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
+                    _SyncDeferral?.Complete();
                     break;
 
                 case "ToastNotificationBackgroundTask":
                     _ToastActionDeferral?.Complete();
-                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                    SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
                     break;
             }
         }

@@ -210,9 +210,9 @@ namespace CodeHub.Views
             var builder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
                             "ToastNotificationBackgroundTask",
                             new ToastNotificationActionTrigger(),
-                            internetAvailableCondition,
-                            userPresentCondition,
-                            sessionConnectedCondition
+                            internetAvailableCondition
+                            //userPresentCondition,
+                            //sessionConnectedCondition
                           );
             builder.IsNetworkRequested = true;
             builder.Register();
@@ -220,9 +220,9 @@ namespace CodeHub.Views
             var syncBuilder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
                         "SyncNotifications",
                         new MaintenanceTrigger(15, false),
-                        internetAvailableCondition,
-                        userPresentCondition,
-                        sessionConnectedCondition
+                        internetAvailableCondition
+                        //userPresentCondition,
+                        //sessionConnectedCondition
                       );
             syncBuilder.IsNetworkRequested = true;
             syncBuilder.Register();
