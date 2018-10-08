@@ -314,7 +314,7 @@ namespace CodeHub.Helpers
 									<group>						
 										<subgroup hint-weight='33'>								
 											<image hint-crop='circle' src='{user.AvatarUrl ?? ""}' />
-									        <text hint-style='headingSubtle'>{user.Name ?? ""}</text>
+									        <text hint-style='headingSubtle' hint-align='center'>{user.Name ?? user.Login}</text>
 										</subgroup>
 										<subgroup>	
 											<text hint-style='subtitleSubtle' hint-align='center'>{subtitle}</text>	
