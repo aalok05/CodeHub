@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.Services.Store;
 using Windows.System.Profile;
-using Windows.UI.Notifications;
 using Windows.UI.Popups;
 
 namespace CodeHub.ViewModels
@@ -104,7 +104,10 @@ namespace CodeHub.ViewModels
             protected set { Set(() => UnreadString, ref _UnreadString, value); }
         }
 
-        public static ObservableCollection<Octokit.Notification> UnreadNotifications { get; set; }
+        public static ObservableCollection<Notification> UnreadNotifications { get; set; }
+
+        private static readonly ApplicationTrigger _AppTrigger = new ApplicationTrigger();
+        public static ApplicationTrigger AppTrigger { get => _AppTrigger ?? new ApplicationTrigger(); }
         #endregion
 
         private const string donateFirstAddOnId = "9pd0r1dxkt8j";
@@ -167,59 +170,11 @@ namespace CodeHub.ViewModels
             ParticipatingString = $" ({NumberOfParticipatingNotifications})";
         }
 
-        public async void UpdateUnreadNotificationIndicator(int count)
+        public void UpdateUnreadNotificationIndicator(int count)
         {
             IsNotificationsUnread = count > 0;
             NumberOfUnreadNotifications = count;
             UnreadString = $" ({NumberOfUnreadNotifications})";
-            var unreadNitifications = UnreadNotifications.OrderBy(n => n.UpdatedAt);
-            if (SettingsService.Get<bool>(nameof(SettingsKeys.IsToastEnabled)))
-            {
-                if (SettingsService.Get<bool>(nameof(SettingsKeys.IsToastEnabled)))
-                {
-                    foreach (var toast in ToastNotificationManager.History.GetHistory())
-                    {
-                        var notification = await toast.GetNotification();
-                        var unread = UnreadNotifications.SingleOrDefault(n => n.Id == notification.Id);
-                        if (unread == null)
-                        {
-                            ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
-                        }
-                    }
-
-                    foreach (var notification in unreadNitifications)
-                    {
-                        var toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
-                        var toastExistsForNotification = ToastNotificationManager.History.GetHistory().Any(t => t.Tag == toast.Tag && t.Group == toast.Group);
-                        if (!ToastNotificationManager.History.GetHistory().Any(t => t.Tag == toast.Tag && t.Group == toast.Group))
-                        {
-                            ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
-                        }
-                    }
-                }
-                else
-                {
-                    ToastNotificationManager.History.Clear();
-                }
-                if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesBadgeEnabled))
-                {
-                    BadgeHelper.UpdateBadge(UnreadNotifications.Count);
-                }
-                if (SettingsService.Get<bool>(SettingsKeys.IsLiveTilesEnabled))
-                {
-                    await TilesHelper.UpdateTile(unreadNitifications.Last());
-                }
-            }
-
-        }
-
-        public async Task CheckForUnreadNotifications()
-        {
-            if (GlobalHelper.IsInternet())
-            {
-                UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                Messenger.Default.Send(new GlobalHelper.UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications.Count });
-            }
         }
 
         public async Task<bool> HasAlreadyDonated()
