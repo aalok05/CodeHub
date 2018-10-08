@@ -1,9 +1,12 @@
 ﻿using CodeHub.Services;
 using Octokit;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
@@ -102,7 +105,7 @@ namespace CodeHub.Helpers
             {
                 newIssuesCount++;
                 var threadId = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
-                var processedIssue = await notification.ProcessNotification<Issue>();
+                var processedIssue = await notification.ProcessNotification();
                 var issue = processedIssue.Issue;
                 itemNumber = issue.Number;
                 user = await UserService.GetUserInfo(issue.User.Login);
@@ -120,8 +123,7 @@ namespace CodeHub.Helpers
             else
             {
                 newPrCount++;
-                var processedPR = await notification.ProcessNotification<PullRequest>();
-
+                var processedPR = await notification.ProcessNotification();
                 var pr = processedPR.PullRequest;
                 itemNumber = pr.Number;
                 user = await UserService.GetUserInfo(pr.User.Login);
@@ -251,20 +253,20 @@ namespace CodeHub.Helpers
                    icon = null,
                    launchArgs = $"notificationId={notificationId}&repoId={repoId}",
                    readArgs = $"notificationId={notificationId}&repoId={repoId}",
-                   tag = $"N{notificationId}",
+                   tag = $"N{notificationId}+R{repoId}",
                    group = null;
-            var itemNumber = 0;
+            var itemNumber = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
 
             var isIssue = notification.Subject.Type.ToLower().Equals("issue");
+            var isPR = notification.Subject.Type.ToLower().Equals("pullrequest");
 
             if (isIssue)
             {
-                processedNotification = await notification.ProcessNotification<Issue>();
+                processedNotification = await notification.ProcessNotification();
                 issue = processedNotification.Issue;
                 title = SecurityElement.Escape(issue.Title);
                 subtitle = SecurityElement.Escape(processedNotification.Subtitle);
-                body = SecurityElement.Escape(issue.Body);
-                itemNumber = issue.Number;
+                body = issue.Body;
                 status = issue.State.StringValue;
                 user = await UserService.GetUserInfo(issue.User.Login);
                 icon = status.ToLower() == "closed"
@@ -274,17 +276,16 @@ namespace CodeHub.Helpers
                        : "git-issue-opened.png");
                 launchArgs += $"&action=showIssue&issueId={issue.Number}";
                 readArgs += $"&action=markIssueAsRead&issueId={issue.Number}";
-                tag += $"+I{itemNumber}+R{repoId}";
-                group = "Issue";
+                tag += $"+I{itemNumber}";
+                group = "Issues";
             }
-            else
+            else if (isPR)
             {
-                processedNotification = await notification.ProcessNotification<PullRequest>();
+                processedNotification = await notification.ProcessNotification();
                 pr = processedNotification.PullRequest;
                 title = SecurityElement.Escape(pr.Title);
                 subtitle = SecurityElement.Escape(processedNotification.Subtitle);
-                body = SecurityElement.Escape(pr.Body);
-                itemNumber = pr.Number;
+                body = pr.Body;
                 status = pr.State.StringValue;
                 user = await UserService.GetUserInfo(pr.User.Login);
                 icon = status.ToLower() == "open"
@@ -292,7 +293,7 @@ namespace CodeHub.Helpers
                      : "git-merge.png";
                 launchArgs += $"&action=showPR&prId={pr.Number}";
                 readArgs += $"&action=markPrAsRead&prId={pr.Number}";
-                tag+= $"+P{pr.Number}+R{repoId}";
+                tag += $"+P{pr.Number}";
                 group = "PullRequests";
             }
 
@@ -308,14 +309,14 @@ namespace CodeHub.Helpers
 							<visual baseUri='Assets/Images/git/'>
 								<binding template='ToastGeneric'>
 									<text>{title}</text>
+                                    <text hint-style='bodySubtle' hint-align='center'>{notification.Repository.FullName}</text>
 									<image placement='appLogoOverride' hint-crop='circle' src='{icon}' />						
 									<group>						
 										<subgroup hint-weight='33'>								
-											<image hint-crop='circle' src='{user.AvatarUrl}' />
-									        <text hint-style='headingSubtle'  hint-align='center'>{user.Name}</text>
+											<image hint-crop='circle' src='{user.AvatarUrl ?? ""}' />
+									        <text hint-style='headingSubtle'>{user.Name ?? ""}</text>
 										</subgroup>
 										<subgroup>	
-                                            <text hint-style='bodySubtle' hint-align='center'>{notification.Repository.FullName}</text>
 											<text hint-style='subtitleSubtle' hint-align='center'>{subtitle}</text>	
 											<text hint-style='captionSubtle' hint-align='center'>{status}</text>
 									        <text hint-style='body' hint-align='center' hint-wrap='true'>{body}</text>
@@ -335,31 +336,135 @@ namespace CodeHub.Helpers
 							</actions>
 
 					</toast>");
-            var toast = new ToastNotification(xml);
-            toast.Tag = tag;
-            toast.Group = group;
+            var toast = new ToastNotification(xml)
+            {
+                Tag = tag,
+                Group = group
+            };
             return toast;
         }
-        private static async Task<NotificationModel> ProcessNotification<T>(this Octokit.Notification notification)
+        private static async Task<NotificationModel> ProcessNotification(this Octokit.Notification notification)
         {
             NotificationModel result = null;
-            var number = int.Parse(notification.Subject.Url.Split('/').Last().Split('?').First());
-            var repoId = notification.Repository.Id;
-
-            if (typeof(T) == typeof(Issue))
+            var isIssue = notification.Subject.Type.ToLower() == "issue";
+            var isPR = notification.Subject.Type.ToLower() == "pullrequest";
+            if (int.TryParse(notification.Subject.Url.Split('/').Last().Split('#').First(), out int number))
             {
-                var issue = await IssueUtility.GetIssue(repoId, number);
-                var subtitle = $"Issue {number}";
-                result = new NotificationModel(repoId, issue, subtitle);
-            }
-            if (typeof(T) == typeof(PullRequest))
-            {
-                var pr = await PullRequestUtility.GetPullRequest(repoId, number);
-                var subtitle = $"Pull Request {number}";
-                result = new NotificationModel(repoId, pr, subtitle);
+                var repoId = notification.Repository.Id;
+
+                if (isIssue)
+                {
+                    var issue = await IssueUtility.GetIssue(repoId, number);
+                    var subtitle = $"Issue {number}";
+                    result = new NotificationModel(repoId, issue, subtitle);
+                }
+                else if (isPR)
+                {
+                    var pr = await PullRequestUtility.GetPullRequest(repoId, number);
+                    var subtitle = $"Pull Request {number}";
+                    result = new NotificationModel(repoId, pr, subtitle);
+                }
             }
 
-            return result ?? throw new InvalidOperationException("Invalid type");
+            return result ?? throw new NotImplementedException();
+        }
+
+        public static async Task ShowToasts(this ICollection<Octokit.Notification> collection, BackgroundTaskDeferral deferral = null)
+        {
+            if (collection == null)
+            {
+                throw new NullReferenceException($"${nameof(collection)} cannot be null");
+            }
+
+            collection = new ObservableCollection<Octokit.Notification>(collection.OrderBy(n => n.UpdatedAt));
+            var toastNotifications = ToastNotificationManager.History.GetHistory();
+            if (toastNotifications != null && toastNotifications.Count > 0)
+            {
+                foreach (var toast in toastNotifications)
+                {
+                    Octokit.Notification notification = null;
+                    try
+                    {
+                        notification = await toast.GetNotification();
+                    }
+                    finally
+                    {
+                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id))
+                        {
+                            ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                        }
+                    }
+                }
+                toastNotifications = ToastNotificationManager.History.GetHistory();
+            }
+            if (collection != null && collection.Count() > 0)
+            {
+                foreach (var notification in collection)
+                {
+                    ToastNotification toast = null;
+                    try
+                    {
+                        toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
+                    }
+                    finally
+                    {
+                        if (toast != null && toastNotifications != null && !toastNotifications.Any(t => t.Tag == toast.Tag && t.Group == toast.Group))
+                        {
+                            ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
+                        }
+                    }
+                }
+            }
+            if (deferral != null)
+                deferral.Complete();
+        }
+
+        public static async Task ShowToasts(this IEnumerable<Octokit.Notification> collection)
+        {
+            if (collection == null)
+            {
+                throw new NullReferenceException($"${nameof(collection)} cannot be null");
+            }
+
+            collection = new ObservableCollection<Octokit.Notification>(collection.OrderBy(n => n.UpdatedAt));
+            var toastNotifications = ToastNotificationManager.History.GetHistory();
+            if (toastNotifications != null && toastNotifications.Count > 0)
+            {
+                foreach (var toast in toastNotifications)
+                {
+                    Octokit.Notification notification = null;
+                    try
+                    {
+                        notification = await toast.GetNotification();
+                    }
+                    finally
+                    {
+                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id))
+                        {
+                            ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                        }
+                    }
+                }
+                toastNotifications = ToastNotificationManager.History.GetHistory();
+            }
+            if (collection != null && collection.Count() > 0)
+            {
+                foreach (var notification in collection)
+                {
+                    ToastNotification toast = null;
+                    try
+                    {
+                        toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
+                    }
+                    finally
+                    {
+                        if (toast != null && toastNotifications != null && !toastNotifications.Any(t => t.Tag == toast.Tag && t.Group == toast.Group))
+                        {
+                            ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
+                        }
+                    }
+                }
+            }
         }
     }
 }
