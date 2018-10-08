@@ -1,9 +1,8 @@
 ﻿using System;
-using CodeHub.Helpers;
 
 namespace CodeHub.Models
 {
-    public class StartupNotification : BindableBase, IStartupNotification
+    public class StartupNotification : IStartupNotification
     {
         /// <summary>
         /// Simply returns the PageUri, since that's guaranteed to be unique

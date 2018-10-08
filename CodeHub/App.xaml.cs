@@ -28,7 +28,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using XamlBrewer.Uwp.Controls;
 using static CodeHub.Helpers.GlobalHelper;
-using static CodeHub.Helpers.StringHelper;
 using Issue = Octokit.Issue;
 using PullRequest = Octokit.PullRequest;
 using Repository = Octokit.Repository;
@@ -250,7 +249,7 @@ namespace CodeHub
                 {
                     var toastArgs = QueryString.Parse(toastActivatedEventArgs.Argument);
                     var repoIdFromArg = toastArgs["repoId"];
-                    if (repoIdFromArg.IsNulloremptyOrNullorwhitespace())
+                    if (StringHelper.IsNullOrEmptyOrWhiteSpace(repoIdFromArg))
                     {
                         throw new ArgumentNullException("repoId");
                     }
@@ -274,7 +273,7 @@ namespace CodeHub
                     else
                     {
                         var notificationId = toastArgs["notificationId"];
-                        if (notificationId.IsNulloremptyOrNullorwhitespace())
+                        if (StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
                         {
                             throw new ArgumentNullException(nameof(notificationId));
                         }
@@ -284,7 +283,7 @@ namespace CodeHub
                         {
                             case "showIssue":
                                 var issueIdFromArg = toastArgs["issueId"];
-                                if (notificationId.IsNulloremptyOrNullorwhitespace())
+                                if (StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
                                 {
                                     throw new ArgumentNullException("issueId");
                                 }
@@ -304,7 +303,7 @@ namespace CodeHub
 
                             case "showPR":
                                 var prIdFromArg = toastArgs["prId"];
-                                if (notificationId.IsNulloremptyOrNullorwhitespace())
+                                if (StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
                                 {
                                     throw new ArgumentNullException("prId");
                                 }
@@ -325,7 +324,7 @@ namespace CodeHub
                         }
                         tag += $"+R{repo.Id}";
                         ToastNotificationManager.History.Remove(tag);
-                        if (!notificationId.IsNulloremptyOrNullorwhitespace())
+                        if (!StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
                         {
                             await NotificationsService.MarkNotificationAsRead(notificationId);
                         }

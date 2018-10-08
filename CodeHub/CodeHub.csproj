@@ -304,6 +304,7 @@
     <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
     <Compile Include="Helpers\OctokitNotificationHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TilesHelper.cs" />
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />

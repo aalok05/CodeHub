@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CodeHub.Models
 {
-    public class StartupNotificationGroup : BindableBase, IStartupNotification
+    public class StartupNotificationGroup : IStartupNotification
     {
         private readonly string _name;
         public string Name => _name;
