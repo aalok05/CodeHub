@@ -295,7 +295,6 @@
     <Compile Include="Converters\RepositoryCreationTimeConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\TimeAgoConverter.cs" />
-    <Compile Include="Converters\TypeToUIElementConverter.cs" />
     <Compile Include="Helpers\AnimatedGradientBrush.cs" />
     <Compile Include="Helpers\BackgroundTaskHelper.cs" />
     <Compile Include="Helpers\BackgroundTaskStatus.cs" />
