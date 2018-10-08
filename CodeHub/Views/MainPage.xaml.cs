@@ -18,7 +18,6 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.ExtendedExecution;
 using Windows.UI.Core;
 using Windows.UI.Notifications.Management;
 using Windows.UI.Popups;
@@ -111,7 +110,9 @@ namespace CodeHub.Views
             var state = startupTask.State;
 
             if (startupTask.State == StartupTaskState.Disabled)
+            {
                 state = await startupTask.RequestEnableAsync();
+            }
 
 
             // Get the listener
