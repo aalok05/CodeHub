@@ -274,8 +274,8 @@ namespace CodeHub.Helpers
                     subtitle = SecurityElement.Escape(processedNotification.Subtitle);
                     body = issue.Body;
                     user = await UserService.GetUserInfo(issue.User.Login);
-                    launchArgs += $"&action=showIssue&issueId={issue.Number}";
-                    readArgs += $"&action=markIssueAsRead&issueId={issue.Number}";
+                    launchArgs += $"&action=showIssue&issueNumber={issue.Number}";
+                    readArgs += $"&action=markIssueAsRead&issueNumber={issue.Number}";
                     tag += $"+I{issue.Number}";
                     group = "Issues";
                     stateTime = (issue.ClosedAt ?? issue.UpdatedAt) ?? issue.CreatedAt;
@@ -309,8 +309,8 @@ namespace CodeHub.Helpers
                     subtitle = SecurityElement.Escape(processedNotification.Subtitle);
                     body = pr.Body;
                     user = await UserService.GetUserInfo(pr.User.Login);
-                    launchArgs += $"&action=showPR&prId={pr.Number}";
-                    readArgs += $"&action=markPrAsRead&prId={pr.Number}";
+                    launchArgs += $"&action=showPr&prNumber={pr.Number}";
+                    readArgs += $"&action=markPrAsRead&prNumber={pr.Number}";
                     tag += $"+P{pr.Number}";
                     group = "PullRequests";
                     stateTime = (pr.ClosedAt ?? pr.MergedAt) ?? pr.CreatedAt;

@@ -244,30 +244,58 @@ namespace CodeHub.ViewModels
                 {
                     var eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
                     var args = QueryString.Parse(toastEventArgs.Argument);
-                    var repo = await RepositoryUtility.GetRepository(long.Parse(args["repoId"]));
-                    var notificationId = int.Parse(args["notificationId"]);
-                    switch (args["action"])
+                    if (long.TryParse(args["repoId"], out long repoId))
                     {
-                        case "showIssue":
-                            var issue = await IssueUtility.GetIssue(repo.Id, int.Parse(args["issueId"]));
-                            await SimpleIoc
-                                .Default
-                                .GetInstance<IAsyncNavigationService>()
-                                .NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(repo, issue));
+                        var repo = await RepositoryUtility.GetRepository(repoId);
+                        string notificationId = args["notificationId"],
+                               toastNotificationTag = $"N{notificationId}+R{repoId}",
+                               toastNotificationGroup = null;
 
-                            ToastNotificationManager.History.Remove($"N{notificationId}+I{issue.Id}+R{repo.Id}");
-                            break;
+                        switch (args["action"])
+                        {
+                            case "showIssue":
+                                toastNotificationGroup = "Issues";
+                                if (int.TryParse(args["issueNumber"], out int issueNumber))
+                                {
+                                    var issue = await IssueUtility.GetIssue(repoId, issueNumber);
+                                    await SimpleIoc
+                                        .Default
+                                        .GetInstance<IAsyncNavigationService>()
+                                        .NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(repo, issue));
+                                }
+                                else
+                                {
+                                    await SimpleIoc
+                                        .Default
+                                        .GetInstance<IAsyncNavigationService>()
+                                        .NavigateAsync(typeof(NotificationsView));
+                                }
 
-                        case "showPR":
-                            var pr = await PullRequestUtility.GetPullRequest(repo.Id, int.Parse(args["prId"]));
-                            await SimpleIoc
-                                    .Default
-                                    .GetInstance<IAsyncNavigationService>()
-                                    .NavigateAsync(typeof(DeveloperProfileView), new Tuple<Repository, PullRequest>(repo, pr));
+                                break;
 
-                            ToastNotificationManager.History.Remove($"N{notificationId}+P{pr.Id}+R{repo.Id}");
-                            break;
+                            case "showPr":
+                                toastNotificationGroup = "PullRequests";
+                                if (int.TryParse(args["prNumber"], out int prNumber))
+                                {
+                                    var pr = await PullRequestUtility.GetPullRequest(repoId, prNumber);
+                                    await SimpleIoc
+                                            .Default
+                                            .GetInstance<IAsyncNavigationService>()
+                                            .NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(repo, pr));
+                                }
+                                else
+                                {
+                                    await SimpleIoc
+                                        .Default
+                                        .GetInstance<IAsyncNavigationService>()
+                                        .NavigateAsync(typeof(NotificationsView));
+                                }
 
+                                break;
+
+                        }
+
+                        ToastNotificationManager.History.Remove(toastNotificationTag, toastNotificationGroup);
                     }
                 }
                 else
@@ -277,8 +305,10 @@ namespace CodeHub.ViewModels
 
                 if (IsInternet())
                 {
-                    await AppTrigger?.RequestAsync();
+                    //await AppTrigger?.RequestAsync();
+                    UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
                     Messenger.Default?.Send(new UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications?.Count ?? 0 });
+                    await UnreadNotifications?.ShowToasts();
                 }
             }
         }
