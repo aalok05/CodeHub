@@ -433,7 +433,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (notification != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && collection != null && !collection.Any(n => n.Id == notification.Id))
+                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
                         {
                             ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
                         }
