@@ -1,4 +1,5 @@
 ﻿using CodeHub.Services;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
@@ -65,12 +66,12 @@ namespace CodeHub.Helpers
         }
         public static ToastNotification PopCustomToast(ToastNotification toast, string tag, string group)
         {
-            if (!string.IsNullOrEmpty(tag) && !string.IsNullOrWhiteSpace(tag))
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(tag))
             {
                 toast.Tag = tag;
             }
 
-            if (!string.IsNullOrEmpty(group) && !string.IsNullOrWhiteSpace(group))
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(group))
             {
                 toast.Group = group;
             }
@@ -117,9 +118,26 @@ namespace CodeHub.Helpers
 
         public static async Task<Octokit.Notification> GetNotification(this ToastNotification toast)
         {
-            var notificationId = toast.Tag.Split('+')[0];
-            notificationId = notificationId.Substring(1, notificationId.Length - 1);
-            return await NotificationsService.GetNotificationById(notificationId);
+            if (toast == null)
+            {
+                throw new ArgumentNullException(nameof(toast));
+            }
+
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
+            {
+                var notificationId = toast.Tag.Split('+')[0];
+                if (notificationId.Length == 0)
+                {
+                    throw new ArgumentException("Invalid notificationId");
+                }
+                notificationId = notificationId.Substring(1, notificationId.Length);
+                
+                return await NotificationsService.GetNotificationById(notificationId);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
