@@ -130,8 +130,8 @@ namespace CodeHub.Helpers
                 {
                     throw new ArgumentException("Invalid notificationId");
                 }
-                notificationId = notificationId.Substring(1, notificationId.Length);
-                
+                notificationId = notificationId.Substring(1, notificationId.Length - 1);
+
                 return await NotificationsService.GetNotificationById(notificationId);
             }
             else
