@@ -172,7 +172,6 @@ namespace CodeHub.ViewModels
         private async Task LoadAllNotifications()
         {
             AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
-
             var allCount = AllNotifications?.Count ?? 0;
             ZeroAllCount = allCount == 0;
             Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
