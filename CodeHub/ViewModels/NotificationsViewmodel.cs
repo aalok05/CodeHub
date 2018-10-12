@@ -183,7 +183,7 @@ namespace CodeHub.ViewModels
 
         private async Task LoadUnreadNotifications()
         {
-            UnreadNotifications = new ObservableCollection<Notification>(( await NotificationsService.GetAllNotificationsForCurrentUser(false, false)).OrderByDescending(un=>un.UpdatedAt));
+            UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
             await UnreadNotifications?.ShowToasts();
             var unreadCount = UnreadNotifications?.Count ?? 0;
             ZeroUnreadCount = unreadCount == 0;

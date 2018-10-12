@@ -454,57 +454,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && toastNotifications != null && !toastNotifications.Any(t => !StringHelper.IsNullOrEmptyOrWhiteSpace(t.Tag) && t.Tag == toast.Tag && !StringHelper.IsNullOrEmptyOrWhiteSpace(t.Group) && t.Group == toast.Group))
-                        {
-                            ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
-                        }
-                    }
-                }
-            }
-            deferral?.Complete();
-        }
-
-        public static async Task ShowToasts(this IEnumerable<Octokit.Notification> collection, BackgroundTaskDeferral deferral)
-        {
-            if (collection == null)
-            {
-                throw new NullReferenceException($"{nameof(collection)} cannot be null");
-            }
-
-            collection = new ObservableCollection<Octokit.Notification>(collection.OrderByDescending(n => n.UpdatedAt));
-
-            var toastNotifications = ToastNotificationManager.History.GetHistory();
-            if (toastNotifications != null && toastNotifications.Count > 0)
-            {
-                foreach (var toast in toastNotifications)
-                {
-                    Octokit.Notification notification = null;
-                    try
-                    {
-                        notification = await toast.GetNotification();
-                    }
-                    finally
-                    {
-                        if (notification != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && collection != null && !collection.Any(n => n.Id == notification.Id))
-                        {
-                            ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
-                        }
-                    }
-                }
-                toastNotifications = ToastNotificationManager.History.GetHistory();
-            }
-            if (collection != null && collection.Count() > 0)
-            {
-                foreach (var notification in collection)
-                {
-                    ToastNotification toast = null;
-                    try
-                    {
-                        toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
-                    }
-                    finally
-                    {
-                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && toastNotifications != null && !toastNotifications.Any(t => !StringHelper.IsNullOrEmptyOrWhiteSpace(t.Tag) && t.Tag == toast.Tag && !StringHelper.IsNullOrEmptyOrWhiteSpace(t.Group) && t.Group == toast.Group))
+                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
                         {
                             ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
                         }
@@ -513,7 +463,7 @@ namespace CodeHub.Helpers
             }
             if (deferral != null)
             {
-                deferral.Complete();
+                deferral?.Complete();
             }
         }
     }

@@ -264,7 +264,7 @@ namespace CodeHub
                             {
                                 try
                                 {
-                                    AppViewmodel.UnreadNotifications = new ObservableCollection<Octokit.Notification>((await NotificationsService.GetAllNotificationsForCurrentUser(false, false)).OrderBy(un => un.UpdatedAt));
+                                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
                                     SendMessage(new UpdateUnreadNotificationsCountMessageType
                                     {
                                         Count = AppViewmodel.UnreadNotifications?.Count ?? 0

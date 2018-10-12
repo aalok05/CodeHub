@@ -310,7 +310,7 @@ namespace CodeHub.ViewModels
                 if (IsInternet())
                 {
                     //await AppTrigger?.RequestAsync();
-                    UnreadNotifications = new ObservableCollection<Octokit.Notification>((await NotificationsService.GetAllNotificationsForCurrentUser(false, false)).OrderByDescending(un => un.UpdatedAt));
+                    UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
                     Messenger.Default?.Send(new UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications?.Count ?? 0 });
                     await UnreadNotifications?.ShowToasts();
                 }
