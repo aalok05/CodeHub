@@ -1,20 +1,35 @@
 ﻿using CodeHub.Models;
-using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.ExtendedExecution;
-using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Core;
+using Windows.Storage;
 
 namespace CodeHub.Services
 {
     static class BackgroundTaskService
     {
         private static ApplicationTrigger AppTrigger;
+        private static ApplicationTriggerResult _allResult;
+        private static ApplicationTriggerResult _participatingResult;
+        private static ApplicationTriggerResult _unreadResult;
+
+        private static void ResetAppDataForAppTriggertask()
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            settings.Values.Remove("AppTrigger");
+        }
+
+        private static async Task<ApplicationTriggerResult> RunAppTrigger(ValueSet valueSet, bool resetAppData = true)
+        {
+            if (resetAppData)
+            {
+                ResetAppDataForAppTriggertask();
+            }
+
+            return await GetAppTrigger()?.RequestAsync(valueSet);
+        }
 
         public static ref ApplicationTrigger GetAppTrigger()
         {
@@ -26,29 +41,40 @@ namespace CodeHub.Services
             return ref AppTrigger;
         }
 
-        public static async Task RunAppTrigger()
+        public static async Task LoadAllNotifications(bool reset = true)
         {
-            await GetAppTrigger()?.RequestAsync();
+            reset = _allResult == ApplicationTriggerResult.Allowed
+                     && _allResult == ApplicationTriggerResult.CurrentlyRunning;
+            _allResult = await RunAppTrigger("sync", "notifications", "online", "all", "toast", true, reset);
         }
 
-        public static async Task RunAppTrigger(ValueSet valueSet)
+        public static async Task LoadParticipatingNotifications(bool reset = true)
         {
-            await GetAppTrigger()?.RequestAsync(valueSet);
+            reset = _participatingResult == ApplicationTriggerResult.Allowed
+                     && _participatingResult == ApplicationTriggerResult.CurrentlyRunning;
+            _participatingResult = await RunAppTrigger("sync", "notifications", "online", "participating", "toast", true, reset);
         }
 
-        public static async Task RunSyncAppTrigger(string action, string what, string location, string filter, string type, bool sendMessage = false)
+        public static async Task LoadUnreadNotifications(bool reset = true)
+        {
+            reset = _unreadResult == ApplicationTriggerResult.Allowed
+                     && _unreadResult == ApplicationTriggerResult.CurrentlyRunning;
+            _unreadResult = await RunAppTrigger("sync", "notifications", "online", "unread", "toast", true, reset);
+        }
+
+        public static async Task<ApplicationTriggerResult> RunAppTrigger(string action, string what, string location, string filter, string type, bool sendMessage = false, bool resetAppData = true)
         {
             var valueSet = new ValueSet
             {
                 { "action", action},
                 { "what", what },
-                { "location",  location},
+                { "location",  location },
                 { "filter", filter },
                 { "type", type },
-                { "sendMessage", sendMessage }
+                { "sendMessage",  sendMessage}
             };
 
-            await RunAppTrigger(valueSet);
+            return await RunAppTrigger(valueSet, resetAppData);
         }
 
         private static void GenerateDefault<T>(this ICollection<BackgroundTaskBuilder> tasks, ref T[] values)

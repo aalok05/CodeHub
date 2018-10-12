@@ -103,7 +103,7 @@ namespace CodeHub.ViewModels
                 IsLoadingAll = false;
             }
         }
-        public void RefreshUnread()
+        public async void RefreshUnread()
         {
             if (!IsInternet())
             {
@@ -113,7 +113,7 @@ namespace CodeHub.ViewModels
             else
             {
                 IsLoadingUnread = true;
-                LoadUnreadNotifications();
+                await LoadUnreadNotifications();
                 IsLoadingUnread = false;
             }
         }
@@ -146,9 +146,10 @@ namespace CodeHub.ViewModels
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
                 await NotificationsService.MarkAllNotificationsAsRead();
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
-                IsLoadingUnread = true;
-                await LoadUnreadNotifications();
-                IsLoadingUnread = false;
+                Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
+                {
+                    Count = 0
+                });
             }
         }
 
@@ -171,37 +172,17 @@ namespace CodeHub.ViewModels
 
         private async Task LoadAllNotifications()
         {
-            AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
-            var allCount = AllNotifications?.Count ?? 0;
-            ZeroAllCount = allCount == 0;
-            Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
-            {
-                Count = AllNotifications?.Count ?? 0
-            });
+            await BackgroundTaskService.LoadAllNotifications();
         }
 
         private async Task LoadUnreadNotifications()
         {
-            UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-            await UnreadNotifications?.ShowToasts();
-            var unreadCount = UnreadNotifications?.Count ?? 0;
-            ZeroUnreadCount = unreadCount == 0;
-            Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType
-            {
-                Count = UnreadNotifications?.Count ?? 0
-            });
+            await BackgroundTaskService.LoadUnreadNotifications();
         }
 
         private async Task LoadParticipatingNotifications()
         {
-            ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
-            var participationCount = ParticipatingNotifications?.Count ?? 0;
-
-            ZeroParticipatingCount = participationCount == 0;
-            Messenger.Default.Send(new UpdateParticipatingNotificationsCountMessageType
-            {
-                Count = ParticipatingNotifications?.Count ?? 0
-            });
+            await BackgroundTaskService.LoadParticipatingNotifications();
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

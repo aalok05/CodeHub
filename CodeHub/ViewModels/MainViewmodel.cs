@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml.Controls;
@@ -309,10 +310,7 @@ namespace CodeHub.ViewModels
 
                 if (IsInternet())
                 {
-                    //await AppTrigger?.RequestAsync();
-                    UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                    Messenger.Default?.Send(new UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications?.Count ?? 0 });
-                    await UnreadNotifications?.ShowToasts();
+                    await BackgroundTaskService.LoadUnreadNotifications();
                 }
             }
         }

@@ -19,12 +19,10 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.ExtendedExecution;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -121,11 +119,11 @@ namespace CodeHub
                         {
                             throw new ArgumentNullException(nameof(type));
                         }
-                        if (appArgs.TryGetValue("location", out object location))
+                        if (!appArgs.TryGetValue("location", out object location))
                         {
                             throw new ArgumentNullException(nameof(location));
                         }
-                        if (appArgs.TryGetValue("filter", out object filter))
+                        if (!appArgs.TryGetValue("filter", out object filter))
                         {
                             throw new ArgumentNullException(nameof(filter));
                         }
@@ -172,47 +170,51 @@ namespace CodeHub
                                 if (l == "online")
                                 {
                                     var filters = f.Split(',');
-                                    bool isAll = false, isParticipating = false;
+                                    bool isAll = false, isParticipating = false, isUnread = true;
                                     if (filter != null && filters.Length > 0)
                                     {
-                                        isAll = filters.Contains("all");
-                                        isParticipating = filters.Contains("participating");
+                                        isAll = filters.Contains("all", StringComparer.OrdinalIgnoreCase);
+                                        isParticipating = filters.Contains("participating", StringComparer.OrdinalIgnoreCase);
+                                        isUnread = filters.Contains("unread", StringComparer.OrdinalIgnoreCase);
                                     }
-
-                                    notifications = await NotificationsService.GetAllNotificationsForCurrentUser(isAll, isParticipating);
-
-                                    if (t == "toast")
+                                    _ExExecSession.RunActionAsExtentedAction(() =>
                                     {
-                                        if (!sm)
+                                        ExecutionService.RunActionInUiThread(async () =>
                                         {
-                                            await notifications.ShowToasts(_Deferral);
-                                        }
-                                        else
-                                        {
-                                            await notifications.ShowToasts();
-                                            if (isAll)
-                                            {
-                                                SendMessage(new UpdateAllNotificationsCountMessageType { Count = notifications?.Count ?? 0 }, _Deferral);
-                                            }
-                                            else if (isParticipating)
-                                            {
-                                                SendMessage(new UpdateParticipatingNotificationsCountMessageType { Count = notifications?.Count ?? 0 }, _Deferral);
-                                            }
-                                            else if (!isAll && !isParticipating)
-                                            {
-                                                SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = notifications?.Count ?? 0 }, _Deferral);
-                                            }
+                                            notifications = await NotificationsService.GetAllNotificationsForCurrentUser(isAll, isParticipating);
 
-                                        }
-                                    }
+                                            if (t == "toast")
+                                            {
+                                                if (sm)
+                                                {
+                                                    if (isAll)
+                                                    {
+                                                        NotificationsViewmodel.AllNotifications = notifications;
+                                                        SendMessage(new UpdateAllNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
+                                                    }
+                                                    else if (isParticipating)
+                                                    {
+                                                        NotificationsViewmodel.ParticipatingNotifications = notifications;
+                                                        SendMessage(new UpdateParticipatingNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
+                                                    }
+                                                    else if (isUnread)
+                                                    {
+                                                        AppViewmodel.UnreadNotifications = notifications;
+                                                        SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
+                                                    }
+                                                }
 
-                                    else if (t == "tiles")
-                                    {
-                                        var tile = await notifications[0].BuildTiles();
-                                        TileUpdateManager
-                                            .CreateTileUpdaterForApplication()
-                                            .Update(tile);
-                                    }
+                                                await notifications.ShowToasts();
+                                            }
+                                            else if (t == "tiles")
+                                            {
+                                                var tile = await notifications[0].BuildTiles();
+                                                TileUpdateManager
+                                                    .CreateTileUpdaterForApplication()
+                                                    .Update(tile);
+                                            }
+                                        });
+                                    }, ExExecSession_Revoked, _Deferral);
                                 }
                             }
                         }
@@ -314,17 +316,31 @@ namespace CodeHub
             //}
         }
 
-        private async void SendMessage<T>(T messageType, BackgroundTaskDeferral deferral = null)
+        private void SendMessage<T>(T messageType, BackgroundTaskDeferral deferral = null)
             where T : MessageTypeBase, new()
         {
             try
             {
                 if (messageType is UpdateUnreadNotificationsCountMessageType uMsgType)
                 {
-                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        Messenger.Default?.Send(uMsgType);
-                    });
+                    //ExecutionService.RunActionInCoreWindow(() =>
+                    //{
+                    Messenger.Default?.Send(uMsgType);
+                    //});
+                }
+                if (messageType is UpdateParticipatingNotificationsCountMessageType pMsgType)
+                {
+                    //ExecutionService.RunActionInCoreWindow(() =>
+                    //{
+                    Messenger.Default?.Send(pMsgType);
+                    //});
+                }
+                if (messageType is UpdateAllNotificationsCountMessageType aMsgType)
+                {
+                    //ExecutionService.RunActionInCoreWindow(() =>
+                    //{
+                    Messenger.Default?.Send(aMsgType);
+                    //});
                 }
             }
             catch (Exception ex)
