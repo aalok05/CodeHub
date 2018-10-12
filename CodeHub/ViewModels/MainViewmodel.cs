@@ -297,6 +297,10 @@ namespace CodeHub.ViewModels
 
                         ToastNotificationManager.History.Remove(toastNotificationTag, toastNotificationGroup);
                     }
+                    else
+                    {
+                        await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(NotificationsView));
+                    }
                 }
                 else
                 {
@@ -306,7 +310,7 @@ namespace CodeHub.ViewModels
                 if (IsInternet())
                 {
                     //await AppTrigger?.RequestAsync();
-                    UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+                    UnreadNotifications = new ObservableCollection<Octokit.Notification>((await NotificationsService.GetAllNotificationsForCurrentUser(false, false)).OrderByDescending(un => un.UpdatedAt));
                     Messenger.Default?.Send(new UpdateUnreadNotificationsCountMessageType { Count = UnreadNotifications?.Count ?? 0 });
                     await UnreadNotifications?.ShowToasts();
                 }

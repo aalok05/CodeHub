@@ -3,6 +3,7 @@ using CodeHub.ViewModels;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Octokit;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml.Navigation;
 using static CodeHub.Helpers.GlobalHelper;
@@ -80,7 +81,7 @@ namespace CodeHub.Views
                                          }
                                          ViewModel.IsLoadingUnread = false;
 
-                                         Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications.Count });
+                                         Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
                                      }));
         public RelayCommand<Notification> _MarkasReadParticipatingNotifCommand;
         public RelayCommand<Notification> MarkasReadParticipatingNotifCommand
@@ -106,7 +107,7 @@ namespace CodeHub.Views
                                                                                                             .GetNotificationById(notification.Id);
                                          }
                                          ViewModel.IsloadingParticipating = false;
-                                         Messenger.Default.Send(new UpdateParticipatingNotificationsCountMessageType { Count = NotificationsViewmodel.ParticipatingNotifications.Count });
+                                         Messenger.Default.Send(new UpdateParticipatingNotificationsCountMessageType { Count = NotificationsViewmodel.ParticipatingNotifications?.Count ?? 0 });
                                      }));
 
         public RelayCommand<Notification> _UnsubscribeAllNotifCommand;

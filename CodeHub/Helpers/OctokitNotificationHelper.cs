@@ -38,10 +38,6 @@ namespace CodeHub.Helpers
                 PullRequest = pr;
                 Number = pr.Number;
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
         }
 
         public NotificationModel(
@@ -73,10 +69,45 @@ namespace CodeHub.Helpers
         {
             return Issue == null && PullRequest != null;
         }
+
+        public void SetSubtitle(string subtitle)
+        {
+            Subtitle = subtitle;
+        }
     }
 
     public static class OctokitNotificationHelper
     {
+        private static async Task<NotificationModel> ProcessNotification(this Octokit.Notification notification)
+        {
+            NotificationModel result = null;
+            var isIssue = notification.Subject.Type.ToLower() == "issue";
+            var isPR = notification.Subject.Type.ToLower() == "pullrequest";
+            if (int.TryParse(notification.Subject.Url.Split('/').Last().Split('#').First(), out int number))
+            {
+                var subtitle = "";
+                var repo = notification.Repository;
+                var repoName = repo.FullName ?? repo.Name;
+                if (isIssue)
+                {
+                    var issue = await IssueUtility.GetIssue(repo.Id, number);
+                    subtitle = $"Issue {number}";
+                    result = new NotificationModel(repo.Id, issue, subtitle);
+                }
+                else if (isPR)
+                {
+                    var pr = await PullRequestUtility.GetPullRequest(repo.Id, number);
+                    subtitle = $"PR {number}";
+                    result = new NotificationModel(repo.Id, pr, subtitle);
+                }
+                subtitle = !StringHelper.IsNullOrEmptyOrWhiteSpace(subtitle)
+                          ? $"{subtitle} in {repoName}"
+                          : repoName;
+                result.SetSubtitle(subtitle);
+            }
+
+            return result ?? throw new NullReferenceException(nameof(result));
+        }
 
         public static async Task<TileNotification> BuildTiles(
                 this Octokit.Notification notification,
@@ -263,76 +294,72 @@ namespace CodeHub.Helpers
 
             var isIssue = notification.Subject.Type.ToLower().Equals("issue");
             var isPR = notification.Subject.Type.ToLower().Equals("pullrequest");
+            processedNotification = await notification.ProcessNotification();
 
             if (isIssue)
             {
-                processedNotification = await notification.ProcessNotification();
-                if (processedNotification != null)
+                issue = processedNotification.Issue;
+                title = SecurityElement.Escape(issue.Title);
+                subtitle = SecurityElement.Escape(processedNotification.Subtitle);
+                body = issue.Body;
+                user = await UserService.GetUserInfo(issue.User.Login);
+                launchArgs += $"&action=showIssue&issueNumber={issue.Number}";
+                readArgs += $"&action=markIssueAsRead&issueNumber={issue.Number}";
+                tag += $"+I{issue.Number}";
+                group = "Issues";
+                stateTime = (issue.ClosedAt ?? issue.UpdatedAt) ?? issue.CreatedAt;
+                stateTime = stateTime.ToLocalTime();
+                stateTimeString = stateTime.ToString(dateformatString);
+                if (issue.State.StringValue.ToLower() == "open")
                 {
-                    issue = processedNotification.Issue;
-                    title = SecurityElement.Escape(issue.Title);
-                    subtitle = SecurityElement.Escape(processedNotification.Subtitle);
-                    body = issue.Body;
-                    user = await UserService.GetUserInfo(issue.User.Login);
-                    launchArgs += $"&action=showIssue&issueNumber={issue.Number}";
-                    readArgs += $"&action=markIssueAsRead&issueNumber={issue.Number}";
-                    tag += $"+I{issue.Number}";
-                    group = "Issues";
-                    stateTime = (issue.ClosedAt ?? issue.UpdatedAt) ?? issue.CreatedAt;
-                    stateTime = stateTime.ToLocalTime();
-                    stateTimeString = stateTime.ToString(dateformatString);
-                    if (issue.State.StringValue.ToLower() == "open")
-                    {
-                        icon = "git-issue-opened.png";
-                        status = $"opened by {user.Name ?? user.Login} at {stateTimeString}";
-                    }
-                    else if (issue.State.StringValue.ToLower() == "reopened")
-                    {
-                        icon = "git-issue-reopened.png";
-                        status = $"re-opened by {user.Name ?? user.Login} at {stateTimeString}";
-                    }
-                    else if (issue.State.StringValue.ToLower() == "closed")
-                    {
-                        icon = "git-issue-closed.png";
-                        closedBy = issue.ClosedBy;
-                        status = $"closed by {closedBy.Name ?? closedBy.Login} at {stateTimeString}";
-                    }
+                    icon = "git-issue-opened.png";
+                    status = $"opened by {user.Name ?? user.Login} at {stateTimeString}";
+                }
+                else if (issue.State.StringValue.ToLower() == "reopened")
+                {
+                    icon = "git-issue-reopened.png";
+                    status = $"re-opened by {user.Name ?? user.Login} at {stateTimeString}";
+                }
+                else if (issue.State.StringValue.ToLower() == "closed")
+                {
+                    icon = "git-issue-closed.png";
+                    closedBy = issue.ClosedBy;
+                    status = $"closed by {closedBy.Name ?? closedBy.Login} at {stateTimeString}";
                 }
             }
             else if (isPR)
             {
-                processedNotification = await notification.ProcessNotification();
-                if (processedNotification != null)
+                pr = processedNotification.PullRequest;
+                title = SecurityElement.Escape(pr.Title);
+                subtitle = SecurityElement.Escape(processedNotification.Subtitle);
+                body = pr.Body;
+                user = await UserService.GetUserInfo(pr.User.Login);
+                launchArgs += $"&action=showPr&prNumber={pr.Number}";
+                readArgs += $"&action=markPrAsRead&prNumber={pr.Number}";
+                tag += $"+P{pr.Number}";
+                group = "PullRequests";
+                stateTime = (pr.ClosedAt ?? pr.MergedAt) ?? pr.CreatedAt;
+                stateTime = stateTime.ToLocalTime();
+                stateTimeString = stateTime.ToString(dateformatString);
+                if (pr.State.StringValue.ToLower() == "open")
                 {
-                    pr = processedNotification.PullRequest;
-                    title = SecurityElement.Escape(pr.Title);
-                    subtitle = SecurityElement.Escape(processedNotification.Subtitle);
-                    body = pr.Body;
-                    user = await UserService.GetUserInfo(pr.User.Login);
-                    launchArgs += $"&action=showPr&prNumber={pr.Number}";
-                    readArgs += $"&action=markPrAsRead&prNumber={pr.Number}";
-                    tag += $"+P{pr.Number}";
-                    group = "PullRequests";
-                    stateTime = (pr.ClosedAt ?? pr.MergedAt) ?? pr.CreatedAt;
-                    stateTime = stateTime.ToLocalTime();
-                    stateTimeString = stateTime.ToString(dateformatString);
-                    if (pr.State.StringValue.ToLower() == "open")
-                    {
-                        icon = "git-pull-request.png";
-                        status = $"opened by {user.Name ?? user.Login} at {  stateTime.ToLocalTime().ToString() }";
-                    }
-                    else if (pr.State.StringValue.ToLower() == "reopened")
-                    {
-                        icon = "git-pull-request.png";
-                        status = $"re-opened by {user.Name ?? user.Login} at {stateTimeString}";
-                    }
-                    else if (pr.Merged)
+                    icon = "git-pull-request.png";
+                    status = $"opened by {user.Name ?? user.Login} at {  stateTime.ToLocalTime().ToString() }";
+                }
+                else if (pr.State.StringValue.ToLower() == "reopened")
+                {
+                    icon = "git-pull-request.png";
+                    status = $"re-opened by {user.Name ?? user.Login} at {stateTimeString}";
+                }
+                else if (pr.State.StringValue.ToLower() == "closed")
+                {
+                    if (pr.Merged)
                     {
                         icon = "git-merge.png";
                         closedBy = pr.MergedBy;
                         status = $"merged by {closedBy.Name ?? closedBy.Login} at {stateTimeString}";
                     }
-                    else if (pr.State.StringValue.ToLower() == "closed")
+                    else
                     {
                         icon = "";
                         status = $"closed at {stateTimeString}";
@@ -387,31 +414,6 @@ namespace CodeHub.Helpers
                  ? toast
                  : throw new NullReferenceException();
         }
-        private static async Task<NotificationModel> ProcessNotification(this Octokit.Notification notification)
-        {
-            NotificationModel result = null;
-            var isIssue = notification.Subject.Type.ToLower() == "issue";
-            var isPR = notification.Subject.Type.ToLower() == "pullrequest";
-            if (int.TryParse(notification.Subject.Url.Split('/').Last().Split('?').First(), out int number))
-            {
-                var repo = notification.Repository;
-                if (isIssue)
-                {
-                    var issue = await IssueUtility.GetIssue(repo.Id, number);
-                    var subtitle = $"Issue {number} in {repo.FullName ?? repo.Name}";
-                    result = new NotificationModel(repo.Id, issue, subtitle);
-                }
-                else if (isPR)
-                {
-                    var pr = await PullRequestUtility.GetPullRequest(repo.Id, number);
-                    var subtitle = $"PR {number} in {repo.FullName ?? repo.Name}";
-                    result = new NotificationModel(repo.Id, pr, subtitle);
-                }
-
-            }
-
-            return result ?? throw new NullReferenceException(nameof(result));
-        }
 
         public static async Task ShowToasts(this ICollection<Octokit.Notification> collection, BackgroundTaskDeferral deferral = null)
         {
@@ -433,7 +435,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
+                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
                         {
                             ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
                         }
@@ -459,20 +461,18 @@ namespace CodeHub.Helpers
                     }
                 }
             }
-            if (deferral != null)
-            {
-                deferral.Complete();
-            }
+            deferral?.Complete();
         }
 
-        public static async Task ShowToasts(this IEnumerable<Octokit.Notification> collection)
+        public static async Task ShowToasts(this IEnumerable<Octokit.Notification> collection, BackgroundTaskDeferral deferral)
         {
             if (collection == null)
             {
                 throw new NullReferenceException($"{nameof(collection)} cannot be null");
             }
 
-            collection = new ObservableCollection<Octokit.Notification>(collection.OrderBy(n => n.UpdatedAt));
+            collection = new ObservableCollection<Octokit.Notification>(collection.OrderByDescending(n => n.UpdatedAt));
+
             var toastNotifications = ToastNotificationManager.History.GetHistory();
             if (toastNotifications != null && toastNotifications.Count > 0)
             {
@@ -510,6 +510,10 @@ namespace CodeHub.Helpers
                         }
                     }
                 }
+            }
+            if (deferral != null)
+            {
+                deferral.Complete();
             }
         }
     }

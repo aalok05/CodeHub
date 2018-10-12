@@ -105,9 +105,6 @@ namespace CodeHub.ViewModels
         }
 
         public static ObservableCollection<Notification> UnreadNotifications { get; set; }
-
-        private static readonly ApplicationTrigger _AppTrigger = new ApplicationTrigger();
-        public static ApplicationTrigger AppTrigger { get => _AppTrigger ?? new ApplicationTrigger(); }
         #endregion
 
         private const string donateFirstAddOnId = "9pd0r1dxkt8j";

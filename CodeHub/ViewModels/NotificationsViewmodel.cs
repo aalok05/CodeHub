@@ -103,7 +103,7 @@ namespace CodeHub.ViewModels
                 IsLoadingAll = false;
             }
         }
-        public async void RefreshUnread()
+        public void RefreshUnread()
         {
             if (!IsInternet())
             {
@@ -113,7 +113,7 @@ namespace CodeHub.ViewModels
             else
             {
                 IsLoadingUnread = true;
-                await LoadUnreadNotifications();
+                LoadUnreadNotifications();
                 IsLoadingUnread = false;
             }
         }
@@ -173,34 +173,35 @@ namespace CodeHub.ViewModels
         {
             AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
 
-            var allCount = AllNotifications.Count;
+            var allCount = AllNotifications?.Count ?? 0;
             ZeroAllCount = allCount == 0;
             Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
             {
-                Count = allCount
+                Count = AllNotifications?.Count ?? 0
             });
         }
 
         private async Task LoadUnreadNotifications()
         {
-            UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
+            UnreadNotifications = new ObservableCollection<Notification>(( await NotificationsService.GetAllNotificationsForCurrentUser(false, false)).OrderByDescending(un=>un.UpdatedAt));
             await UnreadNotifications?.ShowToasts();
-            var unreadCount = UnreadNotifications.Count;
+            var unreadCount = UnreadNotifications?.Count ?? 0;
             ZeroUnreadCount = unreadCount == 0;
             Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType
             {
-                Count = unreadCount
+                Count = UnreadNotifications?.Count ?? 0
             });
         }
 
         private async Task LoadParticipatingNotifications()
         {
             ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
-            var participationCount = ParticipatingNotifications.Count();
+            var participationCount = ParticipatingNotifications?.Count ?? 0;
+
             ZeroParticipatingCount = participationCount == 0;
             Messenger.Default.Send(new UpdateParticipatingNotificationsCountMessageType
             {
-                Count = ParticipatingNotifications.Count
+                Count = ParticipatingNotifications?.Count ?? 0
             });
         }
 

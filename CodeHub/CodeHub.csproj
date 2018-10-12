@@ -296,10 +296,10 @@
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Helpers\AnimatedGradientBrush.cs" />
-    <Compile Include="Helpers\BackgroundTaskHelper.cs" />
     <Compile Include="Helpers\BackgroundTaskStatus.cs" />
     <Compile Include="Helpers\BackgroundTaskStorage.cs" />
     <Compile Include="Helpers\BadgeHelper.cs" />
+    <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Helpers\HTTPHelper.cs" />
@@ -309,6 +309,7 @@
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\XAMLHelper.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\BackgroundTaskBuilderModel.cs" />
     <Compile Include="Models\HamItem.cs" />
     <Compile Include="Models\IStartupNotification.cs" />
     <Compile Include="Models\RepositoryContentWithCommitInfo.cs" />
@@ -326,7 +327,9 @@
     <Compile Include="Services\ActivityService.cs" />
     <Compile Include="Services\AppCredentials.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\BackgroundTaskService.cs" />
     <Compile Include="Services\CommitService.cs" />
+    <Compile Include="Services\ExecutionService.cs" />
     <Compile Include="Services\GistUtility.cs" />
     <Compile Include="Services\Hilite-me\HiliteAPI.cs" />
     <Compile Include="Services\Hilite-me\SyntaxHighlightStyle.cs" />

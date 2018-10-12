@@ -126,7 +126,7 @@ namespace CodeHub.Helpers
             if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
             {
                 var notificationId = toast.Tag.Split('+')[0];
-                if (notificationId.Length == 0)
+                if (notificationId.Length == 0 || !notificationId.StartsWith("N"))
                 {
                     throw new ArgumentException("Invalid notificationId");
                 }
@@ -138,6 +138,21 @@ namespace CodeHub.Helpers
             {
                 return null;
             }
+        }
+
+        public static void ShowMessage(string title, string body)
+        {
+            var toastTemplate = ToastTemplateType.ToastText02;
+            var toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+
+            //title = SecurityElement.Escape(title);
+            //body = SecurityElement.Escape(body);
+            XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(title));
+            toastTextElements[1].AppendChild(toastXml.CreateTextNode(body));
+
+            var toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }
 }

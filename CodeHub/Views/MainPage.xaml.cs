@@ -1,5 +1,4 @@
 ﻿using CodeHub.Controls;
-using CodeHub.Helpers;
 using CodeHub.Models;
 using CodeHub.Services;
 using CodeHub.ViewModels;
@@ -58,7 +57,7 @@ namespace CodeHub.Views
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             Messenger.Default.Register(this, (SetHeaderTextMessageType m) => SetHeadertext(m.PageName));
             Messenger.Default.Register(this, (AdsEnabledMessageType m) => ViewModel.ToggleAdsVisiblity());
-            Messenger.Default.Register(this, async (UpdateUnreadNotificationsCountMessageType m) =>
+            Messenger.Default.Register(this, (UpdateUnreadNotificationsCountMessageType m) =>
             {
                 ViewModel.UpdateUnreadNotificationIndicator(m.Count);
             });
@@ -105,14 +104,6 @@ namespace CodeHub.Views
         {
             await ViewModel.Initialize();
 
-            var startupTask = await StartupTask.GetAsync("CodeHubStartupTask");
-            var state = startupTask.State;
-
-            if (startupTask.State == StartupTaskState.Disabled)
-            {
-                state = await startupTask.RequestEnableAsync();
-            }
-
 
             // Get the listener
             var listener = UserNotificationListener.Current;
@@ -153,6 +144,7 @@ namespace CodeHub.Views
                     // Show UI that allows the user to bring up the prompt again
                     break;
             }
+
             if (SystemInformation.IsAppUpdated && ViewModel.IsLoggedin)
             {
                 await ShowWhatsNewPopupVisiblity();
@@ -200,32 +192,46 @@ namespace CodeHub.Views
 
         private void RegisterBackgroundTasks()
         {
-            Helpers.BackgroundTaskHelper.UnregisterAllBackgroundTasks();
-
             IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
                                  userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
                                  sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
                                  backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
 
-            var builder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
-                            "ToastNotificationBackgroundTask",
-                            new ToastNotificationActionTrigger(),
-                            internetAvailableCondition
-                            //userPresentCondition,
-                            //sessionConnectedCondition
-                          );
-            builder.IsNetworkRequested = true;
-            builder.Register();
+            var conditions = new[] {
+                internetAvailableCondition,
+                // userPresentCondition,
+                //sessionConnectedCondition
+            };
 
-            var syncBuilder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
-                        "SyncNotifications",
-                        new MaintenanceTrigger(15, false),
-                        internetAvailableCondition
-                        //userPresentCondition,
-                        //sessionConnectedCondition
-                      );
-            syncBuilder.IsNetworkRequested = true;
-            syncBuilder.Register();
+            var bgBuilderModel = new BackgroundTaskBuilderModel(
+                                    "ToastNotificationAction",
+                                    new ToastNotificationActionTrigger(),
+                                    conditions
+                                 );
+            var toastActionTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
+            toastActionTask.Register(true, false, true);
+
+            //bgBuilderModel = new BackgroundTaskBuilderModel(
+            //                        "ToastNotificationChangedTask",
+            //                        new ToastNotificationHistoryChangedTrigger(),
+            //                        conditions
+            //                     );
+            //var toastHistoryChangedTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
+
+            bgBuilderModel = new BackgroundTaskBuilderModel(
+                                "SyncNotifications",
+                                new MaintenanceTrigger(15, false),
+                                conditions
+                             );
+            var syncTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
+            syncTask.Register(true, false, true);
+
+            //var builders = new[]
+            //{
+            //    toastActionTask, syncTask
+            //};
+
+            //builders.Register(all: false);
         }
 
         public async void SetHeadertext(string pageName)
