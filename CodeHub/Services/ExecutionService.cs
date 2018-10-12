@@ -23,6 +23,7 @@ namespace CodeHub.Services
             }
             session.Revoked -= revoked;
             session.Dispose();
+            session = null;
 
             if (deferral != null)
             {

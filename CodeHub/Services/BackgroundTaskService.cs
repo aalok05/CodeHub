@@ -41,25 +41,49 @@ namespace CodeHub.Services
             return ref AppTrigger;
         }
 
-        public static async Task LoadAllNotifications(bool reset = true)
+        public static async Task LoadAllNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
         {
             reset = _allResult == ApplicationTriggerResult.Allowed
                      && _allResult == ApplicationTriggerResult.CurrentlyRunning;
-            _allResult = await RunAppTrigger("sync", "notifications", "online", "all", "toast", true, reset);
+            if (_allResult != ApplicationTriggerResult.CurrentlyRunning)
+            {
+                _allResult = await RunAppTrigger("sync", "notifications", "online", "all", "toast", true, false);
+            }
+
+            if (deferral != null)
+            {
+                deferral.Complete();
+            }
         }
 
-        public static async Task LoadParticipatingNotifications(bool reset = true)
+        public static async Task LoadParticipatingNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
         {
             reset = _participatingResult == ApplicationTriggerResult.Allowed
                      && _participatingResult == ApplicationTriggerResult.CurrentlyRunning;
-            _participatingResult = await RunAppTrigger("sync", "notifications", "online", "participating", "toast", true, reset);
+            if (_participatingResult != ApplicationTriggerResult.CurrentlyRunning)
+            {
+                _participatingResult = await RunAppTrigger("sync", "notifications", "online", "participating", "toast", true, false);
+            }
+
+            if (deferral != null)
+            {
+                deferral.Complete();
+            }
         }
 
-        public static async Task LoadUnreadNotifications(bool reset = true)
+        public static async Task LoadUnreadNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
         {
             reset = _unreadResult == ApplicationTriggerResult.Allowed
                      && _unreadResult == ApplicationTriggerResult.CurrentlyRunning;
-            _unreadResult = await RunAppTrigger("sync", "notifications", "online", "unread", "toast", true, reset);
+            if (_unreadResult != ApplicationTriggerResult.CurrentlyRunning)
+            {
+                _unreadResult = await RunAppTrigger("sync", "notifications", "online", "unread", "toast", true, false);
+            }
+
+            if (deferral != null)
+            {
+                deferral.Complete();
+            }
         }
 
         public static async Task<ApplicationTriggerResult> RunAppTrigger(string action, string what, string location, string filter, string type, bool sendMessage = false, bool resetAppData = true)

@@ -234,8 +234,7 @@ namespace CodeHub.ViewModels
             if (notif.Unread)
             {
                 await NotificationsService.MarkNotificationAsRead(notif.Id);
-                var toast = await notif.BuildToast(ToastNotificationScenario.Reminder);
-                ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                await BackgroundTaskService.LoadUnreadNotifications();
             }
         }
     }

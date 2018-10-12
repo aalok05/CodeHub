@@ -2,14 +2,11 @@
 using CodeHub.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
 using Windows.Services.Store;
 using Windows.System.Profile;
 using Windows.UI.Popups;
@@ -116,7 +113,7 @@ namespace CodeHub.ViewModels
 
         public AppViewmodel()
         {
-            UnreadNotifications = UnreadNotifications ?? new ObservableCollection<Octokit.Notification>();
+            UnreadNotifications = UnreadNotifications ?? new ObservableCollection<Notification>();
         }
 
         public async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)

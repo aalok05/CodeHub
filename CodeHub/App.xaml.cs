@@ -74,7 +74,6 @@ namespace CodeHub
 
             AppCenter.Start("ecd96e4c-b301-48f3-b640-166a040f1d86", typeof(Analytics), typeof(Crashes));
 
-
             _ExExecSession = new ExtendedExecutionSession();
             _ExExecSession.Revoked += ExExecSession_Revoked;
         }
@@ -260,29 +259,7 @@ namespace CodeHub
                     {
                         ToastHelper.ShowMessage(ex.Message, ex.ToString());
                     }
-                    _ExExecSession.RunActionAsExtentedAction(() =>
-                    {
-                        ExecutionService.RunActionInUiThread(async () =>
-                            {
-                                try
-                                {
-                                    AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                                    SendMessage(new UpdateUnreadNotificationsCountMessageType
-                                    {
-                                        Count = AppViewmodel.UnreadNotifications?.Count ?? 0
-                                    });
-
-                                }
-                                catch (Exception ex)
-                                {
-                                    ToastHelper.ShowMessage(ex.Message, ex.ToString());
-                                }
-                                finally
-                                {
-                                    AppViewmodel.UnreadNotifications?.ShowToasts();
-                                }
-                            });
-                    }, ExExecSession_Revoked, _Deferral);
+                    await BackgroundTaskService.LoadUnreadNotifications(true, _Deferral);
                     break;
 
                     //case "ToastNotificationChangedTask":
@@ -300,7 +277,9 @@ namespace CodeHub
         private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
             _Deferral?.Complete();
-
+            _ExExecSession.Revoked -= ExExecSession_Revoked;
+            _ExExecSession.Dispose();
+            _ExExecSession = null;
             ToastHelper.ShowMessage($"{sender.Task.Name} has been canceled", reason.ToString());
 
             //switch (sender.Task.Name)
@@ -323,24 +302,24 @@ namespace CodeHub
             {
                 if (messageType is UpdateUnreadNotificationsCountMessageType uMsgType)
                 {
-                    //ExecutionService.RunActionInCoreWindow(() =>
-                    //{
-                    Messenger.Default?.Send(uMsgType);
-                    //});
+                    ExecutionService.RunActionInCoreWindow(() =>
+                    {
+                        Messenger.Default?.Send(uMsgType);
+                    });
                 }
                 if (messageType is UpdateParticipatingNotificationsCountMessageType pMsgType)
                 {
-                    //ExecutionService.RunActionInCoreWindow(() =>
-                    //{
-                    Messenger.Default?.Send(pMsgType);
-                    //});
+                    ExecutionService.RunActionInCoreWindow(() =>
+                    {
+                        Messenger.Default?.Send(pMsgType);
+                    });
                 }
                 if (messageType is UpdateAllNotificationsCountMessageType aMsgType)
                 {
-                    //ExecutionService.RunActionInCoreWindow(() =>
-                    //{
-                    Messenger.Default?.Send(aMsgType);
-                    //});
+                    ExecutionService.RunActionInCoreWindow(() =>
+                    {
+                        Messenger.Default?.Send(aMsgType);
+                    });
                 }
             }
             catch (Exception ex)
