@@ -213,7 +213,7 @@ namespace CodeHub.Views
 
             bgBuilderModel = new BackgroundTaskBuilderModel(
                                 "SyncNotifications",
-                                new MaintenanceTrigger(15, false),
+                                new TimeTrigger(15, false),
                                 conditions
                              );
             var syncTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
