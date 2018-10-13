@@ -211,13 +211,6 @@ namespace CodeHub.Views
             var toastActionTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
             toastActionTask.Register(true, false, true);
 
-            //bgBuilderModel = new BackgroundTaskBuilderModel(
-            //                        "ToastNotificationChangedTask",
-            //                        new ToastNotificationHistoryChangedTrigger(),
-            //                        conditions
-            //                     );
-            //var toastHistoryChangedTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-
             bgBuilderModel = new BackgroundTaskBuilderModel(
                                 "SyncNotifications",
                                 new MaintenanceTrigger(15, false),
@@ -225,13 +218,6 @@ namespace CodeHub.Views
                              );
             var syncTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
             syncTask.Register(true, false, true);
-
-            //var builders = new[]
-            //{
-            //    toastActionTask, syncTask
-            //};
-
-            //builders.Register(all: false);
         }
 
         public async void SetHeadertext(string pageName)

@@ -220,24 +220,7 @@ namespace CodeHub
                     }
                     break;
                 case "SyncNotifications":
-                    _ExExecSession.RunActionAsExtentedAction(() =>
-                    {
-                        ExecutionService.RunActionInUiThread(async () =>
-                        {
-                            try
-                            {
-                                AppViewmodel.UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-                                SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = AppViewmodel.UnreadNotifications?.Count ?? 0 });
-                                await AppViewmodel.UnreadNotifications?.ShowToasts();
-
-                            }
-                            catch (Exception ex)
-                            {
-                                ToastHelper.ShowMessage(ex.Message, ex.ToString());
-                                return;
-                            }
-                        });
-                    }, ExExecSession_Revoked, _Deferral);
+                    await BackgroundTaskService.LoadUnreadNotifications(true, _Deferral);
                     break;
                 case "ToastNotificationAction":
                     if (!(triggerDetails is ToastNotificationActionTriggerDetail toastTriggerDetails))
@@ -367,6 +350,23 @@ namespace CodeHub
             }
         }
 
+        private async Task NavigateAsync(Type viewType, Type backStackViewType, object parameter = null)
+        {
+            var svc = SimpleIoc
+                           .Default
+                           .GetInstance<IAsyncNavigationService>();
+            svc.ClearBackStack();
+            NavigationStack.Push(svc.ChoosePageTitleByPageType(backStackViewType));
+            if (parameter == null)
+            {
+                await svc.NavigateAsync(viewType);
+            }
+            else
+            {
+                await svc.NavigateAsync(viewType, parameter);
+            }
+        }
+
         private async void OnLaunchedOrActivated(IActivatedEventArgs args)
         {
 #if DEBUG
@@ -436,6 +436,8 @@ namespace CodeHub
                 }
                 else if (args.Kind == ActivationKind.ToastNotification)
                 {
+                    var mainViewType = typeof(FeedView);
+                    var goBackViewType = typeof(NotificationsView);
                     if (Window.Current.Content == null)
                     {
                         Window.Current.Content = new MainPage(args);
@@ -448,10 +450,7 @@ namespace CodeHub
 
                         if (!long.TryParse(toastArgs["repoId"], out long repoId))
                         {
-                            await SimpleIoc
-                                    .Default
-                                    .GetInstance<IAsyncNavigationService>()
-                                    .NavigateAsync(typeof(NotificationsView));
+                            await NavigateAsync(goBackViewType, mainViewType);
                         }
 
                         string group = null,
@@ -467,42 +466,30 @@ namespace CodeHub
                                 {
 
                                     var issue = await IssueUtility.GetIssue(repo.Id, issueNumber);
-                                    await SimpleIoc
-                                        .Default
-                                        .GetInstance<IAsyncNavigationService>()
-                                        .NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(repo, issue));
                                     tag += $"+I{issueNumber}";
                                     group = "Issues";
+                                    await NavigateAsync(typeof(IssueDetailView), goBackViewType, new Tuple<Repository, Issue>(repo, issue));
                                 }
                                 else
                                 {
-                                    await SimpleIoc
-                                        .Default
-                                        .GetInstance<IAsyncNavigationService>()
-                                        .NavigateAsync(typeof(NotificationsView));
+                                    await NavigateAsync(goBackViewType, mainViewType);
                                 }
 
                                 break;
 
                             case "showPr":
-
                                 if (int.TryParse(toastArgs["prNumber"], out int prNumber))
                                 {
                                     var pr = await PullRequestUtility.GetPullRequest(repoId, prNumber);
-                                    await SimpleIoc
-                                            .Default
-                                            .GetInstance<IAsyncNavigationService>()
-                                            .NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(repo, pr));
+                                    await NavigateAsync(typeof(PullRequestDetailView), goBackViewType, new Tuple<Repository, PullRequest>(repo, pr));
                                     tag += $"+P{pr.Number}";
                                     group = "PullRequests";
                                 }
                                 else
                                 {
-                                    await SimpleIoc
-                                        .Default
-                                        .GetInstance<IAsyncNavigationService>()
-                                        .NavigateAsync(typeof(NotificationsView));
+                                    await NavigateAsync(goBackViewType, mainViewType);
                                 }
+
                                 break;
                         }
                         if (!StringHelper.IsNullOrEmptyOrWhiteSpace(tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(group))
@@ -512,7 +499,6 @@ namespace CodeHub
                         if (!StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
                         {
                             await NotificationsService.MarkNotificationAsRead(notificationId);
-
                         }
                     }
 
@@ -541,7 +527,7 @@ namespace CodeHub
         /// <param name="e">Details about the navigation failure</param>
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            //throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            ToastHelper.ShowMessage($"Failed to load Page {e.SourcePageType.FullName}",  e.Exception.ToString());
         }
 
         /// <summary>
@@ -554,31 +540,12 @@ namespace CodeHub
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            //_ExExecSession = new ExtendedExecutionSession();
-            //_ExExecSession.Revoked += ExExecSession_Revoked;
-
-            //if (_IsTaskRunning)
-            //{
-            //    await _ExExecSession.RequestExtensionAsync();
-            //    while (_IsTaskRunning)
-            //    {
-
-            //    }
-            //    if (!_IsTaskRunning)
-            //    {
-            //        _ExExecSession.Dispose();
-            //        _ExExecSession = null;
-            //        deferral.Complete();
-            //    }
-            //}
 
             deferral.Complete();
         }
 
         private void ExExecSession_Revoked(object sender, ExtendedExecutionRevokedEventArgs args)
         {
-            _IsTaskRunning = false;
             _ExExecSession.Dispose();
             _ExExecSession = null;
         }
