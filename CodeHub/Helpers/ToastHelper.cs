@@ -154,5 +154,32 @@ namespace CodeHub.Helpers
             var toast = new ToastNotification(toastXml);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
+
+        public static async Task<bool> Like(this ToastNotification toast, Octokit.Notification notif)
+        {
+            return toast.Like(await notif.BuildToast(ToastNotificationScenario.Reminder));
+        }
+
+        public static bool Like(this ToastNotification toast, ToastNotification toast2)
+        {
+            bool tagValid = false,
+                 groupValid = false;
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
+            {
+                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Tag))
+                {
+                    tagValid = toast.Tag == toast2.Tag;
+                }
+            }
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
+            {
+                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Group))
+                {
+                    groupValid = toast.Group == toast2.Group;
+                }
+            }
+
+            return tagValid && groupValid;
+        }
     }
 }

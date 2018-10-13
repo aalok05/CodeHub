@@ -454,7 +454,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
+                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && toastNotifications != null && !toastNotifications.Any(t => t.Like(toast)))
                         {
                             ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
                         }
