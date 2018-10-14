@@ -184,59 +184,5 @@ namespace CodeHub.Helpers
 
             return tagValid && groupValid;
         }
-
-        public static async Task<ICollection<ToastNotification>> Sync(this ICollection<ToastNotification> toasts, ICollection<Octokit.Notification> notifications)
-        {
-            if (toasts == null)
-                throw new NullReferenceException($"{nameof(toasts)} can not be null");
-
-            if (notifications == null)
-            {
-                throw new ArgumentNullException(nameof(notifications));
-            }
-
-            if (toasts.Count > 0)
-            {
-                foreach (var toast in toasts)
-                {
-                    Octokit.Notification notification = null;
-                    try
-                    {
-                        notification = await toast.GetNotification();
-                    }
-                    finally
-                    {
-                        if (notification != null && !notifications.Any(n => n.Id == notification.Id))
-                        {
-                            toasts.Remove(toast);
-                        }
-                    }
-                }
-            }
-
-            if (notifications.Count() > 0)
-            {
-                foreach (var notification in notifications)
-                {
-                    ToastNotification toast = null;
-                    try
-                    {
-                        toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
-                    }
-                    finally
-                    {
-                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
-                        {
-                            if (!toasts.Any(t => t.Like(toast)))
-                                toasts.Add(toast);
-                            else
-                                toasts.Remove(toast);
-                        }
-                    }
-                }
-            }
-
-            return toasts;
-        }
     }
 }

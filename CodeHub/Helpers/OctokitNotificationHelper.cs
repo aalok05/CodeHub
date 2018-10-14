@@ -423,52 +423,46 @@ namespace CodeHub.Helpers
             }
 
             collection = new ObservableCollection<Octokit.Notification>(collection.OrderBy(n => n.UpdatedAt));
-            //var toastNotifications = ToastNotificationManager.History.GetHistory();
+            var toastNotifications = ToastNotificationManager.History.GetHistory();
 
-            //if (toastNotifications != null && toastNotifications.Count > 0)
-            //{
-            //    foreach (var toast in toastNotifications)
-            //    {
-            //        Octokit.Notification notification = null;
-            //        try
-            //        {
-            //            notification = await toast.GetNotification();
-            //        }
-            //        finally
-            //        {
-            //            if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
-            //            {
-            //                ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
-            //            }
-            //        }
-            //    }
-            //    toastNotifications = ToastNotificationManager.History.GetHistory();
-            //}
-            //if (collection != null && collection.Count() > 0)
-            //{
-            //    foreach (var notification in collection)
-            //    {
-            //        ToastNotification toast = null;
-            //        try
-            //        {
-            //            toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
-            //        }
-            //        finally
-            //        {
-            //            if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && toastNotifications != null && !toastNotifications.Any(t => t.Like(toast)))
-            //            {
-            //                ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
-            //            }
-            //        }
-            //    }
-            //}
-            var toastNotifications = await ToastNotificationManager.History.GetHistory().ToList().Sync(collection);
-
-            foreach(var toast in toastNotifications)
+            if (toastNotifications != null && toastNotifications.Count > 0)
             {
-                ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
+                foreach (var toast in toastNotifications)
+                {
+                    Octokit.Notification notification = null;
+                    try
+                    {
+                        notification = await toast.GetNotification();
+                    }
+                    finally
+                    {
+                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
+                        {
+                            ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                        }
+                    }
+                }
+                toastNotifications = ToastNotificationManager.History.GetHistory();
             }
-            
+            if (collection != null && collection.Count() > 0)
+            {
+                foreach (var notification in collection)
+                {
+                    ToastNotification toast = null;
+                    try
+                    {
+                        toast = await notification.BuildToast(ToastNotificationScenario.Reminder);
+                    }
+                    finally
+                    {
+                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && toastNotifications != null && !toastNotifications.Any(t => t.Like(toast)))
+                        {
+                            ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
+                        }
+                    }
+                }
+            }
+
             if (deferral != null)
             {
                 deferral?.Complete();
