@@ -91,6 +91,7 @@ namespace CodeHub
             OnLaunchedOrActivated(args);
         }
 
+        ///
         protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
             var taskInstance = args.TaskInstance;
@@ -473,7 +474,7 @@ namespace CodeHub
                         }
                         catch
                         {
-                            await svc.NavigateAsync(mainPageType, shouldClearBackStack: true);
+                            await svc.NavigateAsync(mainPageType);
                         }
                     }
 
