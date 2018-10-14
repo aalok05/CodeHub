@@ -14,11 +14,26 @@ namespace CodeHub.Helpers
 {
     public class NotificationModel
     {
-        public long RepositoryId { get; private set; }
-        public int Number { get; private set; }
-        public Issue Issue { get; private set; }
-        public PullRequest PullRequest { get; private set; }
-        public string Subtitle { get; private set; }
+        public long RepositoryId
+        {
+            get; private set;
+        }
+        public int Number
+        {
+            get; private set;
+        }
+        public Issue Issue
+        {
+            get; private set;
+        }
+        public PullRequest PullRequest
+        {
+            get; private set;
+        }
+        public string Subtitle
+        {
+            get; private set;
+        }
 
         private NotificationModel(long repositoryId, string subTitle)
         {
@@ -455,7 +470,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && toastNotifications != null && !toastNotifications.Any(t => t.Like(toast)))
+                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && (toastNotifications != null || toastNotifications.Count >= 0) && !toastNotifications.Any(t => t.Like(toast)))
                         {
                             ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
                         }

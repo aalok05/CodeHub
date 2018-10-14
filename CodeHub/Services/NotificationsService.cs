@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CodeHub.Services
 {
-	class NotificationsService
+	public static class NotificationsService
 	{
 		/// <summary>
 		/// Gets all Notifications for the current user
