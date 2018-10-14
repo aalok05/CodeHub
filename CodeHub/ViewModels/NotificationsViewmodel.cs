@@ -146,7 +146,10 @@ namespace CodeHub.ViewModels
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = true;
                 await NotificationsService.MarkAllNotificationsAsRead();
                 IsLoadingAll = IsLoadingUnread = IsloadingParticipating = false;
-                await LoadUnreadNotifications();
+                Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
+                {
+                    Count = 0
+                });
             }
         }
 
@@ -169,36 +172,17 @@ namespace CodeHub.ViewModels
 
         private async Task LoadAllNotifications()
         {
-            AllNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(true, false);
-
-            var allCount = AllNotifications.Count;
-            ZeroAllCount = allCount == 0;
-            Messenger.Default.Send(new UpdateAllNotificationsCountMessageType
-            {
-                Count = allCount
-            });
+            await BackgroundTaskService.LoadAllNotifications();
         }
 
         private async Task LoadUnreadNotifications()
         {
-            UnreadNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, false);
-            var unreadCount = UnreadNotifications.Count;
-            ZeroUnreadCount = unreadCount == 0;
-            Messenger.Default.Send(new UpdateUnreadNotificationsCountMessageType
-            {
-                Count = unreadCount
-            });
+            await BackgroundTaskService.LoadUnreadNotifications();
         }
 
         private async Task LoadParticipatingNotifications()
         {
-            ParticipatingNotifications = await NotificationsService.GetAllNotificationsForCurrentUser(false, true);
-            var participationCount = ParticipatingNotifications.Count();
-            ZeroParticipatingCount = participationCount == 0;
-            Messenger.Default.Send(new UpdateParticipatingNotificationsCountMessageType
-            {
-                Count = ParticipatingNotifications.Count
-            });
+            await BackgroundTaskService.LoadParticipatingNotifications();
         }
 
         public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -250,8 +234,7 @@ namespace CodeHub.ViewModels
             if (notif.Unread)
             {
                 await NotificationsService.MarkNotificationAsRead(notif.Id);
-                var toast = await notif.BuildToast(ToastNotificationScenario.Reminder);
-                ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
+                await BackgroundTaskService.LoadUnreadNotifications();
             }
         }
     }

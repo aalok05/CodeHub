@@ -1,4 +1,8 @@
 ﻿using CodeHub.Services;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
@@ -65,12 +69,12 @@ namespace CodeHub.Helpers
         }
         public static ToastNotification PopCustomToast(ToastNotification toast, string tag, string group)
         {
-            if (!string.IsNullOrEmpty(tag) && !string.IsNullOrWhiteSpace(tag))
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(tag))
             {
                 toast.Tag = tag;
             }
 
-            if (!string.IsNullOrEmpty(group) && !string.IsNullOrWhiteSpace(group))
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(group))
             {
                 toast.Group = group;
             }
@@ -117,9 +121,68 @@ namespace CodeHub.Helpers
 
         public static async Task<Octokit.Notification> GetNotification(this ToastNotification toast)
         {
-            var notificationId = toast.Tag.Split('+')[0];
-            notificationId = notificationId.Substring(1, notificationId.Length - 1);
-            return await NotificationsService.GetNotificationById(notificationId);
+            if (toast == null)
+            {
+                throw new ArgumentNullException(nameof(toast));
+            }
+
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
+            {
+                var notificationId = toast.Tag.Split('+')[0];
+                if (notificationId.Length == 0 || !notificationId.StartsWith("N"))
+                {
+                    throw new ArgumentException("Invalid notificationId");
+                }
+                notificationId = notificationId.Substring(1, notificationId.Length - 1);
+
+                return await NotificationsService.GetNotificationById(notificationId);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static void ShowMessage(string title, string body)
+        {
+            var toastTemplate = ToastTemplateType.ToastText02;
+            var toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+
+            //title = SecurityElement.Escape(title);
+            //body = SecurityElement.Escape(body);
+            XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(title));
+            toastTextElements[1].AppendChild(toastXml.CreateTextNode(body));
+
+            var toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+        public static async Task<bool> Like(this ToastNotification toast, Octokit.Notification notification)
+        {
+            return toast.Like(await notification.BuildToast(ToastNotificationScenario.Reminder));
+        }
+
+        public static bool Like(this ToastNotification toast, ToastNotification toast2)
+        {
+            bool tagValid = false,
+                 groupValid = false;
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
+            {
+                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Tag))
+                {
+                    tagValid = toast.Tag == toast2.Tag;
+                }
+            }
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
+            {
+                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Group))
+                {
+                    groupValid = toast.Group == toast2.Group;
+                }
+            }
+
+            return tagValid && groupValid;
         }
     }
 }

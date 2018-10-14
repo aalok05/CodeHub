@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
@@ -56,7 +57,10 @@ namespace CodeHub.Views
             Messenger.Default.Register<LocalNotificationMessageType>(this, RecieveLocalNotificationMessage);
             Messenger.Default.Register(this, (SetHeaderTextMessageType m) => SetHeadertext(m.PageName));
             Messenger.Default.Register(this, (AdsEnabledMessageType m) => ViewModel.ToggleAdsVisiblity());
-            Messenger.Default.Register(this, (UpdateUnreadNotificationsCountMessageType m) => { ViewModel.UpdateUnreadNotificationIndicator(m.Count); });
+            Messenger.Default.Register(this, (UpdateUnreadNotificationsCountMessageType m) =>
+            {
+                ViewModel.UpdateUnreadNotificationIndicator(m.Count);
+            });
             Messenger.Default.Register(this, async (ShowWhatsNewPopupMessageType m) => await ShowWhatsNewPopupVisiblity());
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage);
             #endregion
@@ -98,6 +102,9 @@ namespace CodeHub.Views
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            await ViewModel.Initialize();
+
+
             // Get the listener
             var listener = UserNotificationListener.Current;
 
@@ -110,11 +117,12 @@ namespace CodeHub.Views
                 case UserNotificationListenerAccessStatus.Allowed:
 
                     // Yay! Proceed as normal
+                    BackgroundExecutionManager.RemoveAccess();
                     var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
                     if (backgroundAccessStatus == BackgroundAccessStatus.AlwaysAllowed ||
                         backgroundAccessStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
                     {
-                        RegisterBackgroundTask();
+                        RegisterBackgroundTasks();
                     }
                     break;
 
@@ -136,7 +144,7 @@ namespace CodeHub.Views
                     // Show UI that allows the user to bring up the prompt again
                     break;
             }
-            await ViewModel.Initialize();
+
             if (SystemInformation.IsAppUpdated && ViewModel.IsLoggedin)
             {
                 await ShowWhatsNewPopupVisiblity();
@@ -182,30 +190,34 @@ namespace CodeHub.Views
 
         #region other methods        
 
-        private void RegisterBackgroundTask()
+        private void RegisterBackgroundTasks()
         {
             IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
                                  userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
                                  sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
                                  backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
 
-            var builder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
-                            "ToastNotificationBackgroundTask",
-                            new ToastNotificationActionTrigger(),
-                            internetAvailableCondition,
-                            userPresentCondition,
-                            sessionConnectedCondition
-                          );
-            builder.Register();
+            var conditions = new[] {
+                internetAvailableCondition,
+                // userPresentCondition,
+                //sessionConnectedCondition
+            };
 
-            var syncBuilder = Helpers.BackgroundTaskHelper.BuildBackgroundTask(
-                        "SyncNotifications",
-                        new TimeTrigger(15, false),
-                        internetAvailableCondition,
-                        userPresentCondition,
-                        sessionConnectedCondition
-                      );
-            syncBuilder.Register();
+            var bgBuilderModel = new BackgroundTaskBuilderModel(
+                                    "ToastNotificationAction",
+                                    new ToastNotificationActionTrigger(),
+                                    conditions
+                                 );
+            var toastActionTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
+            toastActionTask.Register(true, false, true);
+
+            bgBuilderModel = new BackgroundTaskBuilderModel(
+                                "SyncNotifications",
+                                new TimeTrigger(15, false),
+                                conditions
+                             );
+            var syncTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
+            syncTask.Register(true, false, true);
         }
 
         public async void SetHeadertext(string pageName)

@@ -80,8 +80,8 @@ namespace CodeHub.ViewModels
 				.GetInstance<IAsyncNavigationService>()
 				.NavigateAsync(
 					typeof(DeveloperProfileView), 
-					languageLoader.GetString("pageTitle_OrganizationView"), 
-					(e.ClickedItem as Organization).Login
+					(e.ClickedItem as Organization).Login, 
+					languageLoader.GetString("pageTitle_OrganizationView")
 				);
 		}
 
