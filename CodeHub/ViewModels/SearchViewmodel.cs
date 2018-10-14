@@ -299,7 +299,7 @@ namespace CodeHub.ViewModels
 				SimpleIoc
 					.Default
 					.GetInstance<IAsyncNavigationService>()
-					.NavigateAsync(typeof(FileContentView), item.Repository.FullName, (item.Repository, item.Path, item.Repository.DefaultBranch));
+					.NavigateAsync(typeof(FileContentView), (item.Repository, item.Path, item.Repository.DefaultBranch, item.Repository.FullName));
 			}
 		}
 

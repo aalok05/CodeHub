@@ -146,7 +146,7 @@ namespace CodeHub.ViewModels
 														 SimpleIoc
 															.Default
 															.GetInstance<IAsyncNavigationService>()
-															.NavigateAsync(typeof(SourceCodeView), Repository.FullName, Repository);
+															.NavigateAsync(typeof(SourceCodeView), Repository, Repository.FullName);
 													 }
 												 }));
 
