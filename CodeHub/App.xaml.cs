@@ -350,23 +350,6 @@ namespace CodeHub
             }
         }
 
-        private async Task NavigateAsync(Type viewType, Type backStackViewType, object parameter = null)
-        {
-            var svc = SimpleIoc
-                           .Default
-                           .GetInstance<IAsyncNavigationService>();
-            svc.ClearBackStack();
-            NavigationStack.Push(svc.ChoosePageTitleByPageType(backStackViewType));
-            if (parameter == null)
-            {
-                await svc.NavigateAsync(viewType);
-            }
-            else
-            {
-                await svc.NavigateAsync(viewType, parameter);
-            }
-        }
-
         private async void OnLaunchedOrActivated(IActivatedEventArgs args)
         {
 #if DEBUG
@@ -436,69 +419,61 @@ namespace CodeHub
                 }
                 else if (args.Kind == ActivationKind.ToastNotification)
                 {
-                    var mainViewType = typeof(FeedView);
-                    var goBackViewType = typeof(NotificationsView);
+                    var mainPageType = typeof(FeedView);
+                    var backPageType = typeof(NotificationsView);
                     if (Window.Current.Content == null)
                     {
                         Window.Current.Content = new MainPage(args);
                     }
                     else
                     {
-                        var toastArgs = QueryString.Parse(toastActivatedEventArgs.Argument);
-
-                        var notificationId = toastArgs["notificationId"] ?? throw new ArgumentNullException("notificationId");
-
-                        if (!long.TryParse(toastArgs["repoId"], out long repoId))
+                        var svc = SimpleIoc
+                          .Default
+                          .GetInstance<IAsyncNavigationService>();
+                        try
                         {
-                            await NavigateAsync(goBackViewType, mainViewType);
-                        }
+                            var toastArgs = QueryString.Parse(toastActivatedEventArgs.Argument);
+                            var notificationId = toastArgs["notificationId"] as string;
+                            var repoId = long.Parse(toastArgs["repoId"]);
 
-                        string group = null,
-                               tag = $"N{notificationId}+R{repoId}";
+                            string group = null,
+                                   tag = $"N{notificationId}+R{repoId}";
 
-                        var repo = await RepositoryUtility.GetRepository(repoId);
+                            var repo = await RepositoryUtility.GetRepository(repoId);
 
-                        switch (toastArgs["action"])
-                        {
-                            case "showIssue":
-
-                                if (int.TryParse(toastArgs["issueNumber"], out int issueNumber))
-                                {
+                            switch (toastArgs["action"])
+                            {
+                                case "showIssue":
+                                    var issueNumber = int.Parse(toastArgs["issueNumber"]);
 
                                     var issue = await IssueUtility.GetIssue(repo.Id, issueNumber);
                                     tag += $"+I{issueNumber}";
                                     group = "Issues";
-                                    await NavigateAsync(typeof(IssueDetailView), goBackViewType, new Tuple<Repository, Issue>(repo, issue));
-                                }
-                                else
-                                {
-                                    await NavigateAsync(goBackViewType, mainViewType);
-                                }
+                                    await svc.NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(repo, issue), backPageType: backPageType);
 
-                                break;
+                                    break;
 
-                            case "showPr":
-                                if (int.TryParse(toastArgs["prNumber"], out int prNumber))
-                                {
+                                case "showPr":
+                                    var prNumber = int.Parse(toastArgs["prNumber"]);
                                     var pr = await PullRequestUtility.GetPullRequest(repoId, prNumber);
-                                    await NavigateAsync(typeof(PullRequestDetailView), goBackViewType, new Tuple<Repository, PullRequest>(repo, pr));
                                     tag += $"+P{pr.Number}";
                                     group = "PullRequests";
-                                }
-                                else
-                                {
-                                    await NavigateAsync(goBackViewType, mainViewType);
-                                }
+                                    await svc.NavigateAsync(typeof(PullRequestDetailView), new Tuple<Repository, PullRequest>(repo, pr), backPageType: backPageType);
 
-                                break;
+                                    break;
+                            }
+                            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(group))
+                            {
+                                ToastNotificationManager.History.Remove(tag, group);
+                            }
+                            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
+                            {
+                                await NotificationsService.MarkNotificationAsRead(notificationId);
+                            }
                         }
-                        if (!StringHelper.IsNullOrEmptyOrWhiteSpace(tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(group))
+                        catch
                         {
-                            ToastNotificationManager.History.Remove(tag, group);
-                        }
-                        if (!StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
-                        {
-                            await NotificationsService.MarkNotificationAsRead(notificationId);
+                            await svc.NavigateAsync(mainPageType, shouldClearBackStack: true);
                         }
                     }
 
@@ -527,7 +502,7 @@ namespace CodeHub
         /// <param name="e">Details about the navigation failure</param>
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            ToastHelper.ShowMessage($"Failed to load Page {e.SourcePageType.FullName}",  e.Exception.ToString());
+            ToastHelper.ShowMessage($"Failed to load Page {e.SourcePageType.FullName}", e.Exception.ToString());
         }
 
         /// <summary>
