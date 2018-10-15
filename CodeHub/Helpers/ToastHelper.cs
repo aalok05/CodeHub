@@ -161,24 +161,7 @@ namespace CodeHub.Helpers
 
         public static bool Like(this ToastNotification toast, ToastNotification toast2)
         {
-            bool tagValid = true,
-                 groupValid = true;
-            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
-            {
-                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Tag))
-                {
-                    tagValid = toast.Tag == toast2.Tag;
-                }
-            }
-            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
-            {
-                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Group))
-                {
-                    groupValid = toast.Group == toast2.Group;
-                }
-            }
-
-            return tagValid && groupValid;
+            return toast.Tag == toast2.Tag && toast.Group == toast2.Group;
         }
     }
 }

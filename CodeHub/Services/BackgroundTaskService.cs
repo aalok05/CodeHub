@@ -8,97 +8,22 @@ using Windows.Storage;
 
 namespace CodeHub.Services
 {
-    static class BackgroundTaskService
+    internal static class BackgroundTaskService
     {
+        #region private members
+        #region Fields
         private static ApplicationTrigger AppTrigger;
         private static ApplicationTriggerResult _allResult;
         private static ApplicationTriggerResult _participatingResult;
         private static ApplicationTriggerResult _unreadResult;
-
-        private static void ResetAppDataForAppTriggertask()
+        #endregion
+        #region methods
+        private static BackgroundTaskBuilder BuildTask(BackgroundTaskBuilderModel model, string taskEntryPointName, bool isNetworkRequested = false, bool cancelOnConditionLoss = true, BackgroundTaskRegistrationGroup group = null)
         {
-            var settings = ApplicationData.Current.LocalSettings;
-            settings.Values.Remove("AppTrigger");
-        }
-
-        private static async Task<ApplicationTriggerResult> RunAppTrigger(ValueSet valueSet, bool resetAppData = true)
-        {
-            if (resetAppData)
-            {
-                ResetAppDataForAppTriggertask();
-            }
-
-            return await GetAppTrigger()?.RequestAsync(valueSet);
-        }
-
-        public static ref ApplicationTrigger GetAppTrigger()
-        {
-            if (AppTrigger == null)
-            {
-                AppTrigger = new ApplicationTrigger();
-            }
-
-            return ref AppTrigger;
-        }
-
-        public static async Task LoadAllNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
-        {
-            reset = _allResult == ApplicationTriggerResult.Allowed
-                     && _allResult == ApplicationTriggerResult.CurrentlyRunning;
-            if (_allResult != ApplicationTriggerResult.CurrentlyRunning)
-            {
-                _allResult = await RunAppTrigger("sync", "notifications", "online", "all", "toast", true, false);
-            }
-
-            if (deferral != null)
-            {
-                deferral.Complete();
-            }
-        }
-
-        public static async Task LoadParticipatingNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
-        {
-            reset = _participatingResult == ApplicationTriggerResult.Allowed
-                     && _participatingResult == ApplicationTriggerResult.CurrentlyRunning;
-            if (_participatingResult != ApplicationTriggerResult.CurrentlyRunning)
-            {
-                _participatingResult = await RunAppTrigger("sync", "notifications", "online", "participating", "toast", true, false);
-            }
-
-            if (deferral != null)
-            {
-                deferral.Complete();
-            }
-        }
-
-        public static async Task LoadUnreadNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
-        {
-            reset = _unreadResult == ApplicationTriggerResult.Allowed
-                     && _unreadResult == ApplicationTriggerResult.CurrentlyRunning;
-            if (_unreadResult != ApplicationTriggerResult.CurrentlyRunning)
-            {
-                _unreadResult = await RunAppTrigger("sync", "notifications", "online", "unread", "toast", true, false);
-            }
-
-            if (deferral != null)
-            {
-                deferral.Complete();
-            }
-        }
-
-        public static async Task<ApplicationTriggerResult> RunAppTrigger(string action, string what, string location, string filter, string type, bool sendMessage = false, bool resetAppData = true)
-        {
-            var valueSet = new ValueSet
-            {
-                { "action", action},
-                { "what", what },
-                { "location",  location },
-                { "filter", filter },
-                { "type", type },
-                { "sendMessage",  sendMessage}
-            };
-
-            return await RunAppTrigger(valueSet, resetAppData);
+            // Specify the background task
+            var builder = BuildTask(model, isNetworkRequested, cancelOnConditionLoss, group);
+            builder.TaskEntryPoint = taskEntryPointName;
+            return builder;
         }
 
         private static void GenerateDefault<T>(this ICollection<BackgroundTaskBuilder> tasks, ref T[] values)
@@ -126,6 +51,7 @@ namespace CodeHub.Services
                 }
             }
         }
+
         private static void GenerateDefault<T>(this ICollection<BackgroundTaskBuilderModel> tasks, ref T[] values)
         {
             if (tasks != null && tasks.Count > 0)
@@ -151,6 +77,22 @@ namespace CodeHub.Services
                 }
             }
         }
+
+        private static void ResetAppDataForAppTriggertask()
+        {
+            ApplicationData.Current.LocalSettings.Values.Remove("AppTrigger");
+        }
+
+        private static async Task<ApplicationTriggerResult> RunAppTrigger(ValueSet valueSet, bool resetAppData = true)
+        {
+            if (resetAppData)
+            {
+                ResetAppDataForAppTriggertask();
+            }
+
+            return await GetAppTrigger()?.RequestAsync(valueSet);
+        }
+
         private static void Validate<T>(this ICollection<BackgroundTaskBuilder> tasks, ref T[] array)
         {
             if (tasks == null)
@@ -170,6 +112,7 @@ namespace CodeHub.Services
                 }
             }
         }
+
         private static void Validate<T>(this ICollection<BackgroundTaskBuilderModel> tasks, ref T[] array)
         {
             if (tasks == null)
@@ -189,15 +132,11 @@ namespace CodeHub.Services
                 }
             }
         }
+        #endregion
+        #endregion
 
-        private static BackgroundTaskBuilder BuildTask(BackgroundTaskBuilderModel model, string taskEntryPointName, bool isNetworkRequested = false, bool cancelOnConditionLoss = true, BackgroundTaskRegistrationGroup group = null)
-        {
-            // Specify the background task
-            var builder = BuildTask(model, isNetworkRequested, cancelOnConditionLoss, group);
-            builder.TaskEntryPoint = taskEntryPointName;
-            return builder;
-        }
-
+        #region Public Members
+        #region Methods
         public static BackgroundTaskBuilder BuildTask(BackgroundTaskBuilderModel model, bool isNetworkRequested = false, bool cancelOnConditionLoss = true, BackgroundTaskRegistrationGroup group = null)
         {
             // Specify the background task
@@ -228,10 +167,12 @@ namespace CodeHub.Services
 
             return builder;
         }
+
         public static BackgroundTaskBuilder BuildTask(BackgroundTaskBuilderModel model, Type entryPointType, bool isNetworkRequested = false, bool cancelOnConditionLoss = true, BackgroundTaskRegistrationGroup group = null)
         {
             return BuildTask(model, entryPointType.FullName, isNetworkRequested, cancelOnConditionLoss, group);
         }
+
         public static BackgroundTaskBuilder BuildTask<T>(BackgroundTaskBuilderModel model, bool isNetworkRequested = false, bool cancelOnConditionLoss = true, BackgroundTaskRegistrationGroup group = null)
             where T : IBackgroundTask
         {
@@ -259,7 +200,6 @@ namespace CodeHub.Services
             }
         }
 
-
         public static IEnumerable<BackgroundTaskBuilder> BuildTasks(ICollection<BackgroundTaskBuilderModel> backgroundTasks, Type[] entrypointTypes, bool[] isNetworkRequested = null, bool[] cancelOnConditionLoss = null, BackgroundTaskRegistrationGroup[] groups = null)
         {
             if (backgroundTasks == null)
@@ -282,7 +222,6 @@ namespace CodeHub.Services
             }
         }
 
-
         public static IEnumerable<BackgroundTaskBuilder> BuildTasks<T>(ICollection<BackgroundTaskBuilderModel> backgroundTasks, T[] entrypoints, bool[] isNetworkRequested = null, bool[] cancelOnConditionLoss = null, BackgroundTaskRegistrationGroup[] groups = null)
             where T : IBackgroundTask
         {
@@ -304,6 +243,52 @@ namespace CodeHub.Services
                     i++;
                 }
             }
+        }
+
+        public static ref ApplicationTrigger GetAppTrigger()
+        {
+            if (AppTrigger == null)
+            {
+                AppTrigger = new ApplicationTrigger();
+            }
+
+            return ref AppTrigger;
+        }
+
+        public static async Task LoadAllNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
+        {
+            reset = reset || (_allResult == ApplicationTriggerResult.Allowed
+                     && _allResult == ApplicationTriggerResult.CurrentlyRunning);
+            if (_allResult != ApplicationTriggerResult.CurrentlyRunning)
+            {
+                _allResult = await RunAppTrigger("sync", "notifications", "online", "all", "toast", true, reset);
+            }
+
+            deferral?.Complete();
+        }
+
+        public static async Task LoadParticipatingNotifications(bool reset = true, BackgroundTaskDeferral deferral = null)
+        {
+            reset = reset || (_participatingResult == ApplicationTriggerResult.Allowed
+                     && _participatingResult == ApplicationTriggerResult.CurrentlyRunning);
+            if (_participatingResult != ApplicationTriggerResult.CurrentlyRunning)
+            {
+                _participatingResult = await RunAppTrigger("sync", "notifications", "online", "participating", "toast", true, reset);
+            }
+
+            deferral?.Complete();
+        }
+
+        public static async Task LoadUnreadNotifications(bool reset = true, bool showToasts = true, BackgroundTaskDeferral deferral = null)
+        {
+            reset = reset || (_unreadResult == ApplicationTriggerResult.Allowed
+                     && _unreadResult == ApplicationTriggerResult.CurrentlyRunning);
+            if (_unreadResult != ApplicationTriggerResult.CurrentlyRunning)
+            {
+                _unreadResult = await RunAppTrigger("sync", "notifications", "online", "unread", "toast", true, showToasts, reset);
+            }
+
+            deferral?.Complete();
         }
 
         public static IBackgroundTaskRegistration Register(this BackgroundTaskBuilder builder, bool unregister = true, bool all = true, bool cancelTask = true)
@@ -347,6 +332,22 @@ namespace CodeHub.Services
             }
         }
 
+        public static async Task<ApplicationTriggerResult> RunAppTrigger(string action, string what, string location, string filter, string type, bool sendMessage = false, bool showToasts = true, bool resetAppData = true)
+        {
+            var valueSet = new ValueSet
+            {
+                { "action", action},
+                { "what", what },
+                { "location",  location },
+                { "filter", filter },
+                { "type", type },
+                { "sendMessage",  sendMessage },
+                { "showToasts", showToasts }
+            };
+
+            return await RunAppTrigger(valueSet, resetAppData);
+        }
+
         public static void Unregister(this BackgroundTaskBuilder taskBuilder, bool all = true, bool cancelTask = true)
         {
             Unregister(taskBuilder.Name, all, cancelTask);
@@ -366,5 +367,7 @@ namespace CodeHub.Services
                 }
             }
         }
+        #endregion
+        #endregion
     }
 }

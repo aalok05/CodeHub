@@ -42,7 +42,9 @@ namespace CodeHub
     public sealed partial class App : Application
     {
         private ExtendedExecutionSession _ExExecSession;
-        private BackgroundTaskDeferral _Deferral;
+        private BackgroundTaskDeferral _AppTriggerDeferral;
+        private BackgroundTaskDeferral _SyncDeferral;
+        private BackgroundTaskDeferral _ToastDeferral;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -133,19 +135,19 @@ namespace CodeHub
             var taskInstance = args.TaskInstance;
             taskInstance.Canceled += TaskInstance_Canceled;
             base.OnBackgroundActivated(args);
-            _Deferral = taskInstance.GetDeferral();
             var triggerDetails = taskInstance.TriggerDetails;
             var taskName = taskInstance.Task.Name;
             switch (taskName)
             {
                 case "AppTrigger":
+                    _AppTriggerDeferral = taskInstance.GetDeferral();
                     if (!(triggerDetails is ApplicationTriggerDetails appTriggerDetails))
                     {
                         throw new InvalidOperationException();
                     }
-                    _ExExecSession.RunActionAsExtentedAction(() =>
+                    await _ExExecSession.RunActionAsExtentedAction(() =>
                     {
-                        ExecutionService.RunActionInUiThread(() =>
+                        ExecutionService.RunActionInUiThread(async () =>
                         {
                             try
                             {
@@ -171,6 +173,10 @@ namespace CodeHub
                                     throw new ArgumentNullException(nameof(filter));
                                 }
                                 if (!appArgs.TryGetValue("sendMessage", out object sendMessage))
+                                {
+                                    throw new ArgumentNullException(nameof(type));
+                                }
+                                if (!appArgs.TryGetValue("showToasts", out object showToasts))
                                 {
                                     throw new ArgumentNullException(nameof(type));
                                 }
@@ -205,6 +211,11 @@ namespace CodeHub
                                     throw new ArgumentException($"'{nameof(sendMessage)}' has an invalid value");
                                 }
 
+                                if (!(showToasts is bool st))
+                                {
+                                    throw new ArgumentException($"'{nameof(showToasts)}' has an invalid value");
+                                }
+
                                 if (a == "sync")
                                 {
                                     if (w == "notifications")
@@ -220,44 +231,40 @@ namespace CodeHub
                                                 isParticipating = filters.Contains("participating", StringComparer.OrdinalIgnoreCase);
                                                 isUnread = filters.Contains("unread", StringComparer.OrdinalIgnoreCase);
                                             }
-                                            _ExExecSession.RunActionAsExtentedAction(() =>
+                                            notifications = await NotificationsService.GetAllNotificationsForCurrentUser(isAll, isParticipating);
+
+                                            if (t == "toast")
                                             {
-                                                ExecutionService.RunActionInUiThread(async () =>
+                                                if (sm)
                                                 {
-                                                    notifications = await NotificationsService.GetAllNotificationsForCurrentUser(isAll, isParticipating);
-
-                                                    if (t == "toast")
+                                                    if (isAll)
                                                     {
-                                                        if (sm)
-                                                        {
-                                                            if (isAll)
-                                                            {
-                                                                NotificationsViewmodel.AllNotifications = notifications;
-                                                                SendMessage(new UpdateAllNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
-                                                            }
-                                                            else if (isParticipating)
-                                                            {
-                                                                NotificationsViewmodel.ParticipatingNotifications = notifications;
-                                                                SendMessage(new UpdateParticipatingNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
-                                                            }
-                                                            else if (isUnread)
-                                                            {
-                                                                AppViewmodel.UnreadNotifications = notifications;
-                                                                SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
-                                                            }
-                                                        }
-
-                                                        await notifications.ShowToasts();
+                                                        NotificationsViewmodel.AllNotifications = notifications;
+                                                        SendMessage(new UpdateAllNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
                                                     }
-                                                    else if (t == "tiles")
+                                                    else if (isParticipating)
                                                     {
-                                                        var tile = await notifications[0].BuildTiles();
-                                                        TileUpdateManager
-                                                            .CreateTileUpdaterForApplication()
-                                                            .Update(tile);
+                                                        NotificationsViewmodel.ParticipatingNotifications = notifications;
+                                                        SendMessage(new UpdateParticipatingNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
                                                     }
-                                                });
-                                            }, ExExecSession_Revoked, _Deferral);
+                                                    else if (isUnread)
+                                                    {
+                                                        AppViewmodel.UnreadNotifications = notifications;
+                                                        SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
+                                                    }
+                                                }
+                                                if (st && SettingsService.Get<bool>(SettingsKeys.IsToastEnabled))
+                                                {
+                                                    await AppViewmodel.UnreadNotifications?.ShowToasts();
+                                                }
+                                            }
+                                            else if (t == "tiles")
+                                            {
+                                                var tile = await notifications[0].BuildTiles();
+                                                TileUpdateManager
+                                                                    .CreateTileUpdaterForApplication()
+                                                                    .Update(tile);
+                                            }
                                         }
                                     }
                                 }
@@ -267,23 +274,25 @@ namespace CodeHub
                                 ToastHelper.ShowMessage(ex.Message, ex.ToString());
                             }
                         });
-                    }, ExExecSession_Revoked, _Deferral);
+                    }, ExExecSession_Revoked, _AppTriggerDeferral);
                     break;
                 case "SyncNotifications":
-                    _ExExecSession.RunActionAsExtentedAction(() =>
+                    _SyncDeferral = taskInstance.GetDeferral();
+                    await _ExExecSession.RunActionAsExtentedAction(() =>
                     {
                         ExecutionService.RunActionInUiThread(async () =>
-                        {   
-                            await BackgroundTaskService.LoadAllNotifications(true);
+                        {
+                            await BackgroundTaskService.LoadUnreadNotifications(true);
                         });
-                    }, ExExecSession_Revoked, _Deferral);
+                    }, ExExecSession_Revoked, _SyncDeferral);
                     break;
                 case "ToastNotificationAction":
+                    _ToastDeferral = taskInstance.GetDeferral();
                     if (!(triggerDetails is ToastNotificationActionTriggerDetail toastTriggerDetails))
                     {
                         throw new ArgumentException();
                     }
-                    _ExExecSession.RunActionAsExtentedAction(() =>
+                    await _ExExecSession.RunActionAsExtentedAction(() =>
                     {
                         ExecutionService.RunActionInUiThread(async () =>
                         {
@@ -292,7 +301,7 @@ namespace CodeHub
                                 var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
                                 var notificationId = toastArgs["notificationId"] as string;
                                 await NotificationsService.MarkNotificationAsRead(notificationId);
-                                await BackgroundTaskService.LoadUnreadNotifications(true);
+                                await BackgroundTaskService.LoadUnreadNotifications(true, showToasts: false);
                             }
                             catch (Exception ex)
                             {
@@ -300,7 +309,7 @@ namespace CodeHub
                             }
 
                         });
-                    }, ExExecSession_Revoked, _Deferral);
+                    }, ExExecSession_Revoked, _ToastDeferral);
                     break;
 
                     //case "ToastNotificationChangedTask":
@@ -492,7 +501,6 @@ namespace CodeHub
 
             var builder = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
 
-
             builder.Register(BackgroundTaskService.GetAppTrigger(), all: false);
         }
 
@@ -539,7 +547,9 @@ namespace CodeHub
 
         private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            _Deferral?.Complete();
+            _AppTriggerDeferral?.Complete();
+            _SyncDeferral?.Complete();
+            _ToastDeferral?.Complete();
             _ExExecSession.Revoked -= ExExecSession_Revoked;
             _ExExecSession.Dispose();
             _ExExecSession = null;

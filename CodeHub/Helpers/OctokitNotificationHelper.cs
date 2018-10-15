@@ -451,7 +451,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
+                        if (notification != null && collection != null && !collection.Any(n => n.Id == notification.Id))
                         {
                             ToastNotificationManager.History.Remove(toast.Tag, toast.Group);
                         }
@@ -470,7 +470,7 @@ namespace CodeHub.Helpers
                     }
                     finally
                     {
-                        if (toast != null && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag) && !StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group) && (toastNotifications != null || toastNotifications.Count >= 0) && !toastNotifications.Any(t => t.Like(toast)))
+                        if (toast != null && toastNotifications != null && !toastNotifications.Any(t => t.Tag == toast.Tag && t.Group == toast.Group))
                         {
                             ToastHelper.PopCustomToast(toast, toast.Tag, toast.Group);
                         }

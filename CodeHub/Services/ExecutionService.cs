@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.ExtendedExecution;
@@ -10,13 +11,13 @@ namespace CodeHub.Services
 {
     static class ExecutionService
     {
-        public static async void RunActionAsExtentedAction(this ExtendedExecutionSession session, Action action, TypedEventHandler<object, ExtendedExecutionRevokedEventArgs> revoked, BackgroundTaskDeferral deferral = null)
+        public static async Task RunActionAsExtentedAction(this ExtendedExecutionSession session, Action action, TypedEventHandler<object, ExtendedExecutionRevokedEventArgs> revoked, BackgroundTaskDeferral deferral = null)
         {
             if (session is null)
             {
                 throw new NullReferenceException($"'{nameof(session)} can not be null'");
             }
-            var result = await session?.RequestExtensionAsync();
+            var result = await session.RequestExtensionAsync();
             if (result == ExtendedExecutionResult.Allowed)
             {
                 action();
