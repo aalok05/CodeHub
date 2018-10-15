@@ -17,6 +17,7 @@ namespace CodeHub.Services
         private static ApplicationTriggerResult _participatingResult;
         private static ApplicationTriggerResult _unreadResult;
         #endregion
+
         #region methods
         private static BackgroundTaskBuilder BuildTask(BackgroundTaskBuilderModel model, string taskEntryPointName, bool isNetworkRequested = false, bool cancelOnConditionLoss = true, BackgroundTaskRegistrationGroup group = null)
         {
@@ -131,6 +132,55 @@ namespace CodeHub.Services
                     throw new IndexOutOfRangeException($"Length of {nameof(tasks)} and {nameof(array)} must be same");
                 }
             }
+        }
+        #endregion
+        #endregion
+
+        #region Internal Members
+        #region Methods   
+        internal static async Task<ApplicationTriggerResult> RunAppTriggerBackgroundTask(string action, string what, string location, string filter, string type, bool sendMessage = false, bool resetAppData = true)
+        {
+            var valueSet = new ValueSet
+            {
+                { "action", action},
+                { "what", what },
+                { "location",  location },
+                { "filter", filter },
+                { "type", type },
+                { "sendMessage",  sendMessage }
+            };
+
+            return await RunAppTrigger(valueSet, resetAppData);
+        }
+
+        internal static void RegisterBackgroundTasks()
+        {
+            IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
+                                 userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
+                                 sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
+                                 backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
+
+            var conditions = new[] {
+                internetAvailableCondition,
+                // userPresentCondition,
+                //sessionConnectedCondition
+            };
+
+            var bgBuilderModel = new BackgroundTaskBuilderModel(
+                                    "ToastNotificationAction",
+                                    new ToastNotificationActionTrigger(),
+                                    conditions
+                                 );
+            var toastActionTask = BuildTask(bgBuilderModel, true, true, null);
+            toastActionTask.Register(true, false, true);
+
+            bgBuilderModel = new BackgroundTaskBuilderModel(
+                                "SyncNotifications",
+                                new TimeTrigger(15, false),
+                                conditions
+                             );
+            var syncTask = BuildTask(bgBuilderModel, true, true, null);
+            syncTask.Register(true, false, true);
         }
         #endregion
         #endregion
@@ -261,7 +311,7 @@ namespace CodeHub.Services
                      && _allResult == ApplicationTriggerResult.CurrentlyRunning);
             if (_allResult != ApplicationTriggerResult.CurrentlyRunning)
             {
-                _allResult = await RunAppTrigger("sync", "notifications", "online", "all", "toast", true, reset);
+                _allResult = await RunAppTriggerBackgroundTask("sync", "notifications", "online", "all", "toast", true, reset);
             }
 
             deferral?.Complete();
@@ -273,7 +323,7 @@ namespace CodeHub.Services
                      && _participatingResult == ApplicationTriggerResult.CurrentlyRunning);
             if (_participatingResult != ApplicationTriggerResult.CurrentlyRunning)
             {
-                _participatingResult = await RunAppTrigger("sync", "notifications", "online", "participating", "toast", true, reset);
+                _participatingResult = await RunAppTriggerBackgroundTask("sync", "notifications", "online", "participating", "toast", true, reset);
             }
 
             deferral?.Complete();
@@ -285,7 +335,7 @@ namespace CodeHub.Services
                      && _unreadResult == ApplicationTriggerResult.CurrentlyRunning);
             if (_unreadResult != ApplicationTriggerResult.CurrentlyRunning)
             {
-                _unreadResult = await RunAppTrigger("sync", "notifications", "online", "unread", "toast", true, showToasts, reset);
+                _unreadResult = await RunAppTriggerBackgroundTask("sync", "notifications", "online", "unread", "toast", true, reset);
             }
 
             deferral?.Complete();
@@ -332,20 +382,28 @@ namespace CodeHub.Services
             }
         }
 
-        public static async Task<ApplicationTriggerResult> RunAppTrigger(string action, string what, string location, string filter, string type, bool sendMessage = false, bool showToasts = true, bool resetAppData = true)
+        public static void RegisterAppTriggerBackgroundTasks()
         {
-            var valueSet = new ValueSet
-            {
-                { "action", action},
-                { "what", what },
-                { "location",  location },
-                { "filter", filter },
-                { "type", type },
-                { "sendMessage",  sendMessage },
-                { "showToasts", showToasts }
-            };
+            IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
+                                 userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
+                                 sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
+                                 backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
 
-            return await RunAppTrigger(valueSet, resetAppData);
+            var conditions = new[]
+            {
+                    internetAvailableCondition,
+                    //userPresentCondition,
+                    //sessionConnectedCondition
+                };
+
+            var bgBuilderModel = new BackgroundTaskBuilderModel(
+                                 "AppTrigger",
+                                 conditions
+                              );
+
+            var builder = BuildTask(bgBuilderModel, true, true, null);
+
+            builder.Register(GetAppTrigger(), all: false);
         }
 
         public static void Unregister(this BackgroundTaskBuilder taskBuilder, bool all = true, bool cancelTask = true)

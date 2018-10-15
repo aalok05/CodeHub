@@ -176,10 +176,6 @@ namespace CodeHub
                                 {
                                     throw new ArgumentNullException(nameof(type));
                                 }
-                                if (!appArgs.TryGetValue("showToasts", out object showToasts))
-                                {
-                                    throw new ArgumentNullException(nameof(type));
-                                }
 
                                 if (!(action is string a) || StringHelper.IsNullOrEmptyOrWhiteSpace(a))
                                 {
@@ -209,11 +205,6 @@ namespace CodeHub
                                 if (!(sendMessage is bool sm))
                                 {
                                     throw new ArgumentException($"'{nameof(sendMessage)}' has an invalid value");
-                                }
-
-                                if (!(showToasts is bool st))
-                                {
-                                    throw new ArgumentException($"'{nameof(showToasts)}' has an invalid value");
                                 }
 
                                 if (a == "sync")
@@ -253,7 +244,7 @@ namespace CodeHub
                                                         SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
                                                     }
                                                 }
-                                                if (st && SettingsService.Get<bool>(SettingsKeys.IsToastEnabled))
+                                                if (SettingsService.Get<bool>(SettingsKeys.IsToastEnabled))
                                                 {
                                                     await AppViewmodel.UnreadNotifications?.ShowToasts();
                                                 }
@@ -301,7 +292,7 @@ namespace CodeHub
                                 var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
                                 var notificationId = toastArgs["notificationId"] as string;
                                 await NotificationsService.MarkNotificationAsRead(notificationId);
-                                await BackgroundTaskService.LoadUnreadNotifications(true, showToasts: false);
+                                await BackgroundTaskService.LoadUnreadNotifications(true);
                             }
                             catch (Exception ex)
                             {
@@ -370,7 +361,7 @@ namespace CodeHub
                 }
                 Activate();
                 Window.Current.Activate();
-                RegisterAppTriggerBgTasks();
+                BackgroundTaskService.RegisterAppTriggerBackgroundTasks();
             }
             else if (args is ToastNotificationActivatedEventArgs toastActivatedEventArgs)
             {
@@ -478,30 +469,6 @@ namespace CodeHub
             var deferral = e.SuspendingOperation.GetDeferral();
 
             deferral.Complete();
-        }
-
-        private void RegisterAppTriggerBgTasks()
-        {
-            IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
-                                 userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
-                                 sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
-                                 backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
-
-            var conditions = new[]
-            {
-                    internetAvailableCondition,
-                    //userPresentCondition,
-                    //sessionConnectedCondition
-                };
-
-            var bgBuilderModel = new BackgroundTaskBuilderModel(
-                                 "AppTrigger",
-                                 conditions
-                              );
-
-            var builder = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-
-            builder.Register(BackgroundTaskService.GetAppTrigger(), all: false);
         }
 
         private void SendMessage<T>(T messageType, BackgroundTaskDeferral deferral = null)

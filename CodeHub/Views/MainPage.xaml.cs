@@ -127,7 +127,7 @@ namespace CodeHub.Views
                     if (backgroundAccessStatus == BackgroundAccessStatus.AlwaysAllowed ||
                         backgroundAccessStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
                     {
-                        RegisterBackgroundTasks();
+                        BackgroundTaskService.RegisterBackgroundTasks();
                     }
                     break;
 
@@ -193,37 +193,7 @@ namespace CodeHub.Views
         }
         #endregion
 
-        #region other methods        
-
-        private void RegisterBackgroundTasks()
-        {
-            IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
-                                 userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
-                                 sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
-                                 backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
-
-            var conditions = new[] {
-                internetAvailableCondition,
-                // userPresentCondition,
-                //sessionConnectedCondition
-            };
-
-            var bgBuilderModel = new BackgroundTaskBuilderModel(
-                                    "ToastNotificationAction",
-                                    new ToastNotificationActionTrigger(),
-                                    conditions
-                                 );
-            var toastActionTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-            toastActionTask.Register(true, false, true);
-
-            bgBuilderModel = new BackgroundTaskBuilderModel(
-                                "SyncNotifications",
-                                new MaintenanceTrigger(15, false),
-                                conditions
-                             );
-            var syncTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-            syncTask.Register(true, false, true);
-        }
+        #region other methods
 
         public async void SetHeadertext(string pageName)
         {
