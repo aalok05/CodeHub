@@ -13,11 +13,9 @@ using Microsoft.QueryStringDotNET;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.ExtendedExecution;
 using Windows.Foundation;
@@ -41,18 +39,12 @@ namespace CodeHub
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
-        //private BackgroundTaskDeferral _SyncDeferral;
-        //private BackgroundTaskDeferral _SyncAppDeferral;
-        //private BackgroundTaskDeferral _ToastActionDeferral;
-        private CancellationTokenSource _TokenSource;
         private ExtendedExecutionSession _ExExecSession;
-        private bool _IsTaskRunning;
-        private AppServiceConnection _NotificationServiceConnection;
-        private AppServiceDeferral _NotificationAppServiceDeferral;
-        private BackgroundTaskDeferral _Deferral;
-
+        private BackgroundTaskDeferral _AppTriggerDeferral;
+        private BackgroundTaskDeferral _SyncDeferral;
+        private BackgroundTaskDeferral _ToastDeferral;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -65,7 +57,7 @@ namespace CodeHub
             UnhandledException += Application_UnhandledException;
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
-            SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int)SyntaxHighlightStyleEnum.Monokai, false);
+            SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int) SyntaxHighlightStyleEnum.Monokai, false);
             SettingsService.Save(SettingsKeys.ShowLineNumbers, true, false);
             SettingsService.Save(SettingsKeys.LoadCommitsInfo, false, false);
             SettingsService.Save(SettingsKeys.IsAdsEnabled, false, false);
@@ -78,11 +70,58 @@ namespace CodeHub
             _ExExecSession.Revoked += ExExecSession_Revoked;
         }
 
+        private void Activate()
+        {
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+            {
+                var view = ApplicationView.GetForCurrentView();
+                view.SetPreferredMinSize(new Size(width: 800, height: 600));
+
+                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                if (titleBar != null)
+                {
+                    titleBar.ButtonBackgroundColor = titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
+                    titleBar.ForegroundColor =
+                    titleBar.ButtonInactiveForegroundColor =
+                    titleBar.ButtonForegroundColor =
+                    Colors.White;
+                }
+            }
+        }
+
         private void Application_UnhandledException(
             object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
             ToastHelper.ShowMessage(e.Message, e.Exception.StackTrace);
+        }
+
+        private void ExExecSession_Revoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            _ExExecSession.Dispose();
+            _ExExecSession = null;
+        }
+
+        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        {
+            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(UserLogin))
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                var uri = eventArgs.Uri;
+                var host = uri.Host;
+                switch (host.ToLower())
+                {
+                    case "repository":
+                        await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), uri.Segments[1] + uri.Segments[2]);
+                        break;
+
+                    case "user":
+                        await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), uri.Segments[1]);
+                        break;
+
+                }
+            }
         }
 
         protected override void OnActivated(IActivatedEventArgs args)
@@ -91,96 +130,98 @@ namespace CodeHub
             OnLaunchedOrActivated(args);
         }
 
-        ///
         protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
             var taskInstance = args.TaskInstance;
             taskInstance.Canceled += TaskInstance_Canceled;
             base.OnBackgroundActivated(args);
-            _IsTaskRunning = true;
-            _Deferral = taskInstance.GetDeferral();
             var triggerDetails = taskInstance.TriggerDetails;
             var taskName = taskInstance.Task.Name;
             switch (taskName)
             {
                 case "AppTrigger":
-                    if (triggerDetails is ApplicationTriggerDetails appTriggerDetails)
+                    _AppTriggerDeferral = taskInstance.GetDeferral();
+                    if (!(triggerDetails is ApplicationTriggerDetails appTriggerDetails))
                     {
-                        var appArgs = appTriggerDetails.Arguments;
-                        if (!appArgs.TryGetValue("action", out object action))
+                        throw new InvalidOperationException();
+                    }
+                    await _ExExecSession.RunActionAsExtentedAction(() =>
+                    {
+                        ExecutionService.RunActionInUiThread(async () =>
                         {
-                            throw new ArgumentNullException(nameof(action));
-                        }
-                        if (!appArgs.TryGetValue("what", out object what))
-                        {
-                            throw new ArgumentNullException(nameof(what));
-                        }
-                        if (!appArgs.TryGetValue("type", out object type))
-                        {
-                            throw new ArgumentNullException(nameof(type));
-                        }
-                        if (!appArgs.TryGetValue("location", out object location))
-                        {
-                            throw new ArgumentNullException(nameof(location));
-                        }
-                        if (!appArgs.TryGetValue("filter", out object filter))
-                        {
-                            throw new ArgumentNullException(nameof(filter));
-                        }
-                        if (!appArgs.TryGetValue("sendMessage", out object sendMessage))
-                        {
-                            throw new ArgumentNullException(nameof(type));
-                        }
-
-                        if (!(action is string a) || StringHelper.IsNullOrEmptyOrWhiteSpace(a))
-                        {
-                            throw new ArgumentException($"'{nameof(action)}' has an invalid value");
-                        }
-
-                        if (!(what is string w) || StringHelper.IsNullOrEmptyOrWhiteSpace(w))
-                        {
-                            throw new ArgumentException($"'{nameof(what)}' has an invalid value");
-                        }
-
-                        if (!(type is string t) || StringHelper.IsNullOrEmptyOrWhiteSpace(t))
-                        {
-                            throw new ArgumentNullException(nameof(type));
-                        }
-
-                        if (!(location is string l) || StringHelper.IsNullOrEmptyOrWhiteSpace(l))
-                        {
-                            throw new ArgumentException($"'{nameof(location)}' has an invalid value");
-                        }
-
-                        if (!(filter is string f) || StringHelper.IsNullOrEmptyOrWhiteSpace(f))
-                        {
-                            throw new ArgumentException($"'{nameof(filter)}' has an invalid value");
-                        }
-
-                        if (!(sendMessage is bool sm))
-                        {
-                            throw new ArgumentException($"'{nameof(sendMessage)}' has an invalid value");
-                        }
-
-                        if (a == "sync")
-                        {
-                            if (w == "notifications")
+                            try
                             {
-                                var notifications = new ObservableCollection<Octokit.Notification>();
-                                if (l == "online")
+                                var appArgs = appTriggerDetails.Arguments;
+                                if (!appArgs.TryGetValue("action", out object action))
                                 {
-                                    var filters = f.Split(',');
-                                    bool isAll = false, isParticipating = false, isUnread = true;
-                                    if (filter != null && filters.Length > 0)
+                                    throw new ArgumentNullException(nameof(action));
+                                }
+                                if (!appArgs.TryGetValue("what", out object what))
+                                {
+                                    throw new ArgumentNullException(nameof(what));
+                                }
+                                if (!appArgs.TryGetValue("type", out object type))
+                                {
+                                    throw new ArgumentNullException(nameof(type));
+                                }
+                                if (!appArgs.TryGetValue("location", out object location))
+                                {
+                                    throw new ArgumentNullException(nameof(location));
+                                }
+                                if (!appArgs.TryGetValue("filter", out object filter))
+                                {
+                                    throw new ArgumentNullException(nameof(filter));
+                                }
+                                if (!appArgs.TryGetValue("sendMessage", out object sendMessage))
+                                {
+                                    throw new ArgumentNullException(nameof(type));
+                                }
+
+                                if (!(action is string a) || StringHelper.IsNullOrEmptyOrWhiteSpace(a))
+                                {
+                                    throw new ArgumentException($"'{nameof(action)}' has an invalid value");
+                                }
+
+                                if (!(what is string w) || StringHelper.IsNullOrEmptyOrWhiteSpace(w))
+                                {
+                                    throw new ArgumentException($"'{nameof(what)}' has an invalid value");
+                                }
+
+                                if (!(type is string t) || StringHelper.IsNullOrEmptyOrWhiteSpace(t))
+                                {
+                                    throw new ArgumentNullException(nameof(type));
+                                }
+
+                                if (!(location is string l) || StringHelper.IsNullOrEmptyOrWhiteSpace(l))
+                                {
+                                    throw new ArgumentException($"'{nameof(location)}' has an invalid value");
+                                }
+
+                                if (!(filter is string f) || StringHelper.IsNullOrEmptyOrWhiteSpace(f))
+                                {
+                                    throw new ArgumentException($"'{nameof(filter)}' has an invalid value");
+                                }
+
+                                if (!(sendMessage is bool sm))
+                                {
+                                    throw new ArgumentException($"'{nameof(sendMessage)}' has an invalid value");
+                                }
+
+                                if (a == "sync")
+                                {
+                                    if (w == "notifications")
                                     {
-                                        isAll = filters.Contains("all", StringComparer.OrdinalIgnoreCase);
-                                        isParticipating = filters.Contains("participating", StringComparer.OrdinalIgnoreCase);
-                                        isUnread = filters.Contains("unread", StringComparer.OrdinalIgnoreCase);
-                                    }
-                                    _ExExecSession.RunActionAsExtentedAction(() =>
-                                    {
-                                        ExecutionService.RunActionInUiThread(async () =>
+                                        var notifications = new ObservableCollection<Octokit.Notification>();
+                                        if (l == "online")
                                         {
+                                            var filters = f.Split(',');
+                                            bool isAll = false, isParticipating = false, isUnread = true;
+                                            if (filter != null && filters.Length > 0)
+                                            {
+                                                isAll = filters.Contains("all", StringComparer.OrdinalIgnoreCase);
+                                                isParticipating = filters.Contains("participating", StringComparer.OrdinalIgnoreCase);
+                                                isUnread = filters.Contains("unread", StringComparer.OrdinalIgnoreCase);
+                                            }
                                             notifications = await NotificationsService.GetAllNotificationsForCurrentUser(isAll, isParticipating);
 
                                             if (t == "toast")
@@ -203,47 +244,63 @@ namespace CodeHub
                                                         SendMessage(new UpdateUnreadNotificationsCountMessageType { Count = notifications?.Count ?? 0 });
                                                     }
                                                 }
-
-                                                await notifications.ShowToasts();
+                                                if (SettingsService.Get<bool>(SettingsKeys.IsToastEnabled))
+                                                {
+                                                    await AppViewmodel.UnreadNotifications?.ShowToasts();
+                                                }
                                             }
                                             else if (t == "tiles")
                                             {
                                                 var tile = await notifications[0].BuildTiles();
                                                 TileUpdateManager
-                                                    .CreateTileUpdaterForApplication()
-                                                    .Update(tile);
+                                                                    .CreateTileUpdaterForApplication()
+                                                                    .Update(tile);
                                             }
-                                        });
-                                    }, ExExecSession_Revoked, _Deferral);
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
+                            catch (Exception ex)
+                            {
+                                ToastHelper.ShowMessage(ex.Message, ex.ToString());
+                            }
+                        });
+                    }, ExExecSession_Revoked, _AppTriggerDeferral);
                     break;
                 case "SyncNotifications":
-                    await BackgroundTaskService.LoadUnreadNotifications(true, _Deferral);
+                    _SyncDeferral = taskInstance.GetDeferral();
+                    await _ExExecSession.RunActionAsExtentedAction(() =>
+                    {
+                        ExecutionService.RunActionInUiThread(async () =>
+                        {
+                            await BackgroundTaskService.LoadUnreadNotifications(true);
+                        });
+                    }, ExExecSession_Revoked, _SyncDeferral);
                     break;
                 case "ToastNotificationAction":
+                    _ToastDeferral = taskInstance.GetDeferral();
                     if (!(triggerDetails is ToastNotificationActionTriggerDetail toastTriggerDetails))
                     {
                         throw new ArgumentException();
                     }
+                    await _ExExecSession.RunActionAsExtentedAction(() =>
+                    {
+                        ExecutionService.RunActionInUiThread(async () =>
+                        {
+                            try
+                            {
+                                var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
+                                var notificationId = toastArgs["notificationId"] as string;
+                                await NotificationsService.MarkNotificationAsRead(notificationId);
+                                await BackgroundTaskService.LoadUnreadNotifications(true);
+                            }
+                            catch (Exception ex)
+                            {
+                                ToastHelper.ShowMessage(ex.Message, ex.ToString());
+                            }
 
-                    var toastArgs = QueryString.Parse(toastTriggerDetails.Argument);
-                    var notificationId = toastArgs["notificationId"];
-                    if (StringHelper.IsNullOrEmptyOrWhiteSpace(notificationId))
-                    {
-                        throw new ArgumentNullException("notificationId");
-                    }
-                    try
-                    {
-                        await NotificationsService.MarkNotificationAsRead(notificationId);
-                    }
-                    catch (Exception ex)
-                    {
-                        ToastHelper.ShowMessage(ex.Message, ex.ToString());
-                    }
-                    await BackgroundTaskService.LoadUnreadNotifications(true, _Deferral);
+                        });
+                    }, ExExecSession_Revoked, _ToastDeferral);
                     break;
 
                     //case "ToastNotificationChangedTask":
@@ -258,68 +315,15 @@ namespace CodeHub
             }
         }
 
-        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        /// <summary>
+        /// Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="sender">The Frame which failed navigation</param>
+        /// <param name="e">Details about the navigation failure</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            _Deferral?.Complete();
-            _ExExecSession.Revoked -= ExExecSession_Revoked;
-            _ExExecSession.Dispose();
-            _ExExecSession = null;
-            ToastHelper.ShowMessage($"{sender.Task.Name} has been canceled", reason.ToString());
-
-            //switch (sender.Task.Name)
-            //{
-            //    case "SyncNotifications":
-            //    case "SyncNotificationsApp":
-            //        _SyncDeferral?.Complete();
-            //        _SyncAppDeferral?.Complete();
-            //        break;
-            //    case "ToastNotificationBackgroundTask":
-            //        _ToastActionDeferral?.Complete();
-            //        break;
-            //}
+            ToastHelper.ShowMessage($"Failed to load Page {e.SourcePageType.FullName}", e.Exception.ToString());
         }
-
-        private void SendMessage<T>(T messageType, BackgroundTaskDeferral deferral = null)
-            where T : MessageTypeBase, new()
-        {
-            try
-            {
-                if (messageType is UpdateUnreadNotificationsCountMessageType uMsgType)
-                {
-                    ExecutionService.RunActionInCoreWindow(() =>
-                    {
-                        Messenger.Default?.Send(uMsgType);
-                    });
-                }
-                if (messageType is UpdateParticipatingNotificationsCountMessageType pMsgType)
-                {
-                    ExecutionService.RunActionInCoreWindow(() =>
-                    {
-                        Messenger.Default?.Send(pMsgType);
-                    });
-                }
-                if (messageType is UpdateAllNotificationsCountMessageType aMsgType)
-                {
-                    ExecutionService.RunActionInCoreWindow(() =>
-                    {
-                        Messenger.Default?.Send(aMsgType);
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                ToastHelper.ShowMessage(ex.Message, ex.ToString());
-            }
-            finally
-            {
-                if (deferral != null)
-                {
-                    deferral.Complete();
-                }
-            }
-
-        }
-
         /// <summary>
         /// Invoked when the application is  launched normally by the end user. Other entry points will be used such as when the application is launched to open a specific file.
         /// </summary>
@@ -329,26 +333,6 @@ namespace CodeHub
         {
             base.OnLaunched(e);
             OnLaunchedOrActivated(e);
-        }
-
-        private void Activate()
-        {
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-            {
-                var view = ApplicationView.GetForCurrentView();
-                view.SetPreferredMinSize(new Size(width: 800, height: 600));
-
-                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                if (titleBar != null)
-                {
-                    titleBar.ButtonBackgroundColor = titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-                    titleBar.ForegroundColor =
-                    titleBar.ButtonInactiveForegroundColor =
-                    titleBar.ButtonForegroundColor =
-                    Colors.White;
-                }
-            }
         }
 
         private async void OnLaunchedOrActivated(IActivatedEventArgs args)
@@ -377,29 +361,7 @@ namespace CodeHub
                 }
                 Activate();
                 Window.Current.Activate();
-
-
-                IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
-                                     userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
-                                     sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
-                                     backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
-
-                var conditions = new[]
-                {
-                    internetAvailableCondition,
-                    //userPresentCondition,
-                    //sessionConnectedCondition
-                };
-
-                var bgBuilderModel = new BackgroundTaskBuilderModel(
-                                     "AppTrigger",
-                                     conditions
-                                  );
-
-                var builder = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-
-
-                builder.Register(BackgroundTaskService.GetAppTrigger(), all: false);
+                BackgroundTaskService.RegisterAppTriggerBackgroundTasks();
             }
             else if (args is ToastNotificationActivatedEventArgs toastActivatedEventArgs)
             {
@@ -495,17 +457,6 @@ namespace CodeHub
                 }
             }
         }
-
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            ToastHelper.ShowMessage($"Failed to load Page {e.SourcePageType.FullName}", e.Exception.ToString());
-        }
-
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
@@ -520,31 +471,68 @@ namespace CodeHub
             deferral.Complete();
         }
 
-        private void ExExecSession_Revoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        private void SendMessage<T>(T messageType, BackgroundTaskDeferral deferral = null)
+            where T : MessageTypeBase, new()
         {
-            _ExExecSession.Dispose();
-            _ExExecSession = null;
-        }
-
-        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
-        {
-            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(UserLogin))
+            try
             {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                var uri = eventArgs.Uri;
-                var host = uri.Host;
-                switch (host.ToLower())
+                if (messageType is UpdateUnreadNotificationsCountMessageType uMsgType)
                 {
-                    case "repository":
-                        await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(RepoDetailView), uri.Segments[1] + uri.Segments[2]);
-                        break;
-
-                    case "user":
-                        await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(typeof(DeveloperProfileView), uri.Segments[1]);
-                        break;
-
+                    ExecutionService.RunActionInCoreWindow(() =>
+                    {
+                        Messenger.Default?.Send(uMsgType);
+                    });
+                }
+                if (messageType is UpdateParticipatingNotificationsCountMessageType pMsgType)
+                {
+                    ExecutionService.RunActionInCoreWindow(() =>
+                    {
+                        Messenger.Default?.Send(pMsgType);
+                    });
+                }
+                if (messageType is UpdateAllNotificationsCountMessageType aMsgType)
+                {
+                    ExecutionService.RunActionInCoreWindow(() =>
+                    {
+                        Messenger.Default?.Send(aMsgType);
+                    });
                 }
             }
+            catch (Exception ex)
+            {
+                ToastHelper.ShowMessage(ex.Message, ex.ToString());
+            }
+            finally
+            {
+                if (deferral != null)
+                {
+                    deferral.Complete();
+                }
+            }
+
+        }
+
+        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            _AppTriggerDeferral?.Complete();
+            _SyncDeferral?.Complete();
+            _ToastDeferral?.Complete();
+            _ExExecSession.Revoked -= ExExecSession_Revoked;
+            _ExExecSession.Dispose();
+            _ExExecSession = null;
+            ToastHelper.ShowMessage($"{sender.Task.Name} has been canceled", reason.ToString());
+
+            //switch (sender.Task.Name)
+            //{
+            //    case "SyncNotifications":
+            //    case "SyncNotificationsApp":
+            //        _SyncDeferral?.Complete();
+            //        _SyncAppDeferral?.Complete();
+            //        break;
+            //    case "ToastNotificationBackgroundTask":
+            //        _ToastActionDeferral?.Complete();
+            //        break;
+            //}
         }
     }
 }

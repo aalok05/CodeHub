@@ -1,8 +1,5 @@
 ﻿using CodeHub.Services;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
@@ -12,7 +9,6 @@ using Windows.UI.Notifications;
 
 namespace CodeHub.Helpers
 {
-
     public enum ToastNotificationScenario
     {
         Default = 0,
@@ -165,24 +161,7 @@ namespace CodeHub.Helpers
 
         public static bool Like(this ToastNotification toast, ToastNotification toast2)
         {
-            bool tagValid = false,
-                 groupValid = false;
-            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Tag))
-            {
-                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Tag))
-                {
-                    tagValid = toast.Tag == toast2.Tag;
-                }
-            }
-            if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast.Group))
-            {
-                if (!StringHelper.IsNullOrEmptyOrWhiteSpace(toast2.Group))
-                {
-                    groupValid = toast.Group == toast2.Group;
-                }
-            }
-
-            return tagValid && groupValid;
+            return toast.Tag == toast2.Tag && toast.Group == toast2.Group;
         }
     }
 }

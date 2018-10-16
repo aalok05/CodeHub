@@ -13,7 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using UICompositionAnimations;
 using UICompositionAnimations.Enums;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
@@ -30,8 +29,14 @@ namespace CodeHub.Views
 {
     public sealed partial class MainPage : Windows.UI.Xaml.Controls.Page
     {
-        public MainViewmodel ViewModel { get; set; }
-        public CustomFrame AppFrame { get { return mainFrame; } }
+        public MainViewmodel ViewModel
+        {
+            get; set;
+        }
+        public CustomFrame AppFrame
+        {
+            get => mainFrame;
+        }
         private readonly SemaphoreSlim HeaderAnimationSemaphore = new SemaphoreSlim(1);
         private LocalNotificationManager notifManager;
 
@@ -90,13 +95,13 @@ namespace CodeHub.Views
             {
                 ViewModel.DisplayMode = SplitViewDisplayMode.Overlay;
                 ViewModel.IsPaneOpen = false;
-                HamRelative.Background = (AcrylicBrush)Windows.UI.Xaml.Application.Current.Resources["LowOpacityElementAcrylicBrush"];
+                HamRelative.Background = (AcrylicBrush) Windows.UI.Xaml.Application.Current.Resources["LowOpacityElementAcrylicBrush"];
             }
             else
             {
                 ViewModel.DisplayMode = SplitViewDisplayMode.Inline;
                 ViewModel.IsPaneOpen = true;
-                HamRelative.Background = (AcrylicBrush)Windows.UI.Xaml.Application.Current.Resources["SystemControlChromeHighAcrylicWindowMediumBrush"];
+                HamRelative.Background = (AcrylicBrush) Windows.UI.Xaml.Application.Current.Resources["SystemControlChromeHighAcrylicWindowMediumBrush"];
             }
         }
 
@@ -122,7 +127,7 @@ namespace CodeHub.Views
                     if (backgroundAccessStatus == BackgroundAccessStatus.AlwaysAllowed ||
                         backgroundAccessStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
                     {
-                        RegisterBackgroundTasks();
+                        BackgroundTaskService.RegisterBackgroundTasks();
                     }
                     break;
 
@@ -167,7 +172,7 @@ namespace CodeHub.Views
         }
         private async void DeleteAccount_Click(object sender, RoutedEventArgs e)
         {
-            await ViewModel.DeleteAccount(((Button)sender).Tag.ToString());
+            await ViewModel.DeleteAccount(((Button) sender).Tag.ToString());
         }
         #endregion
 
@@ -188,37 +193,7 @@ namespace CodeHub.Views
         }
         #endregion
 
-        #region other methods        
-
-        private void RegisterBackgroundTasks()
-        {
-            IBackgroundCondition internetAvailableCondition = new SystemCondition(SystemConditionType.InternetAvailable),
-                                 userPresentCondition = new SystemCondition(SystemConditionType.UserPresent),
-                                 sessionConnectedCondition = new SystemCondition(SystemConditionType.SessionConnected),
-                                 backgroundCostNotHighCondition = new SystemCondition(SystemConditionType.BackgroundWorkCostNotHigh);
-
-            var conditions = new[] {
-                internetAvailableCondition,
-                // userPresentCondition,
-                //sessionConnectedCondition
-            };
-
-            var bgBuilderModel = new BackgroundTaskBuilderModel(
-                                    "ToastNotificationAction",
-                                    new ToastNotificationActionTrigger(),
-                                    conditions
-                                 );
-            var toastActionTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-            toastActionTask.Register(true, false, true);
-
-            bgBuilderModel = new BackgroundTaskBuilderModel(
-                                "SyncNotifications",
-                                new TimeTrigger(15, false),
-                                conditions
-                             );
-            var syncTask = BackgroundTaskService.BuildTask(bgBuilderModel, true, true, null);
-            syncTask.Register(true, false, true);
-        }
+        #region other methods
 
         public async void SetHeadertext(string pageName)
         {

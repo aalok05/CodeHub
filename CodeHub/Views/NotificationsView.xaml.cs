@@ -25,7 +25,7 @@ namespace CodeHub.Views
             Messenger.Default.Register<SignOutMessageType>(this, ViewModel.RecieveSignOutMessage);
             Messenger.Default.Register(this, (UpdateAllNotificationsCountMessageType n) =>
             {
-                AppViewmodel.UnreadNotifications =new ObservableCollection<Notification>( AppViewmodel.UnreadNotifications.OrderBy(un => un.UpdatedAt));
+                AppViewmodel.UnreadNotifications = new ObservableCollection<Notification>(AppViewmodel.UnreadNotifications.OrderBy(un => un.UpdatedAt));
                 ViewModel.UpdateAllNotificationIndicator(n.Count);
                 Bindings.Update();
             });
