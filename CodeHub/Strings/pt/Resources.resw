@@ -285,10 +285,10 @@
   <data name="signOut.Text" xml:space="preserve">
     <value>Sair</value>
   </data>
-  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+  <data name="leftNotificationListItem.Text" xml:space="preserve">
     <value>Cancelar a inscrição desta lista de discussão</value>
   </data>
-  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+  <data name="rightNotificationListItem.Text" xml:space="preserve">
     <value>Marcar como lido</value>
   </data>
   <data name="starred.Text" xml:space="preserve">

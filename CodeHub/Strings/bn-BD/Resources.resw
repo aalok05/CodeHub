@@ -286,10 +286,10 @@
   <data name="signOut.Text" xml:space="preserve">
     <value>সাইন আউট করুন​</value>
   </data>
-  <data name="slidableNotificationListItem.LeftLabel" xml:space="preserve">
+  <data name="leftNotificationListItem.Text" xml:space="preserve">
     <value>এই থ্রেড থেকে আনসাবস্ক্রাইব করুন</value>
   </data>
-  <data name="slidableNotificationListItem.RightLabel" xml:space="preserve">
+  <data name="rightNotificationListItem.Text" xml:space="preserve">
     <value>পঠিত হিসেবে চিহ্নিত করুন</value>
   </data>
   <data name="starred.Text" xml:space="preserve">

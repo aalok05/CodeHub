@@ -58,25 +58,33 @@
                               SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
-                                <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
-                                                                 HorizontalAlignment="Stretch"
-                                                                 ActivationWidth="100"
-                                                                 IsLeftCommandEnabled="True"
-                                                                 IsOffsetLimited="True"
-                                                                 IsPointerReleasedOnSwipingHandled="False"
-                                                                 IsRightCommandEnabled="True"
-                                                                 LeftBackground="OrangeRed"
-                                                                 LeftCommand="{Binding UnsubscribeUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                 LeftCommandParameter="{Binding}"
-                                                                 LeftForeground="White"
-                                                                 LeftIcon="Mute"
-                                                                 MouseSlidingEnabled="True"
-                                                                 RightBackground="{StaticResource SystemControlBackgroundAccentBrush}"
-                                                                 RightCommand="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                 RightCommandParameter="{Binding}"
-                                                                 RightForeground="White"
-                                                                 RightIcon="Accept"
-                                                                 UseSwipeControlWhenPossible="False">
+                                <SwipeControl HorizontalAlignment="Stretch">
+                                    <SwipeControl.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem x:Uid="leftNotificationListItem"
+                                                       Command="{Binding UnsubscribeUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                       CommandParameter="{Binding}"
+                                                       Background="OrangeRed"
+                                                       Foreground="White">
+                                                <SwipeItem.IconSource>
+                                                    <SymbolIconSource Symbol="Mute"/>
+                                                </SwipeItem.IconSource>
+                                            </SwipeItem>
+                                        </SwipeItems>
+                                    </SwipeControl.LeftItems>
+                                    <SwipeControl.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem x:Uid="rightNotificationListItem"
+                                                       Command="{Binding MarkasReadUnreadNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                       CommandParameter="{Binding}"
+                                                       Background="{StaticResource SystemControlBackgroundAccentBrush}"
+                                                       Foreground="White">
+                                                <SwipeItem.IconSource>
+                                                    <SymbolIconSource Symbol="Accept"/>
+                                                </SwipeItem.IconSource>
+                                            </SwipeItem>
+                                        </SwipeItems>
+                                    </SwipeControl.RightItems>
                                     <i:Interaction.Behaviors>
                                         <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
                                             <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
@@ -126,7 +134,7 @@
                                                    RelativePanel.RightOf="notifSymbol"/>
                                     </RelativePanel>
 
-                                </toolkitControl:SlidableListItem>
+                                </SwipeControl>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -185,25 +193,33 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
                                 <UserControl>
-                                    <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
-                                                                     HorizontalAlignment="Stretch"
-                                                                     ActivationWidth="100"
-                                                                     IsLeftCommandEnabled="True"
-                                                                     IsOffsetLimited="True"
-                                                                     IsPointerReleasedOnSwipingHandled="False"
-                                                                     IsRightCommandEnabled="True"
-                                                                     LeftBackground="OrangeRed"
-                                                                     LeftCommand="{Binding UnsubscribeParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                     LeftCommandParameter="{Binding}"
-                                                                     LeftForeground="White"
-                                                                     LeftIcon="Mute"
-                                                                     MouseSlidingEnabled="True"
-                                                                     RightBackground="{StaticResource SystemControlBackgroundAccentBrush}"
-                                                                     RightCommand="{Binding MarkasReadParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                     RightCommandParameter="{Binding}"
-                                                                     RightForeground="White"
-                                                                     RightIcon="Accept"
-                                                                     UseSwipeControlWhenPossible="False">
+                                    <SwipeControl HorizontalAlignment="Stretch">
+                                        <SwipeControl.LeftItems>
+                                            <SwipeItems>
+                                                <SwipeItem x:Uid="leftNotificationListItem"
+                                                           Command="{Binding UnsubscribeParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                           CommandParameter="{Binding}"
+                                                           Background="OrangeRed"
+                                                           Foreground="White">
+                                                    <SwipeItem.IconSource>
+                                                        <SymbolIconSource Symbol="Mute"/>
+                                                    </SwipeItem.IconSource>
+                                                </SwipeItem>
+                                            </SwipeItems>
+                                        </SwipeControl.LeftItems>
+                                        <SwipeControl.RightItems>
+                                            <SwipeItems>
+                                                <SwipeItem x:Uid="rightNotificationListItem"
+                                                           Command="{Binding MarkasReadParticipatingNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                           CommandParameter="{Binding}"
+                                                           Background="{StaticResource SystemControlBackgroundAccentBrush}"
+                                                           Foreground="White">
+                                                    <SwipeItem.IconSource>
+                                                        <SymbolIconSource Symbol="Accept"/>
+                                                    </SwipeItem.IconSource>
+                                                </SwipeItem>
+                                            </SwipeItems>
+                                        </SwipeControl.RightItems>
                                         <i:Interaction.Behaviors>
                                             <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
                                                 <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
@@ -252,8 +268,7 @@
                                                        RelativePanel.Below="titleText"
                                                        RelativePanel.RightOf="notifSymbol"/>
                                         </RelativePanel>
-
-                                    </toolkitControl:SlidableListItem>
+                                    </SwipeControl>
                                 </UserControl>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -308,25 +323,33 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="octo:Notification">
                                 <UserControl>
-                                    <toolkitControl:SlidableListItem x:Uid="slidableNotificationListItem"
-                                                                     HorizontalAlignment="Stretch"
-                                                                     ActivationWidth="100"
-                                                                     IsLeftCommandEnabled="True"
-                                                                     IsOffsetLimited="True"
-                                                                     IsPointerReleasedOnSwipingHandled="False"
-                                                                     IsRightCommandEnabled="True"
-                                                                     LeftBackground="OrangeRed"
-                                                                     LeftCommand="{Binding UnsubscribeAllNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                     LeftCommandParameter="{Binding}"
-                                                                     LeftForeground="White"
-                                                                     LeftIcon="Mute"
-                                                                     MouseSlidingEnabled="True"
-                                                                     RightBackground="{StaticResource SystemControlBackgroundAccentBrush}"
-                                                                     RightCommand="{Binding MarkasReadAllNotifCommand, ElementName=Page, Mode=OneWay}"
-                                                                     RightCommandParameter="{Binding}"
-                                                                     RightForeground="White"
-                                                                     RightIcon="Accept"
-                                                                     UseSwipeControlWhenPossible="False">
+                                    <SwipeControl HorizontalAlignment="Stretch">
+                                        <SwipeControl.LeftItems>
+                                            <SwipeItems>
+                                                <SwipeItem x:Uid="leftNotificationListItem"
+                                                           Command="{Binding UnsubscribeAllNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                           CommandParameter="{Binding}"
+                                                           Background="OrangeRed"
+                                                           Foreground="White">
+                                                    <SwipeItem.IconSource>
+                                                        <SymbolIconSource Symbol="Mute"/>
+                                                    </SwipeItem.IconSource>
+                                                </SwipeItem>
+                                            </SwipeItems>
+                                        </SwipeControl.LeftItems>
+                                        <SwipeControl.RightItems>
+                                            <SwipeItems>
+                                                <SwipeItem x:Uid="rightNotificationListItem"
+                                                           Command="{Binding MarkasReadAllNotifCommand, ElementName=Page, Mode=OneWay}"
+                                                           CommandParameter="{Binding}"
+                                                           Background="{StaticResource SystemControlBackgroundAccentBrush}"
+                                                           Foreground="White">
+                                                    <SwipeItem.IconSource>
+                                                        <SymbolIconSource Symbol="Accept"/>
+                                                    </SwipeItem.IconSource>
+                                                </SwipeItem>
+                                            </SwipeItems>
+                                        </SwipeControl.RightItems>
                                         <i:Interaction.Behaviors>
                                             <core:DataTriggerBehavior Binding="{x:Bind Unread, Mode=OneWay}" Value="True">
                                                 <core:ChangePropertyAction PropertyName="Background" Value="{ThemeResource SystemChromeLowColor}" />
@@ -335,7 +358,6 @@
                                                 <core:ChangePropertyAction PropertyName="Background" Value="Transparent" />
                                             </core:DataTriggerBehavior>
                                         </i:Interaction.Behaviors>
-
                                         <RelativePanel>
                                             <Path x:Name="notifSymbol"
                                                   Margin="12,12,12,4"
@@ -365,7 +387,6 @@
                                                        RelativePanel.Below="timeText"
                                                        RelativePanel.RightOf="notifSymbol"
                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
-
                                             <TextBlock x:Name="RepoText"
                                                        Margin="12 8 0 8"
                                                        Text="{Binding Repository.FullName}"
@@ -375,8 +396,7 @@
                                                        RelativePanel.Below="titleText"
                                                        RelativePanel.RightOf="notifSymbol"/>
                                         </RelativePanel>
-
-                                    </toolkitControl:SlidableListItem>
+                                    </SwipeControl>
                                 </UserControl>
                             </DataTemplate>
                         </ListView.ItemTemplate>
