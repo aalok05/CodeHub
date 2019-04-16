@@ -54,7 +54,7 @@ namespace CodeHub.ViewModels
 			}
 
 		}
-		public async void RefreshCommand(object sender, EventArgs e)
+		public async void RefreshCommand(RefreshContainer sender, RefreshRequestedEventArgs args)
 		{
 			if (!GlobalHelper.IsInternet())
 			{

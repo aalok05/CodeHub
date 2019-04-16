@@ -33,7 +33,7 @@ namespace CodeHub.Views
         {
             get; set;
         }
-        public CustomFrame AppFrame
+        public Frame AppFrame
         {
             get => mainFrame;
         }
@@ -167,7 +167,7 @@ namespace CodeHub.Views
         }
         private async void CloseAccountsPanel_Tapped(object sender, RoutedEventArgs e)
         {
-            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            //await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             ViewModel.IsAccountsPanelVisible = false;
         }
         private async void DeleteAccount_Click(object sender, RoutedEventArgs e)
@@ -200,9 +200,9 @@ namespace CodeHub.Views
             await HeaderAnimationSemaphore.WaitAsync();
             if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
             {
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.Y, 0, -24, 150, null, null, EasingFunctionNames.Linear);
+                //await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.Y, 0, -24, 150, null, null, EasingFunctionNames.Linear);
                 ViewModel.HeaderText = pageName.ToUpper();
-                await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.Y, 24, 0, 150, null, null, EasingFunctionNames.Linear);
+                //await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.Y, 24, 0, 150, null, null, EasingFunctionNames.Linear);
             }
             HeaderAnimationSemaphore.Release();
         }
@@ -219,16 +219,16 @@ namespace CodeHub.Views
 
         private async Task ShowAccountsPanel()
         {
-            AccountsPanel.SetVisualOpacity(0);
+            AccountsPanel.Opacity = 0;
             ViewModel.IsAccountsPanelVisible = true;
-            await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            //await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
         }
 
         private async Task ShowWhatsNewPopupVisiblity()
         {
-            WhatsNewPopup.SetVisualOpacity(0);
+            WhatsNewPopup.Opacity = 0;
             WhatsNewPopup.Visibility = Visibility.Visible;
-            await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
+            //await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
         }
         #endregion
     }

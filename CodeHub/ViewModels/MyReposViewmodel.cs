@@ -107,7 +107,7 @@ namespace CodeHub.ViewModels
 			}
 
 		}
-		public async void RefreshCommand(object sender, EventArgs e)
+		public async void RefreshCommand(RefreshContainer sender, RefreshRequestedEventArgs args)
 		{
 			MyReposQueryString = string.Empty;
 			if (GlobalHelper.IsInternet())
@@ -120,7 +120,7 @@ namespace CodeHub.ViewModels
 			}
 			IsLoading = false;
 		}
-		public async void RefreshStarredCommand(object sender, EventArgs e)
+		public async void RefreshStarredCommand(RefreshContainer sender, RefreshRequestedEventArgs args)
 		{
 			StarredQueryString = string.Empty;
 			if (!GlobalHelper.IsInternet())

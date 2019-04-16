@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.System.Profile;
 using Microsoft.Toolkit.Uwp.Helpers;
 using CodeHub.ViewModels.Settings;
+using System;
 
 namespace CodeHub.Views.Settings
 {

@@ -295,9 +295,9 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Border x:Name="BlurBorder" Grid.RowSpan="2" />
-                        <control:CustomFrame x:Name="mainFrame"
-                                             Grid.Row="0"
-                                             Navigated="{x:Bind ViewModel.MainFrame_Navigated}" />
+                        <Frame x:Name="mainFrame"
+                               Grid.Row="0"
+                               Navigated="{x:Bind ViewModel.MainFrame_Navigated}" />
                         <Grid Height="30"
                               VerticalAlignment="Bottom"
                               IsHitTestVisible="False">

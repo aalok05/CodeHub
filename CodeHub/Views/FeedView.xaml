@@ -24,90 +24,86 @@
         <converters:EventTypeToCommentStringConverter x:Key="EventTypeToCommentStringConverter" x:Name="EventTypeToCommentStringConverter" />
     </Page.Resources>
     <Grid Background="Transparent">
-        <toolkitControl:PullToRefreshListView x:Name="FeedListView"
-                                              IsItemClickEnabled="True"
-                                              IsPullToRefreshWithMouseEnabled="True"
-                                              Loaded="FeedListView_Loaded"
-                                              ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
-                                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                              ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
-                                              OverscrollLimit="0.4"
-                                              PullProgressChanged="Feed_PullProgressChanged"
-                                              PullThreshold="100"
-                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
-                                              SelectionMode="None">
-            <toolkitControl:PullToRefreshListView.ItemTemplate>
-                <DataTemplate x:DataType="octo:Activity">
-                    <UserControl>
-                        <RelativePanel x:Name="MainPanel"
-                                       Margin="0 0 0 18">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup>
-                                    <VisualState>
-                                        <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="320" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Target="actionText.(RelativePanel.Below)" Value="userText" />
-                                            <Setter Target="actionText.Margin" Value="4 4 0 4" />
-                                            <Setter Target="RepoText.Margin" Value="4 0 0 0" />
-                                            <Setter Target="actionText.(RelativePanel.AlignLeftWith)" Value="userText" />
-                                            <Setter Target="RepoText.(RelativePanel.Below)" Value="actionText" />
-                                            <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="actionText" />
-                                            <Setter Target="userText.Margin" Value="4 0 8 0" />
-                                            <Setter Target="notifSymbolScale.ScaleX" Value="1.6" />
-                                            <Setter Target="notifSymbolScale.ScaleY" Value="1.6" />
-                                            <Setter Target="userText.FontSize" Value="14"/>
-                                            <Setter Target="actionText.FontSize" Value="14"/>
-                                            <Setter Target="RepoText.FontSize" Value="14"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState>
-                                        <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="400" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
-                                            <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
-                                            <Setter Target="userText.FontSize" Value="15"/>
-                                            <Setter Target="actionText.FontSize" Value="15"/>
-                                            <Setter Target="RepoText.FontSize" Value="15"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState>
-                                        <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="720" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Target="MainPanel.MaxWidth" Value="700" />
-                                            <Setter Target="RepoText.Margin" Value="4 0 0 8" />
-                                            <Setter Target="userText.FontSize" Value="16"/>
-                                            <Setter Target="actionText.FontSize" Value="16"/>
-                                            <Setter Target="RepoText.FontSize" Value="16"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Path x:Name="notifSymbol"
+        <RefreshContainer RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
+            <ListView x:Name="FeedListView"
+                      IsItemClickEnabled="True"
+                      Loaded="FeedListView_Loaded"
+                      ItemClick="{x:Bind ViewModel.FeedListView_ItemClick}"
+                      ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                      ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="octo:Activity">
+                        <UserControl>
+                            <RelativePanel x:Name="MainPanel"
+                                           Margin="0 0 0 18">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup>
+                                        <VisualState>
+                                            <VisualState.StateTriggers>
+                                                <AdaptiveTrigger MinWindowWidth="320" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter Target="actionText.(RelativePanel.Below)" Value="userText" />
+                                                <Setter Target="actionText.Margin" Value="4 4 0 4" />
+                                                <Setter Target="RepoText.Margin" Value="4 0 0 0" />
+                                                <Setter Target="actionText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                                                <Setter Target="RepoText.(RelativePanel.Below)" Value="actionText" />
+                                                <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="actionText" />
+                                                <Setter Target="userText.Margin" Value="4 0 8 0" />
+                                                <Setter Target="notifSymbolScale.ScaleX" Value="1.6" />
+                                                <Setter Target="notifSymbolScale.ScaleY" Value="1.6" />
+                                                <Setter Target="userText.FontSize" Value="14"/>
+                                                <Setter Target="actionText.FontSize" Value="14"/>
+                                                <Setter Target="RepoText.FontSize" Value="14"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState>
+                                            <VisualState.StateTriggers>
+                                                <AdaptiveTrigger MinWindowWidth="400" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter Target="RepoText.(RelativePanel.Below)" Value="userText" />
+                                                <Setter Target="RepoText.(RelativePanel.AlignLeftWith)" Value="userText" />
+                                                <Setter Target="userText.FontSize" Value="15"/>
+                                                <Setter Target="actionText.FontSize" Value="15"/>
+                                                <Setter Target="RepoText.FontSize" Value="15"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState>
+                                            <VisualState.StateTriggers>
+                                                <AdaptiveTrigger MinWindowWidth="720" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter Target="MainPanel.MaxWidth" Value="700" />
+                                                <Setter Target="RepoText.Margin" Value="4 0 0 8" />
+                                                <Setter Target="userText.FontSize" Value="16"/>
+                                                <Setter Target="actionText.FontSize" Value="16"/>
+                                                <Setter Target="RepoText.FontSize" Value="16"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Path x:Name="notifSymbol"
                                   Margin="12"
                                   Data="{Binding Type, Converter={StaticResource EventTypeToSymbolConverter}}"
                                   Fill="Gray"
                                   RelativePanel.AlignLeftWithPanel="True"
                                   RelativePanel.AlignTopWithPanel="True"
                                   StrokeThickness="0">
-                                <Path.RenderTransform>
-                                    <CompositeTransform x:Name="notifSymbolScale"
+                                    <Path.RenderTransform>
+                                        <CompositeTransform x:Name="notifSymbolScale"
                                                         ScaleX="2"
                                                         ScaleY="2" />
-                                </Path.RenderTransform>
-                            </Path>
-                            <TextBlock x:Name="timeText"
+                                    </Path.RenderTransform>
+                                </Path>
+                                <TextBlock x:Name="timeText"
                                        Margin="12,12,0,12"
                                        FontSize="12"
                                        Foreground="Gray"
                                        RelativePanel.RightOf="notifSymbol"
                                        Text="{Binding CreatedAt, Converter={StaticResource TimeAgoConverter}}" />
-                            <toolkitControl:ImageEx x:Name="avatar"
+                                <toolkitControl:ImageEx x:Name="avatar"
                                                     Width="30"
                                                     Height="30"
                                                     CornerRadius="4"
@@ -119,51 +115,45 @@
                                                     DecodePixelWidth="30"
                                                     Source="{Binding Actor.AvatarUrl}"
                                                     RelativePanel.RightOf="notifSymbol">
-                            </toolkitControl:ImageEx>
+                                </toolkitControl:ImageEx>
 
-                            <TextBlock x:Name="userText"
+                                <TextBlock x:Name="userText"
                                        Margin="0,0,4,4"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="avatar"
                                        Text="{Binding Actor.Login}" />
 
-                            <TextBlock x:Name="actionText"
+                                <TextBlock x:Name="actionText"
                                        Margin="0,0,0,4"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="userText"
                                        Text="{Binding Converter={StaticResource EventTypeToActionStringConverter}, Mode=OneWay}" />
 
-                            <TextBlock x:Name="RepoText"
+                                <TextBlock x:Name="RepoText"
                                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                        RelativePanel.Below="timeText"
                                        RelativePanel.RightOf="actionText"
                                        Text="{Binding Repo.Name}" />
 
-                            <Border x:Name="commentText"
+                                <Border x:Name="commentText"
                                     RelativePanel.Below="RepoText">
-                                <toolkitControl:MarkdownTextBlock Padding="12"
-                                                                  FontSize="15"
-                                                                  Foreground="Gray"
-                                                                  ImageStretch="FIll"
-                                                                  LinkClicked="MarkdownTextBlock_LinkClicked"
-                                                                  Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
-                                                                  TextWrapping="Wrap"
-                                                                  Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
-                            </Border>
-                        </RelativePanel>
-                    </UserControl>
-                </DataTemplate>
-            </toolkitControl:PullToRefreshListView.ItemTemplate>
-            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-                <Border x:Name="refreshindicator"
-                        Width="20"
-                        Height="20"
-                        HorizontalAlignment="Center"
-                        CornerRadius="30" />
-            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-        </toolkitControl:PullToRefreshListView>
+                                    <toolkitControl:MarkdownTextBlock Padding="12"
+                                                                      FontSize="15"
+                                                                      Foreground="Gray"
+                                                                      ImageStretch="FIll"
+                                                                      LinkClicked="MarkdownTextBlock_LinkClicked"
+                                                                      Text="{Binding Converter={StaticResource EventTypeToCommentStringConverter}, Mode=OneWay}"
+                                                                      TextWrapping="Wrap"
+                                                                      Visibility="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource StringVisibilityConverter}, Path=Text}" />
+                                </Border>
+                            </RelativePanel>
+                        </UserControl>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RefreshContainer>
 
         <ProgressRing Width="40"
                       Height="40"

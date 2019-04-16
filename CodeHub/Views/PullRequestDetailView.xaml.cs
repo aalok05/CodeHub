@@ -61,13 +61,13 @@ namespace CodeHub.Views
         {
             if (visible)
             {
-                CommentDialog.SetVisualOpacity(0);
+                CommentDialog.Opacity = 0;
                 CommentDialog.Visibility = Visibility.Visible;
-                await CommentDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await CommentDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             }
             else
             {
-                await CommentDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await CommentDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
                 CommentDialog.Visibility = Visibility.Collapsed;
             }
         }
@@ -76,15 +76,15 @@ namespace CodeHub.Views
             if (DetailPanel.Visibility == Visibility.Visible)
             {
                 ExpanderIcon.Glyph = "\uE0E5";
-                await DetailPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await DetailPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
                 DetailPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
                 ExpanderIcon.Glyph = "\uE0E4";
-                DetailPanel.SetVisualOpacity(0);
+                DetailPanel.Opacity = 0;
                 DetailPanel.Visibility = Visibility.Visible;
-                await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
             }
         }
         private async void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
@@ -92,9 +92,9 @@ namespace CodeHub.Views
             if (e.NewState.Name.Equals("Wide") || e.NewState.Name.Equals("Normal"))
             {
                 ExpanderIcon.Glyph = "\uE0E4";
-                DetailPanel.SetVisualOpacity(0);
+                DetailPanel.Opacity = 0;
                 DetailPanel.Visibility = Visibility.Visible;
-                await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
             }
         }
 

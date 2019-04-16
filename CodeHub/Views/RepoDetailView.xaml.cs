@@ -114,12 +114,12 @@ namespace CodeHub.Views
         {
             ReleaseBodyText.Text = (e.ClickedItem as Release).Body;
             ReleaseBodyTextPanel.Visibility = Visibility.Visible;
-            await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            //await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
         }
 
         private async void CloseReleaseTextPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            //await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
             ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
         }
 
@@ -128,15 +128,15 @@ namespace CodeHub.Views
             if(InfoPanel.Visibility == Visibility.Visible)
             {
                 ExpanderIcon.Glyph = "\uE0E5";
-                await InfoPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await InfoPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
                 InfoPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
                 ExpanderIcon.Glyph = "\uE0E4";
-                InfoPanel.SetVisualOpacity(0);
+                InfoPanel.Opacity = 0;
                 InfoPanel.Visibility = Visibility.Visible;
-                await InfoPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                //await InfoPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
             }
         }
     }

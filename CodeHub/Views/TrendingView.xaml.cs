@@ -54,26 +54,7 @@ namespace CodeHub.Views
             MouseCapabilities mouseCapabilities = new MouseCapabilities();
             bool hasMouse = mouseCapabilities.MousePresent != 0;
 
-            todayListView.IsPullToRefreshWithMouseEnabled = weekListView.IsPullToRefreshWithMouseEnabled = monthListView.IsPullToRefreshWithMouseEnabled = hasMouse;
         }
-
-        private void Today_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator.Opacity = e.PullProgress;
-            refreshindicator.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-        }
-        private void Week_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator2.Opacity = e.PullProgress;
-            refreshindicator2.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-
-        }
-        private void Month_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator3.Opacity = e.PullProgress;
-            refreshindicator3.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-        }
-
 
         private async void OnTodayScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {

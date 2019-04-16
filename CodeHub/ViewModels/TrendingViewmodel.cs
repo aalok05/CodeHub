@@ -189,7 +189,7 @@ namespace CodeHub.ViewModels
 
 											 }));
 
-		public async void RefreshTodayCommand(object sender, EventArgs e)
+		public async void RefreshTodayCommand(RefreshContainer sender, RefreshRequestedEventArgs args)
 		{
 			if (!GlobalHelper.IsInternet())
 			{
@@ -203,7 +203,7 @@ namespace CodeHub.ViewModels
 			}
 			IsLoadingToday = false;
 		}
-		public async void RefreshWeekCommand(object sender, EventArgs e)
+		public async void RefreshWeekCommand(RefreshContainer sender, RefreshRequestedEventArgs args)
 		{
 			if (!GlobalHelper.IsInternet())
 			{
@@ -218,7 +218,7 @@ namespace CodeHub.ViewModels
 			}
 			IsLoadingWeek = false;
 		}
-		public async void RefreshMonthCommand(object sender, EventArgs e)
+		public async void RefreshMonthCommand(RefreshContainer sender, RefreshRequestedEventArgs args)
 		{
 			if (!GlobalHelper.IsInternet())
 			{

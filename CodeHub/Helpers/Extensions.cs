@@ -24,8 +24,8 @@ namespace CodeHub.Helpers
 		/// </summary>
 		/// <typeparam name="T">The target Type</typeparam>
 		/// <param name="target">The object to cast into the given Type</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static T To<T>(this object target) => (T)target;
+		//[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		//public static T To<T>(this object target) => (T)target;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double Abs(this double value) => value >= 0 ? value : -value;

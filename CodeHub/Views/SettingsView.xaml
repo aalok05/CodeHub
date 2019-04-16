@@ -86,13 +86,13 @@
             ItemsSource="{x:Bind ViewModel.SubMenus, Mode=OneWay}" />
 
         <!--Secondary frame-->
-        <control:CustomFrame x:Name="settingsFrame" 
+        <Frame x:Name="settingsFrame" 
                              Grid.Column="1"
                              SizeChanged="SettingsFrame_OnSizeChanged">
-            <control:CustomFrame.Clip>
+            <Frame.Clip>
                 <RectangleGeometry x:Name="FrameClip"/>
-            </control:CustomFrame.Clip>
-        </control:CustomFrame>
+            </Frame.Clip>
+        </Frame>
         
     </Grid>
 </Page>

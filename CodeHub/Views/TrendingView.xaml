@@ -10,6 +10,7 @@
       xmlns:octo="using:Octokit"
       xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:userControls="using:CodeHub.Controls"
+      xmlns:Windows10version1803="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 6)"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -45,20 +46,15 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView x:Name="todayListView"
-                                                          IsItemClickEnabled="True"
-                                                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                                                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                                          ItemsSource="{x:Bind ViewModel.TrendingReposToday, Mode=OneWay}"
-                                                          Loaded="todayListView_Loaded"
-                                                          OverscrollLimit="0.4"
-                                                          PullProgressChanged="Today_PullProgressChanged"
-                                                          PullThreshold="100"
-                                                          RefreshRequested="{x:Bind ViewModel.RefreshTodayCommand}"
-                                                          ScrollViewer.HorizontalScrollMode="Disabled">
 
-                        <toolkitControl:PullToRefreshListView.Header>
-                            <toolkitControl:ScrollHeader Mode="Fade">
+                    <RefreshContainer RefreshRequested="{x:Bind ViewModel.RefreshTodayCommand}">
+                        <ListView x:Name="todayListView"
+                                  IsItemClickEnabled="True"
+                                  Loaded="todayListView_Loaded"                                  
+                                  ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.TrendingReposToday, Mode=OneWay}">
+                            <ListView.Header>
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
                                         HorizontalContentAlignment="Stretch"
@@ -68,24 +64,14 @@
                                     <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposToday,Mode=OneWay}"
                                                                            Visibility="{x:Bind ViewModel.ZeroTodayCount, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
                                 </Button>
-                            </toolkitControl:ScrollHeader>
-                        </toolkitControl:PullToRefreshListView.Header>
-
-                        <toolkitControl:PullToRefreshListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
-                            </DataTemplate>
-                        </toolkitControl:PullToRefreshListView.ItemTemplate>
-
-                        <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                            <Border x:Name="refreshindicator"
-                                    Width="20"
-                                    Height="20"
-                                    HorizontalAlignment="Center"
-                                    CornerRadius="30" />
-                        </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-                    </toolkitControl:PullToRefreshListView>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:Repository">
+                                    <userControls:RepoListItem />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshContainer>
 
                     <ProgressBar MaxWidth="2000"
                                  MaxHeight="5"
@@ -114,19 +100,15 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView x:Name="weekListView"
-                                                          IsItemClickEnabled="True"
-                                                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                                                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                                          ItemsSource="{x:Bind ViewModel.TrendingReposWeek, Mode=OneWay}"
-                                                          Loaded="weekListView_Loaded"
-                                                          OverscrollLimit="0.4"
-                                                          PullProgressChanged="Week_PullProgressChanged"
-                                                          PullThreshold="100"
-                                                          RefreshRequested="{x:Bind ViewModel.RefreshWeekCommand}"
-                                                          ScrollViewer.HorizontalScrollMode="Disabled">
-                        <toolkitControl:PullToRefreshListView.Header>
-                            <toolkitControl:ScrollHeader Mode="Fade">
+                    <RefreshContainer RefreshRequested="{x:Bind ViewModel.RefreshWeekCommand}">
+                        <ListView x:Name="weekListView"
+                                  IsItemClickEnabled="True"
+                                  ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.TrendingReposWeek, Mode=OneWay}"
+                                  Loaded="weekListView_Loaded">
+
+                            <ListView.Header>
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
                                         Tapped="{x:Bind ViewModel.FirstRepoWeekNavigate}"
@@ -136,23 +118,14 @@
                                     <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposWeek,Mode=OneWay}"
                                                                            Visibility="{x:Bind ViewModel.ZeroWeeklyCount, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
                                 </Button>
-                            </toolkitControl:ScrollHeader>
-                        </toolkitControl:PullToRefreshListView.Header>
-                        <toolkitControl:PullToRefreshListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
-                            </DataTemplate>
-                        </toolkitControl:PullToRefreshListView.ItemTemplate>
-
-                        <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                            <Border x:Name="refreshindicator2"
-                                    Width="20"
-                                    Height="20"
-                                    HorizontalAlignment="Center"
-                                    CornerRadius="30" />
-                        </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-                    </toolkitControl:PullToRefreshListView>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:Repository">
+                                    <userControls:RepoListItem />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshContainer>
 
                     <ProgressBar MaxWidth="2000"
                                  MaxHeight="5"
@@ -180,20 +153,15 @@
                                FontWeight="Normal" />
                 </PivotItem.Header>
                 <Grid>
-                    <toolkitControl:PullToRefreshListView x:Name="monthListView"
-                                                          IsItemClickEnabled="True"
-                                                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                                                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                                          ItemsSource="{x:Bind ViewModel.TrendingReposMonth, Mode=OneWay}"
-                                                          Loaded="monthListView_Loaded"
-                                                          OverscrollLimit="0.4"
-                                                          PullProgressChanged="Month_PullProgressChanged"
-                                                          PullThreshold="100"
-                                                          RefreshRequested="{x:Bind ViewModel.RefreshMonthCommand}"
-                                                          ScrollViewer.HorizontalScrollMode="Disabled">
+                    <RefreshContainer RefreshRequested="{x:Bind ViewModel.RefreshMonthCommand}">
+                        <ListView x:Name="monthListView"
+                                  IsItemClickEnabled="True"
+                                  ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.TrendingReposMonth, Mode=OneWay}"
+                                  Loaded="monthListView_Loaded">
 
-                        <toolkitControl:PullToRefreshListView.Header>
-                            <toolkitControl:ScrollHeader Mode="Fade">
+                            <ListView.Header>
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                         Padding="0"
                                         Tapped="{x:Bind ViewModel.FirstRepoMonthNavigate}"
@@ -203,23 +171,14 @@
                                     <userControls:FirstTrendingRepoControl Repository="{x:Bind ViewModel.FirstTrendingReposMonth,Mode=OneWay}"
                                                                            Visibility="{x:Bind ViewModel.ZeroMonthlyCount, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}" />
                                 </Button>
-                            </toolkitControl:ScrollHeader>
-                        </toolkitControl:PullToRefreshListView.Header>
-                        <toolkitControl:PullToRefreshListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
-                            </DataTemplate>
-                        </toolkitControl:PullToRefreshListView.ItemTemplate>
-
-                        <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                            <Border x:Name="refreshindicator3"
-                                    Width="20"
-                                    Height="20"
-                                    HorizontalAlignment="Center"
-                                    CornerRadius="30" />
-                        </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-                    </toolkitControl:PullToRefreshListView>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:Repository">
+                                    <userControls:RepoListItem />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshContainer>
 
                     <ProgressBar MaxWidth="800"
                                  MaxHeight="5"

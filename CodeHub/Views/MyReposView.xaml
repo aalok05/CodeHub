@@ -48,33 +48,22 @@
                                     Style="{StaticResource SearchBoxStyle}"
                                     Text="{x:Bind ViewModel.MyReposQueryString, Mode=TwoWay}"
                                     TextChanged="{x:Bind ViewModel.MyReposQueryString_TextChanged}" />
-                    <toolkitControl:PullToRefreshListView x:Name="RepoListView"
-                                                          Grid.Row="1"
-                                                          IsItemClickEnabled="True"
-                                                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                                                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                                          ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
-                                                          OverscrollLimit="0.4"
-                                                          PullProgressChanged="AllRepos_PullProgressChanged"
-                                                          PullThreshold="100"
-                                                          RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
-                                                          ScrollViewer.HorizontalScrollMode="Disabled">
+                    
+                    <RefreshContainer Grid.Row="1"
+                                      RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
+                        <ListView x:Name="RepoListView"
+                                  IsItemClickEnabled="True"
+                                  ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
 
-                        <toolkitControl:PullToRefreshListView.ItemTemplate>
-
-                            <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem/>
-                            </DataTemplate>
-                        </toolkitControl:PullToRefreshListView.ItemTemplate>
-                        <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                            <Border x:Name="refreshindicator"
-                                    Width="20"
-                                    Height="20"
-                                    HorizontalAlignment="Center"
-                                    CornerRadius="30" />
-                        </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-                    </toolkitControl:PullToRefreshListView>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:Repository">
+                                    <userControls:RepoListItem/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshContainer>
 
                     <TextBlock x:Uid="noRepositoryTip"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"
@@ -110,33 +99,20 @@
                                     Style="{StaticResource SearchBoxStyle}"
                                     Text="{x:Bind ViewModel.StarredQueryString, Mode=TwoWay}"
                                     TextChanged="{x:Bind ViewModel.StarredQueryString_TextChanged}" />
-                    <toolkitControl:PullToRefreshListView x:Name="StarredRepoListView"
-                                                          Grid.Row="1"
-                                                          IsItemClickEnabled="True"
-                                                          ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
-                                                          ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                                          ItemsSource="{x:Bind ViewModel.StarredRepositories, Mode=OneWay}"
-                                                          OverscrollLimit="0.4"
-                                                          PullProgressChanged="StarredRepos_PullProgressChanged"
-                                                          PullThreshold="100"
-                                                          RefreshRequested="{x:Bind ViewModel.RefreshStarredCommand}"
-                                                          ScrollViewer.HorizontalScrollMode="Disabled">
-
-                        <toolkitControl:PullToRefreshListView.ItemTemplate>
-                            <DataTemplate x:DataType="octo:Repository">
-                                <userControls:RepoListItem />
-                            </DataTemplate>
-                        </toolkitControl:PullToRefreshListView.ItemTemplate>
-                        <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                            <Border x:Name="refreshindicator2"
-                                    Width="20"
-                                    Height="20"
-                                    HorizontalAlignment="Center"
-                                    CornerRadius="30" />
-                        </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                    </toolkitControl:PullToRefreshListView>
+                    <RefreshContainer Grid.Row="1"
+                                      RefreshRequested="{x:Bind ViewModel.RefreshStarredCommand}">
+                        <ListView x:Name="StarredRepoListView"
+                                  IsItemClickEnabled="True"
+                                  ItemClick="{x:Bind ViewModel.RepoDetailNavigateCommand}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                                  ItemsSource="{x:Bind ViewModel.StarredRepositories, Mode=OneWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="octo:Repository">
+                                    <userControls:RepoListItem />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshContainer>
 
                     <TextBlock x:Uid="noStarredRepositoryTip"
                                Style="{StaticResource ZeroItemsTextBoxStyle}"

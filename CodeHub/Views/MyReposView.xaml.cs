@@ -35,24 +35,12 @@ namespace CodeHub.Views
             MouseCapabilities mouseCapabilities = new MouseCapabilities();
             bool hasMouse = mouseCapabilities.MousePresent != 0;
 
-            RepoListView.IsPullToRefreshWithMouseEnabled = StarredRepoListView.IsPullToRefreshWithMouseEnabled = hasMouse;
         }
         private async void MyReposView_Loading(FrameworkElement sender, object args)
         {
             Messenger.Default.Register<User>(this, ViewModel.RecieveSignInMessage); //Listening for Sign In message
             Messenger.Default.Register<GlobalHelper.SignOutMessageType>(this, ViewModel.RecieveSignOutMessage); //listen for sign out message
             await ViewModel.Load();
-        }
-        private void AllRepos_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator.Opacity = e.PullProgress;
-            refreshindicator.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-        }
-        private void StarredRepos_PullProgressChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RefreshProgressEventArgs e)
-        {
-            refreshindicator2.Opacity = e.PullProgress;
-            refreshindicator2.Background = e.PullProgress < 1.0 ? GlobalHelper.GetSolidColorBrush("4078C0FF") : GlobalHelper.GetSolidColorBrush("47C951FF");
-        }
-        
+        }    
     }
 }

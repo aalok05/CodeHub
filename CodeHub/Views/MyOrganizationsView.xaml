@@ -6,7 +6,6 @@
       xmlns:local="using:CodeHub.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:octo="using:Octokit"
-      xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:userControls="using:CodeHub.Controls"
       mc:Ignorable="d">
 
@@ -15,33 +14,19 @@
         <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" x:Name="ReverseBooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid Background="Transparent">
-        <toolkitControl:PullToRefreshListView x:Name="OrganizationsListView"
-                                              IsItemClickEnabled="True"
-                                              ItemClick="{x:Bind ViewModel.OrganizationDetailNavigateCommand}"
-                                              IsPullToRefreshWithMouseEnabled="True"
-                                              ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                              ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}"
-                                              OverscrollLimit="0.4"
-                                              PullProgressChanged="OrganizationsList_PullProgressChanged"
-                                              PullThreshold="100"
-                                              RefreshRequested="{x:Bind ViewModel.RefreshCommand}"
-                                              ScrollViewer.HorizontalScrollMode="Disabled">
-
-            <toolkitControl:PullToRefreshListView.ItemTemplate>
-
-                <DataTemplate x:DataType="octo:Organization">
-                    <userControls:OrganizationListItem ManipulationMode="System" />
-                </DataTemplate>
-            </toolkitControl:PullToRefreshListView.ItemTemplate>
-            <toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-
-                <Border x:Name="refreshindicator"
-                        Width="20"
-                        Height="20"
-                        HorizontalAlignment="Center"
-                        CornerRadius="30" />
-            </toolkitControl:PullToRefreshListView.RefreshIndicatorContent>
-        </toolkitControl:PullToRefreshListView>
+        <RefreshContainer RefreshRequested="{x:Bind ViewModel.RefreshCommand}">
+            <ListView x:Name="OrganizationsListView"
+                      IsItemClickEnabled="True"
+                      ItemClick="{x:Bind ViewModel.OrganizationDetailNavigateCommand}"
+                      ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
+                      ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="octo:Organization">
+                        <userControls:OrganizationListItem ManipulationMode="System" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RefreshContainer>
 
         <TextBlock x:Uid="noOrganizationTip"
                    Style="{StaticResource ZeroItemsTextBoxStyle}"

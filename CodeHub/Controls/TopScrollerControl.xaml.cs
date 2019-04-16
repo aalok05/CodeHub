@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Input;
 namespace CodeHub.Controls
 {
 	public sealed partial class TopScrollerControl : UserControl, IDisposable
-	{
+    {
 		/// <summary>
 		/// Gets the duration of the fade in/out animation for the control
 		/// </summary>
@@ -18,8 +18,8 @@ namespace CodeHub.Controls
 		public TopScrollerControl()
 		{
 			InitializeComponent();
-			this.SetVisualOpacity(0);
-			IsHitTestVisible = false;
+			this.Opacity = 0;
+            IsHitTestVisible = false;
 		}
 
 		public void Dispose()
@@ -50,7 +50,7 @@ namespace CodeHub.Controls
 				return;
 			}
 
-			var scroller = parentObject.FindChild<ScrollViewer>() ?? throw new ArgumentException("The DependencyObject doesn't contain a ScrollViewer");
+			var scroller = parentObject.FindChild<ScrollViewer>() ?? throw new System.ArgumentException("The DependencyObject doesn't contain a ScrollViewer");
 			if (_RelatedScrollViewer != null)
 			{
 				_RelatedScrollViewer.ViewChanged -= RelatedScrollViewer_ViewChanged;
@@ -63,32 +63,32 @@ namespace CodeHub.Controls
 
 		private bool _ButtonShown;
 
-		private void RelatedScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-		{
-			if (sender.To<ScrollViewer>().VerticalOffset >= VerticalOffsetThreshold &&
-			    !_ButtonShown &&
-			    (_LastAnimationStartTime == null || DateTime.Now.Subtract(_LastAnimationStartTime.Value).TotalMilliseconds > AnimationDuration))
-			{
-				_LastAnimationStartTime = DateTime.Now;
-				_ButtonShown = true;
-				this.StartXAMLTransformFadeSlideAnimation(null, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.SineEaseOut,
-				    () => IsHitTestVisible = true);
-			}
-			else if (sender.To<ScrollViewer>().VerticalOffset < VerticalOffsetThreshold &&
-			    _ButtonShown &&
-			    (_LastAnimationStartTime == null || DateTime.Now.Subtract(_LastAnimationStartTime.Value).TotalMilliseconds > AnimationDuration))
-			{
-				_LastAnimationStartTime = DateTime.Now;
-				_ButtonShown = false;
-				IsHitTestVisible = false;
-				this.StartXAMLTransformFadeSlideAnimation(null, 0, TranslationAxis.Y, 0, 20, 200, null, null, EasingFunctionNames.SineEaseOut);
-			}
-		}
+        private void RelatedScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (sender.To<ScrollViewer>().VerticalOffset >= VerticalOffsetThreshold &&
+                !_ButtonShown &&
+                (_LastAnimationStartTime == null || DateTime.Now.Subtract(_LastAnimationStartTime.Value).TotalMilliseconds > AnimationDuration))
+            {
+                _LastAnimationStartTime = DateTime.Now;
+                _ButtonShown = true;
+                //this.StartXAMLTransformFadeSlideAnimation(null, 1, TranslationAxis.Y, 20, 0, 200, null, null, EasingFunctionNames.SineEaseOut,
+                //() => IsHitTestVisible = true);
+            }
+            else if (sender.To<ScrollViewer>().VerticalOffset < VerticalOffsetThreshold &&
+                _ButtonShown &&
+                (_LastAnimationStartTime == null || DateTime.Now.Subtract(_LastAnimationStartTime.Value).TotalMilliseconds > AnimationDuration))
+            {
+                _LastAnimationStartTime = DateTime.Now;
+                _ButtonShown = false;
+                IsHitTestVisible = false;
+                //this.StartXAMLTransformFadeSlideAnimation(null, 0, TranslationAxis.Y, 0, 20, 200, null, null, EasingFunctionNames.SineEaseOut);
+            }
+        }
 
-		/// <summary>
-		/// Raised whenever the user taps on the control to request a scrolling to the top
-		/// </summary>
-		public event EventHandler TopScrollingRequested;
+        /// <summary>
+        /// Raised whenever the user taps on the control to request a scrolling to the top
+        /// </summary>
+        public event EventHandler TopScrollingRequested;
 
 		private void TopScrollerHandleControl_OnTapped(object sender, TappedRoutedEventArgs e)
 		{
@@ -100,7 +100,7 @@ namespace CodeHub.Controls
 			_LastAnimationStartTime = DateTime.Now;
 			_ButtonShown = false;
 			IsHitTestVisible = false;
-			this.StartXAMLTransformFadeSlideAnimation(null, 0, TranslationAxis.Y, 0, 20, 200, null, null, EasingFunctionNames.SineEaseOut);
+			//this.StartXAMLTransformFadeSlideAnimation(null, 0, TranslationAxis.Y, 0, 20, 200, null, null, EasingFunctionNames.SineEaseOut);
 			TopScrollingRequested?.Invoke(this, EventArgs.Empty);
 		}
 	}

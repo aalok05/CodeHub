@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace CodeHub.Services
@@ -21,14 +22,14 @@ namespace CodeHub.Services
         /// <summary>
         /// Gets the frame instance to use when navigating
         /// </summary>
-        private readonly CustomFrame Frame;
+        private readonly Frame Frame;
 
         /// <summary>
         /// Gets the internal semaphore to synchronize the navigation
         /// </summary>
         private readonly SemaphoreSlim NavigationSemaphore = new SemaphoreSlim(1);
 
-        public NavigationService(CustomFrame frame)
+        public NavigationService(Frame frame)
         {
             Frame = frame;
             Frame.Navigated += OnFrameNavigated;
@@ -49,7 +50,7 @@ namespace CodeHub.Services
             bool result;
 
             Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = pageTitle });
-            result = await Frame.Navigate(type, parameter);
+            result = Frame.Navigate(type, parameter);
 
             GlobalHelper.NavigationStack.Push(pageTitle);
 
@@ -102,7 +103,7 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
 
-            Frame.NavigateWithoutAnimations(type, parameter);
+            Frame.Navigate(type, parameter);
             GlobalHelper.NavigationStack.Push(pageTitle);
             NavigationSemaphore.Release();
         }
@@ -112,7 +113,7 @@ namespace CodeHub.Services
         {
             await NavigationSemaphore.WaitAsync();
 
-            Frame.NavigateWithoutAnimations(type);
+            Frame.Navigate(type);
             GlobalHelper.NavigationStack.Push(pageTitle);
             NavigationSemaphore.Release();
         }
@@ -135,7 +136,7 @@ namespace CodeHub.Services
             {
                 GlobalHelper.NavigationStack.Pop();
                 Messenger.Default.Send(new GlobalHelper.SetHeaderTextMessageType { PageName = GlobalHelper.NavigationStack.Peek() });
-                await Frame.GoBack();
+                Frame.GoBack();
                 result = true;
             }
             else

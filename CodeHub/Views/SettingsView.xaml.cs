@@ -62,12 +62,12 @@ namespace CodeHub.Views
                 await SimpleIoc.Default.GetInstance<IAsyncNavigationService>().NavigateAsync(setting.DestPage);
 
                 //Loading the page in settingsFrame also so that the page is visible in Desktop mode.
-                await settingsFrame.Navigate(setting.DestPage);
+                settingsFrame.Navigate(setting.DestPage);
             }
             else
             {
                if(settingsFrame.CurrentSourcePageType != setting.DestPage)
-                   await settingsFrame.Navigate(setting.DestPage);
+                   settingsFrame.Navigate(setting.DestPage);
             }
         }
 
