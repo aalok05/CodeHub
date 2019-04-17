@@ -32,10 +32,15 @@ namespace CodeHub.Controls
 				bool down = count == null || ((SelectedIndex < 1 || SelectedIndex <= count / 2) &&
 										!(count == 2 && SelectedIndex == 1));
 				float start = down ? -16 : 16;
-				//await _TranslationElement.SetVisualOffsetAsync(TranslationAxis.Y, start);
 
-				// Animate using Windows.UI.Composition animations to avoid frame drops
-				//_TranslationElement.StartCompositionSlideAnimation(TranslationAxis.Y, start, 0, 250, null, EasingFunctionNames.CircleEaseOut);
+                _TranslationElement.Animation().Offset(Axis.Y, start);
+
+                // Animate using Windows.UI.Composition animations to avoid frame drops
+                await _TranslationElement.Animation()
+                    .Translation(Axis.Y, start, 0, Easing.CircleEaseOut)
+                    .Duration(250)
+                    .StartAsync();
+
 			}
 			base.OnDropDownOpened(e);
 		}

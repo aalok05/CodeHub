@@ -114,12 +114,20 @@ namespace CodeHub.Views
         {
             ReleaseBodyText.Text = (e.ClickedItem as Release).Body;
             ReleaseBodyTextPanel.Visibility = Visibility.Visible;
-            //await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            await ReleaseBodyTextPanel.Animation()
+                    .Opacity(0, 1)
+                    .Scale(1.1f, 1, Easing.SineEaseInOut)
+                    .Duration(150)
+                    .StartAsync();
         }
 
         private async void CloseReleaseTextPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //await ReleaseBodyTextPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            await ReleaseBodyTextPanel.Animation()
+                .Opacity(1, 0)
+                .Scale(1, 1.1f, Easing.SineEaseInOut)
+                .Duration(150)
+                .StartAsync();
             ReleaseBodyTextPanel.Visibility = Visibility.Collapsed;
         }
 
@@ -128,7 +136,12 @@ namespace CodeHub.Views
             if(InfoPanel.Visibility == Visibility.Visible)
             {
                 ExpanderIcon.Glyph = "\uE0E5";
-                //await InfoPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+
+                await InfoPanel.Animation()
+                    .Opacity(1, 0)
+                    .Scale(1, 0.98f, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
                 InfoPanel.Visibility = Visibility.Collapsed;
             }
             else
@@ -136,7 +149,12 @@ namespace CodeHub.Views
                 ExpanderIcon.Glyph = "\uE0E4";
                 InfoPanel.Opacity = 0;
                 InfoPanel.Visibility = Visibility.Visible;
-                //await InfoPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+
+                await InfoPanel.Animation()
+                    .Opacity(0, 1)
+                    .Scale(0.98f, 1, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
             }
         }
     }

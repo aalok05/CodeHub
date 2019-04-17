@@ -22,8 +22,13 @@ namespace CodeHub.Controls
 
 		private async void CloseWhatsNew_Tapped(object sender, RoutedEventArgs e)
 		{
-			//await this.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
-			Visibility = Visibility.Collapsed;
+            await this.Animation()
+                .Opacity(1, 0)
+                .Scale(1, 1.1f, Easing.SineEaseInOut)
+                .Duration(150)
+                .StartAsync();
+
+            Visibility = Visibility.Collapsed;
 		}
 	}
 }

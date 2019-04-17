@@ -76,11 +76,19 @@ namespace CodeHub.Views
             {
                 createIssueDialog.Opacity = 0;
                 createIssueDialog.Visibility = Visibility.Visible;
-                //await createIssueDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                await createIssueDialog.Animation()
+                    .Opacity(0, 1)
+                    .Scale(1.1f, 1, Easing.SineEaseInOut)
+                    .Duration(150)
+                    .StartAsync();
             }
             else
             {
-                //await createIssueDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                await createIssueDialog.Animation()
+                    .Opacity(1, 0)
+                    .Scale(1, 1.1f, Easing.SineEaseInOut)
+                    .Duration(150)
+                    .StartAsync();
                 createIssueDialog.Visibility = Visibility.Collapsed;
             }
         }

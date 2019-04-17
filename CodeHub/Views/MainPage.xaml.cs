@@ -167,7 +167,12 @@ namespace CodeHub.Views
         }
         private async void CloseAccountsPanel_Tapped(object sender, RoutedEventArgs e)
         {
-            //await AccountsPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+            await AccountsPanel.Animation()
+                .Opacity(1, 0)
+                .Scale(1.1f, 0, Easing.SineEaseInOut)
+                .Duration(150)
+                .StartAsync();
+
             ViewModel.IsAccountsPanelVisible = false;
         }
         private async void DeleteAccount_Click(object sender, RoutedEventArgs e)
@@ -197,14 +202,22 @@ namespace CodeHub.Views
 
         public async void SetHeadertext(string pageName)
         {
-            await HeaderAnimationSemaphore.WaitAsync();
             if (ViewModel.HeaderText?.Equals(pageName.ToUpper()) != true)
             {
-                //await HeaderText.StartCompositionFadeSlideAnimationAsync(1, 0, TranslationAxis.Y, 0, -24, 150, null, null, EasingFunctionNames.Linear);
+                await AccountsPanel.Animation()
+                        .Opacity(1, 0)
+                        .Translation(Axis.Y, -24, Easing.Linear)
+                        .Duration(150)
+                        .StartAsync();
+
                 ViewModel.HeaderText = pageName.ToUpper();
-                //await HeaderText.StartCompositionFadeSlideAnimationAsync(0, 1, TranslationAxis.Y, 24, 0, 150, null, null, EasingFunctionNames.Linear);
+
+                await AccountsPanel.Animation()
+                        .Opacity(0, 1)
+                        .Translation(Axis.Y, 24, Easing.Linear)
+                        .Duration(150)
+                        .StartAsync();
             }
-            HeaderAnimationSemaphore.Release();
         }
 
         private async void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
@@ -219,16 +232,22 @@ namespace CodeHub.Views
 
         private async Task ShowAccountsPanel()
         {
-            AccountsPanel.Opacity = 0;
             ViewModel.IsAccountsPanelVisible = true;
-            //await AccountsPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+
+            await AccountsPanel.Animation().Opacity(0, 1)
+                .Scale(1.1f, 1, Easing.SineEaseInOut)
+                .Duration(150)
+                .StartAsync();
         }
 
         private async Task ShowWhatsNewPopupVisiblity()
         {
-            WhatsNewPopup.Opacity = 0;
             WhatsNewPopup.Visibility = Visibility.Visible;
-            //await WhatsNewPopup.StartCompositionFadeScaleAnimationAsync(0, 1, 1.3f, 1, 160, null, 0, EasingFunctionNames.SineEaseInOut);
+
+            await WhatsNewPopup.Animation().Opacity(0, 1)
+                .Scale(1.3f, 1, Easing.SineEaseInOut)
+                .Duration(160)
+                .StartAsync();
         }
         #endregion
     }

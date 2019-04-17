@@ -16,16 +16,25 @@ namespace CodeHub.Controls
 			if (PatchText.Visibility == Visibility.Visible)
 			{
 				ExpanderIcon.Glyph = "\uE0E5";
-				//await PatchText.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
-				PatchText.Visibility = Visibility.Collapsed;
+
+                await PatchText.Animation()
+                    .Opacity(1, 0)
+                    .Scale(1, 0.98f, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
+                PatchText.Visibility = Visibility.Collapsed;
 			}
 			else
 			{
 				ExpanderIcon.Glyph = "\uE0E4";
-				PatchText.Opacity = 0;
+
 				PatchText.Visibility = Visibility.Visible;
-				//await PatchText.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
-			}
+                await PatchText.Animation()
+                    .Opacity(0, 1)
+                    .Scale(0.98f, 1, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
+            }
 		}
 	}
 }

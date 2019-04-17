@@ -63,11 +63,20 @@ namespace CodeHub.Views
             {
                 CommentDialog.Opacity = 0;
                 CommentDialog.Visibility = Visibility.Visible;
-                //await CommentDialog.StartCompositionFadeScaleAnimationAsync(0, 1, 1.1f, 1, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+
+                await CommentDialog.Animation()
+                    .Opacity(0, 1)
+                    .Scale(1.1f, 1, Easing.SineEaseInOut)
+                    .Duration(150)
+                    .StartAsync();
             }
             else
             {
-                //await CommentDialog.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 1.1f, 150, null, 0, EasingFunctionNames.SineEaseInOut);
+                await CommentDialog.Animation()
+                    .Opacity(1, 0)
+                    .Scale(1, 1.1f, Easing.SineEaseInOut)
+                    .Duration(150)
+                    .StartAsync();
                 CommentDialog.Visibility = Visibility.Collapsed;
             }
         }
@@ -76,7 +85,12 @@ namespace CodeHub.Views
             if (DetailPanel.Visibility == Visibility.Visible)
             {
                 ExpanderIcon.Glyph = "\uE0E5";
-                //await DetailPanel.StartCompositionFadeScaleAnimationAsync(1, 0, 1, 0.98f, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                await DetailPanel.Animation()
+                    .Opacity(1, 0)
+                    .Scale(1, 0.98f, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
+
                 DetailPanel.Visibility = Visibility.Collapsed;
             }
             else
@@ -84,7 +98,11 @@ namespace CodeHub.Views
                 ExpanderIcon.Glyph = "\uE0E4";
                 DetailPanel.Opacity = 0;
                 DetailPanel.Visibility = Visibility.Visible;
-                //await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                await DetailPanel.Animation()
+                    .Opacity(0, 1)
+                    .Scale(0.98f, 1, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
             }
         }
         private async void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
@@ -94,7 +112,11 @@ namespace CodeHub.Views
                 ExpanderIcon.Glyph = "\uE0E4";
                 DetailPanel.Opacity = 0;
                 DetailPanel.Visibility = Visibility.Visible;
-                //await DetailPanel.StartCompositionFadeScaleAnimationAsync(0, 1, 0.98f, 1, 100, null, 0, EasingFunctionNames.SineEaseInOut);
+                await DetailPanel.Animation()
+                    .Opacity(0, 1)
+                    .Scale(0.98f, 1, Easing.SineEaseInOut)
+                    .Duration(100)
+                    .StartAsync();
             }
         }
 
