@@ -11,7 +11,7 @@
     <AssemblyName>CodeHub</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -323,10 +323,10 @@
     <Compile Include="Resources\SharedCompiledDataTemplates.xaml.cs">
       <DependentUpon>SharedCompiledDataTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\AccountsService.cs" />
+    <Compile Include="Services\Auth\AccountsService.cs" />
     <Compile Include="Services\ActivityService.cs" />
-    <Compile Include="Services\AppCredentials.cs" />
-    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\Auth\AppCredentials.cs" />
+    <Compile Include="Services\Auth\AuthService.cs" />
     <Compile Include="Services\BackgroundTaskService.cs" />
     <Compile Include="Services\CommitService.cs" />
     <Compile Include="Services\ExecutionService.cs" />
@@ -714,7 +714,7 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.17134.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.17763.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
@@ -776,6 +776,12 @@
     <PackageReference Include="XamlBrewer.Uwp.AnimatedSplashScreen">
       <Version>1.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdgeAuth\EdgeAuth.csproj">
+      <Project>{43d93b09-439b-45be-b838-474ac63ade7e}</Project>
+      <Name>EdgeAuth</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

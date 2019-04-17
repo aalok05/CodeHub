@@ -1,15 +1,9 @@
 ﻿using CodeHub.Helpers;
 using Octokit;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Security.Authentication.Web;
 using Windows.Security.Credentials;
-using Windows.Storage;
+using EdgeAuth;
 
 
 namespace CodeHub.Services
@@ -30,6 +24,7 @@ namespace CodeHub.Services
             try
             {
                 string clientId = await AppCredentials.GetAppKey();
+
                 OauthLoginRequest request = new OauthLoginRequest(clientId)
                 {
                     Scopes = { "user", "repo" },
@@ -37,26 +32,12 @@ namespace CodeHub.Services
 
                 Uri oauthLoginUrl = client.Oauth.GetGitHubLoginUrl(request);
 
-                WebAuthenticationResult WebAuthenticationResult = await WebAuthenticationBroker.AuthenticateAsync(
-                                                           WebAuthenticationOptions.None,
-                                                           oauthLoginUrl,
-                                                           endUri
-                                                           );
-                if (WebAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
+                WebAuthenticationResult res = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, oauthLoginUrl, endUri);
+
+                if (res.ResponseStatus == WebAuthenticationStatus.Success)
                 {
-                    var response = WebAuthenticationResult.ResponseData;
-
-                    var result = await Authorize(response);
-
-                    if (result)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
+                    var response = res.ResponseData;
+                    return await Authorize(response);
                 }
                 else
                     return false;
@@ -65,7 +46,6 @@ namespace CodeHub.Services
             {
                 return false;
             }
-
         }
 
         /// <summary>

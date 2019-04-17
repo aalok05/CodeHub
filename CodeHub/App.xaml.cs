@@ -54,7 +54,8 @@ namespace CodeHub
             InitializeComponent();
 
             Suspending += OnSuspending;
-            UnhandledException += Application_UnhandledException;
+            //UnhandledException += Application_UnhandledException;
+
             // Theme setup
             RequestedTheme = SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled) ? ApplicationTheme.Light : ApplicationTheme.Dark;
             SettingsService.Save(SettingsKeys.HighlightStyleIndex, (int) SyntaxHighlightStyleEnum.Monokai, false);
@@ -90,12 +91,12 @@ namespace CodeHub
             }
         }
 
-        private void Application_UnhandledException(
-            object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
-        {
-            e.Handled = true;
-            ToastHelper.ShowMessage(e.Message, e.Exception.StackTrace);
-        }
+        //private void Application_UnhandledException(
+        //    object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        //{
+        //    e.Handled = true;
+        //    ToastHelper.ShowMessage(e.Message, e.Exception.StackTrace);
+        //}
 
         private void ExExecSession_Revoked(object sender, ExtendedExecutionRevokedEventArgs args)
         {
@@ -337,13 +338,6 @@ namespace CodeHub
 
         private async void OnLaunchedOrActivated(IActivatedEventArgs args)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                DebugSettings.EnableFrameRateCounter = true;
-            }
-
-#endif
             // Set the right theme-depending color for the alternating rows
             if (SettingsService.Get<bool>(SettingsKeys.AppLightThemeEnabled))
             {
