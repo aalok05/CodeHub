@@ -74,7 +74,6 @@ namespace CodeHub.Views
 
             if (visible)
             {
-                createIssueDialog.Opacity = 0;
                 createIssueDialog.Visibility = Visibility.Visible;
                 await createIssueDialog.Animation()
                     .Opacity(0, 1)
