@@ -78,14 +78,14 @@ namespace CodeHub.ViewModels
 				SimpleIoc
 					.Default
 					.GetInstance<IAsyncNavigationService>()
-					.NavigateWithoutAnimations(typeof(FileContentView), Repository.FullName, (Repository, item.Path, SelectedBranch));
+					.NavigateWithoutAnimations(typeof(FileContentView), Repository.FullName, new Tuple<Repository, string, string> (Repository, item.Path, SelectedBranch));
 			}
 			else if (item.Type == ContentType.Dir)
 			{
 				SimpleIoc
 					.Default
 					.GetInstance<IAsyncNavigationService>()
-					.NavigateWithoutAnimations(typeof(ContentView), Repository.FullName, (Repository, item.Path, SelectedBranch));
+					.NavigateWithoutAnimations(typeof(ContentView), Repository.FullName, new Tuple<Repository, string, string>(Repository, item.Path, SelectedBranch));
 			}
 		}
 		public async void BranchChanged(object sender, SelectionChangedEventArgs e)

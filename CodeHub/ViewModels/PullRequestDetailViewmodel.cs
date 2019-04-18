@@ -79,7 +79,7 @@ namespace CodeHub.ViewModels
 			=> SimpleIoc
 				.Default
 				.GetInstance<IAsyncNavigationService>()
-				.NavigateAsync(typeof(CommitDetailView), (Repository.Id, (e.ClickedItem as PullRequestCommit).Sha));
+				.NavigateAsync(typeof(CommitDetailView), new Tuple<long, string> (Repository.Id, (e.ClickedItem as PullRequestCommit).Sha));
 
 		private RelayCommand _userTapped;
 		public RelayCommand UserTapped 

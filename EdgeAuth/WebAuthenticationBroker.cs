@@ -34,7 +34,7 @@ namespace EdgeAuth
             grid.RowDefinitions.Add(new RowDefinition() { Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Star) });
 
             var label = new TextBlock();
-            label.Text = "Connect to a service";
+            label.Text = "Connecting to GitHub";
             label.HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Left;
             label.Margin = new Windows.UI.Xaml.Thickness(0);
             grid.Children.Add(label);

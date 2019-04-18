@@ -176,7 +176,7 @@ namespace CodeHub.ViewModels
 			=> SimpleIoc
 				.Default
 				.GetInstance<IAsyncNavigationService>()
-				.NavigateAsync(typeof(IssueDetailView), (Repository, e.ClickedItem as Issue));
+				.NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue> (Repository, e.ClickedItem as Issue));
 
 		public async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -301,7 +301,7 @@ namespace CodeHub.ViewModels
 														await SimpleIoc
 																.Default
 																.GetInstance<IAsyncNavigationService>()
-																.NavigateAsync(typeof(IssueDetailView), (Repository, issue));
+																.NavigateAsync(typeof(IssueDetailView), new Tuple<Repository, Issue>(Repository, issue));
 													 }
 												 }
 
