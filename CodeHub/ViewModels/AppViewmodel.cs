@@ -80,7 +80,7 @@ namespace CodeHub.ViewModels
         }
 
         public string WhatsNewText
-              => "Hi all! \nHere's the changelog for v2.4.14\n\n\x2022 Added Turkish translations\n\x2022 Minor fluent UI improvements\n\x2022 Target build updated to 17134.0\n\x2022 Clicking on notifications now lands you on the specific issue or PR  \n\n NOTE: Please update to Fall creator's update or above to get latest CodeHub updates.";
+              => "Hi all! \n v2.5.0\n\n\x2022 CodeHub is back with major bug fixes. Lots of new features and improvemnents to come soon.\n\x2022  \n\n NOTE: Please update Windows to Build 17763 or above to get latest CodeHub updates.";
 
         private string _AllString = $" ({NotificationsViewmodel.AllNotifications?.Count ?? 0})";
         public string AllString
